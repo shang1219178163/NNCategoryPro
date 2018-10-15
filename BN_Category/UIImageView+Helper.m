@@ -75,7 +75,7 @@
 
 - (void)loadImage:(id)image defaultImg:(NSString *)imageDefault{
 //    NSParameterAssert([image isKindOfClass:[NSString class]] || [image isKindOfClass:[UIImage class]]);
-    if (!image && ![image validObject]) {
+    if (!image || ![image validObject]) {
         self.image = [UIImage imageNamed:imageDefault];
         return;
     }

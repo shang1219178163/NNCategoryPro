@@ -231,13 +231,13 @@
 
 - (NSArray *)arrayWithObjOffset:(NSInteger)offSet{
     __block NSMutableArray * marr = [NSMutableArray arrayWithCapacity:0];
-    [self enumerateObjectsUsingBlock:^(id  _Nonnull obj, NSUInteger idx, BOOL * _Nonnull stop) {
-        NSParameterAssert([obj isKindOfClass:[NSString class]] && [obj isPureInteger] || [obj isKindOfClass:[NSNumber class]]);
-        
+    
+    for (NSInteger i = 0; i < self.count; i++) {
+        id obj = self[i];
+        if ([obj isEqualToString:@""]) continue;
         id value = [obj isKindOfClass:[NSNumber class]] ? @([obj integerValue] + offSet) : [@([obj integerValue] + offSet) stringValue];
         [marr addSafeObjct:value];
-
-    }];
+    }
     return marr.copy;
 }
 
