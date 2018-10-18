@@ -9,7 +9,7 @@
 #ifndef BN_Category_h
 #define BN_Category_h
 
-#import <BN_Kit/BN_Kit.h>
+#import <BN_KIt/BN_Kit.h>
 #import "BN_AnimationObject.h"
 #import "BN_NetRootAppInfoModel.h"
 
@@ -25,6 +25,11 @@
 #import "CALayer+Helper.h"
 #import "CATextLayer+Helper.h"
 #import "CAShapeLayer+Helper.h"
+
+#import "CAEmitterLayer+Helper.h"
+#import "CAShapeLayer+Helper.h"
+#import "CAEmitterCell+Helper.h"
+#import "CAGradientLayer+Helper.h"
 
 #import "UIApplication+Helper.h"
 #import "UIApplication+Other.h"
