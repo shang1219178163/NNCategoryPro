@@ -27,7 +27,6 @@
 #import "CAShapeLayer+Helper.h"
 
 #import "CAEmitterLayer+Helper.h"
-#import "CAShapeLayer+Helper.h"
 #import "CAEmitterCell+Helper.h"
 #import "CAGradientLayer+Helper.h"
 
