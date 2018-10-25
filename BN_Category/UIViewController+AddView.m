@@ -104,10 +104,16 @@
     UITableView* table = objc_getAssociatedObject(self, _cmd);
     if (table == nil) {
         table = [[UITableView alloc] initWithFrame:self.view.bounds style:UITableViewStyleGrouped];
+        table.autoresizingMask = UIViewAutoresizingFlexibleWidth|UIViewAutoresizingFlexibleHeight;//确保TablView能够正确的调整大小
+        table.separatorInset = UIEdgeInsetsZero;
+        table.separatorStyle = UITableViewCellSeparatorStyleSingleLine;
+        table.keyboardDismissMode = UIScrollViewKeyboardDismissModeOnDrag;
+        table.rowHeight = 60;
+        
 //        [table registerClass:[UITableViewCell class] forCellReuseIdentifier:@"cell"];
         if ([self conformsToProtocol:@protocol(UITableViewDataSource)]) table.dataSource = self;
-        if ([self conformsToProtocol:@protocol(UITableViewDelegate)]) table.delegate = self;
-        
+        if ([self conformsToProtocol:@protocol(UITableViewDelegate)]) table.delegate = self;      
+
         objc_setAssociatedObject(self, _cmd, table, OBJC_ASSOCIATION_RETAIN_NONATOMIC);
     }
     return table;
