@@ -13,7 +13,13 @@
 
 #import "UICollectionView+Helper.h"
 
+@interface UIViewController ()<UITableViewDataSource,UITableViewDelegate>
+
+@end
+
 @implementation UIViewController (AddView)
+
+@dynamic heightMdic;
 
 -(id)obj{
     return objc_getAssociatedObject(self, _cmd);
@@ -39,18 +45,15 @@
     objc_setAssociatedObject(self, @selector(dictClass), dictClass, OBJC_ASSOCIATION_RETAIN_NONATOMIC);
 }
 
-//-(NSMutableArray *)dataList{
-//    NSMutableArray * list = objc_getAssociatedObject(self, _cmd);
-//    if (list == nil) {
-//        list = [NSMutableArray array];
-//        objc_setAssociatedObject(self, _cmd, list, OBJC_ASSOCIATION_RETAIN_NONATOMIC);
-//
-//    }
-//    return list;
-//}
-
 -(NSMutableArray *)dataList{
-    return objc_getAssociatedObject(self, _cmd);
+//    return objc_getAssociatedObject(self, _cmd);
+    NSMutableArray * list = objc_getAssociatedObject(self, _cmd);
+    if (list == nil) {
+        list = [NSMutableArray array];
+        objc_setAssociatedObject(self, _cmd, list, OBJC_ASSOCIATION_RETAIN_NONATOMIC);
+
+    }
+    return list;
 }
 
 -(void)setDataList:(NSMutableArray *)dataList{
@@ -100,38 +103,18 @@
 - (UITableView *)tableView {
     UITableView* table = objc_getAssociatedObject(self, _cmd);
     if (table == nil) {
-        table = [[UITableView alloc] initWithFrame:self.view.bounds style:UITableViewStylePlain];
+        table = [[UITableView alloc] initWithFrame:self.view.bounds style:UITableViewStyleGrouped];
 //        [table registerClass:[UITableViewCell class] forCellReuseIdentifier:@"cell"];
-        table.layer.borderColor = UIColor.grayColor.CGColor;
-        table.layer.borderWidth = 1;
-        
-        if ([self conformsToProtocol:@protocol(UITableViewDataSource)]) {
-            table.dataSource = self;
-            
-        }
-        if ([self conformsToProtocol:@protocol(UITableViewDelegate)]) {
-            table.delegate = self;
-        }
+        if ([self conformsToProtocol:@protocol(UITableViewDataSource)]) table.dataSource = self;
+        if ([self conformsToProtocol:@protocol(UITableViewDelegate)]) table.delegate = self;
         
         objc_setAssociatedObject(self, _cmd, table, OBJC_ASSOCIATION_RETAIN_NONATOMIC);
     }
     return table;
 }
 
-//-(NSMutableArray *)dataList{
-//    NSMutableArray* list = objc_getAssociatedObject(self, _cmd);
-//    if (list == nil) {
-//        list = [NSMutableArray array];
-//        
-//        objc_setAssociatedObject(self, _cmd, list, OBJC_ASSOCIATION_RETAIN_NONATOMIC);
-//        
-//    }
-//    return list;
-//}
-
--(void)setPageIndex:(NSInteger)pageIndex{
-    objc_setAssociatedObject(self, @selector(pageIndex), @(pageIndex), OBJC_ASSOCIATION_ASSIGN);
-    
+-(void)setTableView:(UITableView *)tableView{
+    objc_setAssociatedObject(self, @selector(tableView), tableView, OBJC_ASSOCIATION_RETAIN_NONATOMIC);
 }
 
 -(NSInteger)pageIndex{
@@ -139,6 +122,10 @@
     
 }
 
+-(void)setPageIndex:(NSInteger)pageIndex{
+    objc_setAssociatedObject(self, @selector(pageIndex), @(pageIndex), OBJC_ASSOCIATION_ASSIGN);
+    
+}
 
 - (UICollectionView *)collectionView{
     UICollectionView* ctv = objc_getAssociatedObject(self, _cmd);
@@ -174,19 +161,19 @@
     return ctv;
 }
 
-//-(NSDictionary *)dictClass{
-//    NSDictionary * dic = objc_getAssociatedObject(self, _cmd);
-//    if (dic == nil) {
-//        dic = [NSDictionary dictionary];
-//        objc_setAssociatedObject(self, _cmd, dic, OBJC_ASSOCIATION_RETAIN_NONATOMIC);
-//
-//    }
-//    return dic;
-//}
+-(void)setCollectionView:(UICollectionView *)collectionView{
+    objc_setAssociatedObject(self, @selector(collectionView), collectionView, OBJC_ASSOCIATION_RETAIN_NONATOMIC);
+}
 
 -(NSMutableDictionary *)heightMdict{
-    return objc_getAssociatedObject(self, _cmd);
-    
+//    return objc_getAssociatedObject(self, _cmd);
+    NSMutableDictionary * dic = objc_getAssociatedObject(self, _cmd);
+    if (dic == nil) {
+        dic = [NSMutableDictionary dictionary];
+        objc_setAssociatedObject(self, _cmd, dic, OBJC_ASSOCIATION_RETAIN_NONATOMIC);
+        
+    }
+    return dic;
 }
 
 -(void)setHeightMdic:(NSMutableDictionary *)heightMdic{
