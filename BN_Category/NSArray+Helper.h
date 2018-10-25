@@ -34,14 +34,6 @@ static NSString * const kArr_min_float = @"@min.floatValue";
  */
 + (NSArray *)arrayWithItemPrefix:(NSString *)prefix startIndex:(NSInteger)startIndex count:(NSInteger)count type:(NSNumber *)type;
 
-
-/**
- 弃用
- */
-- (NSArray *)BN_filterModelListByQuery:(NSString *)query isNumValue:(BOOL)isNumValue;
-- (NSArray *)BN_filterModelListByQuery:(NSString *)query;
-
-
 /**
  推荐
  */

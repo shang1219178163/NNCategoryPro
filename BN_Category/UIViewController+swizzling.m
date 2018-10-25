@@ -10,7 +10,9 @@
 
 #import "NSObject+swizzling.h"
 
-#define isOpen 0
+#define isOpen 1
+
+#import "bn_Globle.h"
 
 @implementation UIViewController (swizzling)
 
@@ -33,7 +35,6 @@
             [self swizzleMethodClass:[self class] origMethod:@selector(viewDidLoad) newMethod:@selector(swizzlingViewDidLoad)];
 
         }
-   
     });
 }
 
@@ -41,28 +42,15 @@
 - (void)swizzlingViewDidLoad {
     self.edgesForExtendedLayout = UIRectEdgeNone;
     self.automaticallyAdjustsScrollViewInsets = NO;
-    
-    [self createBtnBack];
-    [self eventGather];
-    
+    self.view.backgroundColor = UIColor.whiteColor;
+
+    self.navigationItem.backBarButtonItem = [[UIBarButtonItem alloc] initWithTitle:@"11" style:UIBarButtonItemStyleDone target:nil action:nil];
+
+//    [self createBtnBack];
+//    [self eventGather];
+
     [self swizzlingViewDidLoad];
-}
 
-- (void)createBtnBack{
-    SEL selector = NSSelectorFromString(@"btnClick:");
-    if ([self respondsToSelector:selector]) {
-        self.navigationItem.backBarButtonItem = [[UIBarButtonItem alloc]initWithTitle:@"" style:UIBarButtonItemStylePlain target:self action:@selector(selector)];
-
-    }
-    else{
-        self.navigationItem.backBarButtonItem = [[UIBarButtonItem alloc]initWithTitle:@"" style:UIBarButtonItemStylePlain target:self action:@selector(handleActionBtnBack)];
-        
-    }
-}
-
-- (void)handleActionBtnBack{
-    [self.navigationController popViewControllerAnimated:YES];
-    
 }
 
 -(void)eventGather{

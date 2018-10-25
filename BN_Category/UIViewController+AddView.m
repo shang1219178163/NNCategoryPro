@@ -12,10 +12,8 @@
 #import <objc/runtime.h>
 
 #import "UICollectionView+Helper.h"
+#import "UIColor+Helper.h"
 
-@interface UIViewController ()<UITableViewDataSource,UITableViewDelegate>
-
-@end
 
 @implementation UIViewController (AddView)
 
@@ -109,7 +107,7 @@
         table.separatorStyle = UITableViewCellSeparatorStyleSingleLine;
         table.keyboardDismissMode = UIScrollViewKeyboardDismissModeOnDrag;
         table.rowHeight = 60;
-        
+        table.backgroundColor = UIColor.backgroudColor;
 //        [table registerClass:[UITableViewCell class] forCellReuseIdentifier:@"cell"];
         if ([self conformsToProtocol:@protocol(UITableViewDataSource)]) table.dataSource = self;
         if ([self conformsToProtocol:@protocol(UITableViewDelegate)]) table.delegate = self;      

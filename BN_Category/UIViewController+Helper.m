@@ -228,64 +228,18 @@
     objc_setAssociatedObject(self, @selector(timeInterval), @(timeInterval), OBJC_ASSOCIATION_ASSIGN);
 }
 
-#pragma make - -通用
-- (UIButton *)createBarBtnItemWithTitle:(NSString *)title imageName:(NSString *)imageName isLeft:(BOOL)isLeft target:(id)target aSelector:(SEL)aSelector isHidden:(BOOL)isHidden{
-    
-    UIButton * btn = nil;
-    if (imageName) {
-        btn = [UIButton buttonWithSize:CGSizeMake(40, 40) image_N:imageName image_H:nil imageEdgeInsets:UIEdgeInsetsZero];
-    }else{
-        btn = [UIButton buttonWithSize:CGSizeMake(40, 40) title:title font:15 titleColor_N:nil titleColor_H:nil titleEdgeInsets:UIEdgeInsetsZero];
-       
-    }
-    btn.tag = isLeft == YES ? kTAG_BTN_BackItem : kTAG_BTN_RightItem;
-    
-    [btn addTarget:target action:aSelector forControlEvents:UIControlEventTouchUpInside];
-    btn.hidden = isHidden;
 
-    //
-    UIView * view = [[UIView alloc]initWithFrame:CGRectMake(0, 0, 44, 44)];
-    btn.center = view.center;
-    [view addSubview:btn];
-
-    //统一走父视图方法
-    [btn removeTarget:target action:aSelector forControlEvents:UIControlEventTouchUpInside];
-    //父视图调用子视图方法参数
-    [view addActionHandler:^(id obj, id item, NSInteger idx) {
-        if (btn.hidden == YES) return ;
-        if (NSDate.date.timeIntervalSince1970 - self.timeInterval < 1) return;
-        if (self.timeInterval > 0) self.timeInterval = NSDate.date.timeIntervalSince1970;
-
-        [target performSelectorOnMainThread:aSelector withObject:btn waitUntilDone:YES];
-    }];
-    
-    UIBarButtonItem *item = [[UIBarButtonItem alloc]initWithCustomView:view];
-    if (isLeft == YES) {
-        self.navigationItem.leftBarButtonItem = item;
-        
-    }else{
-        self.navigationItem.rightBarButtonItem = item;
-        
-    }
-    return btn;
-}
-
-- (void)BN_handleActionBtn:(UIButton *)sender{
-    if (self.blockObject) self.blockObject(sender, nil, 0);
-    
-}
-
-- (UIButton *)createBarBtnItemWithTitle:(NSString *)title imageName:(NSString *)imageName isLeft:(BOOL)isLeft isHidden:(BOOL)isHidden handler:(void(^)(id obj, id item, NSInteger idx))handler{
+- (UIButton *)createBarBtnItemWithTitle:(NSString *)title imageName:(NSString *)imageName isLeft:(BOOL)isLeft isHidden:(BOOL)isHidden handler:(void(^)(id obj, UIButton * item, NSInteger idx))handler{
     
     UIButton * btn = nil;
     if (imageName) {
         btn = [UIButton buttonWithSize:CGSizeMake(32, 32) image_N:imageName image_H:nil imageEdgeInsets:UIEdgeInsetsZero];
-    }else{
-        btn = [UIButton buttonWithSize:CGSizeMake(40, 40) title:title font:15 titleColor_N:nil titleColor_H:nil titleEdgeInsets:UIEdgeInsetsZero];
         
     }
+    else{
+        btn = [UIButton buttonWithSize:CGSizeMake(40, 40) title:title font:15 titleColor_N:nil titleColor_H:nil titleEdgeInsets:UIEdgeInsetsZero];
+    }
     btn.tag = isLeft == YES ? kTAG_BTN_BackItem : kTAG_BTN_RightItem;
-    
     btn.hidden = isHidden;
     //
     UIView * view = [[UIView alloc]initWithFrame:CGRectMake(0, 0, 44, 44)];
@@ -300,8 +254,8 @@
         
         if (NSDate.date.timeIntervalSince1970 - self.timeInterval < 1) return;
         if (self.timeInterval > 0) self.timeInterval = NSDate.date.timeIntervalSince1970;
-        
-        handler(obj, item, 0);
+    
+        handler(obj, btn, btn.tag);
 
     }];
     
@@ -310,23 +264,22 @@
 
         if (NSDate.date.timeIntervalSince1970 - self.timeInterval < 1) return;
         if (self.timeInterval > 0) self.timeInterval = NSDate.date.timeIntervalSince1970;
-        
-        handler(obj, item, 0);
-        
+
+        handler(obj, item, ((UIButton *)item).tag);
+
     }];
     UIBarButtonItem *item = [[UIBarButtonItem alloc]initWithCustomView:view];
     if (isLeft == YES) {
         self.navigationItem.leftBarButtonItem = item;
-        
-    }else{
+    }
+    else{
         self.navigationItem.rightBarButtonItem = item;
-        
     }
     return btn;
 }
 
 
-- (UITableViewCell *)getCellByClickView:(UIView *)view{
+- (UITableViewCell *)cellByClickView:(UIView *)view{
     UIView * supView = [view superview];
     while (![supView isKindOfClass:[UITableViewCell class]]) {
         
@@ -336,8 +289,8 @@
     return tableViewCell;
 }
 
-- (NSIndexPath *)getCellIndexPathByClickView:(UIView *)view tableView:(UITableView *)tableView{
-    UITableViewCell * cell = [self getCellByClickView:view];
+- (NSIndexPath *)indexPathByClickView:(UIView *)view tableView:(UITableView *)tableView{
+    UITableViewCell * cell = [self cellByClickView:view];
     NSIndexPath * indexPath = [tableView indexPathForRowAtPoint:cell.center];
     
 //    DDLog(@"%@",indexPath);
@@ -521,7 +474,7 @@
     
 }
 
-- (UIViewController *)BN_AddChildControllerView:(NSString *)className{
+- (UIViewController *)addChildControllerView:(NSString *)className{
     UIViewController * controller = [NSClassFromString(className) new];
     [self addChildViewController:controller];
     [controller didMoveToParentViewController:self];
@@ -552,7 +505,6 @@
 - (void)showAlertWithTitle:(nullable NSString *)title placeholderList:(NSArray *)placeholderList msg:(NSString *)msg actionTitleList:(NSArray *_Nonnull)actionTitleList handler:(void(^)(UIAlertController * _Nonnull alertVC, UIAlertAction * _Nullable action))handler{
 
     UIWindow * keyWindow = UIApplication.sharedApplication.delegate.window;
-//    [keyWindow.rootViewController presentViewController:alertController animated:YES completion:nil];
     
     UIAlertController * alertController = [UIAlertController alertControllerWithTitle:title message:msg preferredStyle:UIAlertControllerStyleAlert];
     for (NSString * placeholder in placeholderList) {
@@ -663,23 +615,6 @@
     }
 }
 
-- (id)getTextFieldRightView:(NSString *)unitString{
-    //    NSArray * unitList = @[@"元",@"公斤"];
-    if (unitString != nil && ![unitString isEqualToString:@""]) {
-        if ([unitString containsString:@".png"]) {
-            CGSize size = CGSizeMake(20, 20);
-            UIImageView * imgView = [UIView createImgViewWithRect:CGRectMake(0, 0, size.width, size.height) image:unitString tag:kTAG_IMGVIEW patternType:@"0"];
-            return imgView;
-        }
-        else{
-            CGSize size = [self sizeWithText:unitString font:@(KFZ_Third) width:UIScreen.width];
-        
-            UILabel * label = [UIView createLabelWithRect:CGRectMake(0, 0, size.width+2, 25) text:unitString textColor:UIColor.blackColor tag:kTAG_LABEL patternType:@"2" font:KFZ_Third backgroudColor:UIColor.clearColor alignment:NSTextAlignmentCenter];
-            return label;
-        }
-    }
-    return nil;
-}
 
 - (void)callPhone:(NSString *)phoneNumber{
     
@@ -701,15 +636,6 @@
     }];
 }
 
-- (void)showFriendAdd:(NSString *)msg{
-    
-    [self showAlertWithTitle:@"发送成功" msg:msg actionTitleList:@[kActionTitle_Sure] handler:^(UIAlertController * _Nonnull alertController, UIAlertAction * _Nullable action) {
-        if ([action.title isEqualToString:kActionTitle_Sure]) {
-            
-        }
-    }];
-
-}
 
 @end
 

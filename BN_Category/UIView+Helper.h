@@ -76,11 +76,6 @@ typedef void(^BlockView)(UIView * view,id item, id obj);
  */
 - (void)getViewLayer;
 
-/**
- (弃用)显示textfield边框
- */
-- (void)showLayer;
-
 - (void)showLayerColor:(UIColor *)layerColor;
 
 /**
@@ -130,19 +125,6 @@ typedef void(^BlockView)(UIView * view,id item, id obj);
 + (UIView *)createViewWithRect:(CGRect)rect elements:(NSArray *)elements numberOfRow:(NSInteger)numberOfRow viewHeight:(CGFloat)viewHeight padding:(CGFloat)padding;
 
 + (UIView *)createViewWithRect:(CGRect)rect items:(NSArray *)items numberOfRow:(NSInteger)numberOfRow itemHeight:(CGFloat)itemHeight padding:(CGFloat)padding type:(NSNumber *)type handler:(void(^)(id obj, id item, NSInteger idx))handler;
-
-/**
- 弃用
- */
-- (void)setOriginX:(CGFloat)originX;
-/**
- 弃用
- */
-- (void)setOriginY:(CGFloat)originY;
-/**
- 弃用
- */
-- (void)setHeight:(CGFloat)height originY:(CGFloat)originY;
 
 /**
  向屏幕倾斜

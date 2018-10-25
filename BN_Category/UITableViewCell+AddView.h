@@ -41,7 +41,4 @@
 @property (nonatomic, strong) BN_TextView * textView;
 @property (nonatomic, strong) BN_RadioView * radioView;
 
-
-- (id)getTextFieldRightView:(NSString *)unitString;
-
 @end

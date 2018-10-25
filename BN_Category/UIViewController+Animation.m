@@ -11,14 +11,7 @@
 #import <objc/runtime.h>
 #import "BN_AnimationObject.h"
 
-
-@interface UIViewController ()<UITableViewDataSource,UITableViewDelegate>
-
-@end
-
 @implementation UIViewController (Animation)
-
-@dynamic tableView;
 
 +(BN_AnimationObject *)animation{
     BN_AnimationObject * ani = objc_getAssociatedObject(self, _cmd);
@@ -29,21 +22,14 @@
     return ani;
 }
 
-- (UITableView *)tableView {
-    UITableView* table = objc_getAssociatedObject(self, _cmd);
-    if (table == nil) {
-        table = [[UITableView alloc] initWithFrame:CGRectZero style:UITableViewStylePlain];
-        [table registerClass:[UITableViewCell class] forCellReuseIdentifier:@"UITableViewCell"];
-        table.layer.borderColor = UIColor.grayColor.CGColor;
-        table.layer.borderWidth = 1;
-        table.delegate = self;
-        table.dataSource = self;
-        objc_setAssociatedObject(self, _cmd, table, OBJC_ASSOCIATION_RETAIN);
-    }
-    return table;
+
+- (void)pushController:(id)controller item:(UIView *)item type:(NSNumber *)type{
+    CGRect rect = [item convertRect:item.bounds toView:nil];
+    [self pushController:controller rect:rect type:type];
+    
 }
 
-- (void)pushViewController:(id)controller rect:(CGRect)rect type:(NSNumber *)type{
+- (void)pushController:(id)controller rect:(CGRect)rect type:(NSNumber *)type{
     if ([controller isKindOfClass:[NSString class]]) {
         controller = [NSClassFromString(controller) new];
     }
@@ -54,7 +40,13 @@
     
 }
 
-- (void)presentViewController:(id)controller rect:(CGRect)rect type:(NSNumber *)type completion:(void (^ __nullable)(void))completion{
+- (void)presentController:(id)controller item:(UIView *)item type:(NSNumber *)type completion:(void (^ __nullable)(void))completion{
+    CGRect rect = [item convertRect:item.bounds toView:nil];
+    [self presentController:controller rect:rect type:type completion:completion];
+   
+}
+
+- (void)presentController:(id)controller rect:(CGRect)rect type:(NSNumber *)type completion:(void (^ __nullable)(void))completion{
     if ([controller isKindOfClass:[NSString class]]) {
         controller = [NSClassFromString(controller) new];
     }
@@ -89,6 +81,7 @@
     UIViewController.animation.type = UINavigationControllerOperationPop;
     return UIViewController.animation;
 }
+
 
 @end
 

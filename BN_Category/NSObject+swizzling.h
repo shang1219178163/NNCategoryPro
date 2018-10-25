@@ -18,7 +18,7 @@
 @interface NSObject (swizzling)
 
 /**
- (弃用)所有类方法交换都应该走此方法,若此方法不满足需求,请在此类添加新方法
+ 所有类方法交换都应该走此方法,若此方法不满足需求,请在此类添加新方法
 
  @param clz Class类
  @param origSelector 被替换的方法

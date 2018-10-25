@@ -12,7 +12,7 @@
 @interface UIWindow (Helper)
 
 /**
- (弃用)
+ gift
  */
 + (void)showHUDAddedToView:(UIView *)view animated:(BOOL)animated;
 

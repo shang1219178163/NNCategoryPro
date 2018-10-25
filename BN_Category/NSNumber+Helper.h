@@ -9,14 +9,12 @@
 #import <Foundation/Foundation.h>
 
 @interface NSNumber (Helper)
-/*弃用*/
-//-(NSString *)stringWithIdentify:(NSString *)identify;
 
 /**
  NSNumberFormatter格式化
  
  */
--(NSString *)BN_StringValue;
+-(NSString *)stringValue;
 
 
 @end

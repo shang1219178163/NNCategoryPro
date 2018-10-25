@@ -14,4 +14,6 @@
 
 - (BOOL)backToEmptyWithReplacementString:(NSString *)string;
 
+- (id)asoryView:(NSString *)unitString;
+
 @end

@@ -87,7 +87,7 @@
 - (NSString *)deleteWhiteSpaceBeginEnd;
 
 /**
- 弃用
+ 
  */
 - (NSString *)stringByTitle;
 
@@ -134,13 +134,6 @@
 - (NSString *)getPlaceholder;
 
 + (NSString *)ramdomText;
-
-
-/**
- 弃用
-
- */
-+(NSString *)resultByAnObject:(NSString *)anObject multiplyAnothor:(NSString *)anothor;
 
 #pragma mark - - 加减乘除
 -(NSString *)multiplyAnothor:(NSString *)anothor;

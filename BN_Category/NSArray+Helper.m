@@ -75,28 +75,6 @@
     return marr.copy;
 }
 
-- (NSArray *)BN_filterModelListByQuery:(NSString *)query isNumValue:(BOOL)isNumValue{
-    
-    NSMutableArray * marr = [NSMutableArray arrayWithCapacity:0];
-    [self enumerateObjectsUsingBlock:^(id  _Nonnull obj, NSUInteger idx, BOOL * _Nonnull stop) {
-        id value = [obj valueForKey:query];
-        if ([value isKindOfClass:[NSString class]] && [(NSString *)value containsString:@"."] && ((NSString *)value).length > 5) {
-            value = [[value numberValue] BN_StringValue];
-        }
-        
-        value = isNumValue == NO ? value : [value numberValue];
-        [marr addSafeObjct:value];
-        
-    }];
-    return marr.copy;
-}
-
-- (NSArray *)BN_filterModelListByQuery:(NSString *)query{
-    return [self BN_filterModelListByQuery:query isNumValue:NO];
-    
-}
-    
-
 - (NSMutableArray *)BN_filterByPropertyList:(NSArray *)propertyList isNumValue:(BOOL)isNumValue {
     __block NSMutableArray * listArr = [NSMutableArray array];
     [self enumerateObjectsUsingBlock:^(id _Nonnull obj, NSUInteger idx, BOOL * _Nonnull stop) {

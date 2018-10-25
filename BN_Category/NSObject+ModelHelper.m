@@ -270,7 +270,7 @@
             
         }
         else if ([obj isKindOfClass:[NSNumber class]]) {
-            NSString *string = [(NSNumber *)obj BN_StringValue];
+            NSString *string = [(NSNumber *)obj stringValue];
             [self setValue:string forKey:key];
             
         }
@@ -326,7 +326,7 @@
             
         }
         else if ([obj isKindOfClass:[NSNumber class]]) {
-            NSString *string = [(NSNumber *)obj BN_StringValue];
+            NSString *string = [(NSNumber *)obj stringValue];
             [self setValue:string forKey:key];
             
         }

@@ -484,14 +484,6 @@
     
 }
 
-
-+(NSString *)resultByAnObject:(NSString *)anObject multiplyAnothor:(NSString *)anothor{
-    
-    CGFloat result = [anObject floatValue] * [anothor floatValue];
-    return [@(result) BN_StringValue];
-
-}
-
 -(NSString *)multiplyAnothor:(NSString *)anothor{
     NSAssert([self isPureInteger] || [self isPureFloat], @"支持持纯数字字符串");
     if (self == nil || anothor == nil || [self floatValue] == 0.0  || [anothor floatValue] == 0.0) {
@@ -499,7 +491,7 @@
     }
     
     CGFloat result = [self floatValue] * [anothor floatValue];
-    return [@(result) BN_StringValue];
+    return [@(result) stringValue];
 
 }
 
@@ -511,7 +503,7 @@
     }
     
     CGFloat result = [self floatValue] / [anothor floatValue];
-    return [@(result) BN_StringValue];
+    return [@(result) stringValue];
 }
 
 -(NSString *)addAnothor:(id)anothor{
