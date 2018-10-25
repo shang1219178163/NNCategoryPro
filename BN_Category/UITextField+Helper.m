@@ -45,21 +45,6 @@
     return YES;
 }
 
-- (id)asoryView:(NSString *)unitString{
-    //    NSArray * unitList = @[@"元",@"公斤"];
-    NSParameterAssert(unitString != nil && ![unitString isEqualToString:@""]);
-    
-    if ([unitString containsString:@".png"]) {
-        CGSize size = CGSizeMake(20, 20);
-        UIImageView * imgView = [UIView createImgViewWithRect:CGRectMake(0, 0, size.width, size.height) image:unitString tag:kTAG_IMGVIEW patternType:@"0"];
-        return imgView;
-    }
-    
-    CGSize size = [self sizeWithText:unitString font:@(KFZ_Third) width:UIScreen.width];
-    UILabel * label = [UIView createLabelWithRect:CGRectMake(0, 0, size.width+2, 25) text:unitString textColor:kC_TextColor_Title tag:kTAG_LABEL patternType:@"2" font:KFZ_Third backgroudColor:UIColor.clearColor alignment:NSTextAlignmentCenter];
-    return label;
-    
-}
 
 
 @end

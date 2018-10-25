@@ -160,6 +160,8 @@ typedef void(^BlockView)(UIView * view,id item, id obj);
 
 - (UITableViewCell *)getClickViewCell;
 
+- (id)asoryView:(NSString *)unitString;
+
 //信任值展示,无点击手势
 //+ (id)getStarViewRect:(CGRect)rect rateStyle:(NSString *)rateStyle currentScore:(CGFloat)currentScore;
 
