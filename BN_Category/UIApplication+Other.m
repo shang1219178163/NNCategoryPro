@@ -309,7 +309,7 @@ static NSDictionary *_dictPrivacy = nil;
 }
 
 + (BOOL)privacy:(PrivacyType)type handler:(void(^)(BOOL response, NSString *name))handler{
-    __block isHasRight = NO;
+    __block BOOL isHasRight = NO;
     [UIApplication privacy:type completion:^(BOOL response, PrivacyStatus status, NSString *name) {
         isHasRight = response;
         if(handler) handler(response,name);

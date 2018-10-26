@@ -52,8 +52,6 @@ typedef NS_ENUM(NSUInteger,PrivacyStatus) {
 
 + (BOOL)hasRightOfAVCapture;
 
-+ (BOOL)hansRigthOfContacts;
-
 + (void)setupIQKeyboardManager;
 
 //+ (void)registerShareSDK;
