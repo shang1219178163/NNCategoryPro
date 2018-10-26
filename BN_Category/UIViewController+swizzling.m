@@ -44,7 +44,7 @@
     self.automaticallyAdjustsScrollViewInsets = NO;
     self.view.backgroundColor = UIColor.whiteColor;
 
-    self.navigationItem.backBarButtonItem = [[UIBarButtonItem alloc] initWithTitle:@"11" style:UIBarButtonItemStyleDone target:nil action:nil];
+    self.navigationItem.backBarButtonItem = [[UIBarButtonItem alloc] initWithTitle:@"" style:UIBarButtonItemStyleDone target:nil action:nil];
 
 //    [self createBtnBack];
 //    [self eventGather];

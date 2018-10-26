@@ -20,28 +20,28 @@
     dispatch_once(&onceToken, ^{
      
         if (isOpen) {
-            [self swizzleMethodClass:[self class] origMethod:@selector(sendAction:to:forEvent:) newMethod:@selector(BN_sendAction:to:forEvent:)];
+            [self swizzleMethodClass:[self class] origMethod:@selector(sendAction:to:forEvent:) newMethod:@selector(swz_sendAction:to:forEvent:)];
             
         }
         
     });
 }
 
--(void)BN_sendAction:(SEL)action to:(id)target forEvent:(UIEvent *)event{
-//    [self BN_sendAction:action to:target forEvent:event];
+-(void)swz_sendAction:(SEL)action to:(id)target forEvent:(UIEvent *)event{
+//    [self swz_sendAction:action to:target forEvent:event];
 
     // 是否小于设定的时间间隔
 //    BOOL needSendAction = (NSDate.date.timeIntervalSince1970 - self.custom_acceptEventTime >= self.custom_acceptEventInterval);
-    BOOL needSendAction = (NSDate.date.timeIntervalSince1970 - self.custom_acceptEventTime >= 1);
+    BOOL isSendAction = (NSDate.date.timeIntervalSince1970 - self.custom_acceptEventTime >= 1);
 
     // 更新上一次点击时间戳
     if (self.custom_acceptEventInterval > 0) {
         self.custom_acceptEventTime = NSDate.date.timeIntervalSince1970;
     }
     
-    if (needSendAction) {
+    if (isSendAction) {
         // 两次点击的时间间隔小于设定的时间间隔时，才执行响应事件
-        [self BN_sendAction:action to:target forEvent:event];
+        [self swz_sendAction:action to:target forEvent:event];
     }
     else{
         return;

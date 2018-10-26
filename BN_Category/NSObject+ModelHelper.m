@@ -17,7 +17,7 @@
 
 @implementation NSObject (ModelHelper)
 
--(void)BN_setValidValueFromModel:(id)model{
+-(void)setValidValueFromModel:(id)model{
     //mj_keyValue获取的是已经赋值的部分,值为空的不包含
     NSDictionary * dic = ((NSObject *)self).mj_keyValues;
     NSDictionary * dicModel = ((NSObject *)model).mj_keyValues;
