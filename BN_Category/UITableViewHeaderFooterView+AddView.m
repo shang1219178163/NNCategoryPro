@@ -52,7 +52,7 @@
 -(UILabel *)labelLeft{
     UILabel * lab = objc_getAssociatedObject(self, _cmd);
     if (lab == nil) {
-        lab = [UIView createLabelWithRect:CGRectZero text:@"" textColor:nil tag:kTAG_LABEL patternType:@"2" font:KFZ_Second backgroudColor:UIColor.whiteColor alignment:NSTextAlignmentLeft];
+        lab = [UIView createLabelWithRect:CGRectZero text:@"" textColor:nil tag:kTAG_LABEL type:@2 font:kFZ_Second backgroudColor:UIColor.whiteColor alignment:NSTextAlignmentLeft];
         
         //        lab = ({
         //            UILabel * label = [[UILabel alloc] initWithFrame:CGRectZero];
@@ -73,7 +73,7 @@
 -(UILabel *)labelLeftMark{
     UILabel * lab = objc_getAssociatedObject(self, _cmd);
     if (lab == nil) {
-        lab = [UIView createLabelWithRect:CGRectZero text:@"" textColor:nil tag:kTAG_LABEL+1 patternType:@"2" font:KFZ_Second backgroudColor:UIColor.whiteColor alignment:NSTextAlignmentLeft];
+        lab = [UIView createLabelWithRect:CGRectZero text:@"" textColor:nil tag:kTAG_LABEL+1 type:@2 font:kFZ_Second backgroudColor:UIColor.whiteColor alignment:NSTextAlignmentLeft];
         
         //        lab = ({
         //            UILabel * label = [[UILabel alloc] initWithFrame:CGRectZero];
@@ -94,7 +94,7 @@
 -(UILabel *)labelLeftSub{
     UILabel * lab = objc_getAssociatedObject(self, _cmd);
     if (lab == nil) {
-        lab = [UIView createLabelWithRect:CGRectZero text:@"" textColor:nil tag:kTAG_LABEL+2 patternType:@"2" font:KFZ_Second backgroudColor:UIColor.whiteColor alignment:NSTextAlignmentLeft];
+        lab = [UIView createLabelWithRect:CGRectZero text:@"" textColor:nil tag:kTAG_LABEL+2 type:@2 font:kFZ_Second backgroudColor:UIColor.whiteColor alignment:NSTextAlignmentLeft];
         
         //        lab = ({
         //            UILabel * label = [[UILabel alloc] initWithFrame:CGRectZero];
@@ -117,7 +117,7 @@
 -(UILabel *)labelLeftSubMark{
     UILabel * lab = objc_getAssociatedObject(self, _cmd);
     if (lab == nil) {
-        lab = [UIView createLabelWithRect:CGRectZero text:@"" textColor:nil tag:kTAG_LABEL+3 patternType:@"2" font:KFZ_Second backgroudColor:UIColor.whiteColor alignment:NSTextAlignmentLeft];
+        lab = [UIView createLabelWithRect:CGRectZero text:@"" textColor:nil tag:kTAG_LABEL+3 type:@2 font:kFZ_Second backgroudColor:UIColor.whiteColor alignment:NSTextAlignmentLeft];
         
         //        lab = ({
         //            UILabel * label = [[UILabel alloc] initWithFrame:CGRectZero];
@@ -195,7 +195,7 @@
 -(UIButton *)btn{
     UIButton * button = objc_getAssociatedObject(self, _cmd);
     if (button == nil) {
-        button = [UIView createBtnWithRect:CGRectZero title:@"按钮" font:KFZ_Second image:nil tag:kTAG_BTN patternType:@"7" target:nil aSelector:nil];
+        button = [UIView createBtnWithRect:CGRectZero title:@"按钮" font:kFZ_Second image:nil tag:kTAG_BTN type:@7 target:nil aSelector:nil];
 //        button = ({
 //            UIButton * btn = [UIButton buttonWithType:UIButtonTypeCustom];
 //            [btn setTitle:@"btn" forState:UIControlStateNormal];

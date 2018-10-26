@@ -105,10 +105,10 @@
         table.autoresizingMask = UIViewAutoresizingFlexibleWidth|UIViewAutoresizingFlexibleHeight;//确保TablView能够正确的调整大小
         table.separatorInset = UIEdgeInsetsZero;
         table.separatorStyle = UITableViewCellSeparatorStyleSingleLine;
-        table.keyboardDismissMode = UIScrollViewKeyboardDismissModeOnDrag;
         table.rowHeight = 60;
         table.backgroundColor = UIColor.backgroudColor;
-//        [table registerClass:[UITableViewCell class] forCellReuseIdentifier:@"cell"];
+//        table.keyboardDismissMode = UIScrollViewKeyboardDismissModeOnDrag;
+        [table registerClass:[UITableViewCell class] forCellReuseIdentifier:@"UITableViewCell"];
         if ([self conformsToProtocol:@protocol(UITableViewDataSource)]) table.dataSource = self;
         if ([self conformsToProtocol:@protocol(UITableViewDelegate)]) table.delegate = self;      
 

@@ -205,7 +205,7 @@
     NSString * imageStrRight = kIMAGE_arrowRight;
 //    CGSize imgViewRightSize = CGSizeMake(25, 25);
 
-    UIImageView * imgViewRight = [UIView createImgViewWithRect:rect image:imageStrRight tag:kTAG_IMGVIEW patternType:@"0"];
+    UIImageView * imgViewRight = [UIView createImgViewWithRect:rect image:imageStrRight tag:kTAG_IMGVIEW type:@0];
     return imgViewRight;
 }
 
@@ -220,7 +220,7 @@
     return backgroundView;
 }
 
-+ (UILabel *)createLabelWithRect:(CGRect)rect text:(id)text textColor:(UIColor *)textColor tag:(NSInteger)tag patternType:(NSString *)patternType font:(CGFloat)fontSize  backgroudColor:(UIColor *)backgroudColor alignment:(NSTextAlignment)alignment
++ (UILabel *)createLabelWithRect:(CGRect)rect text:(id)text textColor:(UIColor *)textColor tag:(NSInteger)tag type:(NSNumber *)type font:(CGFloat)fontSize  backgroudColor:(UIColor *)backgroudColor alignment:(NSTextAlignment)alignment
 {
     UILabel * label = [[UILabel alloc] initWithFrame:rect];
     if ([text isKindOfClass:[NSString class]]) {
@@ -236,7 +236,7 @@
     label.font = [UIFont systemFontOfSize:fontSize];
     label.textAlignment = alignment;
         
-    switch ([patternType integerValue]) {
+    switch (type.integerValue) {
         case 0://无限折行
         {
             label.numberOfLines = 0;
@@ -342,7 +342,7 @@
 }
 
 //imageView通用创建方法
-+ (UIImageView *)createImgViewWithRect:(CGRect)rect image:(id)image tag:(NSInteger)tag patternType:(NSString *)patternType{
++ (UIImageView *)createImgViewWithRect:(CGRect)rect image:(id)image tag:(NSInteger)tag type:(NSNumber *)type{
     UIImageView *imageView = [[UIImageView alloc] initWithFrame:rect];
     imageView.autoresizingMask = UIViewAutoresizingFlexibleLeftMargin | UIViewAutoresizingFlexibleRightMargin;
     imageView.contentMode = UIViewContentModeScaleAspectFit;
@@ -362,7 +362,7 @@
         
     }
     
-    switch ([patternType integerValue]) {
+    switch (type.integerValue) {
         case 0://默认方形
         {
 //            imageView.layer.borderWidth = 1;
@@ -388,14 +388,14 @@
         {
             //小标志
             NSString * text = @"企";
-            CGSize textSize = [self sizeWithText:text font:@(KFZ_Third) width:UIScreen.width];
+            CGSize textSize = [self sizeWithText:text font:@(kFZ_Third) width:UIScreen.width];
             CGFloat textWH = textSize.height > textSize.width ? textSize.height :textSize.width;
             textWH += 5;
             CGFloat offsetXY = CGRectGetHeight(rect)/2.0 * sin(45 * M_PI/180.0);
             
             CGPoint tipCenter = CGPointMake(CGRectGetHeight(rect)/2.0 + offsetXY, CGRectGetHeight(rect)/2.0 + offsetXY);
             //
-            UILabel * labelTip = [UIView createTipLabelWithSize:CGSizeMake(textWH, textWH) tipCenter:tipCenter text:text textColor:UIColor.themeColor tag:kTAG_LABEL font:KFZ_Third backgroudColor:UIColor.whiteColor alignment:NSTextAlignmentCenter];
+            UILabel * labelTip = [UIView createTipLabelWithSize:CGSizeMake(textWH, textWH) tipCenter:tipCenter text:text textColor:UIColor.themeColor tag:kTAG_LABEL font:kFZ_Third backgroudColor:UIColor.whiteColor alignment:NSTextAlignmentCenter];
             [imageView addSubview:labelTip];
             
         }
@@ -447,7 +447,7 @@
     return imageView;
 }
 //选择图片使用
-+ (UIImageView *)createImgViewWithRect:(CGRect)rect image:(id)image tag:(NSInteger)tag patternType:(NSString *)patternType hasDeleteBtn:(BOOL)hasDeleteBtn
++ (UIImageView *)createImgViewWithRect:(CGRect)rect image:(id)image tag:(NSInteger)tag type:(NSNumber *)type hasDeleteBtn:(BOOL)hasDeleteBtn
 {
     UIImageView *imageView = [[UIImageView alloc] initWithFrame:rect];
     imageView.autoresizingMask = UIViewAutoresizingFlexibleLeftMargin | UIViewAutoresizingFlexibleRightMargin;
@@ -462,7 +462,7 @@
         imageView.image = image;
 
     }
-    switch ([patternType integerValue]) {
+    switch (type.integerValue) {
         case 0://默认方形
         {
             imageView.layer.borderWidth = kW_LayerBorder;
@@ -541,7 +541,7 @@
     
 }
 
-+ (UIButton *)createBtnWithRect:(CGRect)rect title:(NSString *)title font:(CGFloat)fontSize image:(NSString *)image tag:(NSInteger)tag patternType:(NSString *)patternType target:(id)target aSelector:(SEL)aSelector{
++ (UIButton *)createBtnWithRect:(CGRect)rect title:(NSString *)title font:(CGFloat)fontSize image:(NSString *)image tag:(NSInteger)tag type:(NSNumber *)type target:(id)target aSelector:(SEL)aSelector{
     UIButton * btn = [UIButton buttonWithType:UIButtonTypeCustom];
     btn.frame = rect;
     [btn setTitle:title forState:UIControlStateNormal];
@@ -551,7 +551,7 @@
     btn.imageView.contentMode = UIViewContentModeScaleAspectFit;
     btn.tag = tag;
 
-    switch ([patternType integerValue]) {
+    switch (type.integerValue) {
         case 0://白色背景黑色字体圆角
         {
             btn.layer.masksToBounds = YES;
@@ -781,7 +781,7 @@
     }
 }
 
-+ (UIView *)createBtnViewWithRect:(CGRect)rect imgName:(NSString *)imgName imgHeight:(CGFloat)imgHeight title:(NSString *)title titleColor:(UIColor *)titleColor patternType:(NSString *)patternType
++ (UIView *)createBtnViewWithRect:(CGRect)rect imgName:(NSString *)imgName imgHeight:(CGFloat)imgHeight title:(NSString *)title titleColor:(UIColor *)titleColor type:(NSNumber *)type
 {
 
     UIView * backgroudView = [[UIView alloc]initWithFrame:rect];
@@ -792,7 +792,7 @@
     imgV.tag = kTAG_IMGVIEW;
     
     CGRect labRect = CGRectZero;
-    switch ([patternType integerValue]) {
+    switch (type.integerValue) {
         case 0://图上名下
         {
             CGFloat gapY = (CGRectGetHeight(rect) - imgHeight - kH_LABEL)/3.0;
@@ -838,7 +838,7 @@
     lab.text = title;
     lab.textColor = titleColor;
     lab.textAlignment = NSTextAlignmentCenter;
-    lab.font = [UIFont systemFontOfSize:KFZ_Second];
+    lab.font = [UIFont systemFontOfSize:kFZ_Second];
     lab.numberOfLines = 1;
     lab.lineBreakMode = NSLineBreakByTruncatingTail;
     lab.tag = kTAG_LABEL;

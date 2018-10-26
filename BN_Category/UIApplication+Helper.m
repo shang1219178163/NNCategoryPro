@@ -133,7 +133,6 @@
     
     if (@available(iOS 11.0, *)) {
         UICollectionView.appearance.contentInsetAdjustmentBehavior = UIScrollViewContentInsetAdjustmentNever;
-        
         UIScrollView.appearance.contentInsetAdjustmentBehavior = UIScrollViewContentInsetAdjustmentNever;
 
     }
@@ -190,6 +189,7 @@
     }
     
 }
+
 
 
 @end

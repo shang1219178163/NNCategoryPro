@@ -317,7 +317,7 @@
     for (UIView *subview in subviews) {
         subview.layer.borderWidth = kW_LayerBorder;
         subview.layer.borderColor = UIColor.blueColor.CGColor;
-        subview.layer.borderColor = UIColor.clearColor.CGColor;
+//        subview.layer.borderColor = UIColor.clearColor.CGColor;
 
         [subview getViewLayer];
         
@@ -355,15 +355,15 @@
     CGFloat XGapImgView = (CGRectGetWidth(rect) - imgViewSize.width)/2.0;
     
     CGRect imgViewRect = CGRectMake(XGapImgView, YGap, imgViewSize.width, imgViewSize.height);
-    UIImageView * imgView = [UIView createImgViewWithRect:imgViewRect image:@"img_cardAdd.png" tag:kTAG_IMGVIEW patternType:@"0"];
+    UIImageView * imgView = [UIView createImgViewWithRect:imgViewRect image:@"img_cardAdd.png" tag:kTAG_IMGVIEW type:@0];
     imgView.layer.backgroundColor = UIColor.whiteColor.CGColor;
     [containView addSubview:imgView];
     
-    CGSize textSize = [self sizeWithText:title font:@(KFZ_Third) width:CGRectGetWidth(rect)];
+    CGSize textSize = [self sizeWithText:title font:@(kFZ_Third) width:CGRectGetWidth(rect)];
     CGFloat XGapLab = (CGRectGetWidth(rect) - textSize.width)/2.0;
     
     CGRect labRect = CGRectMake(XGapLab, CGRectGetMaxY(imgViewRect), textSize.width, kH_LABEL_SMALL);
-    UILabel * lab = [UIView createLabelWithRect:labRect text:title textColor:kC_TextColor_TitleSub tag:kTAG_LABEL patternType:@"2" font:KFZ_Third backgroudColor:nil alignment:NSTextAlignmentCenter];
+    UILabel * lab = [UIView createLabelWithRect:labRect text:title textColor:kC_TextColor_TitleSub tag:kTAG_LABEL type:@2 font:kFZ_Third backgroudColor:nil alignment:NSTextAlignmentCenter];
     [containView addSubview:lab];
     
     if (image == nil) {
@@ -422,7 +422,7 @@
 
     textField.leftViewMode = UITextFieldViewModeAlways;
     
-    //    UIButton * btn = [UIButton createBtnWithRect:CGRectMake(0, 0, 40, textFieldHeight) title:@"搜 索" font:KFZ_Second image:nil tag:kTAG_BTN patternType:@"2" target:self aSelector:@selector(goSearch)];
+    //    UIButton * btn = [UIButton createBtnWithRect:CGRectMake(0, 0, 40, textFieldHeight) title:@"搜 索" font:kFZ_Second image:nil tag:kTAG_BTN type:@2 target:self aSelector:@selector(goSearch)];
     textField.rightView = rightView;
 //    textField.rightViewPadding = 5;
     textField.rightViewPadding = rightPadding;
@@ -506,7 +506,7 @@
     
     NSMutableAttributedString *attString = [[NSMutableAttributedString alloc]initWithString:text];
     for (NSString *textTap in textTaps) {
-        [attString addAttribute:NSFontAttributeName value:[UIFont systemFontOfSize:KFZ_Third] range:NSMakeRange(0, text.length)];
+        [attString addAttribute:NSFontAttributeName value:[UIFont systemFontOfSize:kFZ_Third] range:NSMakeRange(0, text.length)];
         [attString addAttribute:NSForegroundColorAttributeName value:UIColor.orangeColor range:[text rangeOfString:textTap]];
         
     }
@@ -544,11 +544,11 @@
     
     CGRect labelRect = CGRectMake(CGRectGetMaxX(imgViewRect) + padding, CGRectGetMinY(imgViewRect), CGRectGetWidth(backgroudView.frame) - CGRectGetWidth(imgViewRect) - padding, CGRectGetHeight(imgViewRect));
     
-    UIImageView * imgView = [UIView createImgViewWithRect:imgViewRect image:image tag:kTAG_IMGVIEW patternType:@"0"];
+    UIImageView * imgView = [UIView createImgViewWithRect:imgViewRect image:image tag:kTAG_IMGVIEW type:@0];
     imgView.tag = kTAG_IMGVIEW;
     [backgroudView addSubview:imgView];
     
-    UILabel * labelVehicle = [UIView createLabelWithRect:labelRect text:text textColor:nil tag:kTAG_LABEL patternType:@"2" font:KFZ_Third backgroudColor:nil alignment:NSTextAlignmentLeft];
+    UILabel * labelVehicle = [UIView createLabelWithRect:labelRect text:text textColor:nil tag:kTAG_LABEL type:@2 font:kFZ_Third backgroudColor:nil alignment:NSTextAlignmentLeft];
     labelVehicle.tag = kTAG_LABEL;
     [backgroudView addSubview:labelVehicle];
     
@@ -578,7 +578,7 @@
         
         NSString * title = elements[i];
         CGRect btnRect = CGRectMake(x, y, w, h);
-        UIButton * btn = [UIView createBtnWithRect:btnRect title:title font:15 image:nil tag:kTAG_BTN+i patternType:@"0" target:self aSelector:@selector(handleActionBtn:)];
+        UIButton * btn = [UIView createBtnWithRect:btnRect title:title font:15 image:nil tag:kTAG_BTN+i type:@0 target:self aSelector:@selector(handleActionBtn:)];
         [btn removeTarget:self action:@selector(handleActionBtn:) forControlEvents:UIControlEventTouchUpInside];
         [backgroudView addSubview:btn];
         
@@ -614,18 +614,18 @@
         switch ([type integerValue] ) {
             case 0://uibutton
             {
-                view = [UIView createBtnWithRect:itemRect title:title font:15 image:nil tag:i patternType:@"5" target:nil aSelector:nil];
+                view = [UIView createBtnWithRect:itemRect title:title font:15 image:nil tag:i type:@5 target:nil aSelector:nil];
             }
                 break;
             case 1://UIImageVIew
             {
-                view = [UIView createImgViewWithRect:itemRect image:title tag:i patternType:@"0"];
+                view = [UIView createImgViewWithRect:itemRect image:title tag:i type:@0];
                 
             }
                 break;
             case 2://UILabel
             {
-                view = [UIView createLabelWithRect:itemRect text:title textColor:nil tag:i patternType:@"0" font:15 backgroudColor:[UIColor whiteColor] alignment:NSTextAlignmentCenter];
+                view = [UIView createLabelWithRect:itemRect text:title textColor:nil tag:i type:@0 font:15 backgroudColor:[UIColor whiteColor] alignment:NSTextAlignmentCenter];
                 
             }
                 break;
@@ -696,8 +696,8 @@
 
 #pragma make - -圆角
 //通过Graphics 和 BezierPath 设置圆角
-+ (void)setCutCirculayWithView:(UIImageView *)view cornerRadius:(CGFloat)cornerRadius patternType:(NSString *)patternType{
-    switch ([patternType integerValue]) {
++ (void)setCutCirculayWithView:(UIImageView *)view cornerRadius:(CGFloat)cornerRadius type:(NSNumber *)type{
+    switch (type.integerValue) {
         case 0:
         {
             //通过Graphics 和 BezierPath 设置圆角
@@ -843,12 +843,12 @@
     
     if ([unitString containsString:@".png"]) {
         CGSize size = CGSizeMake(20, 20);
-        UIImageView * imgView = [UIView createImgViewWithRect:CGRectMake(0, 0, size.width, size.height) image:unitString tag:kTAG_IMGVIEW patternType:@"0"];
+        UIImageView * imgView = [UIView createImgViewWithRect:CGRectMake(0, 0, size.width, size.height) image:unitString tag:kTAG_IMGVIEW type:@0];
         return imgView;
     }
     
-    CGSize size = [self sizeWithText:unitString font:@(KFZ_Third) width:UIScreen.width];
-    UILabel * label = [UIView createLabelWithRect:CGRectMake(0, 0, size.width+2, 25) text:unitString textColor:kC_TextColor_Title tag:kTAG_LABEL patternType:@"2" font:KFZ_Third backgroudColor:UIColor.clearColor alignment:NSTextAlignmentCenter];
+    CGSize size = [self sizeWithText:unitString font:@(kFZ_Third) width:UIScreen.width];
+    UILabel * label = [UIView createLabelWithRect:CGRectMake(0, 0, size.width+2, 25) text:unitString textColor:kC_TextColor_Title tag:kTAG_LABEL type:@2 font:kFZ_Third backgroudColor:UIColor.clearColor alignment:NSTextAlignmentCenter];
     return label;
     
 }

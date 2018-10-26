@@ -40,7 +40,7 @@
 /**
  UILabel通用创建方法
  */
-+ (UILabel *)createLabelWithRect:(CGRect)rect text:(id)text textColor:(UIColor *)textColor tag:(NSInteger)tag patternType:(NSString *)patternType font:(CGFloat)fontSize  backgroudColor:(UIColor *)backgroudColor alignment:(NSTextAlignment)alignment;
++ (UILabel *)createLabelWithRect:(CGRect)rect text:(id)text textColor:(UIColor *)textColor tag:(NSInteger)tag type:(NSNumber *)type font:(CGFloat)fontSize  backgroudColor:(UIColor *)backgroudColor alignment:(NSTextAlignment)alignment;
 
 /**
  UILabel小标志专用,例如左侧头像上的"企"
@@ -50,7 +50,7 @@
 /**
  UIImageView通用创建方法
  */
-+ (UIImageView *)createImgViewWithRect:(CGRect)rect image:(id)image tag:(NSInteger)tag patternType:(NSString *)patternType;
++ (UIImageView *)createImgViewWithRect:(CGRect)rect image:(id)image tag:(NSInteger)tag type:(NSNumber *)type;
 
 /**
  UIImageView多图片加手势
@@ -60,7 +60,7 @@
 /**
  UIImageView(上传图片)选择图片使用
  */
-+ (UIImageView *)createImgViewWithRect:(CGRect)rect image:(id)image tag:(NSInteger)tag patternType:(NSString *)patternType hasDeleteBtn:(BOOL)hasDeleteBtn;
++ (UIImageView *)createImgViewWithRect:(CGRect)rect image:(id)image tag:(NSInteger)tag type:(NSNumber *)type hasDeleteBtn:(BOOL)hasDeleteBtn;
 
 /**
  UITextField通用创建方法
@@ -70,7 +70,7 @@
 /**
  UIButton通用创建方法
  */
-+ (UIButton *)createBtnWithRect:(CGRect)rect title:(NSString *)title font:(CGFloat)fontSize image:(NSString *)image tag:(NSInteger)tag patternType:(NSString *)patternType target:(id)target aSelector:(SEL)aSelector;
++ (UIButton *)createBtnWithRect:(CGRect)rect title:(NSString *)title font:(CGFloat)fontSize image:(NSString *)image tag:(NSInteger)tag type:(NSNumber *)type target:(id)target aSelector:(SEL)aSelector;
 
 /**
  CustomSegment通用创建方法
@@ -80,7 +80,7 @@
 /**
  BtnView通用创建方法
  */
-+ (UIView *)createBtnViewWithRect:(CGRect)rect imgName:(NSString *)imgName imgHeight:(CGFloat)imgHeight title:(NSString *)title titleColor:(UIColor *)titleColor patternType:(NSString *)patternType;
++ (UIView *)createBtnViewWithRect:(CGRect)rect imgName:(NSString *)imgName imgHeight:(CGFloat)imgHeight title:(NSString *)title titleColor:(UIColor *)titleColor type:(NSNumber *)type;
 
 /**
  UISegmentedControl通用创建方法

@@ -54,9 +54,10 @@ typedef NS_ENUM(NSUInteger,PrivacyStatus) {
 
 + (BOOL)hansRigthOfContacts;
 
++ (void)setupIQKeyboardManager;
+
 //+ (void)registerShareSDK;
-//+ (void)handleMsgShareDataModel:(BN_ShareModel *)dataModel patternType:(NSString *)patternType;
-//+ (void)setupIQKeyboardManager;
+//+ (void)handleMsgShareDataModel:(BN_ShareModel *)dataModel type:(NSNumber *)type;
 //+ (void)registerUMengSDKAppKey:(NSString *_Nonnull)appKey channel:(NSString *_Nonnull)channel;
 
 - (BOOL)checkVersion;

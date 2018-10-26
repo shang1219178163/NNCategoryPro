@@ -134,7 +134,7 @@ typedef void(^BlockView)(UIView * view,id item, id obj);
 /**
  圆角
  */
-+ (void)setCutCirculayWithView:(UIImageView *)view cornerRadius:(CGFloat )cornerRadius patternType:(NSString *)patternType;
++ (void)setCutCirculayWithView:(UIImageView *)view cornerRadius:(CGFloat )cornerRadius type:(NSNumber *)type;
 
 
 //- (void)tapActionWithView:(void (^) (UIView * view))tapClick;
