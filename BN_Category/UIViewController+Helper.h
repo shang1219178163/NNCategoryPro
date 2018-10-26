@@ -54,7 +54,7 @@ typedef void(^BlockAlertController)(UIAlertController * _Nonnull alertController
 /**
   导航栏按钮
  */
-- (UIButton *)createBarBtnItemWithTitle:(NSString *)title imageName:(NSString *)imageName isLeft:(BOOL)isLeft isHidden:(BOOL)isHidden handler:(void(^)(id obj, UIButton * item, NSInteger idx))handler;
+- (UIButton *)createBarItemTitle:(NSString *)title imageName:(NSString *)imageName isLeft:(BOOL)isLeft isHidden:(BOOL)isHidden handler:(void(^)(id obj, UIButton * item, NSInteger idx))handler;
 
 - (UITableViewCell *_Nonnull)cellByClickView:(UIView *_Nonnull)view;
 
@@ -90,23 +90,23 @@ typedef void(^BlockAlertController)(UIAlertController * _Nonnull alertController
 /**
  系统弹窗__按钮默认(知道了)
  */
-- (void)showAlertWithTitle:(nullable NSString *)title msg:(nullable NSString *)msg;
+- (void)showAlertTitle:(nullable NSString *)title msg:(nullable NSString *)msg;
 
 /**
  系统弹窗__按钮默认(取消,确认)
  */
-- (void)showAlertWithTitle:(nullable NSString *)title msg:(nullable NSString *)msg handler:(void(^_Nullable)(UIAlertController * _Nonnull alertVC, UIAlertAction * _Nullable action))handler;
+- (void)showAlertTitle:(nullable NSString *)title msg:(nullable NSString *)msg handler:(void(^_Nullable)(UIAlertController * _Nonnull alertVC, UIAlertAction * _Nullable action))handler;
 
 /**
  系统弹窗__按钮自定义(actionTitleList传入按钮标题)
  */
-- (void)showAlertWithTitle:(nullable NSString *)title msg:(nullable NSString *)msg actionTitleList:(NSArray *_Nonnull)actionTitleList handler:(void(^_Nullable)(UIAlertController * _Nonnull alertVC, UIAlertAction * _Nullable action))handler;
+- (void)showAlertTitle:(nullable NSString *)title msg:(nullable NSString *)msg actionTitleList:(NSArray *_Nonnull)actionTitleList handler:(void(^_Nullable)(UIAlertController * _Nonnull alertVC, UIAlertAction * _Nullable action))handler;
 
 /**
  弹窗源方法
  placeholderList或者 msg  其中一个必须为nil
  */
-- (void)showAlertWithTitle:(nullable NSString *)title placeholderList:(NSArray *_Nullable)placeholderList msg:(NSString *_Nullable)msg actionTitleList:(NSArray *_Nonnull)actionTitleList handler:(void(^_Nullable)(UIAlertController * _Nonnull alertVC, UIAlertAction * _Nullable action))handler;
+- (void)showAlertTitle:(nullable NSString *)title placeholderList:(NSArray *_Nullable)placeholderList msg:(NSString *_Nullable)msg actionTitleList:(NSArray *_Nonnull)actionTitleList handler:(void(^_Nullable)(UIAlertController * _Nonnull alertVC, UIAlertAction * _Nullable action))handler;
 
 /**
  系统Sheet弹窗__按钮默认(取消按钮)

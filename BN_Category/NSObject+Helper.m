@@ -86,7 +86,7 @@ CGFloat roundFloat(CGFloat value,NSInteger num){
     NSLog(@"不存在键_%@:%@",key,value);
 //    if (DEBUG) {
 //        UIApplication * app = UIApplication.sharedApplication;
-//        [app.delegate.window.rootViewController showAlertWithTitle:@"warnning" msg:[NSString stringWithFormat:@"不存在键__%@:%@",key,value]];
+//        [app.delegate.window.rootViewController showAlertTitle:@"warnning" msg:[NSString stringWithFormat:@"不存在键__%@:%@",key,value]];
 //        
 //    }
 }

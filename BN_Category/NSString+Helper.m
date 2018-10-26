@@ -538,7 +538,7 @@
     if (hiddenTips == NO) {
         NSString * tips = [NSString stringWithFormat:@"'%@'已复制!",pasteboard.string];
 //        [(UIView *)UIApplication.keyWindow makeToast:tips duration:1 position:CSToastPositionCenter];
-        [UIApplication.rootController showAlertWithTitle:@"" msg:tips];
+        [UIApplication.rootController showAlertTitle:@"" msg:tips];
         
     }
     
@@ -590,7 +590,7 @@
     NSMutableString *str = [[NSMutableString alloc]initWithFormat:@"tel:%@",phoneNum];
     
     __block  BOOL isSuccess = NO;
-    [UIApplication.rootController showAlertWithTitle:nil msg:phoneNum actionTitleList:@[kActionTitle_Cancell,kActionTitle_Call] handler:^(UIAlertController * _Nonnull alertVC, UIAlertAction * _Nullable action) {
+    [UIApplication.rootController showAlertTitle:nil msg:phoneNum actionTitleList:@[kActionTitle_Cancell,kActionTitle_Call] handler:^(UIAlertController * _Nonnull alertVC, UIAlertAction * _Nullable action) {
         if ([action.title isEqualToString:kActionTitle_Call]) {
             isSuccess = [UIApplication.sharedApplication openURL:[NSURL URLWithString:str]];
             

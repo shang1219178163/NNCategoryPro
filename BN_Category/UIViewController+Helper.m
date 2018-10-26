@@ -229,7 +229,7 @@
 }
 
 
-- (UIButton *)createBarBtnItemWithTitle:(NSString *)title imageName:(NSString *)imageName isLeft:(BOOL)isLeft isHidden:(BOOL)isHidden handler:(void(^)(id obj, UIButton * item, NSInteger idx))handler{
+- (UIButton *)createBarItemTitle:(NSString *)title imageName:(NSString *)imageName isLeft:(BOOL)isLeft isHidden:(BOOL)isHidden handler:(void(^)(id obj, UIButton * item, NSInteger idx))handler{
     
     UIButton * btn = nil;
     if (imageName) {
@@ -487,22 +487,22 @@
 }
 
 #pragma mark -------------alert升级方法-------------------
-- (void)showAlertWithTitle:(nullable NSString *)title msg:(nullable NSString *)msg{
-    [self showAlertWithTitle:title placeholderList:nil msg:msg actionTitleList:@[kActionTitle_Know] handler:nil];
+- (void)showAlertTitle:(nullable NSString *)title msg:(nullable NSString *)msg{
+    [self showAlertTitle:title placeholderList:nil msg:msg actionTitleList:@[kActionTitle_Know] handler:nil];
     
 }
 
-- (void)showAlertWithTitle:(nullable NSString *)title msg:(nullable NSString *)msg handler:(void(^)(UIAlertController * _Nonnull alertVC, UIAlertAction * _Nullable action))handler{
-    [self showAlertWithTitle:title placeholderList:nil msg:msg actionTitleList:@[kActionTitle_Cancell,kActionTitle_Sure] handler:handler];
+- (void)showAlertTitle:(nullable NSString *)title msg:(nullable NSString *)msg handler:(void(^)(UIAlertController * _Nonnull alertVC, UIAlertAction * _Nullable action))handler{
+    [self showAlertTitle:title placeholderList:nil msg:msg actionTitleList:@[kActionTitle_Cancell,kActionTitle_Sure] handler:handler];
     
 }
 
-- (void)showAlertWithTitle:(nullable NSString *)title msg:(nullable NSString *)msg actionTitleList:(NSArray *_Nonnull)actionTitleList handler:(void(^)(UIAlertController * _Nonnull alertVC, UIAlertAction * _Nullable action))handler{
-    [self showAlertWithTitle:title placeholderList:nil msg:msg actionTitleList:actionTitleList handler:handler];
+- (void)showAlertTitle:(nullable NSString *)title msg:(nullable NSString *)msg actionTitleList:(NSArray *_Nonnull)actionTitleList handler:(void(^)(UIAlertController * _Nonnull alertVC, UIAlertAction * _Nullable action))handler{
+    [self showAlertTitle:title placeholderList:nil msg:msg actionTitleList:actionTitleList handler:handler];
     
 }
 
-- (void)showAlertWithTitle:(nullable NSString *)title placeholderList:(NSArray *)placeholderList msg:(NSString *)msg actionTitleList:(NSArray *_Nonnull)actionTitleList handler:(void(^)(UIAlertController * _Nonnull alertVC, UIAlertAction * _Nullable action))handler{
+- (void)showAlertTitle:(nullable NSString *)title placeholderList:(NSArray *)placeholderList msg:(NSString *)msg actionTitleList:(NSArray *_Nonnull)actionTitleList handler:(void(^)(UIAlertController * _Nonnull alertVC, UIAlertAction * _Nullable action))handler{
 
     UIWindow * keyWindow = UIApplication.sharedApplication.delegate.window;
     
@@ -619,7 +619,7 @@
 - (void)callPhone:(NSString *)phoneNumber{
     
     NSArray * titleList = @[@"取消",@"呼叫"];
-    [self showAlertWithTitle:nil msg:phoneNumber actionTitleList:titleList handler:^(UIAlertController * _Nonnull alertController, UIAlertAction * _Nullable action) {
+    [self showAlertTitle:nil msg:phoneNumber actionTitleList:titleList handler:^(UIAlertController * _Nonnull alertController, UIAlertAction * _Nullable action) {
         if ([action.title isEqualToString:[titleList lastObject]]) {
             
             dispatch_async(dispatch_get_global_queue(0, 0), ^{
