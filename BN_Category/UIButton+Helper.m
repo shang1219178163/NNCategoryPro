@@ -175,7 +175,7 @@
         
     }
     
-    switch ([type integerValue]) {
+    switch (type.integerValue) {
         case 1:
         {
             //字+图
@@ -196,7 +196,7 @@
 //    CGSize sizeLab = sender.titleLabel.bounds.size;
 //    CGSize sizeImg = sender.imageView.bounds.size;
 //
-//    switch ([type integerValue]) {
+//    switch (type.integerValue) {
 //        case 1:
 //        {
 //            //字+图

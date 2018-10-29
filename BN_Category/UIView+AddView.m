@@ -127,7 +127,7 @@
 -(CGRect)rectWithLineType:(NSNumber *)type width:(CGFloat)width paddingScale:(CGFloat)paddingScale{
     UIView * view = self;
     CGRect rect = self.bounds;
-    switch ([type integerValue]) {
+    switch (type.integerValue) {
         case 0:
         {
             //上边框
@@ -913,7 +913,7 @@
 }
 
 
-+ (UISegmentedControl *)createSegmentCtlWithRect:(CGRect)rect items:(NSArray *)items selectedIndex:(NSInteger)selectedIndex type:(NSString *)type{
++ (UISegmentedControl *)createSegmentCtlWithRect:(CGRect)rect items:(NSArray *)items selectedIndex:(NSInteger)selectedIndex type:(NSNumber *)type{
     UISegmentedControl *segmentCtrl = [[UISegmentedControl alloc] initWithItems:items];
     segmentCtrl.frame = rect;
     
@@ -921,7 +921,7 @@
     segmentCtrl.tintColor = UIColor.themeColor;
     
     segmentCtrl.selectedSegmentIndex = selectedIndex ? selectedIndex : 0;
-    switch ([type integerValue]) {
+    switch (type.integerValue) {
         case 1:
         {
            

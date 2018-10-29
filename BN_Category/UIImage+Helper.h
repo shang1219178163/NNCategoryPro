@@ -95,7 +95,7 @@
 + (UIImage *)compressImage:(UIImage *)image toByte:(NSUInteger)maxLength;
 
 
-+ (id)compressImage:(UIImage *)image toByte:(NSUInteger)maxLength type:(NSString *)type;
++ (id)compressImage:(UIImage *)image toByte:(NSUInteger)maxLength type:(NSNumber *)type;
 
 
 @end

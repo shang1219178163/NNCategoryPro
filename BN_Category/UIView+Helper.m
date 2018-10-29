@@ -167,10 +167,10 @@
 
 - (UIView *)addRecognizerWithTarget:(id)target
                           aSelector:(SEL)aSelector
-                               type:(NSString *)type{
+                               type:(NSNumber *)type{
     self.userInteractionEnabled = YES;
 
-    switch ([type integerValue]) {
+    switch (type.integerValue) {
         case 0:
         {
             UITapGestureRecognizer *recognizer = [[UITapGestureRecognizer alloc] initWithTarget:target action:aSelector];
@@ -611,7 +611,7 @@
         CGRect itemRect = CGRectMake(x, y, w, h);
         
         UIView * view = nil;
-        switch ([type integerValue] ) {
+        switch (type.integerValue ) {
             case 0://uibutton
             {
                 view = [UIView createBtnWithRect:itemRect title:title font:15 image:nil tag:i type:@5 target:nil aSelector:nil];

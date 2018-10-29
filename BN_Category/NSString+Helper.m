@@ -283,7 +283,7 @@
     
     NSString * timestampA = @"";
     NSString * timestampB = @"";
-    switch ([type integerValue]) {
+    switch (type.integerValue) {
         case 1:
         {
             timestampA = [self toTimestampShort];

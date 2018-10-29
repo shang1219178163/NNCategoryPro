@@ -58,7 +58,7 @@
     for (NSInteger i = startIndex; i <= startIndex + count; i++) {
         NSString *imgName = [NSString stringWithFormat:@"%@%@",prefix,@(i)];
         
-        switch ([type integerValue]) {
+        switch (type.integerValue) {
             case 1:
             {
                 UIImage *image = [UIImage imageNamed:imgName];

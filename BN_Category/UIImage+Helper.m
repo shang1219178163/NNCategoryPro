@@ -655,7 +655,7 @@
 }
 
 
-+ (id)compressImage:(UIImage *)image toByte:(NSUInteger)maxLength type:(NSString *)type{
++ (id)compressImage:(UIImage *)image toByte:(NSUInteger)maxLength type:(NSNumber *)type{
     // Compress by quality
     CGFloat compression = 1;
     NSData *data = UIImageJPEGRepresentation(image, compression);
@@ -706,7 +706,7 @@
     DDLog(@"压缩后图片大小____:%luK",[imageData length]/1024);
     
     id imageNew = resultImage;
-    switch ([type integerValue]) {
+    switch (type.integerValue) {
         case 1:
         {
             imageNew = imageData;

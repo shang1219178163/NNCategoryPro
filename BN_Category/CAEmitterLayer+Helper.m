@@ -45,7 +45,7 @@
     
     CAEmitterLayer *emitterLayer = CAEmitterLayer.layer;
     
-    switch ([type integerValue]) {
+    switch (type.integerValue) {
         case 1:
         {
             CGSize emitterSize = CGSizeMake(CGRectGetWidth(rect), 0);

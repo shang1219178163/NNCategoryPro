@@ -23,7 +23,7 @@
 +(UIImageView *)imgViewWithRect:(CGRect)rect imageList:(NSArray *)imageList type:(NSNumber *)type{
     
     UIImageView *imgView = nil;
-    switch ([type integerValue]) {
+    switch (type.integerValue) {
         case 0:
         {
             UIImage *image = [[UIImage imageNamed:[imageList firstObject]] imageWithRenderingMode:UIImageRenderingModeAlwaysTemplate];

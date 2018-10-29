@@ -19,7 +19,7 @@
     CAEmitterCell *cell = CAEmitterCell.emitterCell;
     cell.contents = contents;//粒子图片
     cell.emitterCells = emitterCells;
-    switch ([type integerValue]) {
+    switch (type.integerValue) {
         case 1:
         {
             //火苗

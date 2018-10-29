@@ -52,7 +52,7 @@ typedef void(^BlockView)(UIView * view,id item, id obj);
  */
 - (UIView *)addRecognizerWithTarget:(id)target
                           aSelector:(SEL)aSelector
-                               type:(NSString *)type;
+                               type:(NSNumber *)type;
 
 
 /**
