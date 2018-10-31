@@ -31,6 +31,7 @@
 @property (class, readonly, nullable) NSString *phone_localizedModel;
 
 + (void)setupRootController:(id _Nonnull)controller;
++ (void)setupRootController:(id _Nonnull)controller isAdjust:(BOOL)isAdjust;
 
 + (void)setupAppearance;
 

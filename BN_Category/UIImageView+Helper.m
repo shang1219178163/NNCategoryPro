@@ -56,7 +56,7 @@
             break;
         case 2:
         {
-            NSString  *filePath = [[NSBundle bundleWithPath:[[NSBundle mainBundle] bundlePath]]pathForResource:@"loading" ofType:@"gif"];
+            NSString  *filePath = [[NSBundle bundleWithPath:NSBundle.mainBundle.bundlePath]pathForResource:@"loading" ofType:@"gif"];
             FLAnimatedImage *image = [FLAnimatedImage animatedImageWithGIFData:[NSData dataWithContentsOfFile:filePath]];
             imgView = [[FLAnimatedImageView alloc] initWithFrame:rect];
             ((FLAnimatedImageView *)imgView).animatedImage = image;

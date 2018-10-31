@@ -19,8 +19,13 @@ UIKIT_EXTERN NSString * NSStringFromLet(id obj);
 UIKIT_EXTERN NSString * NSStringFromInt(NSInteger obj);
 UIKIT_EXTERN NSString * NSStringFromFloat(CGFloat obj);
 
-UIKIT_EXTERN NSString * UIViewControllerFromString(NSString *obj);
+UIKIT_EXTERN UIViewController * UIViewCtrFromString(NSString *obj);
+UIKIT_EXTERN UINavigationController * UINaviCtrFromObj(id obj);
+UIKIT_EXTERN UITabBarController * UITarBarCtrFromList(NSArray *list);
+
 UIKIT_EXTERN UIImage * UIImageFromColor(UIColor * color);
+UIKIT_EXTERN UIImage * UIImageFromString(NSString * obj);
+UIKIT_EXTERN UIImage * UIImageFromObj(id obj);
 
 UIKIT_EXTERN UIColor * UIColorFromRGBA(CGFloat r,CGFloat g,CGFloat b,CGFloat a);
 UIKIT_EXTERN UIColor * UIColorFromRGB(CGFloat r,CGFloat g,CGFloat b);

@@ -44,12 +44,12 @@
 }
 
 +(NSString *)app_Name{
-    NSDictionary *infoDict = [NSBundle.mainBundle infoDictionary];
+    NSDictionary *infoDict = NSBundle.mainBundle.infoDictionary;
     return  infoDict[@"CFBundleDisplayName"] ? : infoDict[@"CFBundleName"];
 }
 
 +(UIImage *)app_Icon{
-    NSDictionary *infoDict = [NSBundle.mainBundle infoDictionary];
+    NSDictionary *infoDict = NSBundle.mainBundle.infoDictionary;
     
     NSString *icon = [[infoDict valueForKeyPath:@"CFBundleIcons.CFBundlePrimaryIcon.CFBundleIconFiles"] lastObject];
     UIImage * image = [UIImage imageNamed:icon];
@@ -58,46 +58,49 @@
 }
 
 +(NSString *)app_Version{
-    NSDictionary *infoDict = [NSBundle.mainBundle infoDictionary];
+    NSDictionary *infoDict = NSBundle.mainBundle.infoDictionary;
     return  infoDict[@"CFBundleShortVersionString"];
 }
 
 +(NSString *)app_build{
-    NSDictionary *infoDict = [NSBundle.mainBundle infoDictionary];
+    NSDictionary *infoDict = NSBundle.mainBundle.infoDictionary;
     return  infoDict[@"CFBundleVersion"];
 }
 
 +(NSString *)phone_SystemVersion{
-    return  [UIDevice.currentDevice systemVersion];
+    return UIDevice.currentDevice.systemVersion;
     
 }
 
 +(NSString *)phone_SystemName{
-    return  [UIDevice.currentDevice systemName];
+    return UIDevice.currentDevice.systemName;
     
 }
 
 +(NSString *)phone_Name{
     if (UIDevice.currentDevice) {
-        UIDevice * device = UIDevice.currentDevice;
-        return device.name;
+        return UIDevice.currentDevice.name;
     }
     return @"";
 }
 
 +(NSString *)phone_Model{
-    return  [UIDevice.currentDevice model];
+    return UIDevice.currentDevice.model;
     
 }
 
 +(NSString *)phone_localizedModel{
-    return  [UIDevice.currentDevice localizedModel];
+    return UIDevice.currentDevice.localizedModel;
     
 }
 
-+ (void)setupRootController:(id)controller{
-    if ([controller isKindOfClass:[NSString class]]) controller = [NSClassFromString(controller) new];
++ (void)setupRootController:(id)controller isAdjust:(BOOL)isAdjust{
+    if (isAdjust == NO) {
+        UIApplication.rootController = controller;
+        return;
+    }
     
+    if ([controller isKindOfClass:[NSString class]]) controller = [[NSClassFromString(controller) alloc] init];
     if ([controller isKindOfClass:[UINavigationController class]] || [controller isKindOfClass:[UITabBarController class]]) {
         UIApplication.rootController = controller;
         
@@ -107,6 +110,11 @@
         UIApplication.rootController = navController;
         
     }
+}
+
++ (void)setupRootController:(id)controller{
+    [UIApplication setupRootController:controller isAdjust:YES];
+    
 }
 
 //+ (void)setupRootController:(id)controller{
@@ -140,14 +148,12 @@
 }
 
 + (void)setupNavigationbar{
-    
-    UINavigationBar * navigationBar = UINavigationBar.appearance;
-    [navigationBar setBarTintColor:UIColor.themeColor];
-    [navigationBar setTintColor:UIColor.whiteColor];
-    [navigationBar setTitleTextAttributes:@{
-                                            NSForegroundColorAttributeName  :   UIColor.whiteColor,
+    [UINavigationBar.appearance setBarTintColor:UIColor.themeColor];
+    [UINavigationBar.appearance setTintColor:UIColor.whiteColor];
+    [UINavigationBar.appearance setTitleTextAttributes:@{
+                                                         NSForegroundColorAttributeName  :   UIColor.whiteColor,
                                             
-                                            }];
+                                                         }];
 
     //    [bar setBackgroundImage:[UIImage imageNamed:@"navigationbarBackgroundWhite"] forBarMetrics:UIBarMetricsDefault];
     //    [navigationBar setTitleTextAttributes:@{NSFontAttributeName : [UIFont boldSystemFontOfSize:20]}];
