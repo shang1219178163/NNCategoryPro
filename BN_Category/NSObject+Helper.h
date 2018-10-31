@@ -19,6 +19,7 @@ UIKIT_EXTERN NSString * NSStringFromLet(id obj);
 UIKIT_EXTERN NSString * NSStringFromInt(NSInteger obj);
 UIKIT_EXTERN NSString * NSStringFromFloat(CGFloat obj);
 
+UIKIT_EXTERN NSString * UIViewControllerFromString(NSString *obj);
 UIKIT_EXTERN UIImage * UIImageFromColor(UIColor * color);
 
 UIKIT_EXTERN UIColor * UIColorFromRGBA(CGFloat r,CGFloat g,CGFloat b,CGFloat a);

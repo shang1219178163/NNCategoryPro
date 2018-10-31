@@ -30,6 +30,10 @@ NSString * NSStringFromFloat(CGFloat obj){
     return [@(obj) stringValue];
 }
 
+NSString * UIViewControllerFromString(NSString *obj){
+    return [[NSClassFromString(obj) alloc]init];
+}
+ 
 UIImage * UIImageFromColor(UIColor * color){
     return [UIImage imageWithColor:color];
 }
