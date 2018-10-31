@@ -12,7 +12,7 @@
 
 + (NSNumberFormatter *)numberIdentify:(NSString *)identify{
     // 版本2 ，使用当前线程字典来保存对象
-    NSMutableDictionary *threadDic = [[NSThread currentThread] threadDictionary];
+    NSMutableDictionary *threadDic = NSThread.currentThread.threadDictionary;
     NSNumberFormatter *formatter = [threadDic objectForKey:identify];
     if (!formatter) {
         formatter = [[NSNumberFormatter alloc]init];

@@ -13,7 +13,7 @@
 
 + (NSDateFormatter *)dateFormat:(NSString *)formatStr{
     // 版本2 ，使用当前线程字典来保存对象
-    NSMutableDictionary *threadDic = [[NSThread currentThread] threadDictionary];
+    NSMutableDictionary *threadDic = NSThread.currentThread.threadDictionary;
     NSDateFormatter *formatter = [threadDic objectForKey:formatStr];
     if (!formatter) {
         formatter = [[NSDateFormatter alloc]init];
