@@ -66,6 +66,7 @@ UITabBarController * UITarBarCtrFromList(NSArray *list){
             UIViewController * controller = UIViewCtrFromString(itemList.firstObject);
             controller.tabBarItem = [[UITabBarItem alloc]initWithTitle:title image:[UIImage imageNamed:img_N] selectedImage:[UIImage imageNamed:img_H]];
             controller.tabBarItem.badgeValue = badgeValue;
+            controller.hidesBottomBarWhenPushed = YES;
             
             UINavigationController *navController = UINaviCtrFromObj(controller);
             [marr addObject:navController];
