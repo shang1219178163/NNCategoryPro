@@ -132,12 +132,12 @@ BOOL iOSVersion(CGFloat version){
 
 }
 
-CGFloat BN_RadianFromDegrees(CGFloat x){
+CGFloat CGRadianFromDegrees(CGFloat x){
     return (M_PI * (x) / 180.0);
     
 }
 
-CGFloat BN_DegreesFromRadian(CGFloat x){
+CGFloat CGDegreesFromRadian(CGFloat x){
     return (x * 180.0)/(M_PI);
     
 }
@@ -270,48 +270,41 @@ CGFloat roundFloat(CGFloat value,NSInteger num){
 
 #pragma mark - -dispatchAsyncMain
 
-void BN_dispatchAsyncMain(void(^block)(void)){
+void dispatchAsyncMain(void(^block)(void)){
 //    dispatch_async(dispatch_get_main_queue(), block);
     if ([NSThread isMainThread]) {
         block();
-    }else{
+    }
+    else{
         dispatch_async(dispatch_get_main_queue(), block);
-        
     }
 }
 
-void BN_dispatchAsyncGlobal(void(^block)(void)){
+void dispatchAsyncGlobal(void(^block)(void)){
     //    dispatch_async(dispatch_get_global_queue(0, 0), block);
     if (![NSThread isMainThread]) {
         block();
-    }else{
+    }
+    else{
         dispatch_async(dispatch_get_global_queue(0, 0), block);
-        
     }
 }
 
-void BN_dispatchAfterDelay(double delay ,void(^block)(void)){
+void dispatchAfterMain(double delay ,void(^block)(void)){
+    dispatch_after(dispatch_time(DISPATCH_TIME_NOW, (int64_t)(delay * NSEC_PER_SEC)), dispatch_get_main_queue(), block);
     
-    double delayInSeconds = delay;
-    dispatch_time_t when = dispatch_time(DISPATCH_TIME_NOW, (int64_t)(delayInSeconds * NSEC_PER_SEC));
-    dispatch_after(when, dispatch_get_main_queue(), ^{
-        block();
-    });
 }
 
-void BN_dispatchApply(id obj ,void(^block)(dispatch_queue_t queue, size_t index)){
-    
-    NSCAssert([obj isKindOfClass:[NSArray class]] || [obj isKindOfClass:[NSDictionary class]] , @"必须是集合");
-    
-    //1.创建NSArray类对象
-    //2.创建一个全局队列
-    dispatch_queue_t queue = dispatch_get_global_queue(0, 0);
-     //3.通过dispatch_apply函数对NSArray中的全部元素进行处理,并等待处理完成,
-    dispatch_apply([obj count], queue, ^(size_t index) {
-//        NSLog(@"%zu: %@", index, obj[index]);
-        block(queue,index);
-    });
-    NSLog(@"done");
+void dispatchApplyGlobal(id obj ,void(^block)(size_t index)){
+    NSCAssert([obj isKindOfClass:[NSArray class]] || [obj isKindOfClass:[NSDictionary class]] || [obj isKindOfClass:[NSNumber class]] || [obj isKindOfClass:[NSSet class]], @"必须是集合或者NSNumber");
+    if ([obj isKindOfClass:[NSNumber class]]) {
+        dispatch_apply([obj unsignedIntegerValue], dispatch_get_global_queue(0, 0), block);
+
+    }
+    else{
+        dispatch_apply([obj count], dispatch_get_global_queue(0, 0), block);
+
+    }
 }
 
 #pragma mark - -validObject
