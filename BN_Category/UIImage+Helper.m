@@ -14,6 +14,38 @@
 
 @implementation UIImage (Helper)
 
+- (NSString *)contentType{
+    NSData * imgData = UIImageJPEGRepresentation(self, 1.0f);
+    return [UIImage contentTypeForImageData:imgData];
+}
+
+//通过图片Data数据第一个字节 来获取图片扩展名
++ (NSString *)contentTypeForImageData:(NSData *)data{
+    uint8_t c;
+    [data getBytes:&c length:1];
+    switch (c) {
+        case 0xFF:
+            return @"jpeg";
+        case 0x89:
+            return @"png";
+        case 0x47:
+            return @"gif";
+        case 0x49:
+        case 0x4D:
+            return @"tiff";
+        case 0x52:
+            if ([data length] < 12) {
+                return nil;
+            }
+            NSString *testString = [[NSString alloc] initWithData:[data subdataWithRange:NSMakeRange(0, 12)] encoding:NSASCIIStringEncoding];
+            if ([testString hasPrefix:@"RIFF"] && [testString hasSuffix:@"WEBP"]) {
+                return @"webp";
+            }
+            return nil;
+    }
+    return nil;
+}
+
 + (UIImage *)imageWithColor:(UIColor *)color{
     CGRect rect = CGRectMake(0.0f, 0.0f, 1.0f, 1.0f);
     UIGraphicsBeginImageContextWithOptions(rect.size, NO, 0);
@@ -38,17 +70,16 @@
     return fullScreenshot;
 }
 
-
 - (UIImage *)croppedImage:(CGRect)cropRect{
     CGImageRef croppedCGImage = CGImageCreateWithImageInRect(self.CGImage ,cropRect);
     UIImage *croppedImage = [UIImage imageWithCGImage:croppedCGImage scale:1 orientation:self.imageOrientation];
     CGImageRelease(croppedCGImage);
-    
     return croppedImage;
 }
 
-+ (UIImage *)imageRotatedByDegrees:(CGFloat)degrees image:(UIImage *)image{
-    
+- (UIImage *)imageRotatedByDegrees:(CGFloat)degrees{
+    UIImage *image = self;
+
     CGFloat width = CGImageGetWidth(image.CGImage);
     CGFloat height = CGImageGetHeight(image.CGImage);
     
@@ -174,8 +205,8 @@
     return newImage;
 }
 
-+(UIImage *)coreBlurImage:(UIImage *)image
-           withBlurNumber:(CGFloat)blur {
+-(UIImage *)coreBlurNumber:(CGFloat)blur {
+    UIImage *image = self;
     //博客园-FlyElephant
     CIContext *context = [CIContext contextWithOptions:nil];
     CIImage  *inputImage=[CIImage imageWithCGImage:image.CGImage];
@@ -191,7 +222,8 @@
     return blurImage;
 }
 
-+(UIImage *)boxblurImage:(UIImage *)image withBlurNumber:(CGFloat)blur {
+-(UIImage *)boxBlurNumber:(CGFloat)blur {
+    UIImage *image = self;
     if (blur < 0.f || blur > 1.f) {
         blur = 0.5f;
     }
@@ -256,13 +288,23 @@
     return returnImage;
 }
 
-- (BOOL)isEquelImgName:(NSString *)imageName{
-    NSData *imgData = UIImageJPEGRepresentation(self, 0.1);
-    NSData *imgDataNew = UIImageJPEGRepresentation([UIImage imageNamed:imageName], 0.1);
-    if ([imgData isEqualToData:imgDataNew]) {
-        return YES;
+- (BOOL)isEquelImage:(id)image{
+    NSParameterAssert([image isKindOfClass:[NSString class]] || [image isKindOfClass:[UIImage class]] || [image isKindOfClass:[NSData class]]);
+    
+    NSData *imgData = UIImageJPEGRepresentation(self, 1.0);
+    NSData *imgDataNew = nil;
+    if ([image isKindOfClass:[NSString class]]) {
+        imgDataNew = UIImageJPEGRepresentation([UIImage imageNamed:image], 1.0);
+       
     }
-    return NO;
+    else if ([image isKindOfClass:[UIImage class]]) {
+        imgDataNew = UIImageJPEGRepresentation(image, 1.0);
+       
+    }
+    else{
+        imgDataNew = image;
+    }
+    return [imgData isEqualToData:imgDataNew];
     
 }
 
@@ -376,53 +418,11 @@
 
 #pragma mark - - 压缩
 
-//待试用
-- (UIImage *)getThumbnailFromImage:(UIImage *)image size:(CGSize)size{
-    
-    CGSize originImageSize = image.size;
-    CGSize newSize = CGSizeMake(40,40);
-    if (!CGSizeEqualToSize(size, CGSizeZero)) {
-        newSize.width = size.width;
-        newSize.height = size.height;
-    }
-    
-    //根据当前屏幕scaling factor创建一个透明的位图图形上下文(此处不能直接从UIGraphicsGetCurrentContext获取,原因是UIGraphicsGetCurrentContext获取的是上下文栈的顶,在drawRect:方法里栈顶才有数据,其他地方只能获取一个nil.详情看文档)
-    UIGraphicsBeginImageContextWithOptions(newSize,NO,0.0);
-    //保持宽高比例,确定缩放倍数
-    //(原图的宽高做分母,导致大的结果比例更小,做MAX后,ratio*原图长宽得到的值最小是40,最大则比40大,这样的好处是可以让原图在画进40*40的缩略矩形画布时,origin可以取=(缩略矩形长宽减原图长宽*ratio)/2 ,这样可以得到一个可能包含负数的origin,结合缩放的原图长宽size之后,最终原图缩小后的缩略图中央刚好可以对准缩略矩形画布中央)
-    float ratio = MAX(newSize.width/ originImageSize.width, newSize.height/ originImageSize.height);
-    
-    //创建一个圆角的矩形UIBezierPath对象
-    CGRect newRect = CGRectMake(0,0, newSize.width, newSize.height);
-    UIBezierPath * path = [UIBezierPath bezierPathWithRoundedRect:newRect cornerRadius:5.0];
-    //用Bezier对象裁剪上下文
-    [path addClip];
-    
-    //让image在缩略图范围内居中()
-    CGRect projectRect;
-    projectRect.size.width = originImageSize.width* ratio;
-    projectRect.size.height= originImageSize.height* ratio;
-    projectRect.origin.x = (newSize.width - projectRect.size.width) /2.0;
-    projectRect.origin.y = (newSize.height - projectRect.size.height) /2.0;
-    
-    //在上下文中画图
-    [image drawInRect:projectRect];
-    //从图形上下文获取到UIImage对象,赋值给thumbnai属性
-    UIImage * smallImg = UIGraphicsGetImageFromCurrentImageContext();
-    //清理图形上下文(用了UIGraphicsBeginImageContext需要清理)
-    UIGraphicsEndImageContext();
-    
-    return smallImg;
-}
-
 //1.自动缩放到指定大小
-+ (UIImage *)thumbnailWithImage:(UIImage *)image size:(CGSize)asize{
-    UIImage *newimage;
-    if (image == nil) {
-        newimage = nil;
-        
-    }
-    else{
+- (UIImage *)thumbnailToFileSize:(CGSize)asize{
+    UIImage *image = (UIImage *)self;
+    UIImage *newimage = nil;
+    if (image != nil) {
         UIGraphicsBeginImageContext(asize);
         [image drawInRect:CGRectMake(0, 0, asize.width, asize.height)];
         newimage = UIGraphicsGetImageFromCurrentImageContext();
@@ -433,19 +433,14 @@
 }
 
 //2.保持原来的长宽比，生成一个缩略图
-+ (UIImage *)thumbnailWithImageWithoutScale:(UIImage *)image size:(CGSize)asize
-{
-    UIImage *newimage;
+- (UIImage *)thumbnailWithoutScaleToFileSize:(CGSize)asize{
+    UIImage *image = (UIImage *)self;
+    UIImage *newimage = nil;
     
-    if (image == nil) {
-        newimage = nil;
-        
-    }
-    else{
+    if (image != nil) {
         CGSize oldsize = image.size;
         CGRect rect;
         if (asize.width/asize.height > oldsize.width/oldsize.height) {
-            
             rect.size.width = asize.height * oldsize.width/oldsize.height;
             rect.size.height = asize.height;
             rect.origin.x = (asize.width - rect.size.width)/2;
@@ -473,7 +468,9 @@
 }
 
 #pragma mark 调整图片分辨率/尺寸（等比例缩放）
-- (UIImage *)newSizeImage:(CGSize)size image:(UIImage *)source_image {
+- (UIImage *)newSizeImage:(CGSize)size{
+    UIImage *source_image = (UIImage *)self;
+    
     CGSize newSize = CGSizeMake(source_image.size.width, source_image.size.height);
     
     CGFloat tempHeight = newSize.height / size.height;
@@ -526,94 +523,59 @@
     return tempData;
 }
 
-+ (UIImage *)compressImage:(UIImage *)image maxFileSize:(NSInteger)maxFileSize {
+- (NSData *)compressToFileSize:(NSInteger)fileSize{
+    UIImage *image = (UIImage *)self;
     CGFloat compression = 1.0f;
     CGFloat maxCompression = 0.1f;
     NSData *imageData = UIImageJPEGRepresentation(image, compression);
-    while ([imageData length] > maxFileSize && compression > maxCompression) {
+    while (imageData.length > fileSize && compression > maxCompression) {
         compression -= 0.1;
         imageData = UIImageJPEGRepresentation(image, compression);
     }
-//    DDLog(@"压缩后图片大小:%luK",[imageData length]/1024);
-    
-    UIImage *compresseImage = [UIImage imageWithData:imageData];
-    return compresseImage;
-}
-
-+ (NSData *)compressImageDataFromImage:(UIImage *)image maxFileSize:(NSInteger)maxFileSize {
-    CGFloat compression = 1.0f;
-    CGFloat maxCompression = 0.1f;
-    NSData *imageData = UIImageJPEGRepresentation(image, compression);
-    while ([imageData length] > maxFileSize && compression > maxCompression) {
-        compression -= 0.1;
-        imageData = UIImageJPEGRepresentation(image, compression);
-    }
-    //    DDLog(@"压缩后图片大小:%luK",[imageData length]/1024);
+    //    DDLog(@"压缩后图片大小:%luK",imageData.length/1024);
     return imageData;
 }
 
-
-+ (UIImage *)compressImageWithImage:(UIImage *)image toFileSize:(CGFloat)fileSize{
-    NSData * orginImageData = UIImageJPEGRepresentation(image, 1.0f);
-    CGFloat orignImageDataSize = [orginImageData length]/1024;
-    CGFloat yasuolv = fileSize/orignImageDataSize;//压缩到fileSize
-    
-    
-    if (yasuolv<0.1) {
-        yasuolv = 0.1;
+- (id)compressToFileSize:(NSInteger)fileSize type:(NSNumber *)type{
+    id obj = [self compressToFileSize:fileSize];
+    switch (type.integerValue) {
+        case 1:
+        {
+            //图片UIImage
+            obj = [UIImage imageWithData:obj];;
+        }
+            break;
+        case 2:
+        {
+            //图片二进制数据的base64编码
+            obj = [obj base64EncodedStringWithOptions:0];
+        }
+            break;
+        default:
+            break;
     }
-    NSString * yasuolvString = [NSString stringWithFormat:@"%0.1f",yasuolv];
-    
-    NSData * yasuoImageData = UIImageJPEGRepresentation(image, [yasuolvString floatValue]);
-    UIImage *compressImage = [UIImage imageWithData:yasuoImageData];
-    
-    //大小
-    NSData * oneImageData = UIImageJPEGRepresentation(compressImage, 0.1f);
-//    DDLog(@"压缩后图片大小:%luK",[oneImageData length]/1024);
-    return compressImage;
+    return obj;
 }
 
-+ (NSString *)stringBase64FromImage:(UIImage *)image maxFileSize:(NSInteger)maxFileSize {
-    CGFloat compression = 1.0f;
-    CGFloat maxCompression = 0.1f;
-    NSData *imageData = UIImageJPEGRepresentation(image, compression);
-    while ([imageData length] > maxFileSize && compression > maxCompression) {
-        compression -= 0.1;
-        imageData = UIImageJPEGRepresentation(image, compression);
-    }
-    DDLog(@"压缩后图片大小:%luK",[imageData length]/1024);
-    NSString *encodedImageStr = [imageData base64EncodedStringWithOptions:0];
-    return encodedImageStr;
-}
+//- (UIImage *)compressToSize:(CGFloat)fileSize{
+//    UIImage *image = (UIImage *)self;
+//    NSData * orginImageData = UIImageJPEGRepresentation(image, 1.0f);
+//    CGFloat orignImageDataSize = orginImageData.length/1024;
+//    CGFloat yasuolv = fileSize/orignImageDataSize;//压缩到fileSize
+//    if (yasuolv < 0.1) yasuolv = 0.1;
+//    NSData * yasuoImageData = UIImageJPEGRepresentation(image, yasuolv);
+//    UIImage *compressImage = [UIImage imageWithData:yasuoImageData];
+//
+//    //大小
+//    NSData * oneImageData = UIImageJPEGRepresentation(compressImage, 0.1f);
+//    DDLog(@"压缩后图片大小:%luK %luK",yasuoImageData.length/1024,oneImageData.length/1024);
+//    return compressImage;
+//}
 
-//通过图片Data数据第一个字节 来获取图片扩展名
-+ (NSString *)contentTypeForImageData:(NSData *)data{
-    uint8_t c;
-    [data getBytes:&c length:1];
-    switch (c) {
-        case 0xFF:
-            return @"jpeg";
-        case 0x89:
-            return @"png";
-        case 0x47:
-            return @"gif";
-        case 0x49:
-        case 0x4D:
-            return @"tiff";
-        case 0x52:
-            if ([data length] < 12) {
-                return nil;
-            }
-            NSString *testString = [[NSString alloc] initWithData:[data subdataWithRange:NSMakeRange(0, 12)] encoding:NSASCIIStringEncoding];
-            if ([testString hasPrefix:@"RIFF"] && [testString hasSuffix:@"WEBP"]) {
-                return @"webp";
-            }
-            return nil;
-    }
-    return nil;
-}
 
-+ (UIImage *)compressImage:(UIImage *)image toByte:(NSUInteger)maxLength {
+- (UIImage *)compressImageToByte:(NSUInteger)maxLength {
+    UIImage *image = (UIImage *)self;
+
     // Compress by quality
     CGFloat compression = 1;
     NSData *data = UIImageJPEGRepresentation(image, compression);
@@ -654,75 +616,26 @@
     return resultImage;
 }
 
-
-+ (id)compressImage:(UIImage *)image toByte:(NSUInteger)maxLength type:(NSNumber *)type{
-    // Compress by quality
-    CGFloat compression = 1;
-    NSData *data = UIImageJPEGRepresentation(image, compression);
-    if (data.length < maxLength) return image;
-    
-    CGFloat max = 1;
-    CGFloat min = 0;
-    for (NSInteger i = 0; i < 6; ++i) {
-        compression = (max + min) / 2;
-        data = UIImageJPEGRepresentation(image, compression);
-        if (data.length < maxLength * 0.9) {
-            min = compression;
-        }
-        else if (data.length > maxLength) {
-            max = compression;
-        }
-        else {
-            break;
-        }
-    }
-    UIImage *resultImage = [UIImage imageWithData:data];
-    if (data.length < maxLength) return resultImage;
-    
-    // Compress by size
-    NSUInteger lastDataLength = 0;
-    while (data.length > maxLength && data.length != lastDataLength) {
-        lastDataLength = data.length;
-        CGFloat ratio = (CGFloat)maxLength / data.length;
-        CGSize size = CGSizeMake((NSUInteger)(resultImage.size.width * sqrtf(ratio)),
-                                 (NSUInteger)(resultImage.size.height * sqrtf(ratio))); // Use NSUInteger to prevent white blank
-        UIGraphicsBeginImageContext(size);
-        [resultImage drawInRect:CGRectMake(0, 0, size.width, size.height)];
-        resultImage = UIGraphicsGetImageFromCurrentImageContext();
-        UIGraphicsEndImageContext();
-        data = UIImageJPEGRepresentation(resultImage, compression);
-        DDLog(@"data.length__:%luK",data.length);
-        
-    }
-    
-    //
-    NSData *imageData ;
-    if (!UIImagePNGRepresentation(resultImage)) {
-        imageData = UIImageJPEGRepresentation(resultImage, 1.0);
-    }
-    else{
-        imageData = UIImagePNGRepresentation(resultImage);
-    }
-    DDLog(@"压缩后图片大小____:%luK",[imageData length]/1024);
-    
-    id imageNew = resultImage;
+- (id)compressToByte:(NSUInteger)maxLength type:(NSNumber *)type{
+   
+    UIImage *image = [self compressImageToByte:maxLength];
+    id obj = UIImageJPEGRepresentation(image, 1.0);
     switch (type.integerValue) {
         case 1:
         {
-            imageNew = imageData;
+            obj = [UIImage imageWithData:obj];;
+
         }
             break;
         case 2:
         {
-            imageNew = [imageData base64EncodedStringWithOptions:0];
-            
+            obj = [obj base64EncodedStringWithOptions:0];
         }
             break;
         default:
-            imageNew = resultImage;
             break;
     }
-    return imageNew;
+    return obj;
 }
 
 
