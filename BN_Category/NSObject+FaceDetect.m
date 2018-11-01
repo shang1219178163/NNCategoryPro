@@ -10,7 +10,7 @@
 
 @implementation NSObject (FaceDetect)
 
-- (NSArray *)facedetectImage:(UIImage *)image {
+- (NSArray *)faceDetectImage:(UIImage *)image {
     
     NSDictionary *imageOptions = @{
                                    CIDetectorImageOrientation : @(5),

@@ -48,7 +48,6 @@
 /**
  *  vImage模糊图片(推荐)
  *
- *  @param image 原始图片
  *  @param blur  模糊数值(0-1)
  *
  *  @return 重新绘制的新图片

@@ -21,7 +21,7 @@ typedef void(^BlockAlertController)(UIAlertController * _Nonnull alertController
 
 @interface UIViewController (Helper)
 
--(BOOL)isCurrentVisibleViewController;
+- (BOOL)isCurrentVisibleViewController;
 
 - (void)addFailRefreshViewWithTitle:(NSString *_Nonnull)title;
 

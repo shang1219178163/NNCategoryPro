@@ -14,7 +14,6 @@
 #import "NSNumber+Helper.h"
 #import <MJExtension/MJExtension.h>
 
-
 @implementation NSObject (ModelHelper)
 
 -(void)setValidValueFromModel:(id)model{
@@ -38,9 +37,6 @@
         }];
     }
 }
-
-
-
 
 #pragma make - -runtime
 ///通过运行时获取当前对象的所有属性的名称，以数组的形式返回

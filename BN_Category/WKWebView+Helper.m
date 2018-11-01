@@ -1,16 +1,15 @@
 //
-//  NSObject+WebView.m
-//  HuiZhuBang
+//  WKWebView+Helper.m
+//  BN_Category
 //
-//  Created by BIN on 2018/1/2.
-//  Copyright © 2018年 WeiHouKeJi. All rights reserved.
+//  Created by hsf on 2018/11/1.
 //
 
-#import "NSObject+WebView.h"
+#import "WKWebView+Helper.h"
 
-@implementation NSObject (WebView)
+@implementation WKWebView (Helper)
 
-- (NSString *)changWebViewTextFontRatio:(CGFloat)fontRatio{
+- (NSString *)changTextFontRatio:(CGFloat)fontRatio{
     
     NSString * textSize = [NSString stringWithFormat:@"%@%@",@(fontRatio),@"%"];;
     NSString * str = [NSString stringWithFormat:@"document.getElementsByTagName('body')[0].style.webkitTextSizeAdjust= '%@'",textSize];
@@ -18,4 +17,3 @@
 }
 
 @end
-

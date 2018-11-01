@@ -11,7 +11,7 @@
 
 @interface NSObject (FaceDetect)
 
-- (NSArray *)facedetectImage:(UIImage *)image;
+- (NSArray *)faceDetectImage:(UIImage *)image;
 
 
 @end

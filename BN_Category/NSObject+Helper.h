@@ -42,7 +42,7 @@ UIKIT_EXTERN CGFloat CGDegreesFromRadian(CGFloat x);//弧度转换角度
 UIKIT_EXTERN CGFloat roundFloat(CGFloat value,NSInteger num);
 
 
-@interface NSObject (Helper)
+@interface NSObject (Helper)<NSCoding>
 
 void dispatchAsyncMain(void(^block)(void));
 void dispatchAsyncGlobal(void(^block)(void));

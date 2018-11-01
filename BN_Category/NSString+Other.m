@@ -11,7 +11,7 @@
 #import <CommonCrypto/CommonCrypto.h>
 #import "GTMBase64.h"
 
-#import "NSData+Other.h"
+#import "NSData+Helper.h"
 
 static char base64EncodingTable[64] = {
     'A', 'B', 'C', 'D', 'E', 'F', 'G', 'H', 'I', 'J', 'K', 'L', 'M', 'N', 'O', 'P',
