@@ -16,14 +16,26 @@
 
 @implementation UIViewController (swizzling)
 
-+ (void)load {
-    static dispatch_once_t onceToken;
-    dispatch_once(&onceToken, ^{
-        if (isOpen) {
-            [self swizzleMethodClass:self.class origSel:@selector(viewDidLoad) newSel:@selector(swizzlingViewDidLoad)];
+//+ (void)load {
+//    static dispatch_once_t onceToken;
+//    dispatch_once(&onceToken, ^{
+//        if (isOpen) {
+//            [self swizzleMethodClass:self.class origSel:@selector(viewDidLoad) newSel:@selector(swizzlingViewDidLoad)];
+//
+//        }
+//    });
+//}
 
-        }
-    });
++ (void)initialize{
+    if (self == self.class) {
+        static dispatch_once_t onceToken;
+        dispatch_once(&onceToken, ^{
+            if (isOpen) {
+                [self swizzleMethodClass:self.class origSel:@selector(viewDidLoad) newSel:@selector(swizzlingViewDidLoad)];
+                
+            }
+        });
+    }
 }
 
 // 我们自己实现的方法，也就是和self的viewDidLoad方法进行交换的方法。
@@ -42,7 +54,7 @@
 -(void)eventGather{
     // 我们在这里加一个判断，将系统的UIViewController的对象剔除掉
     if(![NSStringFromClass(self.class) containsString:@"UI"]){
-        NSLog(@"统计打点 : %@", self.class);
+//        NSLog(@"统计打点 : %@", self.class);
         
     }
 }

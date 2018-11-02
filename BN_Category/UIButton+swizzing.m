@@ -15,14 +15,26 @@
 
 @implementation UIButton (swizzing)
 
-+ (void)load {
-    static dispatch_once_t onceToken;
-    dispatch_once(&onceToken, ^{
-        if (isOpen) {
-            [self swizzleMethodClass:self.class origSel:@selector(sendAction:to:forEvent:) newSel:@selector(swz_sendAction:to:forEvent:)];
-            
-        }
-    });
+//+ (void)load {
+//    static dispatch_once_t onceToken;
+//    dispatch_once(&onceToken, ^{
+//        if (isOpen) {
+//            [self swizzleMethodClass:self.class origSel:@selector(sendAction:to:forEvent:) newSel:@selector(swz_sendAction:to:forEvent:)];
+//            
+//        }
+//    });
+//}
+
++ (void)initialize{
+    if (self == self.class) {
+        static dispatch_once_t onceToken;
+        dispatch_once(&onceToken, ^{
+            if (isOpen) {
+                [self swizzleMethodClass:self.class origSel:@selector(sendAction:to:forEvent:) newSel:@selector(swz_sendAction:to:forEvent:)];
+                
+            }
+        });
+    }
 }
 
 -(void)swz_sendAction:(SEL)action to:(id)target forEvent:(UIEvent *)event{
