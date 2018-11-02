@@ -16,7 +16,7 @@
 @dynamic label,labelSub,imgView,height,width;
 
 + (instancetype)viewWithCollectionView:(UICollectionView *)collectionView indexPath:(NSIndexPath *)indexPath{
-    NSString * identifier = NSStringFromClass([self class]);
+    NSString * identifier = NSStringFromClass(self.class);
     UICollectionViewCell *view = [collectionView dequeueReusableCellWithReuseIdentifier:identifier forIndexPath:indexPath];
     
     return view;

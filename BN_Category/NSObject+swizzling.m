@@ -11,52 +11,24 @@
 
 @implementation NSObject (swizzling)
 
-+(BOOL)swizzleMethodClass:(Class)clz origMethod:(SEL)origSelector newMethod:(SEL)newSelector{
-    
++(BOOL)swizzleMethodClass:(Class)clz origSel:(SEL)origSelector newSel:(SEL)newSelector{
+    //1. 通过class_getInstanceMethod()函数从当前对象中的method list获取method结构体，如果是类方法就使用class_getClassMethod()函数获取。
     Method original = class_getInstanceMethod(clz, origSelector);
     Method replace = class_getInstanceMethod(clz, newSelector);
-    
-    if(original && replace) {//必须两个Method都要拿到
-        if (class_addMethod(clz, origSelector, method_getImplementation(replace), method_getTypeEncoding(replace))) {
-            class_replaceMethod(clz, newSelector, method_getImplementation(original),  method_getTypeEncoding(original));
-        }
-        else {
-            method_exchangeImplementations(original, replace);
-        }
+
+    //2.若UIViewController类没有该方法,那么它会去UIViewController的父类去寻找,为了避免不必要的麻烦,我们先进行一次添加
+    BOOL AddMethod = class_addMethod(clz, origSelector, method_getImplementation(replace),method_getTypeEncoding(replace));
+    //3: 如果原来类没有这个方法,可以成功添加,如果原来类里面有这个方法,那么将会添加失败
+    if (AddMethod) {
+        class_replaceMethod(clz, newSelector, method_getImplementation(original), method_getTypeEncoding(original));
+
+    }
+    else{
+        method_exchangeImplementations(original, replace);
         return YES;
+
     }
     return NO;
-}
-
-
-// MARK: Util
-+ (void)swizzleClassMethodWithOriginSel:(SEL)oriSel swizzledSel:(SEL)swiSel {
-    Class cls = object_getClass(self);
-    
-    Method originAddObserverMethod = class_getClassMethod(cls, oriSel);
-    Method swizzledAddObserverMethod = class_getClassMethod(cls, swiSel);
-    
-    [self swizzleMethodWithOriginSel:oriSel oriMethod:originAddObserverMethod swizzledSel:swiSel swizzledMethod:swizzledAddObserverMethod class:cls];
-}
-
-+ (void)swizzleInstanceMethodWithOriginSel:(SEL)oriSel swizzledSel:(SEL)swiSel {
-    Method originAddObserverMethod = class_getInstanceMethod(self, oriSel);
-    Method swizzledAddObserverMethod = class_getInstanceMethod(self, swiSel);
-    
-    [self swizzleMethodWithOriginSel:oriSel oriMethod:originAddObserverMethod swizzledSel:swiSel swizzledMethod:swizzledAddObserverMethod class:self];
-}
-
-+ (void)swizzleMethodWithOriginSel:(SEL)oriSel
-                         oriMethod:(Method)oriMethod
-                       swizzledSel:(SEL)swizzledSel
-                    swizzledMethod:(Method)swizzledMethod
-                             class:(Class)cls {
-    
-    if (class_addMethod(cls, oriSel, method_getImplementation(swizzledMethod), method_getTypeEncoding(swizzledMethod))) {
-        class_replaceMethod(cls, swizzledSel, method_getImplementation(oriMethod), method_getTypeEncoding(oriMethod));
-    } else {
-        method_exchangeImplementations(oriMethod, swizzledMethod);
-    }
 }
 
 - (BOOL)isMethodOverride:(Class)cls selector:(SEL)sel {

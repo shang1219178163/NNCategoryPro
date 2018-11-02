@@ -33,7 +33,7 @@
 }
 
 +(instancetype)viewWithTableView:(UITableView *)tableView{
-    NSString *identifier = NSStringFromClass([self class]);
+    NSString *identifier = NSStringFromClass(self.class);
     return [self viewWithTableView:tableView identifier:identifier];
 }
 

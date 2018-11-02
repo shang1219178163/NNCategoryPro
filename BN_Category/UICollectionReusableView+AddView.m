@@ -18,7 +18,7 @@
 @dynamic label,labelSub,imgView;
 
 + (instancetype)viewWithCollectionView:(UICollectionView *)collectionView indexPath:(NSIndexPath *)indexPath kind:(NSString *)kind{
-    NSString * identifier = [UICollectionView viewIdentifierByClassName:NSStringFromClass([self class]) kind:kind];
+    NSString * identifier = [UICollectionView viewIdentifierByClassName:NSStringFromClass(self.class) kind:kind];
     UICollectionReusableView *view = [collectionView dequeueReusableSupplementaryViewOfKind:kind withReuseIdentifier:identifier forIndexPath:indexPath];
     
     NSString * titleHeader = [NSString stringWithFormat:@"HeaderView_%@",@(indexPath.section)];
@@ -31,7 +31,7 @@
 
 //+ (instancetype)viewWithCollectionView:(UICollectionView *)collectionView indexPath:(NSIndexPath *)indexPath kind:(NSString *)kind{
 //
-//    NSString * identifier = [UICollectionView viewIdentifierByClassName:NSStringFromClass([self class]) kind:kind];
+//    NSString * identifier = [UICollectionView viewIdentifierByClassName:NSStringFromClass(self.class) kind:kind];
 //    UICollectionReusableView *view = nil;
 //    if ([kind isEqualToString:UICollectionElementKindSectionHeader]) {
 //        view = [collectionView dequeueReusableSupplementaryViewOfKind:UICollectionElementKindSectionHeader withReuseIdentifier:identifier forIndexPath:indexPath];

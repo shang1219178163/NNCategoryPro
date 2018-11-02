@@ -19,8 +19,6 @@
 
 @interface NSObject (CashProtector)
 
-+(BOOL)swizzleMethodClass:(Class)clz origMethod:(SEL)origSelector newMethod:(SEL)newSelector;
-
 @end
 
 

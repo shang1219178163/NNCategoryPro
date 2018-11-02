@@ -61,7 +61,7 @@
 -(NSString *)controllerName{
     NSString * className = objc_getAssociatedObject(self, _cmd);
     if (className == nil) {
-        className = NSStringFromClass([self class]);
+        className = NSStringFromClass(self.class);
         if ([className containsString:@"Controller"]) {
             NSRange range = NSMakeRange(0, 0);
             if ([className rangeOfString:@"ViewController"].location != NSNotFound) {

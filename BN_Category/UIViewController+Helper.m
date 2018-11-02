@@ -407,7 +407,7 @@
 }
 
 -(NSString *)controllerName{
-    NSString * className = NSStringFromClass([self class]);
+    NSString * className = NSStringFromClass(self.class);
     if ([className containsString:@"Controller"]) {
         NSRange range = NSMakeRange(0, 0);
         if ([className rangeOfString:@"ViewController"].location != NSNotFound) {

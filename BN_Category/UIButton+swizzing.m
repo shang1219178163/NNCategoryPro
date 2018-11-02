@@ -18,20 +18,15 @@
 + (void)load {
     static dispatch_once_t onceToken;
     dispatch_once(&onceToken, ^{
-     
         if (isOpen) {
-            [self swizzleMethodClass:[self class] origMethod:@selector(sendAction:to:forEvent:) newMethod:@selector(swz_sendAction:to:forEvent:)];
+            [self swizzleMethodClass:self.class origSel:@selector(sendAction:to:forEvent:) newSel:@selector(swz_sendAction:to:forEvent:)];
             
         }
-        
     });
 }
 
 -(void)swz_sendAction:(SEL)action to:(id)target forEvent:(UIEvent *)event{
-//    [self swz_sendAction:action to:target forEvent:event];
-
     // 是否小于设定的时间间隔
-//    BOOL needSendAction = (NSDate.date.timeIntervalSince1970 - self.custom_acceptEventTime >= self.custom_acceptEventInterval);
     BOOL isSendAction = (NSDate.date.timeIntervalSince1970 - self.custom_acceptEventTime >= 1);
 
     // 更新上一次点击时间戳
@@ -43,9 +38,7 @@
         // 两次点击的时间间隔小于设定的时间间隔时，才执行响应事件
         [self swz_sendAction:action to:target forEvent:event];
     }
-    else{
-        return;
-    }
+    
 }
 
 - (NSTimeInterval )custom_acceptEventTime{
@@ -58,8 +51,7 @@
     
 }
 
-
-#pragma mark ------ 关联
+#pragma mark -- 关联
 
 - (NSTimeInterval )custom_acceptEventInterval{
     return [objc_getAssociatedObject(self, _cmd) doubleValue];

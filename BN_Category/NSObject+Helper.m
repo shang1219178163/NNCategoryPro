@@ -156,7 +156,7 @@ CGFloat roundFloat(CGFloat value,NSInteger num){
     // 一个临时数据, 用来记录一个类成员变量的个数
     unsigned int ivarCount = 0;
     // 获取一个类所有的成员变量
-    Ivar *ivars = class_copyIvarList([self class], &ivarCount);
+    Ivar *ivars = class_copyIvarList(self.class, &ivarCount);
     
     // 变量成员变量列表
     for (int i = 0; i < ivarCount; i ++) {
@@ -179,7 +179,7 @@ CGFloat roundFloat(CGFloat value,NSInteger num){
     self = [self init];
     if (self != nil) {
         unsigned int ivarCount = 0;
-        Ivar *ivars = class_copyIvarList([self class], &ivarCount);
+        Ivar *ivars = class_copyIvarList(self.class, &ivarCount);
         for (int i = 0; i < ivarCount; i ++) {
             
             Ivar ivar = ivars[i];

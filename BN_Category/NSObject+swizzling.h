@@ -23,25 +23,10 @@
  @param clz Class类
  @param origSelector 被替换的方法
  @param newSelector 替换的方法
- @return 是够替换成功
+ @return 是exchange YES
  */
-+(BOOL)swizzleMethodClass:(Class)clz origMethod:(SEL)origSelector newMethod:(SEL)newSelector;
++(BOOL)swizzleMethodClass:(Class)clz origSel:(SEL)origSelector newSel:(SEL)newSelector;
 
-/**
- swizzle 类方法
- 
- @param oriSel 原有的方法
- @param swiSel swizzle的方法
- */
-+ (void)swizzleClassMethodWithOriginSel:(SEL)oriSel swizzledSel:(SEL)swiSel;
-
-/**
- swizzle 实例方法
- 
- @param oriSel 原有的方法
- @param swiSel swizzle的方法
- */
-+ (void)swizzleInstanceMethodWithOriginSel:(SEL)oriSel swizzledSel:(SEL)swiSel;
 /**
  判断方法是否在子类里override了
  

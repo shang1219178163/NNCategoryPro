@@ -21,7 +21,7 @@
     NSDictionary * dic = ((NSObject *)self).mj_keyValues;
     NSDictionary * dicModel = ((NSObject *)model).mj_keyValues;
 
-    if ([self class] == [model class]) {
+    if (self.class == [model class]) {
         [dicModel enumerateKeysAndObjectsUsingBlock:^(id  _Nonnull key, id  _Nonnull obj, BOOL * _Nonnull stop) {
 //            DDLog(@"_%@_%@",key,obj);
             [self setValue:obj forKey:key];
@@ -47,7 +47,7 @@
     ///存储属性的个数
     unsigned int propertyCount = 0;
     ///通过运行时获取当前类的属性
-    objc_property_t *propertys = class_copyPropertyList([self class], &propertyCount);
+    objc_property_t *propertys = class_copyPropertyList(self.class, &propertyCount);
     
     //把属性放到数组中
     for (int i = 0; i < propertyCount; i ++) {
@@ -383,7 +383,7 @@
     
     unsigned int outCount;
     //获取obj的属性数目
-    objc_property_t *properties = class_copyPropertyList([self class], &outCount);
+    objc_property_t *properties = class_copyPropertyList(self.class, &outCount);
     
     for (int i = 0; i < outCount; i ++) {
         objc_property_t property = properties[i];
