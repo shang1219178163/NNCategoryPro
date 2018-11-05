@@ -61,9 +61,9 @@
     if (lab == nil) {
         lab = ({
             UILabel * label = [[UILabel alloc] initWithFrame:CGRectZero];
-            label.tag = kTAG_LABEL + 4;
+            label.tag = kTAG_LABEL;
             label.font = [UIFont systemFontOfSize:17];
-            label.textAlignment = NSTextAlignmentRight;
+            label.textAlignment = NSTextAlignmentLeft;
 
             label.numberOfLines = 0;
             label.userInteractionEnabled = YES;
@@ -80,7 +80,7 @@
     if (lab == nil) {
         lab = ({
             UILabel * label = [[UILabel alloc] initWithFrame:CGRectZero];
-            label.tag = kTAG_LABEL;
+            label.tag = kTAG_LABEL + 1;
             label.font = [UIFont systemFontOfSize:17];
             label.textAlignment = NSTextAlignmentLeft;
 

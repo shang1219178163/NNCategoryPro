@@ -149,12 +149,12 @@
 //            label.tag = kTAG_LABEL + 2;
 //
 //            label.font = [UIFont systemFontOfSize:17];
-//            //            label.textColor = UIColor.grayColor;
+//            label.textColor = UIColor.grayColor;
 //            label.textAlignment = NSTextAlignmentLeft;
 //
 //            label.numberOfLines = 0;
 //            label.userInteractionEnabled = YES;
-//            //        label.backgroundColor = UIColor.greenColor;
+//            label.backgroundColor = UIColor.greenColor;
 //            label;
 //        });
         objc_setAssociatedObject(self, _cmd, lab, OBJC_ASSOCIATION_RETAIN_NONATOMIC);
