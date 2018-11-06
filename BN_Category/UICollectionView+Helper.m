@@ -32,7 +32,7 @@
     objc_setAssociatedObject(self, @selector(dictClass), dictClass, OBJC_ASSOCIATION_COPY_NONATOMIC);
 
     for (NSString * key in dictClass.allKeys) {
-        if ([key isEqualToString:UICollectionElementSectionItem]) {
+        if ([key isEqualToString:UICollectionElementKindSectionItem]) {
             [self bn_registerListClass:dictClass[key]];
             
         }else{

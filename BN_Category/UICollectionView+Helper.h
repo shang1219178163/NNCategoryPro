@@ -8,7 +8,7 @@
 
 #import <UIKit/UIKit.h>
 
-static NSString * const UICollectionElementSectionItem = @"UICollectionElementSectionItem";
+static NSString * const UICollectionElementKindSectionItem = @"UICollectionElementKindSectionItem";
 
 @interface UICollectionView (Helper)
 
@@ -17,7 +17,7 @@ static NSString * const UICollectionElementSectionItem = @"UICollectionElementSe
 /**
  注意字典格式,如下
  collectionView.dictClass = @{
-                                 UICollectionElementSectionItem   :     @[
+                                 UICollectionElementKindSectionItem   :     @[
                                                                          @"UICollectionViewCell",
                                                                          ],
                                  UICollectionElementKindSectionHeader   :   @[
