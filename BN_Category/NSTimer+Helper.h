@@ -16,5 +16,12 @@
 
 + (void)stopTimer:(NSTimer *)timer;
 
+/**
+ GCD定时器(秒)
+ */
++ (dispatch_source_t)counterWithTimer:(dispatch_source_t)timer handler:(void (^)(void))handler;
+
++(void)destoryTimer:(dispatch_source_t)timer;
+
 
 @end
