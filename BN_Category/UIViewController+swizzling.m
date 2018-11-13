@@ -42,8 +42,9 @@
 - (void)swizzlingViewDidLoad {
     self.edgesForExtendedLayout = UIRectEdgeNone;
     self.automaticallyAdjustsScrollViewInsets = NO;
-//    self.view.backgroundColor = UIColor.whiteColor;//警告:此行代码会导致所有继承自UIViewcontroller的对象的背景都变成纯白色的了
-
+    self.view.backgroundColor = UIColor.whiteColor;//警告:此行代码可能会有问题
+    self.hidesBottomBarWhenPushed = YES;
+    
     self.navigationItem.backBarButtonItem = [[UIBarButtonItem alloc] initWithTitle:@"" style:UIBarButtonItemStyleDone target:nil action:nil];
 
     [self eventGather];
