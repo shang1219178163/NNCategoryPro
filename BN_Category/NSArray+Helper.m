@@ -30,6 +30,18 @@
 #import "NSMutableArray+Helper.h"
 #import "NSMutableDictionary+Helper.h"
 
+NSString * const kArr_avg_float = @"@avg.floatValue";
+NSString * const kArr_sum_inter = @"@sum.intValue";
+NSString * const kArr_max_inter = @"@max.intValue";
+NSString * const kArr_min_inter = @"@min.intValue";
+NSString * const kArr_sum_float = @"@sum.floatValue";
+NSString * const kArr_max_float = @"@max.floatValue";
+NSString * const kArr_min_float = @"@min.floatValue";
+NSString * const kArr_upper_list = @"uppercaseString";//大小写转换
+NSString * const kArr_lower_list = @"lowercaseString";//大小写转换
+NSString * const kArrs_unionDist_list = @"@distinctUnionOfArrays.self";//数组内部去重
+NSString * const kArrs_union_list = @"@unionOfArrays.self";
+
 @implementation NSArray (Helper)
 
 

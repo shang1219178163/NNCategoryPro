@@ -14,6 +14,11 @@
 
 #define kCalendar_Current [NSCalendar currentCalendar]
 
+NSString * const kFormat_date = @"yyyy-MM-dd HH:mm:ss";
+NSString * const kFormat_date_one = @"yyyy-MM-dd";
+NSString * const kFormat_date_two = @"yyyyMMdd";
+NSString * const kFormat_date_five = @"yyyyMMddHHmmss";
+
 @implementation NSDate(Helper)
 
 /**

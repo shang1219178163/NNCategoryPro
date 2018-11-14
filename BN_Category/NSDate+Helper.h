@@ -18,10 +18,10 @@
 #define D_WEEK          604800
 #define D_YEAR          31556926
 
-static NSString * const kFormat_date = @"yyyy-MM-dd HH:mm:ss";
-static NSString * const kFormat_date_one = @"yyyy-MM-dd";
-static NSString * const kFormat_date_two = @"yyyyMMdd";
-static NSString * const kFormat_date_five = @"yyyyMMddHHmmss";
+FOUNDATION_EXPORT NSString * const kFormat_date ;
+FOUNDATION_EXPORT NSString * const kFormat_date_one ;
+FOUNDATION_EXPORT NSString * const kFormat_date_two ;
+FOUNDATION_EXPORT NSString * const kFormat_date_five ;
 
 @interface NSDate (Helper)
 

@@ -11,6 +11,15 @@
 
 #import "CABasicAnimation+Helper.h"
 
+NSString * const kCATransitionCube = @"cube";
+NSString * const kCATransitionSuckEffect = @"suckEffect";
+NSString * const kCATransitionOglFlip = @"oglFlip";
+NSString * const kCATransitionRippleEffect = @"rippleEffect";
+NSString * const kCATransitionPageCurl = @"pageCurl";
+NSString * const kCATransitionPageUnCurl = @"pageUnCurl";
+NSString * const kCATransitionCameraIrisHollowOpen = @"cameraIrisHollowOpen";
+NSString * const kCATransitionCameraIrisHollowClose = @"cameraIrisHollowClose";
+
 @implementation CATransition (Helper)
 
 + (CATransition *)animDuration:(CGFloat)duration functionName:(NSString *)name type:(NSString *)type subType:(id)subType {

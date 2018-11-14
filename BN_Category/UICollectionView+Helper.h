@@ -8,7 +8,7 @@
 
 #import <UIKit/UIKit.h>
 
-static NSString * const UICollectionElementKindSectionItem = @"UICollectionElementKindSectionItem";
+FOUNDATION_EXPORT NSString * const UICollectionElementKindSectionItem ;
 
 @interface UICollectionView (Helper)
 

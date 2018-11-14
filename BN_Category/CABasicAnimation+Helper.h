@@ -8,27 +8,27 @@
 
 #import <QuartzCore/QuartzCore.h>
 
-static NSString * const kTransformMoveX = @"transform.translation.x";// x方向平移
-static NSString * const kTransformMoveY = @"transform.translation.y";// y方向平移
+FOUNDATION_EXPORT NSString * const kTransformMoveX ;// x方向平移
+FOUNDATION_EXPORT NSString * const kTransformMoveY ;// y方向平移
 
-static NSString * const kTransformScale = @"transform.scale";//比例转化
-static NSString * const kTransformScaleX = @"transform.scale.x";//宽的比例
-static NSString * const kTransformScaleY = @"transform.scale.y";//高的比例
+FOUNDATION_EXPORT NSString * const kTransformScale ;//比例转化
+FOUNDATION_EXPORT NSString * const kTransformScaleX ;//宽的比例
+FOUNDATION_EXPORT NSString * const kTransformScaleY ;//高的比例
 
-static NSString * const kTransformRotationZ = @"transform.rotation.z";
-static NSString * const kTransformRotationX = @"transform.rotation.x";
-static NSString * const kTransformRotationY = @"transform.rotation.y";
+FOUNDATION_EXPORT NSString * const kTransformRotationZ ;
+FOUNDATION_EXPORT NSString * const kTransformRotationX ;
+FOUNDATION_EXPORT NSString * const kTransformRotationY ;
 
-static NSString * const kTransformSizW = @"contentsRect.size.width";//横向拉伸缩放 @(0.4)最好是0~1之间的
-static NSString * const kTransformPosition = @"position";//位置(中心点的改变) [NSValue valueWithCGPoint:CGPointMake(300, 300)];
-static NSString * const kTransformBounds = @"bounds";//大小，中心不变  [NSValue valueWithCGRect:CGRectMake(0, 0, 200, 200)];
-static NSString * const kTransformContents = @"contents";//内容,imageAnima.toValue = (id)[UIImage imageNamed:@"to"].CGImage;
-static NSString * const kTransformOpacity = @"opacity";//透明度
-static NSString * const kTransformCornerRadius = @"cornerRadius";//圆角
-static NSString * const kTransformBackgroundColor = @"backgroundColor";//背景
+FOUNDATION_EXPORT NSString * const kTransformSizW ;//横向拉伸缩放 @(0.4)最好是0~1之间的
+FOUNDATION_EXPORT NSString * const kTransformPosition ;//位置(中心点的改变) [NSValue valueWithCGPoint:CGPointMake(300, 300)];
+FOUNDATION_EXPORT NSString * const kTransformBounds ;//大小，中心不变  [NSValue valueWithCGRect:CGRectMake(0, 0, 200, 200)];
+FOUNDATION_EXPORT NSString * const kTransformContents ;//内容,imageAnima.toValue = (id)[UIImage imageNamed:@"to"].CGImage;
+FOUNDATION_EXPORT NSString * const kTransformOpacity ;//透明度
+FOUNDATION_EXPORT NSString * const kTransformCornerRadius ;//圆角
+FOUNDATION_EXPORT NSString * const kTransformBackgroundColor ;//背景
 
-static NSString * const kTransformPath = @"path";//
-static NSString * const kTransformStrokeEnd = @"strokeEnd";//背景
+FOUNDATION_EXPORT NSString * const kTransformPath ;//
+FOUNDATION_EXPORT NSString * const kTransformStrokeEnd ;//背景
 
 //kCAValueFunctionRotateX
 @interface CABasicAnimation (Helper)

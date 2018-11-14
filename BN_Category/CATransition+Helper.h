@@ -8,14 +8,14 @@
 
 #import <QuartzCore/QuartzCore.h>
 
-static NSString * const kCATransitionCube = @"cube";
-static NSString * const kCATransitionSuckEffect = @"suckEffect";
-static NSString * const kCATransitionOglFlip = @"oglFlip";
-static NSString * const kCATransitionRippleEffect = @"rippleEffect";
-static NSString * const kCATransitionPageCurl = @"pageCurl";
-static NSString * const kCATransitionPageUnCurl = @"pageUnCurl";
-static NSString * const kCATransitionCameraIrisHollowOpen = @"cameraIrisHollowOpen";
-static NSString * const kCATransitionCameraIrisHollowClose = @"cameraIrisHollowClose";
+FOUNDATION_EXPORT NSString * const kCATransitionCube ;
+FOUNDATION_EXPORT NSString * const kCATransitionSuckEffect ;
+FOUNDATION_EXPORT NSString * const kCATransitionOglFlip ;
+FOUNDATION_EXPORT NSString * const kCATransitionRippleEffect ;
+FOUNDATION_EXPORT NSString * const kCATransitionPageCurl ;
+FOUNDATION_EXPORT NSString * const kCATransitionPageUnCurl ;
+FOUNDATION_EXPORT NSString * const kCATransitionCameraIrisHollowOpen ;
+FOUNDATION_EXPORT NSString * const kCATransitionCameraIrisHollowClose ;
 
 @interface CATransition (Helper)
 

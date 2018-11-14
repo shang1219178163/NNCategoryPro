@@ -8,6 +8,28 @@
 
 #import "CABasicAnimation+Helper.h"
 
+NSString * const kTransformMoveX = @"transform.translation.x";// x方向平移
+NSString * const kTransformMoveY = @"transform.translation.y";// y方向平移
+
+NSString * const kTransformScale = @"transform.scale";//比例转化
+NSString * const kTransformScaleX = @"transform.scale.x";//宽的比例
+NSString * const kTransformScaleY = @"transform.scale.y";//高的比例
+
+NSString * const kTransformRotationZ = @"transform.rotation.z";
+NSString * const kTransformRotationX = @"transform.rotation.x";
+NSString * const kTransformRotationY = @"transform.rotation.y";
+
+NSString * const kTransformSizW = @"contentsRect.size.width";//横向拉伸缩放 @(0.4)最好是0~1之间的
+NSString * const kTransformPosition = @"position";//位置(中心点的改变) [NSValue valueWithCGPoint:CGPointMake(300, 300)];
+NSString * const kTransformBounds = @"bounds";//大小，中心不变  [NSValue valueWithCGRect:CGRectMake(0, 0, 200, 200)];
+NSString * const kTransformContents = @"contents";//内容,imageAnima.toValue = (id)[UIImage imageNamed:@"to"].CGImage;
+NSString * const kTransformOpacity = @"opacity";//透明度
+NSString * const kTransformCornerRadius = @"cornerRadius";//圆角
+NSString * const kTransformBackgroundColor = @"backgroundColor";//背景
+
+NSString * const kTransformPath = @"path";//
+NSString * const kTransformStrokeEnd = @"strokeEnd";//背景
+
 @implementation CABasicAnimation (Helper)
 
 static NSArray *_functionNames = nil;

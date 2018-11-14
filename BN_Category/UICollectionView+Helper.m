@@ -10,6 +10,8 @@
 #import "UICollectionView+Helper.h"
 #import <objc/runtime.h>
 
+NSString * const UICollectionElementKindSectionItem = @"UICollectionElementKindSectionItem";
+
 @implementation UICollectionView (Helper)
 
 - (NSArray *)listClass{
