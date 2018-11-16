@@ -18,6 +18,8 @@
 #import "NSObject+CashProtector.h"
 #import "NSObject+swizzling.h"
 #import "UIViewController+swizzling.h"
+#import "UINavigationController+swizzing.h"
+
 #import "UIButton+swizzing.h"
 
 //#pragma mark - -通用
