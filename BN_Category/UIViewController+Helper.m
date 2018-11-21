@@ -600,7 +600,7 @@
     }
     else{
         NSString *reviewURL = [NSString stringWithFormat:@"itms-apps://itunes.apple.com/WebObjects/MZStore.woa/wa/viewContentsUserReviews?id=%@&onlyLatestVersion=true&pageNumber=0&sortOrdering=1&type=Purple+Software",appID];
-        if (iOSVersion(11)) {
+        if (iOSVer(11)) {
             reviewURL = [NSString stringWithFormat:@"itms-apps://itunes.apple.com/app/id%@?action=write-review",appID];//替换为对应的APPID
         }
 //        [UIApplication.sharedApplication openURL:[NSURL URLWithString:appEvaluationUrl]];
@@ -624,7 +624,7 @@
             
             dispatch_async(dispatch_get_global_queue(0, 0), ^{
                 NSString * phoneStr = [NSString stringWithFormat:@"tel:%@",phoneNumber];
-                if (iOSVersion(10)) {
+                if (iOSVer(10)) {
                     [UIApplication.sharedApplication openURL:[NSURL URLWithString:phoneStr] options:@{} completionHandler:nil];
                     
                 }else{

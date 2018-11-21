@@ -566,7 +566,7 @@
     
     
     __block BOOL isSuccess = NO;
-    if (iOSVersion(10)) {
+    if (iOSVer(10)) {
         [application openURL:URL options:@{UIApplicationOpenURLOptionUniversalLinksOnly : @YES} completionHandler:^(BOOL success) {
             isSuccess = success;
         }];

@@ -165,7 +165,7 @@
     //    [bar setBackgroundImage:[UIImage imageNamed:@"navigationbarBackgroundWhite"] forBarMetrics:UIBarMetricsDefault];
     //    [navigationBar setTitleTextAttributes:@{NSFontAttributeName : [UIFont boldSystemFontOfSize:20]}];
     
-    if (iOSVersion(11)) {
+    if (iOSVer(11)) {
 //        UIImage *origImage = [UIImage imageNamed:@"img_btnBack.png"];
 //        //系统返回按钮处的title偏移到可视范围之外
 //        //iOS11 和 iOS11以下分别处理
@@ -209,7 +209,7 @@
     NSURL *url = [NSURL URLWithString:urlStr];
     BOOL isOpenUrl = [app canOpenURL:url];
     if (isOpenUrl == YES) {
-        if (iOSVersion(10)) {
+        if (iOSVer(10)) {
             [app openURL:url options:@{} completionHandler:nil];
             
         }else{

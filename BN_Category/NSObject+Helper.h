@@ -19,6 +19,8 @@ UIKIT_EXTERN NSString * NSStringFromLet(id obj);
 UIKIT_EXTERN NSString * NSStringFromInt(NSInteger obj);
 UIKIT_EXTERN NSString * NSStringFromFloat(CGFloat obj);
 
+UIKIT_EXTERN NSIndexPath *NSIndexPathFromString(NSString *string);
+UIKIT_EXTERN NSIndexPath *NSIndexPathFromIndex(NSInteger section, NSInteger row);
 UIKIT_EXTERN UIViewController * UICtrFromString(NSString *obj);
 UIKIT_EXTERN UINavigationController * UINavCtrFromObj(id obj);
 UIKIT_EXTERN UITabBarController * UITarBarCtrFromList(NSArray *list);
@@ -29,12 +31,12 @@ UIKIT_EXTERN UIImage * UIImageFromObj(id obj);
 
 UIKIT_EXTERN UIColor * UIColorFromRGBA(CGFloat r,CGFloat g,CGFloat b,CGFloat a);
 UIKIT_EXTERN UIColor * UIColorFromRGB(CGFloat r,CGFloat g,CGFloat b);
-UIKIT_EXTERN UIColor * UIColorDim(CGFloat White,CGFloat a);
+UIKIT_EXTERN UIColor * UIColorFromDim(CGFloat White,CGFloat a);
 
 UIKIT_EXTERN UIColor * UIColorFromRGB_Init(CGFloat r,CGFloat g,CGFloat b,CGFloat a);
 UIKIT_EXTERN UIColor * UIColorFromHex(NSInteger hexValue);
 
-UIKIT_EXTERN BOOL iOSVersion(CGFloat version);
+UIKIT_EXTERN BOOL iOSVer(CGFloat version);
 
 UIKIT_EXTERN CGFloat CGRadianFromDegrees(CGFloat x);//由角度转换弧度
 UIKIT_EXTERN CGFloat CGDegreesFromRadian(CGFloat x);//弧度转换角度

@@ -14,26 +14,61 @@
 
 #import "UIImage+Helper.h"
 
+/**
+ NSIndexPath->字符串
+ */
 NSString * NSStringFromIndexPath(NSIndexPath *indexPath) {
   return [NSString stringWithFormat:@"{%@,%@}",@(indexPath.section),@(indexPath.row)];
 }
 
+/**
+ id类型->字符串
+ */
 NSString * NSStringFromLet(id obj) {
     return [NSString stringWithFormat:@"%@",obj];
 }
 
+/**
+ NSInteger->字符串
+ */
 NSString * NSStringFromInt(NSInteger obj){
     return [@(obj) stringValue];
 }
 
+/**
+ CGFloat->字符串
+ */
 NSString * NSStringFromFloat(CGFloat obj){
     return [@(obj) stringValue];
 }
 
+/**
+ 字符串->NSIndexPath(string 两部分数字必须用逗号隔开)
+ */
+NSIndexPath *NSIndexPathFromString(NSString *string) {
+    if ([string containsString:@"{"]) string = [string stringByReplacingOccurrencesOfString:@"{" withString:@""];
+    if ([string containsString:@"}"]) string = [string stringByReplacingOccurrencesOfString:@"}" withString:@""];
+    NSArray * list = [string componentsSeparatedByString:@","];
+    return [NSIndexPath indexPathForRow:[list.firstObject integerValue] inSection:[list.lastObject integerValue]];
+}
+
+/**
+ NSIndexPath快速生成
+ */
+NSIndexPath *NSIndexPathFromIndex(NSInteger section, NSInteger row) {
+    return [NSIndexPath indexPathForRow:row inSection:section];
+}
+
+/**
+ 字符串->UIViewController
+ */
 UIViewController * UICtrFromString(NSString *obj){
     return [[NSClassFromString(obj) alloc]init];
 }
 
+/**
+ 字符串->UINavigationController
+ */
 UINavigationController * UINavCtrFromObj(id obj){
     if ([obj isKindOfClass:[UINavigationController class]]) {
         return obj;
@@ -46,7 +81,9 @@ UINavigationController * UINavCtrFromObj(id obj){
     }
     return nil;
 }
-
+/**
+ 数组->UITabBarController(子数组示例:@[@"标题",@"图片",@"图片高亮",@"badgeValue",])
+ */
 UITabBarController * UITarBarCtrFromList(NSArray *list){
     __block NSMutableArray * marr = [NSMutableArray array];
     [list enumerateObjectsUsingBlock:^(id  _Nonnull obj, NSUInteger idx, BOOL * _Nonnull stop) {
@@ -79,15 +116,24 @@ UITabBarController * UITarBarCtrFromList(NSArray *list){
     tabBarVC.viewControllers = marr.copy;
     return tabBarVC;
 }
- 
+
+/**
+ UIColor->UIImage
+ */
 UIImage * UIImageFromColor(UIColor * color){
     return [UIImage imageWithColor:color];
 }
 
+/**
+ UIImage->NSString
+ */
 UIImage * UIImageFromString(NSString * obj){
     return [UIImage imageNamed:obj];
 }
 
+/**
+ id类型->UIImage
+ */
 UIImage * UIImageFromObj(id obj){
     if ([obj isKindOfClass:[NSString class]]) {
         return UIImageFromString(obj);
@@ -113,7 +159,7 @@ UIColor * UIColorFromRGB(CGFloat r,CGFloat g,CGFloat b){
     return UIColorFromRGBA(r, g, b, 1);
 }
 
-UIColor * UIColorDim(CGFloat White,CGFloat a){
+UIColor * UIColorFromDim(CGFloat White,CGFloat a){
     return [UIColor colorWithWhite:White alpha:a];////white 0-1为黑到白,alpha透明度
     //    return [UIColor colorWithWhite:0.2f alpha: 0.5];////white 0-1为黑到白,alpha透明度
 }
@@ -126,7 +172,7 @@ UIColor * UIColorFromHex(NSInteger hexValue){
     return [UIColor colorWithRed:(((hexValue & 0xFF0000) >> 16))/255.0 green:(((hexValue & 0xFF00) >> 8))/255.0 blue:((float)(hexValue & 0xFF))/255.0 alpha:1.0f];
 }
 
-BOOL iOSVersion(CGFloat version){
+BOOL iOSVer(CGFloat version){
     return (UIDevice.currentDevice.systemVersion.floatValue >= version) ? YES : NO;
 
 }
