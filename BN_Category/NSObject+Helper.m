@@ -30,7 +30,7 @@ NSString * NSStringFromFloat(CGFloat obj){
     return [@(obj) stringValue];
 }
 
-UIViewController * UIViewCtrFromString(NSString *obj){
+UIViewController * UICtrFromString(NSString *obj){
     return [[NSClassFromString(obj) alloc]init];
 }
 
@@ -39,7 +39,7 @@ UINavigationController * UINavCtrFromObj(id obj){
         return obj;
     }
     else if ([obj isKindOfClass:[NSString class]]) {
-        return [[UINavigationController alloc]initWithRootViewController:UIViewCtrFromString(obj)];
+        return [[UINavigationController alloc]initWithRootViewController:UICtrFromString(obj)];
     }
     else if ([obj isKindOfClass:[UIViewController class]]) {
         return [[UINavigationController alloc]initWithRootViewController:obj];
@@ -63,7 +63,7 @@ UITabBarController * UITarBarCtrFromList(NSArray *list){
             NSString * img_H = itemList.count > 3 ? itemList[3] :   @"";
             NSString * badgeValue = itemList.count > 4 ? itemList[4] :   @"";
             
-            UIViewController * controller = UIViewCtrFromString(itemList.firstObject);
+            UIViewController * controller = UICtrFromString(itemList.firstObject);
             controller.tabBarItem = [[UITabBarItem alloc]initWithTitle:title image:[UIImage imageNamed:img_N] selectedImage:[UIImage imageNamed:img_H]];
             controller.tabBarItem.badgeValue = badgeValue;
             

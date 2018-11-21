@@ -19,7 +19,7 @@ UIKIT_EXTERN NSString * NSStringFromLet(id obj);
 UIKIT_EXTERN NSString * NSStringFromInt(NSInteger obj);
 UIKIT_EXTERN NSString * NSStringFromFloat(CGFloat obj);
 
-UIKIT_EXTERN UIViewController * UIViewCtrFromString(NSString *obj);
+UIKIT_EXTERN UIViewController * UICtrFromString(NSString *obj);
 UIKIT_EXTERN UINavigationController * UINavCtrFromObj(id obj);
 UIKIT_EXTERN UITabBarController * UITarBarCtrFromList(NSArray *list);
 
