@@ -43,12 +43,19 @@
     
 }
 
-+(NSString *)app_Name{
++ (UITabBarController *)tabBarController{
+    if ([UIApplication.rootController isKindOfClass:[UITabBarController class]]) {
+        return (UITabBarController *)UIApplication.rootController;
+    }
+    return nil;
+}
+
++(NSString *)appName{
     NSDictionary *infoDict = NSBundle.mainBundle.infoDictionary;
     return  infoDict[@"CFBundleDisplayName"] ? : infoDict[@"CFBundleName"];
 }
 
-+(UIImage *)app_Icon{
++(UIImage *)appIcon{
     NSDictionary *infoDict = NSBundle.mainBundle.infoDictionary;
     
     NSString *icon = [[infoDict valueForKeyPath:@"CFBundleIcons.CFBundlePrimaryIcon.CFBundleIconFiles"] lastObject];
@@ -57,39 +64,39 @@
     
 }
 
-+(NSString *)app_Version{
++(NSString *)appVer{
     NSDictionary *infoDict = NSBundle.mainBundle.infoDictionary;
     return  infoDict[@"CFBundleShortVersionString"];
 }
 
-+(NSString *)app_build{
++(NSString *)appBuild{
     NSDictionary *infoDict = NSBundle.mainBundle.infoDictionary;
     return  infoDict[@"CFBundleVersion"];
 }
 
-+(NSString *)phone_SystemVersion{
++(NSString *)phoneSystemVer{
     return UIDevice.currentDevice.systemVersion;
     
 }
 
-+(NSString *)phone_SystemName{
++(NSString *)phoneSystemName{
     return UIDevice.currentDevice.systemName;
     
 }
 
-+(NSString *)phone_Name{
++(NSString *)phoneName{
     if (UIDevice.currentDevice) {
         return UIDevice.currentDevice.name;
     }
     return @"";
 }
 
-+(NSString *)phone_Model{
++(NSString *)phoneModel{
     return UIDevice.currentDevice.model;
     
 }
 
-+(NSString *)phone_localizedModel{
++(NSString *)phoneLocalizedModel{
     return UIDevice.currentDevice.localizedModel;
     
 }
@@ -194,6 +201,26 @@
         NSParameterAssert([rootController isKindOfClass:[UITabBarController class]]);
         
     }
+    
+}
+
++(BOOL)openURL:(NSString *)urlStr tips:(NSString *)tips{
+    UIApplication * app = UIApplication.sharedApplication;
+    NSURL *url = [NSURL URLWithString:urlStr];
+    BOOL isOpenUrl = [app canOpenURL:url];
+    if (isOpenUrl == YES) {
+        if (iOSVersion(10)) {
+            [app openURL:url options:@{} completionHandler:nil];
+            
+        }else{
+            [app openURL:url];
+        }
+    }
+    else{
+        [UIApplication.rootController showAlertTitle:tips msg:tips];
+        
+    }
+    return isOpenUrl;
     
 }
 

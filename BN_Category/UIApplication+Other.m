@@ -326,7 +326,7 @@ static NSDictionary *_dictPrivacy = nil;
             case PrivacyStatusRestricted:
             case PrivacyStatusUnkonwn:
             {
-                NSString * msg = [NSString stringWithFormat:@"请去-> [设置 - 隐私 - %@ - %@] 打开访问开关",UIApplication.dictPrivacy[@(type)],UIApplication.app_Name];
+                NSString * msg = [NSString stringWithFormat:@"请去-> [设置 - 隐私 - %@ - %@] 打开访问开关",UIApplication.dictPrivacy[@(type)],UIApplication.appName];
                 [UIWindow showToastWithTips:msg place:@1];
                 
             }
@@ -371,7 +371,7 @@ static NSDictionary *_dictPrivacy = nil;
                 break;
             }
             case AVAuthorizationStatusDenied: {
-                NSString * msg = [NSString stringWithFormat:@"请去-> [设置 - 隐私 - 相机 - %@] 打开访问开关",UIApplication.app_Name];
+                NSString * msg = [NSString stringWithFormat:@"请去-> [设置 - 隐私 - 相机 - %@] 打开访问开关",UIApplication.appName];
                 [UIWindow showToastWithTips:msg place:@1];
                 
                 break;

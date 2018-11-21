@@ -34,7 +34,7 @@ UIViewController * UIViewCtrFromString(NSString *obj){
     return [[NSClassFromString(obj) alloc]init];
 }
 
-UINavigationController * UINaviCtrFromObj(id obj){
+UINavigationController * UINavCtrFromObj(id obj){
     if ([obj isKindOfClass:[UINavigationController class]]) {
         return obj;
     }
@@ -51,7 +51,7 @@ UITabBarController * UITarBarCtrFromList(NSArray *list){
     __block NSMutableArray * marr = [NSMutableArray array];
     [list enumerateObjectsUsingBlock:^(id  _Nonnull obj, NSUInteger idx, BOOL * _Nonnull stop) {
         if ([obj isKindOfClass:[NSString class]]) {
-            UINavigationController *navController = UINaviCtrFromObj(obj);
+            UINavigationController *navController = UINavCtrFromObj(obj);
             [marr addObject:navController];
             
         }
@@ -66,9 +66,8 @@ UITabBarController * UITarBarCtrFromList(NSArray *list){
             UIViewController * controller = UIViewCtrFromString(itemList.firstObject);
             controller.tabBarItem = [[UITabBarItem alloc]initWithTitle:title image:[UIImage imageNamed:img_N] selectedImage:[UIImage imageNamed:img_H]];
             controller.tabBarItem.badgeValue = badgeValue;
-            controller.hidesBottomBarWhenPushed = YES;
             
-            UINavigationController *navController = UINaviCtrFromObj(controller);
+            UINavigationController *navController = UINavCtrFromObj(controller);
             [marr addObject:navController];
         }
         else{
