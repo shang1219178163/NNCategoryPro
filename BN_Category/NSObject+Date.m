@@ -201,7 +201,7 @@ Z：     GMT（时区）
     if (days == nil) days = @0;
     NSString * dateStr = [self toTimeDate];
     NSDate * date = [self dateWithString:dateStr format:kFormat_date];
-    NSString * newtime = [self stringWithDate:[date dateByAddingDays:[days integerValue]]];
+    NSString * newtime = [self stringWithDate:[date dateByAddDays:[days integerValue]]];
     return newtime;
 }
 

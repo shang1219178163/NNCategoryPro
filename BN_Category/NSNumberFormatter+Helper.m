@@ -8,14 +8,25 @@
 
 #import "NSNumberFormatter+Helper.h"
 
+NSString * const kFormat_num = @"四舍五入";// 默认(四舍五入)
+NSString * const kFormat_num_decimal = @"分隔符,";//
+NSString * const kFormat_num_percent = @"百分比";//
+NSString * const kFormat_num_currency = @"货币$";//
+NSString * const kFormat_num_scientific = @"科学计数法 1.234E8";//
+NSString * const kFormat_num_plusSign = @"加号符号";//
+NSString * const kFormat_num_minusSign = @"减号符号";//
+NSString * const kFormat_num_exponentSymbol = @"指数符号";//
+
 @implementation NSNumberFormatter (Helper)
 
 + (NSNumberFormatter *)numberIdentify:(NSString *)identify{
-    // 版本2 ，使用当前线程字典来保存对象
+    //使用当前线程字典来保存对象
     NSMutableDictionary *threadDic = NSThread.currentThread.threadDictionary;
     NSNumberFormatter *formatter = [threadDic objectForKey:identify];
     if (!formatter) {
         formatter = [[NSNumberFormatter alloc]init];
+        formatter.locale = [NSLocale localeWithLocaleIdentifier:@"zh_CN"];
+
         [threadDic setObject:formatter forKey:identify];
     }
     return formatter;
@@ -23,6 +34,7 @@
 
 + (NSNumberFormatter *)numberFormat:(NSString *)formatStr{
     NSNumberFormatter *formatter = [self numberIdentify:formatStr];
+    formatter.numberStyle = NSNumberFormatterNoStyle;//
     formatter.positiveFormat = formatStr;
     return formatter;
 }
@@ -36,9 +48,7 @@
             number = @([number floatValue]);
             NSString *string  = [NSNumberFormatter localizedStringFromNumber:number numberStyle:nstyle];
             return string;
-            
         }
-
     }
     else if ([number isKindOfClass:[NSNumber class]]) {
         NSString *string = [NSNumberFormatter localizedStringFromNumber:number numberStyle:nstyle];

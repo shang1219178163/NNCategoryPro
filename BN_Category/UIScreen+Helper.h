@@ -19,6 +19,7 @@
 @property (class, nonatomic, assign, readonly) CGFloat width;
 @property (class, nonatomic, assign, readonly) CGFloat height;
 @property (class, nonatomic, assign, readonly) CGFloat scale;
+@property (class, nonatomic, assign, readonly) CGSize  DPISize;
 
 @end
 

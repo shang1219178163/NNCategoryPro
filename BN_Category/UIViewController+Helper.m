@@ -33,10 +33,6 @@
 }
 
 #pragma make - - 给控制器添加额外属性
--(UIViewController *)frontController{
-    return [self frontViewController:self.currentVC.navigationController];
-
-}
 
 -(UIViewController *)frontVC{
     return objc_getAssociatedObject(self, _cmd);
@@ -76,6 +72,14 @@
 -(void)setObjOne:(id)objOne{
     objc_setAssociatedObject(self, @selector(objOne), objOne, OBJC_ASSOCIATION_RETAIN_NONATOMIC);
     
+}
+
+-(NSTimeInterval)timeInterval{
+    return [objc_getAssociatedObject(self, _cmd) doubleValue];
+}
+
+-(void)setTimeInterval:(NSTimeInterval)timeInterval{
+    objc_setAssociatedObject(self, @selector(timeInterval), @(timeInterval), OBJC_ASSOCIATION_ASSIGN);
 }
 
 
@@ -219,15 +223,6 @@
     }
     return view;
 }
-
--(NSTimeInterval)timeInterval{
-    return [objc_getAssociatedObject(self, _cmd) doubleValue];
-}
-
--(void)setTimeInterval:(NSTimeInterval)timeInterval{
-    objc_setAssociatedObject(self, @selector(timeInterval), @(timeInterval), OBJC_ASSOCIATION_ASSIGN);
-}
-
 
 - (UIButton *)createBarItemTitle:(NSString *)title imageName:(NSString *)imageName isLeft:(BOOL)isLeft isHidden:(BOOL)isHidden handler:(void(^)(id obj, UIButton * item, NSInteger idx))handler{
     

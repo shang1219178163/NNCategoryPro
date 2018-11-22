@@ -30,7 +30,6 @@
 - (NSDate *)dateWithString:(NSString *)dateString format:(NSString *)format;
 - (NSDate *)dateWithString:(NSString *)dateString;
 
-
 #pragma mark- -日期转字符串
 - (NSString *)stringWithDate:(NSDate *)date format:(NSString *)format;
 - (NSString *)stringWithDate:(NSDate *)date;

@@ -8,7 +8,7 @@
 
 #import "NSUserDefaults+Helper.h"
 
-#import <objc/runtime.h>
+//#import <objc/runtime.h>
 
 @implementation NSUserDefaults (Helper)
 
@@ -17,66 +17,62 @@
     
 }
 
--(NSArray *)typeArray{
-    //    return objc_getAssociatedObject(self, _cmd);
-    
-    NSArray * array = @[@"NSData", @"NSString", @"NSNumber", @"NSDate", @"NSArray", @"NSDictionary"];
-    return array;
-}
-
-//-(void)setTypeArray:(NSArray *)typeArray{
-//    objc_setAssociatedObject(self, @selector(typeArray), typeArray, OBJC_ASSOCIATION_RETAIN_NONATOMIC);
-//
-//}
-
-- (void)BN_setObject:(id)value forKey:(NSString *)defaultName{
-    
-    NSArray * array = [self typeArray];
-    if (![array containsObject:NSStringFromClass([value class])]) {
-        value = [NSKeyedArchiver archivedDataWithRootObject:value];//保存自定义对象
-        
++ (void)setObject:(id)value forKey:(NSString *)key iCloudSync:(BOOL)sync{
+    if (sync){
+        [NSUbiquitousKeyValueStore.defaultStore setValue:value forKey:key];
     }
-    [self setObject:value forKey:defaultName];
+    [self setObject:value forKey:key];
     
 }
 
-- (id)BN_objectForKey:(NSString *)defaultName{
-    id obj = [self objectForKey:defaultName];
-    if ([obj isKindOfClass:[NSData class]]) {
-        obj = [NSKeyedUnarchiver unarchiveObjectWithData:obj];
-        
-    }
-    return obj;
-}
-
-+ (void)BN_setObject:(id)value forKey:(NSString *)defaultName{
++ (void)setObject:(id)value forKey:(NSString *)key{
     //添加数组支持
-    NSArray * array = [[self standardUserDefaults]typeArray];
-    if (![array containsObject:NSStringFromClass([value class])]) {
+    NSArray * array = self.typeList;
+    if (![array containsObject:NSStringFromClass([value class])])
         value = [NSKeyedArchiver archivedDataWithRootObject:value];//保存自定义对象
-        
-    }
-    [[self standardUserDefaults] setObject:value forKey:defaultName];
+    [self.standardUserDefaults setObject:value forKey:key];
     
 }
 
-+ (id)BN_objectForKey:(NSString *)defaultName{
-    
-    id obj = [[self standardUserDefaults] objectForKey:defaultName];
-    if ([obj isKindOfClass:[NSData class]]) {
++ (id)objectForKey:(NSString *)key iCloudSync:(BOOL)sync{
+    if (sync) {
+        id value = [NSUbiquitousKeyValueStore.defaultStore valueForKey:key];
+        [self.standardUserDefaults setValue:value forKey:key];
+        [self.standardUserDefaults synchronize];
+        return value;
+    }
+    return [self objectForKey:key];
+}
+
++ (id)objectForKey:(NSString *)key{
+    id obj = [self.standardUserDefaults objectForKey:key];
+    if ([obj isKindOfClass:[NSData class]])
         obj = [NSKeyedUnarchiver unarchiveObjectWithData:obj];//解档自定义对象
-        
-    }
     return obj;
-    
 }
 
-+ (void)defaultsSynchronize{
-    [[self standardUserDefaults]synchronize];
++ (void)synchronizeAndCloudSync:(BOOL)sync{
+    if (sync) {
+        [NSUbiquitousKeyValueStore.defaultStore synchronize];
+    }
+    [self.standardUserDefaults synchronize];
+
+}
+
++ (void)synchronize{
+    [self synchronizeAndCloudSync:NO];
     
     NSString *path = NSHomeDirectory();
     //    DDLog(@"\n%@",path);
 }
 
++ (void)setArcObject:(id)value forKey:(NSString *)key {
+    NSData * data = [NSKeyedArchiver archivedDataWithRootObject:value];
+    [self.standardUserDefaults setObject:data forKey:key];
+}
+
++ (id)arcObjectForKey:(NSString *)key {
+    return [NSKeyedUnarchiver unarchiveObjectWithData:[NSUserDefaults.standardUserDefaults objectForKey:key]];
+}
 
 @end

@@ -19,22 +19,6 @@
 
 @dynamic heightMdic;
 
--(id)obj{
-    return objc_getAssociatedObject(self, _cmd);
-}
-
--(void)setObj:(id)obj{
-    objc_setAssociatedObject(self, @selector(obj), obj, OBJC_ASSOCIATION_RETAIN_NONATOMIC);
-}
-
--(id)objOne{
-    return objc_getAssociatedObject(self, _cmd);
-}
-
--(void)setObjOne:(id)objOne{
-    objc_setAssociatedObject(self, @selector(objOne), objOne, OBJC_ASSOCIATION_RETAIN_NONATOMIC);
-}
-
 -(NSDictionary *)dictClass{
     return objc_getAssociatedObject(self, _cmd);
 }
@@ -56,44 +40,6 @@
 
 -(void)setDataList:(NSMutableArray *)dataList{
     objc_setAssociatedObject(self, @selector(dataList), dataList, OBJC_ASSOCIATION_RETAIN_NONATOMIC);
-}
-
--(NSString *)controllerName{
-    NSString * className = objc_getAssociatedObject(self, _cmd);
-    if (className == nil) {
-        className = NSStringFromClass(self.class);
-        if ([className containsString:@"Controller"]) {
-            NSRange range = NSMakeRange(0, 0);
-            if ([className rangeOfString:@"ViewController"].location != NSNotFound) {
-                range = [className rangeOfString:@"ViewController"];
-            }
-            else if ([className rangeOfString:@"Controller"].location != NSNotFound){
-                range = [className rangeOfString:@"Controller"];
-            }
-            className = [className substringToIndex:range.location];
-        }
-        objc_setAssociatedObject(self, _cmd, className, OBJC_ASSOCIATION_RETAIN_NONATOMIC);
-    }
-    return className;
-}
-
--(UIViewController *)frontController{
-    UIViewController *controller = objc_getAssociatedObject(self, _cmd);
-    if (controller == nil) {
-        NSInteger count = self.navigationController.viewControllers.count;
-        if (count >= 2) {
-            controller = self.navigationController.viewControllers[count - 2];
-
-        }
-        else{
-            controller = [self.navigationController.viewControllers lastObject];
-            
-        }
-        objc_setAssociatedObject(self, _cmd, controller, OBJC_ASSOCIATION_RETAIN_NONATOMIC);
-
-    }
-    return controller;
-    
 }
 
 #pragma mark- layz

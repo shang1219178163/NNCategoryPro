@@ -10,12 +10,6 @@
 
 @interface UIViewController (AddView)<UITableViewDataSource,UITableViewDelegate>
 
-@property (nonatomic, strong, readonly) NSString * _Nullable controllerName;
-@property (nonatomic, strong, readonly) UIViewController * _Nullable frontController;
-
-@property (nonatomic, strong) id obj;
-@property (nonatomic, strong) id objOne;
-
 @property (nonatomic, strong) UITableView *tableView;
 @property (nonatomic, strong) NSMutableArray * dataList;
 @property (nonatomic, assign) NSInteger pageIndex;

@@ -37,17 +37,14 @@ typedef void(^BlockAlertController)(UIAlertController * _Nonnull alertController
 @property (nonatomic, copy) BlockAlertController _Nullable blockAlertController;
 
 @property (nonatomic, strong) UIViewController * _Nullable frontVC;
-@property (nonatomic, strong, readonly) UIViewController * _Nullable frontController;
+@property (nonatomic, strong, readonly) UIViewController * _Nullable currentVC;
 
 @property (nonatomic, strong) id obj;
 @property (nonatomic, strong) id objOne;
-
 @property (nonatomic, strong) id _Nonnull objModel;
 
-@property (nonatomic, strong, readonly) NSString * _Nullable controllerName;
-@property (nonatomic, strong, readonly) UIViewController * _Nullable currentVC;
-
 @property (nonatomic, assign) NSTimeInterval timeInterval;
+@property (nonatomic, strong, readonly) NSString * _Nullable controllerName;
 
 - (void)configureDefault;
 

@@ -22,6 +22,10 @@
 
 @implementation NSString (Helper)
 
+-(NSDecimalNumber *)decNumer{
+    return [NSDecimalNumber decimalNumberWithString:self];
+}
+
 //整形判断
 - (BOOL)isPureInteger{
     NSString * string = self;

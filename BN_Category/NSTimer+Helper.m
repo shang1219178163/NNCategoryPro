@@ -14,7 +14,6 @@
 + (NSTimer *)BN_timeInterval:(NSTimeInterval)interval
                        block:(void(^)(NSTimer *timer))block
                      repeats:(BOOL)repeats{
-    
     return [self scheduledTimerWithTimeInterval:interval
                                          target:self
                                        selector:@selector(BN_handleInvoke:)

@@ -10,17 +10,22 @@
 
 @interface NSUserDefaults (Helper)
 
-@property (class, nonatomic, strong, readonly, nonnull) NSArray *typeList;
+@property (class, nonatomic, readonly) NSArray *typeList;
 
-@property (nonatomic, strong, readonly) NSArray *typeArray;
++ (void)setObject:(id)value forKey:(NSString *)key iCloudSync:(BOOL)sync;
 
-- (void)BN_setObject:(id)value forKey:(NSString *)defaultName;
-- (id)BN_objectForKey:(NSString *)defaultName;
++ (void)setObject:(id)value forKey:(NSString *)key;
 
-+ (void)BN_setObject:(id)value forKey:(NSString *)defaultName;
-+ (id)BN_objectForKey:(NSString *)defaultName;
++ (id)objectForKey:(NSString *)key iCloudSync:(BOOL)sync;
 
-+ (void)defaultsSynchronize;
++ (id)objectForKey:(NSString *)key;
 
++ (void)synchronizeAndCloudSync:(BOOL)sync;
 
++ (void)synchronize;
+
++ (void)setArcObject:(id)value forKey:(NSString *)key;
+
++ (id)arcObjectForKey:(NSString *)key;
+    
 @end

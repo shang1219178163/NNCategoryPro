@@ -57,7 +57,6 @@
 
 +(UIImage *)appIcon{
     NSDictionary *infoDict = NSBundle.mainBundle.infoDictionary;
-    
     NSString *icon = [[infoDict valueForKeyPath:@"CFBundleIcons.CFBundlePrimaryIcon.CFBundleIconFiles"] lastObject];
     UIImage * image = [UIImage imageNamed:icon];
     return image;
@@ -190,18 +189,6 @@
         UITableView.appearance.estimatedSectionFooterHeight = 0.0;
 
     }
-}
-
-
-+ (void)setupTabBarSelectedIndex:(NSUInteger)selectedIndex{
-    UIViewController *rootController = UIApplication.sharedApplication.delegate.window.rootViewController;
-    if ([rootController isKindOfClass:[UITabBarController class]]) {
-        ((UITabBarController *)rootController).selectedIndex = selectedIndex;
-    }else{
-        NSParameterAssert([rootController isKindOfClass:[UITabBarController class]]);
-        
-    }
-    
 }
 
 +(BOOL)openURL:(NSString *)urlStr tips:(NSString *)tips{

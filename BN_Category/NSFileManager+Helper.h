@@ -10,11 +10,22 @@
 
 @interface NSFileManager (Helper)
 
-#pragma mark - -文件管理
+@property (class, readonly, nullable) NSURL *documentsURL;
+@property (class, readonly, nullable) NSString *documentsPath;
+@property (class, readonly, nullable) NSURL *libraryURL;
+@property (class, readonly, nullable) NSString *libraryPath;
+@property (class, readonly, nullable) NSURL *cachesURL;
+@property (class, readonly, nullable) NSString *cachesPath;
+@property (class, readonly, assign) CGFloat availableDiskSpace;
 
 + (BOOL)fileExistAtPath:(NSString *)path;
-
 + (BOOL)createDirectoryAtPath:(NSString *)path;
 
++ (NSURL *)fileURLForDirectory:(NSSearchPathDirectory)directory;
++ (NSString *)filePathForDirectory:(NSSearchPathDirectory)directory;
++ (BOOL)addSkipBackupAttributeToFile:(NSString *)path;
+
+- (unsigned long long)sizeOfFolder:(NSString *)folderPath;
+- (NSString *)appFileSize;
 
 @end

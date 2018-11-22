@@ -10,5 +10,10 @@
 
 @interface NSHTTPCookieStorage (Helper)
 
++ (void)saveCookie;
+
++ (void)loadCookie;
+
+@property (class, readonly, nullable) NSString *storagePath;
 
 @end

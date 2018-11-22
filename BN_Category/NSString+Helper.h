@@ -13,6 +13,8 @@
 
 @interface NSString (Helper)
 
+@property (nonatomic, strong, readonly) NSDecimalNumber *decNumer;
+
 - (BOOL)isPureInteger;
 //浮点形判断：
 - (BOOL)isPureFloat;

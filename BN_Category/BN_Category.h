@@ -78,6 +78,11 @@
 #import "NSDate+Helper.h"
 #import "NSDateFormatter+Helper.h"
 
+#import "NSDecimalNumber+Helper.h"
+#import "NSIndexPath+Helper.h"
+#import "NSException+Helper.h"
+#import "UIResponder+Helper.h"
+
 #import "NSNumber+Helper.h"
 #import "NSNumberFormatter+Helper.h"
 

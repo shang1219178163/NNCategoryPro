@@ -38,9 +38,7 @@
 
 + (void)setupNavigationbar;
 
-+ (void)setupTabBarSelectedIndex:(NSUInteger)selectedIndex;
-
-+(BOOL)openURL:(NSString *)urlStr tips:(NSString *)tips;
++ (BOOL)openURL:(NSString *)urlStr tips:(NSString *)tips;
 
 @end
 

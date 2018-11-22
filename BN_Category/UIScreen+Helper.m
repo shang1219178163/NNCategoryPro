@@ -42,4 +42,10 @@
     return UIScreen.mainScreen.scale;
 }
 
++ (CGSize)DPISize{
+    CGSize size = UIScreen.mainScreen.bounds.size;
+    CGFloat scale = UIScreen.mainScreen.scale;
+    return CGSizeMake(size.width * scale, size.height * scale);
+}
+
 @end
