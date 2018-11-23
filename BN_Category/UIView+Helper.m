@@ -58,6 +58,26 @@
     self.frame = rect;
 }
 
+-(CGFloat)w{
+    return self.frame.size.width;
+}
+
+-(void)setW:(CGFloat)w{
+    CGRect rect = self.frame;
+    rect.size.width = w;
+    self.frame = rect;
+}
+
+-(CGFloat)h{
+    return self.frame.size.height;
+}
+
+-(void)setH:(CGFloat)h{
+    CGRect rect = self.frame;
+    rect.size.height = h;
+    self.frame = rect;
+}
+
 - (CGPoint)origin{
     return self.frame.origin;
 }
@@ -70,7 +90,6 @@
 
 -(CGSize)size{
     return self.frame.size;
-
 }
 
 - (void)setSize:(CGSize)size{

@@ -21,6 +21,8 @@ typedef void(^BlockView)(UIView * view,id item, id obj);
 @property (nonatomic, assign) CGFloat y;
 @property (nonatomic, assign) CGFloat width;
 @property (nonatomic, assign) CGFloat height;
+@property (nonatomic, assign) CGFloat w;
+@property (nonatomic, assign) CGFloat h;
 
 @property (nonatomic, assign) CGPoint origin;
 @property (nonatomic, assign) CGSize size;

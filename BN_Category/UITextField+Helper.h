@@ -14,4 +14,20 @@
 
 - (BOOL)backToEmptyWithReplacementString:(NSString *)string;
 
+/**
+ *  identity of this textfield
+ */
+@property (retain, nonatomic) NSString *identify;
+
+@property (strong, nonatomic) UITableView *historyTableView;
+
+- (NSArray *)loadHistroy;
+
+- (void)synchronize;
+
+- (void)showHistory;
+- (void)hideHistroy;
+
+- (void)clearHistory;
+
 @end

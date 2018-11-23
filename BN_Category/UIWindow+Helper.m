@@ -111,10 +111,10 @@
         //        style.titleColor = UIColor.blackColor;
         //        style.messageColor = UIColor.blackColor;
         
-        //        [keyWindow makeToast:msg duration:kAnimationDuration_Toast position:position style:style];
+        //        [keyWindow makeToast:msg duration:kAnimDuration_Toast position:position style:style];
         // Make toast with an image, title, and completion block
         [keyWindow makeToast:msg
-                    duration:kAnimationDuration_Toast
+                    duration:kAnimDuration_Toast
                     position:position
                        title:nil
                        image:[UIImage imageNamed:image]
