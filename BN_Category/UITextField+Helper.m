@@ -15,6 +15,7 @@
 #import "UIView+Helper.h"
 #import "UIScreen+Helper.h"
 #import "UIColor+Helper.h"
+#import "UIApplication+Helper.h"
 
 
 @interface UITextField()<UITableViewDataSource,UITableViewDelegate>
@@ -125,6 +126,7 @@
     NSArray* history = [self loadHistroy];
     
     if (self.historyTableView.superview != nil || history == nil || history.count == 0) {
+        [UIApplication.rootController showAlertTitle:@"提示" msg:@"没有更多数据了!"];
         return;
     }
     
@@ -190,13 +192,6 @@
     
     return cell;
 }
-
--(void)tableView:(UITableView *)tableView willDisplayCell:(UITableViewCell *)cell forRowAtIndexPath:(NSIndexPath *)indexPath{
-    
-
-}
-
-#pragma clang diagnostic pop
 
 #pragma mark tableview delegate
 - (UIView *)tableView:(UITableView *)tableView viewForFooterInSection:(NSInteger)section; {
