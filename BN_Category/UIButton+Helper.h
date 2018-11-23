@@ -37,6 +37,8 @@
 
 - (void)startCountdown:(NSTimeInterval)count;
 
+- (void)startTime:(NSInteger)timeout title:(NSString *)tittle waitTittle:(NSString *)waitTittle;
+
 - (void)startDisplayLink;
 
 - (CGSize)btnSizeByHeight:(CGFloat)height;
