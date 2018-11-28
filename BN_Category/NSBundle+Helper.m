@@ -10,14 +10,18 @@
 
 @implementation NSBundle (Helper)
 
+FOUNDATION_EXPORT NSBundle *NSBundleFromString(NSString *string){
+    NSBundle *bundle = [NSBundle bundleForClass:[NSClassFromString(string) class]];
+    NSURL *url = [bundle URLForResource:string withExtension:@"bundle"];
+    bundle = [NSBundle bundleWithURL:url];
+    return bundle;
+}
 
-//NSBundle *NSBundleFromString(NSString *string){
-//    
-//    
-//    
-//    
-//}
-
++ (NSString *)patForBundle:(NSString *)bundleName resource:(NSString *)resource type:(NSString *)type{
+    NSBundle *bundle = NSBundleFromString(bundleName);
+    NSString *path = [bundle pathForResource:resource ofType:type];
+    return path;
+}
 
 
 @end

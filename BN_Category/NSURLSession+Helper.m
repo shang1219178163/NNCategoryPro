@@ -104,7 +104,7 @@
         }];
         
     }
-    else if([params isKindOfClass:[NSURL class]]){
+    else if([params isKindOfClass:[NSData class]]){
         dataTask = [NSURLSession.sharedSession downloadTaskWithResumeData:params completionHandler:^(NSURL * _Nullable location, NSURLResponse * _Nullable response, NSError * _Nullable error) {
             if (handler) handler(location,response,error);
             dispatch_semaphore_signal(semaphore);
@@ -128,7 +128,7 @@
     else if([params isKindOfClass:[NSURL class]]){
         dataTask = [NSURLSession.sharedSession downloadTaskWithURL:params completionHandler:handler];
     }
-    else if([params isKindOfClass:[NSURL class]]){
+    else if([params isKindOfClass:[NSData class]]){
         dataTask = [NSURLSession.sharedSession downloadTaskWithResumeData:params completionHandler:handler];
     }
     else{
