@@ -9,11 +9,9 @@
 
 @interface WKWebView (Helper)
 
-/**
- 改变webView字体大小
+@property (class, nonatomic, nonnull) WKWebViewConfiguration *confiDefault;
 
- */
-- (NSString *)changTextFontRatio:(CGFloat)fontRatio;
++ (NSString *)changTextFontRatio:(CGFloat)fontRatio;
 
 @end
 

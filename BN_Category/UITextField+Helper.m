@@ -15,8 +15,8 @@
 #import "UIView+Helper.h"
 #import "UIScreen+Helper.h"
 #import "UIColor+Helper.h"
-#import "UIApplication+Helper.h"
 
+NSString * const kDeafult_textFieldHistory = @"kDeafult_textFieldHistory" ;// x方向平移
 
 @interface UITextField()<UITableViewDataSource,UITableViewDelegate>
 
@@ -25,6 +25,42 @@
 @end
 
 @implementation UITextField (Helper)
+
+- (NSInteger)maxLength {
+    return [objc_getAssociatedObject(self, _cmd) integerValue];
+}
+- (void)setMaxLength:(NSInteger)maxLength {
+    objc_setAssociatedObject(self, @selector(maxLength), @(maxLength), OBJC_ASSOCIATION_ASSIGN);
+    [self addTarget:self action:@selector(jk_textFieldTextDidChange) forControlEvents:UIControlEventEditingChanged];
+}
+- (void)jk_textFieldTextDidChange {
+    NSString *toBeString = self.text;
+    //获取高亮部分
+    UITextRange *selectedRange = [self markedTextRange];
+    UITextPosition *position = [self positionFromPosition:selectedRange.start offset:0];
+    
+    //没有高亮选择的字，则对已输入的文字进行字数统计和限制
+    //在iOS7下,position对象总是不为nil
+    if ( (!position ||!selectedRange) && (self.maxLength > 0 && toBeString.length > self.maxLength))
+    {
+        NSRange rangeIndex = [toBeString rangeOfComposedCharacterSequenceAtIndex:self.maxLength];
+        if (rangeIndex.length == 1)
+        {
+            self.text = [toBeString substringToIndex:self.maxLength];
+        }
+        else
+        {
+            NSRange rangeRange = [toBeString rangeOfComposedCharacterSequencesForRange:NSMakeRange(0, self.maxLength)];
+            NSInteger tmpLength;
+            if (rangeRange.length > self.maxLength) {
+                tmpLength = rangeRange.length - rangeIndex.length;
+            }else{
+                tmpLength = rangeRange.length;
+            }
+            self.text = [toBeString substringWithRange:NSMakeRange(0, tmpLength)];
+        }
+    }
+}
 
 - (BOOL)handlePhoneWithReplacementString:(NSString *)string{
     //只有手机号需要空格,密码不需要
@@ -76,13 +112,22 @@
     return table;
 }
 
+-(void)setHistoryTableView:(UITableView *)historyTableView{
+    objc_setAssociatedObject(self, @selector(historyTableView), historyTableView, OBJC_ASSOCIATION_RETAIN);
+
+}
+
 - (NSArray*)loadHistroy {
     if (self.identify == nil) return nil;
-    NSUserDefaults* def = [NSUserDefaults standardUserDefaults];
-    NSDictionary* dic = [def objectForKey:@"UITextField+JKHistory"];
+    NSUserDefaults* def = NSUserDefaults.standardUserDefaults;
+    NSDictionary* dic = [def objectForKey:kDeafult_textFieldHistory];
     
-    if (dic != nil) {
-        return [dic objectForKey:self.identify];
+    id data = [dic objectForKey:self.identify];
+    if ([data isKindOfClass:[NSArray class]]) {
+        return data;
+    }
+    if ([data isKindOfClass:[NSDictionary class]]) {
+        return [data allKeys];
     }
     return nil;
 }
@@ -92,8 +137,8 @@
         return;
     }
     
-    NSUserDefaults* def = [NSUserDefaults standardUserDefaults];
-    NSDictionary* dic = [def objectForKey:@"UITextField+JKHistory"];
+    NSUserDefaults* def = NSUserDefaults.standardUserDefaults;
+    NSDictionary* dic = [def objectForKey:kDeafult_textFieldHistory];
     NSArray* history = [dic objectForKey:self.identify];
     
     NSMutableArray* newHistory = [NSMutableArray arrayWithArray:history];
@@ -117,7 +162,7 @@
     NSMutableDictionary* dic2 = [NSMutableDictionary dictionaryWithDictionary:dic];
     [dic2 setObject:newHistory forKey:self.identify];
     
-    [def setObject:dic2 forKey:@"UITextField+JKHistory"];
+    [def setObject:dic2 forKey:kDeafult_textFieldHistory];
     
     [def synchronize];
 }
@@ -126,7 +171,6 @@
     NSArray* history = [self loadHistroy];
     
     if (self.historyTableView.superview != nil || history == nil || history.count == 0) {
-        [UIApplication.rootController showAlertTitle:@"提示" msg:@"没有更多数据了!"];
         return;
     }
     
@@ -161,26 +205,25 @@
     }];
 }
 
-- (void)clearHistory; {
-    NSUserDefaults* def = [NSUserDefaults standardUserDefaults];
+- (void)clearHistory{
+    NSUserDefaults* def = NSUserDefaults.standardUserDefaults;
     
-    [def setObject:nil forKey:@"UITextField+JKHistory"];
+    [def setObject:nil forKey:kDeafult_textFieldHistory];
     [def synchronize];
 }
 
 
 #pragma mark tableview datasource
-#pragma clang diagnostic push
-#pragma clang diagnostic ignored "-Wobjc-protocol-method-implementation"
-- (NSInteger)numberOfSectionsInTableView:(UITableView *)tableView; {
+
+- (NSInteger)numberOfSectionsInTableView:(UITableView *)tableView{
     return 1;
 }
 
-- (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section; {
+- (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section{
     return [self loadHistroy].count;
 }
 
-- (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath; {
+- (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath{
     UITableViewCell* cell = [tableView dequeueReusableCellWithIdentifier:@"UITextFieldHistoryCell"];
     
     if (cell == nil) {
@@ -193,8 +236,13 @@
     return cell;
 }
 
+-(void)tableView:(UITableView *)tableView willDisplayCell:(UITableViewCell *)cell forRowAtIndexPath:(NSIndexPath *)indexPath{
+    
+
+}
+
 #pragma mark tableview delegate
-- (UIView *)tableView:(UITableView *)tableView viewForFooterInSection:(NSInteger)section; {
+- (UIView *)tableView:(UITableView *)tableView viewForFooterInSection:(NSInteger)section{
     UIButton* clearButton = [UIButton buttonWithType:UIButtonTypeRoundedRect];
     [clearButton setTitle:@"全部清除" forState:UIControlStateNormal];
     [clearButton addTarget:self action:@selector(clearHistoryButtonClick:) forControlEvents:UIControlEventTouchUpInside];
@@ -202,15 +250,15 @@
     return clearButton;
 }
 
-- (CGFloat)tableView:(UITableView *)tableView heightForRowAtIndexPath:(NSIndexPath *)indexPath; {
+- (CGFloat)tableView:(UITableView *)tableView heightForRowAtIndexPath:(NSIndexPath *)indexPath{
     return self.h;
 }
 
-- (CGFloat)tableView:(UITableView *)tableView heightForFooterInSection:(NSInteger)section; {
+- (CGFloat)tableView:(UITableView *)tableView heightForFooterInSection:(NSInteger)section{
     return self.h;
 }
 
-- (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath; {
+- (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath{
     self.text = [self loadHistroy][indexPath.row];
     [self hideHistroy];
 }

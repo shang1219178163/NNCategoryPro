@@ -8,7 +8,11 @@
 
 #import <UIKit/UIKit.h>
 
+FOUNDATION_EXPORT NSString * const kDeafult_textFieldHistory ;// x方向平移
+
 @interface UITextField (Helper)
+
+@property (nonatomic, assign) NSInteger maxLength;//if <=0, no limit
 
 - (BOOL)handlePhoneWithReplacementString:(NSString *)string;
 
@@ -17,9 +21,8 @@
 /**
  *  identity of this textfield
  */
-@property (retain, nonatomic) NSString *identify;
-
-@property (strong, nonatomic) UITableView *historyTableView;
+@property (nonatomic, retain) NSString *identify;
+@property (nonatomic, strong) UITableView *historyTableView;
 
 - (NSArray *)loadHistroy;
 

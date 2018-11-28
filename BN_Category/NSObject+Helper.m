@@ -20,7 +20,33 @@
 NSString * NSStringFromIndexPath(NSIndexPath *indexPath) {
   return [NSString stringWithFormat:@"{%@,%@}",@(indexPath.section),@(indexPath.row)];
 }
-
+/**
+ html->字符串
+ */
+NSString * NSStringFromHTML(NSString *html) {
+    NSScanner * scanner = [NSScanner scannerWithString:html];
+    NSString * text = nil;
+    while(scanner.isAtEnd == NO)
+    {
+        [scanner scanUpToString:@"<" intoString:nil];
+        [scanner scanUpToString:@">" intoString:&text];
+        html = [html stringByReplacingOccurrencesOfString:[NSString stringWithFormat:@"%@>",text] withString:@""];
+    }
+    //  过滤html中的\n\r\t换行空格等特殊符号
+    //    NSMutableString *str1 = [NSMutableString stringWithString:html];
+    //    for (NSInteger i = 0; i < str1.length; i++) {
+    //        unichar c = [str1 characterAtIndex:i];
+    //        NSRange range = NSMakeRange(i, 1);
+    //
+    //        //  在这里添加要过滤的特殊符号
+    //        if ( c == '\r' || c == '\n' || c == '\t' ) {
+    //            [str1 deleteCharactersInRange:range];
+    //            --i;
+    //        }
+    //    }
+    //    html  = [NSString stringWithString:str1];
+    return html;
+}
 /**
  id类型->字符串
  */

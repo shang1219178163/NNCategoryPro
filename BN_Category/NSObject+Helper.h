@@ -14,6 +14,8 @@
 #import "UIColor+Helper.h"
 
 UIKIT_EXTERN NSString * NSStringFromIndexPath(NSIndexPath *indexPath);
+UIKIT_EXTERN NSString * NSStringFromHTML(NSString *html);
+
 UIKIT_EXTERN NSString * NSStringFromLet(id obj);
 
 UIKIT_EXTERN NSString * NSStringFromInt(NSInteger obj);
