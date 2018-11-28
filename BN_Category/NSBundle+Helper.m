@@ -17,7 +17,7 @@ FOUNDATION_EXPORT NSBundle *NSBundleFromString(NSString *string){
     return bundle;
 }
 
-+ (NSString *)patForBundle:(NSString *)bundleName resource:(NSString *)resource type:(NSString *)type{
++ (NSString *)pathBundle:(NSString *)bundleName resource:(NSString *)resource type:(NSString *)type{
     NSBundle *bundle = NSBundleFromString(bundleName);
     NSString *path = [bundle pathForResource:resource ofType:type];
     return path;

@@ -14,7 +14,7 @@ NS_ASSUME_NONNULL_BEGIN
 
 FOUNDATION_EXPORT NSBundle *NSBundleFromString(NSString *string);
 
-+ (NSString *)patForBundle:(NSString *)bundleName resource:(NSString *)resource type:(NSString *)type;
++ (NSString *)pathBundle:(NSString *)bundleName resource:(NSString *)resource type:(NSString *)type;
 
 @end
 
