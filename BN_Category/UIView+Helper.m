@@ -836,7 +836,7 @@
     NSParameterAssert([self isKindOfClass:[UITextField class]]);
     NSParameterAssert(unitString != nil && ![unitString isEqualToString:@""]);
     
-    if ([unitString containsString:@".png"]) {
+    if ([unitString containsString:@"img_"]) {
         CGSize size = CGSizeMake(20, 20);
         UIImageView * imgView = [UIView createImgViewWithRect:CGRectMake(0, 0, size.width, size.height) image:unitString tag:kTAG_IMGVIEW type:@0];
         imgView.image = UIImageFromParams(unitString,self.class,@"BN_Globle");
