@@ -14,6 +14,7 @@
 #import "BN_Globle.h"
 
 #import "UIView+Helper.h"
+#import "NSObject+Helper.h"
 
 #import "BN_TextField.h"
 #import "BN_TextView.h"
@@ -222,7 +223,9 @@
             imgView.contentMode = UIViewContentModeScaleAspectFit;
             //            imgView.backgroundColor = UIColor.orangeColor;
             imgView.frame = CGRectMake(self.width - kX_GAP - kWH_ArrowRight, (self.height - kWH_ArrowRight)/2.0, kWH_ArrowRight, kWH_ArrowRight);
-            imgView.image = [UIImage imageNamed:kIMAGE_arrowRight];
+            imgView.image = [UIImage imageNamed:kIMG_arrowRight];
+            if (!imgView.image) imgView.image = UIImageFromParams(kIMG_arrowRight, self.class, @"BN_Globle");
+            
             imgView.hidden = YES;
             imgView;
         });

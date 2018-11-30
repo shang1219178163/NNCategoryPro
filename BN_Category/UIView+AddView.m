@@ -202,7 +202,7 @@
 
 //右指箭头
 + (UIView *)createArrowWithRect:(CGRect)rect{
-    NSString * imageStrRight = kIMAGE_arrowRight;
+    NSString * imageStrRight = kIMG_arrowRight;
 //    CGSize imgViewRightSize = CGSizeMake(25, 25);
 
     UIImageView * imgViewRight = [UIView createImgViewWithRect:rect image:imageStrRight tag:kTAG_IMGVIEW type:@0];
@@ -348,20 +348,9 @@
     imageView.contentMode = UIViewContentModeScaleAspectFit;
     imageView.userInteractionEnabled = YES;
     imageView.tag = tag;
-
-    if ([image isKindOfClass:[NSString class]]) {
-        imageView.image = [UIImage imageNamed:image];
-        
-    }
-    else if ([image isKindOfClass:[UIImage class]]) {
-        imageView.image = image;
-        
-    }
-    else{
-        [imageView loadImage:image defaultImg:kIMAGE_default_failed_S];
-        
-    }
-    
+   
+    [imageView loadImage:image defaultImg:kIMG_defaultFailed_S];
+            
     switch (type.integerValue) {
         case 0://默认方形
         {
