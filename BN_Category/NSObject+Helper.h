@@ -13,37 +13,38 @@
 #import "UIScreen+Helper.h"
 #import "UIColor+Helper.h"
 
-UIKIT_EXTERN NSString * NSStringFromIndexPath(NSIndexPath *indexPath);
-UIKIT_EXTERN NSString * NSStringFromHTML(NSString *html);
+FOUNDATION_EXPORT NSString * NSStringFromIndexPath(NSIndexPath *indexPath);
+FOUNDATION_EXPORT NSString * NSStringFromHTML(NSString *html);
 
-UIKIT_EXTERN NSString * NSStringFromLet(id obj);
+FOUNDATION_EXPORT NSString * NSStringFromLet(id obj);
 
-UIKIT_EXTERN NSString * NSStringFromInt(NSInteger obj);
-UIKIT_EXTERN NSString * NSStringFromFloat(CGFloat obj);
+FOUNDATION_EXPORT NSString * NSStringFromInt(NSInteger obj);
+FOUNDATION_EXPORT NSString * NSStringFromFloat(CGFloat obj);
 
-UIKIT_EXTERN NSIndexPath *NSIndexPathFromString(NSString *string);
-UIKIT_EXTERN NSIndexPath *NSIndexPathFromIndex(NSInteger section, NSInteger row);
-UIKIT_EXTERN UIViewController * UICtrFromString(NSString *obj);
-UIKIT_EXTERN UINavigationController * UINavCtrFromObj(id obj);
-UIKIT_EXTERN UITabBarController * UITarBarCtrFromList(NSArray *list);
+FOUNDATION_EXPORT NSIndexPath *NSIndexPathFromString(NSString *string);
+FOUNDATION_EXPORT NSIndexPath *NSIndexPathFromIndex(NSInteger section, NSInteger row);
+FOUNDATION_EXPORT UIViewController * UICtrFromString(NSString *obj);
+FOUNDATION_EXPORT UINavigationController * UINavCtrFromObj(id obj);
+FOUNDATION_EXPORT UITabBarController * UITarBarCtrFromList(NSArray *list);
 
-UIKIT_EXTERN UIImage * UIImageFromColor(UIColor * color);
-UIKIT_EXTERN UIImage * UIImageFromString(NSString * obj);
-UIKIT_EXTERN UIImage * UIImageFromObj(id obj);
+FOUNDATION_EXPORT UIImage * UIImageFromColor(UIColor * color);
+FOUNDATION_EXPORT UIImage * UIImageFromString(NSString * obj);
+FOUNDATION_EXPORT UIImage * UIImageFromParams(NSString * obj,Class aClass, NSString *bundleName);
+FOUNDATION_EXPORT UIImage * UIImageFromObj(id obj);
 
-UIKIT_EXTERN UIColor * UIColorFromRGBA(CGFloat r,CGFloat g,CGFloat b,CGFloat a);
-UIKIT_EXTERN UIColor * UIColorFromRGB(CGFloat r,CGFloat g,CGFloat b);
-UIKIT_EXTERN UIColor * UIColorFromDim(CGFloat White,CGFloat a);
+FOUNDATION_EXPORT UIColor * UIColorFromRGBA(CGFloat r,CGFloat g,CGFloat b,CGFloat a);
+FOUNDATION_EXPORT UIColor * UIColorFromRGB(CGFloat r,CGFloat g,CGFloat b);
+FOUNDATION_EXPORT UIColor * UIColorFromDim(CGFloat White,CGFloat a);
 
-UIKIT_EXTERN UIColor * UIColorFromRGB_Init(CGFloat r,CGFloat g,CGFloat b,CGFloat a);
-UIKIT_EXTERN UIColor * UIColorFromHex(NSInteger hexValue);
+FOUNDATION_EXPORT UIColor * UIColorFromRGB_Init(CGFloat r,CGFloat g,CGFloat b,CGFloat a);
+FOUNDATION_EXPORT UIColor * UIColorFromHex(NSInteger hexValue);
 
-UIKIT_EXTERN BOOL iOSVer(CGFloat version);
+FOUNDATION_EXPORT BOOL iOSVer(CGFloat version);
 
-UIKIT_EXTERN CGFloat CGRadianFromDegrees(CGFloat x);//由角度转换弧度
-UIKIT_EXTERN CGFloat CGDegreesFromRadian(CGFloat x);//弧度转换角度
+FOUNDATION_EXPORT CGFloat CGRadianFromDegrees(CGFloat x);//由角度转换弧度
+FOUNDATION_EXPORT CGFloat CGDegreesFromRadian(CGFloat x);//弧度转换角度
 
-UIKIT_EXTERN CGFloat roundFloat(CGFloat value,NSInteger num);
+FOUNDATION_EXPORT CGFloat roundFloat(CGFloat value,NSInteger num);
 
 
 @interface NSObject (Helper)<NSCoding>

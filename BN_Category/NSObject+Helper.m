@@ -13,6 +13,7 @@
 #import "NSDate+Helper.h"
 
 #import "UIImage+Helper.h"
+#import "NSBundle+Helper.h"
 
 /**
  NSIndexPath->字符串
@@ -151,10 +152,23 @@ UIImage * UIImageFromColor(UIColor * color){
 }
 
 /**
- UIImage->NSString
+ NSString->UIImage
  */
 UIImage * UIImageFromString(NSString * obj){
     return [UIImage imageNamed:obj];
+}
+
+/**
+ NSString->UIImage(非mainBundle图片读取)
+ */
+UIImage * UIImageFromParams(NSString * obj,Class aClass, NSString *bundleName){
+    UIImage * image = UIImageFromString(obj);
+    if (image)
+        return image;
+    
+    NSBundle *resource_bundle = NSBundleFromParams(aClass, bundleName);
+    image = [UIImage imageNamed:obj inBundle:resource_bundle compatibleWithTraitCollection:nil];
+    return image;
 }
 
 /**

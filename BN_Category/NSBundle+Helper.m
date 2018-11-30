@@ -10,7 +10,18 @@
 
 @implementation NSBundle (Helper)
 
-FOUNDATION_EXPORT NSBundle *NSBundleFromString(NSString *string){
+NSBundle *NSBundleFromParams(Class aClass, NSString *bundleName){
+    NSString *path = [NSBundle bundleForClass:aClass].resourcePath;
+    NSString *key = [[path componentsSeparatedByString:@"/"].lastObject componentsSeparatedByString:@"."].firstObject;
+    
+    path = [path stringByReplacingOccurrencesOfString:key withString:bundleName];
+    NSString *bundlePath = [path stringByAppendingPathComponent:[NSString stringWithFormat:@"/%@.bundle",bundleName]];
+    NSLog(@"\n%@",bundlePath);
+    NSBundle *resource_bundle = [NSBundle bundleWithPath:bundlePath];
+    return resource_bundle;
+}
+
+NSBundle *NSBundleFromString(NSString *string){
     NSBundle *bundle = [NSBundle bundleForClass:[NSClassFromString(string) class]];
     NSURL *url = [bundle URLForResource:string withExtension:@"bundle"];
     bundle = [NSBundle bundleWithURL:url];

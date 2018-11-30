@@ -519,11 +519,20 @@
 
 }
 
+- (NSString *)stringWithFront:(NSString *)front back:(NSString *)back{
+    NSParameterAssert([self containsString:front] && [self containsString:back]);
+    NSRange rangeStart = [self rangeOfString:front];
+    NSRange rangeEnd = [self rangeOfString:back];
+    
+    NSRange range = NSMakeRange(rangeStart.location + rangeStart.length, rangeEnd.location - rangeStart.location - rangeStart.length);
+    NSString * result = [self substringWithRange:range];
+    return result;
+}
+
 - (BOOL)isBeyondWithLow:(NSString *)low high:(NSString *)high{
     if ([self floatValue] < [low floatValue] || [self floatValue] > [high floatValue]) return YES;
     return  NO;
 }
-
 
 - (void)copyToPasteboard:(BOOL)hiddenTips{
     NSAssert([self isKindOfClass:[NSString class]] | [self isKindOfClass:[NSAttributedString class]], @"目前仅支持NSString,NSAttributedString");

@@ -12,6 +12,7 @@ NS_ASSUME_NONNULL_BEGIN
 
 @interface NSBundle (Helper)
 
+FOUNDATION_EXPORT NSBundle *NSBundleFromParams(Class aClass, NSString *bundleName);
 FOUNDATION_EXPORT NSBundle *NSBundleFromString(NSString *string);
 
 + (NSString *)pathBundle:(NSString *)bundleName resource:(NSString *)resource type:(NSString *)type;

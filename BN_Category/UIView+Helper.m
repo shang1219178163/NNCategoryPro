@@ -12,6 +12,7 @@
 #import "BN_Globle.h"
 
 #import "NSObject+Helper.h"
+#import "NSBundle+Helper.h"
 
 #import "BN_TextField.h"
 #import "BN_TextView.h"
@@ -115,7 +116,6 @@
     return self.frame.origin.x + self.frame.size.width;
 }
 
-
 -(BlockView)blockView{
     return objc_getAssociatedObject(self, _cmd);
 }
@@ -125,18 +125,15 @@
     
 }
 
-
 -(BOOL)selected{
     return [objc_getAssociatedObject(self, _cmd) boolValue];
     
 }
 
-
 -(void)setSelected:(BOOL)selected{
     objc_setAssociatedObject(self, @selector(selected), @(selected), OBJC_ASSOCIATION_ASSIGN);
     
 }
-
 
 -(UIViewController *)parController{
     id responder = self;
@@ -336,7 +333,7 @@
     for (UIView *subview in subviews) {
         subview.layer.borderWidth = kW_LayerBorder;
         subview.layer.borderColor = UIColor.blueColor.CGColor;
-        subview.layer.borderColor = UIColor.clearColor.CGColor;
+//        subview.layer.borderColor = UIColor.clearColor.CGColor;
 
         [subview getViewLayer];
         
@@ -401,7 +398,6 @@
 
 
 + (BN_TextField *)createTextFieldWithRect:(CGRect)rect text:(NSString *)text placeholder:(NSString *)placeholder font:(NSInteger)fontSize textAlignment:(NSTextAlignment)textAlignment keyboardType:(UIKeyboardType)keyboardType
-
 {
     BN_TextField * textField = [[BN_TextField alloc]initWithFrame:rect];
     
@@ -750,24 +746,6 @@
     }
 }
 
-///
-//- (void (^)(UIView *))tapBlock
-//{
-//    return objc_getAssociatedObject(self, _cmd);
-//}
-//
-//- (void)setTapBlock:(void (^)(UIView *))tapBlock
-//{
-//    objc_setAssociatedObject(self, @selector(tapBlock), tapBlock, OBJC_ASSOCIATION_COPY_NONATOMIC);
-//}
-//
-//- (void)tapView:(UIView* )view tapClick:(void (^) (UIView *View))tapClick{
-//    
-//    if (self.tapBlock != tapClick) {
-//        self.tapBlock = tapClick;
-//    }
-//}
-//
 //- (void)touchesBegan:(NSSet<UITouch *> *)touches withEvent:(UIEvent *)event
 //{
 //    UITouch *touch = [touches anyObject];
@@ -807,7 +785,6 @@
     return visualView;
 }
 
-
 - (void)addCircleLayerColor:(UIColor *)layColor layerWidth:(CGFloat)layerWidth{
     
     CGPoint center = self.center;
@@ -836,7 +813,6 @@
     
 }
 
-
 - (NSIndexPath *)getCellIndexPathByTableView:(UITableView *)tableView{
     UITableViewCell * cell = [self getClickViewCell];
     NSIndexPath * indexPath = [tableView indexPathForRowAtPoint:cell.center];
@@ -863,6 +839,7 @@
     if ([unitString containsString:@".png"]) {
         CGSize size = CGSizeMake(20, 20);
         UIImageView * imgView = [UIView createImgViewWithRect:CGRectMake(0, 0, size.width, size.height) image:unitString tag:kTAG_IMGVIEW type:@0];
+        imgView.image = UIImageFromParams(unitString,self.class,@"BN_TableViewCell");
         return imgView;
     }
     

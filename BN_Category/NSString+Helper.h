@@ -143,6 +143,12 @@
 -(NSString *)divideAnothor:(NSString *)anothor;
 
 -(NSString *)addAnothor:(id)anothor;
+/**
+ 获取未知的目标字符串
+ @param front 目标字段之前的特征字符串
+ @param back 目标字段之后的特征字符串
+ */
+-(NSString *)stringWithFront:(NSString *)front back:(NSString *)back;
 
 #pragma mark - - other
 - (BOOL)isBeyondWithLow:(NSString *)low high:(NSString *)high;
