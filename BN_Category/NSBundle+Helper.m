@@ -16,7 +16,7 @@ NSBundle *NSBundleFromParams(Class aClass, NSString *bundleName){
     
     path = [path stringByReplacingOccurrencesOfString:key withString:bundleName];
     NSString *bundlePath = [path stringByAppendingPathComponent:[NSString stringWithFormat:@"/%@.bundle",bundleName]];
-    NSLog(@"\n%@",bundlePath);
+//    NSLog(@"NSBundleFromParams\n%@",bundlePath);
     NSBundle *resource_bundle = [NSBundle bundleWithPath:bundlePath];
     return resource_bundle;
 }

@@ -333,7 +333,7 @@
     for (UIView *subview in subviews) {
         subview.layer.borderWidth = kW_LayerBorder;
         subview.layer.borderColor = UIColor.blueColor.CGColor;
-//        subview.layer.borderColor = UIColor.clearColor.CGColor;
+        subview.layer.borderColor = UIColor.clearColor.CGColor;
 
         [subview getViewLayer];
         
