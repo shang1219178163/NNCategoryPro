@@ -64,6 +64,7 @@
 #import "UICollectionViewLayout+AddView.h"
 #import "UIColor+Helper.h"
 #import "UIImage+Helper.h"
+#import "UIImage+Swizzing.h"
 #import "UIImageView+Animation.h"
 #import "UIImageView+Helper.h"
 #import "UINavigationBar+Helper.h"

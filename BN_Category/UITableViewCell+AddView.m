@@ -299,8 +299,8 @@
     BN_RadioView * view = objc_getAssociatedObject(self, _cmd);
     if (view == nil) {
         NSDictionary * dic = @{
-                               kRadio_imageN    :   @"img_cir_normal.png",
-                               kRadio_imageH    :   @"img_cir_Selected.png",
+                               kRadio_imageN    :   kIMG_selected_NO,
+                               kRadio_imageH    :   kIMG_selected_YES,
                                };
         
         view = [[BN_RadioView alloc]initWithFrame:CGRectZero attDict:dic isSelected:NO];
