@@ -333,7 +333,7 @@
     for (UIView *subview in subviews) {
         subview.layer.borderWidth = kW_LayerBorder;
         subview.layer.borderColor = UIColor.blueColor.CGColor;
-        subview.layer.borderColor = UIColor.clearColor.CGColor;
+//        subview.layer.borderColor = UIColor.clearColor.CGColor;
 
         [subview getViewLayer];
         
@@ -839,7 +839,7 @@
     if ([unitString containsString:@"img_"]) {
         CGSize size = CGSizeMake(20, 20);
         UIImageView * imgView = [UIView createImgViewWithRect:CGRectMake(0, 0, size.width, size.height) image:unitString tag:kTAG_IMGVIEW type:@0];
-        imgView.image = UIImageFromParams(unitString,self.class,@"BN_Globle");
+//        imgView.image = UIImageFromParams(unitString,self.class,@"BN_Globle");
         return imgView;
     }
     

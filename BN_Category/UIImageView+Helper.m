@@ -73,7 +73,7 @@
 //    NSParameterAssert([image isKindOfClass:[NSString class]] || [image isKindOfClass:[UIImage class]]);
     if ((!image || ![image validObject]) && [image isKindOfClass:[NSString class]]) {
         self.image = [UIImage imageNamed:imageDefault];
-        if (!self.image) self.image = UIImageFromParams(imageDefault, self.class, @"BN_Globle");
+//        if (!self.image) self.image = UIImageFromParams(imageDefault, self.class, @"BN_Globle");
         return;
     }
     
@@ -90,11 +90,11 @@
     if ([image isKindOfClass:[NSString class]]) {
         if ([image hasPrefix:@"http"]) {
             self.image = [UIImage imageNamed:imageDefault];//占位
-            if (!self.image) self.image = UIImageFromParams(imageDefault, self.class, @"BN_Globle");
+//            if (!self.image) self.image = UIImageFromParams(imageDefault, self.class, @"BN_Globle");
 
             imageDefault = imageDefault ? : kIMG_defaultFailed_S;//
-            UIImage *imageDe = UIImageFromParams(imageDefault, self.class, @"BN_Globle");
-            [self sd_setImageWithURL:image placeholderImage:imageDe];//
+//            UIImage *imageDe = UIImageFromParams(imageDefault, self.class, @"BN_Globle");
+            [self sd_setImageWithURL:image placeholderImage:self.image];//
             
         }
         else{

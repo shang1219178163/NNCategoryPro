@@ -183,7 +183,7 @@
             imgView.frame = CGRectMake(self.width - kX_GAP - kWH_ArrowRight, (self.height - kWH_ArrowRight)/2.0, kWH_ArrowRight, kWH_ArrowRight);
             imgV.tag = kTAG_IMGVIEW + 1;
             imgView.image = [UIImage imageNamed:kIMG_arrowRight];
-            if (!imgView.image) imgView.image = UIImageFromParams(kIMG_arrowRight, self.class, @"BN_Globle");
+//            if (!imgView.image) imgView.image = UIImageFromParams(kIMG_arrowRight, self.class, @"BN_Globle");
             
             imgView.hidden = YES;
             imgView;
