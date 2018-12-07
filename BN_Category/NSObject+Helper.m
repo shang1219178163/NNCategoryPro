@@ -159,19 +159,6 @@ UIImage * UIImageFromName(NSString * obj){
 }
 
 /**
- NSString->UIImage(非mainBundle图片读取)
- */
-//UIImage * UIImageFromParams(NSString * obj,Class aClass, NSString *bundleName){
-//    UIImage * image = UIImageFromName(obj);
-//    if (image)
-//        return image;
-//    
-//    NSBundle *resource_bundle = NSBundleFromParams(aClass, bundleName);
-//    image = [UIImage imageNamed:obj inBundle:resource_bundle compatibleWithTraitCollection:nil];
-//    return image;
-//}
-
-/**
  id类型->UIImage
  */
 UIImage * UIImageFromObj(id obj){
@@ -183,6 +170,9 @@ UIImage * UIImageFromObj(id obj){
     }
     else if ([obj isKindOfClass:[UIImage class]]) {
         return obj;
+    }
+    else if ([obj isKindOfClass:[NSData class]]) {
+        return [UIImage imageWithData:obj];
     }
     else if ([obj isKindOfClass:[CIImage class]]) {
         return [UIImage imageWithCIImage:obj];

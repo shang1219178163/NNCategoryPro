@@ -29,7 +29,6 @@ FOUNDATION_EXPORT UITabBarController * UITarBarCtrFromList(NSArray *list);
 
 FOUNDATION_EXPORT UIImage * UIImageFromColor(UIColor * color);
 FOUNDATION_EXPORT UIImage * UIImageFromName(NSString * obj);
-//FOUNDATION_EXPORT UIImage * UIImageFromParams(NSString * obj,Class aClass, NSString *bundleName);
 FOUNDATION_EXPORT UIImage * UIImageFromObj(id obj);
 
 FOUNDATION_EXPORT UIColor * UIColorFromRGBA(CGFloat r,CGFloat g,CGFloat b,CGFloat a);
