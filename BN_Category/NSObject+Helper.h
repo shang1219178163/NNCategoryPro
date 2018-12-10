@@ -23,6 +23,8 @@ FOUNDATION_EXPORT NSString * NSStringFromFloat(CGFloat obj);
 
 FOUNDATION_EXPORT NSIndexPath *NSIndexPathFromString(NSString *string);
 FOUNDATION_EXPORT NSIndexPath *NSIndexPathFromIndex(NSInteger section, NSInteger row);
+FOUNDATION_EXPORT NSArray *NSIndexPathsFromIdxInfo(NSInteger section, NSArray *rowList);
+    
 FOUNDATION_EXPORT UIViewController * UICtrFromString(NSString *obj);
 FOUNDATION_EXPORT UINavigationController * UINavCtrFromObj(id obj);
 FOUNDATION_EXPORT UITabBarController * UITarBarCtrFromList(NSArray *list);

@@ -87,6 +87,18 @@ NSIndexPath *NSIndexPathFromIndex(NSInteger section, NSInteger row) {
 }
 
 /**
+ 返回索引数组
+ */
+NSArray *NSIndexPathsFromIdxInfo(NSInteger section, NSArray *rowList) {
+    NSMutableArray *marr = [NSMutableArray array];
+    for (NSNumber *row in rowList) {
+        [marr addObject:[NSIndexPath indexPathForRow:row.integerValue inSection:section]];
+        
+    }
+    return marr.copy;
+}
+
+/**
  字符串->UIViewController
  */
 UIViewController * UICtrFromString(NSString *obj){

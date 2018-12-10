@@ -29,11 +29,13 @@ NSString * const kDeafult_textFieldHistory = @"kDeafult_textFieldHistory" ;// x�
 - (NSInteger)maxLength {
     return [objc_getAssociatedObject(self, _cmd) integerValue];
 }
+
 - (void)setMaxLength:(NSInteger)maxLength {
     objc_setAssociatedObject(self, @selector(maxLength), @(maxLength), OBJC_ASSOCIATION_ASSIGN);
-    [self addTarget:self action:@selector(jk_textFieldTextDidChange) forControlEvents:UIControlEventEditingChanged];
+    [self addTarget:self action:@selector(textFieldTextDidChange) forControlEvents:UIControlEventEditingChanged];
 }
-- (void)jk_textFieldTextDidChange {
+
+- (void)textFieldTextDidChange {
     NSString *toBeString = self.text;
     //获取高亮部分
     UITextRange *selectedRange = [self markedTextRange];
@@ -112,7 +114,7 @@ NSString * const kDeafult_textFieldHistory = @"kDeafult_textFieldHistory" ;// x�
     return table;
 }
 
--(void)setHistoryTableView:(UITableView *)historyTableView{
+- (void)setHistoryTableView:(UITableView *)historyTableView{
     objc_setAssociatedObject(self, @selector(historyTableView), historyTableView, OBJC_ASSOCIATION_RETAIN);
 
 }
@@ -230,7 +232,6 @@ NSString * const kDeafult_textFieldHistory = @"kDeafult_textFieldHistory" ;// x�
         cell = [[UITableViewCell alloc] initWithStyle:UITableViewCellStyleDefault reuseIdentifier:@"UITextFieldHistoryCell"];
     }
     cell.separatorInset = UIEdgeInsetsZero;
-    
     cell.textLabel.text = [self loadHistroy][indexPath.row];
     
     return cell;
@@ -241,7 +242,7 @@ NSString * const kDeafult_textFieldHistory = @"kDeafult_textFieldHistory" ;// x�
 
 }
 
-#pragma mark tableview delegate
+#pragma mark - tableview delegate
 - (UIView *)tableView:(UITableView *)tableView viewForFooterInSection:(NSInteger)section{
     UIButton* clearButton = [UIButton buttonWithType:UIButtonTypeRoundedRect];
     [clearButton setTitle:@"全部清除" forState:UIControlStateNormal];

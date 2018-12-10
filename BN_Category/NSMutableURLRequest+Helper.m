@@ -9,42 +9,42 @@
 
 @implementation NSMutableURLRequest (Helper)
 
-+(NSMutableURLRequest *)requestGetURL:(NSString *)url{
++(instancetype)requestGetURL:(NSString *)url{
     NSMutableURLRequest *request = [NSMutableURLRequest requestURL:url method:@0 body:nil  cachePolicy:NSURLRequestReloadIgnoringCacheData timeoutInterval:6];
     return request;
 }
 
-+(NSMutableURLRequest *)requestPostURL:(NSString *)url body:(nullable NSData *)body{
++(instancetype)requestPostURL:(NSString *)url body:(nullable NSData *)body{
     NSMutableURLRequest *request = [NSMutableURLRequest requestURL:url method:@1 body:body cachePolicy:NSURLRequestReloadIgnoringCacheData timeoutInterval:6];
     return request;
 }
 
-+(NSMutableURLRequest *)requestURL:(NSString *)url method:(NSNumber *)method body:(nullable NSData *)body cachePolicy:(NSURLRequestCachePolicy)cachePolicy timeoutInterval:(NSTimeInterval)timeoutInterval{
++(instancetype)requestURL:(NSString *)url method:(NSNumber *)method body:(nullable NSData *)body cachePolicy:(NSURLRequestCachePolicy)cachePolicy timeoutInterval:(NSTimeInterval)timeoutInterval{
     NSMutableURLRequest *request = [NSMutableURLRequest requestWithURL:[NSURL URLWithString:url] cachePolicy:cachePolicy timeoutInterval:timeoutInterval];
     request.HTTPMethod = [method integerValue] == 0 ? @"GET" : @"POST";
     request.HTTPBody = [method integerValue] == 0 ?  nil :  body;
     return request;
 }
 
-+ (instancetype)jk_requestWithURL:(NSURL *)URL fileURL:(NSURL *)fileURL name:(NSString *)name {
-    return [self jk_requestWithURL:URL fileURLs:@[fileURL] name:name];
++ (instancetype)requestWithURL:(NSURL *)URL fileURL:(NSURL *)fileURL name:(NSString *)name {
+    return [self requestWithURL:URL fileURLs:@[fileURL] name:name];
 }
 
-+ (instancetype)jk_requestWithURL:(NSURL *)URL fileURL:(NSURL *)fileURL fileName:(NSString *)fileName name:(NSString *)name {
-    return [self jk_requestWithURL:URL fileURLs:@[fileURL] fileNames:@[fileName] name:name];
++ (instancetype)requestWithURL:(NSURL *)URL fileURL:(NSURL *)fileURL fileName:(NSString *)fileName name:(NSString *)name {
+    return [self requestWithURL:URL fileURLs:@[fileURL] fileNames:@[fileName] name:name];
 }
 
-+ (instancetype)jk_requestWithURL:(NSURL *)URL fileURLs:(NSArray *)fileURLs name:(NSString *)name {
++ (instancetype)requestWithURL:(NSURL *)URL fileURLs:(NSArray *)fileURLs name:(NSString *)name {
     
     NSMutableArray *fileNames = [NSMutableArray arrayWithCapacity:fileURLs.count];
     [fileURLs enumerateObjectsUsingBlock:^(NSURL *fileURL, NSUInteger idx, BOOL *stop) {
         [fileNames addObject:fileURL.path.lastPathComponent];
     }];
     
-    return [self jk_requestWithURL:URL fileURLs:fileURLs fileNames:fileNames name:name];
+    return [self requestWithURL:URL fileURLs:fileURLs fileNames:fileNames name:name];
 }
 
-+ (instancetype)jk_requestWithURL:(NSURL *)URL fileURLs:(NSArray *)fileURLs fileNames:(NSArray *)fileNames name:(NSString *)name {
++ (instancetype)requestWithURL:(NSURL *)URL fileURLs:(NSArray *)fileURLs fileNames:(NSArray *)fileNames name:(NSString *)name {
     NSMutableURLRequest *request = [NSMutableURLRequest requestWithURL:URL];
     request.HTTPMethod = @"POST";
     

@@ -234,7 +234,7 @@ static const char *__BlockSignature__(id blockObj){
     NSInvocation *invocation = [NSInvocation invocationWithMethodSignature:methodSig];
     invocation.target = target;
     invocation.selector = theSelector;
-    [invocation jk_setArgumentsWithArray:args];
+    [invocation setArgumentsWithArray:args];
     
     [invocation invoke];
     id result = [invocation getEncodedReturnValue];
@@ -260,14 +260,14 @@ static const char *__BlockSignature__(id blockObj){
     invocation.target = c;
     invocation.selector = theSelector;
     
-    [invocation jk_setArgumentsWithArray:args];
+    [invocation setArgumentsWithArray:args];
     
     [invocation invoke];
     id result = [invocation getEncodedReturnValue];
     return result;
 }
 
-- (void)jk_setArgumentsWithArray:(NSArray *)array{
+- (void)setArgumentsWithArray:(NSArray *)array{
     if (nil != array && array.count > 0) {
         NSUInteger numargs = [self.methodSignature numberOfArguments] - 2;
         if (array.count != numargs) {

@@ -9,6 +9,8 @@
 
 @implementation NSIndexPath (Helper)
 
+
+
 - (NSIndexPath *)previousRow{
     return [NSIndexPath indexPathForRow:self.row - 1
                               inSection:self.section];
