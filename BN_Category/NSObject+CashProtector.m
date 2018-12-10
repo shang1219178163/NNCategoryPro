@@ -10,10 +10,13 @@
 
 #import <objc/runtime.h>
 #import "NSObject+swizzling.h"
+#import "BN_ForwardingTarget.h"
 
 #define isOpenCashProtector  1
 #define isOpenAssert         1
 //isOpenAssert配合异常断点一起使用(自动定位到崩溃位置)
+
+static BN_ForwardingTarget *_target = nil;
 
 @implementation NSObject (CashProtector)
 
@@ -41,6 +44,8 @@
 + (void)load {
     static dispatch_once_t onceToken;
     dispatch_once(&onceToken, ^{
+        _target = [BN_ForwardingTarget new];;
+
         if (isOpenCashProtector) {
             //NSClassFromString(@"__NSDictionaryM"),objc_getClass("__NSDictionaryM")
             [self swizzleMethodClass:NSClassFromString(@"__NSDictionaryM") origSel:@selector(setObject:forKey:) newSel:NSSelectorFromString(@"safe_setObject:forKey:")];
@@ -50,9 +55,40 @@
             [self swizzleMethodClass:NSClassFromString(@"__NSArrayM") origSel:@selector(addObject:) newSel:NSSelectorFromString(@"safe_addObject:")];
             [self swizzleMethodClass:NSClassFromString(@"__NSArrayM") origSel:@selector(insertObject:atIndex:) newSel:NSSelectorFromString(@"safe_insertObject:atIndex:")];
             
+            [self swizzleMethodClass:self.class origSel:@selector(forwardingTargetForSelector:) newSel:@selector(swz_forwardingTargetForSelector:)];
         }
     });
 }
+
++ (BOOL)isWhiteListClass:(Class)class {
+    NSString *classString = NSStringFromClass(class);
+    BOOL isInternal = [classString hasPrefix:@"_"];
+    if (isInternal) {
+        return NO;
+    }
+    BOOL isNull = [classString isEqualToString:NSStringFromClass([NSNull class])];
+    
+//    BOOL isMyClass  = [classString ...];//前缀处理
+//    return isNull || isMyClass;
+    return isNull;
+}
+
+- (id)swz_forwardingTargetForSelector:(SEL)aSelector {
+    id result = [self swz_forwardingTargetForSelector:aSelector];
+    if (result) {
+        return result;
+    }
+    BOOL isWhiteListClass = [[self class] isWhiteListClass:[self class]];
+    if (!isWhiteListClass) {
+        return nil;
+    }
+    
+    if (!result) {
+        result = _target;
+    }
+    return result;
+}
+
 
 @end
 
