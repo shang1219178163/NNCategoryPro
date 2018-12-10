@@ -58,6 +58,7 @@
 #import "UIBarButtonItem+Helper.h"
 #import "UIButton+Helper.h"
 #import "UIButton+swizzing.h"
+#import "UIControl+Helper.h"
 #import "UICollectionReusableView+AddView.h"
 #import "UICollectionView+Helper.h"
 #import "UICollectionViewCell+AddView.h"
