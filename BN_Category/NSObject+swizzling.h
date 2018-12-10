@@ -17,6 +17,8 @@
 
 @interface NSObject (swizzling)
 
+FOUNDATION_EXPORT BOOL MethodSwizzle(Class clz, SEL origSelector, SEL newSelector);
+
 /**
  所有类方法交换都应该走此方法,若此方法不满足需求,请在此类添加新方法
 

@@ -87,7 +87,7 @@ NSIndexPath *NSIndexPathFromIndex(NSInteger section, NSInteger row) {
 }
 
 /**
- 返回索引数组
+ 返回索引数组 
  */
 NSArray *NSIndexPathsFromIdxInfo(NSInteger section, NSArray *rowList) {
     NSMutableArray *marr = [NSMutableArray array];
