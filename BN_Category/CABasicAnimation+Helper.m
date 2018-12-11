@@ -61,7 +61,7 @@ static NSArray *_functionNames = nil;
     NSString * name = [CABasicAnimation.functionNames containsObject:functionName] ? functionName : CABasicAnimation.functionNames.firstObject;
     anim.timingFunction = [CAMediaTimingFunction functionWithName:name];
     //    rotationAnim.cumulative = YES;
-    anim.cumulative = [keyPath isEqualToString:kTransformRotationZ]  ? YES : NO;
+    anim.cumulative = [keyPath isEqualToString:kTransformRotationZ];
     return anim;
 }
 
