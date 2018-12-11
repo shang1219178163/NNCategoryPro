@@ -15,7 +15,7 @@
 
 + (UIWindow *)keyWindow{
     UIWindow *window = UIApplication.sharedApplication.delegate.window;
-    if (window == nil) {
+    if (!window) {
         window = [[UIWindow alloc]initWithFrame:UIScreen.mainScreen.bounds];
         window.backgroundColor = UIColor.whiteColor;
         [window makeKeyAndVisible];
@@ -23,11 +23,10 @@
         
     }
     return window;
-    
 }
 
 +(void)setKeyWindow:(UIWindow *)keyWindow{
-    if (keyWindow == nil) return;
+    if (!keyWindow) return;
     UIApplication.sharedApplication.delegate.window = keyWindow;
     
 }
@@ -38,7 +37,7 @@
 }
 
 +(void)setRootController:(UIViewController *)rootVC{
-    if (rootVC == nil) return;
+    if (!rootVC) return;
     UIApplication.keyWindow.rootViewController = rootVC;
     
 }
@@ -101,12 +100,12 @@
 }
 
 + (void)setupRootController:(id)controller isAdjust:(BOOL)isAdjust{
-    if (isAdjust == NO) {
+    if ([controller isKindOfClass:[NSString class]]) controller = [[NSClassFromString(controller) alloc] init];
+    if (!isAdjust) {
         UIApplication.rootController = controller;
         return;
     }
     
-    if ([controller isKindOfClass:[NSString class]]) controller = [[NSClassFromString(controller) alloc] init];
     if ([controller isKindOfClass:[UINavigationController class]] || [controller isKindOfClass:[UITabBarController class]]) {
         UIApplication.rootController = controller;
         
@@ -195,7 +194,7 @@
     UIApplication * app = UIApplication.sharedApplication;
     NSURL *url = [NSURL URLWithString:urlStr];
     BOOL isOpenUrl = [app canOpenURL:url];
-    if (isOpenUrl == YES) {
+    if (isOpenUrl) {
         if (iOSVer(10)) {
             [app openURL:url options:@{} completionHandler:nil];
             

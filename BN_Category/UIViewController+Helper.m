@@ -234,7 +234,7 @@
     else{
         btn = [UIButton buttonWithSize:CGSizeMake(40, 40) title:title font:15 titleColor_N:nil titleColor_H:nil titleEdgeInsets:UIEdgeInsetsZero];
     }
-    btn.tag = isLeft == YES ? kTAG_BTN_BackItem : kTAG_BTN_RightItem;
+    btn.tag = isLeft  ? kTAG_BTN_BackItem : kTAG_BTN_RightItem;
     btn.hidden = isHidden;
     //
     UIView * view = [[UIView alloc]initWithFrame:CGRectMake(0, 0, 44, 44)];
@@ -264,7 +264,7 @@
 
     }];
     UIBarButtonItem *item = [[UIBarButtonItem alloc]initWithCustomView:view];
-    if (isLeft == YES) {
+    if (isLeft) {
         self.navigationItem.leftBarButtonItem = item;
     }
     else{
@@ -297,7 +297,7 @@
 }
 
 - (id)findController:(NSString *)contollerName navController:(UINavigationController *)navController{
-    if (navController == nil) {
+    if (!navController) {
         navController = self.currentVC.navigationController;
         
     }
@@ -305,15 +305,12 @@
     __block UIViewController * controller = nil;
     [navController.viewControllers enumerateObjectsWithOptions:NSEnumerationReverse usingBlock:^(__kindof UIViewController * _Nonnull obj, NSUInteger idx, BOOL * _Nonnull stop) {
         if ([obj isKindOfClass:[NSClassFromString(contollerName) class]]) {
-            
             controller = obj;
             *stop = YES;
         }
     }];
     return controller;
-    
 }
-
 
 - (void)goController:(NSString *)contollerName title:(NSString *)title navController:(UINavigationController *)navController obj:(id)obj objOne:(id)objOne{
     

@@ -590,7 +590,7 @@ static char base64EncodingTable[64] = {
 }
 
 + (NSString *)processDecodedString:(NSString *)decoded{
-    if(decoded == nil || decoded.length == 0){
+    if(!decoded || decoded.length == 0){
         return nil;
     }
     const char *tmpStr = [decoded UTF8String];
@@ -605,7 +605,7 @@ static char base64EncodingTable[64] = {
 }
 
 - (NSString *)processDecodedString:(NSString *)decoded{
-    if(decoded == nil || decoded.length == 0){
+    if(!decoded || decoded.length == 0){
         return nil;
     }
     const char *tmpStr = [decoded UTF8String];
@@ -619,8 +619,8 @@ static char base64EncodingTable[64] = {
     
 }
 
-+ (BOOL)validKey:(NSString*)key{
-    if(key == nil || key.length != 16){
++ (BOOL)validKey:(NSString *)key{
+    if(!key|| key.length != 16){
         return NO;
     }
     return YES;

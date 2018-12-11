@@ -30,7 +30,7 @@
 -(NSMutableArray *)dataList{
 //    return objc_getAssociatedObject(self, _cmd);
     NSMutableArray * list = objc_getAssociatedObject(self, _cmd);
-    if (list == nil) {
+    if (!list) {
         list = [NSMutableArray array];
         objc_setAssociatedObject(self, _cmd, list, OBJC_ASSOCIATION_RETAIN_NONATOMIC);
 
@@ -46,7 +46,7 @@
 
 - (UITableView *)tableView {
     UITableView* table = objc_getAssociatedObject(self, _cmd);
-    if (table == nil) {
+    if (!table) {
         table = [[UITableView alloc] initWithFrame:self.view.bounds style:UITableViewStyleGrouped];
         table.autoresizingMask = UIViewAutoresizingFlexibleWidth|UIViewAutoresizingFlexibleHeight;//确保TablView能够正确的调整大小
         table.separatorInset = UIEdgeInsetsZero;
@@ -79,7 +79,7 @@
 
 - (UICollectionView *)collectionView{
     UICollectionView* ctv = objc_getAssociatedObject(self, _cmd);
-    if (ctv == nil) {
+    if (!ctv) {
         ctv = ({
             UICollectionViewFlowLayout *layout = [[UICollectionViewFlowLayout alloc] init];
             //item水平间距
@@ -118,7 +118,7 @@
 -(NSMutableDictionary *)heightMdict{
 //    return objc_getAssociatedObject(self, _cmd);
     NSMutableDictionary * dic = objc_getAssociatedObject(self, _cmd);
-    if (dic == nil) {
+    if (!dic) {
         dic = [NSMutableDictionary dictionary];
         objc_setAssociatedObject(self, _cmd, dic, OBJC_ASSOCIATION_RETAIN_NONATOMIC);
         

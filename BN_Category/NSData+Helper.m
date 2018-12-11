@@ -35,7 +35,7 @@ static char encodingTable[64] =
         NSError * error = nil;
         data = [NSJSONSerialization dataWithJSONObject:obj options:0 error:&error];
 
-        if (data && error == nil) {
+        if (data && !error) {
             return data;
         }
     }
@@ -58,7 +58,7 @@ static char encodingTable[64] =
     const unsigned char *tempcstring;
     NSMutableData *theData;
     
-    if (string == nil) {
+    if (!string) {
         return [NSData data];
     }
     

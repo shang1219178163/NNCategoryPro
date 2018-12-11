@@ -11,7 +11,7 @@
 @implementation NSMutableDictionary (Helper)
 
 -(void)setSafeObjct:(id)obj forKey:(id<NSCopying>)akey{
-    if (obj == nil || [obj isKindOfClass:[NSNull class]]) {
+    if (!obj || [obj isKindOfClass:[NSNull class]]) {
         [self setObject:@"" forKey:akey];
         
     }else{

@@ -142,7 +142,7 @@ NSString * const kArrs_union_list = @"@unionOfArrays.self";
 
 - (id)BN_resultBykeyPath:(NSString *)key valuePath:(NSString *)value isImg:(BOOL)isImg{
     
-    if (value == nil) {
+    if (!value) {
         __block NSMutableArray * marr = [NSMutableArray array];
         [self enumerateObjectsUsingBlock:^(id  _Nonnull obj, NSUInteger idx, BOOL * _Nonnull stop) {
             NSString * value = [obj valueForKey:key];

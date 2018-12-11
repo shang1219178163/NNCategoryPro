@@ -66,7 +66,7 @@
 
 -(UILabel *)labelRight{
     UILabel * lab = objc_getAssociatedObject(self, _cmd);
-    if (lab == nil) {
+    if (!lab) {
         lab = [UIView createLabelWithRect:CGRectZero text:@"" textColor:nil tag:kTAG_LABEL+4 type:@2 font:kFZ_Second backgroudColor:UIColor.whiteColor alignment:NSTextAlignmentRight];
 
 //        lab = ({
@@ -91,7 +91,7 @@
 
 -(UILabel *)labelLeft{
     UILabel * lab = objc_getAssociatedObject(self, _cmd);
-    if (lab == nil) {
+    if (!lab) {
         lab = [UIView createLabelWithRect:CGRectZero text:@"" textColor:nil tag:kTAG_LABEL type:@2 font:kFZ_Second backgroudColor:UIColor.whiteColor alignment:NSTextAlignmentLeft];
 
 //        lab = ({
@@ -117,7 +117,7 @@
 
 -(UILabel *)labelLeftMark{
     UILabel * lab = objc_getAssociatedObject(self, _cmd);
-    if (lab == nil) {
+    if (!lab) {
         lab = [UIView createLabelWithRect:CGRectZero text:@"" textColor:nil tag:kTAG_LABEL+1 type:@2 font:kFZ_Second backgroudColor:UIColor.whiteColor alignment:NSTextAlignmentLeft];
 
 //        lab = ({
@@ -142,7 +142,7 @@
 
 -(UILabel *)labelLeftSub{
     UILabel * lab = objc_getAssociatedObject(self, _cmd);
-    if (lab == nil) {
+    if (!lab) {
         lab = [UIView createLabelWithRect:CGRectZero text:@"" textColor:nil tag:kTAG_LABEL+2 type:@2 font:kFZ_Second backgroudColor:UIColor.whiteColor alignment:NSTextAlignmentLeft];
 
 //        lab = ({
@@ -169,7 +169,7 @@
 
 -(UILabel *)labelLeftSubMark{
     UILabel * lab = objc_getAssociatedObject(self, _cmd);
-    if (lab == nil) {
+    if (!lab) {
         lab = [UIView createLabelWithRect:CGRectZero text:@"" textColor:nil tag:kTAG_LABEL+3 type:@2 font:kFZ_Second backgroudColor:UIColor.whiteColor alignment:NSTextAlignmentLeft];
 
 //        lab = ({
@@ -195,7 +195,7 @@
 
 -(UIImageView *)imgViewLeft{
     UIImageView * imgV = objc_getAssociatedObject(self, _cmd);
-    if (imgV == nil) {
+    if (!imgV) {
         imgV = ({
             UIImageView *imgView = [[UIImageView alloc] initWithFrame:CGRectZero];
             imgView.userInteractionEnabled = YES;
@@ -216,7 +216,7 @@
 
 -(UIImageView *)imgViewRight{
     UIImageView * imgV = objc_getAssociatedObject(self, _cmd);
-    if (imgV == nil) {
+    if (!imgV) {
         imgV = ({
             UIImageView *imgView = [[UIImageView alloc] initWithFrame:CGRectZero];
             imgView.userInteractionEnabled = YES;
@@ -240,7 +240,7 @@
 
 -(UIButton *)btn{
     UIButton * button = objc_getAssociatedObject(self, _cmd);
-    if (button == nil) {
+    if (!button) {
         button = [UIView createBtnWithRect:CGRectZero title:@"取消订单" font:kFZ_Second image:nil tag:kTAG_BTN type:@7 target:nil aSelector:nil];
 //        button = ({
 //            UIButton * btn = [UIButton buttonWithType:UIButtonTypeCustom];
@@ -265,7 +265,7 @@
 
 -(BN_TextField *)textField{
     BN_TextField * textField = objc_getAssociatedObject(self, _cmd);
-    if (textField == nil) {
+    if (!textField) {
         textField = [UIView createTextFieldWithRect:CGRectZero text:@"" placeholder:nil font:kFZ_Second textAlignment:NSTextAlignmentLeft keyboardType:UIKeyboardTypeDefault];
         textField.tag = kTAG_TEXTFIELD;
 
@@ -281,7 +281,7 @@
 
 -(BN_TextView *)textView{
     BN_TextView * tv = objc_getAssociatedObject(self, _cmd);
-    if (tv == nil) {
+    if (!tv) {
         tv = [UIView createTextViewWithRect:CGRectZero text:@"" placeholder:nil font:kFZ_Third textAlignment:NSTextAlignmentLeft keyType:UIKeyboardTypeDefault];
         
         objc_setAssociatedObject(self, _cmd, tv, OBJC_ASSOCIATION_RETAIN_NONATOMIC);
@@ -296,7 +296,7 @@
 
 -(BN_RadioView *)radioView{
     BN_RadioView * view = objc_getAssociatedObject(self, _cmd);
-    if (view == nil) {
+    if (!view) {
         NSDictionary * dic = @{
                                kRadio_imageN    :   kIMG_selected_NO,
                                kRadio_imageH    :   kIMG_selected_YES,
@@ -312,7 +312,7 @@
 
 //-(UITextField *)textField{
 //    UITextField * textField = objc_getAssociatedObject(self, _cmd);
-//    if (textField == nil) {
+//    if (!textField) {
 //        textField = ({
 //            UITextField * textField = [[UITextField alloc]initWithFrame:CGRectZero];
 //            textField.contentVerticalAlignment = UIControlContentVerticalAlignmentCenter;
@@ -338,7 +338,7 @@
 //
 //-(UITextView *)textView{
 //    UITextView * tv = objc_getAssociatedObject(self, _cmd);
-//    if (tv == nil) {
+//    if (!tv) {
 //        tv = ({
 //            UITextView *textView = [[UITextView alloc] initWithFrame:CGRectZero];
 //

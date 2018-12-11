@@ -40,7 +40,7 @@ NSString * NSStringFromHTML(NSString *html) {
     //        NSRange range = NSMakeRange(i, 1);
     //
     //        //  在这里添加要过滤的特殊符号
-    //        if ( c == '\r' || c == '\n' || c == '\t' ) {
+    //        if ( c == '\r' || c == '\n' || c == '\t') {
     //            [str1 deleteCharactersInRange:range];
     //            --i;
     //        }
@@ -342,7 +342,8 @@ CGFloat roundFloat(CGFloat value,NSInteger num){
         
         id value = [obj valueForKey:propName];//kvc读值
         
-        value = value == nil ? [NSNull null] : [self handleObj:obj];
+//        value = value == nil ? [NSNull null] : [self handleObj:obj];
+        value = !value ? [NSNull null] : [self handleObj:obj];
         [dic setObject:value forKey:propName];
         
     }
@@ -482,7 +483,7 @@ void dispatchApplyGlobal(id obj ,void(^block)(size_t index)){
 
 -(NSString *)showNilText{
     NSParameterAssert([self isKindOfClass:[NSString class]]);
-    return [self validObject] == YES ? (NSString *)self : @"--";
+    return [self validObject]  ? (NSString *)self : @"--";
 }
 
 
@@ -741,9 +742,9 @@ void dispatchApplyGlobal(id obj ,void(^block)(size_t index)){
 
  */
 - (NSString *)stringFromBool:(NSNumber *)boolNum {
-    NSParameterAssert([boolNum boolValue] == YES || [boolNum boolValue] == NO);
+    NSParameterAssert([boolNum boolValue]  || [boolNum boolValue] == NO);
     
-    NSString *string = [boolNum boolValue] == YES ? @"1"  :   @"0";
+    NSString *string = [boolNum boolValue]  ? @"1"  :   @"0";
     return string;
 
 }
@@ -753,7 +754,7 @@ void dispatchApplyGlobal(id obj ,void(^block)(size_t index)){
 
  */
 - (BOOL)stringToBool:(NSString *)string{
-    NSAssert(([@[@"1",@"0"] containsObject:string] == YES), @"string值只能为1或者0");
+    NSAssert(([@[@"1",@"0"] containsObject:string] ), @"string值只能为1或者0");
 
     BOOL boolValue = [string integerValue] == 1 ? YES : NO;
     return boolValue;

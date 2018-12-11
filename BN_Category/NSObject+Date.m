@@ -90,7 +90,7 @@ Z：     GMT（时区）
 - (NSString *)toTimeStampWithFormatter:(NSString *)dateFormatter{
     NSParameterAssert([self isKindOfClass:[NSString class]] || [self isKindOfClass:[NSNumber class]]);
     NSString * time = [self isKindOfClass:[NSString class]] ? (NSString *)self : [(NSNumber *)self stringValue];
-    if ([self isTimeStamp] == YES) {
+    if ([self isTimeStamp]) {
         return time;
     }
     NSDateFormatter *formatter = [NSDateFormatter dateFormat:dateFormatter];
@@ -198,7 +198,7 @@ Z：     GMT（时区）
 - (NSString *)timeByAddingDays:(id)days{
     NSParameterAssert([days isKindOfClass:[NSString class]] || [days isKindOfClass:[NSNumber class]]);
 
-    if (days == nil) days = @0;
+    if (!days) days = @0;
     NSString * dateStr = [self toTimeDate];
     NSDate * date = [self dateWithString:dateStr format:kFormat_date];
     NSString * newtime = [self stringWithDate:[date dateByAddDays:[days integerValue]]];

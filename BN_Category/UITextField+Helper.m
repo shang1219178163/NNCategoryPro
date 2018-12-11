@@ -102,7 +102,7 @@ NSString * const kDeafult_textFieldHistory = @"kDeafult_textFieldHistory" ;// xæ
 
 - (UITableView *)historyTableView {
     UITableView* table = objc_getAssociatedObject(self, _cmd);
-    if (table == nil) {
+    if (!table) {
         table = [[UITableView alloc] initWithFrame:CGRectZero style:UITableViewStylePlain];
         [table registerClass:[UITableViewCell class] forCellReuseIdentifier:@"UITextFieldHistoryCell"];
         table.layer.borderColor = UIColor.grayColor.CGColor;
@@ -120,7 +120,7 @@ NSString * const kDeafult_textFieldHistory = @"kDeafult_textFieldHistory" ;// xæ
 }
 
 - (NSArray*)loadHistroy {
-    if (self.identify == nil) return nil;
+    if (!self.identify) return nil;
     NSUserDefaults* def = NSUserDefaults.standardUserDefaults;
     NSDictionary* dic = [def objectForKey:kDeafult_textFieldHistory];
     
@@ -135,7 +135,7 @@ NSString * const kDeafult_textFieldHistory = @"kDeafult_textFieldHistory" ;// xæ
 }
 
 - (void)synchronize {
-    if (self.identify == nil || [self.text length] == 0) {
+    if (!self.identify || self.text.length == 0) {
         return;
     }
     
@@ -172,7 +172,7 @@ NSString * const kDeafult_textFieldHistory = @"kDeafult_textFieldHistory" ;// xæ
 - (void)showHistory{
     NSArray* history = [self loadHistroy];
     
-    if (self.historyTableView.superview != nil || history == nil || history.count == 0) {
+    if (self.historyTableView.superview || !history || history.count == 0) {
         return;
     }
     
@@ -193,7 +193,7 @@ NSString * const kDeafult_textFieldHistory = @"kDeafult_textFieldHistory" ;// xæ
 }
 
 - (void)hideHistroy{
-    if (self.historyTableView.superview == nil) {
+    if (!self.historyTableView.superview) {
         return;
     }
     
@@ -227,8 +227,7 @@ NSString * const kDeafult_textFieldHistory = @"kDeafult_textFieldHistory" ;// xæ
 
 - (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath{
     UITableViewCell* cell = [tableView dequeueReusableCellWithIdentifier:@"UITextFieldHistoryCell"];
-    
-    if (cell == nil) {
+    if (!cell) {
         cell = [[UITableViewCell alloc] initWithStyle:UITableViewCellStyleDefault reuseIdentifier:@"UITextFieldHistoryCell"];
     }
     cell.separatorInset = UIEdgeInsetsZero;

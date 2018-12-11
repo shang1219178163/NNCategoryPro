@@ -382,16 +382,13 @@
     UILabel * lab = [UIView createLabelWithRect:labRect text:title textColor:kC_TextColor_TitleSub tag:kTAG_LABEL type:@2 font:kFZ_Third backgroudColor:nil alignment:NSTextAlignmentCenter];
     [containView addSubview:lab];
     
-    if (image == nil) {
-        imgView.hidden = NO;
-        lab.hidden = NO;
+    if (!image) {
+        imgView.hidden = lab.hidden = NO;
         
     }else{
-        imgView.hidden = YES;
-        lab.hidden = YES;
+        imgView.hidden = lab.hidden = YES;
         
     }
-    
     return containView;
     
 }
@@ -626,7 +623,7 @@
         CGRect itemRect = CGRectMake(x, y, w, h);
         
         UIView * view = nil;
-        switch (type.integerValue ) {
+        switch (type.integerValue) {
             case 0://uibutton
             {
                 view = [UIView createBtnWithRect:itemRect title:title font:15 image:nil tag:i type:@5 target:nil aSelector:nil];

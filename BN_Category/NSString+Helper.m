@@ -42,11 +42,11 @@
 }
 
 - (id)numberValue{
-    if ([self isPureInteger] == YES) {
+    if ([self isPureInteger]) {
         return @([self integerValue]);
     }
     
-    if ([self isPureFloat] == YES) {
+    if ([self isPureFloat]) {
         return @([self floatValue]);
     }
     return self;
@@ -309,7 +309,7 @@
             break;
     }
     
-    if ([timestampA integerValue] >= [timestampB integerValue] && isMax == YES) {
+    if ([timestampA integerValue] >= [timestampB integerValue] && isMax) {
         return self;
         
     }else{
@@ -490,7 +490,7 @@
 
 -(NSString *)multiplyAnothor:(NSString *)anothor{
     NSAssert([self isPureInteger] || [self isPureFloat], @"支持持纯数字字符串");
-    if (self == nil || anothor == nil || [self floatValue] == 0.0  || [anothor floatValue] == 0.0) {
+    if (!anothor || [self floatValue] == 0.0  || [anothor floatValue] == 0.0) {
         return @"0";
     }
     
@@ -502,7 +502,7 @@
 
 -(NSString *)divideAnothor:(NSString *)anothor{
     NSAssert([self isPureInteger] || [self isPureFloat], @"支持持纯数字字符串");
-    if (self == nil || anothor == nil || [self floatValue] == 0.0  || [anothor floatValue] == 0.0) {
+    if (!anothor || [self floatValue] == 0.0  || [anothor floatValue] == 0.0) {
         return @"0";
     }
     

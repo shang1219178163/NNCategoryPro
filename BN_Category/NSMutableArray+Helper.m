@@ -11,7 +11,7 @@
 @implementation NSMutableArray (Helper)
 
 -(void)addSafeObjct:(id)obj{
-    if (obj == nil || [obj isKindOfClass:[NSNull class]]) {
+    if (!obj || [obj isKindOfClass:[NSNull class]]) {
         [self addObject:@""];
 //        [self addObject:kNIl_TEXT];
 
@@ -39,7 +39,7 @@
         NSAssert(NO, @"beyond the boundary");
     }
     else{
-        if (anObject == nil || [anObject isKindOfClass:[NSNull class]]) {
+        if (!anObject || [anObject isKindOfClass:[NSNull class]]) {
             [self replaceObjectAtIndex:index withObject:@""];
             
         }else{

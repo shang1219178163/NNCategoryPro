@@ -51,7 +51,7 @@
 
 -(UILabel *)labelLeft{
     UILabel * lab = objc_getAssociatedObject(self, _cmd);
-    if (lab == nil) {
+    if (!lab) {
         lab = [UIView createLabelWithRect:CGRectZero text:@"" textColor:nil tag:kTAG_LABEL type:@2 font:kFZ_Second backgroudColor:UIColor.whiteColor alignment:NSTextAlignmentLeft];
         
         //        lab = ({
@@ -72,7 +72,7 @@
 
 -(UILabel *)labelLeftMark{
     UILabel * lab = objc_getAssociatedObject(self, _cmd);
-    if (lab == nil) {
+    if (!lab) {
         lab = [UIView createLabelWithRect:CGRectZero text:@"" textColor:nil tag:kTAG_LABEL+1 type:@2 font:kFZ_Second backgroudColor:UIColor.whiteColor alignment:NSTextAlignmentLeft];
         
         //        lab = ({
@@ -93,7 +93,7 @@
 
 -(UILabel *)labelLeftSub{
     UILabel * lab = objc_getAssociatedObject(self, _cmd);
-    if (lab == nil) {
+    if (!lab) {
         lab = [UIView createLabelWithRect:CGRectZero text:@"" textColor:nil tag:kTAG_LABEL+2 type:@2 font:kFZ_Second backgroudColor:UIColor.whiteColor alignment:NSTextAlignmentLeft];
         
         //        lab = ({
@@ -116,7 +116,7 @@
 
 -(UILabel *)labelLeftSubMark{
     UILabel * lab = objc_getAssociatedObject(self, _cmd);
-    if (lab == nil) {
+    if (!lab) {
         lab = [UIView createLabelWithRect:CGRectZero text:@"" textColor:nil tag:kTAG_LABEL+3 type:@2 font:kFZ_Second backgroudColor:UIColor.whiteColor alignment:NSTextAlignmentLeft];
         
         //        lab = ({
@@ -138,7 +138,7 @@
 
 -(UIImageView *)viewIndicator{
     UIImageView * imgV = objc_getAssociatedObject(self, _cmd);
-    if (imgV == nil) {
+    if (!imgV) {
         imgV = ({
             UIImageView *imgView = [[UIImageView alloc] initWithFrame:CGRectZero];
             imgView.userInteractionEnabled = YES;
@@ -156,7 +156,7 @@
 
 -(UIImageView *)imgViewLeft{
     UIImageView * imgV = objc_getAssociatedObject(self, _cmd);
-    if (imgV == nil) {
+    if (!imgV) {
         imgV = ({
             UIImageView *imgView = [[UIImageView alloc] initWithFrame:CGRectZero];
             imgView.userInteractionEnabled = YES;
@@ -174,7 +174,7 @@
 
 -(UIImageView *)imgViewRight{
     UIImageView * imgV = objc_getAssociatedObject(self, _cmd);
-    if (imgV == nil) {
+    if (!imgV) {
         imgV = ({
             UIImageView *imgView = [[UIImageView alloc] initWithFrame:CGRectZero];
             imgView.userInteractionEnabled = YES;
@@ -195,7 +195,7 @@
 
 -(UIButton *)btn{
     UIButton * button = objc_getAssociatedObject(self, _cmd);
-    if (button == nil) {
+    if (!button) {
         button = [UIView createBtnWithRect:CGRectZero title:@"按钮" font:kFZ_Second image:nil tag:kTAG_BTN type:@7 target:nil aSelector:nil];
 //        button = ({
 //            UIButton * btn = [UIButton buttonWithType:UIButtonTypeCustom];

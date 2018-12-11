@@ -566,8 +566,8 @@ static NSDictionary *_dictPrivacy = nil;
                     if ([appStoreVersion compare:currentVersion options:NSNumericSearch] == NSOrderedDescending) {
                         // 弹窗 更新
                         [UIApplication.rootController showAlertTitle:versionInfo msg:releaseNotes actionTitleList:@[kActionTitle_Call,kActionTitle_Update] handler:^(UIAlertController * _Nonnull alertVC, UIAlertAction * _Nullable action) {
-                            isUpdate = [action.title isEqualToString:kActionTitle_Update] == YES ? YES : NO;
-                            if (isUpdate == YES) {
+                            isUpdate = [action.title isEqualToString:kActionTitle_Update]  ? YES : NO;
+                            if (isUpdate) {
                                 // 升级去
                                 
                             }
@@ -612,8 +612,8 @@ static NSDictionary *_dictPrivacy = nil;
 //                if ([appStoreVersion compare:currentVersion options:NSNumericSearch] == NSOrderedDescending) {
 //                    // 弹窗 更新
 //                    [UIApplication.rootController showAlertTitle:versionInfo msg:releaseNotes actionTitleList:@[kActionTitle_Call,kActionTitle_Update] handler:^(UIAlertController * _Nonnull alertVC, UIAlertAction * _Nullable action) {
-//                        isUpdate = [action.title isEqualToString:kActionTitle_Update] == YES ? YES : NO;
-//                        if (isUpdate == YES) {
+//                        isUpdate = [action.title isEqualToString:kActionTitle_Update]  ? YES : NO;
+//                        if (isUpdate) {
 //                            // 升级去
 //
 //                        }

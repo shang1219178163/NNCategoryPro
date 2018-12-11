@@ -114,13 +114,12 @@ static const char *__BlockSignature__(id blockObj){
 
 + (NSArray *)getClassNamesMatchingPattern:(NSString *)matchingPattern{
     NSArray *allClasses = [NSInvocation getClassList];
-    if ( nil == allClasses || allClasses.count == 0 ) {
+    if (!allClasses || allClasses.count == 0) {
         return nil;
     }
     
     NSPredicate *predicate = [NSPredicate predicateWithFormat:@"SELF like %@",matchingPattern];
     NSArray *filtered = [allClasses filteredArrayUsingPredicate:predicate];
-    
     return filtered;
 }
 
@@ -135,7 +134,7 @@ static const char *__BlockSignature__(id blockObj){
         NSString *className = NSStringFromClass(aClass);
         [temp addObject:className];
     }
-    if ( count > 0 ) {
+    if ( count > 0) {
         free(buffer);
     }
     return [NSArray arrayWithArray:temp];
@@ -145,7 +144,7 @@ static const char *__BlockSignature__(id blockObj){
     Class class = NSClassFromString(className);
     unsigned int count = 0;
     class_copyMethodList(class, &count);
-    if ( count == 0 ) {
+    if ( count == 0) {
         return nil;
     }
     
@@ -160,7 +159,7 @@ static const char *__BlockSignature__(id blockObj){
         [temp addObject:selectorName];
     }
     
-    if ( temp.count == 0 ) {
+    if ( temp.count == 0) {
         return nil;
     }
     
@@ -170,8 +169,7 @@ static const char *__BlockSignature__(id blockObj){
 
 + (NSArray *)getMethodListForClass:(NSString *)className matchingPattern:(NSString *)matchingPattern{
     NSArray *methodList = [NSInvocation getMethodListForClass:className];
-    
-    if ( nil == methodList || methodList.count == 0 ) {
+    if (!methodList || methodList.count == 0) {
         return nil;
     }
     
@@ -184,10 +182,10 @@ static const char *__BlockSignature__(id blockObj){
 + (Class)lookupClass:(NSString *)className{
     NSArray *classList = [NSInvocation getClassList];
     
-    if ( [classList containsObject:className] == NO ) {
+    if ( [classList containsObject:className] == NO) {
         NSString *match = [NSString stringWithFormat:@"%@*",className];
         NSArray *classes = [NSInvocation getClassNamesMatchingPattern:match];
-        if ( nil == classes || classes.count == 0 ) {
+        if (!classes || classes.count == 0) {
             return nil;
         }
         
@@ -202,11 +200,11 @@ static const char *__BlockSignature__(id blockObj){
     NSArray *methodList = [NSInvocation getMethodListForClass:NSStringFromClass(class) matchingPattern:match];
     NSUInteger count = methodList.count;
     
-    if ( nil != methodList && count > 0 ) {
+    if ( nil != methodList && count > 0) {
         return NSSelectorFromString(methodList.firstObject);
     }else{
         Class superclass = class_getSuperclass(class);
-        if ( superclass != 0 ) {
+        if ( superclass != 0) {
             return [NSInvocation lookupSelector:selectorName forClass:superclass];
         }else{
             return NSSelectorFromString(selectorName);
@@ -215,18 +213,18 @@ static const char *__BlockSignature__(id blockObj){
 }
 
 + (id)doInstanceMethodTarget:(id)target selectorName:(NSString *)selectorName args:(NSArray *)args{
-    if ( nil == target || nil == selectorName ) {
+    if (!target || nil == selectorName) {
         return nil;
     }
     
     Class c = [target class];
     SEL theSelector = [NSInvocation lookupSelector:selectorName forClass:c];
     
-    if ( NULL == theSelector || NULL == c ) {
+    if ( NULL == theSelector || NULL == c) {
         return nil;
     }
     
-    if ( [c instancesRespondToSelector:theSelector] == NO ) {
+    if ( [c instancesRespondToSelector:theSelector] == NO) {
         return nil;
     }
     
@@ -244,14 +242,14 @@ static const char *__BlockSignature__(id blockObj){
 + (id)doClassMethod:(NSString *)className
           selectorName:(NSString *)selectorName
                   args:(NSArray *)args{
-    if ( nil == className || nil == selectorName ) {
+    if (!className || nil == selectorName) {
         return nil;
     }
     
     Class c = [NSInvocation lookupClass:className];
     SEL theSelector = [NSInvocation lookupSelector:selectorName forClass:c];
     
-    if ( NULL == theSelector || NULL == c ) {
+    if ( NULL == theSelector || NULL == c) {
         return nil;
     }
     

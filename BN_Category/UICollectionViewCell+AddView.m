@@ -41,7 +41,7 @@
 
 -(UIImageView *)imgView{
     UIImageView * view = objc_getAssociatedObject(self, _cmd);
-    if (view == nil) {
+    if (!view) {
         view = ({
             UIImageView *imgView = [[UIImageView alloc] initWithFrame:CGRectZero];
             imgView.userInteractionEnabled = YES;
@@ -58,7 +58,7 @@
 
 -(UILabel *)label{
     UILabel * lab = objc_getAssociatedObject(self, _cmd);
-    if (lab == nil) {
+    if (!lab) {
         lab = ({
             UILabel * label = [[UILabel alloc] initWithFrame:CGRectZero];
             label.tag = kTAG_LABEL;
@@ -77,7 +77,7 @@
 
 -(UILabel *)labelSub{
     UILabel * lab = objc_getAssociatedObject(self, _cmd);
-    if (lab == nil) {
+    if (!lab) {
         lab = ({
             UILabel * label = [[UILabel alloc] initWithFrame:CGRectZero];
             label.tag = kTAG_LABEL + 1;
