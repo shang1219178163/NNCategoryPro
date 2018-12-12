@@ -11,17 +11,13 @@
 
 #import "NSObject+swizzling.h"
 
-#define isOpen 1
-
 @implementation UIButton (swizzing)
 
 //+ (void)load {
 //    static dispatch_once_t onceToken;
 //    dispatch_once(&onceToken, ^{
-//        if (isOpen) {
-//            [self swizzleMethodClass:self.class origSel:@selector(sendAction:to:forEvent:) newSel:@selector(swz_sendAction:to:forEvent:)];
-//            
-//        }
+//        [self swizzleMethodClass:self.class origSel:@selector(sendAction:to:forEvent:) newSel:@selector(swz_sendAction:to:forEvent:)];
+//        
 //    });
 //}
 
@@ -29,9 +25,8 @@
     if (self == self.class) {
         static dispatch_once_t onceToken;
         dispatch_once(&onceToken, ^{
-            if (isOpen) {
-                SwizzleMethodInstance(@"UIButton", @selector(sendAction:to:forEvent:), @selector(swz_sendAction:to:forEvent:));
-            }
+            SwizzleMethodInstance(@"UIButton", @selector(sendAction:to:forEvent:), @selector(swz_sendAction:to:forEvent:));
+            
         });
     }
 }

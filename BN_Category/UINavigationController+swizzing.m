@@ -15,10 +15,8 @@
     if (self == self.class) {
         static dispatch_once_t onceToken;
         dispatch_once(&onceToken, ^{
-            if (1) {
-                SwizzleMethodInstance(@"UINavigationController", @selector(pushViewController:animated:), @selector(swz_PushViewController:animated:));
-
-            }
+            SwizzleMethodInstance(@"UINavigationController", @selector(pushViewController:animated:), @selector(swz_PushViewController:animated:));
+            
         });
     }
 }

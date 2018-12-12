@@ -16,7 +16,6 @@ Class NSClassFromObj(id clz){
     if ([clz isKindOfClass:NSString.class]) {
         clz = NSClassFromString(clz);//object_getClass(clz)
     }
-//    clz = object_getClass(clz);
     return clz;
 }
 
@@ -31,19 +30,19 @@ BOOL SwizzleMethodInstance(id clz, SEL origSelector, SEL replSelector){
     //1. 通过class_getInstanceMethod()函数从当前对象中的method list获取method结构体，如果是类方法就使用class_getClassMethod()函数获取。
     Method original = class_getInstanceMethod(clz, origSelector);
     Method replace = class_getInstanceMethod(clz, replSelector);
-    if (original && replace) {
-        //2.若UIViewController类没有该方法,那么它会去UIViewController的父类去寻找,为了避免不必要的麻烦,我们先进行一次添加
-        //3: 如果原来类没有这个方法,可以成功添加,如果原来类里面有这个方法,那么将会添加失败
-        if (class_addMethod(clz, origSelector, method_getImplementation(replace),method_getTypeEncoding(replace))) {
-            class_replaceMethod(clz, replSelector, method_getImplementation(original), method_getTypeEncoding(original));
-        } else {
-            method_exchangeImplementations(original, replace);
-        }
-        return YES;
-    } else {
+    if (!original || !replace) {
         NSLog(@"Swizzling Method(s) not found while swizzling class %@.", NSStringFromClass(clz));
+        return NO;
     }
-    return NO;
+
+    //2.若UIViewController类没有该方法,那么它会去UIViewController的父类去寻找,为了避免不必要的麻烦,我们先进行一次添加
+    //3: 如果原来类没有这个方法,可以成功添加,如果原来类里面有这个方法,那么将会添加失败
+    if (class_addMethod(clz, origSelector, method_getImplementation(replace),method_getTypeEncoding(replace))) {
+        class_replaceMethod(clz, replSelector, method_getImplementation(original), method_getTypeEncoding(original));
+    } else {
+        method_exchangeImplementations(original, replace);
+    }
+    return YES;
 }
 
 + (BOOL)swizzleMethodInstance:(id)clz origSel:(SEL)origSelector replSel:(SEL)replSelector{
@@ -61,25 +60,22 @@ BOOL SwizzleMethodClass(id clz, SEL origSelector, SEL replSelector){
         return NO;
     }
     clz = NSClassFromObj(clz);
+    clz = object_getClass(clz);
+//    Class metaClass = objc_getMetaClass(class_getName(clz));
 
     Method original = class_getClassMethod(clz, origSelector);
     Method replace = class_getClassMethod(clz, replSelector);
-    if (original && replace) {
-        method_exchangeImplementations(original, replace);
-        return YES;
+    if (!original || !replace) {
+        NSLog(@"Swizzling Method(s) not found while swizzling class %@.", NSStringFromClass(clz));
+        return NO;
     }
     
-//    if (original && replace) {
-//        if (class_addMethod(clz, origSelector, method_getImplementation(replace), method_getTypeEncoding(replace))) {
-//            class_replaceMethod(clz, replSelector, method_getImplementation(original), method_getTypeEncoding(original));
-//        } else {
-//            method_exchangeImplementations(original, replace);
-//        }
-//        return YES;
-//    } else {
-//        NSLog(@"Swizzling Method(s) not found while swizzling class %@.", NSStringFromClass(clz));
-//    }
-    return NO;
+    if (class_addMethod(clz, origSelector, method_getImplementation(replace), method_getTypeEncoding(replace))) {
+        class_replaceMethod(clz, replSelector, method_getImplementation(original), method_getTypeEncoding(original));
+    } else {
+        method_exchangeImplementations(original, replace);
+    }
+    return YES;
 }
 
 + (BOOL)swizzleMethodClass:(id)clz origSel:(SEL)origSelector replSel:(SEL)replSelector{
