@@ -29,13 +29,16 @@
         static dispatch_once_t onceToken;
         dispatch_once(&onceToken, ^{
             if (isOpen) {
-//                [self swizzleMethodClass:self.class origSel:@selector(viewDidLoad) newSel:@selector(swz_viewDidLoad)];
-//                [self swizzleMethodClass:self.class origSel:@selector(viewWillAppear:) newSel:@selector(swz_viewWillAppear:)];
-//                [self swizzleMethodClass:self.class origSel:@selector(viewDidDisappear:) newSel:@selector(swz_viewDidDisappear:)];
 
-                MethodSwizzle(self.class, @selector(viewDidLoad), @selector(swz_viewDidLoad));
-                MethodSwizzle(self.class, @selector(viewWillAppear:), @selector(swz_viewWillAppear:));
-                MethodSwizzle(self.class, @selector(viewDidDisappear:), @selector(swz_viewDidDisappear:));
+                NSLog(@"%@,%@,%@",self,self.class,NSClassFromString(@"UIViewController"));
+                
+//                SwizzleMethodInstance(self.class, @selector(viewDidLoad), @selector(swz_viewDidLoad));
+//                SwizzleMethodInstance(UIViewController.class, @selector(viewWillAppear:), @selector(swz_viewWillAppear:));
+//                SwizzleMethodInstance(@"UIViewController", @selector(viewDidDisappear:), @selector(swz_viewDidDisappear:));
+         
+                SwizzleMethodInstance(@"UIViewController", @selector(viewDidLoad), @selector(swz_viewDidLoad));
+                SwizzleMethodInstance(@"UIViewController", @selector(viewWillAppear:), @selector(swz_viewWillAppear:));
+                SwizzleMethodInstance(@"UIViewController", @selector(viewDidDisappear:), @selector(swz_viewDidDisappear:));
 
             }
         });

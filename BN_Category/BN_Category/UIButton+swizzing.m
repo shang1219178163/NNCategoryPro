@@ -30,8 +30,7 @@
         static dispatch_once_t onceToken;
         dispatch_once(&onceToken, ^{
             if (isOpen) {
-                [self swizzleMethodClass:self.class origSel:@selector(sendAction:to:forEvent:) newSel:@selector(swz_sendAction:to:forEvent:)];
-                
+                SwizzleMethodInstance(@"UIButton", @selector(sendAction:to:forEvent:), @selector(swz_sendAction:to:forEvent:));
             }
         });
     }

@@ -48,14 +48,14 @@ static BN_ForwardingTarget *_target = nil;
 
         if (isOpenCashProtector) {
             //NSClassFromString(@"__NSDictionaryM"),objc_getClass("__NSDictionaryM")
-            [self swizzleMethodClass:NSClassFromString(@"__NSDictionaryM") origSel:@selector(setObject:forKey:) newSel:NSSelectorFromString(@"safe_setObject:forKey:")];
+            [self swizzleMethodInstance:NSClassFromString(@"__NSDictionaryM") origSel:@selector(setObject:forKey:) replSel:NSSelectorFromString(@"safe_setObject:forKey:")];
             
-            [self swizzleMethodClass:NSClassFromString(@"__NSArrayI") origSel:@selector(objectAtIndex:) newSel:NSSelectorFromString(@"safe_objectAtIndex:")];
-            [self swizzleMethodClass:NSClassFromString(@"__NSArrayM") origSel:@selector(objectAtIndex:) newSel:NSSelectorFromString(@"safe_objectAtIndex:")];
-            [self swizzleMethodClass:NSClassFromString(@"__NSArrayM") origSel:@selector(addObject:) newSel:NSSelectorFromString(@"safe_addObject:")];
-            [self swizzleMethodClass:NSClassFromString(@"__NSArrayM") origSel:@selector(insertObject:atIndex:) newSel:NSSelectorFromString(@"safe_insertObject:atIndex:")];
+            [self swizzleMethodInstance:NSClassFromString(@"__NSArrayI") origSel:@selector(objectAtIndex:) replSel:NSSelectorFromString(@"safe_objectAtIndex:")];
+            [self swizzleMethodInstance:NSClassFromString(@"__NSArrayM") origSel:@selector(objectAtIndex:) replSel:NSSelectorFromString(@"safe_objectAtIndex:")];
+            [self swizzleMethodInstance:NSClassFromString(@"__NSArrayM") origSel:@selector(addObject:) replSel:NSSelectorFromString(@"safe_addObject:")];
+            [self swizzleMethodInstance:NSClassFromString(@"__NSArrayM") origSel:@selector(insertObject:atIndex:) replSel:NSSelectorFromString(@"safe_insertObject:atIndex:")];
             
-            [self swizzleMethodClass:self.class origSel:@selector(forwardingTargetForSelector:) newSel:@selector(swz_forwardingTargetForSelector:)];
+            [self swizzleMethodInstance:self.class origSel:@selector(forwardingTargetForSelector:) replSel:@selector(swz_forwardingTargetForSelector:)];
         }
     });
 }

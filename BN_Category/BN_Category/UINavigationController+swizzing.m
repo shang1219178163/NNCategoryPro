@@ -16,14 +16,14 @@
         static dispatch_once_t onceToken;
         dispatch_once(&onceToken, ^{
             if (1) {
-                [self swizzleMethodClass:self.class origSel:@selector(pushViewController:animated:) newSel:@selector(swzPushViewController:animated:)];
-                
+                SwizzleMethodInstance(@"UINavigationController", @selector(pushViewController:animated:), @selector(swz_PushViewController:animated:));
+
             }
         });
     }
 }
 
-- (void)swzPushViewController:(UIViewController *)viewController animated:(BOOL)animated{
+- (void)swz_PushViewController:(UIViewController *)viewController animated:(BOOL)animated{
     if ([self.viewControllers containsObject:viewController]) return;
     viewController.navigationItem.backBarButtonItem = [[UIBarButtonItem alloc] initWithTitle:@"" style:UIBarButtonItemStyleDone target:nil action:nil];
     viewController.view.backgroundColor = UIColor.whiteColor;
@@ -32,7 +32,7 @@
         viewController.hidesBottomBarWhenPushed = YES;
         
     }
-    [self swzPushViewController:viewController animated:animated];
+    [self swz_PushViewController:viewController animated:animated];
 }
 
 @end
