@@ -10,7 +10,6 @@
 #import "UIApplication+Helper.h"
 #import <objc/runtime.h>
 
-
 @implementation UIApplication (Helper)
 
 + (UIWindow *)keyWindow{
@@ -28,7 +27,6 @@
 +(void)setKeyWindow:(UIWindow *)keyWindow{
     if (!keyWindow) return;
     UIApplication.sharedApplication.delegate.window = keyWindow;
-    
 }
 
 + (UIViewController *)rootController{
@@ -59,7 +57,6 @@
     NSString *icon = [[infoDict valueForKeyPath:@"CFBundleIcons.CFBundlePrimaryIcon.CFBundleIconFiles"] lastObject];
     UIImage * image = [UIImage imageNamed:icon];
     return image;
-    
 }
 
 +(NSString *)appVer{
@@ -74,12 +71,10 @@
 
 +(NSString *)phoneSystemVer{
     return UIDevice.currentDevice.systemVersion;
-    
 }
 
 +(NSString *)phoneSystemName{
     return UIDevice.currentDevice.systemName;
-    
 }
 
 +(NSString *)phoneName{
@@ -91,12 +86,10 @@
 
 +(NSString *)phoneModel{
     return UIDevice.currentDevice.model;
-    
 }
 
 +(NSString *)phoneLocalizedModel{
     return UIDevice.currentDevice.localizedModel;
-    
 }
 
 + (void)setupRootController:(id)controller isAdjust:(BOOL)isAdjust{
@@ -122,44 +115,38 @@
     
 }
 
-//+ (void)setupRootController:(id)controller{
-//    if ([controller isKindOfClass:[NSString class]]) controller = [NSClassFromString(controller) new];
-//
-//    UIApplication * app = UIApplication.sharedApplication;
-//    app.delegate.window = [[UIWindow alloc]initWithFrame:UIScreen.mainScreen.bounds];
-//    app.delegate.window.backgroundColor = UIColor.whiteColor;
-//
-//    if ([controller isKindOfClass:[UINavigationController class]] || [controller isKindOfClass:[UITabBarController class]]) {
-//        app.delegate.window.rootViewController = controller;
-//
-//    }else{
-//        UINavigationController * navController = [[UINavigationController alloc] initWithRootViewController:controller];
-//        app.delegate.window.rootViewController = navController;
-//
-//    }
-//    [app.delegate.window makeKeyAndVisible];
-//}
-
 + (void)setupAppearance{
     [self setupNavigationbar];
-    [self setupTableView];
     
     if (@available(iOS 11.0, *)) {
+        UITableView.appearance.estimatedRowHeight = 0.0;
+        UITableView.appearance.estimatedSectionHeaderHeight = 0.0;
+        UITableView.appearance.estimatedSectionFooterHeight = 0.0;
+        
         UICollectionView.appearance.contentInsetAdjustmentBehavior = UIScrollViewContentInsetAdjustmentNever;
         UIScrollView.appearance.contentInsetAdjustmentBehavior = UIScrollViewContentInsetAdjustmentNever;
         UIScrollView.appearance.keyboardDismissMode = UIScrollViewKeyboardDismissModeOnDrag;
 
     }
+    UIButton.appearance.exclusiveTouch = NO;
 }
 
 + (void)setupNavigationbar{
-    [UINavigationBar.appearance setBarTintColor:UIColor.themeColor];
-    [UINavigationBar.appearance setTintColor:UIColor.whiteColor];
-    [UINavigationBar.appearance setTitleTextAttributes:@{
-                                                         NSForegroundColorAttributeName  :   UIColor.whiteColor,
-                                            
-                                                         }];
+    UINavigationBar.appearance.barTintColor = UIColor.themeColor;
+    UINavigationBar.appearance.tintColor = UIColor.whiteColor;
+    NSDictionary * dic = @{
+                           NSForegroundColorAttributeName   :   UIColor.whiteColor,
+                           NSFontAttributeName  :   [UIFont boldSystemFontOfSize:UIFont.systemFontSize+1.0],
+                           };
+    UINavigationBar.appearance.titleTextAttributes = dic;
 
+//    [UINavigationBar.appearance setBarTintColor:UIColor.themeColor];
+//    [UINavigationBar.appearance setTintColor:UIColor.whiteColor];
+//    [UINavigationBar.appearance setTitleTextAttributes:@{
+//                                                         NSForegroundColorAttributeName  :   UIColor.whiteColor,
+//                                            
+//                                                         }];
+   
     //    [bar setBackgroundImage:[UIImage imageNamed:@"navigationbarBackgroundWhite"] forBarMetrics:UIBarMetricsDefault];
     //    [navigationBar setTitleTextAttributes:@{NSFontAttributeName : [UIFont boldSystemFontOfSize:20]}];
     
@@ -177,15 +164,6 @@
         
     }
     else{
-
-    }
-}
-
-+ (void)setupTableView{
-    if (@available(iOS 11.0, *)) {
-        UITableView.appearance.estimatedRowHeight = 0.0;
-        UITableView.appearance.estimatedSectionHeaderHeight = 0.0;
-        UITableView.appearance.estimatedSectionFooterHeight = 0.0;
 
     }
 }

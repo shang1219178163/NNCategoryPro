@@ -120,10 +120,11 @@ UINavigationController * UINavCtrFromObj(id obj){
     }
     return nil;
 }
+
 /**
- 数组->UITabBarController(子数组示例:@[@"标题",@"图片",@"图片高亮",@"badgeValue",])
+ 数组->UINavigationController(子数组示例:@[@"标题",@"图片",@"图片高亮",@"badgeValue",])
  */
-UITabBarController * UITarBarCtrFromList(NSArray *list){
+NSArray * UINavListFromList(NSArray *list){
     __block NSMutableArray * marr = [NSMutableArray array];
     [list enumerateObjectsUsingBlock:^(id  _Nonnull obj, NSUInteger idx, BOOL * _Nonnull stop) {
         if ([obj isKindOfClass:[NSString class]]) {
@@ -140,9 +141,15 @@ UITabBarController * UITarBarCtrFromList(NSArray *list){
             NSString * badgeValue = itemList.count > 4 ? itemList[4] :   @"";
             
             UIViewController * controller = UICtrFromString(itemList.firstObject);
+            controller.title = itemList[1];
             controller.tabBarItem = [[UITabBarItem alloc]initWithTitle:title image:[UIImage imageNamed:img_N] selectedImage:[UIImage imageNamed:img_H]];
             controller.tabBarItem.badgeValue = badgeValue;
-            
+            if (@available(iOS 10.0, *)) {
+                controller.tabBarItem.badgeColor = badgeValue.integerValue <= 0 ? UIColor.clearColor:UIColor.redColor;
+            } else {
+                // Fallback on earlier versions
+            }
+
             UINavigationController *navController = UINavCtrFromObj(controller);
             [marr addObject:navController];
         }
@@ -150,9 +157,18 @@ UITabBarController * UITarBarCtrFromList(NSArray *list){
             assert([obj isKindOfClass:[NSString class]] || [obj isKindOfClass:[NSArray class]]);
         }
     }];
-  
+    NSArray *viewControllers = marr.copy;
+    return viewControllers;
+}
+
+/**
+ 数组->UITabBarController(子数组示例:@[@"标题",@"图片",@"图片高亮",@"badgeValue",])
+ */
+UITabBarController * UITarBarCtrFromList(NSArray *list){
     UITabBarController * tabBarVC = [[UITabBarController alloc]init];
-    tabBarVC.viewControllers = marr.copy;
+    tabBarVC.viewControllers = UINavListFromList(list);
+//    tabBarVC.tabBar.barTintColor = UIColor.themeColor;
+//    tabBarVC.tabBar.tintColor = UIColor.themeColor;
     return tabBarVC;
 }
 

@@ -27,6 +27,7 @@ FOUNDATION_EXPORT NSArray *NSIndexPathsFromIdxInfo(NSInteger section, NSArray *r
     
 FOUNDATION_EXPORT UIViewController * UICtrFromString(NSString *obj);
 FOUNDATION_EXPORT UINavigationController * UINavCtrFromObj(id obj);
+FOUNDATION_EXPORT NSArray * UINavListFromList(NSArray *list);
 FOUNDATION_EXPORT UITabBarController * UITarBarCtrFromList(NSArray *list);
 
 FOUNDATION_EXPORT UIImage * UIImageFromColor(UIColor * color);
