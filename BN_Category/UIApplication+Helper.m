@@ -116,8 +116,8 @@
 }
 
 + (void)setupAppearance{
-    [self setupNavigationbar];
-    
+    [self setupAppearanceNavigationBar];
+    [self setupAppearanceTabBar];
     if (@available(iOS 11.0, *)) {
         UITableView.appearance.estimatedRowHeight = 0.0;
         UITableView.appearance.estimatedSectionHeaderHeight = 0.0;
@@ -131,7 +131,7 @@
     UIButton.appearance.exclusiveTouch = NO;
 }
 
-+ (void)setupNavigationbar{
++ (void)setupAppearanceNavigationBar{
     UINavigationBar.appearance.barTintColor = UIColor.themeColor;
     UINavigationBar.appearance.tintColor = UIColor.whiteColor;
     NSDictionary * dic = @{
@@ -168,7 +168,12 @@
     }
 }
 
-+(BOOL)openURL:(NSString *)urlStr tips:(NSString *)tips{
++ (void)setupAppearanceTabBar{
+    UITabBarItem.appearance.titlePositionAdjustment = UIOffsetMake(0, -5.0);
+    UITabBar.appearance.translucent = NO;
+}
+
++ (BOOL)openURL:(NSString *)urlStr tips:(NSString *)tips{
     UIApplication * app = UIApplication.sharedApplication;
     NSURL *url = [NSURL URLWithString:urlStr];
     BOOL isOpenUrl = [app canOpenURL:url];

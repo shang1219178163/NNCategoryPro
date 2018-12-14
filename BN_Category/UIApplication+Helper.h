@@ -36,7 +36,7 @@
 
 + (void)setupAppearance;
 
-+ (void)setupNavigationbar;
++ (void)setupAppearanceNavigationBar;
 
 + (BOOL)openURL:(NSString *)urlStr tips:(NSString *)tips;
 
