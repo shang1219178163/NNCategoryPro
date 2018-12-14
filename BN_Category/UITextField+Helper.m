@@ -176,11 +176,11 @@ NSString * const kDeafult_textFieldHistory = @"kDeafult_textFieldHistory" ;// xæ
         return;
     }
     
-    self.historyTableView.frame = CGRectMake(self.x, CGRectGetMaxY(self.frame) + 1, self.w, 1);
+    self.historyTableView.frame = CGRectMake(self.x, CGRectGetMaxY(self.frame) + 1, self.width, 1);
     [self.superview addSubview:self.historyTableView];
     
     CGRect rect = self.historyTableView.frame;
-    rect.size.height = self.h*(history.count + 1);
+    rect.size.height = self.height*(history.count + 1);
     
     [UIView animateWithDuration:kAnimDuration animations:^{
         self.historyTableView.frame = rect;
@@ -251,11 +251,11 @@ NSString * const kDeafult_textFieldHistory = @"kDeafult_textFieldHistory" ;// xæ
 }
 
 - (CGFloat)tableView:(UITableView *)tableView heightForRowAtIndexPath:(NSIndexPath *)indexPath{
-    return self.h;
+    return self.height;
 }
 
 - (CGFloat)tableView:(UITableView *)tableView heightForFooterInSection:(NSInteger)section{
-    return self.h;
+    return self.height;
 }
 
 - (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath{

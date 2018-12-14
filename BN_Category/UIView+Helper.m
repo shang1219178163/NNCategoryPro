@@ -20,7 +20,7 @@
 
 @implementation UIView (Helper)
 
--(CGFloat)x{
+- (CGFloat)x{
     return self.frame.origin.x;
 }
 
@@ -40,43 +40,23 @@
     self.frame = rect;
 }
 
--(CGFloat)width{
+- (CGFloat)width{
     return self.frame.size.width;
 }
 
--(void)setWidth:(CGFloat)width{
+- (void)setWidth:(CGFloat)width{
     CGRect rect = self.frame;
     rect.size.width = width;
     self.frame = rect;
 }
 
--(CGFloat)height{
+- (CGFloat)height{
     return self.frame.size.height;
 }
 
--(void)setHeight:(CGFloat)height{
+- (void)setHeight:(CGFloat)height{
     CGRect rect = self.frame;
     rect.size.height = height;
-    self.frame = rect;
-}
-
--(CGFloat)w{
-    return self.frame.size.width;
-}
-
--(void)setW:(CGFloat)w{
-    CGRect rect = self.frame;
-    rect.size.width = w;
-    self.frame = rect;
-}
-
--(CGFloat)h{
-    return self.frame.size.height;
-}
-
--(void)setH:(CGFloat)h{
-    CGRect rect = self.frame;
-    rect.size.height = h;
     self.frame = rect;
 }
 
@@ -90,7 +70,7 @@
     self.frame = rect;
 }
 
--(CGSize)size{
+- (CGSize)size{
     return self.frame.size;
 }
 
@@ -100,40 +80,61 @@
     self.frame = rect;
 }
 
--(CGFloat)top{
-    return self.frame.origin.y;
+//- (CGFloat)top{
+//    return self.minY;
+//}
+//
+//- (CGFloat)left{
+//    return self.minX;
+//}
+//
+//- (CGFloat)bottom{
+//    return self.maxY;
+//}
+//
+//- (CGFloat)right{
+//    return self.maxX;
+//}
+
+- (CGFloat)minX{
+    return CGRectGetMinX(self.frame);
 }
 
--(CGFloat)left{
-    return self.frame.origin.x;
-    
+- (CGFloat)midX{
+    return CGRectGetMidX(self.frame);
 }
 
-- (CGFloat)bottom{
-    return self.frame.origin.y + self.frame.size.height;
+- (CGFloat)maxX{
+    return CGRectGetMaxX(self.frame);
 }
 
-- (CGFloat)right{
-    return self.frame.origin.x + self.frame.size.width;
+- (CGFloat)minY{
+    return CGRectGetMinY(self.frame);
 }
 
--(BlockView)blockView{
+- (CGFloat)midY{
+    return CGRectGetMidY(self.frame);
+}
+
+- (CGFloat)maxY{
+    return CGRectGetMaxY(self.frame);
+}
+
+- (BlockView)blockView{
     return objc_getAssociatedObject(self, _cmd);
 }
 
--(void)setBlockView:(BlockView)blockView{
+- (void)setBlockView:(BlockView)blockView{
     objc_setAssociatedObject(self, @selector(blockView), blockView, OBJC_ASSOCIATION_COPY_NONATOMIC);
     
 }
 
--(BOOL)selected{
+- (BOOL)selected{
     return [objc_getAssociatedObject(self, _cmd) boolValue];
-    
 }
 
--(void)setSelected:(BOOL)selected{
+- (void)setSelected:(BOOL)selected{
     objc_setAssociatedObject(self, @selector(selected), @(selected), OBJC_ASSOCIATION_ASSIGN);
-    
 }
 
 -(UIViewController *)parController{
