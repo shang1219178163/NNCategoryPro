@@ -12,11 +12,11 @@
 @implementation UIControl (Helper)
 
 - (void)addActionHandler:(void(^)(UIControl *obj))handler forControlEvents:(UIControlEvents)controlEvents{
-    [self addTarget:self action:@selector(handleActionBtn:) forControlEvents:controlEvents];
+    [self addTarget:self action:@selector(p_handleActionBtn:) forControlEvents:controlEvents];
     objc_setAssociatedObject(self, _cmd, handler, OBJC_ASSOCIATION_COPY_NONATOMIC);
 }
 
-- (void)handleActionBtn:(id)sender{
+- (void)p_handleActionBtn:(UIControl *)sender{
     void(^block)(UIControl *obj) = objc_getAssociatedObject(self, @selector(addActionHandler:forControlEvents:));
     if (block) block(sender);
 

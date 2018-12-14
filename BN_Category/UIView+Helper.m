@@ -13,6 +13,7 @@
 
 #import "NSObject+Helper.h"
 #import "NSBundle+Helper.h"
+#import "UIControl+Helper.h"
 
 #import "BN_TextField.h"
 #import "BN_TextView.h"
@@ -241,18 +242,10 @@
     return self;
 }
 
-
-/**
- 关联方法待改进
- */
 - (void)addActionHandler:(void(^)(id obj, id item, NSInteger idx))handler{
-
-    if ([self isKindOfClass:[UIButton class]]) {
-        [(UIButton *)self addTarget:self action:@selector(handleActionBtn:) forControlEvents:UIControlEventTouchUpInside];
-
-    }
-    else if ([self isKindOfClass:[UIControl class]]) {
-        [(UIControl *)self addTarget:self action:@selector(handleActionBtn:) forControlEvents:UIControlEventValueChanged];
+    UIControlEvents controlEvents = [self isKindOfClass:UIButton.class] ? UIControlEventTouchUpInside : UIControlEventValueChanged;
+    if ([self isKindOfClass:UIControl.class]) {
+        [(UIControl *)self addTarget:self action:@selector(handleActionBtn:) forControlEvents:controlEvents];
         
     }
     else{
@@ -261,7 +254,6 @@
             tapGesture = [[UITapGestureRecognizer alloc] initWithTarget:self action:@selector(handleActionTapGesture:)];
             tapGesture.numberOfTapsRequired = 1;
             tapGesture.numberOfTouchesRequired = 1;
-            
 //            tapGesture.cancelsTouchesInView = NO;
 //            tapGesture.delaysTouchesEnded = NO;
             
@@ -271,18 +263,22 @@
     }
     objc_setAssociatedObject(self, _cmd, handler, OBJC_ASSOCIATION_COPY_NONATOMIC);
 }
+
 /**
  关联方法待改进
  */
 - (void)handleActionBtn:(id)sender{
     void(^block)(id obj, id item, NSInteger idx) = objc_getAssociatedObject(self, @selector(addActionHandler:));
+    if ([sender isKindOfClass:UIButton.class]) {
+        if (block) block(sender, sender, ((UIButton *)sender).tag);
 
-    if ([sender isKindOfClass:[UISegmentedControl class]]) {
+    } else if ([sender isKindOfClass:UISegmentedControl.class]) {
         UISegmentedControl * segmentCtl = sender;
         if (block) block(sender, sender, segmentCtl.selectedSegmentIndex);
     }
     else{
-        if (block) block(sender, sender, ((UIButton *)sender).tag);
+        if (block) block(sender, sender, ((UIControl *)sender).tag);
+
     }
 }
 
@@ -296,7 +292,6 @@
 
     }
 }
-
 
 //寻找特定控件
 + (id)getControl:(NSString *)control view:(UIView *)view{

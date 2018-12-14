@@ -10,7 +10,7 @@
 
 @interface UISegmentedControl (Helper)
 
-- (void)setSegmentItems:(NSArray *)segmentItems;
+@property (nonatomic, strong) NSArray *itemList;
 
 @end
 
