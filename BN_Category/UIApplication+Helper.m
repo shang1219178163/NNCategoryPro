@@ -118,17 +118,22 @@
 + (void)setupAppearance{
     [self setupAppearanceNavigationBar];
     [self setupAppearanceTabBar];
+    UIButton.appearance.exclusiveTouch = NO;
+
+    UITableViewCell.appearance.separatorInset = UIEdgeInsetsZero;
+    UITableViewCell.appearance.selectionStyle = UITableViewCellSelectionStyleNone;
+    
+    UIScrollView.appearance.keyboardDismissMode = UIScrollViewKeyboardDismissModeOnDrag;
+
     if (@available(iOS 11.0, *)) {
         UITableView.appearance.estimatedRowHeight = 0.0;
         UITableView.appearance.estimatedSectionHeaderHeight = 0.0;
         UITableView.appearance.estimatedSectionFooterHeight = 0.0;
-        
+
         UICollectionView.appearance.contentInsetAdjustmentBehavior = UIScrollViewContentInsetAdjustmentNever;
         UIScrollView.appearance.contentInsetAdjustmentBehavior = UIScrollViewContentInsetAdjustmentNever;
-        UIScrollView.appearance.keyboardDismissMode = UIScrollViewKeyboardDismissModeOnDrag;
 
     }
-    UIButton.appearance.exclusiveTouch = NO;
 }
 
 + (void)setupAppearanceNavigationBar{
