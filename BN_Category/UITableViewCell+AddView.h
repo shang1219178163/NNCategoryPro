@@ -18,6 +18,8 @@
 
 +(instancetype)cellWithTableView:(UITableView *)tableView;
 
+@property (nonatomic, strong, class, readonly) NSString * identifier;
+
 @property (nonatomic, assign) CGSize  imgViewLeftSize;
 
 @property (nonatomic, assign) CGFloat width;

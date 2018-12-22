@@ -8,14 +8,16 @@
 
 #import "NSNumberFormatter+Helper.h"
 
-NSString * const kFormat_num = @"四舍五入";// 默认(四舍五入)
-NSString * const kFormat_num_decimal = @"分隔符,";//
-NSString * const kFormat_num_percent = @"百分比";//
-NSString * const kFormat_num_currency = @"货币$";//
-NSString * const kFormat_num_scientific = @"科学计数法 1.234E8";//
-NSString * const kFormat_num_plusSign = @"加号符号";//
-NSString * const kFormat_num_minusSign = @"减号符号";//
-NSString * const kFormat_num_exponentSymbol = @"指数符号";//
+NSString * const kNumIdentify = @"四舍五入";// 默认
+NSString * const kNumIdentify_decimal = @"分隔符,";//
+NSString * const kNumIdentify_percent = @"百分比";//
+NSString * const kNumIdentify_currency = @"货币$";//
+NSString * const kNumIdentify_scientific = @"科学计数法 1.234E8";//
+NSString * const kNumIdentify_plusSign = @"加号符号";//
+NSString * const kNumIdentify_minusSign = @"减号符号";//
+NSString * const kNumIdentify_exponentSymbol = @"指数符号";//
+
+NSString * const kNumFormat = @"#,##0.00";
 
 @implementation NSNumberFormatter (Helper)
 

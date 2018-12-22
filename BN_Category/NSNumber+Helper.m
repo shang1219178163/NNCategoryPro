@@ -19,7 +19,7 @@
 
 -(NSString *)stringValue{
     NSParameterAssert([self isKindOfClass:[NSNumber class]]);
-    NSNumberFormatter *formatter = [NSNumberFormatter numberIdentify:kFormat_num];
+    NSNumberFormatter *formatter = [NSNumberFormatter numberIdentify:kNumIdentify];
     formatter.numberStyle = NSNumberFormatterNoStyle;
     //    DDLog(@"_%p_",formatter);
     formatter.minimumIntegerDigits = 1;//最少一位整数
@@ -34,7 +34,7 @@
  @param digit 最大位数
  */
 NSString * NSStringFromRoundHalfUp(NSNumber *number, NSUInteger digit, NSNumberFormatterStyle numberStyle){
-    NSString *identity = numberStyle == NSNumberFormatterPercentStyle ? kFormat_num_percent : kFormat_num ;
+    NSString *identity = numberStyle == NSNumberFormatterPercentStyle ? kNumIdentify_percent : kNumIdentify ;
     NSNumberFormatter *formatter = [NSNumberFormatter numberIdentify:identity];
     //    formatter.numberStyle = NSNumberFormatterDecimalStyle;
     //    formatter.numberStyle = NSNumberFormatterPercentStyle;
@@ -61,7 +61,7 @@ NSNumber * NSNumberFromRound(NSNumber *number, NSUInteger digit, NSNumberFormatt
     }
     return nil;
     
-//    NSNumberFormatter *formatter = [NSNumberFormatter numberIdentify:kFormat_num];
+//    NSNumberFormatter *formatter = [NSNumberFormatter numberIdentify:kNumIdentify];
 //    formatter.numberStyle = NSNumberFormatterNoStyle;
 //
 //    formatter.roundingMode = NSNumberFormatterRoundHalfUp;//四舍五入
@@ -83,7 +83,7 @@ NSNumber * NSNumberFromRound(NSNumber *number, NSUInteger digit, NSNumberFormatt
  @param digit 限制最大位数
  */
 NSNumber * NSNumberFromRoundHalfUp(NSNumber *number, NSUInteger digit){
-    NSNumberFormatter *formatter = [NSNumberFormatter numberIdentify:kFormat_num];
+    NSNumberFormatter *formatter = [NSNumberFormatter numberIdentify:kNumIdentify];
     formatter.numberStyle = NSNumberFormatterNoStyle;
     formatter.roundingMode = NSNumberFormatterRoundHalfUp;
     formatter.maximumFractionDigits = digit;
@@ -101,7 +101,7 @@ NSNumber * NSNumberFromRoundHalfUp(NSNumber *number, NSUInteger digit){
  @param digit 限制最大位数
  */
 NSNumber * NSNumberFromRoundCeil(NSNumber *number, NSUInteger digit){
-    NSNumberFormatter *formatter = [NSNumberFormatter numberIdentify:kFormat_num];
+    NSNumberFormatter *formatter = [NSNumberFormatter numberIdentify:kNumIdentify];
     formatter.numberStyle = NSNumberFormatterNoStyle;
     formatter.roundingMode = NSNumberFormatterRoundCeiling;
     formatter.maximumFractionDigits = digit;
@@ -116,7 +116,7 @@ NSNumber * NSNumberFromRoundCeil(NSNumber *number, NSUInteger digit){
  @param digit 限制最大位数
  */
 NSNumber * NSNumberFromRoundFloor(NSNumber *number, NSUInteger digit){
-    NSNumberFormatter *formatter = [NSNumberFormatter numberIdentify:kFormat_num];
+    NSNumberFormatter *formatter = [NSNumberFormatter numberIdentify:kNumIdentify];
     formatter.numberStyle = NSNumberFormatterNoStyle;
     formatter.roundingMode = NSNumberFormatterRoundFloor;
     formatter.maximumFractionDigits = digit;

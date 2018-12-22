@@ -37,10 +37,19 @@
 }
 
 +(instancetype)cellWithTableView:(UITableView *)tableView{
-    NSString *identifier = NSStringFromClass(self.class);
-    return [self cellWithTableView:tableView identifier:identifier];
+//    NSString *identifier = NSStringFromClass(self.class);
+    return [self cellWithTableView:tableView identifier:self.identifier];
 }
 
++(NSString *)identifier{
+    id obj = objc_getAssociatedObject(self, _cmd);
+    if (!obj) {
+        obj = NSStringFromClass(self.class);
+        objc_setAssociatedObject(self, @selector(identifier), obj, OBJC_ASSOCIATION_RETAIN_NONATOMIC);
+        
+    }
+    return obj;
+}
 
 #pragma mark - -layz
 
