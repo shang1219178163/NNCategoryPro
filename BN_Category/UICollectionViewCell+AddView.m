@@ -13,7 +13,7 @@
 
 @implementation UICollectionViewCell (AddView)
 
-@dynamic label,labelSub,imgView,height,width;
+@dynamic label,labelSub,imgView;
 
 + (instancetype)viewWithCollectionView:(UICollectionView *)collectionView indexPath:(NSIndexPath *)indexPath{
     NSString * identifier = NSStringFromClass(self.class);
@@ -26,17 +26,6 @@
     UICollectionViewCell *view = [collectionView dequeueReusableCellWithReuseIdentifier:identifier forIndexPath:indexPath];
     
     return view;
-}
-
-
--(CGFloat)width{
-    return CGRectGetWidth(self.contentView.frame);
-    
-}
-
--(CGFloat)height{
-    return CGRectGetHeight(self.contentView.frame);
-    
 }
 
 -(UIImageView *)imgView{

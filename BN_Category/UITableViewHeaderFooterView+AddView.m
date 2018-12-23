@@ -39,16 +39,6 @@
 
 #pragma mark -- layz
 
--(CGFloat)width{
-    return CGRectGetWidth(self.contentView.frame);
-    
-}
-
--(CGFloat)height{
-    return CGRectGetHeight(self.contentView.frame);
-    
-}
-
 -(UILabel *)labelLeft{
     UILabel * lab = objc_getAssociatedObject(self, _cmd);
     if (!lab) {

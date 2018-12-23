@@ -15,9 +15,6 @@
 
 @interface UICollectionViewCell (AddView)
 
-@property (nonatomic, assign) CGFloat width;
-@property (nonatomic, assign) CGFloat height;
-
 @property (nonatomic, strong) UIImageView *imgView;
 @property (nonatomic, strong) UILabel *label;
 @property (nonatomic, strong) UILabel *labelSub;

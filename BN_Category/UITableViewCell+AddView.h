@@ -22,9 +22,6 @@
 
 @property (nonatomic, assign) CGSize  imgViewLeftSize;
 
-@property (nonatomic, assign) CGFloat width;
-@property (nonatomic, assign) CGFloat height;
-
 @property (nonatomic, strong) UILabel * labelRight;
 
 @property (nonatomic, strong) UILabel * labelLeft;

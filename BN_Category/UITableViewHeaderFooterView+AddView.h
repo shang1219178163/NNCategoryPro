@@ -13,9 +13,6 @@
 
 @interface UITableViewHeaderFooterView (AddView)
 
-@property (nonatomic, assign, readonly) CGFloat width;
-@property (nonatomic, assign, readonly) CGFloat height;
-
 @property (nonatomic, strong) UIImageView * viewIndicator;
 @property (nonatomic, strong) UIImageView * imgViewLeft;
 @property (nonatomic, strong) UIImageView * imgViewRight;

@@ -18,45 +18,28 @@
 @dynamic label,labelSub,imgView;
 
 + (instancetype)viewWithCollectionView:(UICollectionView *)collectionView indexPath:(NSIndexPath *)indexPath kind:(NSString *)kind{
-    NSString * identifier = [UICollectionView viewIdentifierByClassName:NSStringFromClass(self.class) kind:kind];
+    
+    NSString *kindSuf = [kind componentsSeparatedByString:@"KindSection"].lastObject;
+    NSString *identifier = [NSStringFromClass(self.class) stringByAppendingString:kindSuf];
     UICollectionReusableView *view = [collectionView dequeueReusableSupplementaryViewOfKind:kind withReuseIdentifier:identifier forIndexPath:indexPath];
     
-    NSString * titleHeader = [NSString stringWithFormat:@"HeaderView_%@",@(indexPath.section)];
-    NSString * titleFooter = [NSString stringWithFormat:@"FooterView_%@",@(indexPath.section)];
-    view.label.text = [kind isEqualToString:UICollectionElementKindSectionHeader]  ? titleHeader: titleFooter;
+    view.label.text = [kindSuf stringByAppendingFormat:@"%@",@(indexPath.section)];
     view.backgroundColor = [kind isEqualToString:UICollectionElementKindSectionHeader] ? UIColor.greenColor : UIColor.yellowColor;
     view.backgroundColor = UIColor.whiteColor;
     return view;
 }
 
 //+ (instancetype)viewWithCollectionView:(UICollectionView *)collectionView indexPath:(NSIndexPath *)indexPath kind:(NSString *)kind{
-//
 //    NSString * identifier = [UICollectionView viewIdentifierByClassName:NSStringFromClass(self.class) kind:kind];
-//    UICollectionReusableView *view = nil;
-//    if ([kind isEqualToString:UICollectionElementKindSectionHeader]) {
-//        view = [collectionView dequeueReusableSupplementaryViewOfKind:UICollectionElementKindSectionHeader withReuseIdentifier:identifier forIndexPath:indexPath];
+//    UICollectionReusableView *view = [collectionView dequeueReusableSupplementaryViewOfKind:kind withReuseIdentifier:identifier forIndexPath:indexPath];
 //
-//    }
-//    else if([kind isEqualToString:UICollectionElementKindSectionFooter]){
-//        view = [collectionView dequeueReusableSupplementaryViewOfKind:UICollectionElementKindSectionFooter withReuseIdentifier:identifier forIndexPath:indexPath];
-//
-//    }
-//
-//    view.label.text = [kind isEqualToString:UICollectionElementKindSectionHeader]  ? @"headerView": @"footerView";
-//    view.backgroundColor = [kind isEqualToString:UICollectionElementKindSectionHeader]  ? UIColor.greenColor : UIColor.yellowColor;
-//
+//    NSString * titleHeader = [NSString stringWithFormat:@"HeaderView_%@",@(indexPath.section)];
+//    NSString * titleFooter = [NSString stringWithFormat:@"FooterView_%@",@(indexPath.section)];
+//    view.label.text = [kind isEqualToString:UICollectionElementKindSectionHeader]  ? titleHeader: titleFooter;
+//    view.backgroundColor = [kind isEqualToString:UICollectionElementKindSectionHeader] ? UIColor.greenColor : UIColor.yellowColor;
+//    view.backgroundColor = UIColor.whiteColor;
 //    return view;
 //}
-
--(CGFloat)width{
-    return CGRectGetWidth(self.frame);
-    
-}
-
--(CGFloat)height{
-    return CGRectGetHeight(self.frame);
-    
-}
 
 -(UIImageView *)imgView{
     UIImageView * view = objc_getAssociatedObject(self, _cmd);

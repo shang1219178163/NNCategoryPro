@@ -20,9 +20,6 @@
 @property (nonatomic, strong) UILabel *label;
 @property (nonatomic, strong) UILabel *labelSub;
 
-@property (nonatomic, assign) CGFloat width;
-@property (nonatomic, assign) CGFloat height;
-
 + (instancetype)viewWithCollectionView:(UICollectionView *)collectionView indexPath:(NSIndexPath *)indexPath kind:(NSString *)kind;
 
 @end

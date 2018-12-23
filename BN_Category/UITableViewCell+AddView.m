@@ -61,14 +61,6 @@
     objc_setAssociatedObject(self, @selector(imgViewLeftSize), @(imgViewLeftSize), OBJC_ASSOCIATION_RETAIN_NONATOMIC);
 }
 
--(CGFloat)width{
-    return CGRectGetWidth(self.contentView.frame);
-}
-
--(CGFloat)height{
-    return CGRectGetHeight(self.contentView.frame);
-}
-
 -(void)setLabelRight:(UILabel *)labelRight{
     objc_setAssociatedObject(self, @selector(labelRight), labelRight, OBJC_ASSOCIATION_RETAIN_NONATOMIC);
 }
@@ -231,7 +223,7 @@
             imgView.userInteractionEnabled = YES;
             imgView.contentMode = UIViewContentModeScaleAspectFit;
             //            imgView.backgroundColor = UIColor.orangeColor;
-            imgView.frame = CGRectMake(self.width - kX_GAP - kWH_ArrowRight, (self.height - kWH_ArrowRight)/2.0, kWH_ArrowRight, kWH_ArrowRight);
+            imgView.frame = CGRectMake(self.contentView.width - kX_GAP - kWH_ArrowRight, (self.contentView.height - kWH_ArrowRight)/2.0, kWH_ArrowRight, kWH_ArrowRight);
             imgView.image = [UIImage imageNamed:kIMG_arrowRight];
             
             imgView.hidden = YES;
