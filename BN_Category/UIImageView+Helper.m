@@ -152,7 +152,7 @@
     }];
 }
 
--(void)hideImageView:(UITapGestureRecognizer*)tap{
+-(void)hideImageView:(UITapGestureRecognizer *)tap{
     UIView *backgroundView = tap.view;
     UIImageView *imageView = (UIImageView*)[tap.view viewWithTag:1001];
     
@@ -166,6 +166,22 @@
     }];
 }
 
+/**
+ 默认渲染AlwaysTemplate方式
+ */
+-(void)renderTintColor:(UIColor *)tintColor{
+    [self renderTintColor:tintColor mode:UIImageRenderingModeAlwaysTemplate];
+}
+
+/**
+ 渲染
+ */
+-(void)renderTintColor:(UIColor *)tintColor mode:(UIImageRenderingMode)mode {
+    self.tintColor = tintColor;
+    self.image = [self.image imageWithRenderingMode:mode];
+//    self.image = [self.image imageWithRenderingMode:UIImageRenderingModeAlwaysTemplate];
+
+}
 
 
 @end
