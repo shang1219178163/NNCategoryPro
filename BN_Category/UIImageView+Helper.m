@@ -166,16 +166,10 @@
     }];
 }
 
-/**
- 默认渲染AlwaysTemplate方式
- */
 -(void)renderTintColor:(UIColor *)tintColor{
     [self renderTintColor:tintColor mode:UIImageRenderingModeAlwaysTemplate];
 }
 
-/**
- 渲染
- */
 -(void)renderTintColor:(UIColor *)tintColor mode:(UIImageRenderingMode)mode {
     self.tintColor = tintColor;
     self.image = [self.image imageWithRenderingMode:mode];

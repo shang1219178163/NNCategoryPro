@@ -35,4 +35,14 @@
  */
 -(void)showImageEnlarge;
 
+/**
+ 默认渲染AlwaysTemplate方式
+ */
+-(void)renderTintColor:(UIColor *)tintColor;
+
+/**
+ 渲染
+ */
+-(void)renderTintColor:(UIColor *)tintColor mode:(UIImageRenderingMode)mode;
+    
 @end
