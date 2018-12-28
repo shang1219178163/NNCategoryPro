@@ -232,17 +232,20 @@ UIColor * UIColorFromHex(NSInteger hexValue){
 
 BOOL iOSVer(CGFloat version){
     return (UIDevice.currentDevice.systemVersion.floatValue >= version) ? YES : NO;
-
 }
 
+/**
+ 由角度转换弧度
+ */
 CGFloat CGRadianFromDegrees(CGFloat x){
     return (M_PI * (x) / 180.0);
-    
 }
 
+/**
+ 由弧度转换角度
+ */
 CGFloat CGDegreesFromRadian(CGFloat x){
     return (x * 180.0)/(M_PI);
-    
 }
 
 CGFloat roundFloat(CGFloat value,NSInteger num){

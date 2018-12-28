@@ -17,6 +17,8 @@ static UIColor * _btnColor_N = nil;
 static UIColor * _btnColor_H = nil;
 static UIColor * _btnColor_D = nil;
 static UIColor * _excelColor = nil;
+static UIColor * _titleColor = nil;
+static UIColor * _titleSubColor = nil;
 
 + (UIColor *)randomColor{
     CGFloat red = arc4random_uniform(256);
@@ -25,7 +27,6 @@ static UIColor * _excelColor = nil;
     
     return [UIColor colorWithRed:red/255.0 green:green/255.0 blue:blue/255.0 alpha:1];
 }
-
 
 + (UIColor *)themeColor{
     if (!_themeColor) {
@@ -46,7 +47,6 @@ static UIColor * _excelColor = nil;
         _lineColor = [UIColor colorWithHexString:@"#e0e0e0"];
     }
     return _lineColor;
-    
 }
 
 + (UIColor *)btnColor_N{
@@ -54,14 +54,13 @@ static UIColor * _excelColor = nil;
         _btnColor_N = [UIColor colorWithHexString:@"#fea914"];
     }
     return _btnColor_N;
-    
 }
+
 + (UIColor *)btnColor_H{
     if (!_btnColor_H) {
         _btnColor_H = [UIColor colorWithHexString:@"#f1a013"];
     }
     return _btnColor_H;
-    
 }
 
 + (UIColor *)btnColor_D{
@@ -69,7 +68,6 @@ static UIColor * _excelColor = nil;
         _btnColor_D = [UIColor colorWithHexString:@"#999999"];
     }
     return _btnColor_D;
-    
 }
 
 + (UIColor *)excelColor{
@@ -79,7 +77,29 @@ static UIColor * _excelColor = nil;
     return _excelColor;
 }
 
++ (UIColor *)titleColor{
+    if (!_titleColor) {
+        _titleColor = UIColorHex(@"#333333");
+    }
+    return _titleColor;
+}
+
++ (UIColor *)titleSubColor{
+    if (!_titleSubColor) {
+        _titleSubColor = UIColorHex(@"#999999");
+    }
+    return _titleSubColor;
+}
+
 #pragma mark- -十六进制颜色
+
+UIColor * UIColorHex(NSString *hex){
+    return [UIColor colorWithHexString:hex];
+}
+
+UIColor * UIColorHexInter(NSInteger hex){
+    return [UIColor colorWithRed:((float)((hex & 0xff0000) >> 16))/255.0 green:((float)((hex & 0x00ff00) >> 8))/255.0 blue:((float)(hex & 0x0000ff))/255.0 alpha:1.0];
+}
 
 + (UIColor *)colorWithHexString:(NSString *)colorString{
     NSString *cString = [[colorString stringByTrimmingCharactersInSet:[NSCharacterSet whitespaceAndNewlineCharacterSet]] uppercaseString];
@@ -112,6 +132,15 @@ static UIColor * _excelColor = nil;
     [[NSScanner scannerWithString:bString] scanHexInt:&b];
     
     return [UIColor colorWithRed:((float) r / 255.0f) green:((float) g / 255.0f) blue:((float) b / 255.0f) alpha:1.0f];
+}
+
+NSArray * RGBAFromColor(UIColor *color){
+    CGFloat red = 0.0;
+    CGFloat green = 0.0;
+    CGFloat blue = 0.0;
+    CGFloat alpha = 0.0;
+    [color getRed:&red green:&green blue:&blue alpha:&alpha];
+    return @[@(red), @(green), @(blue), @(alpha)];
 }
 
 //判断颜色是不是亮色

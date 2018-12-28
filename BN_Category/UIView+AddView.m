@@ -377,7 +377,7 @@
         {
             //小标志
             NSString * text = @"企";
-            CGSize textSize = [self sizeWithText:text font:@(kFZ_Third) width:UIScreen.width];
+            CGSize textSize = [self sizeWithText:text font:@(kFZ_Third) width:kScreen_width];
             CGFloat textWH = textSize.height > textSize.width ? textSize.height :textSize.width;
             textWH += 5;
             CGFloat offsetXY = CGRectGetHeight(rect)/2.0 * sin(45 * M_PI/180.0);
@@ -548,7 +548,7 @@
             btn.layer.borderColor = UIColor.lineColor.CGColor;
             btn.layer.borderWidth = 1;
             
-            [btn setTitleColor:kC_TextColor_Title forState:UIControlStateNormal];
+            [btn setTitleColor:UIColor.titleColor forState:UIControlStateNormal];
             [btn setBackgroundImage:UIImageFromColor(UIColor.whiteColor) forState:UIControlStateNormal];
 
         }
@@ -567,7 +567,7 @@
             break;
         case 2://白色背景灰色字体无边框
         {
-            [btn setTitleColor:kC_TextColor_TitleSub forState:UIControlStateNormal];
+            [btn setTitleColor:UIColor.titleSubColor forState:UIControlStateNormal];
         }
             break;
         case 3://地图定位按钮一类
@@ -605,7 +605,7 @@
             btn.layer.borderColor = UIColor.lineColor.CGColor;
             btn.layer.borderWidth = kW_LayerBorder;
             
-            [btn setTitleColor:kC_TextColor_Title forState:UIControlStateNormal];
+            [btn setTitleColor:UIColor.titleColor forState:UIControlStateNormal];
             [btn setBackgroundImage:UIImageFromColor(UIColor.whiteColor) forState:UIControlStateNormal];
             
         }
@@ -680,7 +680,7 @@
     backgroudView.tag = tag;
     backgroudView.backgroundColor = UIColor.whiteColor;
     
-    CGFloat labWidth = UIScreen.width/titleArr.count;
+    CGFloat labWidth = kScreen_width/titleArr.count;
     CGSize lineViewSize = CGSizeMake(labWidth, 1.0);
     
     for (NSInteger i = 0; i < titleArr.count; i++) {
@@ -759,7 +759,7 @@
     [UIView animateWithDuration:0.3 animations:^{
         
         CGRect frame = lineView.frame;
-        frame.origin.x = selectedIndex * (UIScreen.width/self.selectedArr.count);
+        frame.origin.x = selectedIndex * (kScreen_width/self.selectedArr.count);
         lineView.frame = frame;
         
     }];

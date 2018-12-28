@@ -375,7 +375,7 @@
     CGFloat XGapLab = (CGRectGetWidth(rect) - textSize.width)/2.0;
     
     CGRect labRect = CGRectMake(XGapLab, CGRectGetMaxY(imgViewRect), textSize.width, kH_LABEL_SMALL);
-    UILabel * lab = [UIView createLabelWithRect:labRect text:title textColor:kC_TextColor_TitleSub tag:kTAG_LABEL type:@2 font:kFZ_Third backgroudColor:nil alignment:NSTextAlignmentCenter];
+    UILabel * lab = [UIView createLabelWithRect:labRect text:title textColor:UIColor.titleSubColor tag:kTAG_LABEL type:@2 font:kFZ_Third backgroudColor:nil alignment:NSTextAlignmentCenter];
     [containView addSubview:lab];
     
     if (!image) {
@@ -450,7 +450,7 @@
     
     textView.text = text;
     textView.placeholder = placeholder;
-    textView.placeholderColor = kC_TextColor_TitleSub;
+    textView.placeholderColor = UIColor.titleSubColor;
 
     textView.font = [UIFont systemFontOfSize:fontSize];
     textView.textAlignment = NSTextAlignmentLeft;
@@ -519,7 +519,7 @@
         
     }
     UILabel *ybLabel = [[UILabel alloc] initWithFrame:rect];
-    ybLabel.textColor = kC_TextColor_Title;
+    ybLabel.textColor = UIColor.titleColor;
     ybLabel.backgroundColor = [UIColor whiteColor];
     ybLabel.numberOfLines = 1;
     
@@ -835,8 +835,8 @@
         return imgView;
     }
     
-    CGSize size = [self sizeWithText:unitString font:@(kFZ_Third) width:UIScreen.width];
-    UILabel * label = [UIView createLabelWithRect:CGRectMake(0, 0, size.width+2, 25) text:unitString textColor:kC_TextColor_Title tag:kTAG_LABEL type:@2 font:kFZ_Third backgroudColor:UIColor.clearColor alignment:NSTextAlignmentCenter];
+    CGSize size = [self sizeWithText:unitString font:@(kFZ_Third) width:kScreen_width];
+    UILabel * label = [UIView createLabelWithRect:CGRectMake(0, 0, size.width+2, 25) text:unitString textColor:UIColor.titleColor tag:kTAG_LABEL type:@2 font:kFZ_Third backgroudColor:UIColor.clearColor alignment:NSTextAlignmentCenter];
     return label;
     
 }
