@@ -2,7 +2,7 @@
 //  NSMutableURLRequest+Helper.h
 //  BN_Category
 //
-//  Created by hsf on 2018/11/28.
+//  Created by BIN on 2018/11/28.
 //
 
 #import <Foundation/Foundation.h>

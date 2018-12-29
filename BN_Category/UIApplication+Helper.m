@@ -1,10 +1,10 @@
 
 //
 //  UIApplication+Helper.m
-//  HuiZhuBang
+//  
 //
 //  Created by BIN on 2017/12/28.
-//  Copyright © 2017年 WeiHouKeJi. All rights reserved.
+//  Copyright © 2017年 SHANG. All rights reserved.
 //
 
 #import "UIApplication+Helper.h"
@@ -134,11 +134,31 @@
         UIScrollView.appearance.contentInsetAdjustmentBehavior = UIScrollViewContentInsetAdjustmentNever;
 
     }
+    
+    UITabBar.appearance.tintColor = UIColor.themeColor;
+    UITabBar.appearance.barTintColor = UIColor.whiteColor;
+    
+    if (@available(iOS 10.0, *)) {
+        UITabBar.appearance.unselectedItemTintColor = UIColor.grayColor;
+    } else {
+        // Fallback on earlier versions
+    }
+    
+    
+//    UITabBarItem *selectedItem = UITabBar.appearance.selectedItem;
+//    selectedItem.image = [selectedItem.image imageWithRenderingMode:UIImageRenderingModeAlwaysTemplate];
+//
+//    NSArray *items = UITabBar.appearance.items;
+//    for (UITabBarItem * item in items) {
+//        item.image = [item.image imageWithRenderingMode:UIImageRenderingModeAlwaysTemplate];
+//    }
+
+//    UITabBarItem.appearance setTitleTextAttributes:<#(nullable NSDictionary<NSAttributedStringKey,id> *)#> forState:<#(UIControlState)#>
 }
 
 + (void)setupAppearanceNavigationBar{
-    UINavigationBar.appearance.barTintColor = UIColor.themeColor;
     UINavigationBar.appearance.tintColor = UIColor.whiteColor;
+    UINavigationBar.appearance.barTintColor = UIColor.themeColor;
     NSDictionary * dic = @{
                            NSForegroundColorAttributeName   :   UIColor.whiteColor,
                            NSFontAttributeName  :   [UIFont boldSystemFontOfSize:UIFont.systemFontSize+1.0],

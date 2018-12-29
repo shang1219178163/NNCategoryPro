@@ -2,7 +2,7 @@
 //  NSDecimalNumber+Helper.m
 //  BN_Category
 //
-//  Created by hsf on 2018/11/22.
+//  Created by BIN on 2018/11/22.
 //
 
 #import "NSDecimalNumber+Helper.h"

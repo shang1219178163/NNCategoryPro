@@ -1,12 +1,14 @@
 //
 //  UIColor+Helper.m
-//  HuiZhuBang
+//  
 //
 //  Created by BIN on 2018/9/11.
-//  Copyright © 2018年 WeiHouKeJi. All rights reserved.
+//  Copyright © 2018年 SHANG. All rights reserved.
 //
 
 #import "UIColor+Helper.h"
+
+#import "UIApplication+Helper.h"
 
 @implementation UIColor (Helper)
 
@@ -20,19 +22,24 @@ static UIColor * _excelColor = nil;
 static UIColor * _titleColor = nil;
 static UIColor * _titleSubColor = nil;
 
++ (void)setThemeColor:(UIColor *)themeColor{
+    _themeColor = themeColor;
+}
+
++ (UIColor *)themeColor{
+    if (!_themeColor) {
+//        _themeColor = [UIColor colorWithHexString:@"#0082e0"];
+        _themeColor = UIColor.orangeColor;
+    }
+    return _themeColor;
+}
+
 + (UIColor *)randomColor{
     CGFloat red = arc4random_uniform(256);
     CGFloat green = arc4random_uniform(256);
     CGFloat blue = arc4random_uniform(256);
     
     return [UIColor colorWithRed:red/255.0 green:green/255.0 blue:blue/255.0 alpha:1];
-}
-
-+ (UIColor *)themeColor{
-    if (!_themeColor) {
-        _themeColor = [UIColor colorWithHexString:@"#0082e0"];
-    }
-    return _themeColor;
 }
 
 + (UIColor *)backgroudColor{

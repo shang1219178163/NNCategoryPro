@@ -1,10 +1,10 @@
 
 //
 //  UIButton+swizzing.m
-//  HuiZhuBang
+//  
 //
 //  Created by BIN on 2017/12/27.
-//  Copyright © 2017年 WeiHouKeJi. All rights reserved.
+//  Copyright © 2017年 SHANG. All rights reserved.
 //
 
 #import "UIButton+swizzing.h"

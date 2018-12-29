@@ -1,10 +1,10 @@
 
 //
 //  UICollectionReusableView+AddView.m
-//  HuiZhuBang
+//  
 //
 //  Created by BIN on 2018/8/24.
-//  Copyright © 2018年 WeiHouKeJi. All rights reserved.
+//  Copyright © 2018年 SHANG. All rights reserved.
 //
 
 #import "UICollectionReusableView+AddView.h"

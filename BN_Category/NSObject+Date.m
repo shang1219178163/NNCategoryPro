@@ -2,7 +2,7 @@
 //  NSObject+Date.m
 //  ProductTemplet
 //
-//  Created by hsf on 2018/9/29.
+//  Created by BIN on 2018/9/29.
 //  Copyright © 2018年 BN. All rights reserved.
 //
 

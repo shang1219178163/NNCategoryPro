@@ -2,7 +2,7 @@
 //  CAGradientLayer+Helper.m
 //  BN_Animation
 //
-//  Created by hsf on 2018/10/16.
+//  Created by BIN on 2018/10/16.
 //  Copyright © 2018年 世纪阳天. All rights reserved.
 //
 

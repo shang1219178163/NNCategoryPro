@@ -1,9 +1,9 @@
 //
 //  UIView+Helper.h
-//  HuiZhuBang
+//  
 //
 //  Created by BIN on 2017/8/15.
-//  Copyright © 2017年 WeiHouKeJi. All rights reserved.
+//  Copyright © 2017年 SHANG. All rights reserved.
 //
 
 #import <UIKit/UIKit.h>
@@ -17,18 +17,18 @@ typedef void(^BlockView)(UIView * view,id item, id obj);
 
 @interface UIView (Helper)
 
-@property (nonatomic, assign) CGFloat x;
-@property (nonatomic, assign) CGFloat y;
-@property (nonatomic, assign) CGFloat width;
-@property (nonatomic, assign) CGFloat height;
-
-@property (nonatomic, assign) CGPoint origin;
-@property (nonatomic, assign) CGSize size;
-
+//与自动布局类库属性重名冲突,废弃
+//@property (nonatomic, assign) CGFloat x;
+//@property (nonatomic, assign) CGFloat y;
+//@property (nonatomic, assign) CGFloat width;
+//@property (nonatomic, assign) CGFloat height;
 //@property (nonatomic, assign, readonly) CGFloat top;
 //@property (nonatomic, assign, readonly) CGFloat left;
 //@property (nonatomic, assign, readonly) CGFloat bottom;
 //@property (nonatomic, assign, readonly) CGFloat right;
+
+@property (nonatomic, assign) CGPoint origin;
+@property (nonatomic, assign) CGSize size;
 
 @property (nonatomic, assign, readonly) CGFloat minX;
 @property (nonatomic, assign, readonly) CGFloat midX;

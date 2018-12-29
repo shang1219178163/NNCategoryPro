@@ -2,7 +2,7 @@
 //  WKWebView+Helper.m
 //  BN_Category
 //
-//  Created by hsf on 2018/11/1.
+//  Created by BIN on 2018/11/1.
 //
 
 #import "WKWebView+Helper.h"

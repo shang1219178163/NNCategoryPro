@@ -1,9 +1,9 @@
 //
 //  UITextField+Helper.m
-//  HuiZhuBang
+//  
 //
 //  Created by BIN on 2018/6/8.
-//  Copyright © 2018年 WeiHouKeJi. All rights reserved.
+//  Copyright © 2018年 SHANG. All rights reserved.
 //
 
 #import "UITextField+Helper.h"
@@ -176,11 +176,11 @@ NSString * const kDeafult_textFieldHistory = @"kDeafult_textFieldHistory" ;// x�
         return;
     }
     
-    self.historyTableView.frame = CGRectMake(self.x, CGRectGetMaxY(self.frame) + 1, self.width, 1);
+    self.historyTableView.frame = CGRectMake(self.minX, CGRectGetMaxY(self.frame) + 1, self.maxX, 1);
     [self.superview addSubview:self.historyTableView];
     
     CGRect rect = self.historyTableView.frame;
-    rect.size.height = self.height*(history.count + 1);
+    rect.size.height = self.maxY*(history.count + 1);
     
     [UIView animateWithDuration:kAnimDuration animations:^{
         self.historyTableView.frame = rect;
@@ -251,11 +251,11 @@ NSString * const kDeafult_textFieldHistory = @"kDeafult_textFieldHistory" ;// x�
 }
 
 - (CGFloat)tableView:(UITableView *)tableView heightForRowAtIndexPath:(NSIndexPath *)indexPath{
-    return self.height;
+    return self.maxY;
 }
 
 - (CGFloat)tableView:(UITableView *)tableView heightForFooterInSection:(NSInteger)section{
-    return self.height;
+    return self.maxY;
 }
 
 - (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath{

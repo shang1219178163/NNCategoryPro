@@ -1,10 +1,10 @@
 
 //
 //  NSTimer+Helper.m
-//  HuiZhuBang
+//  
 //
 //  Created by BIN on 2018/5/7.
-//  Copyright © 2018年 WeiHouKeJi. All rights reserved.
+//  Copyright © 2018年 SHANG. All rights reserved.
 //
 
 #import "NSTimer+Helper.h"

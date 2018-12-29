@@ -1,9 +1,9 @@
 //
 //  NSObject+swizzling.m
-//  HuiZhuBang
+//  
 //
 //  Created by BIN on 2017/12/2.
-//  Copyright © 2017年 WeiHouKeJi. All rights reserved.
+//  Copyright © 2017年 SHANG. All rights reserved.
 //
 
 #import "NSObject+swizzling.h"

@@ -1,10 +1,10 @@
 
 //
 //  UITableViewHeaderFooterView+AddView.m
-//  HuiZhuBang
+//  
 //
 //  Created by BIN on 2018/8/24.
-//  Copyright © 2018年 WeiHouKeJi. All rights reserved.
+//  Copyright © 2018年 SHANG. All rights reserved.
 //
 
 #import "UITableViewHeaderFooterView+AddView.h"
@@ -170,7 +170,7 @@
             imgView.userInteractionEnabled = YES;
             imgView.contentMode = UIViewContentModeScaleAspectFit;
             //            imgView.backgroundColor = UIColor.orangeColor;
-            imgView.frame = CGRectMake(self.width - kX_GAP - kWH_ArrowRight, (self.height - kWH_ArrowRight)/2.0, kWH_ArrowRight, kWH_ArrowRight);
+            imgView.frame = CGRectMake(self.maxX - kX_GAP - kWH_ArrowRight, (self.maxY - kWH_ArrowRight)/2.0, kWH_ArrowRight, kWH_ArrowRight);
             imgV.tag = kTAG_IMGVIEW + 1;
             imgView.image = [UIImage imageNamed:kIMG_arrowRight];
             

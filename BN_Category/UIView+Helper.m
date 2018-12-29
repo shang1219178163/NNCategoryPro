@@ -1,9 +1,9 @@
 //
 //  UIView+Helper.m
-//  HuiZhuBang
+//  
 //
 //  Created by BIN on 2017/8/15.
-//  Copyright © 2017年 WeiHouKeJi. All rights reserved.
+//  Copyright © 2017年 SHANG. All rights reserved.
 //
 
 #import "UIView+Helper.h"
@@ -19,46 +19,6 @@
 #import "BN_TextView.h"
 
 @implementation UIView (Helper)
-
-- (CGFloat)x{
-    return self.frame.origin.x;
-}
-
-- (void)setX:(CGFloat)x{
-    CGRect rect = self.frame;
-    rect.origin.x = x;
-    self.frame = rect;
-}
-
-- (CGFloat)y{
-    return self.frame.origin.y;
-}
-
-- (void)setY:(CGFloat)y{
-    CGRect rect = self.frame;
-    rect.origin.y = y;
-    self.frame = rect;
-}
-
-- (CGFloat)width{
-    return self.frame.size.width;
-}
-
-- (void)setWidth:(CGFloat)width{
-    CGRect rect = self.frame;
-    rect.size.width = width;
-    self.frame = rect;
-}
-
-- (CGFloat)height{
-    return self.frame.size.height;
-}
-
-- (void)setHeight:(CGFloat)height{
-    CGRect rect = self.frame;
-    rect.size.height = height;
-    self.frame = rect;
-}
 
 - (CGPoint)origin{
     return self.frame.origin;
@@ -79,22 +39,6 @@
     rect.size = size;
     self.frame = rect;
 }
-
-//- (CGFloat)top{
-//    return self.minY;
-//}
-//
-//- (CGFloat)left{
-//    return self.minX;
-//}
-//
-//- (CGFloat)bottom{
-//    return self.maxY;
-//}
-//
-//- (CGFloat)right{
-//    return self.maxX;
-//}
 
 - (CGFloat)minX{
     return CGRectGetMinX(self.frame);

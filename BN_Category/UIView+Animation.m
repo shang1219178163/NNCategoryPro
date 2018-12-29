@@ -1,10 +1,10 @@
 
 //
 //  UIView+Animation.m
-//  HuiZhuBang
+//  
 //
 //  Created by BIN on 2018/5/9.
-//  Copyright © 2018年 WeiHouKeJi. All rights reserved.
+//  Copyright © 2018年 SHANG. All rights reserved.
 //
 
 #import "UIView+Animation.h"

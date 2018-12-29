@@ -1,10 +1,10 @@
 
 //
 //  UITableView+Helper.m
-//  HuiZhuBang
+//  
 //
 //  Created by BIN on 2018/2/28.
-//  Copyright © 2018年 WeiHouKeJi. All rights reserved.
+//  Copyright © 2018年 SHANG. All rights reserved.
 //
 
 #import "UITableView+Helper.h"

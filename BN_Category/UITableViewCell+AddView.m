@@ -223,7 +223,7 @@
             imgView.userInteractionEnabled = YES;
             imgView.contentMode = UIViewContentModeScaleAspectFit;
             //            imgView.backgroundColor = UIColor.orangeColor;
-            imgView.frame = CGRectMake(self.contentView.width - kX_GAP - kWH_ArrowRight, (self.contentView.height - kWH_ArrowRight)/2.0, kWH_ArrowRight, kWH_ArrowRight);
+            imgView.frame = CGRectMake(self.contentView.maxX - kX_GAP - kWH_ArrowRight, (self.contentView.maxY - kWH_ArrowRight)/2.0, kWH_ArrowRight, kWH_ArrowRight);
             imgView.image = [UIImage imageNamed:kIMG_arrowRight];
             
             imgView.hidden = YES;

@@ -2,7 +2,7 @@
 //  UITextView+Helper.m
 //  BN_Category
 //
-//  Created by hsf on 2018/11/26.
+//  Created by BIN on 2018/11/26.
 //
 
 #import "UITextView+Helper.h"

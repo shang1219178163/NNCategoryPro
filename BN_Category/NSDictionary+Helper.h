@@ -1,9 +1,9 @@
 //
 //  NSDictionary+Helper.h
-//  HuiZhuBang
+//  
 //
 //  Created by BIN on 2017/8/24.
-//  Copyright © 2017年 WeiHouKeJi. All rights reserved.
+//  Copyright © 2017年 SHANG. All rights reserved.
 //
 
 #import <Foundation/Foundation.h>

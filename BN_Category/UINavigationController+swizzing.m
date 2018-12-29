@@ -2,7 +2,7 @@
 //  UINavigationController+swizzing.m
 //  BN_Category
 //
-//  Created by hsf on 2018/11/16.
+//  Created by BIN on 2018/11/16.
 //
 
 #import "UINavigationController+swizzing.h"
