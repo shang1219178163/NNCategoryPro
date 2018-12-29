@@ -13,9 +13,9 @@
 @property (nonatomic, copy) void(^segmentViewBlock)(NSInteger selectIndex);
 @property (nonatomic, copy) void(^actionWithBlock)(NSInteger);
 
-- (void)addLineWithRect:(CGRect)rect isDash:(BOOL)isDash tag:(NSInteger)tag inView:(UIView *)inView;
+- (void)addLineRect:(CGRect)rect isDash:(BOOL)isDash tag:(NSInteger)tag inView:(UIView *)inView;
 
-+ (UIView *)createLineWithRect:(CGRect)rect isDash:(BOOL)isDash hidden:(BOOL)hidden tag:(NSInteger)tag;
++ (UIView *)createLineRect:(CGRect)rect isDash:(BOOL)isDash hidden:(BOOL)hidden tag:(NSInteger)tag;
 
 -(CALayer *)createLayerType:(NSNumber *)type;
 
@@ -28,19 +28,19 @@
 /**
  右指箭头
  */
-+ (UIView *)createArrowWithRect:(CGRect)rect;
++ (UIView *)createArrowRect:(CGRect)rect;
 
 #pragma mark - - 类方法
 
 /**
  UIView通用创建方法
  */
-+ (UIView *)createViewWithRect:(CGRect)rect tag:(NSInteger)tag;
++ (UIView *)createViewRect:(CGRect)rect tag:(NSInteger)tag;
 
 /**
  UILabel通用创建方法
  */
-+ (UILabel *)createLabelWithRect:(CGRect)rect text:(id)text textColor:(UIColor *)textColor tag:(NSInteger)tag type:(NSNumber *)type font:(CGFloat)fontSize  backgroudColor:(UIColor *)backgroudColor alignment:(NSTextAlignment)alignment;
++ (UILabel *)createLabelRect:(CGRect)rect text:(id)text textColor:(UIColor *)textColor tag:(NSInteger)tag type:(NSNumber *)type font:(CGFloat)fontSize  backgroudColor:(UIColor *)backgroudColor alignment:(NSTextAlignment)alignment;
 
 /**
  UILabel小标志专用,例如左侧头像上的"企"
@@ -50,7 +50,7 @@
 /**
  UIImageView通用创建方法
  */
-+ (UIImageView *)createImgViewWithRect:(CGRect)rect image:(id)image tag:(NSInteger)tag type:(NSNumber *)type;
++ (UIImageView *)createImgViewRect:(CGRect)rect image:(id)image tag:(NSInteger)tag type:(NSNumber *)type;
 
 /**
  UIImageView多图片加手势
@@ -60,17 +60,17 @@
 /**
  UIImageView(上传图片)选择图片使用
  */
-+ (UIImageView *)createImgViewWithRect:(CGRect)rect image:(id)image tag:(NSInteger)tag type:(NSNumber *)type hasDeleteBtn:(BOOL)hasDeleteBtn;
++ (UIImageView *)createImgViewRect:(CGRect)rect image:(id)image tag:(NSInteger)tag type:(NSNumber *)type hasDeleteBtn:(BOOL)hasDeleteBtn;
 
 /**
  UITextField通用创建方法
  */
-+ (UITextField *)createTextFieldWithRect:(CGRect)rect text:(NSString *)text placeholder:(NSString *)placeholder font:(CGFloat)fontSize textAlignment:(NSTextAlignment)textAlignment keyboardType:(UIKeyboardType)keyboardType tag:(NSInteger)tag;
++ (UITextField *)createTextFieldRect:(CGRect)rect text:(NSString *)text placeholder:(NSString *)placeholder font:(CGFloat)fontSize textAlignment:(NSTextAlignment)textAlignment keyboardType:(UIKeyboardType)keyboardType tag:(NSInteger)tag;
 
 /**
  UIButton通用创建方法
  */
-+ (UIButton *)createBtnWithRect:(CGRect)rect title:(NSString *)title font:(CGFloat)fontSize image:(NSString *)image tag:(NSInteger)tag type:(NSNumber *)type target:(id)target aSelector:(SEL)aSelector;
++ (UIButton *)createBtnRect:(CGRect)rect title:(NSString *)title font:(CGFloat)fontSize image:(NSString *)image tag:(NSInteger)tag type:(NSNumber *)type target:(id)target aSelector:(SEL)aSelector;
 
 /**
  CustomSegment通用创建方法
@@ -80,21 +80,21 @@
 /**
  BtnView通用创建方法
  */
-+ (UIView *)createBtnViewWithRect:(CGRect)rect imgName:(NSString *)imgName imgHeight:(CGFloat)imgHeight title:(NSString *)title titleColor:(UIColor *)titleColor type:(NSNumber *)type;
++ (UIView *)createBtnViewRect:(CGRect)rect imgName:(NSString *)imgName imgHeight:(CGFloat)imgHeight title:(NSString *)title titleColor:(UIColor *)titleColor type:(NSNumber *)type;
 
 /**
  UISegmentedControl通用创建方法
  */
-+ (UISegmentedControl *)createSegmentWithRect:(CGRect)rect titles:(NSArray *)titleArr textColor:(UIColor *)textColor backgroudColor:(UIColor *)backgroudColor selectedIndex:(NSInteger)selectedIndex tagert:(id)target aSelector:(SEL)aSelector;
++ (UISegmentedControl *)createSegmentRect:(CGRect)rect items:(NSArray *)items selectedIndex:(NSInteger)selectedIndex type:(NSNumber *)type;
+
+/**
+ UISlider通用创建方法
+ */
++ (UISlider *)createSliderRect:(CGRect)rect value:(CGFloat)value minValue:(CGFloat)minValue maxValue:(CGFloat)maxValue;
 
 /**
  UISwitch通用创建方法
  */
-+ (UISwitch *)createSwitchWithRect:(CGRect)rect isOn:(BOOL)isOn;
-
-/**
- UISegmentedControl通用创建方法(无边框)
- */
-+ (UISegmentedControl *)createSegmentCtlWithRect:(CGRect)rect items:(NSArray *)items selectedIndex:(NSInteger)selectedIndex type:(NSNumber *)type;
++ (UISwitch *)createSwitchRect:(CGRect)rect isOn:(BOOL)isOn;
 
 @end

@@ -20,7 +20,7 @@
 
 @implementation UIImageView (Helper)
 
-+(UIImageView *)imgViewWithRect:(CGRect)rect imageList:(NSArray *)imageList type:(NSNumber *)type{
++(UIImageView *)imgViewRect:(CGRect)rect imageList:(NSArray *)imageList type:(NSNumber *)type{
     UIImageView *imgView = nil;
     switch (type.integerValue) {
         case 0:

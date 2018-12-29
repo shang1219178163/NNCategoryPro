@@ -29,7 +29,7 @@
 @dynamic actionWithBlock;
 @dynamic segmentViewBlock;
 
-- (void)addLineWithRect:(CGRect)rect isDash:(BOOL)isDash tag:(NSInteger)tag inView:(UIView *)inView{
+- (void)addLineRect:(CGRect)rect isDash:(BOOL)isDash tag:(NSInteger)tag inView:(UIView *)inView{
     if (!isDash) {
         if (![inView viewWithTag:tag]) {
             UIView * lineView = [[UIView alloc]initWithFrame:rect];
@@ -90,7 +90,7 @@
     }
 }
 
-+ (UIView *)createLineWithRect:(CGRect)rect isDash:(BOOL)isDash hidden:(BOOL)hidden tag:(NSInteger)tag{
++ (UIView *)createLineRect:(CGRect)rect isDash:(BOOL)isDash hidden:(BOOL)hidden tag:(NSInteger)tag{
     
     if (!isDash) {
         UIView * lineView = [[UIView alloc]initWithFrame:rect];
@@ -201,16 +201,16 @@
 
 
 //右指箭头
-+ (UIView *)createArrowWithRect:(CGRect)rect{
++ (UIView *)createArrowRect:(CGRect)rect{
     NSString * imageStrRight = kIMG_arrowRight;
 //    CGSize imgViewRightSize = CGSizeMake(25, 25);
 
-    UIImageView * imgViewRight = [UIView createImgViewWithRect:rect image:imageStrRight tag:kTAG_IMGVIEW type:@0];
+    UIImageView * imgViewRight = [UIView createImgViewRect:rect image:imageStrRight tag:kTAG_IMGVIEW type:@0];
     return imgViewRight;
 }
 
 #pragma mark - -类方法
-+ (UIView *)createViewWithRect:(CGRect)rect tag:(NSInteger)tag{
++ (UIView *)createViewRect:(CGRect)rect tag:(NSInteger)tag{
     UIView * backgroundView = [[UIView alloc]initWithFrame:rect];
     backgroundView.tag = tag;
 
@@ -220,7 +220,7 @@
     return backgroundView;
 }
 
-+ (UILabel *)createLabelWithRect:(CGRect)rect text:(id)text textColor:(UIColor *)textColor tag:(NSInteger)tag type:(NSNumber *)type font:(CGFloat)fontSize  backgroudColor:(UIColor *)backgroudColor alignment:(NSTextAlignment)alignment
++ (UILabel *)createLabelRect:(CGRect)rect text:(id)text textColor:(UIColor *)textColor tag:(NSInteger)tag type:(NSNumber *)type font:(CGFloat)fontSize  backgroudColor:(UIColor *)backgroudColor alignment:(NSTextAlignment)alignment
 {
     UILabel * label = [[UILabel alloc] initWithFrame:rect];
     if ([text isKindOfClass:[NSString class]]) {
@@ -342,7 +342,7 @@
 }
 
 //imageView通用创建方法
-+ (UIImageView *)createImgViewWithRect:(CGRect)rect image:(id)image tag:(NSInteger)tag type:(NSNumber *)type{
++ (UIImageView *)createImgViewRect:(CGRect)rect image:(id)image tag:(NSInteger)tag type:(NSNumber *)type{
     UIImageView *imageView = [[UIImageView alloc] initWithFrame:rect];
     imageView.autoresizingMask = UIViewAutoresizingFlexibleLeftMargin | UIViewAutoresizingFlexibleRightMargin;
     imageView.contentMode = UIViewContentModeScaleAspectFit;
@@ -436,7 +436,7 @@
     return imageView;
 }
 //选择图片使用
-+ (UIImageView *)createImgViewWithRect:(CGRect)rect image:(id)image tag:(NSInteger)tag type:(NSNumber *)type hasDeleteBtn:(BOOL)hasDeleteBtn
++ (UIImageView *)createImgViewRect:(CGRect)rect image:(id)image tag:(NSInteger)tag type:(NSNumber *)type hasDeleteBtn:(BOOL)hasDeleteBtn
 {
     UIImageView *imageView = [[UIImageView alloc] initWithFrame:rect];
     imageView.autoresizingMask = UIViewAutoresizingFlexibleLeftMargin | UIViewAutoresizingFlexibleRightMargin;
@@ -501,7 +501,7 @@
     return imageView;
 }
 
-+ (UITextField *)createTextFieldWithRect:(CGRect)rect text:(NSString *)text placeholder:(NSString *)placeholder font:(CGFloat)fontSize textAlignment:(NSTextAlignment)textAlignment keyboardType:(UIKeyboardType)keyboardType tag:(NSInteger)tag
++ (UITextField *)createTextFieldRect:(CGRect)rect text:(NSString *)text placeholder:(NSString *)placeholder font:(CGFloat)fontSize textAlignment:(NSTextAlignment)textAlignment keyboardType:(UIKeyboardType)keyboardType tag:(NSInteger)tag
 {
     UITextField * textField = [[UITextField alloc]initWithFrame:rect];
     textField.tag = tag;
@@ -530,7 +530,7 @@
     
 }
 
-+ (UIButton *)createBtnWithRect:(CGRect)rect title:(NSString *)title font:(CGFloat)fontSize image:(NSString *)image tag:(NSInteger)tag type:(NSNumber *)type target:(id)target aSelector:(SEL)aSelector{
++ (UIButton *)createBtnRect:(CGRect)rect title:(NSString *)title font:(CGFloat)fontSize image:(NSString *)image tag:(NSInteger)tag type:(NSNumber *)type target:(id)target aSelector:(SEL)aSelector{
     UIButton * btn = [UIButton buttonWithType:UIButtonTypeCustom];
     btn.frame = rect;
     [btn setTitle:title forState:UIControlStateNormal];
@@ -770,7 +770,7 @@
     }
 }
 
-+ (UIView *)createBtnViewWithRect:(CGRect)rect imgName:(NSString *)imgName imgHeight:(CGFloat)imgHeight title:(NSString *)title titleColor:(UIColor *)titleColor type:(NSNumber *)type
++ (UIView *)createBtnViewRect:(CGRect)rect imgName:(NSString *)imgName imgHeight:(CGFloat)imgHeight title:(NSString *)title titleColor:(UIColor *)titleColor type:(NSNumber *)type
 {
 
     UIView * backgroudView = [[UIView alloc]initWithFrame:rect];
@@ -852,68 +852,17 @@
 
 #pragma mark - - otherFuntions
 
-+ (UISegmentedControl *)createSegmentWithRect:(CGRect)rect titles:(NSArray *)titleArr textColor:(UIColor *)textColor backgroudColor:(UIColor *)backgroudColor selectedIndex:(NSInteger)selectedIndex tagert:(id)target aSelector:(SEL)aSelector{
-    
-    UIColor * defaultColor = UIColor.whiteColor;//点击状态下的背景色
-    UIColor * defaultTextColor = UIColor.orangeColor;//点击状态下文字颜色
-    defaultTextColor = UIColor.themeColor;//点击状态下文字颜色
-    
-    defaultTextColor = textColor;
-    defaultColor = backgroudColor;
-    
-    UISegmentedControl *segmentedControl = [[UISegmentedControl alloc]initWithItems:titleArr];
-    segmentedControl.frame = rect;
-    
-    segmentedControl.selectedSegmentIndex = selectedIndex;
-    segmentedControl.tintColor = UIColor.whiteColor;
-    
-    NSDictionary *attrNormal = @{
-                   NSFontAttributeName:[UIFont boldSystemFontOfSize:17],
-//                   NSForegroundColorAttributeName:UIColor.whiteColor,
-//                   NSBackgroundColorAttributeName:UIColor.themeColor,
-                   };
-    
-
-    
-    NSDictionary *attrSelected = @{
-                   NSFontAttributeName:[UIFont boldSystemFontOfSize:17],
-//                   NSForegroundColorAttributeName:UIColor.themeColor,
-//                   NSBackgroundColorAttributeName:UIColor.whiteColor,
-                   };
-    
-    [segmentedControl setTitleTextAttributes:attrNormal forState:UIControlStateNormal];
-    [segmentedControl setTitleTextAttributes:attrSelected forState:UIControlStateSelected];
-
-    [segmentedControl addTarget:target action:aSelector forControlEvents:UIControlEventValueChanged];
-
-    return segmentedControl;
-    
-}
-
-+ (UISwitch *)createSwitchWithRect:(CGRect)rect isOn:(BOOL)isOn{
-    UISwitch *switchView = [[UISwitch alloc]initWithFrame:rect];
-    switchView.on = isOn;//设置初始为ON的一边
-    switchView.onTintColor = UIColor.themeColor;
-    switchView.tintColor = UIColor.whiteColor;
-    
-//    [switchView addTarget:self action:@selector(handleActionSwitch:) forControlEvents:UIControlEventValueChanged];   // 开关事件切换通知
-
-    return switchView;
-}
-
-
-+ (UISegmentedControl *)createSegmentCtlWithRect:(CGRect)rect items:(NSArray *)items selectedIndex:(NSInteger)selectedIndex type:(NSNumber *)type{
++ (UISegmentedControl *)createSegmentRect:(CGRect)rect items:(NSArray *)items selectedIndex:(NSInteger)selectedIndex type:(NSNumber *)type{
     UISegmentedControl *segmentCtrl = [[UISegmentedControl alloc] initWithItems:items];
     segmentCtrl.frame = rect;
     
-    segmentCtrl.backgroundColor = UIColor.whiteColor;
-    segmentCtrl.tintColor = UIColor.themeColor;
-    
-    segmentCtrl.selectedSegmentIndex = selectedIndex ? selectedIndex : 0;
+    segmentCtrl.selectedSegmentIndex = selectedIndex < items.count ? selectedIndex : 0;
     switch (type.integerValue) {
         case 1:
         {
-           
+            segmentCtrl.tintColor = UIColor.themeColor;
+            segmentCtrl.backgroundColor = UIColor.whiteColor;
+            
             segmentCtrl.layer.borderWidth = 1;
             segmentCtrl.layer.borderColor = UIColor.whiteColor.CGColor;
             
@@ -928,8 +877,33 @@
             
         }
             break;
+        case 2:
+        {
+            segmentCtrl.tintColor = UIColor.whiteColor;
+            segmentCtrl.backgroundColor = UIColor.whiteColor;
+            
+            NSDictionary *attrNormal = @{
+                                         NSFontAttributeName:[UIFont boldSystemFontOfSize:15],
+                                         //                   NSForegroundColorAttributeName:UIColor.whiteColor,
+                                         //                   NSBackgroundColorAttributeName:UIColor.themeColor,
+                                         };
+            
+            NSDictionary *attrSelected = @{
+                                           NSFontAttributeName:[UIFont boldSystemFontOfSize:15],
+                                           //                   NSForegroundColorAttributeName:UIColor.themeColor,
+                                           //                   NSBackgroundColorAttributeName:UIColor.whiteColor,
+                                           };
+            
+            [segmentCtrl setTitleTextAttributes:attrNormal forState:UIControlStateNormal];
+            [segmentCtrl setTitleTextAttributes:attrSelected forState:UIControlStateSelected];
+            
+        }
+            break;
         default:
         {
+            segmentCtrl.tintColor = UIColor.themeColor;
+            segmentCtrl.backgroundColor = UIColor.whiteColor;
+            
             NSDictionary * dict = @{
                                     NSFontAttributeName            :   [UIFont systemFontOfSize:15],
                                     
@@ -939,10 +913,31 @@
         }
             break;
     }
-    
-    //    [segmentCtrl addTarget:self action:@selector(handleActionSwitch:) forControlEvents:UIControlEventValueChanged];   // 开关事件切换通知
     return segmentCtrl;
 }
+
++ (UISlider *)createSliderRect:(CGRect)rect value:(CGFloat)value minValue:(CGFloat)minValue maxValue:(CGFloat)maxValue{
+    UISlider *view = [[UISlider alloc] initWithFrame:rect];
+    view.autoresizingMask = UIViewAutoresizingFlexibleWidth;
+    view.minimumValue = minValue;
+    view.maximumValue = maxValue;
+    view.value = value;
+    
+    view.minimumTrackTintColor = UIColor.greenColor;
+    view.maximumTrackTintColor = UIColor.redColor;
+    view.thumbTintColor = UIColor.yellowColor;
+    return view;
+}
+
++ (UISwitch *)createSwitchRect:(CGRect)rect isOn:(BOOL)isOn{
+    UISwitch *switchView = [[UISwitch alloc]initWithFrame:rect];
+    switchView.on = isOn;//设置初始为ON的一边
+    switchView.onTintColor = UIColor.themeColor;
+    switchView.tintColor = UIColor.whiteColor;
+    
+    return switchView;
+}
+
 
 
 @end

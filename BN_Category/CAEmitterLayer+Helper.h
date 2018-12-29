@@ -16,7 +16,7 @@ NS_ASSUME_NONNULL_BEGIN
 
 +(CAEmitterLayer *)layerWithSize:(CGSize)size positon:(CGPoint)position imgList:(NSArray *)imgList type:(NSNumber *)type;
 
-+(CAEmitterLayer *)layerWithRect:(CGRect)rect imgList:(nullable NSArray *)imgList type:(NSNumber *)type;
++(CAEmitterLayer *)layerRect:(CGRect)rect imgList:(nullable NSArray *)imgList type:(NSNumber *)type;
 
 @end
 

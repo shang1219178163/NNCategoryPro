@@ -41,7 +41,7 @@
     
 }
 
-+(CAEmitterLayer *)layerWithRect:(CGRect)rect imgList:(NSArray *)imgList type:(NSNumber *)type{
++(CAEmitterLayer *)layerRect:(CGRect)rect imgList:(NSArray *)imgList type:(NSNumber *)type{
     
     CAEmitterLayer *emitterLayer = CAEmitterLayer.layer;
     

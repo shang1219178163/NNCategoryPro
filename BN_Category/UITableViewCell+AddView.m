@@ -68,7 +68,7 @@
 -(UILabel *)labelRight{
     UILabel * lab = objc_getAssociatedObject(self, _cmd);
     if (!lab) {
-        lab = [UIView createLabelWithRect:CGRectZero text:@"" textColor:nil tag:kTAG_LABEL+4 type:@2 font:kFZ_Second backgroudColor:UIColor.whiteColor alignment:NSTextAlignmentRight];
+        lab = [UIView createLabelRect:CGRectZero text:@"" textColor:nil tag:kTAG_LABEL+4 type:@2 font:kFZ_Second backgroudColor:UIColor.whiteColor alignment:NSTextAlignmentRight];
 
 //        lab = ({
 //            UILabel * label = [[UILabel alloc] initWithFrame:CGRectZero];
@@ -93,7 +93,7 @@
 -(UILabel *)labelLeft{
     UILabel * lab = objc_getAssociatedObject(self, _cmd);
     if (!lab) {
-        lab = [UIView createLabelWithRect:CGRectZero text:@"" textColor:nil tag:kTAG_LABEL type:@2 font:kFZ_Second backgroudColor:UIColor.whiteColor alignment:NSTextAlignmentLeft];
+        lab = [UIView createLabelRect:CGRectZero text:@"" textColor:nil tag:kTAG_LABEL type:@2 font:kFZ_Second backgroudColor:UIColor.whiteColor alignment:NSTextAlignmentLeft];
 
 //        lab = ({
 //            UILabel * label = [[UILabel alloc] initWithFrame:CGRectZero];
@@ -119,7 +119,7 @@
 -(UILabel *)labelLeftMark{
     UILabel * lab = objc_getAssociatedObject(self, _cmd);
     if (!lab) {
-        lab = [UIView createLabelWithRect:CGRectZero text:@"" textColor:nil tag:kTAG_LABEL+1 type:@2 font:kFZ_Second backgroudColor:UIColor.whiteColor alignment:NSTextAlignmentLeft];
+        lab = [UIView createLabelRect:CGRectZero text:@"" textColor:nil tag:kTAG_LABEL+1 type:@2 font:kFZ_Second backgroudColor:UIColor.whiteColor alignment:NSTextAlignmentLeft];
 
 //        lab = ({
 //            UILabel * label = [[UILabel alloc] initWithFrame:CGRectZero];
@@ -144,7 +144,7 @@
 -(UILabel *)labelLeftSub{
     UILabel * lab = objc_getAssociatedObject(self, _cmd);
     if (!lab) {
-        lab = [UIView createLabelWithRect:CGRectZero text:@"" textColor:nil tag:kTAG_LABEL+2 type:@2 font:kFZ_Second backgroudColor:UIColor.whiteColor alignment:NSTextAlignmentLeft];
+        lab = [UIView createLabelRect:CGRectZero text:@"" textColor:nil tag:kTAG_LABEL+2 type:@2 font:kFZ_Second backgroudColor:UIColor.whiteColor alignment:NSTextAlignmentLeft];
 
 //        lab = ({
 //            UILabel * label = [[UILabel alloc] initWithFrame:CGRectZero];
@@ -171,7 +171,7 @@
 -(UILabel *)labelLeftSubMark{
     UILabel * lab = objc_getAssociatedObject(self, _cmd);
     if (!lab) {
-        lab = [UIView createLabelWithRect:CGRectZero text:@"" textColor:nil tag:kTAG_LABEL+3 type:@2 font:kFZ_Second backgroudColor:UIColor.whiteColor alignment:NSTextAlignmentLeft];
+        lab = [UIView createLabelRect:CGRectZero text:@"" textColor:nil tag:kTAG_LABEL+3 type:@2 font:kFZ_Second backgroudColor:UIColor.whiteColor alignment:NSTextAlignmentLeft];
 
 //        lab = ({
 //            UILabel * label = [[UILabel alloc] initWithFrame:CGRectZero];
@@ -242,7 +242,7 @@
 -(UIButton *)btn{
     UIButton * button = objc_getAssociatedObject(self, _cmd);
     if (!button) {
-        button = [UIView createBtnWithRect:CGRectZero title:@"取消订单" font:kFZ_Second image:nil tag:kTAG_BTN type:@7 target:nil aSelector:nil];
+        button = [UIView createBtnRect:CGRectZero title:@"取消订单" font:kFZ_Second image:nil tag:kTAG_BTN type:@7 target:nil aSelector:nil];
 //        button = ({
 //            UIButton * btn = [UIButton buttonWithType:UIButtonTypeCustom];
 //            [btn setTitle:@"btn" forState:UIControlStateNormal];
@@ -267,7 +267,7 @@
 -(BN_TextField *)textField{
     BN_TextField * textField = objc_getAssociatedObject(self, _cmd);
     if (!textField) {
-        textField = [UIView createTextFieldWithRect:CGRectZero text:@"" placeholder:nil font:kFZ_Second textAlignment:NSTextAlignmentLeft keyboardType:UIKeyboardTypeDefault];
+        textField = [UIView createTextFieldRect:CGRectZero text:@"" placeholder:nil font:kFZ_Second textAlignment:NSTextAlignmentLeft keyboardType:UIKeyboardTypeDefault];
         textField.tag = kTAG_TEXTFIELD;
 
         objc_setAssociatedObject(self, _cmd, textField, OBJC_ASSOCIATION_RETAIN_NONATOMIC);
@@ -283,7 +283,7 @@
 -(BN_TextView *)textView{
     BN_TextView * tv = objc_getAssociatedObject(self, _cmd);
     if (!tv) {
-        tv = [UIView createTextViewWithRect:CGRectZero text:@"" placeholder:nil font:kFZ_Third textAlignment:NSTextAlignmentLeft keyType:UIKeyboardTypeDefault];
+        tv = [UIView createTextViewRect:CGRectZero text:@"" placeholder:nil font:kFZ_Third textAlignment:NSTextAlignmentLeft keyType:UIKeyboardTypeDefault];
         
         objc_setAssociatedObject(self, _cmd, tv, OBJC_ASSOCIATION_RETAIN_NONATOMIC);
         

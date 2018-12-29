@@ -160,7 +160,7 @@
 }
 
 
-+ (UIView *)buttonWithRect:(CGRect)rect attDict:(NSDictionary *)dict tag:(NSInteger)tag{
++ (UIView *)buttonRect:(CGRect)rect attDict:(NSDictionary *)dict tag:(NSInteger)tag{
     
     UIButton *button = [UIButton buttonWithType:UIButtonTypeCustom];
     button.frame = CGRectMake(20, 0, 90, 40);

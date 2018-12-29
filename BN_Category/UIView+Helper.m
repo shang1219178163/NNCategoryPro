@@ -358,7 +358,7 @@
     self.layer.cornerRadius = cornerRadius;
 }
 
-+ (UIImageView *)createCardViewWithRect:(CGRect)rect title:(NSString *)title image:(id)image tag:(NSInteger)tag target:(id)target aSelector:(SEL)aSelector{
++ (UIImageView *)createCardViewRect:(CGRect)rect title:(NSString *)title image:(id)image tag:(NSInteger)tag target:(id)target aSelector:(SEL)aSelector{
     
     UIImageView * containView = [UIView createImageViewRect:rect image:image tag:tag target:target aSelector:aSelector];
     
@@ -367,7 +367,7 @@
     CGFloat XGapImgView = (CGRectGetWidth(rect) - imgViewSize.width)/2.0;
     
     CGRect imgViewRect = CGRectMake(XGapImgView, YGap, imgViewSize.width, imgViewSize.height);
-    UIImageView * imgView = [UIView createImgViewWithRect:imgViewRect image:@"img_cardAdd.png" tag:kTAG_IMGVIEW type:@0];
+    UIImageView * imgView = [UIView createImgViewRect:imgViewRect image:@"img_cardAdd.png" tag:kTAG_IMGVIEW type:@0];
     imgView.layer.backgroundColor = UIColor.whiteColor.CGColor;
     [containView addSubview:imgView];
     
@@ -375,7 +375,7 @@
     CGFloat XGapLab = (CGRectGetWidth(rect) - textSize.width)/2.0;
     
     CGRect labRect = CGRectMake(XGapLab, CGRectGetMaxY(imgViewRect), textSize.width, kH_LABEL_SMALL);
-    UILabel * lab = [UIView createLabelWithRect:labRect text:title textColor:UIColor.titleSubColor tag:kTAG_LABEL type:@2 font:kFZ_Third backgroudColor:nil alignment:NSTextAlignmentCenter];
+    UILabel * lab = [UIView createLabelRect:labRect text:title textColor:UIColor.titleSubColor tag:kTAG_LABEL type:@2 font:kFZ_Third backgroudColor:nil alignment:NSTextAlignmentCenter];
     [containView addSubview:lab];
     
     if (!image) {
@@ -390,7 +390,7 @@
 }
 
 
-+ (BN_TextField *)createTextFieldWithRect:(CGRect)rect text:(NSString *)text placeholder:(NSString *)placeholder font:(NSInteger)fontSize textAlignment:(NSTextAlignment)textAlignment keyboardType:(UIKeyboardType)keyboardType
++ (BN_TextField *)createTextFieldRect:(CGRect)rect text:(NSString *)text placeholder:(NSString *)placeholder font:(NSInteger)fontSize textAlignment:(NSTextAlignment)textAlignment keyboardType:(UIKeyboardType)keyboardType
 {
     BN_TextField * textField = [[BN_TextField alloc]initWithFrame:rect];
     
@@ -418,8 +418,8 @@
     
 }
 
-+ (BN_TextField *)createTextFieldWithRect:(CGRect)rect text:(NSString *)text placeholder:(NSString *)placeholder font:(NSInteger)fontSize textAlignment:(NSTextAlignment)textAlignment keyboardType:(UIKeyboardType)keyboardType leftView:(UIView *)leftView leftPadding:(CGFloat)leftPadding rightView:(UIView *)rightView rightPadding:(CGFloat)rightPadding{
-    BN_TextField * textField = [BN_TextField createTextFieldWithRect:rect text:text placeholder:placeholder font:fontSize textAlignment:NSTextAlignmentLeft keyboardType:keyboardType];
++ (BN_TextField *)createTextFieldRect:(CGRect)rect text:(NSString *)text placeholder:(NSString *)placeholder font:(NSInteger)fontSize textAlignment:(NSTextAlignment)textAlignment keyboardType:(UIKeyboardType)keyboardType leftView:(UIView *)leftView leftPadding:(CGFloat)leftPadding rightView:(UIView *)rightView rightPadding:(CGFloat)rightPadding{
+    BN_TextField * textField = [BN_TextField createTextFieldRect:rect text:text placeholder:placeholder font:fontSize textAlignment:NSTextAlignmentLeft keyboardType:keyboardType];
     textField.textAlignment = textAlignment;
     
     //    UIImageView *imgView = [[UIImageView alloc]initWithImage:[UIImage imageNamed:@"img_cardAdd.png"]];
@@ -430,7 +430,7 @@
 
     textField.leftViewMode = UITextFieldViewModeAlways;
     
-    //    UIButton * btn = [UIButton createBtnWithRect:CGRectMake(0, 0, 40, textFieldHeight) title:@"搜 索" font:kFZ_Second image:nil tag:kTAG_BTN type:@2 target:self aSelector:@selector(goSearch)];
+    //    UIButton * btn = [UIButton createBtnRect:CGRectMake(0, 0, 40, textFieldHeight) title:@"搜 索" font:kFZ_Second image:nil tag:kTAG_BTN type:@2 target:self aSelector:@selector(goSearch)];
     textField.rightView = rightView;
 //    textField.rightViewPadding = 5;
     textField.rightViewPadding = rightPadding;
@@ -444,7 +444,7 @@
     return textField;
 }
 
-+ (BN_TextView *)createTextViewWithRect:(CGRect)rect text:(NSString *)text placeholder:(NSString *)placeholder font:(CGFloat)fontSize textAlignment:(NSTextAlignment)textAlignment keyType:(UIKeyboardType)keyboardType{
++ (BN_TextView *)createTextViewRect:(CGRect)rect text:(NSString *)text placeholder:(NSString *)placeholder font:(CGFloat)fontSize textAlignment:(NSTextAlignment)textAlignment keyType:(UIKeyboardType)keyboardType{
     
     BN_TextView *textView = [[BN_TextView alloc] initWithFrame:rect];
     
@@ -475,7 +475,7 @@
     return textView;
 }
 
-+ (UITextView *)createTextShowWithRect:(CGRect)rect text:(id)text font:(CGFloat)fontSize textAlignment:(NSTextAlignment)textAlignment
++ (UITextView *)createTextShowRect:(CGRect)rect text:(id)text font:(CGFloat)fontSize textAlignment:(NSTextAlignment)textAlignment
 {
     UITextView *textView = [[UITextView alloc] initWithFrame:rect];
     if ([text isKindOfClass:[NSString class]]) {
@@ -510,7 +510,7 @@
     return textView;
 }
 
-+ (UILabel *)createRichLabWithRect:(CGRect)rect text:(NSString *)text textTaps:(NSArray *)textTaps{
++ (UILabel *)createRichLabRect:(CGRect)rect text:(NSString *)text textTaps:(NSArray *)textTaps{
     
     NSMutableAttributedString *attString = [[NSMutableAttributedString alloc]initWithString:text];
     for (NSString *textTap in textTaps) {
@@ -552,11 +552,11 @@
     
     CGRect labelRect = CGRectMake(CGRectGetMaxX(imgViewRect) + padding, CGRectGetMinY(imgViewRect), CGRectGetWidth(backgroudView.frame) - CGRectGetWidth(imgViewRect) - padding, CGRectGetHeight(imgViewRect));
     
-    UIImageView * imgView = [UIView createImgViewWithRect:imgViewRect image:image tag:kTAG_IMGVIEW type:@0];
+    UIImageView * imgView = [UIView createImgViewRect:imgViewRect image:image tag:kTAG_IMGVIEW type:@0];
     imgView.tag = kTAG_IMGVIEW;
     [backgroudView addSubview:imgView];
     
-    UILabel * labelVehicle = [UIView createLabelWithRect:labelRect text:text textColor:nil tag:kTAG_LABEL type:@2 font:kFZ_Third backgroudColor:nil alignment:NSTextAlignmentLeft];
+    UILabel * labelVehicle = [UIView createLabelRect:labelRect text:text textColor:nil tag:kTAG_LABEL type:@2 font:kFZ_Third backgroudColor:nil alignment:NSTextAlignmentLeft];
     labelVehicle.tag = kTAG_LABEL;
     [backgroudView addSubview:labelVehicle];
     
@@ -566,7 +566,7 @@
     return backgroudView;
 }
 
-+ (UIView *)createViewWithRect:(CGRect)rect elements:(NSArray *)elements numberOfRow:(NSInteger)numberOfRow viewHeight:(CGFloat)viewHeight padding:(CGFloat)padding{
++ (UIView *)createViewRect:(CGRect)rect elements:(NSArray *)elements numberOfRow:(NSInteger)numberOfRow viewHeight:(CGFloat)viewHeight padding:(CGFloat)padding{
     
     //    CGFloat padding = 15;
     //    CGFloat viewHeight = 30;
@@ -586,7 +586,7 @@
         
         NSString * title = elements[i];
         CGRect btnRect = CGRectMake(x, y, w, h);
-        UIButton * btn = [UIView createBtnWithRect:btnRect title:title font:15 image:nil tag:kTAG_BTN+i type:@0 target:self aSelector:@selector(handleActionBtn:)];
+        UIButton * btn = [UIView createBtnRect:btnRect title:title font:15 image:nil tag:kTAG_BTN+i type:@0 target:self aSelector:@selector(handleActionBtn:)];
         [btn removeTarget:self action:@selector(handleActionBtn:) forControlEvents:UIControlEventTouchUpInside];
         [backgroudView addSubview:btn];
         
@@ -595,7 +595,7 @@
 }
 
 
-+ (UIView *)createViewWithRect:(CGRect)rect items:(NSArray *)items numberOfRow:(NSInteger)numberOfRow itemHeight:(CGFloat)itemHeight padding:(CGFloat)padding type:(NSNumber *)type handler:(void(^)(id obj, id item, NSInteger idx))handler{
++ (UIView *)createViewRect:(CGRect)rect items:(NSArray *)items numberOfRow:(NSInteger)numberOfRow itemHeight:(CGFloat)itemHeight padding:(CGFloat)padding type:(NSNumber *)type handler:(void(^)(id obj, id item, NSInteger idx))handler{
     
     //    CGFloat padding = 15;
     //    CGFloat viewHeight = 30;
@@ -622,18 +622,18 @@
         switch (type.integerValue) {
             case 0://uibutton
             {
-                view = [UIView createBtnWithRect:itemRect title:title font:15 image:nil tag:i type:@5 target:nil aSelector:nil];
+                view = [UIView createBtnRect:itemRect title:title font:15 image:nil tag:i type:@5 target:nil aSelector:nil];
             }
                 break;
             case 1://UIImageVIew
             {
-                view = [UIView createImgViewWithRect:itemRect image:title tag:i type:@0];
+                view = [UIView createImgViewRect:itemRect image:title tag:i type:@0];
                 
             }
                 break;
             case 2://UILabel
             {
-                view = [UIView createLabelWithRect:itemRect text:title textColor:nil tag:i type:@0 font:15 backgroudColor:[UIColor whiteColor] alignment:NSTextAlignmentCenter];
+                view = [UIView createLabelRect:itemRect text:title textColor:nil tag:i type:@0 font:15 backgroudColor:[UIColor whiteColor] alignment:NSTextAlignmentCenter];
                 
             }
                 break;
@@ -831,12 +831,12 @@
     
     if ([unitString containsString:@"img_"]) {
         CGSize size = CGSizeMake(20, 20);
-        UIImageView * imgView = [UIView createImgViewWithRect:CGRectMake(0, 0, size.width, size.height) image:unitString tag:kTAG_IMGVIEW type:@0];
+        UIImageView * imgView = [UIView createImgViewRect:CGRectMake(0, 0, size.width, size.height) image:unitString tag:kTAG_IMGVIEW type:@0];
         return imgView;
     }
     
     CGSize size = [self sizeWithText:unitString font:@(kFZ_Third) width:kScreen_width];
-    UILabel * label = [UIView createLabelWithRect:CGRectMake(0, 0, size.width+2, 25) text:unitString textColor:UIColor.titleColor tag:kTAG_LABEL type:@2 font:kFZ_Third backgroudColor:UIColor.clearColor alignment:NSTextAlignmentCenter];
+    UILabel * label = [UIView createLabelRect:CGRectMake(0, 0, size.width+2, 25) text:unitString textColor:UIColor.titleColor tag:kTAG_LABEL type:@2 font:kFZ_Third backgroudColor:UIColor.clearColor alignment:NSTextAlignmentCenter];
     return label;
     
 }

@@ -37,7 +37,7 @@
     NSArray * imageList = @[@"loading0",@"loading1",@"loading2",@"loading3",@"loading4",@"loading5",@"loading6",@"loading7",];
     
     CGRect rect = CGRectMake(0, 0, 25, 25);
-    UIImageView * imgView = [UIImageView imgViewWithRect:rect imageList:imageList type:@1];
+    UIImageView * imgView = [UIImageView imgViewRect:rect imageList:imageList type:@1];
     hud.customView = imgView;
 
 }

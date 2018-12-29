@@ -15,7 +15,7 @@
 
  @param type 不同的创建方式
  */
-+(UIImageView *)imgViewWithRect:(CGRect)rect imageList:(NSArray *)imageList type:(NSNumber *)type;
++(UIImageView *)imgViewRect:(CGRect)rect imageList:(NSArray *)imageList type:(NSNumber *)type;
 
 
 /**
