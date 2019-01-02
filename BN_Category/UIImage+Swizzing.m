@@ -26,7 +26,7 @@
 + (UIImage *)swz_imageNamed:(NSString *)name{
     UIImage *image = [UIImage swz_imageNamed:name];
     if (image) {
-        image = [image imageWithRenderingMode:UIImageRenderingModeAlwaysTemplate];
+//        image = [image imageWithRenderingMode:UIImageRenderingModeAlwaysTemplate];
         return image;
     }
     NSBundle *resource_bundle = NSBundleFromParams(self, @"BN_Globle");
