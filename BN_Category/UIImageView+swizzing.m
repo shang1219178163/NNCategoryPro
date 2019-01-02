@@ -27,6 +27,10 @@
 - (void)swz_setTintColor:(UIColor *)color {
     [self swz_setTintColor:color];
     
+    if ([self isKindOfClass:NSClassFromString(@"UITabBarSwappableImageView")]) {
+        return;
+    }
+    
     if (self.image.renderingMode != UIImageRenderingModeAlwaysTemplate) {
         self.image = [self.image imageWithRenderingMode:UIImageRenderingModeAlwaysTemplate];
     }
