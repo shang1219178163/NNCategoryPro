@@ -13,6 +13,7 @@
 
 #import "NSObject+Helper.h"
 #import "UIView+Helper.h"
+#import "UIImage+Helper.h"
 #import "UIImageView+Helper.h"
 
 #import <SDWebImage/UIImageView+WebCache.h>

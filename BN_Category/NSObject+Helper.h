@@ -30,19 +30,6 @@ FOUNDATION_EXPORT UINavigationController * UINavCtrFromObj(id obj);
 FOUNDATION_EXPORT NSArray * UINavListFromList(NSArray *list);
 FOUNDATION_EXPORT UITabBarController * UITarBarCtrFromList(NSArray *list);
 
-FOUNDATION_EXPORT UIImage * UIImageColor(UIColor * color);
-FOUNDATION_EXPORT UIImage * UIImageNamed(NSString * obj);
-FOUNDATION_EXPORT UIImage * UIImageFromName(NSString *obj, UIImageRenderingMode renderingMode);
-FOUNDATION_EXPORT UIImage * UIImageObj(id obj);
-
-FOUNDATION_EXPORT UIColor * UIColorRGBA(CGFloat r,CGFloat g,CGFloat b,CGFloat a);
-FOUNDATION_EXPORT UIColor * UIColorRGB(CGFloat r,CGFloat g,CGFloat b);
-FOUNDATION_EXPORT UIColor * UIColorDim(CGFloat White,CGFloat a);
-
-FOUNDATION_EXPORT UIColor * UIColorRGB_Init(CGFloat r,CGFloat g,CGFloat b,CGFloat a);
-
-FOUNDATION_EXPORT UIColor * UIColorHex(NSString *hex);
-FOUNDATION_EXPORT UIColor * UIColorHexValue(NSInteger hexValue);
 
 FOUNDATION_EXPORT BOOL iOSVer(CGFloat version);
 
