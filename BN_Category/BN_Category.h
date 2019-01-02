@@ -75,6 +75,7 @@
 #import "UIResponder+Helper.h"
 #import "UIScreen+Helper.h"
 #import "UISegmentedControl+Helper.h"
+#import "UITabBarController+Helper.h"
 #import "UITableView+Helper.h"
 #import "UITableViewCell+AddView.h"
 #import "UITableViewCell+Helper.h"
