@@ -100,14 +100,6 @@ static UIColor * _titleSubColor = nil;
 
 #pragma mark- -十六进制颜色
 
-UIColor * UIColorHex(NSString *hex){
-    return [UIColor colorWithHexString:hex];
-}
-
-UIColor * UIColorHexInter(NSInteger hex){
-    return [UIColor colorWithRed:((float)((hex & 0xff0000) >> 16))/255.0 green:((float)((hex & 0x00ff00) >> 8))/255.0 blue:((float)(hex & 0x0000ff))/255.0 alpha:1.0];
-}
-
 + (UIColor *)colorWithHexString:(NSString *)colorString{
     NSString *cString = [[colorString stringByTrimmingCharactersInSet:[NSCharacterSet whitespaceAndNewlineCharacterSet]] uppercaseString];
     

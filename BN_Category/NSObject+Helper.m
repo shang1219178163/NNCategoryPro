@@ -175,26 +175,30 @@ UITabBarController * UITarBarCtrFromList(NSArray *list){
 /**
  UIColor->UIImage
  */
-UIImage * UIImageFromColor(UIColor * color){
+UIImage * UIImageColor(UIColor * color){
     return [UIImage imageWithColor:color];
 }
 
 /**
  NSString->UIImage
  */
-UIImage * UIImageFromName(NSString * obj){
+UIImage * UIImageNamed(NSString * obj){
     return [UIImage imageNamed:obj];
+}
+
+UIImage * UIImageFromName(NSString *obj, UIImageRenderingMode renderingMode){
+    return [[UIImage imageNamed:obj] imageWithRenderingMode:renderingMode];
 }
 
 /**
  id类型->UIImage
  */
-UIImage * UIImageFromObj(id obj){
+UIImage * UIImageObj(id obj){
     if ([obj isKindOfClass:[NSString class]]) {
-        return UIImageFromName(obj);
+        return UIImageNamed(obj);
     }
     else if ([obj isKindOfClass:[UIColor class]]) {
-        return UIImageFromColor(obj);
+        return UIImageColor(obj);
     }
     else if ([obj isKindOfClass:[UIImage class]]) {
         return obj;
@@ -206,28 +210,32 @@ UIImage * UIImageFromObj(id obj){
         return [UIImage imageWithCIImage:obj];
     }
     return nil;
-    
 }
 
-UIColor * UIColorFromRGBA(CGFloat r,CGFloat g,CGFloat b,CGFloat a){
+UIColor * UIColorRGBA(CGFloat r,CGFloat g,CGFloat b,CGFloat a){
     return [UIColor colorWithRed:r/255.0f green:g/255.0f blue:b/255.0f alpha:a];
 }
 
-UIColor * UIColorFromRGB(CGFloat r,CGFloat g,CGFloat b){
-    return UIColorFromRGBA(r, g, b, 1);
+UIColor * UIColorRGB(CGFloat r,CGFloat g,CGFloat b){
+    return UIColorRGBA(r, g, b, 1);
 }
 
-UIColor * UIColorFromDim(CGFloat White,CGFloat a){
+UIColor * UIColorDim(CGFloat White,CGFloat a){
     return [UIColor colorWithWhite:White alpha:a];////white 0-1为黑到白,alpha透明度
     //    return [UIColor colorWithWhite:0.2f alpha: 0.5];////white 0-1为黑到白,alpha透明度
 }
 
-UIColor * UIColorFromRGB_Init(CGFloat r,CGFloat g,CGFloat b,CGFloat a){
+UIColor * UIColorRGB_Init(CGFloat r,CGFloat g,CGFloat b,CGFloat a){
     return [[UIColor alloc]initWithRed:r/255.0 green:g/255.0 blue:b/255.0 alpha:a];
 }
 
-UIColor * UIColorFromHex(NSInteger hexValue){
-    return [UIColor colorWithRed:(((hexValue & 0xFF0000) >> 16))/255.0 green:(((hexValue & 0xFF00) >> 8))/255.0 blue:((float)(hexValue & 0xFF))/255.0 alpha:1.0f];
+UIColor * UIColorHex(NSString *hex){
+    return [UIColor colorWithHexString:hex];
+}
+
+UIColor * UIColorHexValue(NSInteger hex){
+    return [UIColor colorWithRed:((hex & 0xFF0000) >> 16)/255.0 green:((hex & 0xFF00) >> 8)/255.0 blue:(hex & 0xFF)/255.0 alpha:1.0f];
+//    return [UIColor colorWithRed:((hex & 0xff0000) >> 16)/255.0 green:((hex & 0x00ff00) >> 8)/255.0 blue:(hex & 0x0000ff)/255.0 alpha:1.0];
 }
 
 BOOL iOSVer(CGFloat version){

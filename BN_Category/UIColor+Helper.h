@@ -22,13 +22,6 @@
 @property (class, nonatomic, readonly) UIColor *titleColor;
 @property (class, nonatomic, readonly) UIColor *titleSubColor;
 
-/**
- 十六进制颜色
- */
-UIColor * UIColorHex(NSString *hex);
-
-UIColor * UIColorHexInter(NSInteger hex);
-    
 + (UIColor *)colorWithHexString:(NSString *)colorString;
 
 NSArray * RGBAFromColor(UIColor *color);

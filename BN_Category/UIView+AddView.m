@@ -549,15 +549,15 @@
             btn.layer.borderWidth = 1;
             
             [btn setTitleColor:UIColor.titleColor forState:UIControlStateNormal];
-            [btn setBackgroundImage:UIImageFromColor(UIColor.whiteColor) forState:UIControlStateNormal];
+            [btn setBackgroundImage:UIImageColor(UIColor.whiteColor) forState:UIControlStateNormal];
 
         }
             break;
         case 1://橘色背景白色字体无圆角
         {
-            [btn setBackgroundImage:UIImageFromColor(UIColor.btnColor_N) forState:UIControlStateNormal];
-            [btn setBackgroundImage:UIImageFromColor(UIColor.btnColor_H) forState:UIControlStateHighlighted];
-            [btn setBackgroundImage:UIImageFromColor(UIColor.btnColor_D) forState:UIControlStateDisabled];
+            [btn setBackgroundImage:UIImageColor(UIColor.btnColor_N) forState:UIControlStateNormal];
+            [btn setBackgroundImage:UIImageColor(UIColor.btnColor_H) forState:UIControlStateHighlighted];
+            [btn setBackgroundImage:UIImageColor(UIColor.btnColor_D) forState:UIControlStateDisabled];
 
 //            [btn setBackgroundImage:UIImageFromColor(UIColor.lightGrayColor) forState:UIControlStateDisabled];
            
@@ -573,7 +573,7 @@
         case 3://地图定位按钮一类
         {
             [btn setBackgroundImage:[UIImage imageNamed:image] forState:UIControlStateNormal];
-            [btn setBackgroundImage:UIImageFromColor(UIColor.lightGrayColor) forState:UIControlStateDisabled];
+            [btn setBackgroundImage:UIImageColor(UIColor.lightGrayColor) forState:UIControlStateDisabled];
             
         }
             break;
@@ -585,7 +585,7 @@
 //            btn.layer.borderWidth = kW_LayerBorder;
             
             [btn setTitleColor:UIColor.whiteColor forState:UIControlStateNormal];
-            [btn setBackgroundImage:UIImageFromColor(UIColor.themeColor) forState:UIControlStateNormal];
+            [btn setBackgroundImage:UIImageColor(UIColor.themeColor) forState:UIControlStateNormal];
             
             
         }
@@ -606,7 +606,7 @@
             btn.layer.borderWidth = kW_LayerBorder;
             
             [btn setTitleColor:UIColor.titleColor forState:UIControlStateNormal];
-            [btn setBackgroundImage:UIImageFromColor(UIColor.whiteColor) forState:UIControlStateNormal];
+            [btn setBackgroundImage:UIImageColor(UIColor.whiteColor) forState:UIControlStateNormal];
             
         }
             break;
@@ -627,7 +627,7 @@
             btn.layer.masksToBounds = YES;
             btn.layer.cornerRadius = CGRectGetHeight(rect)/10;
 
-            [btn setBackgroundImage:UIImageFromColor(UIColor.themeColor) forState:UIControlStateNormal];
+            [btn setBackgroundImage:UIImageColor(UIColor.themeColor) forState:UIControlStateNormal];
             [btn setTitleColor:UIColor.whiteColor forState:UIControlStateNormal];
             
         }
@@ -640,7 +640,7 @@
             break;
         case 10://红色背景白色字体
         {
-            [btn setBackgroundImage:UIImageFromColor(UIColor.redColor) forState:UIControlStateNormal];
+            [btn setBackgroundImage:UIImageColor(UIColor.redColor) forState:UIControlStateNormal];
             [btn setTitleColor:UIColor.whiteColor forState:UIControlStateNormal];
             
             [btn showLayerColor:UIColor.redColor];
@@ -649,10 +649,10 @@
         case 11://
         {
             [btn setTitleColor:UIColor.blackColor forState:UIControlStateNormal];
-            [btn setBackgroundImage:UIImageFromColor(UIColor.backgroudColor) forState:UIControlStateNormal];
+            [btn setBackgroundImage:UIImageColor(UIColor.backgroudColor) forState:UIControlStateNormal];
 
             [btn setTitleColor:UIColor.whiteColor forState:UIControlStateSelected];
-            [btn setBackgroundImage:UIImageFromColor(UIColor.themeColor) forState:UIControlStateSelected];
+            [btn setBackgroundImage:UIImageColor(UIColor.themeColor) forState:UIControlStateSelected];
 
         }
             break;
@@ -873,7 +873,7 @@
                                     };
             
             [segmentCtrl setTitleTextAttributes:dict forState:UIControlStateNormal];
-            [segmentCtrl setDividerImage:UIImageFromColor(UIColor.whiteColor) forLeftSegmentState:UIControlStateNormal rightSegmentState:UIControlStateNormal barMetrics:UIBarMetricsDefault];
+            [segmentCtrl setDividerImage:UIImageColor(UIColor.whiteColor) forLeftSegmentState:UIControlStateNormal rightSegmentState:UIControlStateNormal barMetrics:UIBarMetricsDefault];
             
         }
             break;
