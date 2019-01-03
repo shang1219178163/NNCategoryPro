@@ -98,57 +98,6 @@ static UIColor * _titleSubColor = nil;
     return _titleSubColor;
 }
 
-#pragma mark- -十六进制颜色
-UIColor * UIColorRGBA(CGFloat r,CGFloat g,CGFloat b,CGFloat a){
-    return [UIColor colorWithRed:r/255.0f green:g/255.0f blue:b/255.0f alpha:a];
-}
-
-UIColor * UIColorRGB(CGFloat r,CGFloat g,CGFloat b){
-    return UIColorRGBA(r, g, b, 1);
-}
-
-UIColor * UIColorDim(CGFloat White,CGFloat a){
-    return [UIColor colorWithWhite:White alpha:a];////white 0-1为黑到白,alpha透明度
-    //    return [UIColor colorWithWhite:0.2f alpha: 0.5];////white 0-1为黑到白,alpha透明度
-}
-
-UIColor * UIColorRGB_Init(CGFloat r,CGFloat g,CGFloat b,CGFloat a){
-    return [[UIColor alloc]initWithRed:r/255.0 green:g/255.0 blue:b/255.0 alpha:a];
-}
-
-UIColor * UIColorHex(NSString *hex){
-    return [UIColor colorWithHexString:hex];
-}
-
-UIColor * UIColorHexValue(NSInteger hex){
-    return [UIColor colorWithRed:((hex & 0xFF0000) >> 16)/255.0 green:((hex & 0xFF00) >> 8)/255.0 blue:(hex & 0xFF)/255.0 alpha:1.0f];
-    //    return [UIColor colorWithRed:((hex & 0xff0000) >> 16)/255.0 green:((hex & 0x00ff00) >> 8)/255.0 blue:(hex & 0x0000ff)/255.0 alpha:1.0];
-}
-
-NSArray * RGBAFromColor(UIColor *color){
-    CGFloat red = 0.0;
-    CGFloat green = 0.0;
-    CGFloat blue = 0.0;
-    CGFloat alpha = 0.0;
-    [color getRed:&red green:&green blue:&blue alpha:&alpha];
-    return @[@(red), @(green), @(blue), @(alpha)];
-}
-
-/**
- 判断颜色是不是亮色
- */
-BOOL isLightColor(UIColor *color){
-    CGFloat components[3];
-    [UIColor getRGBComponents:components forColor:color];
-    //    NSLog(@"%f %f %f", components[0], components[1], components[2]);
-    
-    CGFloat num = components[0] + components[1] + components[2];
-    if(num < 382)
-        return NO;
-    else
-        return YES;
-}
-
 + (UIColor *)colorWithHexString:(NSString *)colorString{
     NSString *cString = [[colorString stringByTrimmingCharactersInSet:[NSCharacterSet whitespaceAndNewlineCharacterSet]] uppercaseString];
     
@@ -180,29 +129,6 @@ BOOL isLightColor(UIColor *color){
     [[NSScanner scannerWithString:bString] scanHexInt:&b];
     
     return [UIColor colorWithRed:((float) r / 255.0f) green:((float) g / 255.0f) blue:((float) b / 255.0f) alpha:1.0f];
-}
-
-//获取RGB值
-+ (void)getRGBComponents:(CGFloat [3])components forColor:(UIColor *)color {
-    int bitmapInfo = kCGBitmapByteOrderDefault | kCGImageAlphaPremultipliedLast;
-    
-    CGColorSpaceRef rgbColorSpace = CGColorSpaceCreateDeviceRGB();
-    unsigned char resultingPixel[4];
-    CGContextRef context = CGBitmapContextCreate(&resultingPixel,
-                                                 1,
-                                                 1,
-                                                 8,
-                                                 4,
-                                                 rgbColorSpace,
-                                                 bitmapInfo);
-    CGContextSetFillColorWithColor(context, color.CGColor);
-    CGContextFillRect(context, CGRectMake(0, 0, 1, 1));
-    CGContextRelease(context);
-    CGColorSpaceRelease(rgbColorSpace);
-    
-    for (int component = 0; component < 3; component++) {
-        components[component] = resultingPixel[component];
-    }
 }
 
 

@@ -14,45 +14,6 @@
 
 @implementation UIImage (Helper)
 
-/**
- UIColor->UIImage
- */
-UIImage * UIImageColor(UIColor * color){
-    return [UIImage imageWithColor:color];
-}
-
-/**
- NSString->UIImage
- */
-UIImage * UIImageNamed(NSString * obj){
-    return [UIImage imageNamed:obj];
-}
-
-UIImage * UIImageFromName(NSString *obj, UIImageRenderingMode renderingMode){
-    return [[UIImage imageNamed:obj] imageWithRenderingMode:renderingMode];
-}
-
-/**
- id类型->UIImage
- */
-UIImage * UIImageObj(id obj){
-    if ([obj isKindOfClass:[NSString class]]) {
-        return UIImageNamed(obj);
-    }
-    else if ([obj isKindOfClass:[UIColor class]]) {
-        return UIImageColor(obj);
-    }
-    else if ([obj isKindOfClass:[UIImage class]]) {
-        return obj;
-    }
-    else if ([obj isKindOfClass:[NSData class]]) {
-        return [UIImage imageWithData:obj];
-    }
-    else if ([obj isKindOfClass:[CIImage class]]) {
-        return [UIImage imageWithCIImage:obj];
-    }
-    return nil;
-}
 
 - (NSString *)contentType{
     NSData * imgData = UIImageJPEGRepresentation(self, 1.0f);

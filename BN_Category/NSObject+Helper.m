@@ -14,6 +14,8 @@
 
 #import "UIImage+Helper.h"
 #import "NSBundle+Helper.h"
+#import "UIColor+Helper.h"
+#import "NSArray+Helper.h"
 
 /**
  NSIndexPath->字符串
@@ -172,6 +174,98 @@ UITabBarController * UITarBarCtrFromList(NSArray *list){
     return tabBarVC;
 }
 
+#pragma mark- -十六进制颜色
+UIColor * UIColorRGBA(CGFloat r,CGFloat g,CGFloat b,CGFloat a){
+    return [UIColor colorWithRed:r/255.0f green:g/255.0f blue:b/255.0f alpha:a];
+}
+
+UIColor * UIColorRGB(CGFloat r,CGFloat g,CGFloat b){
+    return UIColorRGBA(r, g, b, 1);
+}
+
+UIColor * UIColorDim(CGFloat White,CGFloat a){
+    return [UIColor colorWithWhite:White alpha:a];////white 0-1为黑到白,alpha透明度
+    //    return [UIColor colorWithWhite:0.2f alpha: 0.5];////white 0-1为黑到白,alpha透明度
+}
+
+UIColor * UIColorRGB_Init(CGFloat r,CGFloat g,CGFloat b,CGFloat a){
+    return [[UIColor alloc]initWithRed:r/255.0 green:g/255.0 blue:b/255.0 alpha:a];
+}
+
+UIColor * UIColorHex(NSString *hex){
+    return [UIColor colorWithHexString:hex];
+}
+
+UIColor * UIColorHexValue(NSInteger hex){
+    return [UIColor colorWithRed:((hex & 0xFF0000) >> 16)/255.0 green:((hex & 0xFF00) >> 8)/255.0 blue:(hex & 0xFF)/255.0 alpha:1.0f];
+    //    return [UIColor colorWithRed:((hex & 0xff0000) >> 16)/255.0 green:((hex & 0x00ff00) >> 8)/255.0 blue:(hex & 0x0000ff)/255.0 alpha:1.0];
+}
+
+NSArray * RGBAFromColor(UIColor *color){
+    CGFloat red = 0.0;
+    CGFloat green = 0.0;
+    CGFloat blue = 0.0;
+    CGFloat alpha = 0.0;
+    [color getRed:&red green:&green blue:&blue alpha:&alpha];
+    return @[@(red), @(green), @(blue), @(alpha)];
+}
+
+/**
+ 判断颜色是不是亮色
+ */
+BOOL isLightColor(UIColor *color){
+    NSArray *components = RGBAFromColor(color);
+//    NSLog(@"%f %f %f", components[0], components[1], components[2]);
+    CGFloat sum = [[components valueForKeyPath:kArr_sum_float] floatValue];
+    bool isLight = sum < 382 ? false : true;
+    return isLight;
+}
+
+/**
+ UIColor->UIImage
+ */
+UIImage * UIImageColor(UIColor * color){
+    return [UIImage imageWithColor:color];
+}
+
+/**
+ NSString->UIImage
+ */
+UIImage * UIImageNamed(NSString * obj){
+    return [UIImage imageNamed:obj];
+}
+
+UIImage * UIImageFromName(NSString *obj, UIImageRenderingMode renderingMode){
+    return [[UIImage imageNamed:obj] imageWithRenderingMode:renderingMode];
+}
+
+/**
+ id类型->UIImage
+ */
+UIImage * UIImageObj(id obj){
+    if ([obj isKindOfClass:[NSString class]]) {
+        return UIImageNamed(obj);
+    }
+    else if ([obj isKindOfClass:[UIColor class]]) {
+        return UIImageColor(obj);
+    }
+    else if ([obj isKindOfClass:[UIImage class]]) {
+        return obj;
+    }
+    else if ([obj isKindOfClass:[NSData class]]) {
+        return [UIImage imageWithData:obj];
+    }
+    else if ([obj isKindOfClass:[CIImage class]]) {
+        return [UIImage imageWithCIImage:obj];
+    }
+    return nil;
+}
+
+bool UIImageEquelToImage(UIImage *image0, UIImage *image1){
+    NSData *data0 = UIImagePNGRepresentation(image0);
+    NSData *data1 = UIImagePNGRepresentation(image1);
+    return  [data0 isEqualToData:data1];
+}
 
 BOOL iOSVer(CGFloat version){
     return (UIDevice.currentDevice.systemVersion.floatValue >= version) ? YES : NO;
