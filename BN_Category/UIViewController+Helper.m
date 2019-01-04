@@ -619,7 +619,7 @@
                 if (iOSVer(10)) {
                     [UIApplication.sharedApplication openURL:[NSURL URLWithString:phoneStr] options:@{} completionHandler:nil];
                     
-                }else{
+                } else {
                     [UIApplication.sharedApplication openURL:[NSURL URLWithString:phoneStr]];
                     
                 }

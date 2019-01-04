@@ -37,7 +37,7 @@ NSString * const UICollectionElementKindSectionItem = @"UICollectionElementKindS
         if ([key isEqualToString:UICollectionElementKindSectionItem]) {
             [self bn_registerListClass:dictClass[key]];
             
-        }else{
+        } else {
             [self bn_registerListClassReusable:dictClass[key] kind:key];
 
         }

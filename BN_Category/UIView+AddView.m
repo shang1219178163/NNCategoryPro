@@ -38,12 +38,12 @@
             lineView.backgroundColor = UIColor.lineColor;
             
             [inView addSubview:lineView];
-        }else{
+        } else {
             UIView * linView = (UIView *)[inView viewWithTag:tag];
             linView.frame = rect;
         }
         
-    }else{
+    } else {
         if (![inView viewWithTag:tag]) {
             UIImageView *imageView = [[UIImageView alloc]initWithFrame:rect];
             imageView.tag = tag;
@@ -66,7 +66,7 @@
             imageView.image = UIGraphicsGetImageFromCurrentImageContext();
             UIGraphicsEndImageContext();
 
-        }else{
+        } else {
             UIImageView * imageView = (UIImageView *)[inView viewWithTag:tag];
             imageView.frame = rect;
             imageView.backgroundColor = UIColor.clearColor;
@@ -98,7 +98,7 @@
         lineView.backgroundColor = UIColor.lineColor;
         lineView.hidden = hidden;
         return lineView;
-    }else{
+    } else {
         
         UIImageView *imageView = [[UIImageView alloc]initWithFrame:rect];
         imageView.tag = tag;
@@ -302,7 +302,7 @@
     if (backgroudColor) {
         label.backgroundColor = backgroudColor;
 
-    }else{
+    } else {
         label.backgroundColor = UIColor.whiteColor;
 
     }
@@ -718,7 +718,7 @@
     if(!isBottom){
         lineRect = CGRectMake(startX, CGRectGetHeight(backgroudView.frame)-lineViewSize.height, labWidth, lineViewSize.height);
         
-    }else{
+    } else {
         lineRect = CGRectMake(startX, 0, labWidth, lineViewSize.height);
         
     }
@@ -747,7 +747,7 @@
             UILabel * lable = (UILabel *)view;
             if (lab.tag != lable.tag) {
                 lable.textColor = UIColor.blackColor;
-            }else{
+            } else {
                 lab.textColor = UIColor.orangeColor;
                 
             }

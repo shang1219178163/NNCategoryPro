@@ -273,7 +273,7 @@
     for (UIView *subview in subviews) {
         subview.layer.borderWidth = kW_LayerBorder;
         subview.layer.borderColor = UIColor.blueColor.CGColor;
-        subview.layer.borderColor = UIColor.clearColor.CGColor;
+//        subview.layer.borderColor = UIColor.clearColor.CGColor;
 
         [subview getViewLayer];
         
@@ -295,7 +295,7 @@
     else if (max/10.0 >= 5.0) {
         cornerRadius = 5.0;
         
-    }else{
+    } else {
         cornerRadius = max/10.0;
         
     }
@@ -325,7 +325,7 @@
     if (!image) {
         imgView.hidden = lab.hidden = NO;
         
-    }else{
+    } else {
         imgView.hidden = lab.hidden = YES;
         
     }
@@ -488,7 +488,7 @@
         rect.size.height = imgViewSize.height;
         backgroudView.frame = rect;
         
-    }else{
+    } else {
         CGFloat XYGap = (CGRectGetHeight(backgroudView.frame) - imgViewSize.height)/2.0;
         imgViewRect = CGRectMake(XYGap, XYGap, imgViewSize.width, imgViewSize.height);
         

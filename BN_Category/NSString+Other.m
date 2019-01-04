@@ -289,10 +289,10 @@ static char base64EncodingTable[64] = {
         NSInteger num = [forwardDescArr[i] intValue];
         if (i%2) {//偶数位
             [arrEvenNum addObject:[NSNumber numberWithInteger:num]];
-        }else{//奇数位
+        } else {//奇数位
             if (num * 2 < 9) {
                 [arrOddNum addObject:[NSNumber numberWithInteger:num * 2]];
-            }else{
+            } else {
                 NSInteger decadeNum = (num * 2) / 10;
                 NSInteger unitNum = (num * 2) % 10;
                 [arrOddNum2 addObject:[NSNumber numberWithInteger:unitNum]];

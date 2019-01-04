@@ -312,7 +312,7 @@
     if ([timestampA integerValue] >= [timestampB integerValue] && isMax) {
         return self;
         
-    }else{
+    } else {
         return otherDate;
         
     }

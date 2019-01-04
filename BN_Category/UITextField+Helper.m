@@ -56,7 +56,7 @@ NSString * const kDeafult_textFieldHistory = @"kDeafult_textFieldHistory" ;// xæ
             NSInteger tmpLength;
             if (rangeRange.length > self.maxLength) {
                 tmpLength = rangeRange.length - rangeIndex.length;
-            }else{
+            } else {
                 tmpLength = rangeRange.length;
             }
             self.text = [toBeString substringWithRange:NSMakeRange(0, tmpLength)];

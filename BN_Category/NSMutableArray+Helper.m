@@ -15,7 +15,7 @@
         [self addObject:@""];
 //        [self addObject:kNIl_TEXT];
 
-    }else{
+    } else {
         [self addObject:obj];
         
     }
@@ -42,7 +42,7 @@
         if (!anObject || [anObject isKindOfClass:[NSNull class]]) {
             [self replaceObjectAtIndex:index withObject:@""];
             
-        }else{
+        } else {
             [self replaceObjectAtIndex:index withObject:anObject];
 
         }

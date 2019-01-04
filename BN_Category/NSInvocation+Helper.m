@@ -100,7 +100,7 @@ static const char *__BlockSignature__(id blockObj){
                   || strcmp(argType, @encode(char)) == 0 || strcmp(argType, @encode(unsigned char)) == 0
                   || strcmp(argType, @encode(short)) == 0 || strcmp(argType, @encode(unsigned short)) == 0) {
             ARG_GET_SET(int);
-        }else{                  //struct union and array
+        } else {                  //struct union and array
             assert(false && "struct union array unsupported!");
         }
     }
@@ -202,11 +202,11 @@ static const char *__BlockSignature__(id blockObj){
     
     if ( nil != methodList && count > 0) {
         return NSSelectorFromString(methodList.firstObject);
-    }else{
+    } else {
         Class superclass = class_getSuperclass(class);
         if ( superclass != 0) {
             return [NSInvocation lookupSelector:selectorName forClass:superclass];
-        }else{
+        } else {
             return NSSelectorFromString(selectorName);
         }
     }
@@ -271,7 +271,7 @@ static const char *__BlockSignature__(id blockObj){
         if (array.count != numargs) {
             id arg = [self getArgAtIndex:0 fromArray:array];
             [self setArgumentWithObject:arg atIndex:0];
-        }else{
+        } else {
             for (NSUInteger i = 0; i < numargs; i++) {
                 [self setArgumentWithObject:array[i] atIndex:i];
             }
@@ -493,7 +493,7 @@ static const char *__BlockSignature__(id blockObj){
         returnVal.bottom = [enumerator.nextObject doubleValue];
         returnVal.right = [enumerator.nextObject doubleValue];
         result = [NSValue valueWithUIEdgeInsets:returnVal];
-    }else{
+    } else {
         return array;
     }
     

@@ -54,6 +54,7 @@ FOUNDATION_EXPORT CGFloat CGDegreesFromRadian(CGFloat x);//弧度转换角度
 
 FOUNDATION_EXPORT CGFloat roundFloat(CGFloat value,NSInteger num);
 
+NSDictionary<NSAttributedStringKey, id> * AttributeDict(NSNumber * type);
 
 @interface NSObject (Helper)<NSCoding>
 

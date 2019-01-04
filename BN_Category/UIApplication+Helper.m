@@ -206,7 +206,7 @@
         if (iOSVer(10)) {
             [app openURL:url options:@{} completionHandler:nil];
             
-        }else{
+        } else {
             [app openURL:url];
         }
     }

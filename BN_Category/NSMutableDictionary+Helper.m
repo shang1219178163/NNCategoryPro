@@ -14,7 +14,7 @@
     if (!obj || [obj isKindOfClass:[NSNull class]]) {
         [self setObject:@"" forKey:akey];
         
-    }else{
+    } else {
         [self setObject:obj forKey:akey];
         
     }

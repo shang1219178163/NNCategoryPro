@@ -46,7 +46,7 @@ Z：     GMT（时区）
         if ([string containsString:@"-"] || [string containsString:@"/"] || [string containsString:@" "] || [string containsString:@"."]) {
             return NO;
         }
-    }else{
+    } else {
         NSNumber * value = (NSNumber *)self;
         if (value.integerValue < (NSInteger)10000000000) {//时间戳都是十位以上
             return NO;
@@ -389,7 +389,7 @@ Z：     GMT（时区）
         if (((NSString *)self).length >= 10) {
             compareDate = [self toDate];
             
-        }else{
+        } else {
             return @"";
             
         }
@@ -434,7 +434,7 @@ Z：     GMT（时区）
         if (((NSString *)self).length >= 10) {
             compareDate = [self toDate];
             
-        }else{
+        } else {
             return @"";
             
         }
@@ -448,7 +448,7 @@ Z：     GMT（时区）
     if ([[dateStr substringWithRange:NSMakeRange(0, 4)] isEqualToString:[timeNow substringWithRange:NSMakeRange(0, 4)]]) {
         dateInfo = [dateStr substringWithRange:NSMakeRange(5, 11)];
         
-    }else{
+    } else {
         dateInfo = [dateStr substringWithRange:NSMakeRange(0, 15)];
         
     }

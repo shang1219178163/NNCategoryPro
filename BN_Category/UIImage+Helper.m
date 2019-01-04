@@ -344,7 +344,7 @@
             int alpha = data[offset+3];
             if (alpha>0) {//去除透明
                 if (red == 255 && green == 255 && blue == 255) {//去除白色
-                }else{
+                } else {
                     NSArray *clr = @[@(red),@(green),@(blue),@(alpha)];
                     [cls addObject:clr];
                 }

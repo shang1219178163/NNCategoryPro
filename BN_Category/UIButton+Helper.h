@@ -11,6 +11,8 @@
 
 @interface UIButton (Helper)
 
+- (NSMutableAttributedString *)setContent:(NSString *)content attDic:(NSDictionary *)attDic forState:(UIControlState)state;
+
 /**
  导航栏按钮
  */

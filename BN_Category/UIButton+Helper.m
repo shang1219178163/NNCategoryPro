@@ -13,10 +13,17 @@
 #import "UIScreen+Helper.h"
 
 #import "UIColor+Helper.h"
+#import "UILabel+Helper.h"
 
 #import "BN_Globle.h"
 
 @implementation UIButton (Helper)
+
+- (NSMutableAttributedString *)setContent:(NSString *)content attDic:(NSDictionary *)attDic forState:(UIControlState)state{
+    NSMutableAttributedString *attString = [self.titleLabel setContent:content attDic:attDic];
+    [self setAttributedTitle:attString forState:state];
+    return attString;
+}
 
 +(UIButton *)buttonWithSize:(CGSize)size
                     image_N:(id)image_N
@@ -124,7 +131,7 @@
                 [self setTitle:tittle forState:UIControlStateNormal];
                 self.userInteractionEnabled = YES;
             });
-        }else{
+        } else {
             //            int minutes = timeout / 60;
             int seconds = timeOut % 60;
             NSString *strTime = [NSString stringWithFormat:@"%.2d", seconds];
@@ -201,7 +208,7 @@
     if ([image isKindOfClass:[NSString class]]) {
         img = [UIImage imageNamed:image];
         
-    }else{
+    } else {
         img = image;
         
     }

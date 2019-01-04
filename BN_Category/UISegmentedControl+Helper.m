@@ -23,18 +23,18 @@
 //                [self setTitle:segmentItems[i] forSegmentAtIndex:i];
 //                [self setWidth:width forSegmentAtIndex:i];
 //
-//            }else{
+//            } else {
 //                [self removeSegmentAtIndex:i animated:NO];
 //            }
 //        }
 //
-//    }else{
+//    } else {
 //        for (NSInteger i = 0; i < segmentItems.count; i++) {
 //            if (i < self.numberOfSegments) {
 //                [self setTitle:segmentItems[i] forSegmentAtIndex:i];
 //                [self setWidth:width forSegmentAtIndex:i];
 //
-//            }else{
+//            } else {
 //                [self insertSegmentWithTitle:segmentItems[i] atIndex:i animated:NO];
 //            }
 //        }
@@ -55,17 +55,17 @@
             if (i < itemList.count) {
                 [self setTitle:itemList[i] forSegmentAtIndex:i];
                 
-            }else{
+            } else {
                 [self removeSegmentAtIndex:i animated:NO];
             }
         }
         
-    }else{
+    } else {
         for (NSInteger i = 0; i < itemList.count; i++) {
             if (i < self.numberOfSegments) {
                 [self setTitle:itemList[i] forSegmentAtIndex:i];
                 
-            }else{
+            } else {
                 [self insertSegmentWithTitle:itemList[i] atIndex:i animated:NO];
             }
         }

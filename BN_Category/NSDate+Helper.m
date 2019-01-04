@@ -125,7 +125,7 @@ static NSArray * _weekList = nil;
         NSDateFormatter  *dateFormatter = [NSDateFormatter dateFormat:NSLocalizedString(@"NSDateCategory.text5",@"")];
         return [dateFormatter stringFromDate:  self ];
         
-    }else{
+    } else {
         return [NSString stringWithFormat:NSLocalizedString(@"NSDateCategory.text6",@""), timeInterval /31536000];
         
     }
@@ -196,12 +196,12 @@ static NSArray * _weekList = nil;
         }else if (hour <0&& hour >= -24) {
             dateFormatter = [NSDateFormatter dateFormat:NSLocalizedString(@"NSDateCategory.text8",@"")];
             
-        }else{
+        } else {
             dateFormatter = [NSDateFormatter dateFormat:@"yyyy-MM-dd"];
             
         }
         
-    }else{
+    } else {
         
         if(hour >=0&& hour <=6) {
             dateFormatter = [NSDateFormatter dateFormat:NSLocalizedString(@"NSDateCategory.text9",@"")];
@@ -218,7 +218,7 @@ static NSArray * _weekList = nil;
         }else if (hour <0&& hour >= -24){
             dateFormatter = [NSDateFormatter dateFormat:NSLocalizedString(@"NSDateCategory.text13",@"")];
             
-        }else{
+        } else {
             dateFormatter = [NSDateFormatter dateFormat:@"yyyy-MM-dd"];
             
         }
@@ -256,7 +256,7 @@ static NSArray * _weekList = nil;
         dateFormatter.dateFormat = @"HH:mm";
         return [NSString  stringWithFormat:NSLocalizedString(@"NSDateCategory.text7",@""), [dateFormatter stringFromDate:self]];
         
-    }else{//以前
+    } else {//以前
         dateFormatter.dateFormat = @"yyyy-MM-dd HH:mm";
         return [dateFormatter stringFromDate:self];
         
