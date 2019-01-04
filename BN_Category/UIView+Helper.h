@@ -55,25 +55,27 @@ typedef void(^BlockView)(UIView * view,id item, id obj);
 - (UIView *)addCornersAll;
 
 
-/**
- 给view关联点击事件(支持UIView和UIButton可继续扩展其他支持)
- @param handler 返回响应对象
- */
+- (void)addGestureTap:(void(^)(id sender))block;
+
+- (void)addGestureLongPress:(void(^)(id sender))block forDuration:(NSTimeInterval)minimumPressDuration;
+
+- (void)addGesturePan:(void(^)(id sender))block;
+
+- (void)addGesturePinch:(void(^)(id sender))block;
+
+- (void)addGestureRotation:(void(^)(id sender))block;
+
+- (void)addGestureSwipe:(void(^)(id sender))block forDirection:(UISwipeGestureRecognizerDirection)direction;
+
+- (void)addGestureEdgPan:(void(^)(id sender))block forEdges:(UIRectEdge)edges;
+
 - (void)addActionHandler:(void(^)(id obj, id item, NSInteger idx))handler;
 
-/**
- 寻找特定类型控件
- */
 + (id)getControl:(NSString *)control view:(UIView *)view;
 
-/**
- 获取所有子视图
- */
+
 + (void)getSub:(UIView *)view andLevel:(NSInteger)level;
 
-/**
- 给所有自视图加框
- */
 - (void)getViewLayer;
 
 - (void)showLayerColor:(UIColor *)layerColor;
