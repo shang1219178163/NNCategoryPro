@@ -107,15 +107,15 @@
         for (NSString *key in keys) {
             [self convertNode:[node objectForKey:key] withString:xml andTag:key];
         }
-    }else if ([node isKindOfClass:[NSArray class]]) {
+    } else if ([node isKindOfClass:[NSArray class]]) {
         for (id value in node) {
             [self convertNode:value withString:xml andTag:tag];
         }
-    }else {
+    } else {
         [xml appendString:[NSString stringWithFormat:@"<%@>", tag]];
         if ([node isKindOfClass:[NSString class]]) {
             [xml appendString:node];
-        }else if ([node isKindOfClass:[NSDictionary class]]) {
+        } else if ([node isKindOfClass:[NSDictionary class]]) {
             [self convertNode:node withString:xml andTag:nil];
         }
         [xml appendString:[NSString stringWithFormat:@"</%@>", tag]];

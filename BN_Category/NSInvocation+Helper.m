@@ -68,35 +68,35 @@ static const char *__BlockSignature__(id blockObj){
         
         if (argType[0] == '@') {                                //id and block
             ARG_GET_SET(id);
-        }else if (strcmp(argType, @encode(Class)) == 0 ){       //Class
+        } else if (strcmp(argType, @encode(Class)) == 0 ){       //Class
             ARG_GET_SET(Class);
-        }else if (strcmp(argType, @encode(IMP)) == 0 ){         //IMP
+        } else if (strcmp(argType, @encode(IMP)) == 0 ){         //IMP
             ARG_GET_SET(IMP);
-        }else if (strcmp(argType, @encode(SEL)) == 0) {         //SEL
+        } else if (strcmp(argType, @encode(SEL)) == 0) {         //SEL
             ARG_GET_SET(SEL);
-        }else if (strcmp(argType, @encode(double)) == 0){       //
+        } else if (strcmp(argType, @encode(double)) == 0){       //
             ARG_GET_SET(double);
-        }else if (strcmp(argType, @encode(float)) == 0){
+        } else if (strcmp(argType, @encode(float)) == 0){
             float val = 0;
             val = (float)va_arg(args,double);
             [invocation setArgument:&val atIndex:1 + i];
-        }else if (argType[0] == '^'){                           //pointer ( andconst pointer)
+        } else if (argType[0] == '^'){                           //pointer ( andconst pointer)
             ARG_GET_SET(void*);
-        }else if (strcmp(argType, @encode(char *)) == 0) {      //char* (and const char*)
+        } else if (strcmp(argType, @encode(char *)) == 0) {      //char* (and const char*)
             ARG_GET_SET(char *);
-        }else if (strcmp(argType, @encode(unsigned long)) == 0) {
+        } else if (strcmp(argType, @encode(unsigned long)) == 0) {
             ARG_GET_SET(unsigned long);
-        }else if (strcmp(argType, @encode(unsigned long long)) == 0) {
+        } else if (strcmp(argType, @encode(unsigned long long)) == 0) {
             ARG_GET_SET(unsigned long long);
-        }else if (strcmp(argType, @encode(long)) == 0) {
+        } else if (strcmp(argType, @encode(long)) == 0) {
             ARG_GET_SET(long);
-        }else if (strcmp(argType, @encode(long long)) == 0) {
+        } else if (strcmp(argType, @encode(long long)) == 0) {
             ARG_GET_SET(long long);
-        }else if (strcmp(argType, @encode(int)) == 0) {
+        } else if (strcmp(argType, @encode(int)) == 0) {
             ARG_GET_SET(int);
-        }else if (strcmp(argType, @encode(unsigned int)) == 0) {
+        } else if (strcmp(argType, @encode(unsigned int)) == 0) {
             ARG_GET_SET(unsigned int);
-        }else if (strcmp(argType, @encode(BOOL)) == 0 || strcmp(argType, @encode(bool)) == 0
+        } else if (strcmp(argType, @encode(BOOL)) == 0 || strcmp(argType, @encode(bool)) == 0
                   || strcmp(argType, @encode(char)) == 0 || strcmp(argType, @encode(unsigned char)) == 0
                   || strcmp(argType, @encode(short)) == 0 || strcmp(argType, @encode(unsigned short)) == 0) {
             ARG_GET_SET(int);
@@ -286,61 +286,61 @@ static const char *__BlockSignature__(id blockObj){
     if ([type isEqualToString:[NSInvocation encodeType:@encode(id)]]){
         id myArg = arg;
         [self setArgument:&myArg atIndex:argIdx];
-    }else if ([type isEqualToString:[NSInvocation encodeType:@encode(CGRect)]]){
+    } else if ([type isEqualToString:[NSInvocation encodeType:@encode(CGRect)]]){
         CGRect myArg = [arg CGRectValue];
         [self setArgument:&myArg atIndex:argIdx];
-    }else if ([type isEqualToString:[NSInvocation encodeType:@encode(CGSize)]]){
+    } else if ([type isEqualToString:[NSInvocation encodeType:@encode(CGSize)]]){
         CGSize myArg = [arg CGSizeValue];
         [self setArgument:&myArg atIndex:argIdx];
-    }else if ([type isEqualToString:[NSInvocation encodeType:@encode(CGPoint)]]){
+    } else if ([type isEqualToString:[NSInvocation encodeType:@encode(CGPoint)]]){
         CGPoint myArg = [arg CGPointValue];
         [self setArgument:&myArg atIndex:argIdx];
-    }else if ([type isEqualToString:[NSInvocation encodeType:@encode(CGAffineTransform)]]){
+    } else if ([type isEqualToString:[NSInvocation encodeType:@encode(CGAffineTransform)]]){
         CGAffineTransform myArg = [arg CGAffineTransformValue];
         [self setArgument:&myArg atIndex:argIdx];
-    }else if ([type isEqualToString:[NSInvocation encodeType:@encode(NSInteger)]]){
+    } else if ([type isEqualToString:[NSInvocation encodeType:@encode(NSInteger)]]){
         NSInteger myArg = [arg integerValue];
         [self setArgument:&myArg atIndex:argIdx];
-    }else if ([type isEqualToString:[NSInvocation encodeType:@encode(NSUInteger)]]){
+    } else if ([type isEqualToString:[NSInvocation encodeType:@encode(NSUInteger)]]){
         NSUInteger myArg = [arg unsignedIntegerValue];
         [self setArgument:&myArg atIndex:argIdx];
-    }else if ([type isEqualToString:[NSInvocation encodeType:@encode(long)]]){
+    } else if ([type isEqualToString:[NSInvocation encodeType:@encode(long)]]){
         long myArg = [arg longValue];
         [self setArgument:&myArg atIndex:argIdx];
-    }else if ([type isEqualToString:[NSInvocation encodeType:@encode(unsigned)]]){
+    } else if ([type isEqualToString:[NSInvocation encodeType:@encode(unsigned)]]){
         unsigned myArg = [arg unsignedIntValue];
         [self setArgument:&myArg atIndex:argIdx];
-    }else if ([type isEqualToString:[NSInvocation encodeType:@encode(long long)]]){
+    } else if ([type isEqualToString:[NSInvocation encodeType:@encode(long long)]]){
         long long myArg = [arg longLongValue];
         [self setArgument:&myArg atIndex:argIdx];
-    }else if ([type isEqualToString:[NSInvocation encodeType:@encode(int)]]){
+    } else if ([type isEqualToString:[NSInvocation encodeType:@encode(int)]]){
         int myArg = [arg intValue];
         [self setArgument:&myArg atIndex:argIdx];
-    }else if ([type isEqualToString:[NSInvocation encodeType:@encode(CGFloat)]]){
+    } else if ([type isEqualToString:[NSInvocation encodeType:@encode(CGFloat)]]){
         CGFloat myArg = [arg doubleValue];
         [self setArgument:&myArg atIndex:argIdx];
-    }else if ([type isEqualToString:[NSInvocation encodeType:@encode(float)]]){
+    } else if ([type isEqualToString:[NSInvocation encodeType:@encode(float)]]){
         float myArg = [arg floatValue];
         [self setArgument:&myArg atIndex:argIdx];
-    }else if ([type isEqualToString:[NSInvocation encodeType:@encode(double)]]){
+    } else if ([type isEqualToString:[NSInvocation encodeType:@encode(double)]]){
         double myArg = [arg doubleValue];
         [self setArgument:&myArg atIndex:argIdx];
-    }else if ([type isEqualToString:[NSInvocation encodeType:@encode(BOOL)]]){
+    } else if ([type isEqualToString:[NSInvocation encodeType:@encode(BOOL)]]){
         BOOL myArg = [arg boolValue];
         [self setArgument:&myArg atIndex:argIdx];
-    }else if ([type isEqualToString:[NSInvocation encodeType:@encode(CLLocationCoordinate2D)]]){
+    } else if ([type isEqualToString:[NSInvocation encodeType:@encode(CLLocationCoordinate2D)]]){
         CLLocationCoordinate2D myArg = [arg MKCoordinateValue];
         [self setArgument:&myArg atIndex:argIdx];
-    }else if ([type isEqualToString:[NSInvocation encodeType:@encode(MKCoordinateSpan)]]){
+    } else if ([type isEqualToString:[NSInvocation encodeType:@encode(MKCoordinateSpan)]]){
         MKCoordinateSpan myArg = [arg MKCoordinateSpanValue];
         [self setArgument:&myArg atIndex:argIdx];
-    }else if ([type isEqualToString:[NSInvocation encodeType:@encode(CATransform3D)]]){
+    } else if ([type isEqualToString:[NSInvocation encodeType:@encode(CATransform3D)]]){
         CATransform3D myArg = [arg CATransform3DValue];
         [self setArgument:&myArg atIndex:argIdx];
-    }else if ([type isEqualToString:[NSInvocation encodeType:@encode(NSRange)]]){
+    } else if ([type isEqualToString:[NSInvocation encodeType:@encode(NSRange)]]){
         NSRange myArg = [arg rangeValue];
         [self setArgument:&myArg atIndex:argIdx];
-    }else if ([type isEqualToString:[NSInvocation encodeType:@encode(UIEdgeInsets)]]){
+    } else if ([type isEqualToString:[NSInvocation encodeType:@encode(UIEdgeInsets)]]){
         UIEdgeInsets myArg = [arg UIEdgeInsetsValue];
         [self setArgument:&myArg atIndex:argIdx];
     }
@@ -355,85 +355,85 @@ static const char *__BlockSignature__(id blockObj){
         void *returnVal = nil;
         [self getReturnValue:&returnVal];
         result = (__bridge NSObject *)returnVal;
-    }else if ([type isEqualToString:[NSInvocation encodeType:@encode(CGRect)]]){
+    } else if ([type isEqualToString:[NSInvocation encodeType:@encode(CGRect)]]){
         CGRect returnVal;
         [self getReturnValue:&returnVal];
         result = [NSValue valueWithCGRect:returnVal];
-    }else if ([type isEqualToString:[NSInvocation encodeType:@encode(CGSize)]]){
+    } else if ([type isEqualToString:[NSInvocation encodeType:@encode(CGSize)]]){
         CGSize returnVal;
         [self getReturnValue:&returnVal];
         result = [NSValue valueWithCGSize:returnVal];
-    }else if ([type isEqualToString:[NSInvocation encodeType:@encode(CGPoint)]]){
+    } else if ([type isEqualToString:[NSInvocation encodeType:@encode(CGPoint)]]){
         CGPoint returnVal;
         [self getReturnValue:&returnVal];
         result = [NSValue valueWithCGPoint:returnVal];
-    }else if ([type isEqualToString:[NSInvocation encodeType:@encode(CGAffineTransform)]]){
+    } else if ([type isEqualToString:[NSInvocation encodeType:@encode(CGAffineTransform)]]){
         CGAffineTransform returnVal;
         [self getReturnValue:&returnVal];
         result = [NSValue valueWithCGAffineTransform:returnVal];
-    }else if ([type isEqualToString:[NSInvocation encodeType:@encode(NSInteger)]]){
+    } else if ([type isEqualToString:[NSInvocation encodeType:@encode(NSInteger)]]){
         NSInteger returnVal;
         [self getReturnValue:&returnVal];
         result = [NSNumber numberWithInteger:returnVal];
-    }else if ([type isEqualToString:[NSInvocation encodeType:@encode(NSUInteger)]]){
+    } else if ([type isEqualToString:[NSInvocation encodeType:@encode(NSUInteger)]]){
         NSUInteger returnVal;
         [self getReturnValue:&returnVal];
         result = [NSNumber numberWithUnsignedInteger:returnVal];
-    }else if ([type isEqualToString:[NSInvocation encodeType:@encode(long)]]){
+    } else if ([type isEqualToString:[NSInvocation encodeType:@encode(long)]]){
         long returnVal;
         [self getReturnValue:&returnVal];
         result = [NSNumber numberWithLong:returnVal];
-    }else if ([type isEqualToString:[NSInvocation encodeType:@encode(unsigned)]]){
+    } else if ([type isEqualToString:[NSInvocation encodeType:@encode(unsigned)]]){
         unsigned returnVal;
         [self getReturnValue:&returnVal];
         result = [NSNumber numberWithUnsignedLong:returnVal];
         
-    }else if ([type isEqualToString:[NSInvocation encodeType:@encode(long long)]]){
+    } else if ([type isEqualToString:[NSInvocation encodeType:@encode(long long)]]){
         long long returnVal;
         [self getReturnValue:&returnVal];
         result = [NSNumber numberWithLongLong:returnVal];
         
-    }else if ([type isEqualToString:[NSInvocation encodeType:@encode(int)]]){
+    } else if ([type isEqualToString:[NSInvocation encodeType:@encode(int)]]){
         int returnVal;
         [self getReturnValue:&returnVal];
         result = [NSNumber numberWithInt:returnVal];
         
-    }else if ([type isEqualToString:[NSInvocation encodeType:@encode(CGFloat)]]){
+    } else if ([type isEqualToString:[NSInvocation encodeType:@encode(CGFloat)]]){
         CGFloat returnVal;
         [self getReturnValue:&returnVal];
         result = [NSNumber numberWithDouble:returnVal];
         
-    }else if ([type isEqualToString:[NSInvocation encodeType:@encode(float)]]){
+    } else if ([type isEqualToString:[NSInvocation encodeType:@encode(float)]]){
         float returnVal;
         [self getReturnValue:&returnVal];
         result = [NSNumber numberWithFloat:returnVal];
         
-    }else if ([type isEqualToString:[NSInvocation encodeType:@encode(double)]]){
+    } else if ([type isEqualToString:[NSInvocation encodeType:@encode(double)]]){
         double returnVal;
         [self getReturnValue:&returnVal];
         result = [NSNumber numberWithDouble:returnVal];
-    }else if ([type isEqualToString:[NSInvocation encodeType:@encode(BOOL)]]){
+    } else if ([type isEqualToString:[NSInvocation encodeType:@encode(BOOL)]]){
         BOOL returnVal;
         [self getReturnValue:&returnVal];
         result = [NSNumber numberWithBool:returnVal];
         
-    }else if ([type isEqualToString:[NSInvocation encodeType:@encode(CLLocationCoordinate2D)]]){
+    } else if ([type isEqualToString:[NSInvocation encodeType:@encode(CLLocationCoordinate2D)]]){
         CLLocationCoordinate2D returnVal;
         [self getReturnValue:&returnVal];
         result = [NSValue valueWithMKCoordinate:returnVal];
-    }else if ([type isEqualToString:[NSInvocation encodeType:@encode(MKCoordinateSpan)]]){
+    } else if ([type isEqualToString:[NSInvocation encodeType:@encode(MKCoordinateSpan)]]){
         MKCoordinateSpan returnVal;
         [self getReturnValue:&returnVal];
         result = [NSValue valueWithMKCoordinateSpan:returnVal];
-    }else if ([type isEqualToString:[NSInvocation encodeType:@encode(CATransform3D)]]){
+    } else if ([type isEqualToString:[NSInvocation encodeType:@encode(CATransform3D)]]){
         CATransform3D returnVal;
         [self getReturnValue:&returnVal];
         result = [NSValue valueWithCATransform3D:returnVal];
-    }else if ([type isEqualToString:[NSInvocation encodeType:@encode(NSRange)]]){
+    } else if ([type isEqualToString:[NSInvocation encodeType:@encode(NSRange)]]){
         NSRange returnVal;
         [self getReturnValue:&returnVal];
         result = [NSValue valueWithRange:returnVal];
-    }else if ([type isEqualToString:[NSInvocation encodeType:@encode(UIEdgeInsets)]]){
+    } else if ([type isEqualToString:[NSInvocation encodeType:@encode(UIEdgeInsets)]]){
         UIEdgeInsets returnVal;
         [self getReturnValue:&returnVal];
         result = [NSValue valueWithUIEdgeInsets:returnVal];
@@ -455,38 +455,38 @@ static const char *__BlockSignature__(id blockObj){
         returnVal.size.width = [enumerator.nextObject doubleValue];
         returnVal.size.height = [enumerator.nextObject doubleValue];
         result = [NSValue valueWithCGRect:returnVal];
-    }else if ([type isEqualToString:[NSInvocation encodeType:@encode(CGSize)]]){
+    } else if ([type isEqualToString:[NSInvocation encodeType:@encode(CGSize)]]){
         CGSize returnVal;
         returnVal.width = [enumerator.nextObject doubleValue];
         returnVal.height = [enumerator.nextObject doubleValue];
         result = [NSValue valueWithCGSize:returnVal];
-    }else if ([type isEqualToString:[NSInvocation encodeType:@encode(CGPoint)]]){
+    } else if ([type isEqualToString:[NSInvocation encodeType:@encode(CGPoint)]]){
         CGPoint returnVal;
         returnVal.x = [enumerator.nextObject doubleValue];
         returnVal.y = [enumerator.nextObject doubleValue];
         result = [NSValue valueWithCGPoint:returnVal];
-    }else if ([type isEqualToString:[NSInvocation encodeType:@encode(CGAffineTransform)]]){
+    } else if ([type isEqualToString:[NSInvocation encodeType:@encode(CGAffineTransform)]]){
         CGAffineTransform returnVal;
         result = [NSValue valueWithCGAffineTransform:returnVal];
-    }else if ([type isEqualToString:[NSInvocation encodeType:@encode(CLLocationCoordinate2D)]]){
+    } else if ([type isEqualToString:[NSInvocation encodeType:@encode(CLLocationCoordinate2D)]]){
         CLLocationCoordinate2D returnVal;
         returnVal.latitude = [enumerator.nextObject doubleValue];
         returnVal.longitude = [enumerator.nextObject doubleValue];
         result = [NSValue valueWithMKCoordinate:returnVal];
-    }else if ([type isEqualToString:[NSInvocation encodeType:@encode(MKCoordinateSpan)]]){
+    } else if ([type isEqualToString:[NSInvocation encodeType:@encode(MKCoordinateSpan)]]){
         MKCoordinateSpan returnVal;
         returnVal.latitudeDelta = [enumerator.nextObject doubleValue];
         returnVal.longitudeDelta = [enumerator.nextObject doubleValue];
         result = [NSValue valueWithMKCoordinateSpan:returnVal];
-    }else if ([type isEqualToString:[NSInvocation encodeType:@encode(CATransform3D)]]){
+    } else if ([type isEqualToString:[NSInvocation encodeType:@encode(CATransform3D)]]){
         CATransform3D returnVal;
         result = [NSValue valueWithCATransform3D:returnVal];
-    }else if ([type isEqualToString:[NSInvocation encodeType:@encode(NSRange)]]){
+    } else if ([type isEqualToString:[NSInvocation encodeType:@encode(NSRange)]]){
         NSRange returnVal;
         returnVal.location = [enumerator.nextObject unsignedIntegerValue];
         returnVal.length = [enumerator.nextObject unsignedIntegerValue];
         result = [NSValue valueWithRange:returnVal];
-    }else if ( [type isEqualToString:[NSInvocation encodeType:@encode(UIEdgeInsets)]]){
+    } else if ( [type isEqualToString:[NSInvocation encodeType:@encode(UIEdgeInsets)]]){
         UIEdgeInsets returnVal;
         returnVal.top = [enumerator.nextObject doubleValue];
         returnVal.left = [enumerator.nextObject doubleValue];

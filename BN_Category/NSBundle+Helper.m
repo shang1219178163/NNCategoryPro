@@ -29,9 +29,9 @@ NSBundle *NSBundleFromPodName(NSString *podName){
 NSBundle *NSBundleFromName(NSString *bundleName, NSString *podName){
     if (!bundleName && !podName) {
         @throw @"bundleName和podName不能同时为空";
-    }else if (!bundleName) {
+    } else if (!bundleName) {
         bundleName = podName;
-    }else if (!podName) {
+    } else if (!podName) {
         podName = bundleName;
     }
     

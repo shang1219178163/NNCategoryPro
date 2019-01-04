@@ -112,16 +112,16 @@ static NSArray * _weekList = nil;
     if(timeInterval <60) {
         return NSLocalizedString(@"NSDateCategory.text1",@"");
         
-    }else if (timeInterval <3600) {
+    } else if (timeInterval <3600) {
         return [NSString  stringWithFormat:NSLocalizedString(@"NSDateCategory.text2",@""), timeInterval /60];
         
-    }else if (timeInterval <86400) {
+    } else if (timeInterval <86400) {
         return [NSString stringWithFormat:NSLocalizedString(@"NSDateCategory.text3",@""), timeInterval /3600];
         
-    }else if (timeInterval <2592000) {//30天内
+    } else if (timeInterval <2592000) {//30天内
         return [NSString  stringWithFormat:NSLocalizedString(@"NSDateCategory.text4",@""), timeInterval /86400];
         
-    }else if (timeInterval <31536000) {//30天至1年内
+    } else if (timeInterval <31536000) {//30天至1年内
         NSDateFormatter  *dateFormatter = [NSDateFormatter dateFormat:NSLocalizedString(@"NSDateCategory.text5",@"")];
         return [dateFormatter stringFromDate:  self ];
         
@@ -193,7 +193,7 @@ static NSArray * _weekList = nil;
         if(hour <=24&& hour >=0) {
             dateFormatter = [NSDateFormatter dateFormat:@"HH:mm"];
             
-        }else if (hour <0&& hour >= -24) {
+        } else if (hour <0&& hour >= -24) {
             dateFormatter = [NSDateFormatter dateFormat:NSLocalizedString(@"NSDateCategory.text8",@"")];
             
         } else {
@@ -206,16 +206,16 @@ static NSArray * _weekList = nil;
         if(hour >=0&& hour <=6) {
             dateFormatter = [NSDateFormatter dateFormat:NSLocalizedString(@"NSDateCategory.text9",@"")];
             
-        }else if (hour >6&& hour <=11) {
+        } else if (hour >6&& hour <=11) {
             dateFormatter = [NSDateFormatter dateFormat:NSLocalizedString(@"NSDateCategory.text10",@"")];
             
-        }else if (hour >11&& hour <=17) {
+        } else if (hour >11&& hour <=17) {
             dateFormatter = [NSDateFormatter dateFormat:NSLocalizedString(@"NSDateCategory.text11",@"")];
             
-        }else if (hour >17&& hour <=24) {
+        } else if (hour >17&& hour <=24) {
             dateFormatter = [NSDateFormatter dateFormat:NSLocalizedString(@"NSDateCategory.text12",@"")];
             
-        }else if (hour <0&& hour >= -24){
+        } else if (hour <0&& hour >= -24){
             dateFormatter = [NSDateFormatter dateFormat:NSLocalizedString(@"NSDateCategory.text13",@"")];
             
         } else {
@@ -242,17 +242,17 @@ static NSArray * _weekList = nil;
     if(timeInterval <60) {
         return NSLocalizedString(@"NSDateCategory.text1",@"");
         
-    }else if (timeInterval <3600) {//1小时内
+    } else if (timeInterval <3600) {//1小时内
         return [NSString stringWithFormat:NSLocalizedString(@"NSDateCategory.text2",@""), timeInterval /60];
         
-    }else if (timeInterval <21600) {//6小时内
+    } else if (timeInterval <21600) {//6小时内
         return [NSString stringWithFormat:NSLocalizedString(@"NSDateCategory.text3",@""), timeInterval /3600];
         
-    }else if ([theDay isEqualToString:currentDay]) {//当天
+    } else if ([theDay isEqualToString:currentDay]) {//当天
         dateFormatter.dateFormat = @"HH:mm";
         return [NSString stringWithFormat:NSLocalizedString(@"NSDateCategory.text14",@""), [dateFormatter stringFromDate:self ]];
         
-    }else if ([[dateFormatter dateFromString:currentDay]timeIntervalSinceDate:[dateFormatter dateFromString:theDay]] == 86400) {//昨天
+    } else if ([[dateFormatter dateFromString:currentDay]timeIntervalSinceDate:[dateFormatter dateFromString:theDay]] == 86400) {//昨天
         dateFormatter.dateFormat = @"HH:mm";
         return [NSString  stringWithFormat:NSLocalizedString(@"NSDateCategory.text7",@""), [dateFormatter stringFromDate:self]];
         
