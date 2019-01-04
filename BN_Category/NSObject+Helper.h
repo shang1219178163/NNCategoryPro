@@ -68,6 +68,7 @@ void dispatchApplyGlobal(id obj ,void(^block)(size_t index));
 */
 //@property (nonatomic, copy) BlockObject blockObject;//其他类使用该属性注意性能
 @property (nonatomic, copy) void(^blockObject)(id obj, id item, NSInteger idx);//其他类使用该属性注意性能
+@property (nonatomic, copy) void (^block)(id sender);
 
 - (NSArray *)allPropertyNames:(NSString *)clsName;
 

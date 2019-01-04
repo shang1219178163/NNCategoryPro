@@ -11,6 +11,9 @@
 
 @implementation UILabel (Helper)
 
+/**
+ UILabel富文本设置
+ */
 - (NSMutableAttributedString *)setContent:(NSString *)content attDic:(NSDictionary *)attDic{
     NSAssert([self.text containsString:content], @"包含子标题");
     NSString * text = self.text;

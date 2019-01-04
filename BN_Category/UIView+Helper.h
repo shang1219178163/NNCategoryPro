@@ -54,15 +54,6 @@ typedef void(^BlockView)(UIView * view,id item, id obj);
 
 - (UIView *)addCornersAll;
 
-/**
- 添加各种手势
- @param type 手势类型
- @return view
- */
-- (UIView *)addRecognizerWithTarget:(id)target
-                          aSelector:(SEL)aSelector
-                               type:(NSNumber *)type;
-
 
 /**
  给view关联点击事件(支持UIView和UIButton可继续扩展其他支持)

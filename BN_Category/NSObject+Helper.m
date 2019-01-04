@@ -375,7 +375,6 @@ NSDictionary<NSAttributedStringKey, id> * AttributeDict(NSNumber * type){
         // 归档, 就是把对象 key-value 对一对一对的 encode
         [aCoder encodeObject:value forKey:ivarName];
     }
-    
     // 释放 ivars
     free(ivars);
 }
@@ -397,25 +396,16 @@ NSDictionary<NSAttributedStringKey, id> * AttributeDict(NSNumber * type){
         }
         free(ivars);
     }
-    
     return self;
 }
 
 //KVC
-
 -(void)setValue:(id)value forUndefinedKey:(NSString *)key{
-    
     NSLog(@"不存在键_%@:%@",key,value);
-//    if (DEBUG) {
-//        UIApplication * app = UIApplication.sharedApplication;
-//        [app.delegate.window.rootViewController showAlertTitle:@"warnning" msg:[NSString stringWithFormat:@"不存在键__%@:%@",key,value]];
-//        
-//    }
 }
 
 -(id)valueForUndefinedKey:(NSString *)key{
     return nil;
-    
 }
 
 
@@ -438,7 +428,6 @@ NSDictionary<NSAttributedStringKey, id> * AttributeDict(NSNumber * type){
         const char * propertyName = property_getName(property);
         [allNames addObject:[NSString stringWithUTF8String:propertyName]];
     }
-    
     ///释放
     free(propertys);
     return allNames;
@@ -446,7 +435,6 @@ NSDictionary<NSAttributedStringKey, id> * AttributeDict(NSNumber * type){
 
 /**
  模型转字典
- 
  */
 - (NSDictionary *)modelToDictionary{
     id obj = self;
@@ -464,7 +452,6 @@ NSDictionary<NSAttributedStringKey, id> * AttributeDict(NSNumber * type){
 //        value = value == nil ? [NSNull null] : [self handleObj:obj];
         value = !value ? [NSNull null] : [self handleObj:obj];
         [dic setObject:value forKey:propName];
-        
     }
     free(props);
     return dic;
@@ -489,7 +476,6 @@ NSDictionary<NSAttributedStringKey, id> * AttributeDict(NSNumber * type){
     //类型
     if([obj isKindOfClass:[NSString class]] || [obj isKindOfClass:[NSNumber class]] || [obj isKindOfClass:[NSNull class]]){
         return obj;
-        
     }
     
     if([obj isKindOfClass:[NSArray class]]) {
@@ -501,7 +487,6 @@ NSDictionary<NSAttributedStringKey, id> * AttributeDict(NSNumber * type){
             [arr addObject:[self handleObj:objArr[i]]];
         }
         return arr;
-        
     }
     
     if([obj isKindOfClass:[NSDictionary class]]){
@@ -513,11 +498,9 @@ NSDictionary<NSAttributedStringKey, id> * AttributeDict(NSNumber * type){
             
         }
         return dic;
-        
     }
     return [self modelToDictionary];
 }
-
 
 #pragma mark - -dispatchAsyncMain
 
@@ -543,7 +526,6 @@ void dispatchAsyncGlobal(void(^block)(void)){
 
 void dispatchAfterMain(double delay ,void(^block)(void)){
     dispatch_after(dispatch_time(DISPATCH_TIME_NOW, (int64_t)(delay * NSEC_PER_SEC)), dispatch_get_main_queue(), block);
-    
 }
 
 void dispatchApplyGlobal(id obj ,void(^block)(size_t index)){
@@ -631,12 +613,18 @@ void dispatchApplyGlobal(id obj ,void(^block)(size_t index)){
 
 -(void (^)(id, id, NSInteger))blockObject{
     return objc_getAssociatedObject(self, _cmd);
-    
 }
 
 -(void)setBlockObject:(void (^)(id, id, NSInteger))blockObject{
     objc_setAssociatedObject(self, @selector(blockObject), blockObject, OBJC_ASSOCIATION_COPY_NONATOMIC);
-    
+}
+
+- (void (^)(id))block{
+    return objc_getAssociatedObject(self, _cmd);
+}
+
+- (void)setBlock:(void (^)(id))block{
+    objc_setAssociatedObject(self, @selector(block), block, OBJC_ASSOCIATION_COPY_NONATOMIC);
 }
 
 #pragma mark- - 富文本
@@ -646,7 +634,6 @@ void dispatchApplyGlobal(id obj ,void(^block)(size_t index)){
 - (NSDictionary *)attrDictWithFont:(id)font textColor:(UIColor *)textColor{
     if ([font isKindOfClass:[NSNumber class]]) {
         font = [UIFont systemFontOfSize:[(NSNumber *)font floatValue]];
-        
     }
     // 创建文字属性
     NSDictionary * dict = @{
@@ -654,9 +641,7 @@ void dispatchApplyGlobal(id obj ,void(^block)(size_t index)){
                             NSForegroundColorAttributeName  :   textColor,
                             NSBackgroundColorAttributeName  :   UIColor.clearColor
                             };
-    
     return dict;
-    
 }
 
 /**
@@ -677,7 +662,6 @@ void dispatchApplyGlobal(id obj ,void(^block)(size_t index)){
     [mdict setObject:paraStyle forKey:NSParagraphStyleAttributeName];
     
     return mdict;
-    
 }
 
 /**
@@ -735,7 +719,6 @@ void dispatchApplyGlobal(id obj ,void(^block)(size_t index)){
  */
 - (NSAttributedString *)getAttString:(NSString *)text textTaps:(NSArray *)textTaps font:(id)font tapFont:(id)tapFont tapColor:(UIColor *)tapColor alignment:(NSTextAlignment)alignment{
     return [self getAttString:text textTaps:textTaps font:font tapFont:tapFont color:UIColor.blackColor tapColor:tapColor alignment:alignment];
-    
 }
 
 - (NSAttributedString *)getAttString:(NSString *)text textTaps:(NSArray *)textTaps font:(id)font tapFont:(id)tapFont color:(UIColor *)color tapColor:(UIColor *)tapColor alignment:(NSTextAlignment)alignment{
@@ -809,7 +792,6 @@ void dispatchApplyGlobal(id obj ,void(^block)(size_t index)){
         }
     }
     return marr.copy;
-    
 }
 /**
  单个标题前加*
@@ -865,7 +847,6 @@ void dispatchApplyGlobal(id obj ,void(^block)(size_t index)){
     
     NSString *string = [boolNum boolValue]  ? @"1"  :   @"0";
     return string;
-
 }
 
 /**
@@ -918,7 +899,6 @@ void dispatchApplyGlobal(id obj ,void(^block)(size_t index)){
     
     NSInteger rowCount = itemList.count % rowOfNumber == 0 ? itemList.count/rowOfNumber : (itemList.count/rowOfNumber + 1);
     return rowCount;
-    
 }
 
 
