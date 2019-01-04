@@ -69,6 +69,7 @@
 #import "UIImageView+Animation.h"
 #import "UIImageView+Helper.h"
 #import "UIImageView+swizzing.h"
+#import "UILabel+Helper.h"
 #import "UILabel+MoneyAnimation.h"
 #import "UINavigationBar+Helper.h"
 #import "UINavigationController+swizzing.h"
