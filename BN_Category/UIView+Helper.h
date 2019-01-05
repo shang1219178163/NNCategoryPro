@@ -55,19 +55,19 @@ typedef void(^BlockView)(UIView * view,id item, id obj);
 - (UIView *)addCornersAll;
 
 
-- (void)addGestureTap:(void(^)(id sender))block;
+- (UITapGestureRecognizer *)addGestureTap:(void(^)(id sender))block;
 
-- (void)addGestureLongPress:(void(^)(id sender))block forDuration:(NSTimeInterval)minimumPressDuration;
+- (UILongPressGestureRecognizer *)addGestureLongPress:(void(^)(id sender))block forDuration:(NSTimeInterval)minimumPressDuration;
 
-- (void)addGesturePan:(void(^)(id sender))block;
+- (UIPanGestureRecognizer *)addGesturePan:(void(^)(id sender))block;
 
-- (void)addGesturePinch:(void(^)(id sender))block;
+- (UIScreenEdgePanGestureRecognizer *)addGestureEdgPan:(void(^)(id sender))block forEdges:(UIRectEdge)edges;
 
-- (void)addGestureRotation:(void(^)(id sender))block;
+- (UISwipeGestureRecognizer *)addGestureSwipe:(void(^)(id sender))block forDirection:(UISwipeGestureRecognizerDirection)direction;
 
-- (void)addGestureSwipe:(void(^)(id sender))block forDirection:(UISwipeGestureRecognizerDirection)direction;
+- (UIPinchGestureRecognizer *)addGesturePinch:(void(^)(id sender))block;
 
-- (void)addGestureEdgPan:(void(^)(id sender))block forEdges:(UIRectEdge)edges;
+- (UIRotationGestureRecognizer *)addGestureRotation:(void(^)(id sender))block;
 
 - (void)addActionHandler:(void(^)(id obj, id item, NSInteger idx))handler;
 
