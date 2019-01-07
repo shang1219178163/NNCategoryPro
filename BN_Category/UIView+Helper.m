@@ -157,7 +157,7 @@
  手势 - 长按
  */
 - (UILongPressGestureRecognizer *)addGestureLongPress:(void(^)(id sender))block forDuration:(NSTimeInterval)minimumPressDuration{
-    NSString *funcAbount = [NSStringFromSelector(_cmd) stringByAppendingFormat:@"%@",@(minimumPressDuration)];
+    NSString *funcAbount = [NSStringFromSelector(_cmd) stringByAppendingFormat:@",%@",@(minimumPressDuration)];
     NSString *runtimeKey = RuntimeKeyFromParams(self, funcAbount);
 
     UILongPressGestureRecognizer *recognizer = objc_getAssociatedObject(self, CFBridgingRetain(runtimeKey));
@@ -200,7 +200,7 @@
  手势 - 边缘拖动
  */
 - (UIScreenEdgePanGestureRecognizer *)addGestureEdgPan:(void(^)(id sender))block forEdges:(UIRectEdge)edges{
-    NSString *funcAbount = [NSStringFromSelector(_cmd) stringByAppendingFormat:@"%@",@(edges)];
+    NSString *funcAbount = [NSStringFromSelector(_cmd) stringByAppendingFormat:@",%@",@(edges)];
     NSString *runtimeKey = RuntimeKeyFromParams(self, funcAbount);
 
     UIScreenEdgePanGestureRecognizer *recognizer = objc_getAssociatedObject(self, CFBridgingRetain(runtimeKey));
@@ -220,7 +220,7 @@
  手势 - 轻扫
  */
 - (UISwipeGestureRecognizer *)addGestureSwipe:(void(^)(id sender))block forDirection:(UISwipeGestureRecognizerDirection)direction{
-    NSString *funcAbount = [NSStringFromSelector(_cmd) stringByAppendingFormat:@"%@",@(direction)];
+    NSString *funcAbount = [NSStringFromSelector(_cmd) stringByAppendingFormat:@",%@",@(direction)];
     NSString *runtimeKey = RuntimeKeyFromParams(self, funcAbount);
 
     UISwipeGestureRecognizer *recognizer = objc_getAssociatedObject(self, CFBridgingRetain(runtimeKey));
