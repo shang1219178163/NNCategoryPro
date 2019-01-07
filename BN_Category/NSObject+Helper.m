@@ -18,6 +18,17 @@
 #import "NSArray+Helper.h"
 
 /**
+ 关联对象的唯一无符号常量值
+
+ @param obj 对象本身
+ @param funcAbount 方法名及实参生成的字符串
+ @return 根据对象+方法+实参生成的唯一常量值(确保每个对象调用同一方法不同参数的时候,返回的值都是唯一的)
+ */
+NSString * RuntimeKeyFromParams(NSObject *obj, NSString *funcAbount){
+    NSString * unique = [[@(obj.hash) stringValue] stringByAppendingFormat:@",%@",funcAbount];
+    return unique;
+}
+/**
  NSIndexPath->字符串
  */
 NSString * NSStringFromIndexPath(NSIndexPath *indexPath) {
@@ -626,6 +637,15 @@ void dispatchApplyGlobal(id obj ,void(^block)(size_t index)){
 - (void)setBlock:(void (^)(id))block{
     objc_setAssociatedObject(self, @selector(block), block, OBJC_ASSOCIATION_COPY_NONATOMIC);
 }
+
+-(NSString *)runtimeKey{
+    return objc_getAssociatedObject(self, _cmd);
+}
+
+- (void)setRuntimeKey:(NSString *)runtimeKey{
+    objc_setAssociatedObject(self, @selector(runtimeKey), runtimeKey, OBJC_ASSOCIATION_COPY_NONATOMIC);
+}
+
 
 #pragma mark- - 富文本
 /**

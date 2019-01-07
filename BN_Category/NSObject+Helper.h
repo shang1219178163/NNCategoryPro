@@ -13,6 +13,8 @@
 #import "UIScreen+Helper.h"
 #import "UIColor+Helper.h"
 
+FOUNDATION_EXPORT NSString * RuntimeKeyFromParams(NSObject *obj, NSString *funcAbount);
+
 FOUNDATION_EXPORT NSString * NSStringFromIndexPath(NSIndexPath *indexPath);
 FOUNDATION_EXPORT NSString * NSStringFromHTML(NSString *html);
 
@@ -69,6 +71,7 @@ void dispatchApplyGlobal(id obj ,void(^block)(size_t index));
 //@property (nonatomic, copy) BlockObject blockObject;//其他类使用该属性注意性能
 @property (nonatomic, copy) void(^blockObject)(id obj, id item, NSInteger idx);//其他类使用该属性注意性能
 @property (nonatomic, copy) void (^block)(id sender);
+@property (nonatomic, copy, nonnull) NSString *runtimeKey;
 
 - (NSArray *)allPropertyNames:(NSString *)clsName;
 
