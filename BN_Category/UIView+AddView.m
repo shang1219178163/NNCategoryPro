@@ -883,21 +883,46 @@
             segmentCtrl.tintColor = UIColor.whiteColor;
             segmentCtrl.backgroundColor = UIColor.whiteColor;
             
-            NSDictionary *attrNormal = @{
-                                         NSFontAttributeName:[UIFont boldSystemFontOfSize:15],
-                                         //                   NSForegroundColorAttributeName:UIColor.whiteColor,
-                                         //                   NSBackgroundColorAttributeName:UIColor.themeColor,
-                                         };
+            NSDictionary *attDic_N = @{
+                                       NSFontAttributeName:[UIFont boldSystemFontOfSize:15],
+                                       NSForegroundColorAttributeName:UIColor.themeColor,
+                                       NSBackgroundColorAttributeName:UIColor.whiteColor,
+                                       };
             
-            NSDictionary *attrSelected = @{
-                                           NSFontAttributeName:[UIFont boldSystemFontOfSize:15],
-                                           //                   NSForegroundColorAttributeName:UIColor.themeColor,
-                                           //                   NSBackgroundColorAttributeName:UIColor.whiteColor,
-                                           };
+            NSDictionary *attDic_H = @{
+                                       NSFontAttributeName:[UIFont boldSystemFontOfSize:18],
+                                       
+                                       NSForegroundColorAttributeName:UIColor.whiteColor,
+                                       NSBackgroundColorAttributeName:UIColor.themeColor,
+                                       };
             
-            [segmentCtrl setTitleTextAttributes:attrNormal forState:UIControlStateNormal];
-            [segmentCtrl setTitleTextAttributes:attrSelected forState:UIControlStateSelected];
+            [segmentCtrl setTitleTextAttributes:attDic_N forState:UIControlStateNormal];
+            [segmentCtrl setTitleTextAttributes:attDic_H forState:UIControlStateSelected];
             
+        }
+            break;
+        case 3:
+        {
+            //背景透明,只有标题颜色
+            // 去掉颜色,现在整个segment偶看不到,可以相应点击事件
+            segmentCtrl.tintColor = UIColor.clearColor;
+            segmentCtrl.backgroundColor = UIColor.lineColor;
+            
+            // 正常状态下
+            NSDictionary * attDic_N = @{
+                                        NSForegroundColorAttributeName : UIColor.blackColor,
+                                        NSFontAttributeName:[UIFont systemFontOfSize:15.0f],
+                                        
+                                        };
+            
+            // 选中状态下
+            NSDictionary * attDic_H = @{
+                                        NSForegroundColorAttributeName : UIColor.themeColor,
+                                        NSFontAttributeName : [UIFont boldSystemFontOfSize:18.0f],
+                                        
+                                        };
+            [segmentCtrl setTitleTextAttributes:attDic_N forState:UIControlStateNormal];
+            [segmentCtrl setTitleTextAttributes:attDic_H forState:UIControlStateSelected];
         }
             break;
         default:

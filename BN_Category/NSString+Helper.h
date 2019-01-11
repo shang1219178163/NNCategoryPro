@@ -27,7 +27,7 @@
 
 - (BOOL)isPureByCharSet:(NSString *)charSet;
 
-- (NSDictionary *)dictionaryValue;
+- (id)objcValue;
 
 - (NSString *)toFileString;
 
@@ -149,6 +149,8 @@
  @param back 目标字段之后的特征字符串
  */
 -(NSString *)stringWithFront:(NSString *)front back:(NSString *)back;
+
+- (NSAttributedString *)toAsterisk;
 
 #pragma mark - - other
 - (BOOL)isBeyondWithLow:(NSString *)low high:(NSString *)high;

@@ -64,7 +64,10 @@
     
 }
 
-- (NSDictionary *)dictionaryValue{
+/**
+ json转NSObject
+ */
+- (id)objcValue{
     NSError *errorJson;
     NSData *jsonData = [self dataUsingEncoding:NSUTF8StringEncoding];
     NSDictionary *jsonDict = [NSJSONSerialization JSONObjectWithData:jsonData options:NSJSONReadingMutableContainers error:&errorJson];
@@ -75,7 +78,6 @@
     }
     return jsonDict;
 }
-
 
 - (NSString *)toFileString{
     NSArray * fileNameList = [self componentsSeparatedByString:@"."];
@@ -527,6 +529,15 @@
     NSRange range = NSMakeRange(rangeStart.location + rangeStart.length, rangeEnd.location - rangeStart.location - rangeStart.length);
     NSString * result = [self substringWithRange:range];
     return result;
+}
+
+/**
+ 当标题包含*显示红色*,不包含*则显示透明色*
+ */
+- (NSAttributedString *)toAsterisk{
+    BOOL isMust = [self containsString:kAsterisk] ? YES : NO;
+    NSAttributedString *titleAtt = [self getAttringByPrefix:kAsterisk content:self must:@(isMust)];
+    return titleAtt;
 }
 
 - (BOOL)isBeyondWithLow:(NSString *)low high:(NSString *)high{
