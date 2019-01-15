@@ -885,15 +885,12 @@
             
             NSDictionary *attDic_N = @{
                                        NSFontAttributeName:[UIFont boldSystemFontOfSize:15],
-                                       NSForegroundColorAttributeName:UIColor.themeColor,
-                                       NSBackgroundColorAttributeName:UIColor.whiteColor,
+                                       NSForegroundColorAttributeName:UIColor.blackColor,
                                        };
             
             NSDictionary *attDic_H = @{
                                        NSFontAttributeName:[UIFont boldSystemFontOfSize:18],
-                                       
-                                       NSForegroundColorAttributeName:UIColor.whiteColor,
-                                       NSBackgroundColorAttributeName:UIColor.themeColor,
+                                       NSForegroundColorAttributeName:UIColor.themeColor,
                                        };
             
             [segmentCtrl setTitleTextAttributes:attDic_N forState:UIControlStateNormal];

@@ -14,5 +14,7 @@
 +(CAShapeLayer *)layerRect:(CGRect)rect path:(CGPathRef)path strokeEnd:(CGFloat)strokeEnd fillColor:(UIColor *)fillColor strokeColor:(UIColor *)strokeColor lineWidth:(CGFloat)lineWidth;
 
 +(CAShapeLayer *)layerWithSender:(CALayer *)sender path:(CGPathRef)path fillColor:(UIColor *)fillColor strokeColor:(UIColor *)strokeColor opacity:(CGFloat)opacity;
-    
+
++(CAShapeLayer *)layerLineDashWithSender:(CALayer *)sender strokeColor:(UIColor *)strokeColor lineWidth:(CGFloat)lineWidth  lineDashPattern:(NSArray<NSNumber *> *)lineDashPattern;
+
 @end

@@ -42,4 +42,21 @@
     return layer;
 }
 
+//虚线边框
++(CAShapeLayer *)layerLineDashWithSender:(CALayer *)sender strokeColor:(UIColor *)strokeColor lineWidth:(CGFloat)lineWidth  lineDashPattern:(NSArray<NSNumber *> *)lineDashPattern{
+
+    CAShapeLayer *layer = CAShapeLayer.layer;
+    layer.strokeColor = strokeColor.CGColor;
+    layer.fillColor = nil;
+    
+    layer.path = [UIBezierPath bezierPathWithRect:sender.bounds].CGPath;
+    layer.frame = sender.bounds;
+    
+    layer.lineCap = @"square";
+    layer.lineWidth = lineWidth > 0.0 ? lineWidth : 1.0;
+    layer.lineDashPattern = lineDashPattern ? : @[@4, @2];
+    [sender addSublayer:layer];
+    return layer;
+}
+
 @end
