@@ -7,11 +7,29 @@
 
 #import "UITextView+Helper.h"
 #import <objc/runtime.h>
+#import "NSObject+swizzling.h"
 
 @implementation UITextView (Helper)
 
++(void)initialize{
+    if (self == self.class) {
+        static dispatch_once_t onceToken;
+        dispatch_once(&onceToken, ^{
+            SwizzleMethodInstance(@"UITextView",  NSSelectorFromString(@"dealloc"), @selector(swz_Dealloc));
+
+        });
+    }
+}
+
+- (void)swz_Dealloc {
+    [NSNotificationCenter.defaultCenter removeObserver:self];
+    [self swz_Dealloc];
+    
+}
+
+#pragma mark - - 属性
+
 - (UITextView *)placeHolderTextView {
-//    return objc_getAssociatedObject(self, _cmd);
     UITextView* textView = objc_getAssociatedObject(self, _cmd);
     if (!textView) {
         textView = [[UITextView alloc] initWithFrame:self.bounds];
@@ -31,41 +49,21 @@
     return textView;
 }
 
-- (void)setPlaceHolderTextView:(UITextView *)placeHolderTextView {
+- (void)setPlaceHolderTextView:(UITextView *)placeHolderTextView{
     objc_setAssociatedObject(self, @selector(placeHolderTextView), placeHolderTextView, OBJC_ASSOCIATION_RETAIN_NONATOMIC);
 }
 
-
-# pragma mark -
-# pragma mark - UITextViewDelegate
+# pragma mark -funtions
 - (void)textViewDidBeginEditing:(NSNotification *)noti {
     self.placeHolderTextView.hidden = YES;
 }
-- (void)textViewDidEndEditing:(UITextView *)noti {
-    if (self.text && [self.text isEqualToString:@""]) {
+
+- (void)textViewDidEndEditing:(NSNotification *)noti {
+    NSLog(@"_%@_%@_%@_",self,self.text,@(self.text.length));
+    if ([self.text isEqualToString:@""] || self.text.length == 0) {
         self.placeHolderTextView.hidden = NO;
     }
 }
-
-+(void)initialize{
-    [super initialize];
-    
-    Method origMethod = class_getInstanceMethod([self class], NSSelectorFromString(@"dealloc"));
-    Method newMethod = class_getInstanceMethod([self class], @selector(textView_placeholder_swizzledDealloc));
-    method_exchangeImplementations(origMethod, newMethod);
-}
-
-//+ (void)load {
-//    [super load];
-//    Method origMethod = class_getInstanceMethod([self class], NSSelectorFromString(@"dealloc"));
-//    Method newMethod = class_getInstanceMethod([self class], @selector(textView_placeholder_swizzledDealloc));
-//    method_exchangeImplementations(origMethod, newMethod);
-//}
-- (void)textView_placeholder_swizzledDealloc {
-    [NSNotificationCenter.defaultCenter removeObserver:self];
-    [self textView_placeholder_swizzledDealloc];
-}
-
 
 @end
 

@@ -45,13 +45,13 @@
         
     } else {
         if (![inView viewWithTag:tag]) {
-            UIImageView *imageView = [[UIImageView alloc]initWithFrame:rect];
-            imageView.tag = tag;
-            imageView.backgroundColor = UIColor.clearColor;
-            [inView addSubview:imageView];
+            UIImageView *imgView = [[UIImageView alloc]initWithFrame:rect];
+            imgView.tag = tag;
+            imgView.backgroundColor = UIColor.clearColor;
+            [inView addSubview:imgView];
             
-            UIGraphicsBeginImageContext(imageView.frame.size);   //开始画线
-            [imageView.image drawInRect:CGRectMake(0, 0, CGRectGetWidth(imageView.frame), CGRectGetHeight(imageView.frame))];
+            UIGraphicsBeginImageContext(imgView.frame.size);   //开始画线
+            [imgView.image drawInRect:CGRectMake(0, 0, CGRectGetWidth(imgView.frame), CGRectGetHeight(imgView.frame))];
             CGContextSetLineCap(UIGraphicsGetCurrentContext(), kCGLineCapRound);  //设置线条终点形状
             
             CGFloat lengths[] = {3,1.5};
@@ -60,10 +60,10 @@
             
             CGContextSetLineDash(line, 0, lengths, 2);  //画虚线
             CGContextMoveToPoint(line, 0, 0);    //开始画线
-            CGContextAddLineToPoint(line, CGRectGetMaxX(imageView.frame), 0);
+            CGContextAddLineToPoint(line, CGRectGetMaxX(imgView.frame), 0);
             CGContextStrokePath(line);
             
-            imageView.image = UIGraphicsGetImageFromCurrentImageContext();
+            imgView.image = UIGraphicsGetImageFromCurrentImageContext();
             UIGraphicsEndImageContext();
 
         } else {
@@ -92,7 +92,6 @@
 }
 
 + (UIView *)createLineRect:(CGRect)rect isDash:(BOOL)isDash hidden:(BOOL)hidden tag:(NSInteger)tag{
-    
     if (!isDash) {
         UIView * lineView = [[UIView alloc]initWithFrame:rect];
         lineView.backgroundColor = UIColor.lineColor;
@@ -100,12 +99,13 @@
         return lineView;
     } else {
         
-        UIImageView *imageView = [[UIImageView alloc]initWithFrame:rect];
-        imageView.tag = tag;
-        imageView.backgroundColor = UIColor.clearColor;
+        UIImageView *imgView = [[UIImageView alloc]initWithFrame:rect];
+        imgView.autoresizingMask = UIViewAutoresizingFlexibleWidth|UIViewAutoresizingFlexibleHeight;
+        imgView.tag = tag;
+        imgView.backgroundColor = UIColor.clearColor;
         
-        UIGraphicsBeginImageContext(imageView.frame.size);   //开始画线
-        [imageView.image drawInRect:CGRectMake(0, 0, CGRectGetWidth(imageView.frame), CGRectGetHeight(imageView.frame))];
+        UIGraphicsBeginImageContext(imgView.frame.size);   //开始画线
+        [imgView.image drawInRect:CGRectMake(0, 0, CGRectGetWidth(imgView.frame), CGRectGetHeight(imgView.frame))];
         CGContextSetLineCap(UIGraphicsGetCurrentContext(), kCGLineCapRound);  //设置线条终点形状
         
         CGFloat lengths[] = {3,1.5};
@@ -114,13 +114,13 @@
         
         CGContextSetLineDash(line, 0, lengths, 2);  //画虚线
         CGContextMoveToPoint(line, 0, 0);    //开始画线
-        CGContextAddLineToPoint(line, CGRectGetMaxX(imageView.frame), 0);
+        CGContextAddLineToPoint(line, CGRectGetMaxX(imgView.frame), 0);
         CGContextStrokePath(line);
         
-        imageView.image = UIGraphicsGetImageFromCurrentImageContext();
-        imageView.hidden = hidden;
+        imgView.image = UIGraphicsGetImageFromCurrentImageContext();
+        imgView.hidden = hidden;
         UIGraphicsEndImageContext();
-        return imageView;
+        return imgView;
     }
 }
 
@@ -213,17 +213,17 @@
 #pragma mark - -类方法
 + (UIView *)createViewRect:(CGRect)rect tag:(NSInteger)tag{
     UIView * backgroundView = [[UIView alloc]initWithFrame:rect];
+    backgroundView.autoresizingMask = UIViewAutoresizingFlexibleWidth|UIViewAutoresizingFlexibleHeight;
     backgroundView.tag = tag;
-
     backgroundView.backgroundColor = UIColor.backgroudColor;
-//    backgroundView.backgroundColor = kC_YellowColor;
-
     return backgroundView;
 }
 
 + (UILabel *)createLabelRect:(CGRect)rect text:(id)text textColor:(UIColor *)textColor tag:(NSInteger)tag type:(NSNumber *)type font:(CGFloat)fontSize  backgroudColor:(UIColor *)backgroudColor alignment:(NSTextAlignment)alignment
 {
     UILabel * label = [[UILabel alloc] initWithFrame:rect];
+    label.autoresizingMask = UIViewAutoresizingFlexibleWidth|UIViewAutoresizingFlexibleHeight;
+
     if ([text isKindOfClass:[NSString class]]) {
         label.text = text;
         label.textColor = textColor;
@@ -319,38 +319,39 @@
 + (UILabel *)createTipLabelWithSize:(CGSize)size tipCenter:(CGPoint)tipCenter text:(NSString *)text textColor:(UIColor *)textColor tag:(NSInteger)tag font:(CGFloat)fontSize backgroudColor:(UIColor *)backgroudColor alignment:(NSTextAlignment)alignment
 {
     
-    UILabel * labelTip = [[UILabel alloc] initWithFrame:CGRectMake(0, 0, size.width, size.height)];
-    labelTip.center = tipCenter;
+    UILabel * label = [[UILabel alloc] initWithFrame:CGRectMake(0, 0, size.width, size.height)];
+    label.autoresizingMask = UIViewAutoresizingFlexibleWidth|UIViewAutoresizingFlexibleHeight;
+    label.center = tipCenter;
     
-    labelTip.text = text;
-    labelTip.textColor = textColor;
-    labelTip.textAlignment = NSTextAlignmentCenter;
+    label.text = text;
+    label.textColor = textColor;
+    label.textAlignment = NSTextAlignmentCenter;
     
-    labelTip.font = [UIFont boldSystemFontOfSize:fontSize];
-    labelTip.layer.masksToBounds = YES;
-    labelTip.layer.cornerRadius = CGRectGetHeight(labelTip.frame)/2.0;
-    labelTip.layer.borderWidth = 1;
-    labelTip.layer.borderColor = UIColor.whiteColor.CGColor;
-    labelTip.layer.shouldRasterize = YES;
-    labelTip.layer.rasterizationScale = UIScreen.mainScreen.scale;
+    label.font = [UIFont boldSystemFontOfSize:fontSize];
+    label.layer.masksToBounds = YES;
+    label.layer.cornerRadius = CGRectGetHeight(label.frame)/2.0;
+    label.layer.borderWidth = 1;
+    label.layer.borderColor = UIColor.whiteColor.CGColor;
+    label.layer.shouldRasterize = YES;
+    label.layer.rasterizationScale = UIScreen.mainScreen.scale;
     
-    labelTip.backgroundColor = backgroudColor;
+    label.backgroundColor = backgroudColor;
     //        labelTip.backgroundColor = kC_RedColor;
     
-    labelTip.textAlignment = NSTextAlignmentCenter;
+    label.textAlignment = NSTextAlignmentCenter;
     
-    return labelTip;
+    return label;
 }
 
 //imageView通用创建方法
 + (UIImageView *)createImgViewRect:(CGRect)rect image:(id)image tag:(NSInteger)tag type:(NSNumber *)type{
-    UIImageView *imageView = [[UIImageView alloc] initWithFrame:rect];
-    imageView.autoresizingMask = UIViewAutoresizingFlexibleLeftMargin | UIViewAutoresizingFlexibleRightMargin;
-    imageView.contentMode = UIViewContentModeScaleAspectFit;
-    imageView.userInteractionEnabled = YES;
-    imageView.tag = tag;
+    UIImageView *imgView = [[UIImageView alloc] initWithFrame:rect];
+    imgView.autoresizingMask = UIViewAutoresizingFlexibleWidth|UIViewAutoresizingFlexibleHeight;
+    imgView.contentMode = UIViewContentModeScaleAspectFit;
+    imgView.userInteractionEnabled = YES;
+    imgView.tag = tag;
    
-    [imageView loadImage:image defaultImg:kIMG_defaultFailed_S];
+    [imgView loadImage:image defaultImg:kIMG_defaultFailed_S];
             
     switch (type.integerValue) {
         case 0://默认方形
@@ -358,8 +359,8 @@
 //            imageView.layer.borderWidth = 1;
 //            imageView.layer.borderColor = UIColor.redColor.CGColor;
             
-            imageView.layer.rasterizationScale = UIScreen.mainScreen.scale;
-            imageView.layer.shouldRasterize = YES;
+            imgView.layer.rasterizationScale = UIScreen.mainScreen.scale;
+            imgView.layer.shouldRasterize = YES;
 //            imageView.clipsToBounds = NO;
             
         }
@@ -369,8 +370,8 @@
 //            imageView.layer.shouldRasterize = YES;
 //            imageView.layer.rasterizationScale = UIScreen.mainScreen.scale;
 //            imageView.clipsToBounds = YES;
-            imageView.contentMode = UIViewContentModeScaleToFill;
-            [imageView addCornersAll];
+            imgView.contentMode = UIViewContentModeScaleToFill;
+            [imgView addCornersAll];
 
         }
             break;
@@ -378,7 +379,7 @@
         {
             //小标志
             NSString * text = @"企";
-            CGSize textSize = [self sizeWithText:text font:@(kFZ_Third) width:kScreen_width];
+            CGSize textSize = [self sizeWithText:text font:@(kFZ_Third) width:kScreenWidth];
             CGFloat textWH = textSize.height > textSize.width ? textSize.height :textSize.width;
             textWH += 5;
             CGFloat offsetXY = CGRectGetHeight(rect)/2.0 * sin(45 * M_PI/180.0);
@@ -386,14 +387,14 @@
             CGPoint tipCenter = CGPointMake(CGRectGetHeight(rect)/2.0 + offsetXY, CGRectGetHeight(rect)/2.0 + offsetXY);
             //
             UILabel * labelTip = [UIView createTipLabelWithSize:CGSizeMake(textWH, textWH) tipCenter:tipCenter text:text textColor:UIColor.themeColor tag:kTAG_LABEL font:kFZ_Third backgroudColor:UIColor.whiteColor alignment:NSTextAlignmentCenter];
-            [imageView addSubview:labelTip];
+            [imgView addSubview:labelTip];
             
         }
             break;
         case 3://圆角矩形
         {
-            imageView.contentMode = UIViewContentModeScaleToFill;
-            [imageView addCorners:UIRectCornerAllCorners cornerRadii:CGSizeMake(5, 5)];
+            imgView.contentMode = UIViewContentModeScaleToFill;
+            [imgView addCorners:UIRectCornerAllCorners cornerRadii:CGSizeMake(5, 5)];
 
         }
             break;
@@ -406,23 +407,24 @@
 //    imageView.layer.borderWidth = kW_LayerBorder;
 //    imageView.layer.borderColor = UIColor.blueColor.CGColor;
 
-    return imageView;
+    return imgView;
 }
 //多图加手势
 + (UIImageView *)createImageViewRect:(CGRect)rect image:(id)image tag:(NSInteger)tag target:(id)target aSelector:(SEL)aSelector
 {
-    UIImageView *imageView = [[UIImageView alloc] initWithFrame:rect];
-    imageView.tag = tag;
+    UIImageView *imgView = [[UIImageView alloc] initWithFrame:rect];
+    imgView.autoresizingMask = UIViewAutoresizingFlexibleWidth|UIViewAutoresizingFlexibleHeight;
+    imgView.tag = tag;
     
     if ([image isKindOfClass:[UIImage class]]) {
-        imageView.image = image;
+        imgView.image = image;
         
     }
     else if ([image isKindOfClass:[NSString class]]) {
-        imageView.image = [UIImage imageNamed:image];
+        imgView.image = [UIImage imageNamed:image];
 
     }
-    imageView.contentMode = UIViewContentModeScaleAspectFit;
+    imgView.contentMode = UIViewContentModeScaleAspectFit;
     
     UITapGestureRecognizer *tapGesture = [[UITapGestureRecognizer alloc] initWithTarget:target action:aSelector];
     tapGesture.numberOfTapsRequired = 1;
@@ -431,48 +433,48 @@
 //    tapGesture.cancelsTouchesInView = NO;
 //    tapGesture.delaysTouchesEnded = NO;
     
-    imageView.userInteractionEnabled = YES;
-    [imageView addGestureRecognizer:tapGesture];
+    imgView.userInteractionEnabled = YES;
+    [imgView addGestureRecognizer:tapGesture];
     
-    return imageView;
+    return imgView;
 }
 //选择图片使用
 + (UIImageView *)createImgViewRect:(CGRect)rect image:(id)image tag:(NSInteger)tag type:(NSNumber *)type hasDeleteBtn:(BOOL)hasDeleteBtn
 {
-    UIImageView *imageView = [[UIImageView alloc] initWithFrame:rect];
-    imageView.autoresizingMask = UIViewAutoresizingFlexibleLeftMargin | UIViewAutoresizingFlexibleRightMargin;
-    imageView.contentMode = UIViewContentModeScaleAspectFit;
-    imageView.userInteractionEnabled = YES;
+    UIImageView *imgView = [[UIImageView alloc] initWithFrame:rect];
+    imgView.autoresizingMask = UIViewAutoresizingFlexibleWidth|UIViewAutoresizingFlexibleHeight;
+    imgView.contentMode = UIViewContentModeScaleAspectFit;
+    imgView.userInteractionEnabled = YES;
 
     if ([image isKindOfClass:[NSString class]]) {
-        imageView.image = [UIImage imageNamed:image];
+        imgView.image = [UIImage imageNamed:image];
 
     }
     else if ([image isKindOfClass:[UIImage class]]) {
-        imageView.image = image;
+        imgView.image = image;
 
     }
     switch (type.integerValue) {
         case 0://默认方形
         {
-            imageView.layer.borderWidth = kW_LayerBorder;
-            imageView.layer.borderColor = UIColor.lineColor.CGColor;
+            imgView.layer.borderWidth = kW_LayerBorder;
+            imgView.layer.borderColor = UIColor.lineColor.CGColor;
             
-            imageView.layer.rasterizationScale = UIScreen.mainScreen.scale;
-            imageView.layer.shouldRasterize = YES;
-            imageView.clipsToBounds = NO;
+            imgView.layer.rasterizationScale = UIScreen.mainScreen.scale;
+            imgView.layer.shouldRasterize = YES;
+            imgView.clipsToBounds = NO;
             
         }
             break;
         case 1://圆形
         {
-            imageView.layer.masksToBounds = YES;
-            imageView.layer.cornerRadius = CGRectGetHeight(imageView.frame)/2.0;
-            imageView.layer.borderWidth = kW_LayerBorder;
-            imageView.layer.borderColor = UIColor.lineColor.CGColor;
-            imageView.layer.shouldRasterize = YES;
-            imageView.layer.rasterizationScale = UIScreen.mainScreen.scale;
-            imageView.clipsToBounds = NO;
+            imgView.layer.masksToBounds = YES;
+            imgView.layer.cornerRadius = CGRectGetHeight(imgView.frame)/2.0;
+            imgView.layer.borderWidth = kW_LayerBorder;
+            imgView.layer.borderColor = UIColor.lineColor.CGColor;
+            imgView.layer.shouldRasterize = YES;
+            imgView.layer.rasterizationScale = UIScreen.mainScreen.scale;
+            imgView.clipsToBounds = NO;
             
         }
             break;
@@ -487,7 +489,7 @@
     //    deleteBtn.imageEdgeInsets = UIEdgeInsetsMake(-10, 0, 0, -10);
     deleteBtn.tag = kTAG_BTN;
     deleteBtn.alpha = 0.6;
-    [imageView addSubview:deleteBtn];
+    [imgView addSubview:deleteBtn];
 
     deleteBtn.hidden = !hasDeleteBtn;
 
@@ -499,12 +501,13 @@
     //    imageView.layer.borderWidth = 1;
     //    imageView.layer.borderColor = UIColor.redColor.CGColor;
 
-    return imageView;
+    return imgView;
 }
 
 + (UITextField *)createTextFieldRect:(CGRect)rect text:(NSString *)text placeholder:(NSString *)placeholder font:(CGFloat)fontSize textAlignment:(NSTextAlignment)textAlignment keyboardType:(UIKeyboardType)keyboardType tag:(NSInteger)tag
 {
     UITextField * textField = [[UITextField alloc]initWithFrame:rect];
+    textField.autoresizingMask = UIViewAutoresizingFlexibleWidth|UIViewAutoresizingFlexibleHeight;
     textField.tag = tag;
     
     textField.text = text;
@@ -533,6 +536,8 @@
 
 + (UIButton *)createBtnRect:(CGRect)rect title:(NSString *)title font:(CGFloat)fontSize image:(NSString *)image tag:(NSInteger)tag type:(NSNumber *)type target:(id)target aSelector:(SEL)aSelector{
     UIButton * btn = [UIButton buttonWithType:UIButtonTypeCustom];
+    btn.autoresizingMask = UIViewAutoresizingFlexibleWidth|UIViewAutoresizingFlexibleHeight;
+
     btn.frame = rect;
     [btn setTitle:title forState:UIControlStateNormal];
     btn.titleLabel.font = [UIFont systemFontOfSize:fontSize];
@@ -673,15 +678,12 @@
 
 + (UIView *)createCustomSegmentWithTitleArr:(NSArray *)titleArr rect:(CGRect)rect tag:(NSInteger)tag selectedIndex:(NSInteger)selectedIndex font:(CGFloat)fontSize isBottom:(BOOL)isBottom
 {
-    
-//    self.selectedArr = titleArr;
-//    self.selectedIndex = selectedIndex;
-
     UIView * backgroudView = [[UIView alloc]initWithFrame:rect];
+    backgroudView.autoresizingMask = UIViewAutoresizingFlexibleWidth|UIViewAutoresizingFlexibleHeight;
     backgroudView.tag = tag;
     backgroudView.backgroundColor = UIColor.whiteColor;
     
-    CGFloat labWidth = kScreen_width/titleArr.count;
+    CGFloat labWidth = kScreenWidth/titleArr.count;
     CGSize lineViewSize = CGSizeMake(labWidth, 1.0);
     
     for (NSInteger i = 0; i < titleArr.count; i++) {
@@ -733,9 +735,7 @@
 
 }
 
-- (void)tapCustomSegmentView:(UITapGestureRecognizer *)recognizer
-{
-    
+- (void)tapCustomSegmentView:(UITapGestureRecognizer *)recognizer{
     UILabel * lab = (UILabel *)recognizer.view;
     UIView * backgroudView = lab.superview;
     UIView * lineView = [backgroudView viewWithTag:kTAG_VIEW];
@@ -760,7 +760,7 @@
     [UIView animateWithDuration:0.3 animations:^{
         
         CGRect frame = lineView.frame;
-        frame.origin.x = selectedIndex * (kScreen_width/self.selectedArr.count);
+        frame.origin.x = selectedIndex * (kScreenWidth/self.selectedArr.count);
         lineView.frame = frame;
         
     }];
@@ -776,10 +776,11 @@
 
     UIView * backgroudView = [[UIView alloc]initWithFrame:rect];
     
-    UIImageView * imgV = [[UIImageView alloc]initWithImage:[UIImage imageNamed:imgName]];
-    imgV.contentMode = UIViewContentModeScaleAspectFit;
-    imgV.userInteractionEnabled = YES;
-    imgV.tag = kTAG_IMGVIEW;
+    UIImageView * imgView = [[UIImageView alloc]initWithImage:[UIImage imageNamed:imgName]];
+    imgView.autoresizingMask = UIViewAutoresizingFlexibleWidth|UIViewAutoresizingFlexibleHeight;
+    imgView.contentMode = UIViewContentModeScaleAspectFit;
+    imgView.userInteractionEnabled = YES;
+    imgView.tag = kTAG_IMGVIEW;
     
     CGRect labRect = CGRectZero;
     switch (type.integerValue) {
@@ -789,26 +790,26 @@
 //            imgV.frame = CGRectMake(0, gapY, CGRectGetWidth(rect), imgHeight);
 //            labRect = CGRectMake(CGRectGetMinX(rect), CGRectGetMaxY(imgV.frame)+gapY, CGRectGetWidth(imgV.frame), kH_LABEL);
             labRect = CGRectMake(0, CGRectGetHeight(rect) - kH_LABEL - gapY, CGRectGetWidth(rect), kH_LABEL);
-            imgV.frame = CGRectMake(0, gapY, CGRectGetWidth(rect), imgHeight);
+            imgView.frame = CGRectMake(0, gapY, CGRectGetWidth(rect), imgHeight);
         }
             break;
         case 1://图左名右
         {
             CGFloat gapY = (CGRectGetHeight(rect) - imgHeight)/2.0;
-            imgV.frame = CGRectMake(kPadding, gapY, imgHeight, imgHeight);
-            labRect = CGRectMake(CGRectGetMaxX(imgV.frame) + kPadding, CGRectGetMinY(imgV.frame), CGRectGetWidth(rect) - CGRectGetMaxX(imgV.frame) - kPadding*2, CGRectGetHeight(imgV.frame));
+            imgView.frame = CGRectMake(kPadding, gapY, imgHeight, imgHeight);
+            labRect = CGRectMake(CGRectGetMaxX(imgView.frame) + kPadding, CGRectGetMinY(imgView.frame), CGRectGetWidth(rect) - CGRectGetMaxX(imgView.frame) - kPadding*2, CGRectGetHeight(imgView.frame));
         }
             break;
         case 2://图左名右
         {
-            imgV.frame = CGRectMake(0, 0, CGRectGetWidth(rect) * 1/3, CGRectGetHeight(rect));
-            labRect = CGRectMake(CGRectGetMaxX(imgV.frame), CGRectGetMinY(imgV.frame), CGRectGetWidth(rect) - CGRectGetWidth(imgV.frame), CGRectGetHeight(imgV.frame));
+            imgView.frame = CGRectMake(0, 0, CGRectGetWidth(rect) * 1/3, CGRectGetHeight(rect));
+            labRect = CGRectMake(CGRectGetMaxX(imgView.frame), CGRectGetMinY(imgView.frame), CGRectGetWidth(rect) - CGRectGetWidth(imgView.frame), CGRectGetHeight(imgView.frame));
         }
             break;
         case 3://leftMenu 安全保障//图上名下
         {
             labRect = CGRectMake(0, 35, CGRectGetWidth(rect), kH_LABEL);
-            imgV.frame = CGRectMake((CGRectGetWidth(rect) - 35)/2.0, 0, 35, 35);
+            imgView.frame = CGRectMake((CGRectGetWidth(rect) - 35)/2.0, 0, 35, 35);
             
         }
             break;
@@ -816,8 +817,8 @@
         {
             CGFloat YGap = (CGRectGetHeight(rect) - imgHeight)/2.0;
             CGFloat padding = 0;
-            imgV.frame = CGRectMake(YGap, YGap, imgHeight, imgHeight);
-            labRect = CGRectMake(CGRectGetMaxX(imgV.frame) + padding, CGRectGetMinY(imgV.frame), CGRectGetWidth(rect) - CGRectGetMaxX(imgV.frame) - CGRectGetMinX(imgV.frame) - padding , imgHeight);
+            imgView.frame = CGRectMake(YGap, YGap, imgHeight, imgHeight);
+            labRect = CGRectMake(CGRectGetMaxX(imgView.frame) + padding, CGRectGetMinY(imgView.frame), CGRectGetWidth(rect) - CGRectGetMaxX(imgView.frame) - CGRectGetMinX(imgView.frame) - padding , imgHeight);
             
         }
             break;
@@ -843,7 +844,7 @@
 //    backgroudView.layer.borderColor = UIColor.lineColor.CGColor;
 //    backgroudView.layer.borderWidth = kW_LayerBorder;
         
-    [backgroudView addSubview:imgV];
+    [backgroudView addSubview:imgView];
     [backgroudView addSubview:lab];
     
     [backgroudView getViewLayer];
@@ -854,18 +855,19 @@
 #pragma mark - - otherFuntions
 
 + (UISegmentedControl *)createSegmentRect:(CGRect)rect items:(NSArray *)items selectedIndex:(NSInteger)selectedIndex type:(NSNumber *)type{
-    UISegmentedControl *segmentCtrl = [[UISegmentedControl alloc] initWithItems:items];
-    segmentCtrl.frame = rect;
+    UISegmentedControl *view = [[UISegmentedControl alloc] initWithItems:items];
+    view.autoresizingMask = UIViewAutoresizingFlexibleWidth|UIViewAutoresizingFlexibleHeight;
+    view.frame = rect;
     
-    segmentCtrl.selectedSegmentIndex = selectedIndex < items.count ? selectedIndex : 0;
+    view.selectedSegmentIndex = selectedIndex < items.count ? selectedIndex : 0;
     switch (type.integerValue) {
         case 1:
         {
-            segmentCtrl.tintColor = UIColor.themeColor;
-            segmentCtrl.backgroundColor = UIColor.whiteColor;
+            view.tintColor = UIColor.themeColor;
+            view.backgroundColor = UIColor.whiteColor;
             
-            segmentCtrl.layer.borderWidth = 1;
-            segmentCtrl.layer.borderColor = UIColor.whiteColor.CGColor;
+            view.layer.borderWidth = 1;
+            view.layer.borderColor = UIColor.whiteColor.CGColor;
             
             NSDictionary * dict = @{
                                     NSForegroundColorAttributeName :   UIColor.blackColor,
@@ -873,15 +875,15 @@
                                     
                                     };
             
-            [segmentCtrl setTitleTextAttributes:dict forState:UIControlStateNormal];
-            [segmentCtrl setDividerImage:UIImageColor(UIColor.whiteColor) forLeftSegmentState:UIControlStateNormal rightSegmentState:UIControlStateNormal barMetrics:UIBarMetricsDefault];
+            [view setTitleTextAttributes:dict forState:UIControlStateNormal];
+            [view setDividerImage:UIImageColor(UIColor.whiteColor) forLeftSegmentState:UIControlStateNormal rightSegmentState:UIControlStateNormal barMetrics:UIBarMetricsDefault];
             
         }
             break;
         case 2:
         {
-            segmentCtrl.tintColor = UIColor.whiteColor;
-            segmentCtrl.backgroundColor = UIColor.whiteColor;
+            view.tintColor = UIColor.whiteColor;
+            view.backgroundColor = UIColor.whiteColor;
             
             NSDictionary *attDic_N = @{
                                        NSFontAttributeName:[UIFont boldSystemFontOfSize:15],
@@ -893,8 +895,8 @@
                                        NSForegroundColorAttributeName:UIColor.themeColor,
                                        };
             
-            [segmentCtrl setTitleTextAttributes:attDic_N forState:UIControlStateNormal];
-            [segmentCtrl setTitleTextAttributes:attDic_H forState:UIControlStateSelected];
+            [view setTitleTextAttributes:attDic_N forState:UIControlStateNormal];
+            [view setTitleTextAttributes:attDic_H forState:UIControlStateSelected];
             
         }
             break;
@@ -902,8 +904,8 @@
         {
             //背景透明,只有标题颜色
             // 去掉颜色,现在整个segment偶看不到,可以相应点击事件
-            segmentCtrl.tintColor = UIColor.clearColor;
-            segmentCtrl.backgroundColor = UIColor.lineColor;
+            view.tintColor = UIColor.clearColor;
+            view.backgroundColor = UIColor.lineColor;
             
             // 正常状态下
             NSDictionary * attDic_N = @{
@@ -918,25 +920,25 @@
                                         NSFontAttributeName : [UIFont boldSystemFontOfSize:18.0f],
                                         
                                         };
-            [segmentCtrl setTitleTextAttributes:attDic_N forState:UIControlStateNormal];
-            [segmentCtrl setTitleTextAttributes:attDic_H forState:UIControlStateSelected];
+            [view setTitleTextAttributes:attDic_N forState:UIControlStateNormal];
+            [view setTitleTextAttributes:attDic_H forState:UIControlStateSelected];
         }
             break;
         default:
         {
-            segmentCtrl.tintColor = UIColor.themeColor;
-            segmentCtrl.backgroundColor = UIColor.whiteColor;
+            view.tintColor = UIColor.themeColor;
+            view.backgroundColor = UIColor.whiteColor;
             
             NSDictionary * dict = @{
                                     NSFontAttributeName            :   [UIFont systemFontOfSize:15],
                                     
                                     };
             
-            [segmentCtrl setTitleTextAttributes:dict forState:UIControlStateNormal];
+            [view setTitleTextAttributes:dict forState:UIControlStateNormal];
         }
             break;
     }
-    return segmentCtrl;
+    return view;
 }
 
 + (UISlider *)createSliderRect:(CGRect)rect value:(CGFloat)value minValue:(CGFloat)minValue maxValue:(CGFloat)maxValue{
@@ -953,12 +955,13 @@
 }
 
 + (UISwitch *)createSwitchRect:(CGRect)rect isOn:(BOOL)isOn{
-    UISwitch *switchView = [[UISwitch alloc]initWithFrame:rect];
-    switchView.on = isOn;//设置初始为ON的一边
-    switchView.onTintColor = UIColor.themeColor;
-    switchView.tintColor = UIColor.whiteColor;
+    UISwitch *view = [[UISwitch alloc]initWithFrame:rect];
+    view.autoresizingMask = UIViewAutoresizingFlexibleWidth|UIViewAutoresizingFlexibleHeight;
+    view.on = isOn;//设置初始为ON的一边
+    view.onTintColor = UIColor.themeColor;
+    view.tintColor = UIColor.whiteColor;
     
-    return switchView;
+    return view;
 }
 
 

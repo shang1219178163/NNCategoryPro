@@ -13,8 +13,6 @@
 
 @implementation UICollectionViewCell (AddView)
 
-@dynamic label,labelSub,imgView;
-
 + (instancetype)viewWithCollectionView:(UICollectionView *)collectionView indexPath:(NSIndexPath *)indexPath{
     NSString * identifier = NSStringFromClass(self.class);
     UICollectionViewCell *view = [collectionView dequeueReusableCellWithReuseIdentifier:identifier forIndexPath:indexPath];
@@ -24,7 +22,6 @@
 
 + (instancetype)viewWithCollectionView:(UICollectionView *)collectionView indexPath:(NSIndexPath *)indexPath identifier:(NSString *)identifier{
     UICollectionViewCell *view = [collectionView dequeueReusableCellWithReuseIdentifier:identifier forIndexPath:indexPath];
-    
     return view;
 }
 
@@ -32,55 +29,67 @@
     UIImageView * view = objc_getAssociatedObject(self, _cmd);
     if (!view) {
         view = ({
-            UIImageView *imgView = [[UIImageView alloc] initWithFrame:CGRectZero];
-            imgView.userInteractionEnabled = YES;
-            imgView.contentMode = UIViewContentModeScaleAspectFit;
-            //            imgView.backgroundColor = UIColor.orangeColor;
-            imgView.tag = kTAG_IMGVIEW;
-            imgView;
+            UIImageView *view = [[UIImageView alloc] initWithFrame:CGRectZero];
+            view.autoresizingMask = UIViewAutoresizingFlexibleWidth|UIViewAutoresizingFlexibleHeight;
+            view.contentMode = UIViewContentModeScaleAspectFit;
+            view.userInteractionEnabled = YES;
+            view.tag = kTAG_IMGVIEW;
+            view;
         });
         objc_setAssociatedObject(self, _cmd, view, OBJC_ASSOCIATION_RETAIN_NONATOMIC);
-
     }
     return view;
 }
 
--(UILabel *)label{
-    UILabel * lab = objc_getAssociatedObject(self, _cmd);
-    if (!lab) {
-        lab = ({
-            UILabel * label = [[UILabel alloc] initWithFrame:CGRectZero];
-            label.tag = kTAG_LABEL;
-            label.font = [UIFont systemFontOfSize:17];
-            label.textAlignment = NSTextAlignmentLeft;
+- (void)setImgView:(UIImageView *)imgView{
+    objc_setAssociatedObject(self, @selector(imgView), imgView, OBJC_ASSOCIATION_RETAIN_NONATOMIC);
+}
 
-            label.numberOfLines = 0;
-            label.userInteractionEnabled = YES;
+-(UILabel *)label{
+    UILabel * view = objc_getAssociatedObject(self, _cmd);
+    if (!view) {
+        view = ({
+            UILabel * view = [[UILabel alloc] initWithFrame:CGRectZero];
+            view.autoresizingMask = UIViewAutoresizingFlexibleWidth|UIViewAutoresizingFlexibleHeight;
+            view.font = [UIFont systemFontOfSize:17];
+            view.textAlignment = NSTextAlignmentLeft;
+            view.numberOfLines = 0;
+            view.userInteractionEnabled = true;
             //        label.backgroundColor = UIColor.greenColor;
-            label;
+            view.tag = kTAG_LABEL;
+            view;
         });
-        objc_setAssociatedObject(self, _cmd, lab, OBJC_ASSOCIATION_RETAIN_NONATOMIC);
+        objc_setAssociatedObject(self, _cmd, view, OBJC_ASSOCIATION_RETAIN_NONATOMIC);
     }
-    return lab;
+    return view;
+}
+
+- (void)setLabel:(UILabel *)label{
+    objc_setAssociatedObject(self, @selector(label), label, OBJC_ASSOCIATION_RETAIN_NONATOMIC);
 }
 
 -(UILabel *)labelSub{
-    UILabel * lab = objc_getAssociatedObject(self, _cmd);
-    if (!lab) {
-        lab = ({
-            UILabel * label = [[UILabel alloc] initWithFrame:CGRectZero];
-            label.tag = kTAG_LABEL + 1;
-            label.font = [UIFont systemFontOfSize:17];
-            label.textAlignment = NSTextAlignmentLeft;
+    UILabel * view = objc_getAssociatedObject(self, _cmd);
+    if (!view) {
+        view = ({
+            UILabel * view = [[UILabel alloc] initWithFrame:CGRectZero];
+            view.autoresizingMask = UIViewAutoresizingFlexibleWidth|UIViewAutoresizingFlexibleHeight;
+            view.font = [UIFont systemFontOfSize:17];
+            view.textAlignment = NSTextAlignmentLeft;
 
-            label.numberOfLines = 0;
-            label.userInteractionEnabled = YES;
+            view.numberOfLines = 0;
+            view.userInteractionEnabled = YES;
             //        label.backgroundColor = UIColor.greenColor;
-            label;
+            view.tag = kTAG_LABEL + 1;
+            view;
         });
-        objc_setAssociatedObject(self, _cmd, lab, OBJC_ASSOCIATION_RETAIN_NONATOMIC);
+        objc_setAssociatedObject(self, _cmd, view, OBJC_ASSOCIATION_RETAIN_NONATOMIC);
     }
-    return lab;
+    return view;
+}
+
+- (void)setLabelSub:(UILabel *)labelSub{
+    objc_setAssociatedObject(self, @selector(labelSub), labelSub, OBJC_ASSOCIATION_RETAIN_NONATOMIC);
 }
 
 @end

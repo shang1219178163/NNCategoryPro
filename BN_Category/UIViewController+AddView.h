@@ -11,12 +11,9 @@
 @interface UIViewController (AddView)<UITableViewDataSource,UITableViewDelegate>
 
 @property (nonatomic, strong) UITableView *tableView;
-@property (nonatomic, strong) NSMutableArray * dataList;
-@property (nonatomic, assign) NSInteger pageIndex;
-
 @property (nonatomic, strong) UICollectionView *collectionView;
-@property (nonatomic, strong) NSDictionary *dictClass;
-
+@property (nonatomic, assign) NSInteger pageIndex;
+@property (nonatomic, strong) NSMutableArray * dataList;
 @property (nonatomic, strong) NSMutableDictionary * heightMdic;
 
 @end

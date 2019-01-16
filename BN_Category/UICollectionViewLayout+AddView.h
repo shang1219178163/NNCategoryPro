@@ -8,7 +8,6 @@
 
 #import <UIKit/UIKit.h>
 
-
 @interface UICollectionViewLayout (AddView)
 
 @property (nonatomic, assign) CGFloat minimumLineSpacing;
@@ -17,6 +16,8 @@
 @property (nonatomic, assign) CGSize headerReferenceSize;
 @property (nonatomic, assign) CGSize footerReferenceSize;
 @property (nonatomic, assign) UIEdgeInsets sectionInset;
+
++ (UICollectionViewFlowLayout *)createItemSize:(CGSize)itemSize spacing:(CGFloat)spacing headerSize:(CGSize)headerSize footerSize:(CGSize)footerSize;
 
 @end
 

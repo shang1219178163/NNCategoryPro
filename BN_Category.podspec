@@ -2,12 +2,9 @@
 Pod::Spec.new do |s|
 
   s.name         = "BN_Category"
-  s.version      = "1.8.4.6"
+  s.version      = "1.8.5"
   s.summary      = "分类-项目通用方法封装."
-
-  s.description  = <<-DESC
-                    项目封装的实现主体,主要通过分类实现
-                   DESC
+  s.description  = "项目封装的实现主体,主要通过分类实现"
 
    s.homepage     = "https://github.com/shang1219178163/BN_Category"
    # s.screenshots  = "www.example.com/screenshots_1.gif", "www.example.com/screenshots_2.gif"

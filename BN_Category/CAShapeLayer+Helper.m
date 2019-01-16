@@ -42,7 +42,9 @@
     return layer;
 }
 
-//虚线边框
+/**
+ 虚线边框
+ */
 +(CAShapeLayer *)layerLineDashWithSender:(CALayer *)sender strokeColor:(UIColor *)strokeColor lineWidth:(CGFloat)lineWidth  lineDashPattern:(NSArray<NSNumber *> *)lineDashPattern{
 
     CAShapeLayer *layer = CAShapeLayer.layer;

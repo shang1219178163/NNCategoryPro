@@ -12,6 +12,8 @@ FOUNDATION_EXPORT NSString * const UICollectionElementKindSectionItem ;
 
 @interface UICollectionView (Helper)
 
+@property (nonatomic, strong, class) UICollectionViewLayout * layoutDefault;
+
 @property (nonatomic, strong) NSArray * listClass;
 
 /**
@@ -37,5 +39,6 @@ FOUNDATION_EXPORT NSString * const UICollectionElementKindSectionItem ;
 - (void)bn_registerListClass:(NSArray *)listClass;
 - (void)bn_registerListClassReusable:(NSArray *)listClass kind:(NSString *)kind;
 
+- (UICollectionViewFlowLayout *)createItemHeight:(CGFloat)itemHeight spacing:(CGFloat)spacing headerHieght:(CGFloat)headerHieght footerHieght:(CGFloat)footerHieght;
 
 @end

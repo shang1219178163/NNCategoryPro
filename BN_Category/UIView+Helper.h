@@ -11,7 +11,7 @@
 #import "UIColor+Helper.h"
 #import "UIView+AddView.h"
 
-@class BN_TextField,BN_TextView;
+@class BN_TextField;
 
 typedef void(^BlockView)(UIView * view,id item, id obj);
 
@@ -100,7 +100,7 @@ typedef void(^BlockView)(UIView * view,id item, id obj);
 /**
  带提示的textView
  */
-+ (BN_TextView *)createTextViewRect:(CGRect)rect text:(NSString *)text placeholder:(NSString *)placeholder font:(CGFloat)fontSize textAlignment:(NSTextAlignment)textAlignment keyType:(UIKeyboardType)keyboardType;
++ (UITextView *)createTextViewRect:(CGRect)rect text:(NSString *)text placeholder:(NSString *)placeholder font:(CGFloat)fontSize textAlignment:(NSTextAlignment)textAlignment keyType:(UIKeyboardType)keyboardType;
 
 /**
  展示性质的textView,不提供编辑

@@ -15,9 +15,9 @@
 #import "NSBundle+Helper.h"
 #import "UIControl+Helper.h"
 #import "UIGestureRecognizer+Helper.h"
+#import "UITextView+Helper.h"
 
 #import "BN_TextField.h"
-#import "BN_TextView.h"
 
 @implementation UIView (Helper)
 
@@ -547,13 +547,13 @@
     return textField;
 }
 
-+ (BN_TextView *)createTextViewRect:(CGRect)rect text:(NSString *)text placeholder:(NSString *)placeholder font:(CGFloat)fontSize textAlignment:(NSTextAlignment)textAlignment keyType:(UIKeyboardType)keyboardType{
++ (UITextView *)createTextViewRect:(CGRect)rect text:(NSString *)text placeholder:(NSString *)placeholder font:(CGFloat)fontSize textAlignment:(NSTextAlignment)textAlignment keyType:(UIKeyboardType)keyboardType{
     
-    BN_TextView *textView = [[BN_TextView alloc] initWithFrame:rect];
+    UITextView *textView = [[UITextView alloc] initWithFrame:rect];
     
     textView.text = text;
-    textView.placeholder = placeholder;
-    textView.placeholderColor = UIColor.titleSubColor;
+    textView.placeHolderTextView.text = placeholder;
+    textView.placeHolderTextView.textColor = UIColor.titleSubColor;
 
     textView.font = [UIFont systemFontOfSize:fontSize];
     textView.textAlignment = NSTextAlignmentLeft;
@@ -937,7 +937,7 @@
         return imgView;
     }
     
-    CGSize size = [self sizeWithText:unitString font:@(kFZ_Third) width:kScreen_width];
+    CGSize size = [self sizeWithText:unitString font:@(kFZ_Third) width:kScreenWidth];
     UILabel * label = [UIView createLabelRect:CGRectMake(0, 0, size.width+2, 25) text:unitString textColor:UIColor.titleColor tag:kTAG_LABEL type:@2 font:kFZ_Third backgroudColor:UIColor.clearColor alignment:NSTextAlignmentCenter];
     return label;
     
