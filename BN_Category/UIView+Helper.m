@@ -21,6 +21,46 @@
 
 @implementation UIView (Helper)
 
+- (CGFloat)originX{
+    return CGRectGetMinX(self.frame);
+}
+
+- (void)setOriginX:(CGFloat)originX{
+    CGRect rect = self.frame;
+    rect.origin.x = originX;
+    self.frame = rect;
+}
+
+-(CGFloat)originY{
+    return CGRectGetMinY(self.frame);
+}
+
+- (void)setOriginY:(CGFloat)originY{
+    CGRect rect = self.frame;
+    rect.origin.y = originY;
+    self.frame = rect;
+}
+
+- (CGFloat)sizeWidth{
+    return CGRectGetWidth(self.frame);
+}
+
+- (void)setSizeWidth:(CGFloat)sizeWidth{
+    CGRect rect = self.frame;
+    rect.size.width = sizeWidth;
+    self.frame = rect;
+}
+
+- (CGFloat)sizeHeight{
+    return CGRectGetHeight(self.frame);
+}
+
+-(void)setSizeHeight:(CGFloat)sizeHeight{
+    CGRect rect = self.frame;
+    rect.size.height = sizeHeight;
+    self.frame = rect;
+}
+
 - (CGPoint)origin{
     return self.frame.origin;
 }
