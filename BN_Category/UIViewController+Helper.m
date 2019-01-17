@@ -480,26 +480,26 @@
 
 #pragma mark -------------alert升级方法-------------------
 - (void)showAlertTitle:(nullable NSString *)title msg:(nullable NSString *)msg{
-    [self showAlertTitle:title placeholderList:nil msg:msg actionTitleList:@[kActionTitle_Know] handler:nil];
+    [self showAlertTitle:title placeholders:nil msg:msg actionTitles:@[kActionTitle_Know] handler:nil];
     
 }
 
 - (void)showAlertTitle:(nullable NSString *)title msg:(nullable NSString *)msg handler:(void(^)(UIAlertController * _Nonnull alertVC, UIAlertAction * _Nullable action))handler{
-    [self showAlertTitle:title placeholderList:nil msg:msg actionTitleList:@[kActionTitle_Cancell,kActionTitle_Sure] handler:handler];
+    [self showAlertTitle:title placeholders:nil msg:msg actionTitles:@[kActionTitle_Cancell,kActionTitle_Sure] handler:handler];
     
 }
 
-- (void)showAlertTitle:(nullable NSString *)title msg:(nullable NSString *)msg actionTitleList:(NSArray *_Nonnull)actionTitleList handler:(void(^)(UIAlertController * _Nonnull alertVC, UIAlertAction * _Nullable action))handler{
-    [self showAlertTitle:title placeholderList:nil msg:msg actionTitleList:actionTitleList handler:handler];
+- (void)showAlertTitle:(nullable NSString *)title msg:(nullable NSString *)msg actionTitles:(NSArray *_Nonnull)actionTitleList handler:(void(^)(UIAlertController * _Nonnull alertVC, UIAlertAction * _Nullable action))handler{
+    [self showAlertTitle:title placeholders:nil msg:msg actionTitles:actionTitleList handler:handler];
     
 }
 
-- (void)showAlertTitle:(nullable NSString *)title placeholderList:(NSArray *)placeholderList msg:(NSString *)msg actionTitleList:(NSArray *_Nonnull)actionTitleList handler:(void(^)(UIAlertController * _Nonnull alertVC, UIAlertAction * _Nullable action))handler{
+- (void)showAlertTitle:(nullable NSString *)title placeholders:(NSArray *)placeholders msg:(NSString *)msg actionTitles:(NSArray *_Nonnull)actionTitles handler:(void(^)(UIAlertController * _Nonnull alertVC, UIAlertAction * _Nullable action))handler{
 
     UIWindow * keyWindow = UIApplication.sharedApplication.delegate.window;
     
     UIAlertController * alertController = [UIAlertController alertControllerWithTitle:title message:msg preferredStyle:UIAlertControllerStyleAlert];
-    for (NSString * placeholder in placeholderList) {
+    for (NSString * placeholder in placeholders) {
         [alertController addTextFieldWithConfigurationHandler:^(UITextField * _Nonnull textField) {
             textField.placeholder = placeholder;
             textField.textAlignment = NSTextAlignmentCenter;
@@ -507,59 +507,24 @@
         }];
     }
     
-    
-    switch (actionTitleList.count) {
-        case 0:
-        {
-            [keyWindow.rootViewController presentViewController:alertController animated:YES completion:^{
-                
-                dispatch_after(dispatch_time(DISPATCH_TIME_NOW, (int64_t)(kAnimDuration_Toast * NSEC_PER_SEC)), dispatch_get_main_queue(), ^{
-                    [keyWindow.rootViewController dismissViewControllerAnimated:YES completion:nil];
-                });
-                
-            }];
-        }
-            break;
-        case 1:
-        {
-            [alertController addAction:[UIAlertAction actionWithTitle:[actionTitleList firstObject]
-                                                                style:UIAlertActionStyleDefault
-                                                              handler:^(UIAlertAction *action){
-                                                                  if (handler) handler(alertController,action);
-
-                                                              }]];
-            [keyWindow.rootViewController presentViewController:alertController animated:YES completion:nil];
+    if (actionTitles.count == 0) {
+        [keyWindow.rootViewController presentViewController:alertController animated:YES completion:^{
+            dispatch_after(dispatch_time(DISPATCH_TIME_NOW, (int64_t)(kAnimDuration_Toast * NSEC_PER_SEC)), dispatch_get_main_queue(), ^{
+                [alertController dismissViewControllerAnimated:true completion:nil];
+            });
             
-        }
-            break;
-        case 2:
-        {
-            [alertController addAction:[UIAlertAction actionWithTitle:[actionTitleList firstObject] style:UIAlertActionStyleDestructive handler:^(UIAlertAction * _Nonnull action) {
-                if (handler) handler(alertController,action);
-
-            }]];
-            
-            [alertController addAction:[UIAlertAction actionWithTitle:[actionTitleList lastObject] style:UIAlertActionStyleDefault handler:^(UIAlertAction * _Nonnull action) {
-                if (handler) handler(alertController,action);
-
-            }]];
-            [keyWindow.rootViewController presentViewController:alertController animated:YES completion:nil];
-            
-        }
-            break;
-        default:
-        {
-            for (NSInteger i = 0; i < actionTitleList.count; i++) {
-                [alertController addAction:[UIAlertAction actionWithTitle:actionTitleList[i] style:UIAlertActionStyleDefault handler:^(UIAlertAction * _Nonnull action) {
-                    if (handler) handler(alertController,action);
-
-                }]];
-            }
-            [keyWindow.rootViewController presentViewController:alertController animated:YES completion:nil];
-
-        }
-            break;
+        }];
+        return;
     }
+    
+    for (NSString *title in actionTitles) {
+        UIAlertActionStyle style = [title isEqualToString:kActionTitle_Cancell] == true? UIAlertActionStyleDestructive : UIAlertActionStyleDefault;
+        [alertController addAction:[UIAlertAction actionWithTitle:title style:style handler:^(UIAlertAction * _Nonnull action) {
+            if (handler) handler(alertController,action);
+            
+        }]];
+    }
+    [keyWindow.rootViewController presentViewController:alertController animated:YES completion:nil];
 }
 
 
@@ -611,7 +576,7 @@
 - (void)callPhone:(NSString *)phoneNumber{
     
     NSArray * titleList = @[@"取消",@"呼叫"];
-    [self showAlertTitle:nil msg:phoneNumber actionTitleList:titleList handler:^(UIAlertController * _Nonnull alertController, UIAlertAction * _Nullable action) {
+    [self showAlertTitle:nil msg:phoneNumber actionTitles:titleList handler:^(UIAlertController * _Nonnull alertController, UIAlertAction * _Nullable action) {
         if ([action.title isEqualToString:[titleList lastObject]]) {
             
             dispatch_async(dispatch_get_global_queue(0, 0), ^{

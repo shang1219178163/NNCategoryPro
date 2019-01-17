@@ -545,6 +545,21 @@
     return  NO;
 }
 
+/**
+ 字符串比大小
+ */
+- (BOOL)isCompare:(NSString *)string{
+    if ([self isEqualToString:@""]) {
+        return false;
+    }
+    
+    NSString * str = self;
+    if ([self containsString:@"."]) {
+        str = [str stringByReplacingOccurrencesOfString:@"." withString:@""];
+    }
+    return str.integerValue > string.integerValue;
+}
+
 - (void)copyToPasteboard:(BOOL)hiddenTips{
     NSAssert([self isKindOfClass:[NSString class]] | [self isKindOfClass:[NSAttributedString class]], @"目前仅支持NSString,NSAttributedString");
     
@@ -614,7 +629,7 @@
     NSMutableString *str = [[NSMutableString alloc]initWithFormat:@"tel:%@",phoneNum];
     
     __block  BOOL isSuccess = NO;
-    [UIApplication.rootController showAlertTitle:nil msg:phoneNum actionTitleList:@[kActionTitle_Cancell,kActionTitle_Call] handler:^(UIAlertController * _Nonnull alertVC, UIAlertAction * _Nullable action) {
+    [UIApplication.rootController showAlertTitle:nil msg:phoneNum actionTitles:@[kActionTitle_Cancell,kActionTitle_Call] handler:^(UIAlertController * _Nonnull alertVC, UIAlertAction * _Nullable action) {
         if ([action.title isEqualToString:kActionTitle_Call]) {
             isSuccess = [UIApplication.sharedApplication openURL:[NSURL URLWithString:str]];
             

@@ -102,12 +102,12 @@ NSString * const UICollectionElementKindSectionItem = @"UICollectionElementKindS
 /**
  默认布局配置(自上而下,自左而右)
  */
-- (UICollectionViewFlowLayout *)createItemHeight:(CGFloat)itemHeight spacing:(CGFloat)spacing headerHieght:(CGFloat)headerHieght footerHieght:(CGFloat)footerHieght{
+- (UICollectionViewFlowLayout *)createItemHeight:(CGFloat)itemHeight spacing:(CGFloat)spacing headerHeight:(CGFloat)headerHeight footerHeight:(CGFloat)footerHeight{
     
     CGFloat width = CGRectGetWidth(self.bounds);
     CGSize itemSize = CGSizeMake((width - 5*spacing)/4.0, itemHeight);
-    CGSize headerSize = CGSizeMake(width, headerHieght);
-    CGSize footerSize = CGSizeMake(width, footerHieght);
+    CGSize headerSize = CGSizeMake(width, headerHeight);
+    CGSize footerSize = CGSizeMake(width, footerHeight);
     UICollectionViewFlowLayout *layout = [UICollectionViewLayout createItemSize:itemSize spacing:spacing headerSize:headerSize footerSize:footerSize];
     return layout;
 }

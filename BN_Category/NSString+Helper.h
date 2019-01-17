@@ -155,6 +155,8 @@
 #pragma mark - - other
 - (BOOL)isBeyondWithLow:(NSString *)low high:(NSString *)high;
 
+- (BOOL)isCompare:(NSString *)string;
+
 - (void)copyToPasteboard:(BOOL)hiddenTips;
 
 - (void)copyToPasteboard;

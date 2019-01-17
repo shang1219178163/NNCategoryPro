@@ -20,8 +20,6 @@
 
 @implementation UITableViewCell (AddView)
 
-//@dynamic labelRight,labelLeft,labelLeftMark,labelLeftSub,labelLeftSubMark,imgViewLeft,imgViewRight,btn,textField,textView,radioView;
-
 +(instancetype)cellWithTableView:(UITableView *)tableView identifier:(NSString *)identifier{
     UITableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:identifier];
     if(!cell){
@@ -252,6 +250,35 @@
     objc_setAssociatedObject(self, @selector(btn), btn, OBJC_ASSOCIATION_RETAIN_NONATOMIC);
 }
 
+-(UIButton *)radioView{
+    id view =  objc_getAssociatedObject(self, _cmd);
+    if (!view) {
+        view = ({
+            UIButton * view = [UIButton buttonWithType:UIButtonTypeCustom];
+            //            [view setTitle:@"按钮标题" forState:UIControlStateNormal];
+            view.titleLabel.font = [UIFont systemFontOfSize:kFZ_Second];
+            view.titleLabel.adjustsFontSizeToFitWidth = YES;
+            view.imageView.contentMode = UIViewContentModeScaleAspectFit;
+            view.tag = kTAG_BTN;
+            view;
+        });
+        
+        [view setBackgroundImage:UIImageColor(UIColor.redColor) forState:UIControlStateNormal];
+        [view setBackgroundImage:UIImageColor(UIColor.lightGrayColor) forState:UIControlStateSelected];
+        
+        [view setBackgroundImage:UIImageNamed(kIMG_selected_NO) forState:UIControlStateNormal];
+        [view setBackgroundImage:UIImageNamed(kIMG_selected_YES) forState:UIControlStateSelected];
+        
+        objc_setAssociatedObject(self, _cmd, view, OBJC_ASSOCIATION_RETAIN_NONATOMIC);
+
+    }
+    return view;
+}
+
+- (void)setRadioView:(UIButton *)radioView{
+    objc_setAssociatedObject(self, @selector(radioView), radioView, OBJC_ASSOCIATION_RETAIN_NONATOMIC);
+}
+
 -(BN_TextField *)textField{
     BN_TextField * view = objc_getAssociatedObject(self, _cmd);
     if (!view) {
@@ -295,26 +322,6 @@
 
 - (void)setTextView:(UITextView *)textView{
     objc_setAssociatedObject(self, @selector(textView), textView, OBJC_ASSOCIATION_RETAIN_NONATOMIC);
-}
-
--(BN_RadioView *)radioView{
-    BN_RadioView * view = objc_getAssociatedObject(self, _cmd);
-    if (!view) {
-        NSDictionary * dic = @{
-                               kRadio_imageN    :   kIMG_selected_NO,
-                               kRadio_imageH    :   kIMG_selected_YES,
-                               };
-        
-        view = [[BN_RadioView alloc]initWithFrame:CGRectZero attDict:dic isSelected:NO];
-        view.tag  = kTAG_VIEW_RADIO;
-        objc_setAssociatedObject(self, _cmd, view, OBJC_ASSOCIATION_RETAIN_NONATOMIC);
-        
-    }
-    return view;
-}
-
-- (void)setRadioView:(BN_RadioView *)radioView{
-    objc_setAssociatedObject(self, @selector(radioView), radioView, OBJC_ASSOCIATION_RETAIN_NONATOMIC);
 }
 
 //-(UITextField *)textField{

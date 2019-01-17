@@ -97,13 +97,13 @@ typedef void(^BlockAlertController)(UIAlertController * _Nonnull alertController
 /**
  系统弹窗__按钮自定义(actionTitleList传入按钮标题)
  */
-- (void)showAlertTitle:(nullable NSString *)title msg:(nullable NSString *)msg actionTitleList:(NSArray *_Nonnull)actionTitleList handler:(void(^_Nullable)(UIAlertController * _Nonnull alertVC, UIAlertAction * _Nullable action))handler;
+- (void)showAlertTitle:(nullable NSString *)title msg:(nullable NSString *)msg actionTitles:(NSArray *_Nonnull)actionTitles handler:(void(^_Nullable)(UIAlertController * _Nonnull alertVC, UIAlertAction * _Nullable action))handler;
 
 /**
  弹窗源方法
  placeholderList或者 msg  其中一个必须为nil
  */
-- (void)showAlertTitle:(nullable NSString *)title placeholderList:(NSArray *_Nullable)placeholderList msg:(NSString *_Nullable)msg actionTitleList:(NSArray *_Nonnull)actionTitleList handler:(void(^_Nullable)(UIAlertController * _Nonnull alertVC, UIAlertAction * _Nullable action))handler;
+- (void)showAlertTitle:(nullable NSString *)title placeholders:(NSArray *_Nullable)placeholders msg:(NSString *_Nullable)msg actionTitles:(NSArray *_Nonnull)actionTitles handler:(void(^_Nullable)(UIAlertController * _Nonnull alertVC, UIAlertAction * _Nullable action))handler;
 
 /**
  系统Sheet弹窗__按钮默认(取消按钮)

@@ -565,7 +565,7 @@ static NSDictionary *_dictPrivacy = nil;
                     // AppStore版本号大于当前版本号，强制更新
                     if ([appStoreVersion compare:currentVersion options:NSNumericSearch] == NSOrderedDescending) {
                         // 弹窗 更新
-                        [UIApplication.rootController showAlertTitle:versionInfo msg:releaseNotes actionTitleList:@[kActionTitle_Call,kActionTitle_Update] handler:^(UIAlertController * _Nonnull alertVC, UIAlertAction * _Nullable action) {
+                        [UIApplication.rootController showAlertTitle:versionInfo msg:releaseNotes actionTitles:@[kActionTitle_Call,kActionTitle_Update] handler:^(UIAlertController * _Nonnull alertVC, UIAlertAction * _Nullable action) {
                             isUpdate = [action.title isEqualToString:kActionTitle_Update];
                             if (isUpdate) {
                                 // 升级去
