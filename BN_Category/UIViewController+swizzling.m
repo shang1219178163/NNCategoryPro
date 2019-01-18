@@ -43,14 +43,14 @@
 - (void)swz_viewWillAppear:(BOOL)animated{
     [self swz_viewWillAppear:animated];
     
-    [self eventGather:YES];
+//    [self eventGather:YES];
 
 }
 
 - (void)swz_viewDidDisappear:(BOOL)animated{
     [self swz_viewDidDisappear:animated];
     
-    [self eventGather:NO];
+//    [self eventGather:NO];
     
 }
 
