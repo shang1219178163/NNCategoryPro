@@ -56,19 +56,19 @@ typedef void(^BlockView)(UIView * view,id item, id obj);
 - (UIView *)addCornersAll;
 
 
-- (UITapGestureRecognizer *)addGestureTap:(void(^)(id sender))block;
+- (UITapGestureRecognizer *)addGestureTap:(void(^)(UIGestureRecognizer * sender))block;
 
-- (UILongPressGestureRecognizer *)addGestureLongPress:(void(^)(id sender))block forDuration:(NSTimeInterval)minimumPressDuration;
+- (UILongPressGestureRecognizer *)addGestureLongPress:(void(^)(UIGestureRecognizer * sender))block forDuration:(NSTimeInterval)minimumPressDuration;
 
-- (UIPanGestureRecognizer *)addGesturePan:(void(^)(id sender))block;
+- (UIPanGestureRecognizer *)addGesturePan:(void(^)(UIGestureRecognizer * sender))block;
 
-- (UIScreenEdgePanGestureRecognizer *)addGestureEdgPan:(void(^)(id sender))block forEdges:(UIRectEdge)edges;
+- (UIScreenEdgePanGestureRecognizer *)addGestureEdgPan:(void(^)(UIGestureRecognizer * sender))block forEdges:(UIRectEdge)edges;
 
-- (UISwipeGestureRecognizer *)addGestureSwipe:(void(^)(id sender))block forDirection:(UISwipeGestureRecognizerDirection)direction;
+- (UISwipeGestureRecognizer *)addGestureSwipe:(void(^)(UIGestureRecognizer * sender))block forDirection:(UISwipeGestureRecognizerDirection)direction;
 
-- (UIPinchGestureRecognizer *)addGesturePinch:(void(^)(id sender))block;
+- (UIPinchGestureRecognizer *)addGesturePinch:(void(^)(UIGestureRecognizer * sender))block;
 
-- (UIRotationGestureRecognizer *)addGestureRotation:(void(^)(id sender))block;
+- (UIRotationGestureRecognizer *)addGestureRotation:(void(^)(UIGestureRecognizer * sender))block;
 
 - (void)addActionHandler:(void(^)(id obj, id item, NSInteger idx))handler;
 

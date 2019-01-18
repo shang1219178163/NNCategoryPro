@@ -171,7 +171,7 @@
 /**
  手势 - 单指点击
  */
-- (UITapGestureRecognizer *)addGestureTap:(void(^)(id sender))block{
+- (UITapGestureRecognizer *)addGestureTap:(void(^)(UIGestureRecognizer * sender))block{
     NSString *funcAbount = NSStringFromSelector(_cmd);
     NSString *runtimeKey = RuntimeKeyFromParams(self, funcAbount);
     
@@ -196,7 +196,7 @@
 /**
  手势 - 长按
  */
-- (UILongPressGestureRecognizer *)addGestureLongPress:(void(^)(id sender))block forDuration:(NSTimeInterval)minimumPressDuration{
+- (UILongPressGestureRecognizer *)addGestureLongPress:(void(^)(UIGestureRecognizer * sender))block forDuration:(NSTimeInterval)minimumPressDuration{
     NSString *funcAbount = [NSStringFromSelector(_cmd) stringByAppendingFormat:@",%@",@(minimumPressDuration)];
     NSString *runtimeKey = RuntimeKeyFromParams(self, funcAbount);
 
@@ -217,7 +217,7 @@
 /**
  手势 - 拖动
  */
-- (UIPanGestureRecognizer *)addGesturePan:(void(^)(id sender))block{
+- (UIPanGestureRecognizer *)addGesturePan:(void(^)(UIGestureRecognizer * sender))block{
     NSString *funcAbount = NSStringFromSelector(_cmd);
     NSString *runtimeKey = RuntimeKeyFromParams(self, funcAbount);
 
@@ -239,7 +239,7 @@
 /**
  手势 - 边缘拖动
  */
-- (UIScreenEdgePanGestureRecognizer *)addGestureEdgPan:(void(^)(id sender))block forEdges:(UIRectEdge)edges{
+- (UIScreenEdgePanGestureRecognizer *)addGestureEdgPan:(void(^)(UIGestureRecognizer * sender))block forEdges:(UIRectEdge)edges{
     NSString *funcAbount = [NSStringFromSelector(_cmd) stringByAppendingFormat:@",%@",@(edges)];
     NSString *runtimeKey = RuntimeKeyFromParams(self, funcAbount);
 
@@ -259,7 +259,7 @@
 /**
  手势 - 轻扫
  */
-- (UISwipeGestureRecognizer *)addGestureSwipe:(void(^)(id sender))block forDirection:(UISwipeGestureRecognizerDirection)direction{
+- (UISwipeGestureRecognizer *)addGestureSwipe:(void(^)(UIGestureRecognizer * sender))block forDirection:(UISwipeGestureRecognizerDirection)direction{
     NSString *funcAbount = [NSStringFromSelector(_cmd) stringByAppendingFormat:@",%@",@(direction)];
     NSString *runtimeKey = RuntimeKeyFromParams(self, funcAbount);
 
@@ -280,7 +280,7 @@
 /**
  手势 - 捏合
  */
-- (UIPinchGestureRecognizer *)addGesturePinch:(void(^)(id sender))block{
+- (UIPinchGestureRecognizer *)addGesturePinch:(void(^)(UIGestureRecognizer * sender))block{
     NSString *funcAbount = NSStringFromSelector(_cmd);
     NSString *runtimeKey = RuntimeKeyFromParams(self, funcAbount);
 
@@ -301,7 +301,7 @@
 /**
  手势 - 旋转
  */
-- (UIRotationGestureRecognizer *)addGestureRotation:(void(^)(id sender))block{
+- (UIRotationGestureRecognizer *)addGestureRotation:(void(^)(UIGestureRecognizer * sender))block{
     NSString *funcAbount = NSStringFromSelector(_cmd);
     NSString *runtimeKey = RuntimeKeyFromParams(self, funcAbount);
 
