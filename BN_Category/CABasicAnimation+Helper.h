@@ -44,4 +44,6 @@ FOUNDATION_EXPORT NSString * const kTransformStrokeEnd ;//背景
 
 +(CABasicAnimation *)animKeyPath:(NSString *)keyPath duration:(CFTimeInterval)duration fromValue:(id)fromValue toValue:(id)toValue autoreverses:(BOOL)autoreverses repeatCount:(float)repeatCount;
 
++(CABasicAnimation *)animKeyPath:(NSString *)keyPath duration:(CFTimeInterval)duration fromValue:(id)fromValue toValue:(id)toValue;
+
 @end

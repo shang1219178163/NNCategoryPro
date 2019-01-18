@@ -84,5 +84,15 @@ static NSArray *_functionNames = nil;
 }
 
 
+/**
+ 一次性动画
+ */
++(CABasicAnimation *)animKeyPath:(NSString *)keyPath duration:(CFTimeInterval)duration fromValue:(id)fromValue toValue:(id)toValue{
+    CABasicAnimation *anim = [CABasicAnimation animKeyPath:keyPath duration:duration autoreverses:false repeatCount:1 fillMode:kCAFillModeForwards removedOnCompletion:false functionName:CABasicAnimation.functionNames.firstObject];
+    //默认是顺时针效果，若将fromValue和toValue的值互换，则为逆时针效果
+    anim.fromValue = fromValue;
+    anim.toValue = toValue;
+    return anim;
+}
 
 @end

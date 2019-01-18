@@ -13,6 +13,12 @@ NS_ASSUME_NONNULL_BEGIN
 
 @property (nonatomic, strong) NSString *funcName;
 
+- (CGRect)cirlceRectBigCircle:(BOOL)bigCircle;
+
+- (UIBezierPath *)pathBigCircle:(BOOL)bigCircle;
+
+- (CAShapeLayer *)layerBigCircle:(BOOL)bigCircle;
+
 @end
 
 NS_ASSUME_NONNULL_END

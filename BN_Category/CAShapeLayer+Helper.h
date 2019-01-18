@@ -17,4 +17,6 @@
 
 +(CAShapeLayer *)layerLineDashWithSender:(CALayer *)sender strokeColor:(UIColor *)strokeColor lineWidth:(CGFloat)lineWidth  lineDashPattern:(NSArray<NSNumber *> *)lineDashPattern;
 
++(CAShapeLayer *)layerPath:(UIBezierPath *)path;
+
 @end
