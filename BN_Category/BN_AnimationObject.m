@@ -49,7 +49,7 @@
     //跳转到新视图
     if (self.type == UINavigationControllerOperationPush) {
         //1.把 页面二 加到内容页
-        [[transitionContext containerView] addSubview:toVC.view];
+        [transitionContext.containerView addSubview:toVC.view];
         //设置maskLayer
         CAShapeLayer *maskLayer = [CAShapeLayer layer];//将它的 path 指定为最终的 path 来避免在动画完成后会回弹
         maskLayer.path = bigCircleBP.CGPath;
@@ -66,8 +66,8 @@
     //返回
     else{
         //1.把 页面一 加入到视图 同时挪到当前视图后面
-        [[transitionContext containerView] addSubview:toVC.view];
-        [[transitionContext containerView] sendSubviewToBack:toVC.view];
+        [transitionContext.containerView addSubview:toVC.view];
+        [transitionContext.containerView sendSubviewToBack:toVC.view];
         //设置maskLayer
         CAShapeLayer *maskLayer = [CAShapeLayer layer];
         maskLayer.path = smallCircleBP.CGPath;//将它的 path 指定为最终的 path 来避免在动画完成后会回弹
@@ -90,4 +90,5 @@
     [self.transitionContext viewControllerForKey:UITransitionContextFromViewControllerKey].view.layer.mask = nil;
     [self.transitionContext viewControllerForKey:UITransitionContextToViewControllerKey].view.layer.mask = nil;
 }
+
 @end

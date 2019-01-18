@@ -28,8 +28,8 @@
 
     if (self.viewControllers.count > 0) {
         viewController.hidesBottomBarWhenPushed = YES;
-        
     }
+    self.navigationController.delegate = nil;
     [self swz_PushViewController:viewController animated:animated];
 }
 
