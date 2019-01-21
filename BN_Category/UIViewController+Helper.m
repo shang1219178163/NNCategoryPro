@@ -15,6 +15,7 @@
 
 #import "NSObject+Helper.h"
 #import "UIApplication+Helper.h"
+#import "UIAlertController+Helper.h"
 
 #import "UIView+Helper.h"
 #import "UIButton+Helper.h"
@@ -287,7 +288,6 @@
 - (NSIndexPath *)indexPathByClickView:(UIView *)view tableView:(UITableView *)tableView{
     UITableViewCell * cell = [self cellByClickView:view];
     NSIndexPath * indexPath = [tableView indexPathForRowAtPoint:cell.center];
-    
 //    DDLog(@"%@",indexPath);
     return indexPath;
 }
@@ -342,17 +342,14 @@
 
 - (void)goController:(NSString *)contollerName title:(NSString *)title{
     [self goController:contollerName title:title navController:self.navigationController obj:nil objOne:nil];
-    
 }
 
 - (void)goController:(NSString *)contollerName title:(NSString *)title obj:(id)obj{
     [self goController:contollerName title:title navController:self.navigationController obj:obj objOne:nil];
-    
 }
 
 - (void)goController:(NSString *)contollerName title:(NSString *)title obj:(id)obj objOne:(id)objOne{
     [self goController:contollerName title:title navController:self.navigationController obj:obj objOne:objOne];
-    
 }
 
 - (void)presentController:(NSString *_Nonnull)contollerName title:(NSString *)title{
@@ -361,7 +358,6 @@
 
 - (void)presentController:(NSString *_Nonnull)contollerName title:(NSString *)title obj:(id)obj{
     [self presentController:contollerName title:title obj:obj objOne:nil];
-
 }
 
 - (void)presentController:(NSString *_Nonnull)contollerName title:(NSString *)title obj:(id)obj objOne:(id)objOne{
@@ -378,11 +374,9 @@
 }
 
 - (UIViewController *)getController:(NSString *)contollerName navController:(UINavigationController *)navController{
-    
     if (!navController) {
 //        navController = (UINavigationController *)[UIApplication.sharedApplication.keyWindow.rootViewController];
         navController = self.currentVC.navigationController;
-
     }
     
     UIViewController * viewController  = [NSClassFromString(contollerName) new];
@@ -394,7 +388,6 @@
 
 - (UIViewController *)getController:(NSString *)contollerName{
     UIViewController * viewController = [self getController:contollerName navController:self.currentVC.navigationController];
-  
     return viewController;
 }
 
@@ -479,80 +472,22 @@
 }
 
 #pragma mark -------------alert升级方法-------------------
-- (void)showAlertTitle:(nullable NSString *)title msg:(nullable NSString *)msg{
-    [self showAlertTitle:title placeholders:nil msg:msg actionTitles:@[kActionTitle_Know] handler:nil];
-    
+- (void)showAlertTitle:(NSString *_Nullable)title msg:(NSString *_Nullable)msg{
+    [UIAlertController showAlertTitle:title msg:msg placeholders:nil actionTitles:nil handler:nil];
 }
 
-- (void)showAlertTitle:(nullable NSString *)title msg:(nullable NSString *)msg handler:(void(^)(UIAlertController * _Nonnull alertVC, UIAlertAction * _Nullable action))handler{
-    [self showAlertTitle:title placeholders:nil msg:msg actionTitles:@[kActionTitle_Cancell,kActionTitle_Sure] handler:handler];
-    
+- (void)showAlertTitle:(NSString *_Nullable)title msg:(NSString *_Nullable)msg handler:(void(^)(UIAlertController * _Nonnull alertVC, UIAlertAction * _Nullable action))handler{
+    [UIAlertController showAlertTitle:title msg:msg placeholders:nil actionTitles:@[kActionTitle_Cancell,kActionTitle_Sure] handler:handler];
 }
 
-- (void)showAlertTitle:(nullable NSString *)title msg:(nullable NSString *)msg actionTitles:(NSArray *_Nonnull)actionTitleList handler:(void(^)(UIAlertController * _Nonnull alertVC, UIAlertAction * _Nullable action))handler{
-    [self showAlertTitle:title placeholders:nil msg:msg actionTitles:actionTitleList handler:handler];
-    
+- (void)showAlertTitle:(NSString *_Nullable)title msg:(NSString *_Nullable)msg actionTitles:(NSArray *_Nonnull)actionTitleList handler:(void(^)(UIAlertController * _Nonnull alertVC, UIAlertAction * _Nullable action))handler{
+    [UIAlertController showAlertTitle:title msg:msg placeholders:nil actionTitles:actionTitleList handler:handler];
+
 }
 
-- (void)showAlertTitle:(nullable NSString *)title placeholders:(NSArray *)placeholders msg:(NSString *)msg actionTitles:(NSArray *_Nonnull)actionTitles handler:(void(^)(UIAlertController * _Nonnull alertVC, UIAlertAction * _Nullable action))handler{
-
-    UIWindow * keyWindow = UIApplication.sharedApplication.delegate.window;
-    
-    UIAlertController * alertController = [UIAlertController alertControllerWithTitle:title message:msg preferredStyle:UIAlertControllerStyleAlert];
-    for (NSString * placeholder in placeholders) {
-        [alertController addTextFieldWithConfigurationHandler:^(UITextField * _Nonnull textField) {
-            textField.placeholder = placeholder;
-            textField.textAlignment = NSTextAlignmentCenter;
-            
-        }];
-    }
-    
-    if (actionTitles.count == 0) {
-        [keyWindow.rootViewController presentViewController:alertController animated:YES completion:^{
-            dispatch_after(dispatch_time(DISPATCH_TIME_NOW, (int64_t)(kAnimDuration_Toast * NSEC_PER_SEC)), dispatch_get_main_queue(), ^{
-                [alertController dismissViewControllerAnimated:true completion:nil];
-            });
-            
-        }];
-        return;
-    }
-    
-    for (NSString *title in actionTitles) {
-        UIAlertActionStyle style = [title isEqualToString:kActionTitle_Cancell] == true? UIAlertActionStyleDestructive : UIAlertActionStyleDefault;
-        [alertController addAction:[UIAlertAction actionWithTitle:title style:style handler:^(UIAlertAction * _Nonnull action) {
-            if (handler) handler(alertController,action);
-            
-        }]];
-    }
-    [keyWindow.rootViewController presentViewController:alertController animated:YES completion:nil];
+- (void)showAlertTitle:(NSString *_Nullable)title placeholders:(NSArray *_Nullable)placeholders msg:(NSString *)msg actionTitles:(NSArray *_Nonnull)actionTitles handler:(void(^)(UIAlertController * _Nonnull alertVC, UIAlertAction * _Nonnull action))handler{
+    [UIAlertController showAlertTitle:title msg:msg placeholders:placeholders actionTitles:actionTitles handler:handler];
 }
-
-#pragma mark -------------alert升级方法-------------------
-
-- (void)dispalyAppEvalutionStarLevelAppID:(NSString *)appID{
-    
-    if([SKStoreReviewController respondsToSelector:@selector(requestReview)]){
-        [UIApplication.sharedApplication.keyWindow endEditing:YES];//防止键盘遮挡
-        [SKStoreReviewController requestReview];
-        
-    }
-    else{
-        NSString *reviewURL = [NSString stringWithFormat:@"itms-apps://itunes.apple.com/WebObjects/MZStore.woa/wa/viewContentsUserReviews?id=%@&onlyLatestVersion=true&pageNumber=0&sortOrdering=1&type=Purple+Software",appID];
-        if (iOSVer(11)) {
-            reviewURL = [NSString stringWithFormat:@"itms-apps://itunes.apple.com/app/id%@?action=write-review",appID];//替换为对应的APPID
-        }
-//        [UIApplication.sharedApplication openURL:[NSURL URLWithString:appEvaluationUrl]];
-        
-        NSDictionary * options = @{
-                                   UIApplicationOpenURLOptionUniversalLinksOnly : @YES
-                                   };
-        
-        [UIApplication.sharedApplication openURL:[NSURL URLWithString:reviewURL] options:options completionHandler:^(BOOL success) {
-            
-        }];
-    }
-}
-
 
 - (void)callPhone:(NSString *)phoneNumber{
     
