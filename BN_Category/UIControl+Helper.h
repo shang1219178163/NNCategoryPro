@@ -12,7 +12,7 @@ NS_ASSUME_NONNULL_BEGIN
 
 @interface UIControl (Helper)
 
-- (void)addActionHandler:(void(^)(UIControl *obj))handler forControlEvents:(UIControlEvents)controlEvents;
+- (void)addActionHandler:(void(^)(UIControl *control))handler forControlEvents:(UIControlEvents)controlEvents;
 
 @end
 

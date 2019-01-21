@@ -105,11 +105,6 @@ typedef void(^BlockAlertController)(UIAlertController * _Nonnull alertController
  */
 - (void)showAlertTitle:(nullable NSString *)title placeholders:(NSArray *_Nullable)placeholders msg:(NSString *_Nullable)msg actionTitles:(NSArray *_Nonnull)actionTitles handler:(void(^_Nullable)(UIAlertController * _Nonnull alertVC, UIAlertAction * _Nullable action))handler;
 
-/**
- 系统Sheet弹窗__按钮默认(取消按钮)
- */
-- (void)showSheetWithTitle:(nullable NSString *)title msgList:(NSArray * _Nonnull)msgList handler:(void(^_Nullable)(UIAlertController * _Nonnull alertVC, UIAlertAction * _Nullable action))handler;
-
 //app星际评价,自定义app链接
 - (void)dispalyAppEvalutionStarLevelAppID:(NSString *_Nonnull)appID;
 

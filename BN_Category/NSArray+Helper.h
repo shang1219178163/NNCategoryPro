@@ -33,8 +33,7 @@ NSLog(@"/n%@",[@[temp1, temp2] valueForKeyPath:@"@unionOfArrays.self"]);
 
 + (NSArray *)arrayWithItem:(id)item count:(NSInteger)count;
 
-+ (NSArray *)arrayWithItemFrom:(NSInteger)from to:(NSInteger)to count:(NSInteger)count;
-
++ (NSArray *)arrayRandomFrom:(NSInteger)from to:(NSInteger)to count:(NSInteger)count;
 
 /**
    有序图片数组或者字符串数字

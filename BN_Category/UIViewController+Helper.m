@@ -527,25 +527,6 @@
     [keyWindow.rootViewController presentViewController:alertController animated:YES completion:nil];
 }
 
-
-- (void)showSheetWithTitle:(nullable NSString *)title msgList:(NSArray * _Nonnull)msgList handler:(void(^)(UIAlertController * _Nonnull alertVC, UIAlertAction * _Nullable action))handler{
-    
-    UIAlertController * alertController = [UIAlertController alertControllerWithTitle:nil message:nil preferredStyle:UIAlertControllerStyleActionSheet];
-    
-    for (NSInteger i = 0; i < msgList.count; i++) {
-        [alertController addAction:[UIAlertAction actionWithTitle:msgList[i] style:UIAlertActionStyleDefault handler:^(UIAlertAction * _Nonnull action) {
-            if (handler) handler(alertController,action);
-
-        }]];
-    }
-    [alertController addAction:[UIAlertAction actionWithTitle:kActionTitle_Cancell style:UIAlertActionStyleCancel handler:^(UIAlertAction * _Nonnull action) {
-        if (handler) handler(alertController,action);
-
-    }]];
-    [self presentViewController:alertController animated:YES completion:nil];
-    
-}
-
 #pragma mark -------------alert升级方法-------------------
 
 - (void)dispalyAppEvalutionStarLevelAppID:(NSString *)appID{

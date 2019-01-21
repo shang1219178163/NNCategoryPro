@@ -53,7 +53,10 @@ NSString * const kArrs_union_list = @"@unionOfArrays.self";
     return marr.copy;
 }
 
-+ (NSArray *)arrayWithItemFrom:(NSInteger)from to:(NSInteger)to count:(NSInteger)count{
+/**
+ from,to之间的随机数数组
+ */
++ (NSArray *)arrayRandomFrom:(NSInteger)from to:(NSInteger)to count:(NSInteger)count{
     NSMutableArray * marr = [NSMutableArray arrayWithCapacity:0];
     for (NSInteger i = 0; i < count; i++) {
         
@@ -63,26 +66,23 @@ NSString * const kArrs_union_list = @"@unionOfArrays.self";
     return marr.copy;
 }
 
-
 + (NSArray *)arrayWithItemPrefix:(NSString *)prefix startIndex:(NSInteger)startIndex count:(NSInteger)count type:(NSNumber *)type{
-    
-    NSMutableArray *marr = [NSMutableArray arrayWithCapacity:0];
+    NSMutableArray *marr = [NSMutableArray array];
     for (NSInteger i = startIndex; i <= startIndex + count; i++) {
-        NSString *imgName = [NSString stringWithFormat:@"%@%@",prefix,@(i)];
+        NSString *title = [NSString stringWithFormat:@"%@%@",prefix,@(i)];
         
         switch (type.integerValue) {
             case 1:
             {
-                UIImage *image = [UIImage imageNamed:imgName];
+                UIImage *image = [UIImage imageNamed:title];
                 [marr addObject:image];
             }
                 break;
             default:
-                [marr addObject:imgName];
+                [marr addObject:title];
                 
                 break;
         }
-        
     }
     return marr.copy;
 }

@@ -55,6 +55,7 @@
 #import "UIAlertAction+Helper.h"
 #import "UIApplication+Helper.h"
 #import "UIApplication+Other.h"
+#import "UIAlertController+Helper.h"
 #import "UIBarButtonItem+Helper.h"
 #import "UIButton+Helper.h"
 #import "UIButton+swizzing.h"
