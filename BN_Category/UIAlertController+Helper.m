@@ -7,6 +7,7 @@
 //
 
 #import "UIAlertController+Helper.h"
+#import "BN_Globle.h"
 
 @implementation UIAlertController (Helper)
 
