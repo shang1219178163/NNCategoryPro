@@ -26,7 +26,7 @@
     
     if (actionTitles.count == 0) {
         [keyWindow.rootViewController presentViewController:alertController animated:YES completion:^{
-            dispatch_after(dispatch_time(DISPATCH_TIME_NOW, (int64_t)(kAnimDuration_Toast * NSEC_PER_SEC)), dispatch_get_main_queue(), ^{
+            dispatch_after(dispatch_time(DISPATCH_TIME_NOW, (int64_t)(kDurationToast * NSEC_PER_SEC)), dispatch_get_main_queue(), ^{
                 [alertController dismissViewControllerAnimated:true completion:nil];
             });
             

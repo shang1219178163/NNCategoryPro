@@ -182,7 +182,7 @@ NSString * const kDeafult_textFieldHistory = @"kDeafult_textFieldHistory" ;// xæ
     CGRect rect = self.historyTableView.frame;
     rect.size.height = self.maxY*(history.count + 1);
     
-    [UIView animateWithDuration:kAnimDuration animations:^{
+    [UIView animateWithDuration:kDurationDrop animations:^{
         self.historyTableView.frame = rect;
     }];
 }
@@ -200,7 +200,7 @@ NSString * const kDeafult_textFieldHistory = @"kDeafult_textFieldHistory" ;// xæ
     CGRect rect = self.historyTableView.frame;
     rect.size.height = 1;
     
-    [UIView animateWithDuration:kAnimDuration animations:^{
+    [UIView animateWithDuration:kDurationDrop animations:^{
         self.historyTableView.frame = rect;
     } completion:^(BOOL finished) {
         [self.historyTableView removeFromSuperview];

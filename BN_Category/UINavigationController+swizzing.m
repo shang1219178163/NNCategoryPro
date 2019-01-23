@@ -33,4 +33,11 @@
     [self swz_PushViewController:viewController animated:animated];
 }
 
+//- (BOOL)gestureRecognizerShouldBegin:(UIGestureRecognizer *)gestureRecognizer{
+//    if ([gestureRecognizer isKindOfClass:[UIScreenEdgePanGestureRecognizer class]]) {
+//        return  self.navigationController.viewControllers.count > 1;
+//    }
+//    return YES;
+//}
+
 @end

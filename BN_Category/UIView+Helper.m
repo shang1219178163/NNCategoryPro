@@ -940,7 +940,9 @@
     [[self superview].layer addSublayer:layer];
     
 }
-
+/**
+ 移除所有子视图
+ */
 - (void)removeAllSubViews{
     [self.subviews enumerateObjectsUsingBlock:^(__kindof UIView * _Nonnull obj, NSUInteger idx, BOOL * _Nonnull stop) {
         [obj removeFromSuperview];
