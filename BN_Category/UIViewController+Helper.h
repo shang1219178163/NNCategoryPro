@@ -51,7 +51,7 @@ typedef void(^BlockAlertController)(UIAlertController * _Nonnull alertController
 /**
   导航栏按钮
  */
-- (UIButton *)createBarItemTitle:(NSString *)title imageName:(NSString *)imageName isLeft:(BOOL)isLeft isHidden:(BOOL)isHidden handler:(void(^)(id obj, UIButton * item, NSInteger idx))handler;
+- (UIButton *)createBarItemTitle:(NSString *)title imgName:(NSString *)imageName isLeft:(BOOL)isLeft isHidden:(BOOL)isHidden handler:(void(^)(id obj, UIButton * item, NSInteger idx))handler;
 
 - (UITableViewCell *_Nonnull)cellByClickView:(UIView *_Nonnull)view;
 

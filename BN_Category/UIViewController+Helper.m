@@ -225,11 +225,10 @@
     return view;
 }
 
-- (UIButton *)createBarItemTitle:(NSString *)title imageName:(NSString *)imageName isLeft:(BOOL)isLeft isHidden:(BOOL)isHidden handler:(void(^)(id obj, UIButton * item, NSInteger idx))handler{
-    
+- (UIButton *)createBarItemTitle:(NSString *)title imgName:(NSString *)imgName isLeft:(BOOL)isLeft isHidden:(BOOL)isHidden handler:(void(^)(id obj, UIButton * item, NSInteger idx))handler{
     UIButton * btn = nil;
-    if (imageName) {
-        btn = [UIButton buttonWithSize:CGSizeMake(32, 32) image_N:imageName image_H:nil imageEdgeInsets:UIEdgeInsetsZero];
+    if (imgName) {
+        btn = [UIButton buttonWithSize:CGSizeMake(32, 32) image_N:imgName image_H:nil imageEdgeInsets:UIEdgeInsetsZero];
         
     }
     else{
@@ -242,7 +241,6 @@
     view.hidden = isHidden;
     btn.center = view.center;
     [view addSubview:btn];
-    
     
     //父视图调用子视图方法参数
     [view addActionHandler:^(id obj, id item, NSInteger idx) {
@@ -473,20 +471,20 @@
 
 #pragma mark -------------alert升级方法-------------------
 - (void)showAlertTitle:(NSString *_Nullable)title msg:(NSString *_Nullable)msg{
-    [UIAlertController showAlertTitle:title msg:msg placeholders:nil actionTitles:nil handler:nil];
+    [UIAlertController createAlertTitle:title msg:msg placeholders:nil actionTitles:nil handler:nil];
 }
 
 - (void)showAlertTitle:(NSString *_Nullable)title msg:(NSString *_Nullable)msg handler:(void(^)(UIAlertController * _Nonnull alertVC, UIAlertAction * _Nullable action))handler{
-    [UIAlertController showAlertTitle:title msg:msg placeholders:nil actionTitles:@[kActionTitle_Cancell,kActionTitle_Sure] handler:handler];
+    [UIAlertController createAlertTitle:title msg:msg placeholders:nil actionTitles:@[kActionTitle_Cancell,kActionTitle_Sure] handler:handler];
 }
 
 - (void)showAlertTitle:(NSString *_Nullable)title msg:(NSString *_Nullable)msg actionTitles:(NSArray *_Nonnull)actionTitleList handler:(void(^)(UIAlertController * _Nonnull alertVC, UIAlertAction * _Nullable action))handler{
-    [UIAlertController showAlertTitle:title msg:msg placeholders:nil actionTitles:actionTitleList handler:handler];
+    [UIAlertController createAlertTitle:title msg:msg placeholders:nil actionTitles:actionTitleList handler:handler];
 
 }
 
 - (void)showAlertTitle:(NSString *_Nullable)title placeholders:(NSArray *_Nullable)placeholders msg:(NSString *)msg actionTitles:(NSArray *_Nonnull)actionTitles handler:(void(^)(UIAlertController * _Nonnull alertVC, UIAlertAction * _Nonnull action))handler{
-    [UIAlertController showAlertTitle:title msg:msg placeholders:placeholders actionTitles:actionTitles handler:handler];
+    [UIAlertController createAlertTitle:title msg:msg placeholders:placeholders actionTitles:actionTitles handler:handler];
 }
 
 - (void)callPhone:(NSString *)phoneNumber{

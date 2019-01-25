@@ -10,7 +10,7 @@
 #import <objc/runtime.h>
 
 #import "BN_Globle.h"
-
+#import "UIView+AddView.h"
 #import "NSObject+Helper.h"
 #import "NSBundle+Helper.h"
 #import "UIControl+Helper.h"
@@ -501,9 +501,30 @@
     self.layer.cornerRadius = cornerRadius;
 }
 
++ (UIView *)createSectionView:(UITableView *)tableView text:(NSString *)text textAlignment:(NSTextAlignment)textAlignment height:(CGFloat)height{
+    UIView * sectionView = [[UIView alloc]init];
+    if (text == nil) {
+        return sectionView;
+    }
+    
+    CGRect rect = CGRectMake(kX_GAP, 0, CGRectGetWidth(tableView.frame) - kX_GAP*2, height);
+    UILabel * view = [[UILabel alloc] initWithFrame:rect];
+    view.autoresizingMask = UIViewAutoresizingFlexibleWidth|UIViewAutoresizingFlexibleHeight;
+    view.font = [UIFont systemFontOfSize:16];
+    view.userInteractionEnabled = true;
+    view.lineBreakMode = NSLineBreakByTruncatingTail;
+    view.adjustsFontSizeToFitWidth = YES;
+    //        label.backgroundColor = UIColor.greenColor;
+    view.text = text;
+    view.textAlignment = textAlignment;
+
+    [sectionView addSubview:view];
+    return sectionView;
+}
+
 + (UIImageView *)createCardViewRect:(CGRect)rect title:(NSString *)title image:(id)image tag:(NSInteger)tag target:(id)target aSelector:(SEL)aSelector{
     
-    UIImageView * containView = [UIView createImageViewRect:rect image:image tag:tag target:target aSelector:aSelector];
+    UIImageView * containView = [UIView createImgViewRect:rect image:image tag:tag type:@0];
     
     CGSize imgViewSize = CGSizeMake(kH_LABEL_SMALL, kH_LABEL_SMALL);
     CGFloat YGap = (CGRectGetHeight(rect) - imgViewSize.height*2)/2.0;
@@ -518,7 +539,10 @@
     CGFloat XGapLab = (CGRectGetWidth(rect) - textSize.width)/2.0;
     
     CGRect labRect = CGRectMake(XGapLab, CGRectGetMaxY(imgViewRect), textSize.width, kH_LABEL_SMALL);
-    UILabel * lab = [UIView createLabelRect:labRect text:title textColor:UIColor.titleSubColor tag:kTAG_LABEL type:@2 font:kFZ_Third backgroudColor:nil alignment:NSTextAlignmentCenter];
+    UILabel * lab = [UIView createLabelRect:labRect text:title font:16 tag:kTAG_LABEL type:@2];
+    lab.textColor = UIColor.titleSubColor;
+    lab.font = [UIFont systemFontOfSize:kFZ_Third];
+    lab.textAlignment = NSTextAlignmentCenter;
     [containView addSubview:lab];
     
     if (!image) {
@@ -699,12 +723,10 @@
     imgView.tag = kTAG_IMGVIEW;
     [backgroudView addSubview:imgView];
     
-    UILabel * labelVehicle = [UIView createLabelRect:labelRect text:text textColor:nil tag:kTAG_LABEL type:@2 font:kFZ_Third backgroudColor:nil alignment:NSTextAlignmentLeft];
-    labelVehicle.tag = kTAG_LABEL;
-    [backgroudView addSubview:labelVehicle];
     
-//    backgroudView.layer.borderColor = UIColor.whiteColor.CGColor;
-//    backgroudView.layer.borderWidth = 0.5;
+    UILabel * labelVehicle = [UIView createLabelRect:labelRect text:text font:16 tag:kTAG_LABEL type:@2];
+    labelVehicle.font = [UIFont systemFontOfSize:kFZ_Third];
+    [backgroudView addSubview:labelVehicle];
     
     return backgroudView;
 }
@@ -729,8 +751,8 @@
         
         NSString * title = elements[i];
         CGRect btnRect = CGRectMake(x, y, w, h);
-        UIButton * btn = [UIView createBtnRect:btnRect title:title font:15 image:nil tag:kTAG_BTN+i type:@0 target:self aSelector:@selector(handleActionBtn:)];
-        [btn removeTarget:self action:@selector(handleActionBtn:) forControlEvents:UIControlEventTouchUpInside];
+        UIButton * btn = [UIView createBtnRect:btnRect title:title font:16 image:nil tag:kTAG_BTN+i type:@0];
+        btn.titleLabel.font = [UIFont systemFontOfSize:15];
         [backgroudView addSubview:btn];
         
     }
@@ -765,7 +787,11 @@
         switch (type.integerValue) {
             case 0://uibutton
             {
-                view = [UIView createBtnRect:itemRect title:title font:15 image:nil tag:i type:@5 target:nil aSelector:nil];
+                view = ({
+                    UIButton * view = [UIView createBtnRect:itemRect title:title font:16 image:nil tag:i type:@5];
+                    view.titleLabel.font = [UIFont systemFontOfSize:15];
+                    view;
+                });
             }
                 break;
             case 1://UIImageVIew
@@ -776,8 +802,12 @@
                 break;
             case 2://UILabel
             {
-                view = [UIView createLabelRect:itemRect text:title textColor:nil tag:i type:@0 font:15 backgroudColor:[UIColor whiteColor] alignment:NSTextAlignmentCenter];
-                
+                view = ({
+                    UILabel * view = [UIView createLabelRect:itemRect text:title font:16 tag:i type:@0];
+                    view.font = [UIFont systemFontOfSize:15];
+                    view.textAlignment = NSTextAlignmentCenter;
+                    view;
+                });
             }
                 break;
             default:
@@ -886,17 +916,7 @@
 //{
 //    UITouch *touch = [touches anyObject];
 //    CGPoint point = [touch locationInView:self];
-//    __weak typeof(self) weakSelf = self;
-//    [self tapView:<#(UIView *)#> tapClick:^(UIView *View) {
-//        
-//        if (weakSelf.tapBlock) {
-//            weakSelf.tapBlock (view);
-//        }
-//        
-//    }];
-//    
 //}
-
 
 + (UIVisualEffectView *)createBlurViewEffect:(UIBlurEffectStyle)effect subView:(UIView *)view{
     
@@ -951,7 +971,7 @@
     
 }
 
-- (NSIndexPath *)getCellIndexPathByTableView:(UITableView *)tableView{
+- (NSIndexPath *)getCellIndexPath:(UITableView *)tableView{
     UITableViewCell * cell = [self getClickViewCell];
     NSIndexPath * indexPath = [tableView indexPathForRowAtPoint:cell.center];
     //    DDLog(@"%@",indexPath);
@@ -980,7 +1000,9 @@
     }
     
     CGSize size = [self sizeWithText:unitString font:@(kFZ_Third) width:kScreenWidth];
-    UILabel * label = [UIView createLabelRect:CGRectMake(0, 0, size.width+2, 25) text:unitString textColor:UIColor.titleColor tag:kTAG_LABEL type:@2 font:kFZ_Third backgroudColor:UIColor.clearColor alignment:NSTextAlignmentCenter];
+    UILabel * label = [UIView createLabelRect:CGRectMake(0, 0, size.width+2, 25) text:unitString font:16 tag:kTAG_LABEL type:@2];
+    label.textColor = UIColor.titleColor;
+    label.textAlignment = NSTextAlignmentCenter;
     return label;
     
 }

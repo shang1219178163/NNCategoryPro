@@ -67,7 +67,7 @@ Z：     GMT（时区）
 }
 
 - (NSDate *)toDate{
-    NSDate * date = [self toDateWithFormatter:kFormat_date];
+    NSDate * date = [self toDateWithFormatter:kFormatDate];
     return date;
 }
 
@@ -81,7 +81,7 @@ Z：     GMT（时区）
 }
 
 - (NSString *)toTimeDate{
-    NSString * timeStr = [self toTimeDateWithFormatter:kFormat_date];
+    NSString * timeStr = [self toTimeDateWithFormatter:kFormatDate];
     return timeStr;
 }
 
@@ -108,17 +108,17 @@ Z：     GMT（时区）
     }
  
     NSString * dateStr = [self isKindOfClass:[NSString class]] ? (NSString *)self : [(NSNumber *)self stringValue];
-    NSString * formatStr = kFormat_date;
+    NSString * formatStr = kFormatDate;
     if ([dateStr containsString:@"-"] && [dateStr containsString:@":"]){
-        formatStr = kFormat_date;
+        formatStr = kFormatDate;
         
     }
     else if ([dateStr containsString:@"-"] && ![dateStr containsString:@":"]){
-        formatStr = kFormat_date_one;
+        formatStr = kFormatDate_one;
         
     }
     else if (![dateStr containsString:@"-"] && ![dateStr containsString:@":"]){
-        formatStr = kFormat_date_two;
+        formatStr = kFormatDate_two;
         
     }
     else{
@@ -145,7 +145,7 @@ Z：     GMT（时区）
 }
 
 - (NSDate *)dateWithString:(NSString *)dateString{
-    NSDate * date = [self dateWithString:dateString format:kFormat_date];
+    NSDate * date = [self dateWithString:dateString format:kFormatDate];
     return date;
 }
 
@@ -160,7 +160,7 @@ Z：     GMT（时区）
 }
 
 - (NSString *)stringWithDate:(NSDate *)date{
-    NSString * dateStr = [self stringWithDate:date format:kFormat_date];;
+    NSString * dateStr = [self stringWithDate:date format:kFormatDate];;
     return dateStr;
 }
 
@@ -200,7 +200,7 @@ Z：     GMT（时区）
 
     if (!days) days = @0;
     NSString * dateStr = [self toTimeDate];
-    NSDate * date = [self dateWithString:dateStr format:kFormat_date];
+    NSDate * date = [self dateWithString:dateStr format:kFormatDate];
     NSString * newtime = [self stringWithDate:[date dateByAddDays:[days integerValue]]];
     return newtime;
 }
@@ -249,7 +249,7 @@ Z：     GMT（时区）
 + (NSString *)relativeDate:(NSDate *)date{
     
     // 日期格式化类
-    NSDateFormatter *format = [NSDateFormatter dateFormat:kFormat_date];
+    NSDateFormatter *format = [NSDateFormatter dateFormat:kFormatDate];
     // 设置日期格式(y:年,M:月,d:日,H:时,m:分,s:秒)
     format.dateFormat = @"yyyy-MM-dd";
     
@@ -294,7 +294,7 @@ Z：     GMT（时区）
 
 + (NSString *)timeTipInfoFromTimestamp:(NSInteger)timestamp{
     
-    NSDateFormatter * dateFormtter = [NSDateFormatter dateFormat:kFormat_date];
+    NSDateFormatter * dateFormtter = [NSDateFormatter dateFormat:kFormatDate];
     
     NSDate * date = [NSDate dateWithTimeIntervalSince1970:timestamp];
     NSTimeInterval late =[date timeIntervalSince1970]*1;    //转记录的时间戳
@@ -439,7 +439,7 @@ Z：     GMT（时区）
             
         }
     }
-    NSDateFormatter *formatter = [NSDateFormatter dateFormat:kFormat_date];
+    NSDateFormatter *formatter = [NSDateFormatter dateFormat:kFormatDate];
     NSString * dateStr = [formatter stringFromDate:compareDate];
     
     NSString * timeNow = NSDate.date.now;

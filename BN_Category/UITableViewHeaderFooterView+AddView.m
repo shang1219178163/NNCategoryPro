@@ -40,8 +40,8 @@
 -(UILabel *)labelLeft{
     UILabel * view = objc_getAssociatedObject(self, _cmd);
     if (!view) {
-        view = [UIView createLabelRect:CGRectZero text:@"" textColor:nil tag:kTAG_LABEL type:@2 font:kFZ_Second backgroudColor:UIColor.whiteColor alignment:NSTextAlignmentLeft];
-        
+        view = [UIView createLabelRect:CGRectZero text:@"" font:16 tag:kTAG_LABEL type:@2];
+        view.textAlignment = NSTextAlignmentRight;
 //        view = ({
 //            UILabel * view = [[UILabel alloc] initWithFrame:CGRectZero];
 //            view.autoresizingMask = UIViewAutoresizingFlexibleWidth|UIViewAutoresizingFlexibleHeight;
@@ -68,8 +68,8 @@
 -(UILabel *)labelLeftMark{
     UILabel * view = objc_getAssociatedObject(self, _cmd);
     if (!view) {
-        view = [UIView createLabelRect:CGRectZero text:@"" textColor:nil tag:kTAG_LABEL+1 type:@2 font:kFZ_Second backgroudColor:UIColor.whiteColor alignment:NSTextAlignmentLeft];
-        
+        view = [UIView createLabelRect:CGRectZero text:@"" font:16 tag:kTAG_LABEL+1 type:@2];
+        view.textAlignment = NSTextAlignmentLeft;
 //        view = ({
 //            UILabel * view = [[UILabel alloc] initWithFrame:CGRectZero];
 //            view.autoresizingMask = UIViewAutoresizingFlexibleWidth|UIViewAutoresizingFlexibleHeight;
@@ -96,8 +96,8 @@
 -(UILabel *)labelLeftSub{
     UILabel * view = objc_getAssociatedObject(self, _cmd);
     if (!view) {
-        view = [UIView createLabelRect:CGRectZero text:@"" textColor:nil tag:kTAG_LABEL+2 type:@2 font:kFZ_Second backgroudColor:UIColor.whiteColor alignment:NSTextAlignmentLeft];
-        
+        view = [UIView createLabelRect:CGRectZero text:@"" font:16 tag:kTAG_LABEL+2 type:@2];
+        view.textAlignment = NSTextAlignmentLeft;
 //        view = ({
 //            UILabel * view = [[UILabel alloc] initWithFrame:CGRectZero];
 //            view.autoresizingMask = UIViewAutoresizingFlexibleWidth|UIViewAutoresizingFlexibleHeight;
@@ -124,8 +124,8 @@
 -(UILabel *)labelLeftSubMark{
     UILabel * view = objc_getAssociatedObject(self, _cmd);
     if (!view) {
-        view = [UIView createLabelRect:CGRectZero text:@"" textColor:nil tag:kTAG_LABEL+3 type:@2 font:kFZ_Second backgroudColor:UIColor.whiteColor alignment:NSTextAlignmentLeft];
-        
+        view = [UIView createLabelRect:CGRectZero text:@"" font:16 tag:kTAG_LABEL+3 type:@2];
+        view.textAlignment = NSTextAlignmentLeft;
 //        view = ({
 //            UILabel * view = [[UILabel alloc] initWithFrame:CGRectZero];
 //            view.autoresizingMask = UIViewAutoresizingFlexibleWidth|UIViewAutoresizingFlexibleHeight;
@@ -202,7 +202,8 @@
             view.contentMode = UIViewContentModeScaleAspectFit;
             view.userInteractionEnabled = YES;
             //            imgView.backgroundColor = UIColor.orangeColor;
-            view.frame = CGRectMake(self.maxX - kX_GAP - kWH_ArrowRight, (self.maxY - kWH_ArrowRight)/2.0, kWH_ArrowRight, kWH_ArrowRight);
+            view.frame = CGRectMake(self.maxX - kX_GAP - kSizeArrow.width, (self.maxY - kSizeArrow.height)/2.0, kSizeArrow.width, kSizeArrow.height);
+
             imgV.tag = kTAG_IMGVIEW + 1;
             view.image = [UIImage imageNamed:kIMG_arrowRight];
             
@@ -221,7 +222,7 @@
 -(UIButton *)btn{
     UIButton * view = objc_getAssociatedObject(self, _cmd);
     if (!view) {
-        view = [UIView createBtnRect:CGRectZero title:@"按钮" font:kFZ_Second image:nil tag:kTAG_BTN type:@7 target:nil aSelector:nil];
+        view = [UIView createBtnRect:CGRectZero title:@"按钮" font:16 image:nil tag:kTAG_BTN type:@7];
 //        view = ({
 //            UIButton * view = [UIButton buttonWithType:UIButtonTypeCustom];
 //            [view setTitle:@"btn" forState:UIControlStateNormal];

@@ -10,18 +10,6 @@
 
 #import "NSDateFormatter+Helper.h"
 
-UIKIT_EXTERN const NSInteger kDate_second ;
-UIKIT_EXTERN const NSInteger kDate_minute ;
-UIKIT_EXTERN const NSInteger kDate_hour ;
-UIKIT_EXTERN const NSInteger kDate_day ;
-UIKIT_EXTERN const NSInteger kDate_week ;
-UIKIT_EXTERN const NSInteger kDate_year ;
-
-FOUNDATION_EXPORT NSString * const kFormat_date ;
-FOUNDATION_EXPORT NSString * const kFormat_date_one ;
-FOUNDATION_EXPORT NSString * const kFormat_date_two ;
-FOUNDATION_EXPORT NSString * const kFormat_date_five ;
-
 @interface NSDate (Helper)
 
 @property (class, nonatomic, readonly) NSArray *monthList;

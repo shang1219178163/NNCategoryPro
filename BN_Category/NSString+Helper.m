@@ -278,7 +278,7 @@
 - (NSString *)toBeforeDays:(NSInteger)days{
     NSTimeInterval timeInterval = [[self toTimestamp] integerValue] - days*24*3600;
     
-    NSDateFormatter *formatter = [NSDateFormatter dateFormat:kFormat_date];
+    NSDateFormatter *formatter = [NSDateFormatter dateFormat:kFormatDate];
     NSDate *date = [NSDate dateWithTimeIntervalSince1970:timeInterval];
     NSString * timeStr = [formatter stringFromDate:date];
     

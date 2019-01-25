@@ -66,7 +66,7 @@ NSString * const kArrs_union_list = @"@unionOfArrays.self";
     return marr.copy;
 }
 
-+ (NSArray *)arrayWithItemPrefix:(NSString *)prefix startIndex:(NSInteger)startIndex count:(NSInteger)count type:(NSNumber *)type{
++ (NSArray *)arrayItemPrefix:(NSString *)prefix startIndex:(NSInteger)startIndex count:(NSInteger)count type:(NSNumber *)type{
     NSMutableArray *marr = [NSMutableArray array];
     for (NSInteger i = startIndex; i <= startIndex + count; i++) {
         NSString *title = [NSString stringWithFormat:@"%@%@",prefix,@(i)];

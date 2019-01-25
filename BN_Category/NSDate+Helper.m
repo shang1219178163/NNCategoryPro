@@ -14,17 +14,7 @@
 
 #define kDateComponents (NSCalendarUnitYear| NSCalendarUnitMonth | NSCalendarUnitDay | NSCalendarUnitHour | NSCalendarUnitMinute | NSCalendarUnitSecond | NSCalendarUnitWeekdayOrdinal | NSCalendarUnitWeekday)
 
-const NSInteger kDate_second = 1 ;
-const NSInteger kDate_minute = 60 ;
-const NSInteger kDate_hour = 3600 ;
-const NSInteger kDate_day = 86400 ;
-const NSInteger kDate_week = 604800 ;
-const NSInteger kDate_year = 31556926;
 
-NSString * const kFormat_date = @"yyyy-MM-dd HH:mm:ss";
-NSString * const kFormat_date_one = @"yyyy-MM-dd";
-NSString * const kFormat_date_two = @"yyyyMMdd";
-NSString * const kFormat_date_five = @"yyyyMMddHHmmss";
 
 @implementation NSDate(Helper)
 
@@ -64,7 +54,7 @@ static NSArray * _weekList = nil;
  *  获取当前时间
  */
 -(NSString *)now{
-    NSDateFormatter *formatter = [NSDateFormatter dateFormat:kFormat_date];
+    NSDateFormatter *formatter = [NSDateFormatter dateFormat:kFormatDate];
     NSString * dateStr = [formatter stringFromDate:self];
     return dateStr;
 }
@@ -98,7 +88,7 @@ static NSArray * _weekList = nil;
     //date = [date  dateByAddingTimeInterva  l:timeZoneOff set];
     //格式化日期时间
     
-    NSDateFormatter  *formatter = [NSDateFormatter dateFormat:kFormat_date];
+    NSDateFormatter  *formatter = [NSDateFormatter dateFormat:kFormatDate];
     NSString* dateStr = [formatter stringFromDate:date];
     return dateStr;
     
@@ -135,7 +125,7 @@ static NSArray * _weekList = nil;
 /*精确到分钟的日期描述*/
 
 - (NSString *)minuteDescription{
-    NSDateFormatter  *dateFormatter = [NSDateFormatter  dateFormat:kFormat_date];
+    NSDateFormatter  *dateFormatter = [NSDateFormatter  dateFormat:kFormatDate];
     NSString *theDay = [dateFormatter stringFromDate:self];//日期的年月日
     NSString *currentDay = [dateFormatter stringFromDate:[NSDate date]];//当前年月日
     

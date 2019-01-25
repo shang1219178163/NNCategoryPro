@@ -81,6 +81,8 @@ typedef void(^BlockView)(UIView * view,id item, id obj);
 
 - (void)showLayerColor:(UIColor *)layerColor;
 
++ (UIView *)createSectionView:(UITableView *)tableView text:(NSString *)text textAlignment:(NSTextAlignment)textAlignment height:(CGFloat)height;
+
 /**
  上传证件类VIew
  */
@@ -159,7 +161,7 @@ typedef void(^BlockView)(UIView * view,id item, id obj);
 
 - (void)removeAllSubViews;
 
-- (NSIndexPath *)getCellIndexPathByTableView:(UITableView *)tableView;
+- (NSIndexPath *)getCellIndexPath:(UITableView *)tableView;
 
 - (UITableViewCell *)getClickViewCell;
 
