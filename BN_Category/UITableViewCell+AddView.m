@@ -16,7 +16,6 @@
 #import "NSObject+Helper.h"
 
 #import "BN_TextField.h"
-#import "BN_RadioView.h"
 
 @implementation UITableViewCell (AddView)
 
