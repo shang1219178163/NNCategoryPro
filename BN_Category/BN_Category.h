@@ -41,7 +41,6 @@
 #import "NSNumber+Helper.h"
 #import "NSNumberFormatter+Helper.h"
 #import "NSObject+CashProtector.h"
-#import "NSObject+Date.h"
 #import "NSObject+FaceDetect.h"
 #import "NSObject+Helper.h"
 #import "NSObject+ModelHelper.h"

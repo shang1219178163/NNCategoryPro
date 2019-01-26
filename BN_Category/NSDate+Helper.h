@@ -8,10 +8,10 @@
 
 #import <Foundation/Foundation.h>
 
-#import "NSDateFormatter+Helper.h"
 
 @interface NSDate (Helper)
 
+@property (class, nonatomic, readonly) NSCalendar *calendar;
 @property (class, nonatomic, readonly) NSArray *monthList;
 @property (class, nonatomic, readonly) NSArray *dayList;
 @property (class, nonatomic, readonly) NSArray *weekList;
@@ -22,13 +22,9 @@
 @property (nonatomic, strong, readonly) NSString *timeStamp;
 @property (nonatomic, strong, readonly) NSString *now;
 
+- (NSString *)timeByAddingDays:(id)days;
+
 - (NSDate *)localFromUTC;
-
-/**
- *得到当前时间，yyyy-MM-dd HH:mm:ss
- */
-
-+ (NSString *)getNowChinaTime;
 
 - (NSString *)timeIntervalDescription;//距离当前的时间间隔描述
 
@@ -45,6 +41,15 @@
 + (NSString *)formattedTimeFromTimeInterval:(long long)time;
 
 // Relative dates from the current date
++ (NSDateComponents *)compareCalendar:(NSDate *)date;
+
++ (NSString *)relativeDate:(NSDate *)date;
+
++ (NSString *)timeTipInfoFromTimestamp:(NSInteger)timestamp;
+
++ (NSString *)compareCurrentTime:(NSDate *)date;
+
++ (NSString *)compareCurrentTimeDays:(NSDate *)date;
 
 + (NSDate *)dateTomorrow;
 
@@ -110,15 +115,9 @@
 
 - (NSDate *)dateByAddDays:(NSInteger ) dDays;
 
-- (NSDate *)dateBySubtractDays:(NSInteger ) dDays;
-
 - (NSDate *)dateByAddHours:(NSInteger ) dHours;
 
-- (NSDate *)dateBySubtractHours:(NSInteger ) dHours;
-
 - (NSDate *)dateByAddMinutes:(NSInteger ) dMinutes;
-
-- (NSDate *)dateBySubtractMinutes:(NSInteger ) dMinutes;
 
 - (NSDate *)dateAtStartOfDay;
 

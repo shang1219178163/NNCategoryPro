@@ -29,10 +29,21 @@ FOUNDATION_EXPORT NSString * const kFormatDate_five ;
 
 + (NSDateFormatter *)dateFormat:(NSString *)formatStr;
 
-+ (NSString *)format:(NSString *)format date:(NSDate *)date;
++ (NSString *)stringFromDate:(NSDate *)date format:(NSString *)format;
 
-+ (NSDate *)format:(NSString *)format dateStr:(NSString *)dateStr;
++ (NSDate *)dateFromString:(NSString *)dateStr format:(NSString *)format;
 
-+ (NSString *)format:(NSString *)format interval:(NSTimeInterval)interval;
++ (NSString *)stringFromInterval:(NSString *)interval format:(NSString *)format;
+
++ (NSString *)IntervalFromDateStr:(NSString *)dateStr format:(NSString *)format;
+
++ (NSDate *)dateFromInterval:(NSString *)interval;
+
++ (NSString *)IntervalFromDate:(NSDate *)date;
+
+bool IsTimeStamp(id obj);
+
+NSString *TimeStampFromObj(id obj);
+
 
 @end

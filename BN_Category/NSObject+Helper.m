@@ -599,18 +599,17 @@ void dispatchApplyGlobal(id obj ,void(^block)(size_t index)){
 }
 
 
-//obj转json格式字符串：
+//NSObject转json字符串
 - (NSString *)JSONValue{
     NSParameterAssert([NSJSONSerialization isValidJSONObject:self]);
     
     NSString * jsonString = @"";
     if ([NSJSONSerialization isValidJSONObject:self]) {
-  
-        NSError *parseError = nil;
-        NSData *jsonData = [NSJSONSerialization dataWithJSONObject:self options:0 error:&parseError];
-        if (parseError != nil) {
+        NSError *error = nil;
+        NSData *jsonData = [NSJSONSerialization dataWithJSONObject:self options:0 error:&error];
+        if (error != nil) {
 #ifdef DEBUG
-            NSLog(@"fail to get NSData from obj: %@, error: %@", self, parseError);
+            NSLog(@"fail to get NSData from obj: %@, error: %@", self, error);
 #endif
         }
         jsonString = [[NSString alloc] initWithData:jsonData encoding:NSUTF8StringEncoding];

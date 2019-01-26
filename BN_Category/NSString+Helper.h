@@ -31,10 +31,6 @@
 
 - (NSString *)toFileString;
 
-- (id)jsonFileToObjcWithOptions:(NSJSONReadingOptions)options;
-
-- (id)jsonFileExcelToObjcWithOptions:(NSJSONReadingOptions)options;
-
 - (BOOL)isContainBlank;
 
 - (BOOL)isContainsCharacterSet:(NSCharacterSet *)set;
@@ -66,7 +62,13 @@
  */
 - (NSString *)randomStringPartLength:(NSInteger)length;
 
-- (BOOL)isTimeStamp;
+- (NSString *)toTimestampMonth;
+
+- (NSString *)toTimestampShort;
+
+- (NSString *)toTimestampFull;
+
+- (NSString *)timeByAddingDays:(id)days;
 
 - (NSString *)toDateShort;
 
@@ -117,21 +119,11 @@
 - (NSString *)randomStringLength:(NSInteger)length;
 
 /**
- 字符串包含集合任一元素
-
- @param collection 字符串集合
- @return 是否包含集合中的任一字符串
- */
-- (BOOL)containsStringFromCollection:(id)collection;
-
-/**
  
  @param array 字符串数组
  @return 包含所有元素
  */
 - (BOOL)containArray:(NSArray *)array;
-
-- (BOOL)stringContainArrObj:(NSArray *)array;
 
 - (NSString *)getPlaceholder;
 

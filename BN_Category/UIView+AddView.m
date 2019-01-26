@@ -213,7 +213,7 @@
 #pragma mark - -类方法
 
 /**
- UIView通用创建方法
+ [源]UIView创建
  */
 + (UIView *)createViewRect:(CGRect)rect tag:(NSInteger)tag{
     UIView * backgroundView = [[UIView alloc]initWithFrame:rect];
@@ -223,7 +223,7 @@
 }
 
 /**
- UILabel通用创建方法
+ [源]UILabel创建
  */
 + (UILabel *)createLabelRect:(CGRect)rect text:(id)text font:(CGFloat)font tag:(NSInteger)tag type:(NSNumber *)type
 {
@@ -310,7 +310,7 @@
 }
 
 /**
- UIImageView通用创建方法
+ [源]UIImageView创建
  */
 + (UIImageView *)createImgViewRect:(CGRect)rect image:(id)image tag:(NSInteger)tag type:(NSNumber *)type{
     UIImageView *imgView = [[UIImageView alloc] initWithFrame:rect];
@@ -379,7 +379,7 @@
 }
 
 /**
- UITextField创建方法
+ [源]UITextField创建
  */
 + (UITextField *)createTextFieldRect:(CGRect)rect text:(NSString *)text tag:(NSInteger)tag
 {
@@ -410,7 +410,7 @@
 }
 
 /**
- UIButton通用创建方法
+ [源]UIButton创建
  */
 + (UIButton *)createBtnRect:(CGRect)rect title:(NSString *)title font:(CGFloat)font image:(NSString *)image tag:(NSInteger)tag type:(NSNumber *)type{
     UIButton * btn = [UIButton buttonWithType:UIButtonTypeCustom];
@@ -544,7 +544,7 @@
 }
 
 /**
- BtnView通用创建方法
+ BtnView创建
  */
 + (UIView *)createBtnViewRect:(CGRect)rect imgName:(NSString *)imgName imgHeight:(CGFloat)imgHeight title:(NSString *)title titleColor:(UIColor *)titleColor type:(NSNumber *)type
 {
@@ -629,6 +629,9 @@
 
 #pragma mark - - otherFuntions
 
+/**
+ [源]UISegmentedControl创建方法
+ */
 + (UISegmentedControl *)createSegmentRect:(CGRect)rect items:(NSArray *)items selectedIndex:(NSInteger)selectedIndex type:(NSNumber *)type{
     UISegmentedControl *view = [[UISegmentedControl alloc] initWithItems:items];
     view.autoresizingMask = UIViewAutoresizingFlexibleWidth|UIViewAutoresizingFlexibleHeight;
@@ -715,7 +718,9 @@
     }
     return view;
 }
-
+/**
+ [源]UISlider创建方法
+ */
 + (UISlider *)createSliderRect:(CGRect)rect value:(CGFloat)value minValue:(CGFloat)minValue maxValue:(CGFloat)maxValue{
     UISlider *view = [[UISlider alloc] initWithFrame:rect];
     view.autoresizingMask = UIViewAutoresizingFlexibleWidth;
@@ -728,7 +733,9 @@
 //    view.thumbTintColor = UIColor.yellowColor;
     return view;
 }
-
+/**
+ [源]UISwitch创建方法
+ */
 + (UISwitch *)createSwitchRect:(CGRect)rect isOn:(BOOL)isOn{
     UISwitch *view = [[UISwitch alloc]initWithFrame:rect];
     view.autoresizingMask = UIViewAutoresizingFlexibleWidth|UIViewAutoresizingFlexibleHeight;

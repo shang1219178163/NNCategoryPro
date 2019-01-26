@@ -12,8 +12,7 @@
 #import "UIApplication+Helper.h"
 #import "UIViewController+Helper.h"
 #import "NSDate+Helper.h"
-
-#import "NSObject+Date.h"
+#import "NSDateFormatter+Helper.h"
 
 #import "NSNumberFormatter+Helper.h"
 #import "NSNumber+Helper.h"
@@ -50,33 +49,27 @@
         return @([self floatValue]);
     }
     return self;
-    
 }
 
 - (BOOL)isPureByCharSet:(NSString *)charSet{
     NSCharacterSet *set = [[NSCharacterSet characterSetWithCharactersInString:charSet] invertedSet];
     NSString *result = [[self componentsSeparatedByCharactersInSet:set] componentsJoinedByString:@""];
-    if ([result isEqualToString:self]) {
-        return YES;
-        
-    }
-    return NO;
-    
+    return [result isEqualToString:self];
 }
 
 /**
  json转NSObject
  */
 - (id)objcValue{
-    NSError *errorJson;
+    NSError *error;
     NSData *jsonData = [self dataUsingEncoding:NSUTF8StringEncoding];
-    NSDictionary *jsonDict = [NSJSONSerialization JSONObjectWithData:jsonData options:NSJSONReadingMutableContainers error:&errorJson];
-    if (errorJson != nil) {
+    id obj = [NSJSONSerialization JSONObjectWithData:jsonData options:NSJSONReadingMutableContainers error:&error];
+    if (error != nil) {
 #ifdef DEBUG
-        NSLog(@"fail to get dictioanry from JSON: %@, error: %@", self, errorJson);
+        NSLog(@"fail to get dictioanry from JSON: %@, error: %@", self, error);
 #endif
     }
-    return jsonDict;
+    return obj;
 }
 
 - (NSString *)toFileString{
@@ -86,81 +79,22 @@
     
     NSString *jsonString = [[NSString alloc] initWithData:data encoding:NSUTF8StringEncoding];
     jsonString = [jsonString stringByReplacingOccurrencesOfString:@"\\" withString:@""];
-    
     return jsonString;
-    
-}
-
-- (id)jsonFileToObjcWithOptions:(NSJSONReadingOptions)options{
-    NSParameterAssert([self containsString:@".geojson"]);
-
-    NSString * jsonString = [self toFileString];
-    NSData * jsonData = [jsonString dataUsingEncoding:NSUTF8StringEncoding];
-
-    if ([NSJSONSerialization isValidJSONObject:jsonData]) {
-        NSError * error = nil;
-        //        if (options = nil) options = NSJSONReadingMutableContainers;
-        id obj = [NSJSONSerialization JSONObjectWithData:jsonData options:options error:&error];
-        NSLog(@"%@",error.description);
-        return obj ? : error;
-        
-    }
-    
-    if ([jsonString containsString:@":"]) {
-        return @{};
-    }
-    return [self jsonFileExcelToObjcWithOptions:options];
-}
-
-- (id)jsonFileExcelToObjcWithOptions:(NSJSONReadingOptions)options{
-    
-    NSString * jsonString = [self toFileString];
-    NSData * jsonData = [jsonString dataUsingEncoding:NSUTF8StringEncoding];
-
-    if ([NSJSONSerialization isValidJSONObject:jsonData]) {
-        NSError * error = nil;
-        id obj = [NSJSONSerialization JSONObjectWithData:jsonData options:options error:&error];
-        NSLog(@"%@",error.description);
-        return obj ? : error;
-        
-    }
- 
-    //
-    NSMutableArray * list = [NSMutableArray array];
-    
-    NSMutableArray * array = (NSMutableArray *)[jsonString componentsSeparatedByString:@"\n"];
-    [array enumerateObjectsUsingBlock:^(NSString * _Nonnull obj, NSUInteger idx, BOOL * _Nonnull stop) {
-        obj = [obj stringByReplacingOccurrencesOfString:@"\r" withString:@""];
-        NSMutableArray * arraySub = (NSMutableArray *)[obj componentsSeparatedByString:@","];
-        
-        [list addObject:arraySub];
-    }];
-    return list;
 }
 
 /**
  *  @brief  是否包含空格
- *
  *  @return 是否包含空格
  */
 - (BOOL)isContainBlank{
     NSRange range = [self rangeOfString:@" "];
-    if (range.location != NSNotFound) {
-        return YES;
-    }
-    return NO;
+    return (range.location != NSNotFound);
 }
 
 - (BOOL)isContainsCharacterSet:(NSCharacterSet *)set{
     NSRange rang = [self rangeOfCharacterFromSet:set];
-    if (rang.location == NSNotFound) {
-        return NO;
-    }
-    else {
-        return YES;
-    }
+    return (rang.location != NSNotFound);
 }
-
 
 //Unicode编码的字符串转成NSString
 - (NSString *)makeUnicodeToString{
@@ -176,23 +110,19 @@
 
 
 - (NSString *)subStringFrom:(NSString *)startString to:(NSString *)endString{
-    
     NSRange startRange = [self rangeOfString:startString];
     NSRange endRange = [self rangeOfString:endString];
     NSRange range = NSMakeRange(startRange.location + startRange.length, endRange.location - startRange.location - startRange.length);
     return [self substringWithRange:range];
-    
 }
 
 - (NSString *)stringBylimitLength:(NSInteger)limitLength{
-    
     NSString * string = self;
     if (string.length > limitLength) {
         string = [string substringToIndex:limitLength];
         string = [string stringByAppendingString:@"..."];
     }
     return string;
-    
 }
 
 
@@ -249,39 +179,52 @@
     return randomString;
 }
 
-- (BOOL)isTimeStamp{
-    NSString * string = self;
-    if (string.length >= 8) {
-        if (([string characterAtIndex:4] == '-' && [string characterAtIndex:7] == '-') || ([string characterAtIndex:4] == '/' && [string characterAtIndex:7] == '/')) return NO;
+#pragma mark - -时间戳
 
-    }
-    return YES;
+- (NSString *)toTimestampMonth{
+    NSString * dateStr = (NSString *)self;
     
+    NSString * tmp = @"01 00:00:00";//后台接口时间戳不要时分秒
+    dateStr = [dateStr stringByReplacingCharactersInRange:NSMakeRange(dateStr.length - tmp.length, tmp.length) withString:tmp];
+    return TimeStampFromObj(dateStr);
+}
+
+- (NSString *)toTimestampShort{
+    NSString * dateStr = (NSString *)self;
+    
+    NSString * tmp = @" 00:00:00";//后台接口时间戳不要时分秒
+    if (dateStr.length == 10) dateStr = [dateStr stringByAppendingString:tmp];
+    dateStr = [dateStr stringByReplacingCharactersInRange:NSMakeRange(dateStr.length - tmp.length, tmp.length) withString:tmp];
+    return TimeStampFromObj(dateStr);
+}
+
+- (NSString *)toTimestampFull{
+    NSString * dateStr = (NSString *)self;
+    
+    NSString * tmp = @" 23:59:59";//后台接口时间戳不要时分秒
+    if (dateStr.length == 10) dateStr = [dateStr stringByAppendingString:tmp];
+    dateStr = [dateStr stringByReplacingCharactersInRange:NSMakeRange(dateStr.length - tmp.length, tmp.length) withString:tmp];
+    return TimeStampFromObj(dateStr);
 }
 
 - (NSString *)toDateShort{
-    if ([self isTimeStamp] || self.length < 10) return self;
-
+    if (IsTimeStamp(self)) return self;
     NSString *dateStr = [self substringToIndex:10];
     return dateStr;
-    
 }
 
 - (NSString *)toDateMonthDay{
-    if ([self isTimeStamp] || self.length < 10) return self;
-    
+    if (IsTimeStamp(self)) return self;
     NSString *dateStr = [self substringWithRange:NSMakeRange(5, 5)];
     return dateStr;
-    
 }
 
 - (NSString *)toBeforeDays:(NSInteger)days{
-    NSTimeInterval timeInterval = [[self toTimestamp] integerValue] - days*24*3600;
+    NSTimeInterval timeInterval = [TimeStampFromObj(self) integerValue] - days*24*3600;
     
     NSDateFormatter *formatter = [NSDateFormatter dateFormat:kFormatDate];
     NSDate *date = [NSDate dateWithTimeIntervalSince1970:timeInterval];
     NSString * timeStr = [formatter stringFromDate:date];
-    
     return timeStr;
 }
 
@@ -304,9 +247,8 @@
             break;
         default:
         {
-            timestampA = [self toTimestamp];
-            timestampB = [otherDate toTimestamp];
-
+            timestampA = TimeStampFromObj(self);
+            timestampB = TimeStampFromObj(otherDate);
         }
             break;
     }
@@ -376,21 +318,16 @@
 }
 
 - (NSString *)getAsteriskStringByRange:(NSRange)range{
-
     NSString * string = @"";
     for (NSInteger i = 0; i < range.length; i++) {
         string = [string stringByAppendingString:@"*"];
-        
     }
     return string;
-    
 }
 
 - (NSString *)stringByReplacingCharacterIndex:(NSUInteger)index withString:(NSString *)string{
-    
     NSAssert(index < self.length, @"index非法!!!");
-   return [self stringByReplacingCharactersInRange:NSMakeRange(index, 1) withString:string];
-    
+    return [self stringByReplacingCharactersInRange:NSMakeRange(index, 1) withString:string];
 }
 
 - (NSString *)randomStringLength:(NSInteger)length{
@@ -406,67 +343,19 @@
     return mStr;
 }
 
-- (BOOL)containsStringFromCollection:(id)collection{
-    
-    if ([collection isKindOfClass:[NSArray class]] || [collection isKindOfClass:[NSSet class]]) {
-        
-        for (NSString * obj in collection) {
-            
-            if ([obj containsString:@","]) {
-                NSArray * array = [obj componentsSeparatedByString:@","];
-                if ([self containArray:array]) return YES;
-                
-            }
-            else{
-                if ([self containsString:obj]) return YES;
-
-            }
-        }
-    }
-    else if ([collection isKindOfClass:[NSDictionary class]]){
-        
-        NSDictionary *dict = (NSDictionary *)collection;
-        for (NSString * obj in dict.allKeys) {
-            if ([self containsString:obj]) return YES;
-            
-        }
-        
-        for (NSString * obj in dict.allValues) {
-            if ([self containsString:obj]) return YES;
-            
-        }
-    }
-    return NO;
-    
-}
-
-
 /**
 
  @param array 字符串数组
  @return 包含所有元素
  */
 - (BOOL)containArray:(NSArray *)array{
-    
     for (NSString * obj in array) {
         if (![self containsString:obj]) return NO;
-        
     }
     return YES;
-
-}
-
-- (BOOL)stringContainArrObj:(NSArray *)array{
-    
-    for (NSString * string in array) {
-        [self containsString:string];
-        return YES;
-    }
-    return NO;
 }
 
 - (NSString *)getPlaceholder{
-    
     NSString * placeHolder = [NSString stringWithFormat:@"请输入%@",self];
     placeHolder = [placeHolder stringByReplacingOccurrencesOfString:@" " withString:@""];
     placeHolder = [placeHolder stringByReplacingOccurrencesOfString:@":" withString:@""];
@@ -477,7 +366,6 @@
 + (NSString *)ramdomText{
     
     NSArray * array = @[@"测试数据,",@"test_",@"AAAAA-",@"BBBBB>",@"秦时明月",@"犯我大汉天威者,虽远必诛",];
-    
     CGFloat length = arc4random()%15 + 5;
     NSMutableString * mstr = [NSMutableString stringWithCapacity:0];
     for (NSUInteger i = 0; i < length; i++) {
@@ -498,7 +386,6 @@
     
     CGFloat result = [self floatValue] * [anothor floatValue];
     return [@(result) stringValue];
-
 }
 
 
@@ -518,7 +405,6 @@
     
     CGFloat result = [self integerValue] + [anothor integerValue];
     return [@(result) stringValue];
-
 }
 
 - (NSString *)stringWithFront:(NSString *)front back:(NSString *)back{
@@ -573,14 +459,12 @@
         
     }
     
-    
     if (hiddenTips == NO) {
         NSString * tips = [NSString stringWithFormat:@"'%@'已复制!",pasteboard.string];
 //        [(UIView *)UIApplication.keyWindow makeToast:tips duration:1 position:CSToastPositionCenter];
         [UIApplication.rootController showAlertTitle:@"" msg:tips];
         
     }
-    
 }
 
 - (void)copyToPasteboard{

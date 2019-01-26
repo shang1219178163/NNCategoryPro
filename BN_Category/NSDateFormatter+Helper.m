@@ -37,19 +37,98 @@ NSString * const kFormatDate_five = @"yyyyMMddHHmmss";
     return formatter;
 }
 
-+ (NSString *)format:(NSString *)format date:(NSDate *)date {
+/**
+ NSDate->日期字符串
+ */
++ (NSString *)stringFromDate:(NSDate *)date format:(NSString *)format{
     NSDateFormatter * fmt = [NSDateFormatter dateFormat:format];
     return [fmt stringFromDate:date];
 }
-
-+ (NSDate *)format:(NSString *)format dateStr:(NSString *)dateStr {
+/**
+ 日期字符串->NSDate
+ */
++ (NSDate *)dateFromString:(NSString *)dateStr format:(NSString *)format{
     NSDateFormatter * fmt = [NSDateFormatter dateFormat:format];
     return [fmt dateFromString:dateStr];
 }
 
-+ (NSString *)format:(NSString *)format interval:(NSTimeInterval)interval {
-    NSDate * date = [NSDate dateWithTimeIntervalSince1970:interval];
-    return [NSDateFormatter format:format date:date];
+/**
+ 时间戳->日期字符串
+ */
++ (NSString *)stringFromInterval:(NSString *)interval format:(NSString *)format{
+    NSDate * date = [NSDate dateWithTimeIntervalSince1970:interval.doubleValue];
+    return [NSDateFormatter stringFromDate:date format:format];
 }
+
+/**
+ 日期字符串->时间戳字符串
+ */
++ (NSString *)IntervalFromDateStr:(NSString *)dateStr format:(NSString *)format{
+    NSDate * date = [NSDateFormatter dateFromString:dateStr format:format];
+    return [@(date.timeIntervalSince1970) stringValue];
+}
+
+/**
+ 时间戳->NSDate
+ */
++ (NSDate *)dateFromInterval:(NSString *)interval{
+    return [NSDate dateWithTimeIntervalSince1970:interval.doubleValue];
+}
+
+/**
+ NSDate->时间戳
+ */
++ (NSString *)IntervalFromDate:(NSDate *)date{
+    return [@(date.timeIntervalSince1970) stringValue];
+}
+
+bool IsTimeStamp(id obj){
+    if ([obj isKindOfClass:[NSString class]]) {
+        NSString * string = (NSString *)obj;
+        if (string.length < 10 || [string containsString:@" "]) {
+            return NO;
+        }
+       
+    } else {
+        NSNumber * value = (NSNumber *)obj;
+        if (value.integerValue < (NSInteger)10000000000) {//时间戳都是十位以上
+            return NO;
+        }
+    }
+    return YES;
+}
+
+NSString *TimeStampFromObj(id obj){
+    assert([obj isKindOfClass:[NSString class]] || [obj isKindOfClass:[NSNumber class]] || [obj isKindOfClass:[NSDate class]]);
+    
+    if ([obj isKindOfClass:[NSDate class]]) {
+        NSString * timestamp = [@([(NSDate *)obj timeIntervalSince1970]) stringValue];//时间转时间戳的方法:
+        return timestamp;
+    }
+    
+    NSString * dateStr = [obj isKindOfClass:[NSString class]] ? (NSString *)obj : [(NSNumber *)obj stringValue];
+    NSString * formatStr = kFormatDate;
+    if ([dateStr containsString:@"-"] && [dateStr containsString:@":"]){
+        formatStr = kFormatDate;
+        
+    }
+    else if ([dateStr containsString:@"-"] && ![dateStr containsString:@":"]){
+        formatStr = kFormatDate_one;
+        
+    }
+    else if (![dateStr containsString:@"-"] && ![dateStr containsString:@":"]){
+        formatStr = kFormatDate_two;
+        
+    }
+    else{
+        NSLog(@"<%@>时间格式不对",dateStr);
+        
+    }
+    //时间转时间戳的方法:
+    NSString * timestamp = [NSDateFormatter IntervalFromDateStr:dateStr format:formatStr];
+    return timestamp;
+}
+
+
 
 @end

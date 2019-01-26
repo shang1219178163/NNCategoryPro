@@ -9,7 +9,6 @@
 #import <Foundation/Foundation.h>
 #import <UIKit/UIKit.h>
 
-#import "NSObject+Date.h"
 #import "UIScreen+Helper.h"
 #import "UIColor+Helper.h"
 
