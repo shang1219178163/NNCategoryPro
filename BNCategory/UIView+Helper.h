@@ -39,7 +39,6 @@ typedef void(^BlockView)(UIView * view,id item, id obj);
 @property (nonatomic, assign, readonly) CGFloat midY;
 @property (nonatomic, assign, readonly) CGFloat maxY;
 
-
 @property (nonatomic, copy)BlockView blockView;
 
 //@property (nonatomic, assign, getter=isSelected) BOOL selected;
@@ -125,7 +124,7 @@ typedef void(^BlockView)(UIView * view,id item, id obj);
  信任值展示,无点击手势
  默认五颗星星
  */
-+ (id)getStarViewRect:(CGRect)rect rateStyle:(NSString *)rateStyle currentScore:(CGFloat)currentScore;
+//+ (id)getStarViewRect:(CGRect)rect rateStyle:(NSString *)rateStyle currentScore:(CGFloat)currentScore;
 
 + (UIView *)createViewRect:(CGRect)rect elements:(NSArray *)elements numberOfRow:(NSInteger)numberOfRow viewHeight:(CGFloat)viewHeight padding:(CGFloat)padding;
 
