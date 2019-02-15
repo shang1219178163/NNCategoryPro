@@ -80,6 +80,8 @@ typedef void(^BlockView)(UIView * view,id item, id obj);
 
 - (void)showLayerColor:(UIColor *)layerColor;
 
+- (void)imageToSavedPhotosAlbum:(void(^)(NSError *error))block;
+
 + (UIView *)createSectionView:(UITableView *)tableView text:(NSString *)text textAlignment:(NSTextAlignment)textAlignment height:(CGFloat)height;
 
 /**

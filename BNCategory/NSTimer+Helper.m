@@ -11,17 +11,20 @@
 
 @implementation NSTimer (Helper)
 
-+ (NSTimer *)BNtimeInterval:(NSTimeInterval)interval
-                       block:(void(^)(NSTimer *timer))block
-                     repeats:(BOOL)repeats{
+/**
+ 分类方法
+ */
++ (NSTimer *)scheduledTimer:(NSTimeInterval)interval
+                      block:(void(^)(NSTimer *timer))block
+                    repeats:(BOOL)repeats{
     return [self scheduledTimerWithTimeInterval:interval
                                          target:self
-                                       selector:@selector(BNhandleInvoke:)
+                                       selector:@selector(handleInvoke:)
                                        userInfo:[block copy]
                                         repeats:repeats];
 }
 
-+ (void)BNhandleInvoke:(NSTimer *)timer {
++ (void)handleInvoke:(NSTimer *)timer {
     void(^block)(NSTimer *timer) = timer.userInfo;
     if(block) {
         block(timer);
@@ -33,6 +36,16 @@
     timer = nil;
     
 //    DDLog(@"timer stop!!!");
+}
+
+/**
+ 定时器暂停/继续
+ */
++ (void)pauseTimer:(NSTimer *)timer isPause:(BOOL)isPause{
+//    暂停：触发时间设置在未来，既很久之后，这样定时器自动进入等待触发的状态.
+//    继续：触发时间设置在现在/获取，这样定时器自动进入马上进入工作状态.
+    timer.fireDate = isPause == false ? NSDate.distantFuture : NSDate.distantPast;
+    
 }
 
 + (dispatch_source_t)counterWithTimer:(dispatch_source_t)timer handler:(void (^)(void))handler{

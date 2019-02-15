@@ -155,8 +155,11 @@ NSArray * UINavListFromList(NSArray *list){
             
             UIViewController * controller = UICtrFromString(itemList.firstObject);
             controller.title = itemList[1];
-            controller.tabBarItem = [[UITabBarItem alloc]initWithTitle:title image:[UIImage imageNamed:img_N] selectedImage:[UIImage imageNamed:img_H]];
-            controller.tabBarItem.badgeValue = badgeValue;
+            
+            UITabBarItem *tabBarItem = [[UITabBarItem alloc]initWithTitle:title image:[UIImage imageNamed:img_N] selectedImage:[UIImage imageNamed:img_H]];
+            tabBarItem.badgeValue = badgeValue;
+
+            controller.tabBarItem = tabBarItem;
             if (@available(iOS 10.0, *)) {
                 controller.tabBarItem.badgeColor = badgeValue.integerValue <= 0 ? UIColor.clearColor:UIColor.redColor;
             } else {

@@ -16,9 +16,6 @@
 @property (class, nonatomic, readonly) NSArray *dayList;
 @property (class, nonatomic, readonly) NSArray *weekList;
 
-//@property (class, nonatomic, strong, readonly) NSString *timeStamp;
-//@property (class, nonatomic, strong, readonly) NSString *now;
-
 @property (nonatomic, strong, readonly) NSString *timeStamp;
 @property (nonatomic, strong, readonly) NSString *now;
 
@@ -57,20 +54,24 @@
 
 + (NSDate *)dateWithDaysFromNow:(NSInteger)days;
 
-+ (NSDate *)dateWithDaysBeforeNow:(NSInteger)days;
-
 + (NSDate *)dateWithHoursFromNow:(NSInteger)dHours;
-
-+ (NSDate *)dateWithHoursBeforeNow:(NSInteger)dHours;
 
 + (NSDate *)dateWithMinutesFromNow:(NSInteger)dMinutes;
 
-+ (NSDate *)dateWithMinutesBeforeNow:(NSInteger)dMinutes;
 
 // Comparing dates
++ (NSDateComponents *)dateComponentsFromDate:(NSDate *)aDate;
 
-- (BOOL)isEqualToDateIgnoringTime:(NSDate *)aDate;
++ (NSDateComponents *)dateFrom:(NSDate *)aDate to:(NSDate *)anotherDate;
 
++ (NSInteger)numDateFrom:(NSDate *)aDate to:(NSDate *)anotherDate type:(NSNumber *)type;
+
++ (NSInteger)countOfDaysInMonth:(NSDate *)date;
+
++ (NSInteger)dayIdxInMonthForDate:(NSDate *)date;
+    
+- (BOOL)isCompareDate:(NSDate *)aDate type:(NSNumber *)type;
+    
 - (BOOL)isToday;
 
 - (BOOL)isTomorrow;

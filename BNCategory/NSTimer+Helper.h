@@ -10,11 +10,13 @@
 
 @interface NSTimer (Helper)
 
-+ (NSTimer *)BNtimeInterval:(NSTimeInterval)interval
-                       block:(void(^)(NSTimer *timer))block
-                     repeats:(BOOL)repeats;
++ (NSTimer *)scheduledTimer:(NSTimeInterval)interval
+                      block:(void(^)(NSTimer *timer))block
+                    repeats:(BOOL)repeats;
 
 + (void)stopTimer:(NSTimer *)timer;
+
++ (void)pauseTimer:(NSTimer *)timer isPause:(BOOL)isPause;
 
 /**
  GCD定时器(秒)

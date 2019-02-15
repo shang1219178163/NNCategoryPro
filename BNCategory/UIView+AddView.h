@@ -65,4 +65,6 @@
  */
 + (UISwitch *)createSwitchRect:(CGRect)rect isOn:(BOOL)isOn;
 
++ (UITabBarItem *)createTabBarItem:(nullable NSString *)title image:(nullable NSString *)image selectedImage:(nullable NSString *)selectedImage;
+
 @end

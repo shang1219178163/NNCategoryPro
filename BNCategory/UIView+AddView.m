@@ -746,6 +746,9 @@
     return view;
 }
 
-
++ (UITabBarItem *)createTabBarItem:(nullable NSString *)title image:(nullable NSString *)image selectedImage:(nullable NSString *)selectedImage{
+    UITabBarItem *tabBarItem = [[UITabBarItem alloc]initWithTitle:title image:[UIImage imageNamed:image] selectedImage:[UIImage imageNamed:selectedImage]];
+    return tabBarItem;
+}
 
 @end

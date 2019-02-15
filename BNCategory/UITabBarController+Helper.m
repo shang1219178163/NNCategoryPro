@@ -8,6 +8,7 @@
 
 #import "UITabBarController+Helper.h"
 
+NSString * const kUIBadgeView = @"_UIBadgeView";
 NSString * const kUITabBarButton = @"UITabBarButton";
 NSString * const kUITabBarSwappableImageView = @"UITabBarSwappableImageView";
 
@@ -22,6 +23,21 @@ NSString * const kUITabBarSwappableImageView = @"UITabBarSwappableImageView";
     }
     return marr.copy;
     
+}
+
+/**
+ 用特定数据源刷新tabBar
+ @param list 参照HomeViewController数据源
+ */
+- (void)reloadTabarItems:(NSArray *)list{
+    [self.viewControllers enumerateObjectsUsingBlock:^(__kindof UIViewController * _Nonnull obj, NSUInteger idx, BOOL * _Nonnull stop) {
+        NSArray * itemlist = list[idx];
+        NSString * title = itemlist[itemlist.count - 4];
+        UIImage * img = [UIImage imageNamed:itemlist[itemlist.count - 3]];
+        UIImage * imgH = [UIImage imageNamed:itemlist[itemlist.count - 2]];
+
+        obj.tabBarItem = [[UITabBarItem alloc]initWithTitle:title image:img selectedImage:imgH];;
+    }];
 }
 
 @end

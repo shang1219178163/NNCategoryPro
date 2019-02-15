@@ -1,5 +1,5 @@
 //
-//  +Helper.m
+//  NSDate+Helper.m
 //  Location
 //
 //  Created by BIN on 2017/12/21.
@@ -73,7 +73,6 @@ static NSArray * _weekList = nil;
 }
 
 - (NSDate *)localFromUTC{
-
     NSDate *soureDate = self;
     //设置源日期时区
     NSTimeZone * sourceTimeZone = [NSTimeZone timeZoneWithAbbreviation:@"UTC"];//或GMT
@@ -93,29 +92,26 @@ static NSArray * _weekList = nil;
 /*距离当前的时间间隔描述*/
 
 - (NSString *)timeIntervalDescription{
-    
-    NSTimeInterval timeInterval = -[self timeIntervalSinceNow];
-    if(timeInterval <60) {
+    NSTimeInterval timeInterval = -self.timeIntervalSinceNow;
+    if(timeInterval < 60) {
         return NSLocalizedString(@"NSDateCategory.text1",@"");
         
-    } else if (timeInterval <3600) {
-        return [NSString  stringWithFormat:NSLocalizedString(@"NSDateCategory.text2",@""), timeInterval /60];
+    } else if (timeInterval < 3600) {
+        return [NSString stringWithFormat:NSLocalizedString(@"NSDateCategory.text2",@""), timeInterval /60];
         
-    } else if (timeInterval <86400) {
+    } else if (timeInterval < 86400) {
         return [NSString stringWithFormat:NSLocalizedString(@"NSDateCategory.text3",@""), timeInterval /3600];
         
-    } else if (timeInterval <2592000) {//30天内
-        return [NSString  stringWithFormat:NSLocalizedString(@"NSDateCategory.text4",@""), timeInterval /86400];
+    } else if (timeInterval < 2592000) {//30天内
+        return [NSString stringWithFormat:NSLocalizedString(@"NSDateCategory.text4",@""), timeInterval /86400];
         
-    } else if (timeInterval <31536000) {//30天至1年内
-        NSDateFormatter  *dateFormatter = [NSDateFormatter dateFormat:NSLocalizedString(@"NSDateCategory.text5",@"")];
+    } else if (timeInterval < 31536000) {//30天至1年内
+        NSDateFormatter *dateFormatter = [NSDateFormatter dateFormat:NSLocalizedString(@"NSDateCategory.text5",@"")];
         return [dateFormatter stringFromDate:  self ];
         
     } else {
         return [NSString stringWithFormat:NSLocalizedString(@"NSDateCategory.text6",@""), timeInterval /31536000];
-        
     }
-    
 }
 
 /*精确到分钟的日期描述*/
@@ -151,8 +147,7 @@ static NSArray * _weekList = nil;
 /*标准时间日期描述*/
 
 -(NSString *)formattedTime{
-    NSDateFormatter  * formatter = [[NSDateFormatter alloc]init];
-    [formatter   setDateFormat :@"YYYY-MM-dd"];
+    NSDateFormatter  * formatter = [NSDateFormatter dateFormat:@"YYYY-MM-dd"];
     
     NSString* dateNow = [formatter stringFromDate:NSDate.date];
     
@@ -218,8 +213,7 @@ static NSArray * _weekList = nil;
 /*格式化日期描述*/
 
 - (NSString *)formattedDateDescription{
-    NSDateFormatter  *dateFormatter = [[NSDateFormatter alloc ]init];
-    dateFormatter.dateFormat = @"yyyy-MM-dd";
+    NSDateFormatter  *dateFormatter = [NSDateFormatter dateFormat:@"yyyy-MM-dd"];
     
     NSString *theDay = [dateFormatter stringFromDate:self];//日期的年月日
     NSString *currentDay = [dateFormatter stringFromDate:[NSDate date]];//当前年月日
@@ -469,27 +463,17 @@ static NSArray * _weekList = nil;
     return [NSDate.date dateByAddDays:days];
 }
 
-+ (NSDate *)dateWithDaysBeforeNow:(NSInteger )days{
-    return [NSDate.date dateByAddDays: -1* days];
-}
-
 + (NSDate *)dateTomorrow{
     return [NSDate dateWithDaysFromNow:1];
 }
 
 + (NSDate *)dateYesterday{
-    return [NSDate dateWithDaysBeforeNow:1];
+    return [NSDate dateWithDaysFromNow: -1];
 }
 
 + (NSDate *)dateWithHoursFromNow:(NSInteger )dHours{
     NSTimeInterval aTimeInterval = NSDate.date.timeIntervalSince1970 +kDate_hour* dHours;
     NSDate *newDate = [NSDate dateWithTimeIntervalSinceReferenceDate:aTimeInterval];
-    return newDate;
-}
-
-+ (NSDate *)dateWithHoursBeforeNow:(NSInteger )dHours{
-    NSTimeInterval aTimeInterval = NSDate.date.timeIntervalSince1970 -kDate_hour* dHours;
-    NSDate*newDate = [NSDate dateWithTimeIntervalSinceReferenceDate:aTimeInterval];
     return newDate;
 }
 
@@ -499,125 +483,193 @@ static NSArray * _weekList = nil;
     return newDate;
 }
 
-+ (NSDate *)dateWithMinutesBeforeNow:(NSInteger )dMinutes{
-    NSTimeInterval aTimeInterval = NSDate.date.timeIntervalSince1970 -kDate_minute* dMinutes;
-    NSDate *newDate = [NSDate dateWithTimeIntervalSinceReferenceDate:aTimeInterval];
-    return newDate;
+#pragma mark -Comparing Dates
+
+/**
+ 返回及其详细的NSDateComponents
+ */
++ (NSDateComponents *)dateComponentsFromDate:(NSDate *)aDate{
+    NSCalendarUnit calendarUnit = NSCalendarUnitYear | NSCalendarUnitMonth | NSCalendarUnitDay |
+                                    NSCalendarUnitHour | NSCalendarUnitMinute | NSCalendarUnitSecond |
+                                    NSCalendarUnitWeekdayOrdinal | NSCalendarUnitWeekday;
+    NSDateComponents *components = [NSDate.calendar components:calendarUnit fromDate:aDate];
+    return components;
+}
+
+/**
+ 两个时间差的NSDateComponents
+ */
++ (NSDateComponents *)dateFrom:(NSDate *)aDate to:(NSDate *)anotherDate{
+    NSCalendarUnit calendarUnit = NSCalendarUnitYear | NSCalendarUnitMonth | NSCalendarUnitDay |
+                                    NSCalendarUnitHour | NSCalendarUnitMinute | NSCalendarUnitSecond |
+                                    NSCalendarUnitWeekdayOrdinal | NSCalendarUnitWeekday;
+    NSDateComponents *components = [NSDate.calendar components:calendarUnit fromDate:aDate toDate:anotherDate options:0];
+    return components;
+}
+
+/**
+ 包含2个日期的年/月/日/时/分/秒数量
+ */
++ (NSInteger)numDateFrom:(NSDate *)aDate to:(NSDate *)anotherDate type:(NSNumber *)type{
+    NSDateComponents *comp1 = [NSDate dateComponentsFromDate: aDate];
+    NSDateComponents *comp2 = [NSDate dateComponentsFromDate: anotherDate];
+    NSInteger number = comp2.year - comp1.year + 1;
+    switch (type.integerValue) {
+        case 1://月
+        {
+            number = comp2.month - comp1.month + 1;
+        }
+            break;
+        case 2://日
+        {
+            number = comp2.day - comp1.day + 1;
+        }
+            break;
+        case 3://时
+        {
+            number = comp2.hour - comp1.hour + 1;
+
+        }
+            break;
+        case 4://分
+        {
+            number = comp2.minute - comp1.minute + 1;
+        }
+            break;
+        case 5://秒
+        {
+            number = comp2.second - comp1.second + 1;
+        }
+            break;
+        default://年
+            break;
+    }
+    return number;
+}
+
+/**
+ 某个日期月份包含的天数
+ */
++ (NSInteger)countOfDaysInMonth:(NSDate *)date{
+    NSRange range = [NSDate.calendar rangeOfUnit:NSCalendarUnitDay inUnit:NSCalendarUnitMonth forDate:date];
+    return range.length;
+}
+
+/**
+ 某个日期鱼粉的第一天的值(默认顺序为“日一二三四五六”，1:星期日，2:星期一，依次类推)
+ */
++ (NSInteger)firstWeekDay:(NSDate *)date{
+    NSInteger day = [NSDate.calendar ordinalityOfUnit:NSCalendarUnitDay inUnit:NSCalendarUnitWeekOfYear forDate:date];
+    return day;
+}
+
+/**
+ 根据type值返回0 年月日;1 年; 2 月; 3 周;4 (不同年)月; 5 (不同年)周的对比结果
+ */
+- (BOOL)isCompareDate:(NSDate *)aDate type:(NSNumber *)type{
+    NSDateComponents *comp1 = [NSDate dateComponentsFromDate: self];
+    NSDateComponents *comp2 = [NSDate dateComponentsFromDate: aDate];
     
+    BOOL result = ((comp1.year == comp2.year) && (comp1.month == comp2.month) && (comp1.day == comp2.day));
+    switch (type.integerValue) {
+        case 1://年
+            result = (comp1.year == comp2.year);
+            
+            break;
+        case 2://月
+            result = ((comp1.year == comp2.year) && (comp1.month == comp2.month));
+
+            break;
+        case 3://周
+            result = ((comp1.year == comp2.year) && (comp1.weekOfYear == comp2.weekOfYear));
+
+            break;
+        case 4://(不同年)月
+            result = (comp1.month == comp2.month);
+            
+            break;
+        case 5://(不同年)周
+            result = (comp1.weekOfYear == comp2.weekOfYear);
+            
+            break;
+        default://年月日
+            break;
+    }
+    return result;
 }
 
-#pragma mark Comparing Dates
-
-- (BOOL)isEqualToDateIgnoringTime:(NSDate *)aDate{
-    NSDateComponents *components1 = [NSDate.calendar components:kDateComponents fromDate:self ];
-    NSDateComponents *components2 = [NSDate.calendar components:kDateComponents fromDate:aDate];
-    return ((components1.year == components2.year) && (components1.month== components2.month) && (components1.day== components2.day));
-}
 
 - (BOOL)isToday{
-    return [self isEqualToDateIgnoringTime:NSDate.date];
+    return [self isCompareDate:NSDate.date type:@0];
 }
 
 - (BOOL)isTomorrow{
-    return [self isEqualToDateIgnoringTime:[NSDate dateTomorrow]];
-    
+    return [self isCompareDate:[NSDate dateWithDaysFromNow:1] type:@0];
 }
 
 - (BOOL)isYesterday{
-    return [self isEqualToDateIgnoringTime:[NSDate dateYesterday]];
-    
+    return [self isCompareDate:[NSDate dateWithDaysFromNow:-1] type:@0];
 }
 
-// This hard codes the assumption that a week is 7 days
-
-- (BOOL)isSameWeekAsDate:(NSDate*) aDate{
-    NSDateComponents *components1 = [NSDate.calendar components:kDateComponents fromDate:self ];
-
-    NSDateComponents *components2 = [NSDate.calendar components:kDateComponents fromDate:aDate];
-
-    // Must be same week. 12/31 and 1/1 will both be week "1" if they are in the same week
-
-    if(components1.weekOfYear!= components2.weekOfYear)return NO;
-
-    // Must have a time interval under 1 week. Thanks @aclark
-    return (fabs([self timeIntervalSinceDate:aDate]));
-       
+- (BOOL)isSameWeekAsDate:(NSDate *) aDate{
+    return [self isCompareDate:aDate type:@3];
 }
        
 - (BOOL)isThisWeek{
     return [self isSameWeekAsDate:NSDate.date];
-
 }
 
 - (BOOL)isNextWeek{
     NSTimeInterval aTimeInterval = NSDate.date.timeIntervalSince1970 +kDate_week;
     NSDate*newDate = [NSDate dateWithTimeIntervalSinceReferenceDate:aTimeInterval];
-
     return [self isSameWeekAsDate:newDate];
-
 }
 
 - (BOOL)isLastWeek{
     NSTimeInterval aTimeInterval = NSDate.date.timeIntervalSince1970 -kDate_week;
-
     NSDate *newDate = [NSDate dateWithTimeIntervalSinceReferenceDate:aTimeInterval];
     return [self isSameWeekAsDate:newDate];
-
 }
 
 // Thanks, mspasov
 - (BOOL)isSameMonthAsDate:(NSDate *)aDate{
-    NSDateComponents *components1 = [NSDate.calendar components:NSCalendarUnitYear|NSCalendarUnitMonth fromDate:self ];
-    NSDateComponents *components2 = [NSDate.calendar components:NSCalendarUnitYear|NSCalendarUnitMonth fromDate:aDate];
-
-    return ((components1.month== components2.month) &&(components1.year== components2.year));
-
+    return [self isCompareDate:aDate type:@2];
 }
 
 - (BOOL)isThisMonth{
     return [self isSameMonthAsDate:NSDate.date];
-
 }
 
 - (BOOL)isSameYearAsDate:(NSDate *)aDate{
-    NSDateComponents *components1 = [NSDate.calendar components:NSCalendarUnitYear fromDate:self ];
-    NSDateComponents *components2 = [NSDate.calendar components:NSCalendarUnitYear fromDate:aDate];
-    return (components1.year== components2.year);
-
+    return [self isCompareDate:aDate type:@1];
 }
 
 - (BOOL)isThisYear{
     return [self isSameYearAsDate:NSDate.date];
-
 }
 
 - (BOOL)isNextYear{
-    NSDateComponents *components1 = [NSDate.calendar components:NSCalendarUnitYear fromDate:self ];
-    NSDateComponents *components2 = [NSDate.calendar components:NSCalendarUnitYear fromDate:NSDate.date];
-    return (components1.year== (components2.year+1));
-
+    NSDateComponents *comp1 = [NSDate dateComponentsFromDate: self];
+    NSDateComponents *comp2 = [NSDate dateComponentsFromDate: NSDate.date];
+    return (comp1.year == (comp2.year+1));
 }
 
 - (BOOL)isLastYear{
-    NSDateComponents *components1 = [NSDate.calendar components:NSCalendarUnitYear fromDate:self ];
-    NSDateComponents *components2 = [NSDate.calendar components:NSCalendarUnitYear fromDate:NSDate.date];
-    return (components1.year== (components2.year-1));
-
+    NSDateComponents *comp1 = [NSDate dateComponentsFromDate: self];
+    NSDateComponents *comp2 = [NSDate dateComponentsFromDate: NSDate.date];
+    return (comp1.year == (comp2.year-1));
 }
 
 - (BOOL)isEarlierThanDate:(NSDate *)aDate{
     return ([self compare:aDate] ==NSOrderedAscending);
-
 }
 
 - (BOOL)isLaterThanDate:(NSDate *)aDate{
     return ([self compare:aDate] ==NSOrderedDescending);
-
 }
 
 - (BOOL)isInFuture{
     return ([self isLaterThanDate:NSDate.date]);
-
 }
 
 - (BOOL)isInPast{
@@ -627,16 +679,14 @@ static NSArray * _weekList = nil;
 #pragma mark Roles
 
 - (BOOL)isTypicallyWeekend{
-    NSDateComponents *components = [NSDate.calendar components:NSCalendarUnitWeekday fromDate:self];
-    if((components.weekday == 1) ||  (components.weekday == 7))return YES;
+    NSDateComponents *comp1 = [NSDate dateComponentsFromDate: self];
+    if((comp1.weekday == 1) || (comp1.weekday == 7)) return YES;
     return NO;
 }
 
 - (BOOL)isTypicallyWorkday{
     return ![self isTypicallyWeekend];
-
 }
-
 
 #pragma mark Adjusting Dates
 
@@ -658,19 +708,21 @@ static NSArray * _weekList = nil;
     return [self dateByAddingDay:0 hour:0 minute:dMinutes second:0];;
 }
 
-
+/**
+ 多少小时,分钟,秒之后的NSDate
+ */
 - (NSDate *)dateAfterHour:(NSInteger)hour minute:(NSInteger)minute second:(NSInteger)second{
-    NSDateComponents *components = [NSDate.calendar components:NSUIntegerMax fromDate:self];
-    components.hour     =   hour;
-    components.minute   =   minute;
-    components.second   =   second;
-    return [NSDate.calendar dateFromComponents:components];
+//    NSDateComponents *comp = [NSDate.calendar components:NSUIntegerMax fromDate:self];
+    NSDateComponents *comp = [NSDate dateComponentsFromDate:self];
+    comp.hour   = hour;
+    comp.minute = minute;
+    comp.second = second;
+    return [NSDate.calendar dateFromComponents:comp];
 }
 
 - (NSDate *)dateAtStartOfDay{
     return [self dateAfterHour:0 minute:0 second:0];
 }
-
 
 - (NSDateComponents *)componentsWithOffsetFromDate:(NSDate *)aDate{
     NSDateComponents  *dTime = [NSDate.calendar components:kDateComponents fromDate:aDate toDate:self options:0];
@@ -720,13 +772,12 @@ static NSArray * _weekList = nil;
 - (NSInteger)nearestHour{
     NSTimeInterval aTimeInterval = NSDate.date.timeIntervalSince1970 + kDate_minute*30;
     NSDate *newDate = [NSDate dateWithTimeIntervalSinceReferenceDate:aTimeInterval];
-    NSDateComponents *components = [NSDate.calendar components:NSCalendarUnitHour fromDate:newDate];
+    NSDateComponents *components = [NSDate dateComponentsFromDate:newDate];
     return components.hour;
 }
 
 - (NSDateComponents *)components{
-    NSCalendar *calendar = NSDate.calendar;
-    NSDateComponents *components = [calendar components:kDateComponents fromDate:self];
+    NSDateComponents *components = [NSDate dateComponentsFromDate:self];
     return components;
 }
 
