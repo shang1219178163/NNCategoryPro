@@ -57,6 +57,11 @@ FOUNDATION_EXPORT CGFloat roundFloat(CGFloat value,NSInteger num);
 
 NSDictionary<NSAttributedStringKey, id> * AttributeDict(NSNumber * type);
 
+/**
+ swift类需要加命名空间
+ */
+NSString * SwiftClassName(NSString *className);
+
 @interface NSObject (Helper)<NSCoding>
 
 void dispatchAsyncMain(void(^block)(void));
