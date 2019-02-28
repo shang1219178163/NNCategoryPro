@@ -191,6 +191,9 @@
     return img;
 }
 
+/**
+ 高性能圆角
+ */
 - (UIImage *)imageAddCornerWithRadius:(CGFloat)radius andSize:(CGSize)size{
     CGRect rect = CGRectMake(0, 0, size.width, size.height);
     
