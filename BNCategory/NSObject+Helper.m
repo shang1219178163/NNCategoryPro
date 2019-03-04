@@ -369,14 +369,6 @@ NSDictionary<NSAttributedStringKey, id> * AttributeDict(NSNumber * type){
     return dic;
 }
 
-NSString * SwiftClassName(NSString *className){
-    NSDictionary *infoDict = NSBundle.mainBundle.infoDictionary;
-    NSString * appName = infoDict[(NSString *)kCFBundleExecutableKey] ? : infoDict[(NSString *)kCFBundleNameKey];
-    NSString * string = [NSString stringWithFormat:@"%@.%@",appName,className];
-    return string;
-}
-
-
 @implementation NSObject (Helper)
 
 //为 NSObject 扩展 NSCoding 协议里的两个方法, 用来便捷实现复杂对象的归档与反归档

@@ -36,6 +36,8 @@
 
 + (void)setupAppearance;
 
++ (void)setupAppearanceNavigationBar:(BOOL)isWhite;
+
 + (void)setupAppearanceNavigationBar;
 
 + (BOOL)openURL:(NSString *)urlStr tips:(NSString *)tips;

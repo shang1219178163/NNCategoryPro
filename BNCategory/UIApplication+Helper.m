@@ -156,6 +156,18 @@
 //    UITabBarItem.appearance setTitleTextAttributes:<#(nullable NSDictionary<NSAttributedStringKey,id> *)#> forState:<#(UIControlState)#>
 }
 
++ (void)setupAppearanceNavigationBar:(BOOL)isWhite{
+    if (isWhite == true) {
+        UINavigationBar.appearance.tintColor = UIColor.blackColor;
+        UINavigationBar.appearance.barTintColor = UIColor.whiteColor;
+        [UINavigationBar.appearance setBackgroundImage:UIImageColor(UIColor.whiteColor) forBarMetrics:UIBarMetricsDefault];
+
+    } else {
+        [UIApplication setupAppearanceNavigationBar];
+    }
+
+}
+
 + (void)setupAppearanceNavigationBar{
     UINavigationBar.appearance.tintColor = UIColor.whiteColor;
     UINavigationBar.appearance.barTintColor = UIColor.themeColor;
