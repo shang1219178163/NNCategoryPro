@@ -351,24 +351,31 @@
 }
 
 - (void)presentController:(NSString *_Nonnull)contollerName title:(NSString *)title{
-    [self presentController:contollerName title:title obj:nil objOne:nil];
+    [self presentController:contollerName title:title obj:nil objOne:nil animated:true];
+}
+
+- (void)presentController:(NSString *_Nonnull)contollerName title:(NSString *)title animated:(BOOL)animated{
+    [self presentController:contollerName title:title obj:nil objOne:nil animated:animated];
 }
 
 - (void)presentController:(NSString *_Nonnull)contollerName title:(NSString *)title obj:(id)obj{
-    [self presentController:contollerName title:title obj:obj objOne:nil];
+    [self presentController:contollerName title:title obj:obj objOne:nil animated:true];
 }
 
 - (void)presentController:(NSString *_Nonnull)contollerName title:(NSString *)title obj:(id)obj objOne:(id)objOne{
+    [self presentController:contollerName title:title obj:obj objOne:nil animated:true];
+}
+
+- (void)presentController:(NSString *_Nonnull)contollerName title:(NSString *)title obj:(id)obj objOne:(id)objOne animated:(BOOL)animated{
     UIViewController * controller = [NSClassFromString(contollerName) new];
     controller.title = title;
     controller.obj = obj;
     controller.objOne = objOne;
-
+    
     UINavigationController *navController = [[UINavigationController alloc] initWithRootViewController:controller];
-    [self presentViewController:navController animated:YES completion:^{
+    [self presentViewController:navController animated:animated completion:^{
         
     }];
-    
 }
 
 - (UIViewController *)getController:(NSString *)contollerName navController:(UINavigationController *)navController{
