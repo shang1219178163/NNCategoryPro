@@ -34,7 +34,11 @@
 + (void)setupRootController:(id _Nonnull)controller;
 + (void)setupRootController:(id _Nonnull)controller isAdjust:(BOOL)isAdjust;
 
-+ (void)setupAppearance;
++ (void)setupAppearance:(BOOL)isWhite;
+
++ (void)setupAppearanceScrollView;
+
++ (void)setupAppearanceOthers;
 
 + (void)setupAppearanceNavigationBar:(BOOL)isWhite;
 

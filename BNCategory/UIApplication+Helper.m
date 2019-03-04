@@ -115,49 +115,57 @@
     
 }
 
-+ (void)setupAppearance{
-    [self setupAppearanceNavigationBar];
-    [self setupAppearanceTabBar];
-    UIButton.appearance.exclusiveTouch = NO;
++ (void)setupAppearance:(BOOL)isWhite{
+    [UIApplication setupAppearanceNavigationBar:isWhite];
+    [UIApplication setupAppearanceScrollView];
+    [UIApplication setupAppearanceOthers];
+}
 
++ (void)setupAppearanceScrollView{
     UITableViewCell.appearance.separatorInset = UIEdgeInsetsZero;
     UITableViewCell.appearance.selectionStyle = UITableViewCellSelectionStyleNone;
     
     UIScrollView.appearance.keyboardDismissMode = UIScrollViewKeyboardDismissModeOnDrag;
-
+    
     if (@available(iOS 11.0, *)) {
         UITableView.appearance.estimatedRowHeight = 0.0;
         UITableView.appearance.estimatedSectionHeaderHeight = 0.0;
         UITableView.appearance.estimatedSectionFooterHeight = 0.0;
-
+        
         UICollectionView.appearance.contentInsetAdjustmentBehavior = UIScrollViewContentInsetAdjustmentNever;
         UIScrollView.appearance.contentInsetAdjustmentBehavior = UIScrollViewContentInsetAdjustmentNever;
-
+        
     }
-    
+}
+
++ (void)setupAppearanceOthers{
+    UIButton.appearance.exclusiveTouch = NO;
+
     UITabBar.appearance.tintColor = UIColor.themeColor;
     UITabBar.appearance.barTintColor = UIColor.whiteColor;
-    
+    UITabBar.appearance.translucent = NO;
+
     if (@available(iOS 10.0, *)) {
         UITabBar.appearance.unselectedItemTintColor = UIColor.grayColor;
     } else {
         // Fallback on earlier versions
     }
     
-    
-//    UITabBarItem *selectedItem = UITabBar.appearance.selectedItem;
-//    selectedItem.image = [selectedItem.image imageWithRenderingMode:UIImageRenderingModeAlwaysTemplate];
-//
-//    NSArray *items = UITabBar.appearance.items;
-//    for (UITabBarItem * item in items) {
-//        item.image = [item.image imageWithRenderingMode:UIImageRenderingModeAlwaysTemplate];
-//    }
+    UITabBarItem.appearance.titlePositionAdjustment = UIOffsetMake(0, -5.0);
 
-//    UITabBarItem.appearance setTitleTextAttributes:<#(nullable NSDictionary<NSAttributedStringKey,id> *)#> forState:<#(UIControlState)#>
+    //    UITabBarItem *selectedItem = UITabBar.appearance.selectedItem;
+    //    selectedItem.image = [selectedItem.image imageWithRenderingMode:UIImageRenderingModeAlwaysTemplate];
+    //
+    //    NSArray *items = UITabBar.appearance.items;
+    //    for (UITabBarItem * item in items) {
+    //        item.image = [item.image imageWithRenderingMode:UIImageRenderingModeAlwaysTemplate];
+    //    }
+    
+    //    UITabBarItem.appearance setTitleTextAttributes:<#(nullable NSDictionary<NSAttributedStringKey,id> *)#> forState:<#(UIControlState)#>
 }
 
 + (void)setupAppearanceNavigationBar:(BOOL)isWhite{
-    if (isWhite == true) {
+    if (isWhite == true) {//白色主题色
         UINavigationBar.appearance.tintColor = UIColor.blackColor;
         UINavigationBar.appearance.barTintColor = UIColor.whiteColor;
         [UINavigationBar.appearance setBackgroundImage:UIImageColor(UIColor.whiteColor) forBarMetrics:UIBarMetricsDefault];
@@ -168,6 +176,9 @@
 
 }
 
+/**
+ 非白色主题色
+ */
 + (void)setupAppearanceNavigationBar{
     UINavigationBar.appearance.tintColor = UIColor.whiteColor;
     UINavigationBar.appearance.barTintColor = UIColor.themeColor;
@@ -203,11 +214,6 @@
     else{
 
     }
-}
-
-+ (void)setupAppearanceTabBar{
-    UITabBarItem.appearance.titlePositionAdjustment = UIOffsetMake(0, -5.0);
-    UITabBar.appearance.translucent = NO;
 }
 
 + (BOOL)openURL:(NSString *)urlStr tips:(NSString *)tips{
