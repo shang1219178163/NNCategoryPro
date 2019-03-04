@@ -34,7 +34,7 @@
 + (void)setupRootController:(id _Nonnull)controller;
 + (void)setupRootController:(id _Nonnull)controller isAdjust:(BOOL)isAdjust;
 
-+ (void)setupAppearance:(BOOL)isWhite;
++ (void)setupAppearanceDefault:(BOOL)isDefault;
 
 + (void)setupAppearanceScrollView;
 

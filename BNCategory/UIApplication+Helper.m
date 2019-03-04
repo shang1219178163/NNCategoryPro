@@ -115,8 +115,12 @@
     
 }
 
-+ (void)setupAppearance:(BOOL)isWhite{
-    [UIApplication setupAppearanceNavigationBar:isWhite];
+
+/**
+ 导航栏默认白色主题色
+ */
++ (void)setupAppearanceDefault:(BOOL)isDefault{
+    [UIApplication setupAppearanceNavigationBar:isDefault];
     [UIApplication setupAppearanceScrollView];
     [UIApplication setupAppearanceOthers];
 }
