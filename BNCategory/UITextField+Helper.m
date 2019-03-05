@@ -176,7 +176,7 @@ NSString * const kDeafult_textFieldHistory = @"kDeafult_textFieldHistory" ;// xæ
         return;
     }
     
-    self.historyTableView.frame = CGRectMake(self.minX, CGRectGetMaxY(self.frame) + 1, self.maxX, 1);
+    self.historyTableView.frame = CGRectMake(self.minX, CGRectGetMaxY(self.frame), self.sizeWidth, 1);
     [self.superview addSubview:self.historyTableView];
     
     CGRect rect = self.historyTableView.frame;

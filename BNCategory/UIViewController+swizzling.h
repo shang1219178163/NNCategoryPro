@@ -8,7 +8,7 @@
 
 #import <UIKit/UIKit.h>
 
-@interface UIViewController (swizzling)
+@interface UIViewController (swizzling)<UIGestureRecognizerDelegate>
 
 
 @end
