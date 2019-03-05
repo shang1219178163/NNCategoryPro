@@ -71,8 +71,11 @@ typedef void(^BlockAlertController)(UIAlertController * _Nonnull alertController
 - (void)goController:(NSString *_Nonnull)contollerName title:(NSString *_Nullable)title obj:(id _Nullable)obj objOne:(id _Nullable)objOne;
 
 - (void)presentController:(NSString *_Nonnull)contollerName title:(NSString *_Nullable)title;
+- (void)presentController:(NSString *_Nonnull)contollerName title:(NSString *_Nullable)title animated:(BOOL)animated;
+
 - (void)presentController:(NSString *_Nonnull)contollerName title:(NSString *_Nullable)title obj:(id _Nullable)obj;
 - (void)presentController:(NSString *_Nonnull)contollerName title:(NSString *_Nullable)title obj:(id _Nullable)obj objOne:(id _Nullable)objOne;
+- (void)presentController:(NSString *_Nonnull)contollerName title:(NSString * _Nullable)title obj:(id _Nullable)obj objOne:(id _Nullable)objOne animated:(BOOL)animated;
 
 /**
  堆栈中查找控制器,找到返回,没有创建
