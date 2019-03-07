@@ -751,4 +751,23 @@
     return tabBarItem;
 }
 
+/**
+ 导航栏 UIBarButtonItem
+ */
++ (UIBarButtonItem *)createBarItem:(NSString *)obj style:(UIBarButtonItemStyle)style{
+    return [UIView createBarItem:obj style:style target:nil action:nil];
+}
+
+/**
+ [源] 导航栏 UIBarButtonItem
+ */
++ (UIBarButtonItem *)createBarItem:(NSString *)obj style:(UIBarButtonItemStyle)style target:(id)target action:(nullable SEL)action{
+    if ([UIImage imageNamed:obj]) {
+        UIBarButtonItem* barItem = [[UIBarButtonItem alloc] initWithImage:[[UIImage imageNamed:obj] imageWithRenderingMode:UIImageRenderingModeAlwaysTemplate] style:style target:target action:action];
+        return barItem;
+    }
+    UIBarButtonItem* barItem = [[UIBarButtonItem alloc] initWithTitle:obj style:style target:target action:action];
+    return barItem;
+}
+
 @end

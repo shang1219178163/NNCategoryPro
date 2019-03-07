@@ -67,4 +67,8 @@
 
 + (UITabBarItem *)createTabBarItem:(nullable NSString *)title image:(nullable NSString *)image selectedImage:(nullable NSString *)selectedImage;
 
++ (UIBarButtonItem *)createBarItem:(NSString *)obj style:(UIBarButtonItemStyle)style;
+
++ (UIBarButtonItem *)createBarItem:(NSString *)obj style:(UIBarButtonItemStyle)style target:(id)target action:(nullable SEL)action;
+
 @end

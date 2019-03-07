@@ -272,6 +272,41 @@
     return btn;
 }
 
+/**
+ [新]导航栏按钮
+ */
+- (UIView *)createBarItem:(NSString *)obj isLeft:(BOOL)isLeft handler:(void(^)(id obj, UIView *item, NSInteger idx))handler{
+    UIView * item = nil;
+    if ([UIImage imageNamed:obj]) {
+        item = [UIView createImgViewRect:CGRectMake(0, 0, 32, 32) image:[UIImage imageNamed:obj] tag:0 type:0];
+    }
+    else{
+        item = [UIView createLabelRect:CGRectMake(0, 0, 72, 20) text:obj font:17 tag:0 type:@1];
+        ((UILabel *)item).textAlignment = NSTextAlignmentCenter;
+        ((UILabel *)item).textColor = UIColor.whiteColor;
+    }
+    
+    item.tag = isLeft  ? kTAG_BTN_BackItem : kTAG_BTN_RightItem;
+    //
+    UIView * view = [[UIView alloc]initWithFrame:CGRectMake(0, 0, 44, 44)];
+    item.center = view.center;
+    [view addSubview:item];
+    
+    [view addGestureTap:^(UIGestureRecognizer *sender) {
+        if (view.isHidden == 1) return ;
+        handler((UITapGestureRecognizer *)obj, item, item.tag);
+        
+    }];
+   
+    UIBarButtonItem *barItem = [[UIBarButtonItem alloc]initWithCustomView:view];
+    if (isLeft) {
+        self.navigationItem.leftBarButtonItem = barItem;
+    }
+    else{
+        self.navigationItem.rightBarButtonItem = barItem;
+    }
+    return view;
+}
 
 - (UITableViewCell *)cellByClickView:(UIView *)view{
     UIView * supView = [view superview];
