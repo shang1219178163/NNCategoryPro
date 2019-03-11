@@ -44,6 +44,7 @@ FOUNDATION_EXPORT NSArray * RGBAFromColor(UIColor *color);
 FOUNDATION_EXPORT BOOL isLightColor(UIColor *color);
 
 FOUNDATION_EXPORT UIImage * UIImageColor(UIColor * color);
+FOUNDATION_EXPORT UIImage * UIImageColorHexAlpha(NSInteger hex, CGFloat alpha);
 FOUNDATION_EXPORT UIImage * UIImageNamed(NSString * obj);
 FOUNDATION_EXPORT UIImage * UIImageFromName(NSString *obj, UIImageRenderingMode renderingMode);
 FOUNDATION_EXPORT UIImage * UIImageObj(id obj);

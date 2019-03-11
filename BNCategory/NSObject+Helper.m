@@ -247,6 +247,11 @@ UIImage * UIImageColor(UIColor * color){
     return [UIImage imageWithColor:color];
 }
 
+UIImage * UIImageColorHexAlpha(NSInteger hex, CGFloat alpha){
+    return UIImageColor(UIColorHexValueAlpha(hex, alpha));
+}
+
+
 /**
  NSString->UIImage
  */
