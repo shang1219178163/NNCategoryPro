@@ -13,6 +13,8 @@
 
 + (NSString *)changTextFontRatio:(CGFloat)fontRatio;
 
+- (void)addUserScript:(NSString *)source;
+
 @end
 
 
