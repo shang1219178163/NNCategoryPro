@@ -15,22 +15,75 @@
 #import "UIView+Helper.h"
 #import "UIImage+Helper.h"
 #import "UIImageView+Helper.h"
+#import "CAGradientLayer+Helper.h"
 
 #import <SDWebImage/UIImageView+WebCache.h>
 
-@interface UIView (addView)
-
-@property (nonatomic, strong) NSArray * selectedArr;
-@property (nonatomic, assign) NSInteger selectedIndex;
-
-@end
-
 @implementation UIView (AddView)
 
-@dynamic actionWithBlock;
-@dynamic segmentViewBlock;
+-(CAGradientLayer *)gradientLayer{
+    id obj = objc_getAssociatedObject(self, _cmd);
+    if (!obj) {
+        NSArray * colors = @[[UIColor.themeColor colorWithAlphaComponent:0.5], [UIColor.themeColor colorWithAlphaComponent:0.9]];
+        obj = [CAGradientLayer layerRect:CGRectZero colors:colors start:CGPointMake(0, 0) end:CGPointMake(1.0, 0)];
+        
+        objc_setAssociatedObject(self, _cmd, obj, OBJC_ASSOCIATION_RETAIN_NONATOMIC);
+    }
+    return obj;
+}
 
-- (void)addLineRect:(CGRect)rect isDash:(BOOL)isDash tag:(NSInteger)tag inView:(UIView *)inView{
+-(void)setGradientLayer:(CAGradientLayer *)gradientLayer{
+    objc_setAssociatedObject(self, @selector(gradientLayer), gradientLayer, OBJC_ASSOCIATION_RETAIN_NONATOMIC);
+}
+
+-(UIView *)holderView{
+    id obj = objc_getAssociatedObject(self, _cmd);
+    if (!obj) {
+        obj = ({
+            UIView *view = [[UIView alloc] initWithFrame:self.bounds];
+            view.hidden = true;
+            
+            CGFloat height = CGRectGetHeight(self.bounds) - 25*2;
+            CGFloat YGap = height*0.2;
+            
+            UIImageView *imgView = [[UIImageView alloc] initWithFrame:CGRectMake(0, YGap, CGRectGetWidth(self.bounds), height*0.3)];
+            imgView.contentMode = UIViewContentModeScaleAspectFit;
+            imgView.userInteractionEnabled = YES;
+            imgView.tag = kTAG_IMGVIEW;
+            [view addSubview:imgView];
+            
+            UILabel * label = [[UILabel alloc]initWithFrame:CGRectMake(0, CGRectGetMaxY(imgView.frame) + 25, CGRectGetWidth(self.bounds), 25)];
+            label.textAlignment = NSTextAlignmentCenter;
+            label.text = @"暂无数据";
+            label.textColor = UIColorHexValue(0x999999);
+            label.tag = kTAG_LABEL;
+            [view addSubview:label];
+
+            view;
+        });
+        objc_setAssociatedObject(self, _cmd, obj, OBJC_ASSOCIATION_RETAIN_NONATOMIC);
+        
+    }
+    return obj;
+}
+
+-(void)setHolderView:(UIView *)holderView{
+    objc_setAssociatedObject(self, @selector(holderView), holderView, OBJC_ASSOCIATION_RETAIN_NONATOMIC);
+}
+
+- (void)holderView:(NSString *)title image:(NSString *)image{
+    UIImageView *imgView = [self viewWithTag:kTAG_IMGVIEW];
+    UILabel *label = [self viewWithTag:kTAG_LABEL];
+    label.text = title;
+    if (image == nil) {
+        label.center = CGPointMake(self.holderView.center.x, self.holderView.sizeHeight*0.35);
+    } else {
+        imgView.image = UIImageNamed(image);
+    }
+    
+}
+
+-(void)addLineRect:(CGRect)rect isDash:(BOOL)isDash tag:(NSInteger)tag inView:(UIView *)inView{
     if (!isDash) {
         if (![inView viewWithTag:tag]) {
             UIView * lineView = [[UIView alloc]initWithFrame:rect];
@@ -91,7 +144,7 @@
     }
 }
 
-+ (UIView *)createLineRect:(CGRect)rect isDash:(BOOL)isDash hidden:(BOOL)hidden tag:(NSInteger)tag{
++(UIView *)createLineRect:(CGRect)rect isDash:(BOOL)isDash hidden:(BOOL)hidden tag:(NSInteger)tag{
     if (!isDash) {
         UIView * lineView = [[UIView alloc]initWithFrame:rect];
         lineView.backgroundColor = UIColor.lineColor;
@@ -123,7 +176,6 @@
         return imgView;
     }
 }
-
 
 -(CGRect)rectWithLineType:(NSNumber *)type width:(CGFloat)width paddingScale:(CGFloat)paddingScale{
     UIView * view = self;
@@ -172,7 +224,6 @@
     
     return layer;
 }
-
 
 -(UIView *)createViewType:(NSNumber *)type color:(UIColor *)color width:(CGFloat)width paddingScale:(CGFloat)paddingScale{
     UIView * view = self;

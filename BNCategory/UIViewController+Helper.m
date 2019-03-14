@@ -20,6 +20,7 @@
 #import "UIView+Helper.h"
 #import "UIButton+Helper.h"
 #import "UIScreen+Helper.h"
+#import "UIControl+Helper.h"
 
 
 @implementation UIViewController (Helper)
@@ -550,6 +551,27 @@
     }];
 }
 
+
+/**
+ 返回按钮专用
+ */
+- (UIButton *)createBackItem:(UIImage *)image{
+    NSParameterAssert(image != nil);
+    UIButton * btn = [UIButton buttonWithType:UIButtonTypeCustom];
+    btn.frame = CGRectMake(0, 0, 30, 40);
+    btn.imageEdgeInsets = UIEdgeInsetsMake(0, -20, 0, 0);
+    
+    [btn setImage:[image imageWithRenderingMode:UIImageRenderingModeAlwaysTemplate] forState:UIControlStateNormal];
+    btn.imageView.tintColor = UINavigationBar.appearance.tintColor != nil ? UINavigationBar.appearance.tintColor : UIColor.redColor;
+    [btn addActionHandler:^(UIControl * _Nonnull control) {
+        [self.navigationController popViewControllerAnimated:true];
+        
+    } forControlEvents:UIControlEventTouchUpInside];
+
+    UIBarButtonItem * backItem = [[UIBarButtonItem alloc]initWithCustomView:btn];
+    self.navigationItem.leftBarButtonItem = backItem;
+    return btn;
+}
 
 @end
 

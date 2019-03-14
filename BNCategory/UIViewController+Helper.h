@@ -115,5 +115,6 @@ typedef void(^BlockAlertController)(UIAlertController * _Nonnull alertController
 
 - (void)callPhone:(NSString *_Nonnull)phoneNumber;
 
+- (UIButton *)createBackItem:(UIImage *)image;
 
 @end

@@ -10,12 +10,18 @@
 
 @interface UIView (AddView)
 
-@property (nonatomic, copy) void(^segmentViewBlock)(NSInteger selectIndex);
-@property (nonatomic, copy) void(^actionWithBlock)(NSInteger);
+@property (nonatomic, strong) CAGradientLayer *gradientLayer;
 
-- (void)addLineRect:(CGRect)rect isDash:(BOOL)isDash tag:(NSInteger)tag inView:(UIView *)inView;
+/**
+ 占位视图(.无数据,网络错误)
+ */
+@property (nonatomic, strong) UIView *holderView;
 
-+ (UIView *)createLineRect:(CGRect)rect isDash:(BOOL)isDash hidden:(BOOL)hidden tag:(NSInteger)tag;
+-(void)holderView:(NSString *)title image:(NSString *)image;
+
+-(void)addLineRect:(CGRect)rect isDash:(BOOL)isDash tag:(NSInteger)tag inView:(UIView *)inView;
+
++(UIView *)createLineRect:(CGRect)rect isDash:(BOOL)isDash hidden:(BOOL)hidden tag:(NSInteger)tag;
 
 -(CALayer *)createLayerType:(NSNumber *)type;
 

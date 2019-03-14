@@ -8,6 +8,7 @@
 #import "UINavigationController+swizzing.h"
 
 #import "NSObject+swizzling.h"
+#import "UIViewController+Helper.h"
 
 @implementation UINavigationController (swizzing)
 
@@ -23,11 +24,11 @@
 
 - (void)swz_PushViewController:(UIViewController *)viewController animated:(BOOL)animated{
     if ([self.viewControllers containsObject:viewController]) return;
-    viewController.navigationItem.backBarButtonItem = [[UIBarButtonItem alloc] initWithTitle:@"" style:UIBarButtonItemStyleDone target:nil action:nil];
+//    viewController.navigationItem.backBarButtonItem = [[UIBarButtonItem alloc] initWithTitle:@"" style:UIBarButtonItemStyleDone target:nil action:nil];
     viewController.view.backgroundColor = UIColor.whiteColor;
-
     if (self.viewControllers.count > 0) {
         viewController.hidesBottomBarWhenPushed = YES;
+        [viewController createBackItem:[UIImage imageNamed:@"icon_arowLeft_black"]];//leftBaritem在控制器的本身左上角;与backitem不同
     }
     self.navigationController.delegate = nil;
     [self swz_PushViewController:viewController animated:animated];
