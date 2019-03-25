@@ -47,7 +47,7 @@
     UIWindow * keyWindow = UIApplication.sharedApplication.delegate.window;
 
     UIAlertController * alertController = [UIAlertController createAlertTitle:title msg:msg placeholders:placeholders actionTitles:actionTitles handler:handler];
-    if (actionTitles.count == 0) {
+    if (alertController.actions.count == 0) {
         [keyWindow.rootViewController presentViewController:alertController animated:YES completion:^{
             dispatch_after(dispatch_time(DISPATCH_TIME_NOW, (int64_t)(kDurationToast * NSEC_PER_SEC)), dispatch_get_main_queue(), ^{
                 [alertController dismissViewControllerAnimated:true completion:nil];
@@ -86,5 +86,24 @@
     UIWindow * keyWindow = UIApplication.sharedApplication.delegate.window;
     [keyWindow.rootViewController presentViewController:alertController animated:YES completion:nil];//懒加载会崩溃
 }
+
+/**
+ 展示alert,然后执行异步block代码,然后主线程dismiss
+ */
++ (void)showAletTitle:(NSString *_Nullable)title msg:(NSString *_Nullable)msg block:(void(^)(void))block{
+    UIWindow * keyWindow = UIApplication.sharedApplication.delegate.window;
+    //UIApplication.sharedApplication.keyWindow.rootViewController
+    UIAlertController * alertController = [UIAlertController alertControllerWithTitle:title message:msg preferredStyle:UIAlertControllerStyleAlert];
+    [keyWindow.rootViewController presentViewController:alertController animated:false completion:nil];
+    
+    dispatch_async(dispatch_get_global_queue(0, 0), ^{
+        block();
+        dispatch_async(dispatch_get_main_queue(), ^{
+            [alertController dismissViewControllerAnimated:true completion:nil];
+            
+        });
+    });
+}
+
 
 @end
