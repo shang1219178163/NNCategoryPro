@@ -13,7 +13,7 @@
 
 @implementation CAKeyframeAnimation (Helper)
 
-+(CAKeyframeAnimation *)animDuration:(CFTimeInterval)duration autoreverses:(BOOL)autoreverses repeatCount:(float)repeatCount fillMode:(NSString *)fillMode removedOnCompletion:(BOOL)removedOnCompletion functionName:(NSString *)functionName{
++(CAKeyframeAnimation *)animDuration:(CFTimeInterval)duration autoreverses:(BOOL)autoreverses repeatCount:(float)repeatCount fillMode:(NSString *)fillMode removedOnCompletion:(BOOL)removedOnCompletion functionName:(CAMediaTimingFunctionName)functionName{
     
     CAKeyframeAnimation *anim = [CAKeyframeAnimation animationWithKeyPath:kTransformPosition];
 
@@ -30,7 +30,7 @@
     return anim;
 }
 
-+(CAKeyframeAnimation *)animPath:(CGPathRef)pathRef duration:(CFTimeInterval)duration autoreverses:(BOOL)autoreverses repeatCount:(float)repeatCount fillMode:(NSString *)fillMode removedOnCompletion:(BOOL)removedOnCompletion functionName:(NSString *)functionName{
++(CAKeyframeAnimation *)animPath:(CGPathRef)pathRef duration:(CFTimeInterval)duration autoreverses:(BOOL)autoreverses repeatCount:(float)repeatCount fillMode:(NSString *)fillMode removedOnCompletion:(BOOL)removedOnCompletion functionName:(CAMediaTimingFunctionName)functionName{
     
     CAKeyframeAnimation *anim = [CAKeyframeAnimation animDuration:duration autoreverses:autoreverses repeatCount:repeatCount fillMode:fillMode removedOnCompletion:removedOnCompletion functionName:functionName];
     anim.path = pathRef;
@@ -49,7 +49,7 @@
 }
 
 
-+(CAKeyframeAnimation *)animValues:(NSArray<NSValue *>*)values duration:(CFTimeInterval)duration autoreverses:(BOOL)autoreverses repeatCount:(float)repeatCount fillMode:(NSString *)fillMode removedOnCompletion:(BOOL)removedOnCompletion functionName:(NSString *)functionName{
++(CAKeyframeAnimation *)animValues:(NSArray<NSValue *>*)values duration:(CFTimeInterval)duration autoreverses:(BOOL)autoreverses repeatCount:(float)repeatCount fillMode:(NSString *)fillMode removedOnCompletion:(BOOL)removedOnCompletion functionName:(CAMediaTimingFunctionName)functionName{
     
     CAKeyframeAnimation *anim = [CAKeyframeAnimation animDuration:duration autoreverses:autoreverses repeatCount:repeatCount fillMode:fillMode removedOnCompletion:removedOnCompletion functionName:functionName];
     anim.values = values;

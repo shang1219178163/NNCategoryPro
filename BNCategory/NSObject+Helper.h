@@ -63,6 +63,7 @@ FOUNDATION_EXPORT NSDictionary<NSAttributedStringKey, id> * AttributeDict(NSNumb
  swift类需要加命名空间
  */
 FOUNDATION_EXPORT NSString * SwiftClassName(NSString *className);
+FOUNDATION_EXPORT NSMutableDictionary *DicFromPlist(NSString *plistName);
 
 @interface NSObject (Helper)<NSCoding>
 

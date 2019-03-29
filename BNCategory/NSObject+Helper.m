@@ -386,6 +386,24 @@ NSString * SwiftClassName(NSString *className){
     return string;
 }
 
+/**
+ 在TARGETS里的CopyBundleResources中必须存在
+ */
+NSMutableDictionary *DicFromPlist(NSString *plistName){
+    if ([plistName containsString:@".plist"]) {
+        NSArray * list = [plistName componentsSeparatedByString:@"."];
+        NSString *plistPath = [NSBundle.mainBundle pathForResource:list.firstObject ofType:list.lastObject];
+        NSMutableDictionary *dic = [NSMutableDictionary dictionaryWithContentsOfFile:plistPath];
+        return dic;
+    }
+    
+    NSString *plistPath = [NSBundle.mainBundle pathForResource:plistName ofType:@"plist"];
+    NSMutableDictionary *dic = [NSMutableDictionary dictionaryWithContentsOfFile:plistPath];
+//    NSLog(@"plistPath_%@",plistPath);
+//    NSLog(@"dic_%@",dic);
+    return dic;
+}
+
 
 @implementation NSObject (Helper)
 

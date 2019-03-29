@@ -19,6 +19,6 @@ FOUNDATION_EXPORT NSString * const kCATransitionCameraIrisHollowClose ;
 
 @interface CATransition (Helper)
 
-+ (CATransition *)animDuration:(CGFloat)duration functionName:(NSString *)name type:(NSString *)type subType:(id)subTyp;
++ (CATransition *)animDuration:(CGFloat)duration functionName:(CAMediaTimingFunctionName)name type:(NSString *)type subType:(CATransitionSubtype)subTyp;
 
 @end

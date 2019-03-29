@@ -10,10 +10,6 @@
 
 @interface CATransaction (Helper)
 
-
 +(void)animDuration:(CGFloat)duration animations:(void(^)(void))animations completion:(nullable void (^)(void))completion;
-
-+ (CATransition *)animDuration:(CGFloat)duration functionName:(NSString *)name type:(NSString *)type subType:(id)subType;
-
 
 @end
