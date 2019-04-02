@@ -226,6 +226,10 @@
     return view;
 }
 
+
+/**
+ [弃用]可隐藏的导航按钮
+ */
 - (UIButton *)createBarItemTitle:(NSString *)title imgName:(NSString *)imgName isLeft:(BOOL)isLeft isHidden:(BOOL)isHidden handler:(void(^)(id obj, UIButton * item, NSInteger idx))handler{
     UIButton * btn = nil;
     if (imgName) {
@@ -234,6 +238,8 @@
     }
     else{
         btn = [UIButton buttonWithSize:CGSizeMake(40, 40) title:title font:15 titleColor_N:nil titleColor_H:nil titleEdgeInsets:UIEdgeInsetsZero];
+        btn.titleLabel.textColor = UINavigationBar.appearance.tintColor;
+
     }
     btn.tag = isLeft  ? kTAG_BTN_BackItem : kTAG_BTN_RightItem;
     btn.hidden = isHidden;
@@ -274,7 +280,7 @@
 }
 
 /**
- [新]导航栏按钮
+ 可隐藏的导航栏按钮
  */
 - (UIView *)createBarItem:(NSString *)obj isLeft:(BOOL)isLeft handler:(void(^)(id obj, UIView *item, NSInteger idx))handler{
     UIView * item = nil;
@@ -282,19 +288,19 @@
         item = [UIView createImgViewRect:CGRectMake(0, 0, 32, 32) image:[UIImage imageNamed:obj] tag:0 type:0];
     }
     else{
-        item = [UIView createLabelRect:CGRectMake(0, 0, 72, 20) text:obj font:17 tag:0 type:@1];
+        item = [UIView createLabelRect:CGRectMake(0, 0, 72, 20) text:obj font:16 tag:0 type:@1];
         ((UILabel *)item).textAlignment = NSTextAlignmentCenter;
-        ((UILabel *)item).textColor = UIColor.whiteColor;
+        ((UILabel *)item).textColor = UINavigationBar.appearance.tintColor;
     }
     
-    item.tag = isLeft  ? kTAG_BTN_BackItem : kTAG_BTN_RightItem;
+    item.tag = isLeft ? kTAG_BTN_BackItem : kTAG_BTN_RightItem;
     //
     UIView * view = [[UIView alloc]initWithFrame:CGRectMake(0, 0, 44, 44)];
     item.center = view.center;
     [view addSubview:item];
     
     [view addGestureTap:^(UIGestureRecognizer *sender) {
-        if (view.isHidden == 1) return ;
+        if (view.isHidden == 1) return;
         handler((UITapGestureRecognizer *)obj, item, item.tag);
         
     }];
