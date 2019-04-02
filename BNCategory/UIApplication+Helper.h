@@ -40,7 +40,7 @@
 
 + (void)setupAppearanceOthers;
 
-+ (void)setupAppearanceNavigationBar:(BOOL)isWhite;
++ (void)setupAppearanceNavigationBar:(UIColor *)barTintColor;
 
 + (void)setupAppearanceNavigationBar;
 

@@ -120,7 +120,8 @@
  导航栏默认白色主题色
  */
 + (void)setupAppearanceDefault:(BOOL)isDefault{
-    [UIApplication setupAppearanceNavigationBar:isDefault];
+    UIColor *barTintColor = isDefault ? UIColor.whiteColor : UIColor.themeColor;
+    [UIApplication setupAppearanceNavigationBar:barTintColor];
     [UIApplication setupAppearanceScrollView];
     [UIApplication setupAppearanceOthers];
 }
@@ -168,40 +169,23 @@
     //    UITabBarItem.appearance setTitleTextAttributes:<#(nullable NSDictionary<NSAttributedStringKey,id> *)#> forState:<#(UIControlState)#>
 }
 
-+ (void)setupAppearanceNavigationBar:(BOOL)isWhite{
-    if (isWhite == true) {//白色主题色
-        UINavigationBar.appearance.tintColor = UIColor.blackColor;
-        UINavigationBar.appearance.barTintColor = UIColor.whiteColor;
-        [UINavigationBar.appearance setBackgroundImage:UIImageColor(UIColor.whiteColor) forBarMetrics:UIBarMetricsDefault];
-
-    } else {
-        [UIApplication setupAppearanceNavigationBar];
-    }
-
-}
-
 /**
- 非白色主题色
+ 定义导航栏背景色
  */
-+ (void)setupAppearanceNavigationBar{
-    UINavigationBar.appearance.tintColor = UIColor.whiteColor;
-    UINavigationBar.appearance.barTintColor = UIColor.themeColor;
++ (void)setupAppearanceNavigationBar:(UIColor *)barTintColor{
+    BOOL isDefault = CGColorEqualToColor(UIColor.whiteColor.CGColor, barTintColor.CGColor);
+    UIColor *tintColor = isDefault ? UIColor.blackColor : UIColor.whiteColor;
+//    UIColor *barTintColor = isDefault ? UIColor.whiteColor : UIColor.themeColor;
+    
+    UINavigationBar.appearance.tintColor = tintColor;
+    UINavigationBar.appearance.barTintColor = barTintColor;
+    [UINavigationBar.appearance setBackgroundImage:UIImageColor(barTintColor) forBarMetrics:UIBarMetricsDefault];
+    [UINavigationBar.appearance setShadowImage:UIImageColor(barTintColor)];
+    
     NSDictionary * dic = @{
-                           NSForegroundColorAttributeName   :   UIColor.whiteColor,
-                           NSFontAttributeName  :   [UIFont boldSystemFontOfSize:UIFont.systemFontSize+1.0],
+                           NSForegroundColorAttributeName   :   tintColor,
                            };
     UINavigationBar.appearance.titleTextAttributes = dic;
-
-//    [UINavigationBar.appearance setBarTintColor:UIColor.themeColor];
-//    [UINavigationBar.appearance setTintColor:UIColor.whiteColor];
-//    [UINavigationBar.appearance setTitleTextAttributes:@{
-//                                                         NSForegroundColorAttributeName  :   UIColor.whiteColor,
-//                                            
-//                                                         }];
-   
-    //    [bar setBackgroundImage:[UIImage imageNamed:@"navigationbarBackgroundWhite"] forBarMetrics:UIBarMetricsDefault];
-    //    [navigationBar setTitleTextAttributes:@{NSFontAttributeName : [UIFont boldSystemFontOfSize:20]}];
-    
     if (iOSVer(11)) {
 //        UIImage *origImage = [UIImage imageNamed:@"img_btnBack.png"];
 //        //系统返回按钮处的title偏移到可视范围之外
@@ -216,7 +200,7 @@
         
     }
     else{
-
+        
     }
 }
 
