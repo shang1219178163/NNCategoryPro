@@ -67,8 +67,6 @@
 + (NSInteger)numDateFrom:(NSDate *)aDate to:(NSDate *)anotherDate type:(NSNumber *)type;
 
 + (NSInteger)countOfDaysInMonth:(NSDate *)date;
-
-+ (NSInteger)dayIdxInMonthForDate:(NSDate *)date;
     
 - (BOOL)isCompareDate:(NSDate *)aDate type:(NSNumber *)type;
     

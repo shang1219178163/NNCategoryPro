@@ -7,6 +7,7 @@
 //
 
 #import <Foundation/Foundation.h>
+#import "BNGloble.h"
 
 /*
 数组合并(去重合并:distinctUnionOfArrays.self、直接合并:unionOfArrays.self)

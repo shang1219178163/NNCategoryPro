@@ -23,7 +23,6 @@
 //}
 
 #import "NSArray+Helper.h"
-#import "BNGloble.h"
 
 #import "NSObject+Helper.h"
 #import "NSString+Helper.h"
