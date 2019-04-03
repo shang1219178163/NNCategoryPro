@@ -15,6 +15,15 @@
 
 @property (nonatomic, strong, readonly) NSDecimalNumber *decNumer;
 
+FOUNDATION_EXPORT NSString * NSStringFromIndexPath(NSIndexPath *indexPath);
+FOUNDATION_EXPORT NSString * NSStringFromHTML(NSString *html);
+
+FOUNDATION_EXPORT NSString * NSStringFromLet(id obj);
+
+FOUNDATION_EXPORT NSString * NSStringFromInt(NSInteger obj);
+FOUNDATION_EXPORT NSString * NSStringFromFloat(CGFloat obj);
+
+
 - (BOOL)isPureInteger;
 //浮点形判断：
 - (BOOL)isPureFloat;

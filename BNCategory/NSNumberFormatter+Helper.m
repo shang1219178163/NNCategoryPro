@@ -7,6 +7,7 @@
 //
 
 #import "NSNumberFormatter+Helper.h"
+#import "BNGloble.h"
 
 NSString * const kNumIdentify = @"四舍五入";// 默认
 NSString * const kNumIdentify_decimal = @"分隔符,";//
@@ -27,7 +28,7 @@ NSString * const kNumFormat = @"#,##0.00";
     NSNumberFormatter *formatter = [threadDic objectForKey:identify];
     if (!formatter) {
         formatter = [[NSNumberFormatter alloc]init];
-        formatter.locale = [NSLocale localeWithLocaleIdentifier:@"zh_CN"];
+        formatter.locale = [NSLocale localeWithLocaleIdentifier:kLanguageCN];
 
         [threadDic setObject:formatter forKey:identify];
     }

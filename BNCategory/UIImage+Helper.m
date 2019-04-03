@@ -8,9 +8,10 @@
 //
 
 #import "UIImage+Helper.h"
+#import <Accelerate/Accelerate.h>
 
 #import "BNGloble.h"
-#import <Accelerate/Accelerate.h>
+#import "UIColor+Helper.h"
 
 @implementation UIImage (Helper)
 
@@ -19,6 +20,59 @@
     NSData * imgData = UIImageJPEGRepresentation(self, 1.0f);
     return [UIImage contentTypeForImageData:imgData];
 }
+
+/**
+ UIColor->UIImage
+ */
+UIImage * UIImageColor(UIColor * color){
+    return [UIImage imageWithColor:color];
+}
+
+UIImage * UIImageColorHexAlpha(NSInteger hex, CGFloat alpha){
+    return UIImageColor(UIColorHexValueAlpha(hex, alpha));
+}
+
+
+/**
+ NSString->UIImage
+ */
+UIImage * UIImageNamed(NSString * obj){
+    return [UIImage imageNamed:obj];
+}
+
+UIImage * UIImageFromName(NSString *obj, UIImageRenderingMode renderingMode){
+    return [[UIImage imageNamed:obj] imageWithRenderingMode:renderingMode];
+}
+
+/**
+ id类型->UIImage
+ */
+UIImage * UIImageObj(id obj){
+    if ([obj isKindOfClass:[NSString class]]) {
+        return UIImageNamed(obj);
+    }
+    else if ([obj isKindOfClass:[UIColor class]]) {
+        return UIImageColor(obj);
+    }
+    else if ([obj isKindOfClass:[UIImage class]]) {
+        return obj;
+    }
+    else if ([obj isKindOfClass:[NSData class]]) {
+        return [UIImage imageWithData:obj];
+    }
+    else if ([obj isKindOfClass:[CIImage class]]) {
+        return [UIImage imageWithCIImage:obj];
+    }
+    return nil;
+}
+
+bool UIImageEquelToImage(UIImage *image0, UIImage *image1){
+    NSData *data0 = UIImagePNGRepresentation(image0);
+    NSData *data1 = UIImagePNGRepresentation(image1);
+    return  [data0 isEqualToData:data1];
+}
+
+
 
 //通过图片Data数据第一个字节 来获取图片扩展名
 + (NSString *)contentTypeForImageData:(NSData *)data{

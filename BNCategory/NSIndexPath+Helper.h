@@ -17,7 +17,11 @@ NS_ASSUME_NONNULL_BEGIN
 @property (nonatomic, strong, readonly) NSIndexPath * nextItem;
 @property (nonatomic, strong, readonly) NSIndexPath * nextSection;
 @property (nonatomic, strong, readonly) NSIndexPath * previousSection;
-    
+
+FOUNDATION_EXPORT NSIndexPath *NSIndexPathFromString(NSString *string);
+FOUNDATION_EXPORT NSIndexPath *NSIndexPathFromIndex(NSInteger section, NSInteger row);
+FOUNDATION_EXPORT NSArray *NSIndexPathsFromIdxInfo(NSInteger section, NSArray *rowList);
+
 @end
 
 NS_ASSUME_NONNULL_END

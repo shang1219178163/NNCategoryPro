@@ -28,268 +28,95 @@ NSString * RuntimeKeyFromParams(NSObject *obj, NSString *funcAbount){
     NSString * unique = [[@(obj.hash) stringValue] stringByAppendingFormat:@",%@",funcAbount];
     return unique;
 }
-/**
- NSIndexPath->字符串
- */
-NSString * NSStringFromIndexPath(NSIndexPath *indexPath) {
-  return [NSString stringWithFormat:@"{%@,%@}",@(indexPath.section),@(indexPath.row)];
-}
-/**
- html->字符串
- */
-NSString * NSStringFromHTML(NSString *html) {
-    NSScanner * scanner = [NSScanner scannerWithString:html];
-    NSString * text = nil;
-    while(scanner.isAtEnd == NO)
-    {
-        [scanner scanUpToString:@"<" intoString:nil];
-        [scanner scanUpToString:@">" intoString:&text];
-        html = [html stringByReplacingOccurrencesOfString:[NSString stringWithFormat:@"%@>",text] withString:@""];
-    }
-    //  过滤html中的\n\r\t换行空格等特殊符号
-    //    NSMutableString *str1 = [NSMutableString stringWithString:html];
-    //    for (NSInteger i = 0; i < str1.length; i++) {
-    //        unichar c = [str1 characterAtIndex:i];
-    //        NSRange range = NSMakeRange(i, 1);
-    //
-    //        //  在这里添加要过滤的特殊符号
-    //        if ( c == '\r' || c == '\n' || c == '\t') {
-    //            [str1 deleteCharactersInRange:range];
-    //            --i;
-    //        }
-    //    }
-    //    html  = [NSString stringWithString:str1];
-    return html;
-}
-/**
- id类型->字符串
- */
-NSString * NSStringFromLet(id obj) {
-    return [NSString stringWithFormat:@"%@",obj];
-}
 
-/**
- NSInteger->字符串
- */
-NSString * NSStringFromInt(NSInteger obj){
-    return [@(obj) stringValue];
-}
+///**
+// 返回索引数组 
+// */
+//NSArray *NSIndexPathsFromIdxInfo(NSInteger section, NSArray *rowList) {
+//    NSMutableArray *marr = [NSMutableArray array];
+//    for (NSNumber *row in rowList) {
+//        [marr addObject:[NSIndexPath indexPathForRow:row.integerValue inSection:section]];
+//        
+//    }
+//    return marr.copy;
+//}
 
-/**
- CGFloat->字符串
- */
-NSString * NSStringFromFloat(CGFloat obj){
-    return [@(obj) stringValue];
-}
+///**
+// 字符串->UIViewController
+// */
+//UIViewController * UICtrFromString(NSString *obj){
+//    return [[NSClassFromString(obj) alloc]init];
+//}
+//
+///**
+// 字符串->UINavigationController
+// */
+//UINavigationController * UINavCtrFromObj(id obj){
+//    if ([obj isKindOfClass:[UINavigationController class]]) {
+//        return obj;
+//    }
+//    else if ([obj isKindOfClass:[NSString class]]) {
+//        return [[UINavigationController alloc]initWithRootViewController:UICtrFromString(obj)];
+//    }
+//    else if ([obj isKindOfClass:[UIViewController class]]) {
+//        return [[UINavigationController alloc]initWithRootViewController:obj];
+//    }
+//    return nil;
+//}
 
-/**
- 字符串->NSIndexPath(string 两部分数字必须用逗号隔开)
- */
-NSIndexPath *NSIndexPathFromString(NSString *string) {
-    if ([string containsString:@"{"]) string = [string stringByReplacingOccurrencesOfString:@"{" withString:@""];
-    if ([string containsString:@"}"]) string = [string stringByReplacingOccurrencesOfString:@"}" withString:@""];
-    NSArray * list = [string componentsSeparatedByString:@","];
-    return [NSIndexPath indexPathForRow:[list.firstObject integerValue] inSection:[list.lastObject integerValue]];
-}
+///**
+// 数组->UINavigationController(子数组示例:@[@"标题",@"图片",@"图片高亮",@"badgeValue",])
+// */
+//NSArray * UINavListFromList(NSArray *list){
+//    __block NSMutableArray * marr = [NSMutableArray array];
+//    [list enumerateObjectsUsingBlock:^(id  _Nonnull obj, NSUInteger idx, BOOL * _Nonnull stop) {
+//        if ([obj isKindOfClass:[NSString class]]) {
+//            UINavigationController *navController = UINavCtrFromObj(obj);
+//            [marr addObject:navController];
+//            
+//        }
+//        else if([obj isKindOfClass:[NSArray class]]) {
+//            NSArray * itemList = (NSArray *)obj;//类名,title,img_N,img_H,badgeValue
+//            
+//            NSString * title = itemList.count > 1 ? itemList[1] :   @"";
+//            NSString * img_N = itemList.count > 2 ? itemList[2] :   @"";
+//            NSString * img_H = itemList.count > 3 ? itemList[3] :   @"";
+//            NSString * badgeValue = itemList.count > 4 ? itemList[4] :   @"";
+//            
+//            UIViewController * controller = UICtrFromString(itemList.firstObject);
+//            controller.title = itemList[1];
+//            
+//            UITabBarItem *tabBarItem = [[UITabBarItem alloc]initWithTitle:title image:[UIImage imageNamed:img_N] selectedImage:[UIImage imageNamed:img_H]];
+//            tabBarItem.badgeValue = badgeValue;
+//
+//            controller.tabBarItem = tabBarItem;
+//            if (@available(iOS 10.0, *)) {
+//                controller.tabBarItem.badgeColor = badgeValue.integerValue <= 0 ? UIColor.clearColor:UIColor.redColor;
+//            } else {
+//                // Fallback on earlier versions
+//            }
+//
+//            UINavigationController *navController = UINavCtrFromObj(controller);
+//            [marr addObject:navController];
+//        }
+//        else{
+//            assert([obj isKindOfClass:[NSString class]] || [obj isKindOfClass:[NSArray class]]);
+//        }
+//    }];
+//    NSArray *viewControllers = marr.copy;
+//    return viewControllers;
+//}
 
-/**
- NSIndexPath快速生成
- */
-NSIndexPath *NSIndexPathFromIndex(NSInteger section, NSInteger row) {
-    return [NSIndexPath indexPathForRow:row inSection:section];
-}
-
-/**
- 返回索引数组 
- */
-NSArray *NSIndexPathsFromIdxInfo(NSInteger section, NSArray *rowList) {
-    NSMutableArray *marr = [NSMutableArray array];
-    for (NSNumber *row in rowList) {
-        [marr addObject:[NSIndexPath indexPathForRow:row.integerValue inSection:section]];
-        
-    }
-    return marr.copy;
-}
-
-/**
- 字符串->UIViewController
- */
-UIViewController * UICtrFromString(NSString *obj){
-    return [[NSClassFromString(obj) alloc]init];
-}
-
-/**
- 字符串->UINavigationController
- */
-UINavigationController * UINavCtrFromObj(id obj){
-    if ([obj isKindOfClass:[UINavigationController class]]) {
-        return obj;
-    }
-    else if ([obj isKindOfClass:[NSString class]]) {
-        return [[UINavigationController alloc]initWithRootViewController:UICtrFromString(obj)];
-    }
-    else if ([obj isKindOfClass:[UIViewController class]]) {
-        return [[UINavigationController alloc]initWithRootViewController:obj];
-    }
-    return nil;
-}
-
-/**
- 数组->UINavigationController(子数组示例:@[@"标题",@"图片",@"图片高亮",@"badgeValue",])
- */
-NSArray * UINavListFromList(NSArray *list){
-    __block NSMutableArray * marr = [NSMutableArray array];
-    [list enumerateObjectsUsingBlock:^(id  _Nonnull obj, NSUInteger idx, BOOL * _Nonnull stop) {
-        if ([obj isKindOfClass:[NSString class]]) {
-            UINavigationController *navController = UINavCtrFromObj(obj);
-            [marr addObject:navController];
-            
-        }
-        else if([obj isKindOfClass:[NSArray class]]) {
-            NSArray * itemList = (NSArray *)obj;//类名,title,img_N,img_H,badgeValue
-            
-            NSString * title = itemList.count > 1 ? itemList[1] :   @"";
-            NSString * img_N = itemList.count > 2 ? itemList[2] :   @"";
-            NSString * img_H = itemList.count > 3 ? itemList[3] :   @"";
-            NSString * badgeValue = itemList.count > 4 ? itemList[4] :   @"";
-            
-            UIViewController * controller = UICtrFromString(itemList.firstObject);
-            controller.title = itemList[1];
-            
-            UITabBarItem *tabBarItem = [[UITabBarItem alloc]initWithTitle:title image:[UIImage imageNamed:img_N] selectedImage:[UIImage imageNamed:img_H]];
-            tabBarItem.badgeValue = badgeValue;
-
-            controller.tabBarItem = tabBarItem;
-            if (@available(iOS 10.0, *)) {
-                controller.tabBarItem.badgeColor = badgeValue.integerValue <= 0 ? UIColor.clearColor:UIColor.redColor;
-            } else {
-                // Fallback on earlier versions
-            }
-
-            UINavigationController *navController = UINavCtrFromObj(controller);
-            [marr addObject:navController];
-        }
-        else{
-            assert([obj isKindOfClass:[NSString class]] || [obj isKindOfClass:[NSArray class]]);
-        }
-    }];
-    NSArray *viewControllers = marr.copy;
-    return viewControllers;
-}
-
-/**
- 数组->UITabBarController(子数组示例:@[@"标题",@"图片",@"图片高亮",@"badgeValue",])
- */
-UITabBarController * UITarBarCtrFromList(NSArray *list){
-    UITabBarController * tabBarVC = [[UITabBarController alloc]init];
-    tabBarVC.viewControllers = UINavListFromList(list);
-//    tabBarVC.tabBar.barTintColor = UIColor.themeColor;
-//    tabBarVC.tabBar.tintColor = UIColor.themeColor;
-    return tabBarVC;
-}
-
-
-UIColor * UIColorDim(CGFloat White,CGFloat a){
-    return [UIColor colorWithWhite:White alpha:a];////white 0-1为黑到白,alpha透明度
-    //    return [UIColor colorWithWhite:0.2f alpha: 0.5];////white 0-1为黑到白,alpha透明度
-}
-#pragma mark- -十六进制颜色
-UIColor * UIColorRGBA(CGFloat r,CGFloat g,CGFloat b,CGFloat a){
-    return [UIColor colorWithRed:r/255.0f green:g/255.0f blue:b/255.0f alpha:a];
-}
-
-UIColor * UIColorRGB(CGFloat r,CGFloat g,CGFloat b){
-    return UIColorRGBA(r, g, b, 1);
-}
-
-UIColor * UIColorHexValue(NSInteger hex){
-    return UIColorHexValueAlpha(hex, 1.0);
-}
-
-/**
- [源]0x十六进制数值
- */
-UIColor * UIColorHexValueAlpha(NSInteger hex, CGFloat alpha){
-    return [UIColor colorWithRed:((hex & 0xFF0000) >> 16)/255.0 green:((hex & 0xFF00) >> 8)/255.0 blue:(hex & 0xFF)/255.0 alpha:alpha];
-}
-
-/**
- 十六进制字符串
- */
-UIColor * UIColorHex(NSString *hex){
-    return [UIColor colorWithHexString:hex];
-}
-
-NSArray * RGBAFromColor(UIColor *color){
-    CGFloat red = 0.0;
-    CGFloat green = 0.0;
-    CGFloat blue = 0.0;
-    CGFloat alpha = 0.0;
-    [color getRed:&red green:&green blue:&blue alpha:&alpha];
-    return @[@(red), @(green), @(blue), @(alpha)];
-}
-
-/**
- 判断颜色是不是亮色
- */
-BOOL isLightColor(UIColor *color){
-    NSArray *components = RGBAFromColor(color);
-//    NSLog(@"%f %f %f", components[0], components[1], components[2]);
-    CGFloat sum = [[components valueForKeyPath:kArr_sum_float] floatValue];
-    bool isLight = sum < 382 ? false : true;
-    return isLight;
-}
-
-/**
- UIColor->UIImage
- */
-UIImage * UIImageColor(UIColor * color){
-    return [UIImage imageWithColor:color];
-}
-
-UIImage * UIImageColorHexAlpha(NSInteger hex, CGFloat alpha){
-    return UIImageColor(UIColorHexValueAlpha(hex, alpha));
-}
-
-
-/**
- NSString->UIImage
- */
-UIImage * UIImageNamed(NSString * obj){
-    return [UIImage imageNamed:obj];
-}
-
-UIImage * UIImageFromName(NSString *obj, UIImageRenderingMode renderingMode){
-    return [[UIImage imageNamed:obj] imageWithRenderingMode:renderingMode];
-}
-
-/**
- id类型->UIImage
- */
-UIImage * UIImageObj(id obj){
-    if ([obj isKindOfClass:[NSString class]]) {
-        return UIImageNamed(obj);
-    }
-    else if ([obj isKindOfClass:[UIColor class]]) {
-        return UIImageColor(obj);
-    }
-    else if ([obj isKindOfClass:[UIImage class]]) {
-        return obj;
-    }
-    else if ([obj isKindOfClass:[NSData class]]) {
-        return [UIImage imageWithData:obj];
-    }
-    else if ([obj isKindOfClass:[CIImage class]]) {
-        return [UIImage imageWithCIImage:obj];
-    }
-    return nil;
-}
-
-bool UIImageEquelToImage(UIImage *image0, UIImage *image1){
-    NSData *data0 = UIImagePNGRepresentation(image0);
-    NSData *data1 = UIImagePNGRepresentation(image1);
-    return  [data0 isEqualToData:data1];
-}
+///**
+// 数组->UITabBarController(子数组示例:@[@"标题",@"图片",@"图片高亮",@"badgeValue",])
+// */
+//UITabBarController * UITarBarCtrFromList(NSArray *list){
+//    UITabBarController * tabBarVC = [[UITabBarController alloc]init];
+//    tabBarVC.viewControllers = UINavListFromList(list);
+////    tabBarVC.tabBar.barTintColor = UIColor.themeColor;
+////    tabBarVC.tabBar.tintColor = UIColor.themeColor;
+//    return tabBarVC;
+//}
 
 BOOL iOSVer(CGFloat version){
     return (UIDevice.currentDevice.systemVersion.floatValue >= version) ? YES : NO;
@@ -316,94 +143,12 @@ CGFloat roundFloat(CGFloat value,NSInteger num){
     return figure;
 }
 
-NSDictionary<NSAttributedStringKey, id> * AttributeDict(NSNumber * type){
-    
-    NSDictionary *dic = @{
-                          NSForegroundColorAttributeName   :   UIColor.blackColor,
-                          NSBackgroundColorAttributeName   :   UIColor.whiteColor,
-                          };
-    
-    switch (type.integerValue) {
-        case 1://下划线
-        {
-            dic = @{
-                    NSUnderlineStyleAttributeName   :   @(NSUnderlineStyleSingle),
-                    NSUnderlineColorAttributeName  :   UIColor.redColor,
-
-                    };
-            
-        }
-            break;
-        case 2://贯穿县
-        {
-            dic = @{
-                    NSStrikethroughStyleAttributeName   :   @(NSUnderlineStyleSingle),
-                    NSStrikethroughColorAttributeName   :   UIColor.redColor,
-                    };
-        }
-            break;
-        case 3://设置字形倾斜度取值为 NSNumber （float）,正值右倾，负值左倾
-        {
-            dic = @{
-                    NSObliquenessAttributeName   :   @(0.8),
-                    
-                    };
-        }
-            break;
-        case 4://拉伸文本
-        {
-            //正值横向拉伸文本，负值横向压缩文本
-            dic = @{
-                    NSExpansionAttributeName   :   @(0.3),
-                    
-                    };
-        }
-            break;
-        case 5://书写方向(RightToLeft)
-        {
-            dic = @{
-                    NSWritingDirectionAttributeName   :   @[@(3)],
-//                    NSWritingDirectionAttributeName    :   @[@(NSWritingDirectionRightToLeft | NSWritingDirectionOverride)],
-
-                    };
-
-//            0 -> LRE -> NSWritingDirectionLeftToRight | NSWritingDirectionEmbedding
-//            1 -> RLE -> NSWritingDirectionRightToLeft | NSWritingDirectionEmbedding
-//            2 -> LRO -> NSWritingDirectionLeftToRight | NSWritingDirectionOverride
-//            3 -> RLO -> NSWritingDirectionRightToLeft | NSWritingDirectionOverride
-        }
-             break;
-        default:
-            break;
-    }
-    return dic;
-}
-
 NSString * SwiftClassName(NSString *className){
     NSDictionary *infoDict = NSBundle.mainBundle.infoDictionary;
     NSString * appName = infoDict[(NSString *)kCFBundleExecutableKey] ? : infoDict[(NSString *)kCFBundleNameKey];
     NSString * string = [NSString stringWithFormat:@"%@.%@",appName,className];
     return string;
 }
-
-/**
- 在TARGETS里的CopyBundleResources中必须存在
- */
-NSMutableDictionary *DicFromPlist(NSString *plistName){
-    if ([plistName containsString:@".plist"]) {
-        NSArray * list = [plistName componentsSeparatedByString:@"."];
-        NSString *plistPath = [NSBundle.mainBundle pathForResource:list.firstObject ofType:list.lastObject];
-        NSMutableDictionary *dic = [NSMutableDictionary dictionaryWithContentsOfFile:plistPath];
-        return dic;
-    }
-    
-    NSString *plistPath = [NSBundle.mainBundle pathForResource:plistName ofType:@"plist"];
-    NSMutableDictionary *dic = [NSMutableDictionary dictionaryWithContentsOfFile:plistPath];
-//    NSLog(@"plistPath_%@",plistPath);
-//    NSLog(@"dic_%@",dic);
-    return dic;
-}
-
 
 @implementation NSObject (Helper)
 

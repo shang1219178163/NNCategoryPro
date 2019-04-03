@@ -12,6 +12,13 @@
 
 @property (nonatomic, strong, readonly) NSString *contentType;
 
+FOUNDATION_EXPORT UIImage * UIImageColor(UIColor * color);
+FOUNDATION_EXPORT UIImage * UIImageColorHexAlpha(NSInteger hex, CGFloat alpha);
+FOUNDATION_EXPORT UIImage * UIImageNamed(NSString * obj);
+FOUNDATION_EXPORT UIImage * UIImageFromName(NSString *obj, UIImageRenderingMode renderingMode);
+FOUNDATION_EXPORT UIImage * UIImageObj(id obj);
+FOUNDATION_EXPORT bool UIImageEquelToImage(UIImage *image0, UIImage *image1);
+
 /**
  通过图片Data数据第一个字节 来获取图片扩展名
  */

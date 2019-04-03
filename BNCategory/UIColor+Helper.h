@@ -26,6 +26,18 @@
 @property (class, nonatomic, readonly) UIColor *titleColor6;
 @property (class, nonatomic, readonly) UIColor *titleColor9;
 
+FOUNDATION_EXPORT UIColor * UIColorDim(CGFloat White,CGFloat a);
+FOUNDATION_EXPORT UIColor * UIColorRGBA(CGFloat r,CGFloat g,CGFloat b,CGFloat a);
+FOUNDATION_EXPORT UIColor * UIColorRGB(CGFloat r,CGFloat g,CGFloat b);
+
+FOUNDATION_EXPORT UIColor * UIColorHex(NSString *hex);
+
+FOUNDATION_EXPORT UIColor * UIColorHexValueAlpha(NSInteger hex, CGFloat alpha);
+FOUNDATION_EXPORT UIColor * UIColorHexValue(NSInteger hexValue);
+
+FOUNDATION_EXPORT NSArray * RGBAFromColor(UIColor *color);
+FOUNDATION_EXPORT BOOL isLightColor(UIColor *color);
+//
 + (UIColor *)colorWithHexString:(NSString *)colorString;
 
 @end

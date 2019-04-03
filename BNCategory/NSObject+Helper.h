@@ -14,41 +14,11 @@
 
 FOUNDATION_EXPORT NSString * RuntimeKeyFromParams(NSObject *obj, NSString *funcAbount);
 
-FOUNDATION_EXPORT NSString * NSStringFromIndexPath(NSIndexPath *indexPath);
-FOUNDATION_EXPORT NSString * NSStringFromHTML(NSString *html);
-
-FOUNDATION_EXPORT NSString * NSStringFromLet(id obj);
-
-FOUNDATION_EXPORT NSString * NSStringFromInt(NSInteger obj);
-FOUNDATION_EXPORT NSString * NSStringFromFloat(CGFloat obj);
-
-FOUNDATION_EXPORT NSIndexPath *NSIndexPathFromString(NSString *string);
-FOUNDATION_EXPORT NSIndexPath *NSIndexPathFromIndex(NSInteger section, NSInteger row);
-FOUNDATION_EXPORT NSArray *NSIndexPathsFromIdxInfo(NSInteger section, NSArray *rowList);
-    
-FOUNDATION_EXPORT UIViewController * UICtrFromString(NSString *obj);
-FOUNDATION_EXPORT UINavigationController * UINavCtrFromObj(id obj);
-FOUNDATION_EXPORT NSArray * UINavListFromList(NSArray *list);
-FOUNDATION_EXPORT UITabBarController * UITarBarCtrFromList(NSArray *list);
-
-FOUNDATION_EXPORT UIColor * UIColorDim(CGFloat White,CGFloat a);
-FOUNDATION_EXPORT UIColor * UIColorRGBA(CGFloat r,CGFloat g,CGFloat b,CGFloat a);
-FOUNDATION_EXPORT UIColor * UIColorRGB(CGFloat r,CGFloat g,CGFloat b);
-
-FOUNDATION_EXPORT UIColor * UIColorHex(NSString *hex);
-
-FOUNDATION_EXPORT UIColor * UIColorHexValueAlpha(NSInteger hex, CGFloat alpha);
-FOUNDATION_EXPORT UIColor * UIColorHexValue(NSInteger hexValue);
-
-FOUNDATION_EXPORT NSArray * RGBAFromColor(UIColor *color);
-FOUNDATION_EXPORT BOOL isLightColor(UIColor *color);
-
-FOUNDATION_EXPORT UIImage * UIImageColor(UIColor * color);
-FOUNDATION_EXPORT UIImage * UIImageColorHexAlpha(NSInteger hex, CGFloat alpha);
-FOUNDATION_EXPORT UIImage * UIImageNamed(NSString * obj);
-FOUNDATION_EXPORT UIImage * UIImageFromName(NSString *obj, UIImageRenderingMode renderingMode);
-FOUNDATION_EXPORT UIImage * UIImageObj(id obj);
-FOUNDATION_EXPORT bool UIImageEquelToImage(UIImage *image0, UIImage *image1);
+//FOUNDATION_EXPORT NSArray *NSIndexPathsFromIdxInfo(NSInteger section, NSArray *rowList);
+//FOUNDATION_EXPORT UIViewController * UICtrFromString(NSString *obj);
+//FOUNDATION_EXPORT UINavigationController * UINavCtrFromObj(id obj);
+//FOUNDATION_EXPORT NSArray * UINavListFromList(NSArray *list);
+//FOUNDATION_EXPORT UITabBarController * UITarBarCtrFromList(NSArray *list);
 
 FOUNDATION_EXPORT BOOL iOSVer(CGFloat version);
 
@@ -57,13 +27,10 @@ FOUNDATION_EXPORT CGFloat CGDegreesFromRadian(CGFloat x);//弧度转换角度
 
 FOUNDATION_EXPORT CGFloat roundFloat(CGFloat value,NSInteger num);
 
-FOUNDATION_EXPORT NSDictionary<NSAttributedStringKey, id> * AttributeDict(NSNumber * type);
-
 /**
  swift类需要加命名空间
  */
 FOUNDATION_EXPORT NSString * SwiftClassName(NSString *className);
-FOUNDATION_EXPORT NSMutableDictionary *DicFromPlist(NSString *plistName);
 
 @interface NSObject (Helper)<NSCoding>
 

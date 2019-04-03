@@ -10,6 +10,9 @@
 
 @interface NSDictionary (Helper)
 
+FOUNDATION_EXPORT NSDictionary<NSAttributedStringKey, id> * AttributeDict(NSNumber * type);
+FOUNDATION_EXPORT NSMutableDictionary *DicFromPlist(NSString *plistName);
+
 /**
  根据key对字典values排序,区分大小写(按照ASCII排序)
  */

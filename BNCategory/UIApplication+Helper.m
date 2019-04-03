@@ -9,6 +9,7 @@
 
 #import "UIApplication+Helper.h"
 #import <objc/runtime.h>
+#import "UIImage+Helper.h"
 
 @implementation UIApplication (Helper)
 

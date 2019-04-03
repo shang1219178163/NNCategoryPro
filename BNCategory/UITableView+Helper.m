@@ -9,6 +9,7 @@
 
 #import "UITableView+Helper.h"
 
+#import "BNGloble.h"
 #import "NSArray+Helper.h"
 
 @implementation UITableView (Helper)

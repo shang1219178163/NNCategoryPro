@@ -14,6 +14,87 @@
 
 @implementation NSDictionary (Helper)
 
+NSDictionary<NSAttributedStringKey, id> * AttributeDict(NSNumber * type){
+    
+    NSDictionary *dic = @{
+                          NSForegroundColorAttributeName   :   UIColor.blackColor,
+                          NSBackgroundColorAttributeName   :   UIColor.whiteColor,
+                          };
+    
+    switch (type.integerValue) {
+        case 1://下划线
+        {
+            dic = @{
+                    NSUnderlineStyleAttributeName   :   @(NSUnderlineStyleSingle),
+                    NSUnderlineColorAttributeName  :   UIColor.redColor,
+                    
+                    };
+            
+        }
+            break;
+        case 2://贯穿县
+        {
+            dic = @{
+                    NSStrikethroughStyleAttributeName   :   @(NSUnderlineStyleSingle),
+                    NSStrikethroughColorAttributeName   :   UIColor.redColor,
+                    };
+        }
+            break;
+        case 3://设置字形倾斜度取值为 NSNumber （float）,正值右倾，负值左倾
+        {
+            dic = @{
+                    NSObliquenessAttributeName   :   @(0.8),
+                    
+                    };
+        }
+            break;
+        case 4://拉伸文本
+        {
+            //正值横向拉伸文本，负值横向压缩文本
+            dic = @{
+                    NSExpansionAttributeName   :   @(0.3),
+                    
+                    };
+        }
+            break;
+        case 5://书写方向(RightToLeft)
+        {
+            dic = @{
+                    NSWritingDirectionAttributeName   :   @[@(3)],
+                    //                    NSWritingDirectionAttributeName    :   @[@(NSWritingDirectionRightToLeft | NSWritingDirectionOverride)],
+                    
+                    };
+            
+            //            0 -> LRE -> NSWritingDirectionLeftToRight | NSWritingDirectionEmbedding
+            //            1 -> RLE -> NSWritingDirectionRightToLeft | NSWritingDirectionEmbedding
+            //            2 -> LRO -> NSWritingDirectionLeftToRight | NSWritingDirectionOverride
+            //            3 -> RLO -> NSWritingDirectionRightToLeft | NSWritingDirectionOverride
+        }
+            break;
+        default:
+            break;
+    }
+    return dic;
+}
+
+/**
+ 在TARGETS里的CopyBundleResources中必须存在
+ */
+NSMutableDictionary *DicFromPlist(NSString *plistName){
+    if ([plistName containsString:@".plist"]) {
+        NSArray * list = [plistName componentsSeparatedByString:@"."];
+        NSString *plistPath = [NSBundle.mainBundle pathForResource:list.firstObject ofType:list.lastObject];
+        NSMutableDictionary *dic = [NSMutableDictionary dictionaryWithContentsOfFile:plistPath];
+        return dic;
+    }
+    
+    NSString *plistPath = [NSBundle.mainBundle pathForResource:plistName ofType:@"plist"];
+    NSMutableDictionary *dic = [NSMutableDictionary dictionaryWithContentsOfFile:plistPath];
+    //    NSLog(@"plistPath_%@",plistPath);
+    //    NSLog(@"dic_%@",dic);
+    return dic;
+}
+
 /**
 根据key对字典values排序,区分大小写(按照ASCII排序)
  */

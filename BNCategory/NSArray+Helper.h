@@ -8,17 +8,6 @@
 
 #import <Foundation/Foundation.h>
 
-FOUNDATION_EXPORT NSString * const kArr_avg_float ;
-FOUNDATION_EXPORT NSString * const kArr_sum_inter ;
-FOUNDATION_EXPORT NSString * const kArr_max_inter ;
-FOUNDATION_EXPORT NSString * const kArr_min_inter ;
-FOUNDATION_EXPORT NSString * const kArr_sum_float ;
-FOUNDATION_EXPORT NSString * const kArr_max_float ;
-FOUNDATION_EXPORT NSString * const kArr_min_float ;
-FOUNDATION_EXPORT NSString * const kArr_upper_list ;//大小写转换
-FOUNDATION_EXPORT NSString * const kArr_lower_list ;//大小写转换
-FOUNDATION_EXPORT NSString * const kArrs_unionDist_list ;//数组内部去重
-FOUNDATION_EXPORT NSString * const kArrs_union_list ;
 /*
 数组合并(去重合并:distinctUnionOfArrays.self、直接合并:unionOfArrays.self)
 NSArray *temp1 = @[@3, @2, @2, @1];
@@ -27,7 +16,6 @@ NSLog(@"/n%@",[@[temp1, temp2] valueForKeyPath:@"@distinctUnionOfArrays.self"]);
 NSLog(@"/n%@",[@[temp1, temp2] valueForKeyPath:@"@unionOfArrays.self"]);
 输出两个数组:( 5, 1, 2, 3, 4 ), ( 3, 2, 2, 1, 3, 4, 5 )。
 */
- 
  
 @interface NSArray (Helper)
 

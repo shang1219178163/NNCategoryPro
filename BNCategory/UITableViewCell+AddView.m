@@ -14,6 +14,7 @@
 
 #import "UIView+Helper.h"
 #import "NSObject+Helper.h"
+#import "UIImage+Helper.h"
 
 #import "BNTextField.h"
 

@@ -27,6 +27,13 @@
 
 @dynamic delegate;
 
+/**
+ 字符串->UIViewController
+ */
+UIViewController * UICtrFromString(NSString *obj){
+    return [[NSClassFromString(obj) alloc]init];
+}
+
 - (void)configureDefault{
     self.edgesForExtendedLayout = UIRectEdgeNone;
     self.view.backgroundColor = UIColor.whiteColor;

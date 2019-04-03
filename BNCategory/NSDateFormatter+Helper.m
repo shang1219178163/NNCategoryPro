@@ -7,6 +7,7 @@
 //
 
 #import "NSDateFormatter+Helper.h"
+#import "BNGloble.h"
 
 const NSInteger kDate_second = 1 ;
 const NSInteger kDate_minute = 60 ;
@@ -29,7 +30,7 @@ NSString * const kFormatDate_five = @"yyyyMMddHHmmss";
     if (!formatter) {
         formatter = [[NSDateFormatter alloc]init];
         formatter.dateFormat = formatStr;
-        formatter.locale = [NSLocale localeWithLocaleIdentifier:@"zh_CN"];
+        formatter.locale = [NSLocale localeWithLocaleIdentifier:kLanguageCN];
         formatter.timeZone = NSTimeZone.systemTimeZone;
 
         [threadDic setObject:formatter forKey:formatStr];
