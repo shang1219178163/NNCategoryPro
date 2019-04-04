@@ -45,6 +45,10 @@
                                                          forBarMetrics:UIBarMetricsDefault];
 }
 
+- (void)setDefaultBackgroundImage:(UIImage *)image{
+    [self setBackgroundImage:image forBarMetrics:UIBarMetricsDefault];
+    [self setShadowImage:image];
+}
 
 @end
 

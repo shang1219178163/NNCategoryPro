@@ -64,7 +64,7 @@
     UIAlertController * alertController = [UIAlertController alertControllerWithTitle:title message:msg preferredStyle:UIAlertControllerStyleActionSheet];
     
     for (NSString *title in actionTitles) {
-        UIAlertActionStyle style = [title isEqualToString:kActionTitle_Cancell] == true? UIAlertActionStyleDestructive : UIAlertActionStyleDefault;
+        UIAlertActionStyle style = [title isEqualToString:kActionTitle_Cancell] == true? UIAlertActionStyleCancel : UIAlertActionStyleDefault;
         [alertController addAction:[UIAlertAction actionWithTitle:title style:style handler:^(UIAlertAction * _Nonnull action) {
             if (handler) handler(alertController,action);
             
@@ -72,7 +72,7 @@
     }
     
     if (![actionTitles containsObject:kActionTitle_Cancell]) {
-        [alertController addAction:[UIAlertAction actionWithTitle:kActionTitle_Cancell style:UIAlertActionStyleDestructive handler:^(UIAlertAction * _Nonnull action) {
+        [alertController addAction:[UIAlertAction actionWithTitle:kActionTitle_Cancell style:UIAlertActionStyleCancel handler:^(UIAlertAction * _Nonnull action) {
             if (handler) handler(alertController,action);
             
         }]];
