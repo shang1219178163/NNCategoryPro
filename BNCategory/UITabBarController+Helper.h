@@ -16,8 +16,11 @@ NS_ASSUME_NONNULL_BEGIN
 
 @interface UITabBarController (Helper)
 
-FOUNDATION_EXPORT NSArray * UINavListFromList(NSArray *list);
-FOUNDATION_EXPORT UITabBarController * UITarBarCtrFromList(NSArray *list);
+FOUNDATION_EXPORT NSArray<UITabBarItem *> * UITabBarItemsFromList(NSArray<NSArray *> *list);
+FOUNDATION_EXPORT NSArray<__kindof UIViewController *> * UICtlrListFromList(NSArray<NSArray *> *list, BOOL isNavController);
+FOUNDATION_EXPORT NSArray<UINavigationController *> * UINavListFromList(NSArray<NSArray *> *list);
+
+FOUNDATION_EXPORT UITabBarController * UITarBarCtrFromList(NSArray<NSArray *> *list);
 
 - (NSArray *)getSubviewsForName:(NSString *)name;
 

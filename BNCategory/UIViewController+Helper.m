@@ -576,6 +576,7 @@ UIViewController * UICtrFromString(NSString *obj){
     
     [btn setImage:[image imageWithRenderingMode:UIImageRenderingModeAlwaysTemplate] forState:UIControlStateNormal];
     btn.imageView.tintColor = UINavigationBar.appearance.tintColor != nil ? UINavigationBar.appearance.tintColor : UIColor.redColor;
+    btn.highlighted = false;
     [btn addActionHandler:^(UIControl * _Nonnull control) {
         [self.navigationController popViewControllerAnimated:true];
         

@@ -16,40 +16,60 @@ NSString * const kUITabBarSwappableImageView = @"UITabBarSwappableImageView";
 
 @implementation UITabBarController (Helper)
 
+NSArray<UITabBarItem *> * UITabBarItemsFromList(NSArray<NSArray *> * list){
+    //list 类名,title,img_N,img_H,badgeValue
+    
+    __block NSMutableArray * marr = [NSMutableArray array];
+    [list enumerateObjectsUsingBlock:^(NSArray * _Nonnull obj, NSUInteger idx, BOOL * _Nonnull stop) {
+        NSArray * itemList = (NSArray *)obj;//类名,title,img_N,img_H,badgeValue
+        
+        NSString * title = itemList.count > 1 ? itemList[1] :   @"";
+        NSString * img_N = itemList.count > 2 ? itemList[2] :   @"";
+        NSString * img_H = itemList.count > 3 ? itemList[3] :   @"";
+        NSString * badgeValue = itemList.count > 4 ? itemList[4] :   @"";
+        
+        UITabBarItem *tabBarItem = [[UITabBarItem alloc]initWithTitle:title image:[UIImage imageNamed:img_N] selectedImage:[UIImage imageNamed:img_H]];
+        tabBarItem.badgeValue = badgeValue;
+        
+        if (@available(iOS 10.0, *)) {
+            tabBarItem.badgeColor = badgeValue.integerValue <= 0 ? UIColor.clearColor:UIColor.redColor;
+        } else {
+            // Fallback on earlier versions
+        }
+        
+        if (tabBarItem.title == nil || [tabBarItem.title isEqualToString:@""]) {
+            tabBarItem.imageInsets = UIEdgeInsetsMake(5, 0, -5, 0);
+        }
+        
+        [marr addObject:tabBarItem];
+    }];
+    return marr.copy;
+}
+
 /**
- 数组->UINavigationController(子数组示例:@[@"标题",@"图片",@"图片高亮",@"badgeValue",])
+ 数组->__kindof UIViewController (子数组示例:@[@"标题",@"图片",@"图片高亮",@"badgeValue",])
  */
-NSArray * UINavListFromList(NSArray *list){
+NSArray<__kindof UIViewController *> * UICtlrListFromList(NSArray<NSArray *> *list, BOOL isNavController){
+    
+    NSArray * tabItems = UITabBarItemsFromList(list);
+    
     __block NSMutableArray * marr = [NSMutableArray array];
     [list enumerateObjectsUsingBlock:^(id  _Nonnull obj, NSUInteger idx, BOOL * _Nonnull stop) {
         if ([obj isKindOfClass:[NSString class]]) {
             UINavigationController *navController = UINavCtrFromObj(obj);
             [marr addObject:navController];
-
+            
         }
         else if([obj isKindOfClass:[NSArray class]]) {
             NSArray * itemList = (NSArray *)obj;//类名,title,img_N,img_H,badgeValue
-
-            NSString * title = itemList.count > 1 ? itemList[1] :   @"";
-            NSString * img_N = itemList.count > 2 ? itemList[2] :   @"";
-            NSString * img_H = itemList.count > 3 ? itemList[3] :   @"";
-            NSString * badgeValue = itemList.count > 4 ? itemList[4] :   @"";
-
+            
             UIViewController * controller = UICtrFromString(itemList.firstObject);
             controller.title = itemList[1];
-
-            UITabBarItem *tabBarItem = [[UITabBarItem alloc]initWithTitle:title image:[UIImage imageNamed:img_N] selectedImage:[UIImage imageNamed:img_H]];
-            tabBarItem.badgeValue = badgeValue;
-
-            controller.tabBarItem = tabBarItem;
-            if (@available(iOS 10.0, *)) {
-                controller.tabBarItem.badgeColor = badgeValue.integerValue <= 0 ? UIColor.clearColor:UIColor.redColor;
-            } else {
-                // Fallback on earlier versions
-            }
-
-            UINavigationController *navController = UINavCtrFromObj(controller);
-            [marr addObject:navController];
+            controller.tabBarItem = tabItems[idx];
+            //时候是导航控制器
+            controller = isNavController ? UINavCtrFromObj(controller) : controller;
+            [marr addObject:controller];
+            
         }
         else{
             assert([obj isKindOfClass:[NSString class]] || [obj isKindOfClass:[NSArray class]]);
@@ -59,10 +79,18 @@ NSArray * UINavListFromList(NSArray *list){
     return viewControllers;
 }
 
+
+/**
+ 数组->UINavigationController(子数组示例:@[@"标题",@"图片",@"图片高亮",@"badgeValue",])
+ */
+NSArray<UINavigationController *> * UINavListFromList(NSArray<NSArray *> *list){
+    return UICtlrListFromList(list, true);
+}
+
 /**
  数组->UITabBarController(子数组示例:@[@"标题",@"图片",@"图片高亮",@"badgeValue",])
  */
-UITabBarController * UITarBarCtrFromList(NSArray *list){
+UITabBarController * UITarBarCtrFromList(NSArray<NSArray *> *list){
     UITabBarController * tabBarVC = [[UITabBarController alloc]init];
     tabBarVC.viewControllers = UINavListFromList(list);
     //    tabBarVC.tabBar.barTintColor = UIColor.themeColor;
