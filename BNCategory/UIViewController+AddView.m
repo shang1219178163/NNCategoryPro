@@ -21,9 +21,9 @@
     if (!view) {
         view = [[UITableView alloc] initWithFrame:self.view.bounds style:UITableViewStyleGrouped];
         view.autoresizingMask = UIViewAutoresizingFlexibleWidth|UIViewAutoresizingFlexibleHeight;
-        view.separatorInset = UIEdgeInsetsZero;
-        view.separatorStyle = UITableViewCellSeparatorStyleSingleLine;
-        view.rowHeight = 60;
+//        view.separatorInset = UIEdgeInsetsZero;
+//        view.separatorStyle = UITableViewCellSeparatorStyleSingleLine;
+//        view.rowHeight = 60;
         view.backgroundColor = UIColor.backgroudColor;
 //        table.keyboardDismissMode = UIScrollViewKeyboardDismissModeOnDrag;
         [view registerClass:[UITableViewCell class] forCellReuseIdentifier:@"UITableViewCell"];

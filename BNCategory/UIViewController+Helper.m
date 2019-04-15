@@ -269,8 +269,9 @@ UIViewController * UICtrFromString(NSString *obj){
         if (NSDate.date.timeIntervalSince1970 - self.timeInterval < 1) return;
         if (self.timeInterval > 0) self.timeInterval = NSDate.date.timeIntervalSince1970;
 
-        handler(obj, item, ((UIButton *)item).tag);
-
+        if (handler) {
+            handler(obj, item, ((UIButton *)item).tag);
+        }
     }];
     UIBarButtonItem *item = [[UIBarButtonItem alloc]initWithCustomView:view];
     if (isLeft) {
@@ -303,9 +304,10 @@ UIViewController * UICtrFromString(NSString *obj){
     [view addSubview:item];
     
     [view addGestureTap:^(UIGestureRecognizer *sender) {
-        if (view.isHidden == 1) return;
-        handler((UITapGestureRecognizer *)obj, item, item.tag);
-        
+        if (view.isHidden == true) return;
+        if (handler) {
+            handler((UITapGestureRecognizer *)obj, item, item.tag);
+        }
     }];
    
     UIBarButtonItem *barItem = [[UIBarButtonItem alloc]initWithCustomView:view];

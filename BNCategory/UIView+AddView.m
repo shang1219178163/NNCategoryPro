@@ -384,7 +384,7 @@
         {
             //小标志
             NSString * text = @"企";
-            CGSize textSize = [self sizeWithText:text font:@(kFZ_Third) width:kScreenWidth];
+            CGSize textSize = [self sizeWithText:text font:@(kFontSize14) width:kScreenWidth];
             CGFloat textWH = textSize.height > textSize.width ? textSize.height :textSize.width;
             textWH += 5;
             CGFloat offsetXY = CGRectGetHeight(rect)/2.0 * sin(45 * M_PI/180.0);
@@ -655,7 +655,7 @@
     lab.text = title;
     lab.textColor = titleColor;
     lab.textAlignment = NSTextAlignmentCenter;
-    lab.font = [UIFont systemFontOfSize:kFZ_Second];
+    lab.font = [UIFont systemFontOfSize:kFontSize16];
     lab.numberOfLines = 1;
     lab.lineBreakMode = NSLineBreakByTruncatingTail;
     lab.tag = kTAG_LABEL;

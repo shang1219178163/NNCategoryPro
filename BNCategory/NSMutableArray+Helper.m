@@ -13,7 +13,7 @@
 -(void)addSafeObjct:(id)obj{
     if (!obj || [obj isKindOfClass:[NSNull class]]) {
         [self addObject:@""];
-//        [self addObject:kNIl_TEXT];
+//        [self addObject:kNilText];
 
     } else {
         [self addObject:obj];

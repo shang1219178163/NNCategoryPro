@@ -128,9 +128,14 @@
 }
 
 + (void)setupAppearanceScrollView{
+    UITableView.appearance.separatorStyle = UITableViewCellSeparatorStyleSingleLine;
+    UITableView.appearance.separatorInset = UIEdgeInsetsZero;
+    UITableView.appearance.rowHeight = 60;
+
+    UITableViewCell.appearance.layoutMargins = UIEdgeInsetsZero;
     UITableViewCell.appearance.separatorInset = UIEdgeInsetsZero;
     UITableViewCell.appearance.selectionStyle = UITableViewCellSelectionStyleNone;
-    
+
     UIScrollView.appearance.keyboardDismissMode = UIScrollViewKeyboardDismissModeOnDrag;
     
     if (@available(iOS 11.0, *)) {

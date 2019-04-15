@@ -596,13 +596,13 @@
     imgView.layer.backgroundColor = UIColor.whiteColor.CGColor;
     [containView addSubview:imgView];
     
-    CGSize textSize = [self sizeWithText:title font:@(kFZ_Third) width:CGRectGetWidth(rect)];
+    CGSize textSize = [self sizeWithText:title font:@(kFontSize14) width:CGRectGetWidth(rect)];
     CGFloat XGapLab = (CGRectGetWidth(rect) - textSize.width)/2.0;
     
     CGRect labRect = CGRectMake(XGapLab, CGRectGetMaxY(imgViewRect), textSize.width, kH_LABEL_SMALL);
     UILabel * lab = [UIView createLabelRect:labRect text:title font:16 tag:kTAG_LABEL type:@2];
     lab.textColor = UIColor.titleSubColor;
-    lab.font = [UIFont systemFontOfSize:kFZ_Third];
+    lab.font = [UIFont systemFontOfSize:kFontSize14];
     lab.textAlignment = NSTextAlignmentCenter;
     [containView addSubview:lab];
     
@@ -658,7 +658,7 @@
 
     textField.leftViewMode = UITextFieldViewModeAlways;
     
-    //    UIButton * btn = [UIButton createBtnRect:CGRectMake(0, 0, 40, textFieldHeight) title:@"搜 索" font:kFZ_Second image:nil tag:kTAG_BTN type:@2 target:self aSelector:@selector(goSearch)];
+    //    UIButton * btn = [UIButton createBtnRect:CGRectMake(0, 0, 40, textFieldHeight) title:@"搜 索" font:kFontSize16 image:nil tag:kTAG_BTN type:@2 target:self aSelector:@selector(goSearch)];
     textField.rightView = rightView;
 //    textField.rightViewPadding = 5;
     textField.rightViewPadding = rightPadding;
@@ -742,7 +742,7 @@
     
     NSMutableAttributedString *attString = [[NSMutableAttributedString alloc]initWithString:text];
     for (NSString *textTap in textTaps) {
-        [attString addAttribute:NSFontAttributeName value:[UIFont systemFontOfSize:kFZ_Third] range:NSMakeRange(0, text.length)];
+        [attString addAttribute:NSFontAttributeName value:[UIFont systemFontOfSize:kFontSize14] range:NSMakeRange(0, text.length)];
         [attString addAttribute:NSForegroundColorAttributeName value:UIColor.orangeColor range:[text rangeOfString:textTap]];
         
     }
@@ -786,7 +786,7 @@
     
     
     UILabel * labelVehicle = [UIView createLabelRect:labelRect text:text font:16 tag:kTAG_LABEL type:@2];
-    labelVehicle.font = [UIFont systemFontOfSize:kFZ_Third];
+    labelVehicle.font = [UIFont systemFontOfSize:kFontSize14];
     [backgroudView addSubview:labelVehicle];
     
     return backgroudView;
@@ -1060,7 +1060,7 @@
         return imgView;
     }
     
-    CGSize size = [self sizeWithText:unitString font:@(kFZ_Third) width:kScreenWidth];
+    CGSize size = [self sizeWithText:unitString font:@(kFontSize14) width:kScreenWidth];
     UILabel * label = [UIView createLabelRect:CGRectMake(0, 0, size.width+2, 25) text:unitString font:16 tag:kTAG_LABEL type:@2];
     label.textColor = UIColor.titleColor;
     label.textAlignment = NSTextAlignmentCenter;

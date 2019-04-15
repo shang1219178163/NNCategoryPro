@@ -25,9 +25,9 @@
     if(!cell){
         cell = [[self alloc]initWithStyle:style reuseIdentifier:identifier];
     }
-    cell.selectionStyle = UITableViewCellSelectionStyleNone;
-    cell.separatorInset = UIEdgeInsetsZero;
-    cell.layoutMargins = UIEdgeInsetsZero;
+//    cell.selectionStyle = UITableViewCellSelectionStyleNone;
+//    cell.separatorInset = UIEdgeInsetsZero;
+//    cell.layoutMargins = UIEdgeInsetsZero;
     
     return cell;
 }
@@ -238,7 +238,7 @@
 //        view = ({
 //            UIButton * view = [UIButton buttonWithType:UIButtonTypeCustom];
 //            [view setTitle:@"按钮标题" forState:UIControlStateNormal];
-//            view.titleLabel.font = [UIFont systemFontOfSize:kFZ_Second];
+//            view.titleLabel.font = [UIFont systemFontOfSize:kFontSize16];
 //            view.titleLabel.adjustsFontSizeToFitWidth = YES;
 //            view.imageView.contentMode = UIViewContentModeScaleAspectFit;
 //            view.tag = kTAG_BTN;
@@ -260,7 +260,7 @@
         view = ({
             UIButton * view = [UIButton buttonWithType:UIButtonTypeCustom];
             //            [view setTitle:@"按钮标题" forState:UIControlStateNormal];
-            view.titleLabel.font = [UIFont systemFontOfSize:kFZ_Second];
+            view.titleLabel.font = [UIFont systemFontOfSize:kFontSize16];
             view.titleLabel.adjustsFontSizeToFitWidth = YES;
             view.imageView.contentMode = UIViewContentModeScaleAspectFit;
             view.tag = kTAG_BTN;
@@ -286,7 +286,7 @@
 -(BNTextField *)textField{
     BNTextField * view = objc_getAssociatedObject(self, _cmd);
     if (!view) {
-        view = [UIView createTextFieldRect:CGRectZero text:@"" placeholder:nil font:kFZ_Second textAlignment:NSTextAlignmentLeft keyboardType:UIKeyboardTypeDefault];
+        view = [UIView createTextFieldRect:CGRectZero text:@"" placeholder:nil font:kFontSize16 textAlignment:NSTextAlignmentLeft keyboardType:UIKeyboardTypeDefault];
         view.tag = kTAG_TEXTFIELD;
 
         objc_setAssociatedObject(self, _cmd, view, OBJC_ASSOCIATION_RETAIN_NONATOMIC);
@@ -304,7 +304,7 @@
         view = ({
             UITextView *view = [[UITextView alloc] initWithFrame:CGRectZero];
             view.autoresizingMask = UIViewAutoresizingFlexibleWidth | UIViewAutoresizingFlexibleHeight;
-            view.font = [UIFont systemFontOfSize:kFZ_Third];
+            view.font = [UIFont systemFontOfSize:kFontSize16];
             view.textAlignment = NSTextAlignmentLeft;
             
             view.keyboardAppearance = UIKeyboardAppearanceDefault;
