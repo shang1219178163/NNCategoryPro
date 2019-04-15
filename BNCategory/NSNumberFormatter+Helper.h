@@ -7,16 +7,23 @@
 //
 
 #import <Foundation/Foundation.h>
-
+/// 四舍五入
 FOUNDATION_EXPORT NSString * const kNumIdentify ;// 默认(四舍五入)
+/// 分隔符,
 FOUNDATION_EXPORT NSString * const kNumIdentify_decimal ;
+/// 百分比
 FOUNDATION_EXPORT NSString * const kNumIdentify_percent ;
+/// 货币$
 FOUNDATION_EXPORT NSString * const kNumIdentify_currency ;
+/// 科学计数法 1.234E8
 FOUNDATION_EXPORT NSString * const kNumIdentify_scientific ;
+/// 加号符号
 FOUNDATION_EXPORT NSString * const kNumIdentify_plusSign ;
+/// 减号符号
 FOUNDATION_EXPORT NSString * const kNumIdentify_minusSign ;
+/// 指数符号
 FOUNDATION_EXPORT NSString * const kNumIdentify_exponentSymbol ;
-
+/// #,##0.00
 FOUNDATION_EXPORT NSString * const kNumFormat;
 
 @interface NSNumberFormatter (Helper)

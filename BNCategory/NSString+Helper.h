@@ -14,15 +14,16 @@
 @interface NSString (Helper)
 
 @property (nonatomic, strong, readonly) NSDecimalNumber *decNumer;
-
+/// NSIndexPath->字符串
 FOUNDATION_EXPORT NSString * NSStringFromIndexPath(NSIndexPath *indexPath);
+/// html->字符串
 FOUNDATION_EXPORT NSString * NSStringFromHTML(NSString *html);
-
+/// id类型->字符串
 FOUNDATION_EXPORT NSString * NSStringFromLet(id obj);
-
+/// NSInteger->字符串
 FOUNDATION_EXPORT NSString * NSStringFromInt(NSInteger obj);
+/// CGFloat->字符串
 FOUNDATION_EXPORT NSString * NSStringFromFloat(CGFloat obj);
-
 
 - (BOOL)isPureInteger;
 //浮点形判断：

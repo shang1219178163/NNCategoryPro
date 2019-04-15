@@ -14,6 +14,8 @@
 
 @interface UITableViewCell (AddView)
 
++(instancetype)cellWithTableView:(UITableView *)tableView identifier:(NSString *)identifier style:(UITableViewCellStyle)style;
+
 +(instancetype)cellWithTableView:(UITableView *)tableView identifier:(NSString *)identifier;
 
 +(instancetype)cellWithTableView:(UITableView *)tableView;

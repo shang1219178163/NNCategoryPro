@@ -20,4 +20,5 @@
 
 -(void)cellAddCornerRadius:(CGFloat)cornerRadius cell:(UITableViewCell *)cell indexPath:(NSIndexPath *)indexPath;
 
+
 @end

@@ -21,6 +21,7 @@ typedef void(^BlockAlertController)(UIAlertController * _Nonnull alertController
 
 @interface UIViewController (Helper)
 
+/// 字符串->UIViewController
 FOUNDATION_EXPORT UIViewController * UICtrFromString(NSString *obj);
 
 - (BOOL)isCurrentVisibleViewController;

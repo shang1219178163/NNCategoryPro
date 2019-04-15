@@ -10,9 +10,6 @@
 
 @implementation UINavigationController (Helper)
 
-/**
- 字符串->UINavigationController
- */
 UINavigationController * UINavCtrFromObj(id obj){
     if ([obj isKindOfClass:[UINavigationController class]]) {
         return obj;

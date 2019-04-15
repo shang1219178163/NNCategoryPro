@@ -11,21 +11,26 @@
 @interface UIImage (Helper)
 
 @property (nonatomic, strong, readonly) NSString *contentType;
-
+/// UIColor->UIImage
 FOUNDATION_EXPORT UIImage * UIImageColor(UIColor * color);
+/// 十六进制数值->UIImage
 FOUNDATION_EXPORT UIImage * UIImageColorHexAlpha(NSInteger hex, CGFloat alpha);
+/// 获取->UIImage
 FOUNDATION_EXPORT UIImage * UIImageNamed(NSString * obj);
+
 FOUNDATION_EXPORT UIImage * UIImageFromName(NSString *obj, UIImageRenderingMode renderingMode);
+
 FOUNDATION_EXPORT UIImage * UIImageObj(id obj);
+/// UIImage是否相等
 FOUNDATION_EXPORT bool UIImageEquelToImage(UIImage *image0, UIImage *image1);
 
-/**
- 通过图片Data数据第一个字节 来获取图片扩展名
- */
+/// 通过图片Data数据第一个字节 来获取图片扩展名
 + (NSString *)contentTypeForImageData:(NSData *)data;
 
 + (UIImage *)imageWithColor:(UIColor *)color;
+
 + (UIImage *)screenshotFromView:(UIView *)view;
+
 - (UIImage *)croppedImage:(CGRect)cropRect;
 
 - (UIImage *)imageRotatedByDegrees:(CGFloat)degrees;
@@ -37,7 +42,6 @@ FOUNDATION_EXPORT bool UIImageEquelToImage(UIImage *image0, UIImage *image1);
 - (UIImage *)imageAddCornerWithRadius:(CGFloat)radius andSize:(CGSize)size;
 
 /**
- 
  区别:
  效果:第一种Core Image设置模糊之后会在周围产生白边，vImage使用不存在任何问题；
  性能:图像模糊处理属于复杂的计算，大部分图片模糊选择的是vImage，性能最佳

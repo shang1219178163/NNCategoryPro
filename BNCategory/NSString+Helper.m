@@ -25,15 +25,10 @@
     return [NSDecimalNumber decimalNumberWithString:self];
 }
 
-/**
- NSIndexPath->字符串
- */
 NSString * NSStringFromIndexPath(NSIndexPath *indexPath) {
     return [NSString stringWithFormat:@"{%@,%@}",@(indexPath.section),@(indexPath.row)];
 }
-/**
- html->字符串
- */
+
 NSString * NSStringFromHTML(NSString *html) {
     NSScanner * scanner = [NSScanner scannerWithString:html];
     NSString * text = nil;
@@ -58,23 +53,15 @@ NSString * NSStringFromHTML(NSString *html) {
     //    html  = [NSString stringWithString:str1];
     return html;
 }
-/**
- id类型->字符串
- */
+
 NSString * NSStringFromLet(id obj) {
     return [NSString stringWithFormat:@"%@",obj];
 }
 
-/**
- NSInteger->字符串
- */
 NSString * NSStringFromInt(NSInteger obj){
     return [@(obj) stringValue];
 }
 
-/**
- CGFloat->字符串
- */
 NSString * NSStringFromFloat(CGFloat obj){
     return [@(obj) stringValue];
 }

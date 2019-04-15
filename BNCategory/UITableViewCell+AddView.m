@@ -20,16 +20,20 @@
 
 @implementation UITableViewCell (AddView)
 
-+(instancetype)cellWithTableView:(UITableView *)tableView identifier:(NSString *)identifier{
++(instancetype)cellWithTableView:(UITableView *)tableView identifier:(NSString *)identifier style:(UITableViewCellStyle)style{
     UITableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:identifier];
     if(!cell){
-        cell = [[self alloc]initWithStyle:UITableViewCellStyleDefault reuseIdentifier:identifier];
-        
+        cell = [[self alloc]initWithStyle:style reuseIdentifier:identifier];
     }
     cell.selectionStyle = UITableViewCellSelectionStyleNone;
     cell.separatorInset = UIEdgeInsetsZero;
+    cell.layoutMargins = UIEdgeInsetsZero;
     
     return cell;
+}
+
++(instancetype)cellWithTableView:(UITableView *)tableView identifier:(NSString *)identifier{
+    return [self cellWithTableView:tableView identifier:self.identifier style:UITableViewCellStyleDefault];
 }
 
 +(instancetype)cellWithTableView:(UITableView *)tableView{

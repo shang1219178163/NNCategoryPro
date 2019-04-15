@@ -10,7 +10,9 @@
 
 @interface NSDictionary (Helper)
 
+/// 富文本配置字典
 FOUNDATION_EXPORT NSDictionary<NSAttributedStringKey, id> * AttributeDict(NSNumber * type);
+/// 读取项目Plist文件(在TARGETS里的CopyBundleResources中必须存在)
 FOUNDATION_EXPORT NSMutableDictionary *DicFromPlist(NSString *plistName);
 
 /**

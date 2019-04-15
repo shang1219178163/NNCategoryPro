@@ -16,7 +16,7 @@
 #import "UIScreen+Helper.h"
 #import "UIColor+Helper.h"
 
-NSString * const kDeafult_textFieldHistory = @"kDeafult_textFieldHistory" ;// x方向平移
+NSString * const kDeafult_textFieldHistory = @"kDeafult_textFieldHistory" ;
 
 @interface UITextField()<UITableViewDataSource,UITableViewDelegate>
 

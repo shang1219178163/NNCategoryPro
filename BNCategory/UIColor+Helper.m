@@ -140,20 +140,13 @@ UIColor * UIColorHexValue(NSInteger hex){
     return UIColorHexValueAlpha(hex, 1.0);
 }
 
-/**
- [源]0x十六进制数值
- */
 UIColor * UIColorHexValueAlpha(NSInteger hex, CGFloat alpha){
     return [UIColor colorWithRed:((hex & 0xFF0000) >> 16)/255.0 green:((hex & 0xFF00) >> 8)/255.0 blue:(hex & 0xFF)/255.0 alpha:alpha];
 }
 
-/**
- 十六进制字符串
- */
 UIColor * UIColorHex(NSString *hex){
     return [UIColor colorWithHexString:hex];
 }
-
 
 NSArray * RGBAFromColor(UIColor *color){
     CGFloat red = 0.0;

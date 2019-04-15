@@ -8,7 +8,8 @@
 
 #import <UIKit/UIKit.h>
 
-FOUNDATION_EXPORT NSString * const kDeafult_textFieldHistory ;// x方向平移
+/// NSUserDefault 存储Key
+FOUNDATION_EXPORT NSString * const kDeafult_textFieldHistory ;
 
 @interface UITextField (Helper)
 

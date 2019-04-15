@@ -10,10 +10,8 @@
 
 @interface UITableViewCell (Helper)
 
-@property (nonatomic, strong) NSMutableDictionary * mdict;
-
-@property (nonatomic, strong) UILabel * label;
-@property (nonatomic, strong) UIImageView * imgView;
+/// cell高度缓存
+FOUNDATION_EXPORT CGFloat CellHeightFromParams(NSMutableDictionary *dic, NSIndexPath * indexPath, CGFloat height);
 
 @end
 

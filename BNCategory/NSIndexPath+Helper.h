@@ -18,8 +18,11 @@ NS_ASSUME_NONNULL_BEGIN
 @property (nonatomic, strong, readonly) NSIndexPath * nextSection;
 @property (nonatomic, strong, readonly) NSIndexPath * previousSection;
 
+/// 字符串->NSIndexPath(string 两部分数字必须用逗号隔开)
 FOUNDATION_EXPORT NSIndexPath *NSIndexPathFromString(NSString *string);
+/// NSIndexPath快速生成
 FOUNDATION_EXPORT NSIndexPath *NSIndexPathFromIndex(NSInteger section, NSInteger row);
+/// 返回NSIndexPath索引数组
 FOUNDATION_EXPORT NSArray *NSIndexPathsFromIdxInfo(NSInteger section, NSArray *rowList);
 
 @end

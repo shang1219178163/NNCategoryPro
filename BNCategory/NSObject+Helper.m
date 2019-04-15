@@ -29,109 +29,14 @@ NSString * RuntimeKeyFromParams(NSObject *obj, NSString *funcAbount){
     return unique;
 }
 
-///**
-// 返回索引数组 
-// */
-//NSArray *NSIndexPathsFromIdxInfo(NSInteger section, NSArray *rowList) {
-//    NSMutableArray *marr = [NSMutableArray array];
-//    for (NSNumber *row in rowList) {
-//        [marr addObject:[NSIndexPath indexPathForRow:row.integerValue inSection:section]];
-//        
-//    }
-//    return marr.copy;
-//}
-
-///**
-// 字符串->UIViewController
-// */
-//UIViewController * UICtrFromString(NSString *obj){
-//    return [[NSClassFromString(obj) alloc]init];
-//}
-//
-///**
-// 字符串->UINavigationController
-// */
-//UINavigationController * UINavCtrFromObj(id obj){
-//    if ([obj isKindOfClass:[UINavigationController class]]) {
-//        return obj;
-//    }
-//    else if ([obj isKindOfClass:[NSString class]]) {
-//        return [[UINavigationController alloc]initWithRootViewController:UICtrFromString(obj)];
-//    }
-//    else if ([obj isKindOfClass:[UIViewController class]]) {
-//        return [[UINavigationController alloc]initWithRootViewController:obj];
-//    }
-//    return nil;
-//}
-
-///**
-// 数组->UINavigationController(子数组示例:@[@"标题",@"图片",@"图片高亮",@"badgeValue",])
-// */
-//NSArray * UINavListFromList(NSArray *list){
-//    __block NSMutableArray * marr = [NSMutableArray array];
-//    [list enumerateObjectsUsingBlock:^(id  _Nonnull obj, NSUInteger idx, BOOL * _Nonnull stop) {
-//        if ([obj isKindOfClass:[NSString class]]) {
-//            UINavigationController *navController = UINavCtrFromObj(obj);
-//            [marr addObject:navController];
-//            
-//        }
-//        else if([obj isKindOfClass:[NSArray class]]) {
-//            NSArray * itemList = (NSArray *)obj;//类名,title,img_N,img_H,badgeValue
-//            
-//            NSString * title = itemList.count > 1 ? itemList[1] :   @"";
-//            NSString * img_N = itemList.count > 2 ? itemList[2] :   @"";
-//            NSString * img_H = itemList.count > 3 ? itemList[3] :   @"";
-//            NSString * badgeValue = itemList.count > 4 ? itemList[4] :   @"";
-//            
-//            UIViewController * controller = UICtrFromString(itemList.firstObject);
-//            controller.title = itemList[1];
-//            
-//            UITabBarItem *tabBarItem = [[UITabBarItem alloc]initWithTitle:title image:[UIImage imageNamed:img_N] selectedImage:[UIImage imageNamed:img_H]];
-//            tabBarItem.badgeValue = badgeValue;
-//
-//            controller.tabBarItem = tabBarItem;
-//            if (@available(iOS 10.0, *)) {
-//                controller.tabBarItem.badgeColor = badgeValue.integerValue <= 0 ? UIColor.clearColor:UIColor.redColor;
-//            } else {
-//                // Fallback on earlier versions
-//            }
-//
-//            UINavigationController *navController = UINavCtrFromObj(controller);
-//            [marr addObject:navController];
-//        }
-//        else{
-//            assert([obj isKindOfClass:[NSString class]] || [obj isKindOfClass:[NSArray class]]);
-//        }
-//    }];
-//    NSArray *viewControllers = marr.copy;
-//    return viewControllers;
-//}
-
-///**
-// 数组->UITabBarController(子数组示例:@[@"标题",@"图片",@"图片高亮",@"badgeValue",])
-// */
-//UITabBarController * UITarBarCtrFromList(NSArray *list){
-//    UITabBarController * tabBarVC = [[UITabBarController alloc]init];
-//    tabBarVC.viewControllers = UINavListFromList(list);
-////    tabBarVC.tabBar.barTintColor = UIColor.themeColor;
-////    tabBarVC.tabBar.tintColor = UIColor.themeColor;
-//    return tabBarVC;
-//}
-
 BOOL iOSVer(CGFloat version){
     return (UIDevice.currentDevice.systemVersion.floatValue >= version) ? YES : NO;
 }
 
-/**
- 由角度转换弧度
- */
 CGFloat CGRadianFromDegrees(CGFloat x){
     return (M_PI * (x) / 180.0);
 }
 
-/**
- 由弧度转换角度
- */
 CGFloat CGDegreesFromRadian(CGFloat x){
     return (x * 180.0)/(M_PI);
 }

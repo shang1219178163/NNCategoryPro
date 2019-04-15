@@ -11,6 +11,7 @@ NS_ASSUME_NONNULL_BEGIN
 
 @interface UINavigationController (Helper)
 
+/// 字符串->UINavigationController
 FOUNDATION_EXPORT UINavigationController * UINavCtrFromObj(id obj);
 
 @end

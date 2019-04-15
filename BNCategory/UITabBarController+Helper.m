@@ -46,9 +46,6 @@ NSArray<UITabBarItem *> * UITabBarItemsFromList(NSArray<NSArray *> * list){
     return marr.copy;
 }
 
-/**
- 数组->__kindof UIViewController (子数组示例:@[@"标题",@"图片",@"图片高亮",@"badgeValue",])
- */
 NSArray<__kindof UIViewController *> * UICtlrListFromList(NSArray<NSArray *> *list, BOOL isNavController){
     
     NSArray * tabItems = UITabBarItemsFromList(list);
@@ -79,17 +76,10 @@ NSArray<__kindof UIViewController *> * UICtlrListFromList(NSArray<NSArray *> *li
     return viewControllers;
 }
 
-
-/**
- 数组->UINavigationController(子数组示例:@[@"标题",@"图片",@"图片高亮",@"badgeValue",])
- */
 NSArray<UINavigationController *> * UINavListFromList(NSArray<NSArray *> *list){
     return UICtlrListFromList(list, true);
 }
 
-/**
- 数组->UITabBarController(子数组示例:@[@"标题",@"图片",@"图片高亮",@"badgeValue",])
- */
 UITabBarController * UITarBarCtrFromList(NSArray<NSArray *> *list){
     UITabBarController * tabBarVC = [[UITabBarController alloc]init];
     tabBarVC.viewControllers = UINavListFromList(list);

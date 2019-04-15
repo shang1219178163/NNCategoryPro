@@ -77,9 +77,6 @@ NSDictionary<NSAttributedStringKey, id> * AttributeDict(NSNumber * type){
     return dic;
 }
 
-/**
- 在TARGETS里的CopyBundleResources中必须存在
- */
 NSMutableDictionary *DicFromPlist(NSString *plistName){
     if ([plistName containsString:@".plist"]) {
         NSArray * list = [plistName componentsSeparatedByString:@"."];

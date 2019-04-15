@@ -21,9 +21,6 @@
     return [UIImage contentTypeForImageData:imgData];
 }
 
-/**
- UIColor->UIImage
- */
 UIImage * UIImageColor(UIColor * color){
     return [UIImage imageWithColor:color];
 }
@@ -72,9 +69,6 @@ bool UIImageEquelToImage(UIImage *image0, UIImage *image1){
     return  [data0 isEqualToData:data1];
 }
 
-
-
-//通过图片Data数据第一个字节 来获取图片扩展名
 + (NSString *)contentTypeForImageData:(NSData *)data{
     uint8_t c;
     [data getBytes:&c length:1];

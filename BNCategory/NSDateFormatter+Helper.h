@@ -13,16 +13,26 @@
 
 #import <Foundation/Foundation.h>
 
-UIKIT_EXTERN const NSInteger kDate_second ;
-UIKIT_EXTERN const NSInteger kDate_minute ;
-UIKIT_EXTERN const NSInteger kDate_hour ;
-UIKIT_EXTERN const NSInteger kDate_day ;
-UIKIT_EXTERN const NSInteger kDate_week ;
-UIKIT_EXTERN const NSInteger kDate_year ;
+/// 1s
+FOUNDATION_EXPORT const NSInteger kDate_second ;
+/// 60s
+FOUNDATION_EXPORT const NSInteger kDate_minute ;
+/// 3600s
+FOUNDATION_EXPORT const NSInteger kDate_hour ;
+/// 86400
+FOUNDATION_EXPORT const NSInteger kDate_day ;
+/// 604800
+FOUNDATION_EXPORT const NSInteger kDate_week ;
+/// 31556926
+FOUNDATION_EXPORT const NSInteger kDate_year ;
 
+/// yyyy-MM-dd HH:mm:ss
 FOUNDATION_EXPORT NSString * const kFormatDate ;
+/// yyyy-MM-dd
 FOUNDATION_EXPORT NSString * const kFormatDate_one ;
+/// yyyyMMdd
 FOUNDATION_EXPORT NSString * const kFormatDate_two ;
+/// yyyyMMddHHmmss
 FOUNDATION_EXPORT NSString * const kFormatDate_five ;
 
 @interface NSDateFormatter (Helper)

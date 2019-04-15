@@ -12,24 +12,17 @@
 #import "UIScreen+Helper.h"
 #import "UIColor+Helper.h"
 
+/// 关联对象的唯一无符号常量值
 FOUNDATION_EXPORT NSString * RuntimeKeyFromParams(NSObject *obj, NSString *funcAbount);
-
-//FOUNDATION_EXPORT NSArray *NSIndexPathsFromIdxInfo(NSInteger section, NSArray *rowList);
-//FOUNDATION_EXPORT UIViewController * UICtrFromString(NSString *obj);
-//FOUNDATION_EXPORT UINavigationController * UINavCtrFromObj(id obj);
-//FOUNDATION_EXPORT NSArray * UINavListFromList(NSArray *list);
-//FOUNDATION_EXPORT UITabBarController * UITarBarCtrFromList(NSArray *list);
-
+// 系统版本判断
 FOUNDATION_EXPORT BOOL iOSVer(CGFloat version);
-
-FOUNDATION_EXPORT CGFloat CGRadianFromDegrees(CGFloat x);//由角度转换弧度
-FOUNDATION_EXPORT CGFloat CGDegreesFromRadian(CGFloat x);//弧度转换角度
-
+/// 由角度转换弧度
+FOUNDATION_EXPORT CGFloat CGRadianFromDegrees(CGFloat x);
+/// 弧度转换角度
+FOUNDATION_EXPORT CGFloat CGDegreesFromRadian(CGFloat x);
+/// 四舍五入
 FOUNDATION_EXPORT CGFloat roundFloat(CGFloat value,NSInteger num);
-
-/**
- swift类需要加命名空间
- */
+/// swift类需要加命名空间
 FOUNDATION_EXPORT NSString * SwiftClassName(NSString *className);
 
 @interface NSObject (Helper)<NSCoding>

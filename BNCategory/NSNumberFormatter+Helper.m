@@ -10,13 +10,13 @@
 #import "BNGloble.h"
 
 NSString * const kNumIdentify = @"四舍五入";// 默认
-NSString * const kNumIdentify_decimal = @"分隔符,";//
-NSString * const kNumIdentify_percent = @"百分比";//
-NSString * const kNumIdentify_currency = @"货币$";//
-NSString * const kNumIdentify_scientific = @"科学计数法 1.234E8";//
-NSString * const kNumIdentify_plusSign = @"加号符号";//
-NSString * const kNumIdentify_minusSign = @"减号符号";//
-NSString * const kNumIdentify_exponentSymbol = @"指数符号";//
+NSString * const kNumIdentify_decimal = @"分隔符,";
+NSString * const kNumIdentify_percent = @"百分比";
+NSString * const kNumIdentify_currency = @"货币$";
+NSString * const kNumIdentify_scientific = @"科学计数法 1.234E8";
+NSString * const kNumIdentify_plusSign = @"加号符号";
+NSString * const kNumIdentify_minusSign = @"减号符号";
+NSString * const kNumIdentify_exponentSymbol = @"指数符号";
 
 NSString * const kNumFormat = @"#,##0.00";
 

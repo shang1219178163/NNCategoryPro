@@ -22,14 +22,10 @@
 #import "UIScreen+Helper.h"
 #import "UIControl+Helper.h"
 
-
 @implementation UIViewController (Helper)
 
 @dynamic delegate;
 
-/**
- 字符串->UIViewController
- */
 UIViewController * UICtrFromString(NSString *obj){
     return [[NSClassFromString(obj) alloc]init];
 }

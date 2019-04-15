@@ -41,26 +41,17 @@
                               inSection:self.section - 1];
 }
 
-/**
- 字符串->NSIndexPath(string 两部分数字必须用逗号隔开)
- */
 NSIndexPath *NSIndexPathFromString(NSString *string) {
     if ([string containsString:@"{"]) string = [string stringByReplacingOccurrencesOfString:@"{" withString:@""];
     if ([string containsString:@"}"]) string = [string stringByReplacingOccurrencesOfString:@"}" withString:@""];
     NSArray * list = [string componentsSeparatedByString:@","];
     return [NSIndexPath indexPathForRow:[list.firstObject integerValue] inSection:[list.lastObject integerValue]];
 }
-
-/**
- NSIndexPath快速生成
- */
+ 
 NSIndexPath *NSIndexPathFromIndex(NSInteger section, NSInteger row) {
     return [NSIndexPath indexPathForRow:row inSection:section];
 }
 
-/**
- 返回索引数组
- */
 NSArray *NSIndexPathsFromIdxInfo(NSInteger section, NSArray *rowList) {
     NSMutableArray *marr = [NSMutableArray array];
     for (NSNumber *row in rowList) {

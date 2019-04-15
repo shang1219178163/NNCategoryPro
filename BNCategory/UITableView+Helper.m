@@ -14,7 +14,7 @@
 
 @implementation UITableView (Helper)
 
-- (void)logTableViewContentInset{
+-(void)logTableViewContentInset{
     NSLog(@"frame:%@",NSStringFromCGRect(self.frame));
     NSLog(@"contentInset:%@",NSStringFromUIEdgeInsets(self.contentInset));
     if (@available(iOS 11.0, *)) {
@@ -88,7 +88,6 @@
     }
 }
 
-
 -(void)cellAddCornerRadius:(CGFloat)cornerRadius cell:(UITableViewCell *)cell indexPath:(NSIndexPath *)indexPath{
     if ([self respondsToSelector:@selector(tintColor)]) {
         
@@ -139,5 +138,7 @@
     }
 
 }
+
+
 
 @end
