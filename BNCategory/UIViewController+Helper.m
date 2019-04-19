@@ -30,6 +30,19 @@ UIViewController * UICtrFromString(NSString *obj){
     return [[NSClassFromString(obj) alloc]init];
 }
 
+UINavigationController * UINavCtrFromObj(id obj){
+    if ([obj isKindOfClass:[UINavigationController class]]) {
+        return obj;
+    }
+    else if ([obj isKindOfClass:[NSString class]]) {
+        return [[UINavigationController alloc]initWithRootViewController:UICtrFromString(obj)];
+    }
+    else if ([obj isKindOfClass:[UIViewController class]]) {
+        return [[UINavigationController alloc]initWithRootViewController:obj];
+    }
+    return nil;
+}
+
 - (void)configureDefault{
     self.edgesForExtendedLayout = UIRectEdgeNone;
     self.view.backgroundColor = UIColor.whiteColor;
@@ -236,6 +249,7 @@ UIViewController * UICtrFromString(NSString *obj){
 - (UIButton *)createBarItemTitle:(NSString *)title imgName:(NSString *)imgName isLeft:(BOOL)isLeft isHidden:(BOOL)isHidden handler:(void(^)(id obj, UIButton * item, NSInteger idx))handler{
     UIButton * btn = nil;
     if (imgName) {
+        NSParameterAssert([UIImage imageNamed:imgName]);
         btn = [UIButton buttonWithSize:CGSizeMake(32, 32) image_N:imgName image_H:nil imageEdgeInsets:UIEdgeInsetsZero];
         
     }
@@ -562,28 +576,41 @@ UIViewController * UICtrFromString(NSString *obj){
     }];
 }
 
-
+/**
+ 设置导航栏背景色
+ 透明色与self.edgesForExtendedLayout = UIRectEdgeAll;搭配使用
+ */
+- (void)setupNavigationBarBackgroundImage:(UIImage *)image{
+    [self.navigationController.navigationBar setBackgroundImage:image forBarMetrics:UIBarMetricsDefault];
+    [self.navigationController.navigationBar setShadowImage:image];
+}
 /**
  返回按钮专用
  */
 - (UIButton *)createBackItem:(UIImage *)image{
+    UIColor *tintColor = UINavigationBar.appearance.tintColor != nil ? UINavigationBar.appearance.tintColor : UIColor.redColor;
+    return [self createBackItem:image tintColor:tintColor];
+}
+
+- (UIButton *)createBackItem:(UIImage *)image tintColor:(UIColor *)tintColor {
     NSParameterAssert(image != nil);
     UIButton * btn = [UIButton buttonWithType:UIButtonTypeCustom];
     btn.frame = CGRectMake(0, 0, 30, 40);
     btn.imageEdgeInsets = UIEdgeInsetsMake(0, -20, 0, 0);
     
     [btn setImage:[image imageWithRenderingMode:UIImageRenderingModeAlwaysTemplate] forState:UIControlStateNormal];
-    btn.imageView.tintColor = UINavigationBar.appearance.tintColor != nil ? UINavigationBar.appearance.tintColor : UIColor.redColor;
+    btn.imageView.tintColor = tintColor;
     btn.highlighted = false;
     [btn addActionHandler:^(UIControl * _Nonnull control) {
         [self.navigationController popViewControllerAnimated:true];
         
     } forControlEvents:UIControlEventTouchUpInside];
-
+    
     UIBarButtonItem * backItem = [[UIBarButtonItem alloc]initWithCustomView:btn];
     self.navigationItem.leftBarButtonItem = backItem;
     return btn;
 }
+
 
 @end
 

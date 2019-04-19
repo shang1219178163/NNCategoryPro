@@ -22,7 +22,9 @@ typedef void(^BlockAlertController)(UIAlertController * _Nonnull alertController
 @interface UIViewController (Helper)
 
 /// 字符串->UIViewController
-FOUNDATION_EXPORT UIViewController * UICtrFromString(NSString *obj);
+FOUNDATION_EXPORT UIViewController * _Nullable UICtrFromString(NSString * _Nonnull obj);
+/// 字符串->UINavigationController
+FOUNDATION_EXPORT UINavigationController * _Nullable UINavCtrFromObj(id _Nonnull obj);
 
 - (BOOL)isCurrentVisibleViewController;
 
@@ -118,6 +120,9 @@ FOUNDATION_EXPORT UIViewController * UICtrFromString(NSString *obj);
 
 - (void)callPhone:(NSString *_Nonnull)phoneNumber;
 
+- (void)setupNavigationBarBackgroundImage:(UIImage *)image;
+
 - (UIButton *)createBackItem:(UIImage *)image;
+- (UIButton *)createBackItem:(UIImage *)image tintColor:(UIColor *)tintColor;
 
 @end

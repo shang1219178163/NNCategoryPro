@@ -15,6 +15,9 @@ NS_ASSUME_NONNULL_BEGIN
 
 +(instancetype)requestPostURL:(NSString *)url body:(nullable NSData *)body;
 
+/**
+ method为0:Get,1:POST
+ */
 +(instancetype)requestURL:(NSString *)url method:(NSNumber *)method body:(nullable NSData *)body cachePolicy:(NSURLRequestCachePolicy)cachePolicy timeoutInterval:(NSTimeInterval)timeoutInterval;
 
 

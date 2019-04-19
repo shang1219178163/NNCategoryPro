@@ -7,6 +7,7 @@
 //
 
 #import <UIKit/UIKit.h>
+#import <UserNotifications/UserNotifications.h>
 
 @class BNShareModel;
 
@@ -54,27 +55,32 @@ typedef NS_ENUM(NSUInteger,PrivacyStatus) {
 
 + (void)setupIQKeyboardManager;
 
++ (void)registerAPNsWithDelegate:(id)delegate;
+
++ (void)addLocalUserNotiTrigger:(id)trigger content:(UNMutableNotificationContent *)content identifier:(NSString *)identifier notiCategories:(id)notiCategories handler:(void(^)(UNUserNotificationCenter* center, UNNotificationRequest *request,NSError * _Nullable error))handler API_AVAILABLE(ios(10.0));
+
++ (void)addLocalNotification;
+
 //+ (void)registerShareSDK;
 //+ (void)handleMsgShareDataModel:(BNShareModel *)dataModel type:(NSNumber *)type;
 //+ (void)registerUMengSDKAppKey:(NSString *_Nonnull)appKey channel:(NSString *_Nonnull)channel;
 
-- (BOOL)checkVersion;
-    
-//- (BOOL)updateVersion;
+- (BOOL)checkVersion:(NSString *_Nonnull)appStoreID;
+
 
 @end
 
 
 @interface BNShareModel : NSObject
 
-@property (nonatomic, copy) NSString * shareTitle;
-@property (nonatomic, copy) NSString * shareDate;
-@property (nonatomic, copy) NSString * shareDesc;
-@property (nonatomic, copy) NSString * shareContent;
-@property (nonatomic, copy) NSString * shareFrom;
-@property (nonatomic, copy) NSArray * shareImages;
+@property (nonatomic, copy) NSString * _Nonnull shareTitle;
+@property (nonatomic, copy) NSString * _Nonnull shareDate;
+@property (nonatomic, copy) NSString * _Nullable shareDesc;
+@property (nonatomic, copy) NSString * _Nullable shareContent;
+@property (nonatomic, copy) NSString * _Nullable shareFrom;
+@property (nonatomic, copy) NSArray * _Nullable shareImages;
 
-@property (nonatomic, copy) NSString * shareUrl;
+@property (nonatomic, copy) NSString * _Nonnull shareUrl;
 
 @end
 

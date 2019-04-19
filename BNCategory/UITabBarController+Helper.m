@@ -8,7 +8,6 @@
 
 #import "UITabBarController+Helper.h"
 #import "UIViewController+Helper.h"
-#import "UINavigationController+Helper.h"
 
 NSString * const kUIBadgeView = @"_UIBadgeView";
 NSString * const kUITabBarButton = @"UITabBarButton";

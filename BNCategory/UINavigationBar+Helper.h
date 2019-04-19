@@ -10,13 +10,9 @@
 
 @interface UINavigationBar (Helper)
 
+/// UINavigationBar默认外观配置
 + (void)configureAppeare;
 
-/**
- 设置导航栏背景色
- 透明色与self.edgesForExtendedLayout = UIRectEdgeAll;搭配使用
- */
-- (void)setDefaultBackgroundImage:(UIImage *)image;
 
 @end
 

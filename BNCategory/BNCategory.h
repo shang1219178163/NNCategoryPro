@@ -75,7 +75,6 @@
 #import "UILabel+Helper.h"
 #import "UILabel+MoneyAnimation.h"
 #import "UINavigationBar+Helper.h"
-#import "UINavigationController+Helper.h"
 #import "UINavigationController+swizzing.h"
 #import "UIResponder+Helper.h"
 #import "UIScreen+Helper.h"
