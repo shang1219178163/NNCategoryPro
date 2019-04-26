@@ -9,6 +9,14 @@
 #import "UIAlertController+Helper.h"
 #import "BNGloble.h"
 
+/// UIAlertController标题富文本key
+NSString * const kAlertCtlrTitle = @"attributedTitle";
+/// UIAlertController信息富文本key
+NSString * const kAlertCtlrMessage = @"attributedMessage";
+/// UIAlertController按钮颜色key
+NSString * const kAlertActionColor = @"titleTextColor";
+
+
 @implementation UIAlertController (Helper)
 
 + (instancetype)createAlertTitle:(NSString * _Nullable)title msg:(NSString *_Nullable)msg placeholders:(NSArray *_Nullable)placeholders actionTitles:(NSArray *_Nullable)actionTitles handler:(void(^)(UIAlertController * _Nonnull alertVC, UIAlertAction * _Nonnull action))handler{
@@ -43,7 +51,7 @@
     return alertController;
 }
 
-+ (void)showAlertTitle:(NSString * _Nullable)title msg:(NSString *_Nullable)msg placeholders:(NSArray *_Nullable)placeholders actionTitles:(NSArray *_Nullable)actionTitles handler:(void(^)(UIAlertController * _Nonnull alertVC, UIAlertAction * _Nonnull action))handler{
++ (instancetype)showAlertTitle:(NSString * _Nullable)title msg:(NSString *_Nullable)msg placeholders:(NSArray *_Nullable)placeholders actionTitles:(NSArray *_Nullable)actionTitles handler:(void(^)(UIAlertController * _Nonnull alertVC, UIAlertAction * _Nonnull action))handler{
     UIWindow * keyWindow = UIApplication.sharedApplication.delegate.window;
 
     UIAlertController * alertController = [UIAlertController createAlertTitle:title msg:msg placeholders:placeholders actionTitles:actionTitles handler:handler];
@@ -54,9 +62,9 @@
             });
             
         }];
-        return ;
     }
     [keyWindow.rootViewController presentViewController:alertController animated:YES completion:nil];
+    return alertController;
 }
 
 + (instancetype)createSheetTitle:(NSString *_Nullable)title msg:(NSString *_Nullable)msg actionTitles:(NSArray *_Nullable)actionTitles handler:(void(^)(UIAlertController * _Nonnull alertVC, UIAlertAction * _Nonnull action))handler{
@@ -80,17 +88,18 @@
     return alertController;
 }
 
-+ (void)showSheetTitle:(NSString *_Nullable)title msg:(NSString *_Nullable)msg actionTitles:(NSArray *_Nullable)actionTitles handler:(void(^)(UIAlertController * _Nonnull alertVC, UIAlertAction * _Nonnull action))handler{
++ (instancetype)showSheetTitle:(NSString *_Nullable)title msg:(NSString *_Nullable)msg actionTitles:(NSArray *_Nullable)actionTitles handler:(void(^)(UIAlertController * _Nonnull alertVC, UIAlertAction * _Nonnull action))handler{
     UIAlertController * alertController = [UIAlertController createSheetTitle:title msg:msg actionTitles:actionTitles handler:handler];
     
     UIWindow * keyWindow = UIApplication.sharedApplication.delegate.window;
     [keyWindow.rootViewController presentViewController:alertController animated:YES completion:nil];//懒加载会崩溃
+    return alertController;
 }
 
 /**
  展示alert,然后执行异步block代码,然后主线程dismiss
  */
-+ (void)showAletTitle:(NSString *_Nullable)title msg:(NSString *_Nullable)msg block:(void(^)(void))block{
++ (instancetype)showAletTitle:(NSString *_Nullable)title msg:(NSString *_Nullable)msg block:(void(^)(void))block{
     UIWindow * keyWindow = UIApplication.sharedApplication.delegate.window;
     //UIApplication.sharedApplication.keyWindow.rootViewController
     UIAlertController * alertController = [UIAlertController alertControllerWithTitle:title message:msg preferredStyle:UIAlertControllerStyleAlert];
@@ -103,7 +112,27 @@
             
         });
     });
+    return alertController;
 }
 
+- (void)setTitleColor:(UIColor *)color{
+    assert(self.title != nil);
+    
+    NSMutableAttributedString *attr = [[NSMutableAttributedString alloc]init];
+    [attr addAttributes:@{
+                           NSForegroundColorAttributeName: color,
+                           } range:NSMakeRange(0, self.title.length)];
+    [self setValue:attr forKey:kAlertCtlrTitle];
+}
+
+- (void)setMessageParaStyle:(NSMutableParagraphStyle *)style{
+    assert(self.message != nil);
+    
+    NSMutableAttributedString *attr = [[NSMutableAttributedString alloc]init];
+    [attr addAttributes:@{
+                           NSParagraphStyleAttributeName: style,
+                           } range:NSMakeRange(0, self.message.length)];
+    [self setValue:attr forKey:kAlertCtlrMessage];
+}
 
 @end

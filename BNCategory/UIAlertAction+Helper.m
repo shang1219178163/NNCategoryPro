@@ -8,8 +8,8 @@
 //
 
 #import "UIAlertAction+Helper.h"
-
 #import <objc/runtime.h>
+#import "UIAlertController+Helper.h"
 
 @implementation UIAlertAction (Helper)
 
@@ -21,6 +21,10 @@
 - (void)setTag:(NSInteger)tag{
     objc_setAssociatedObject(self, @selector(tag), @(tag), OBJC_ASSOCIATION_ASSIGN);
     
+}
+
+- (void)setTitleColor:(UIColor *)color{
+    [self setValue:color forKey:kAlertActionColor];
 }
 
 

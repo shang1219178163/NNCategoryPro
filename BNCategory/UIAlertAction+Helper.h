@@ -12,5 +12,7 @@
 
 @property (nonatomic, assign) NSInteger tag;//其他类使用该属性注意性能
 
+- (void)setTitleColor:(UIColor *)color;
+
 @end
 

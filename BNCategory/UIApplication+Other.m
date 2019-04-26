@@ -20,6 +20,8 @@
 #import <HealthKit/HealthKit.h>
 
 #import "UIApplication+Helper.h"
+#import "UIAlertController+Helper.h"
+
 #import "UIWindow+Helper.h"
 
 #import "NSObject+Helper.h"
@@ -720,11 +722,21 @@ static NSDictionary *_dictPrivacy = nil;
 //    //    [MobClick setLogEnabled:NO];
 //}
 
-- (BOOL)checkVersion:(NSString *)appStoreID {
++ (NSString *)appUrlWithID:(NSString *)appStoreID {
+    NSString * urlString = [NSString stringWithFormat:@"itms-apps://itunes.apple.com/app/id%@?mt=8", appStoreID];
+    return urlString;
+}
+
++ (NSString *)appDetailUrlWithID:(NSString *)appStoreID {
+    NSString * urlString = [NSString stringWithFormat:@"http://itunes.apple.com/cn/lookup?id=%@", appStoreID];
+    return urlString;
+}
+
++ (BOOL)checkVersion:(NSString *)appStoreID {
 
     __block BOOL isUpdate = NO;
     
-    NSString *path = [NSString stringWithFormat:@"http://itunes.apple.com/cn/lookup?id=%@",appStoreID];
+    NSString *path = [UIApplication appDetailUrlWithID:appStoreID];
     NSMutableURLRequest *request = [NSMutableURLRequest requestWithURL:[NSURL URLWithString:path] cachePolicy:NSURLRequestReloadIgnoringCacheData timeoutInterval:6];
     request.HTTPMethod = @"POST";
     
@@ -735,26 +747,29 @@ static NSDictionary *_dictPrivacy = nil;
                 
                 NSDictionary * dicInfo = [dic[@"results"] firstObject];
                 
-                NSString * appStoreVersion = dicInfo[@"version"];
+                NSString * appStoreVer = dicInfo[@"version"];
                 NSString * releaseNotes = dicInfo[@"releaseNotes"];
 //            NSString *trackViewUrl = dataModel.trackViewUrl;// appStore 跳转版本链接
-
-                NSString *currentVersion = NSBundle.mainBundle.infoDictionary[@"CFBundleShortVersionString"]; // 就是在info.plist里面的 version
                 
-                dispatch_async(dispatch_get_main_queue(), ^{
-                    NSString * versionInfo = [NSString stringWithFormat:@"新版本V%@!",appStoreVersion];
-                    // AppStore版本号大于当前版本号，强制更新
-                    if ([appStoreVersion compare:currentVersion options:NSNumericSearch] == NSOrderedDescending) {
+                isUpdate = [appStoreVer compare:UIApplication.appVer options:NSNumericSearch] == NSOrderedDescending;
+                if (isUpdate == true) {
+                    dispatch_async(dispatch_get_main_queue(), ^{
+                        NSString * versionInfo = [NSString stringWithFormat:@"新版本V%@!",appStoreVer];
+                        // AppStore版本号大于当前版本号，强制更新
                         // 弹窗 更新
-                        [UIApplication.rootController showAlertTitle:versionInfo msg:releaseNotes actionTitles:@[kActionTitle_Call,kActionTitle_Update] handler:^(UIAlertController * _Nonnull alertVC, UIAlertAction * _Nullable action) {
-                            isUpdate = [action.title isEqualToString:kActionTitle_Update];
-                            if (isUpdate) {
+                        UIAlertController * alertController = [UIAlertController showAlertTitle:versionInfo msg:releaseNotes placeholders:nil actionTitles:@[kActionTitle_Call,kActionTitle_Update] handler:^(UIAlertController * _Nonnull alertVC, UIAlertAction * _Nonnull action) {
+                            if ([action.title isEqualToString:kActionTitle_Update]) {
                                 // 升级去
+                                [UIApplication openURL: [UIApplication appUrlWithID:appStoreID]];
                                 
                             }
                         }];
-                    }
-                });
+                
+                        NSMutableParagraphStyle * paraStyle = [NSMutableParagraphStyle createBreakModel: NSLineBreakByCharWrapping alignment: NSTextAlignmentLeft lineSpacing: 5.0];
+                        [alertController setTitleColor: UIColor.themeColor];
+                        [alertController setMessageParaStyle:paraStyle];
+                    });
+                }
             }
         }
     }];

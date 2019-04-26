@@ -210,7 +210,7 @@
     }
 }
 
-+ (BOOL)openURL:(NSString *)urlStr tips:(NSString *)tips{
++ (BOOL)openURL:(NSString *)urlStr{
     UIApplication * app = UIApplication.sharedApplication;
     NSURL *url = [NSURL URLWithString:urlStr];
     BOOL isOpenUrl = [app canOpenURL:url];
@@ -223,6 +223,7 @@
         }
     }
     else{
+        NSString *tips = [urlStr stringByAppendingString:@"打开失败"];
         [UIApplication.rootController showAlertTitle:tips msg:tips];
         
     }

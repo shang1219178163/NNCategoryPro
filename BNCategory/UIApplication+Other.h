@@ -65,7 +65,7 @@ typedef NS_ENUM(NSUInteger,PrivacyStatus) {
 //+ (void)handleMsgShareDataModel:(BNShareModel *)dataModel type:(NSNumber *)type;
 //+ (void)registerUMengSDKAppKey:(NSString *_Nonnull)appKey channel:(NSString *_Nonnull)channel;
 
-- (BOOL)checkVersion:(NSString *_Nonnull)appStoreID;
++ (BOOL)checkVersion:(NSString *_Nonnull)appStoreID;
 
 
 @end

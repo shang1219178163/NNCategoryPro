@@ -44,7 +44,7 @@
 
 + (void)setupAppearanceNavigationBar;
 
-+ (BOOL)openURL:(NSString *)urlStr tips:(NSString *)tips;
++ (BOOL)openURL:(NSString *)urlStr;
 
 @end
 
