@@ -21,6 +21,7 @@
 
 #import "UIApplication+Helper.h"
 #import "UIAlertController+Helper.h"
+#import "NSMutableParagraphStyle+Helper.h"
 
 #import "UIWindow+Helper.h"
 
@@ -340,10 +341,10 @@ static NSDictionary *_dictPrivacy = nil;
     return isHasRight;
 }
 
-
 + (BOOL)hasRightOfPhotosLibrary{
     return [UIApplication privacy:PrivacyTypePhoto handler:nil];
 }
+
 + (BOOL)hasRightOfCameraUsage{
     //相机权限
     return [UIApplication privacy:PrivacyTypeCamera handler:nil];
@@ -403,7 +404,6 @@ static NSDictionary *_dictPrivacy = nil;
     
 }
 
-
 /**
  注册APNs远程推送
  */
@@ -426,7 +426,6 @@ static NSDictionary *_dictPrivacy = nil;
         [UIApplication.sharedApplication registerForRemoteNotifications];
     }
 }
-
 
 /**
  添加本地通知,trigger为NSDate/NSDateComponents未来时间点触发,CLCircularRegion进出特定区域触发
@@ -520,7 +519,6 @@ static NSDictionary *_dictPrivacy = nil;
     //    [center setNotificationCategories:[NSSet setWithObject:notiCategory]];
     return [NSSet setWithObject:notiCategory];
 }
-
 
 /**
   list 包含 0,actionid;1,title;2,UNNotificationActionOptions

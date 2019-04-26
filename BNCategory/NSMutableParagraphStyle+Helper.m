@@ -12,10 +12,10 @@
 
 +(NSMutableParagraphStyle *)createBreakModel:(NSLineBreakMode )lineBreakMode alignment:(NSTextAlignment )alignment lineSpacing:(CGFloat )lineSpacing{
     NSMutableParagraphStyle * style = [[NSMutableParagraphStyle alloc]init];
-    style.lineBreakMode = .byCharWrapping;
-    style.alignment = .left;
+    style.lineBreakMode = NSLineBreakByCharWrapping;
+    style.alignment = NSTextAlignmentLeft;
     style.lineSpacing = lineSpacing;
-    return style
+    return style;
 }
 
 @end
