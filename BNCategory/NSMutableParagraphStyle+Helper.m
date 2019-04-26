@@ -10,7 +10,7 @@
 
 @implementation NSMutableParagraphStyle (Helper)
 
-+(NSMutableParagraphStyle)createBreakModel:(NSLineBreakMode )lineBreakMode alignment:(NSTextAlignment )alignment lineSpacing:(CGFloat )lineSpacing{
++(NSMutableParagraphStyle *)createBreakModel:(NSLineBreakMode )lineBreakMode alignment:(NSTextAlignment )alignment lineSpacing:(CGFloat )lineSpacing{
     NSMutableParagraphStyle * style = [[NSMutableParagraphStyle alloc]init];
     style.lineBreakMode = .byCharWrapping;
     style.alignment = .left;

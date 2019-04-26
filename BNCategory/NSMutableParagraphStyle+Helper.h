@@ -12,7 +12,7 @@ NS_ASSUME_NONNULL_BEGIN
 
 @interface NSMutableParagraphStyle (Helper)
 
-+(NSMutableParagraphStyle)createBreakModel:(NSLineBreakMode )lineBreakMode alignment:(NSTextAlignment )alignment lineSpacing:(CGFloat )lineSpacing;
++(NSMutableParagraphStyle *)createBreakModel:(NSLineBreakMode )lineBreakMode alignment:(NSTextAlignment )alignment lineSpacing:(CGFloat )lineSpacing;
 
 @end
 
