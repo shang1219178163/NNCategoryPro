@@ -21,7 +21,6 @@
 
 #import "UIApplication+Helper.h"
 #import "UIAlertController+Helper.h"
-#import "NSMutableParagraphStyle+Helper.h"
 
 #import "UIWindow+Helper.h"
 
@@ -763,8 +762,7 @@ static NSDictionary *_dictPrivacy = nil;
                             }
                         }];
                 
-//                        NSMutableParagraphStyle * style = [NSMutableParagraphStyle createBreakModel: NSLineBreakByCharWrapping alignment: NSTextAlignmentLeft lineSpacing: 5.0];
-                        
+                        // 富文本效果
                         NSMutableParagraphStyle * style = [[NSMutableParagraphStyle alloc]init];
                         style.lineBreakMode = NSLineBreakByCharWrapping;
                         style.alignment = NSTextAlignmentLeft;
