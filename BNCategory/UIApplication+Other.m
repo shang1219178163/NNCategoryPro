@@ -763,9 +763,15 @@ static NSDictionary *_dictPrivacy = nil;
                             }
                         }];
                 
-                        NSMutableParagraphStyle * paraStyle = [NSMutableParagraphStyle createBreakModel: NSLineBreakByCharWrapping alignment: NSTextAlignmentLeft lineSpacing: 5.0];
+//                        NSMutableParagraphStyle * style = [NSMutableParagraphStyle createBreakModel: NSLineBreakByCharWrapping alignment: NSTextAlignmentLeft lineSpacing: 5.0];
+                        
+                        NSMutableParagraphStyle * style = [[NSMutableParagraphStyle alloc]init];
+                        style.lineBreakMode = NSLineBreakByCharWrapping;
+                        style.alignment = NSTextAlignmentLeft;
+                        style.lineSpacing = 5;
+                        
                         [alertController setTitleColor: UIColor.themeColor];
-                        [alertController setMessageParaStyle:paraStyle];
+                        [alertController setMessageParaStyle:style];
                     });
                 }
             }
