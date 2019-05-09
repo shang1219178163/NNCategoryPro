@@ -22,34 +22,6 @@ static char encodingTable[64] =
     'w','x','y','z','0','1','2','3','4','5','6','7','8','9','+','/'
 };
 
-
-+(NSData *)dataFromObj:(id)obj{
-    NSParameterAssert([obj isKindOfClass:[NSString class]] || [obj isKindOfClass:[NSDictionary class]] || [obj isKindOfClass:[NSArray class]] || [obj isKindOfClass:[UIImage class]] || [obj isKindOfClass:[NSData class]]);
-    
-    NSData * data = nil;
-    if ([obj isKindOfClass:[NSString class]]) {
-        data = [obj dataUsingEncoding:NSUTF8StringEncoding];
-        
-    }
-    else if ([obj isKindOfClass:[NSDictionary class]] || [obj isKindOfClass:[NSArray class]]){
-        NSError * error = nil;
-        data = [NSJSONSerialization dataWithJSONObject:obj options:0 error:&error];
-
-        if (data && !error) {
-            return data;
-        }
-    }
-    else if ([obj isKindOfClass:[UIImage class]]){
-        data = UIImageJPEGRepresentation(obj, 1.0);
-        
-    }
-    else if ([obj isKindOfClass:[NSData class]]){
-        data = obj;
-        
-    }
-    return data;
-}
-
 + (NSData *)base64DataFromString:(NSString *)string {
     unsigned long ixtext, lentext;
     unsigned char ch, inbuf[4], outbuf[3];

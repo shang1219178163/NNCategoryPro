@@ -13,7 +13,9 @@
 
 @interface NSString (Helper)
 
+@property (nonatomic, strong, readonly) NSString *localized;
 @property (nonatomic, strong, readonly) NSDecimalNumber *decNumer;
+
 /// NSIndexPath->字符串
 FOUNDATION_EXPORT NSString * NSStringFromIndexPath(NSIndexPath *indexPath);
 /// html->字符串
@@ -36,8 +38,6 @@ FOUNDATION_EXPORT NSString * NSStringFromFloat(CGFloat obj);
 - (id)numberValue;
 
 - (BOOL)isPureByCharSet:(NSString *)charSet;
-
-- (id)objcValue;
 
 - (NSString *)toFileString;
 
@@ -77,8 +77,6 @@ FOUNDATION_EXPORT NSString * NSStringFromFloat(CGFloat obj);
 - (NSString *)toTimestampShort;
 
 - (NSString *)toTimestampFull;
-
-- (NSString *)timeByAddingDays:(id)days;
 
 - (NSString *)toDateShort;
 

@@ -24,7 +24,7 @@
  @param funcAbount 方法名及实参生成的字符串
  @return 根据对象+方法+实参生成的唯一常量值(确保每个对象调用同一方法不同参数的时候,返回的值都是唯一的)
  */
-NSString * RuntimeKeyFromParams(NSObject *obj, NSString *funcAbount){
+NSString *RuntimeKeyFromParams(NSObject *obj, NSString *funcAbount){
     NSString * unique = [[@(obj.hash) stringValue] stringByAppendingFormat:@",%@",funcAbount];
     return unique;
 }
@@ -48,14 +48,109 @@ CGFloat roundFloat(CGFloat value,NSInteger num){
     return figure;
 }
 
-NSString * SwiftClassName(NSString *className){
+NSString *SwiftClassName(NSString *className){
     NSDictionary *infoDict = NSBundle.mainBundle.infoDictionary;
     NSString * appName = infoDict[(NSString *)kCFBundleExecutableKey] ? : infoDict[(NSString *)kCFBundleNameKey];
     NSString * string = [NSString stringWithFormat:@"%@.%@",appName,className];
     return string;
 }
 
+NSData *JSONDataFromObj(id obj){
+    if (!obj) {
+        return ((NSObject *)obj).jsonData;
+    }
+    return nil;
+}
+
+NSString *JSONStringFromObj(id obj){
+    if (!obj) {
+        return ((NSObject *)obj).jsonString;
+    }
+    return nil;
+}
+
+id JSONObjectFromString(NSString *obj){
+    if (!obj) {
+        return ((NSObject *)obj).objValue;
+    }
+    return nil;
+}
+
+id JSONObjectFromData(NSData *obj){
+    if (!obj) {
+        return ((NSObject *)obj).objValue;
+    }
+    return nil;
+}
+
 @implementation NSObject (Helper)
+
+-(NSData *)jsonData{
+    id obj = self;
+
+    NSData *data = nil;
+    if ([obj isKindOfClass: NSData.class]) {
+        data = obj;
+        
+    } else if ([obj isKindOfClass: NSString.class]) {
+        data = [obj dataUsingEncoding:NSUTF8StringEncoding];
+        
+    }
+    else if ([obj isKindOfClass:[NSDictionary class]] || [obj isKindOfClass:[NSArray class]]){
+        NSError * error = nil;
+        data = [NSJSONSerialization dataWithJSONObject:obj options:kNilOptions error:&error];
+        if (error) {
+#ifdef DEBUG
+            NSLog(@"fail to get NSData from obj: %@, error: %@", obj, error);
+#endif
+        }
+    } else if ([obj isKindOfClass: UIImage.class]){
+        data = UIImageJPEGRepresentation(obj, 1.0);
+        
+    }
+    return data;
+}
+
+-(NSString *)jsonString{
+    NSData *jsonData = self.jsonData;
+    NSString *jsonString = [[NSString alloc] initWithData:jsonData encoding:NSUTF8StringEncoding];
+    return jsonString;
+}
+
+- (id)objValue{
+    assert([self isKindOfClass: NSString.class] || [self isKindOfClass:NSData.class] || [self isKindOfClass: NSDictionary.class] || [self isKindOfClass: NSArray.class]);
+    if ([self isKindOfClass: NSDictionary.class] || [self isKindOfClass: NSArray.class]) {
+        return self;
+    }
+    
+    NSError *error = nil;
+    if ([self isKindOfClass: NSString.class]) {
+        NSData *data = [(NSString *)self dataUsingEncoding:NSUTF8StringEncoding];
+        id obj = [NSJSONSerialization JSONObjectWithData:data options:kNilOptions error:&error];
+        if (!error) {
+            return obj;
+        }
+#ifdef DEBUG
+        NSLog(@"fail to get dictioanry from JSON: %@, error: %@", data, error);
+#endif
+    } else if ([self isKindOfClass: NSData.class]) {
+        id obj = [NSJSONSerialization JSONObjectWithData:(NSData *)self options:kNilOptions error:&error];
+        if (!error) {
+            return obj;
+        }
+#ifdef DEBUG
+        NSLog(@"fail to get dictioanry from JSON: %@, error: %@", obj, error);
+#endif
+    }
+    return nil;
+}
+
+- (NSDictionary *)dictValue{
+    if ([self.objValue isKindOfClass: NSDictionary.class]) {
+        return self.objValue;
+    }
+    return nil;
+}
 
 //为 NSObject 扩展 NSCoding 协议里的两个方法, 用来便捷实现复杂对象的归档与反归档
 - (void)encodeWithCoder:(NSCoder *)aCoder {
@@ -290,24 +385,7 @@ void dispatchApplyGlobal(id obj ,void(^block)(size_t index)){
 
 //NSObject转json字符串
 - (NSString *)JSONValue{
-    NSParameterAssert([NSJSONSerialization isValidJSONObject:self]);
-    
-    NSString * jsonString = @"";
-    if ([NSJSONSerialization isValidJSONObject:self]) {
-        NSError *error = nil;
-        NSData *jsonData = [NSJSONSerialization dataWithJSONObject:self options:0 error:&error];
-        if (error != nil) {
-#ifdef DEBUG
-            NSLog(@"fail to get NSData from obj: %@, error: %@", self, error);
-#endif
-        }
-        jsonString = [[NSString alloc] initWithData:jsonData encoding:NSUTF8StringEncoding];
-        
-    } else {
-        NSLog(@"JSON数据生成失败，请检查数据格式!");
-        
-    }
-    return jsonString;
+    return JSONStringFromObj(self);
 }
 
 -(void (^)(id, id, NSInteger))blockObject{

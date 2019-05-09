@@ -11,8 +11,6 @@
 
 @interface NSData (Helper)
 
-+ (NSData *)dataFromObj:(id)obj;
-
 + (NSData *)base64DataFromString:(NSString *)string;
 
 + (NSData *)dataFromHexString:(NSString *)hexString;

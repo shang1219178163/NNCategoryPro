@@ -2,7 +2,7 @@
 Pod::Spec.new do |s|
 
   s.name         = "BNCategory"
-  s.version      = "1.9.2.5"
+  s.version      = "1.9.2.6"
   s.summary      = "分类-项目通用方法封装."
   s.description  = "项目封装的实现主体,主要通过分类实现"
 

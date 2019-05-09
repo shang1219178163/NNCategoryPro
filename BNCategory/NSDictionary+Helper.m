@@ -14,6 +14,27 @@
 
 @implementation NSDictionary (Helper)
 
+NSDictionary *NSDictionaryFromObj(id obj){
+    if (!obj) return nil;
+    assert([obj isKindOfClass: NSDictionary.class] || [obj isKindOfClass: NSString.class] || [obj isKindOfClass: NSData.class]);
+    
+    NSDictionary *dic = nil;
+    NSData *jsonData = nil;
+    if ([obj isKindOfClass:[NSDictionary class]]) {
+        dic = obj;
+    } else if ([obj isKindOfClass:[NSString class]]) {
+        jsonData = [(NSString *)obj dataUsingEncoding: NSUTF8StringEncoding];
+    } else if ([obj isKindOfClass:[NSData class]]) {
+        jsonData = obj;
+    }
+    if (jsonData) {
+        dic = [NSJSONSerialization JSONObjectWithData:jsonData options:kNilOptions error:NULL];
+        if (![dic isKindOfClass:[NSDictionary class]]) dic = nil;
+    }
+    return dic;
+}
+
+
 NSDictionary<NSAttributedStringKey, id> * AttributeDict(NSNumber * type){
     
     NSDictionary *dic = @{

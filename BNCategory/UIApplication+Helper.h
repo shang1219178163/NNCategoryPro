@@ -30,6 +30,7 @@
 @property (class, readonly, nullable) NSString *phoneName;
 @property (class, readonly, nullable) NSString *phoneModel;
 @property (class, readonly, nullable) NSString *phoneLocalizedModel;
+@property (class, readonly, nullable) NSString *phoneType;
 
 + (void)setupRootController:(id _Nonnull)controller;
 + (void)setupRootController:(id _Nonnull)controller isAdjust:(BOOL)isAdjust;

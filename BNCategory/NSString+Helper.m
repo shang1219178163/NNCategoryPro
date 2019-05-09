@@ -21,6 +21,10 @@
 
 @implementation NSString (Helper)
 
+-(NSString *)localized{
+    return NSLocalizedString(self, self);
+}
+
 -(NSDecimalNumber *)decNumer{
     return [NSDecimalNumber decimalNumberWithString:self];
 }
@@ -96,21 +100,6 @@ NSString * NSStringFromFloat(CGFloat obj){
     NSCharacterSet *set = [[NSCharacterSet characterSetWithCharactersInString:charSet] invertedSet];
     NSString *result = [[self componentsSeparatedByCharactersInSet:set] componentsJoinedByString:@""];
     return [result isEqualToString:self];
-}
-
-/**
- json转NSObject
- */
-- (id)objcValue{
-    NSError *error;
-    NSData *jsonData = [self dataUsingEncoding:NSUTF8StringEncoding];
-    id obj = [NSJSONSerialization JSONObjectWithData:jsonData options:NSJSONReadingMutableContainers error:&error];
-    if (error != nil) {
-#ifdef DEBUG
-        NSLog(@"fail to get dictioanry from JSON: %@, error: %@", self, error);
-#endif
-    }
-    return obj;
 }
 
 - (NSString *)toFileString{

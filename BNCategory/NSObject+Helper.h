@@ -13,7 +13,7 @@
 #import "UIColor+Helper.h"
 
 /// 关联对象的唯一无符号常量值
-FOUNDATION_EXPORT NSString * RuntimeKeyFromParams(NSObject *obj, NSString *funcAbount);
+FOUNDATION_EXPORT NSString *RuntimeKeyFromParams(NSObject *obj, NSString *funcAbount);
 // 系统版本判断
 FOUNDATION_EXPORT BOOL iOSVer(CGFloat version);
 /// 由角度转换弧度
@@ -23,8 +23,16 @@ FOUNDATION_EXPORT CGFloat CGDegreesFromRadian(CGFloat x);
 /// 四舍五入
 FOUNDATION_EXPORT CGFloat roundFloat(CGFloat value,NSInteger num);
 /// swift类需要加命名空间
-FOUNDATION_EXPORT NSString * SwiftClassName(NSString *className);
-
+FOUNDATION_EXPORT NSString *SwiftClassName(NSString *className);
+// NSObject -> NSData
+FOUNDATION_EXPORT NSData *JSONDataFromObj(id obj);
+/// NSObject -> NSString
+FOUNDATION_EXPORT NSString *JSONStringFromObj(id obj);
+/// NSString -> NSObject/NSDiction/NSArray
+FOUNDATION_EXPORT id JSONObjectFromString(NSString *string);
+/// NSData -> NSObject/NSDiction/NSArray
+FOUNDATION_EXPORT id JSONObjectFromData(NSData *data);
+    
 @interface NSObject (Helper)<NSCoding>
 
 void dispatchAsyncMain(void(^block)(void));
@@ -39,6 +47,14 @@ void dispatchApplyGlobal(id obj ,void(^block)(size_t index));
 @property (nonatomic, copy) void(^blockObject)(id obj, id item, NSInteger idx);//其他类使用该属性注意性能
 @property (nonatomic, copy) void (^block)(id sender);
 @property (nonatomic, copy, nonnull) NSString *runtimeKey;
+/// NSObject->NSData
+@property (nonatomic, strong, readonly) NSData * _Nullable jsonData;
+/// NSObject->NSString
+@property (nonatomic, strong, readonly) NSString * _Nullable jsonString;
+/// NSString/NSData->NSObject/NSDiction/NSArray
+@property (nonatomic, strong, readonly) id _Nullable objValue;
+/// NSString/NSData->NSDictionary
+@property (nonatomic, strong, readonly) NSDictionary * _Nullable dictValue;
 
 - (NSArray *)allPropertyNames:(NSString *)clsName;
 
