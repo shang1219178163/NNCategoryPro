@@ -51,6 +51,7 @@
 #import "NSString+Other.h"
 #import "NSTimer+Helper.h"
 #import "NSURL+Helper.h"
+#import "NSURLRequest+Helper.h"
 #import "NSURLSession+Helper.h"
 #import "NSUserDefaults+Helper.h"
 #import "UIAlertAction+Helper.h"
