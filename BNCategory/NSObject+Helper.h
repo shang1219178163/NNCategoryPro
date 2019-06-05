@@ -74,8 +74,6 @@ void dispatchApplyGlobal(id obj ,void(^block)(size_t index));
 
 -(NSString *)showNilText;
 
-- (NSString *)JSONValue;
-
 /**
  富文本特殊部分设置
  */

@@ -382,12 +382,6 @@ void dispatchApplyGlobal(id obj ,void(^block)(size_t index)){
     return [self validObject]  ? (NSString *)self : @"--";
 }
 
-
-//NSObject转json字符串
-- (NSString *)JSONValue{
-    return JSONStringFromObj(self);
-}
-
 -(void (^)(id, id, NSInteger))blockObject{
     return objc_getAssociatedObject(self, _cmd);
 }

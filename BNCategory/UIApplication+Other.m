@@ -793,7 +793,7 @@ static NSDictionary *_dictPrivacy = nil;
 //    manager.responseSerializer = AFJSONResponseSerializer.serializer;
 //    [manager GET:url parameters:nil progress:nil success:^(NSURLSessionDataTask * _Nonnull task, id  _Nullable responseObject) {
 ////        NSLog(@"responseObject --- %@", responseObject);
-////        NSString * json = [responseObject JSONValue];
+////        NSString * json = [responseObject jsonString];
 //
 //        dispatch_async(dispatch_get_global_queue(0, 0), ^{
 //
