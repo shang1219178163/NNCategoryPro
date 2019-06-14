@@ -7,6 +7,7 @@
 //
 
 #import "NSHTTPCookieStorage+Helper.h"
+#import "NSDateFormatter+Helper.h"
 
 @implementation NSHTTPCookieStorage (Helper)
 /**
@@ -46,6 +47,26 @@
 + (NSString *)storagePath{
     NSArray *paths = NSSearchPathForDirectoriesInDomains(NSLibraryDirectory, NSUserDomainMask, YES);
     return [NSString stringWithFormat:@"%@/Cookies.data", paths[0]];
+}
+
+
++ (NSString *)cookieDesWithToken:(NSString *)token tokenTimeout:(NSNumber *)tokenTimeout{
+//    NSArray *cookies = NSHTTPCookieStorage.sharedHTTPCookieStorage.cookies;
+
+    NSDate *expiresDate = [NSDate dateWithTimeIntervalSinceNow:tokenTimeout.integerValue];
+    NSString *expires = [NSDateFormatter stringFromDate:expiresDate format:kFormatDate_Six];
+    
+    NSString *cookieStr = @"";
+//    for (NSHTTPCookie *cookie in cookies) {
+//        cookieStr = [cookieStr stringByAppendingFormat:@"%@=%@;", cookie.name, cookie.value];
+//    }
+    cookieStr = [cookieStr stringByAppendingFormat:@"token=%@;", token];
+    cookieStr = [cookieStr stringByAppendingFormat:@"Path=%@;", @"/"];
+    //    cookieStr = [cookieStr stringByAppendingFormat:@"Expires=%@;", expiresDate];
+    cookieStr = [cookieStr stringByAppendingFormat:@"Expires=%@;", expires];
+    cookieStr = [cookieStr stringByAppendingFormat:@"Max-Age=%@;", tokenTimeout.stringValue];
+    cookieStr = [cookieStr stringByAppendingFormat:@"httpOnly=%@;",@"true"];
+    return cookieStr;
 }
 
 @end

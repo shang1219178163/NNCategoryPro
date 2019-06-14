@@ -20,6 +20,7 @@ NSString * const kFormatDate = @"yyyy-MM-dd HH:mm:ss";
 NSString * const kFormatDate_one = @"yyyy-MM-dd";
 NSString * const kFormatDate_two = @"yyyyMMdd";
 NSString * const kFormatDate_five = @"yyyyMMddHHmmss";
+NSString * const kFormatDate_Six = @"EEE, dd MMM yyyy HH:mm:ss 'GMT'";
 
 @implementation NSDateFormatter (Helper)
 
@@ -32,6 +33,9 @@ NSString * const kFormatDate_five = @"yyyyMMddHHmmss";
         formatter.dateFormat = formatStr;
         formatter.locale = [NSLocale localeWithLocaleIdentifier:kLanguageCN];
         formatter.timeZone = NSTimeZone.systemTimeZone;
+        if ([formatStr containsString:@"GMT"]) {
+            formatter.timeZone = [NSTimeZone timeZoneWithName:@"GMT"];
+        }
 
         [threadDic setObject:formatter forKey:formatStr];
     }
@@ -130,6 +134,15 @@ NSString *TimeStampFromObj(id obj){
     return timestamp;
 }
 
-
+//+ (NSString *)currentGMT {
+//
+//    NSDate *date = NSDate.date;
+//    NSTimeZone.defaultTimeZone = [NSTimeZone timeZoneWithName:@"GMT"];;
+//
+//    NSDateFormatter *formatter = [[NSDateFormatter alloc]init];
+//    formatter.dateFormat = @"EEE, dd MMM yyyy HH:mm:ss 'GMT'";
+//    formatter.locale = [NSLocale localeWithLocaleIdentifier:kLanguageCN];
+//    return [formatter stringFromDate:date];
+//}
 
 @end

@@ -464,37 +464,31 @@
  [源]UIButton创建
  */
 + (UIButton *)createBtnRect:(CGRect)rect title:(NSString *)title font:(CGFloat)font image:(NSString *)image tag:(NSInteger)tag type:(NSNumber *)type{
+    UIButton * btn = [UIView createBtnRect:rect title:title image:image type:type];
+    btn.titleLabel.font = [UIFont systemFontOfSize:font];
+    btn.tag = tag;
+
+    return btn;
+}
+
+/**
+ [简]UIButton创建
+ */
++ (UIButton *)createBtnRect:(CGRect)rect title:(NSString *)title image:(NSString *)image type:(NSNumber *)type{
     UIButton * btn = [UIButton buttonWithType:UIButtonTypeCustom];
     btn.autoresizingMask = UIViewAutoresizingFlexibleWidth|UIViewAutoresizingFlexibleHeight;
     
     btn.frame = rect;
     [btn setTitle:title forState:UIControlStateNormal];
-    btn.titleLabel.font = [UIFont systemFontOfSize:font];
     btn.titleLabel.adjustsFontSizeToFitWidth = YES;
     
     btn.imageView.contentMode = UIViewContentModeScaleAspectFit;
-    btn.tag = tag;
     
     switch (type.integerValue) {
-        case 0://白色背景黑色字体圆角
+        case 1://主题背景白色字体无圆角
         {
-            btn.layer.masksToBounds = YES;
-            btn.layer.cornerRadius = CGRectGetHeight(rect)/10;
-            btn.layer.borderColor = UIColor.lineColor.CGColor;
-            btn.layer.borderWidth = 1;
-            
-            [btn setTitleColor:UIColor.titleColor forState:UIControlStateNormal];
-            [btn setBackgroundImage:UIImageColor(UIColor.whiteColor) forState:UIControlStateNormal];
-            
-        }
-            break;
-        case 1://橘色背景白色字体无圆角
-        {
-            [btn setBackgroundImage:UIImageColor(UIColor.btnColor_N) forState:UIControlStateNormal];
-            [btn setBackgroundImage:UIImageColor(UIColor.btnColor_H) forState:UIControlStateHighlighted];
-            [btn setBackgroundImage:UIImageColor(UIColor.btnColor_D) forState:UIControlStateDisabled];
-            
             [btn setTitleColor:UIColor.whiteColor forState:UIControlStateNormal];
+            [btn setBackgroundImage:UIImageColor(UIColor.themeColor) forState:UIControlStateNormal];
             
         }
             break;
@@ -510,67 +504,21 @@
             
         }
             break;
-        case 4://橘色背景白色字体圆角
+        case 4://白色背景主题色字体和边框
         {
-            btn.layer.masksToBounds = YES;
-            btn.layer.cornerRadius = CGRectGetHeight(rect)/10;
-            //            btn.layer.borderColor = UIColor.btnColor_N.CGColor;
-            //            btn.layer.borderWidth = kW_LayerBorder;
-            
-            [btn setTitleColor:UIColor.whiteColor forState:UIControlStateNormal];
-            [btn setBackgroundImage:UIImageColor(UIColor.themeColor) forState:UIControlStateNormal];
-            
-        }
-            break;
-        case 5://白色背景黑色字体无圆角无边框
-        {
-            [btn setTitleColor:UIColor.blackColor forState:UIControlStateNormal];
-            
-            
-        }
-            break;
-        case 6://白色背景黑色字体无圆角
-        {
-            btn.layer.masksToBounds = YES;
-            btn.layer.cornerRadius = CGRectGetHeight(rect)/10.0;
-            
-            btn.layer.borderColor = UIColor.lineColor.CGColor;
+            [btn setTitleColor:UIColor.themeColor forState:UIControlStateNormal];
+            btn.layer.borderColor = UIColor.themeColor.CGColor;
             btn.layer.borderWidth = kW_LayerBorder;
             
-            [btn setTitleColor:UIColor.titleColor forState:UIControlStateNormal];
-            [btn setBackgroundImage:UIImageColor(UIColor.whiteColor) forState:UIControlStateNormal];
-            
         }
             break;
-        case 7://白色背景橘色字体圆角
+        case 5://白色背景主题字体无边框
         {
-            btn.layer.masksToBounds = YES;
-            btn.layer.cornerRadius = CGRectGetHeight(rect)/10.0;
-            
-            btn.layer.borderColor = UIColor.btnColor_N.CGColor;
-            btn.layer.borderWidth = kW_LayerBorder;
-            
-            [btn setTitleColor:UIColor.btnColor_N forState:UIControlStateNormal];
+            [btn setTitleColor:UIColor.themeColor forState:UIControlStateNormal];
             
         }
             break;
-        case 8://蓝色背景白色字体颜色圆角
-        {
-            btn.layer.masksToBounds = YES;
-            btn.layer.cornerRadius = CGRectGetHeight(rect)/10;
-            
-            [btn setBackgroundImage:UIImageColor(UIColor.themeColor) forState:UIControlStateNormal];
-            [btn setTitleColor:UIColor.whiteColor forState:UIControlStateNormal];
-            
-        }
-            break;
-        case 9://白色背景橘色字体
-        {
-            [btn setTitleColor:UIColor.orangeColor forState:UIControlStateNormal];
-            
-        }
-            break;
-        case 10://红色背景白色字体
+        case 6://红色背景白色字体
         {
             [btn setBackgroundImage:UIImageColor(UIColor.redColor) forState:UIControlStateNormal];
             [btn setTitleColor:UIColor.whiteColor forState:UIControlStateNormal];
@@ -578,7 +526,7 @@
             [btn showLayerColor:UIColor.redColor];
         }
             break;
-        case 11://
+        case 7://灰色背景黑色字体无边框
         {
             [btn setTitleColor:UIColor.blackColor forState:UIControlStateNormal];
             [btn setBackgroundImage:UIImageColor(UIColor.backgroudColor) forState:UIControlStateNormal];
@@ -588,10 +536,22 @@
             
         }
             break;
+        case 8://白色背景红色字体无边框
+        {
+            [btn setTitleColor:UIColor.redColor forState:UIControlStateNormal];
+        }
+            break;
         default:
+        {
+            //白色背景黑色字体灰色边框
+            [btn setTitleColor:UIColor.blackColor forState:UIControlStateNormal];
+            btn.layer.borderColor = UIColor.lineColor.CGColor;
+            btn.layer.borderWidth = 1;
+        }
             break;
     }
     return btn;
+    
 }
 
 /**

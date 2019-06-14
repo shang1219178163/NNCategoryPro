@@ -22,7 +22,7 @@
 @property (class, readonly, nullable) UITabBarController *tabBarController;
 
 @property (class, readonly, nullable) NSString *appName;
-@property (class, readonly, nullable) NSString *appIcon;
+@property (class, readonly, nullable) UIImage *appIcon;
 @property (class, readonly, nullable) NSString *appVer;
 @property (class, readonly, nullable) NSString *appBuild;
 @property (class, readonly, nullable) NSString *phoneSystemVer;

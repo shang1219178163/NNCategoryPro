@@ -100,17 +100,29 @@ typedef void(^BlockView)(UIView * view,id item, id obj);
  BNTextField创建方法
  */
 + (BNTextField *)createTextFieldRect:(CGRect)rect text:(NSString *)text placeholder:(NSString *)placeholder font:(NSInteger)fontSize textAlignment:(NSTextAlignment)textAlignment keyboardType:(UIKeyboardType)keyboardType;
+/**
+ [简]BNTextField创建方法
+ */
++ (BNTextField *)createTextFieldRect:(CGRect)rect placeholder:(NSString *)placeholder;
 
 /**
  搜索框
  */
 + (BNTextField *)createTextFieldRect:(CGRect)rect text:(NSString *)text placeholder:(NSString *)placeholder font:(NSInteger)fontSize textAlignment:(NSTextAlignment)textAlignment keyboardType:(UIKeyboardType)keyboardType leftView:(UIView *)leftView leftPadding:(CGFloat)leftPadding rightView:(UIView *)rightView rightPadding:(CGFloat)rightPadding;
 
+/**
+ [简]搜索框
+ */
++ (BNTextField *)createTextFieldRect:(CGRect)rect placeholder:(NSString *)placeholder leftView:(UIView *)leftView rightView:(UIView *)rightView;
 
 /**
  带提示的textView
  */
 + (UITextView *)createTextViewRect:(CGRect)rect text:(NSString *)text placeholder:(NSString *)placeholder font:(CGFloat)fontSize textAlignment:(NSTextAlignment)textAlignment keyType:(UIKeyboardType)keyboardType;
+/**
+ [简]带提示的textView
+ */
++ (UITextView *)createTextViewRect:(CGRect)rect placeholder:(NSString *)placeholder;
 
 /**
  展示性质的textView,不提供编辑
@@ -121,7 +133,6 @@ typedef void(^BlockView)(UIView * view,id item, id obj);
  富文本
  */
 + (UILabel *)createRichLabRect:(CGRect)rect text:(NSString *)text textTaps:(NSArray *)textTaps;
-
 
 /**
  图片+文字

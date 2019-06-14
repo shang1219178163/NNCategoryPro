@@ -44,7 +44,7 @@
 
         [NSNotificationCenter.defaultCenter addObserver:self selector:@selector(textViewDidBeginEditing:) name:UITextViewTextDidBeginEditingNotification object:self];
         [NSNotificationCenter.defaultCenter addObserver:self selector:@selector(textViewDidEndEditing:) name:UITextViewTextDidEndEditingNotification object:self];
-        
+         [NSNotificationCenter.defaultCenter addObserver:self selector:@selector(textViewDidEndEditing:) name:UITextViewTextDidChangeNotification object:self];
     }
     return textView;
 }
@@ -59,7 +59,7 @@
 }
 
 - (void)textViewDidEndEditing:(NSNotification *)noti {
-    NSLog(@"_%@_%@_%@_",self,self.text,@(self.text.length));
+//    NSLog(@"_%@_%@_%@_",self,self.text,@(self.text.length));
     if ([self.text isEqualToString:@""] || self.text.length == 0) {
         self.placeHolderTextView.hidden = NO;
     }

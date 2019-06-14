@@ -34,6 +34,8 @@ FOUNDATION_EXPORT NSString * const kFormatDate_one ;
 FOUNDATION_EXPORT NSString * const kFormatDate_two ;
 /// yyyyMMddHHmmss
 FOUNDATION_EXPORT NSString * const kFormatDate_five ;
+/// EEE, dd MMM yyyy HH:mm:ss GMT
+FOUNDATION_EXPORT NSString * const kFormatDate_Six ;
 
 @interface NSDateFormatter (Helper)
 
@@ -54,6 +56,5 @@ FOUNDATION_EXPORT NSString * const kFormatDate_five ;
 bool IsTimeStamp(id obj);
 
 NSString *TimeStampFromObj(id obj);
-
 
 @end

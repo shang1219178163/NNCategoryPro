@@ -14,6 +14,8 @@
 
 + (void)loadCookie;
 
-@property (class, readonly, nullable) NSString *storagePath;
++ (NSString *)storagePath;
+
++ (NSString *)cookieDesWithToken:(NSString *)token tokenTimeout:(NSNumber *)tokenTimeout;
 
 @end

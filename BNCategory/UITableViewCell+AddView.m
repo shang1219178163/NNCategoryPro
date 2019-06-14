@@ -33,7 +33,7 @@
 }
 
 +(instancetype)cellWithTableView:(UITableView *)tableView identifier:(NSString *)identifier{
-    return [self cellWithTableView:tableView identifier:identifier style:UITableViewCellStyleDefault];
+    return [self cellWithTableView:tableView identifier:self.identifier style:UITableViewCellStyleDefault];
 }
 
 +(instancetype)cellWithTableView:(UITableView *)tableView{

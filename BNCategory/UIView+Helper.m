@@ -643,7 +643,10 @@
     //    textField.backgroundColor = UIColor.clearColor;
     
     return textField;
-    
+}
+
++ (BNTextField *)createTextFieldRect:(CGRect)rect placeholder:(NSString *)placeholder{
+    return [UIView createTextFieldRect:rect text:nil placeholder:placeholder font:15 textAlignment:NSTextAlignmentLeft keyboardType:UIKeyboardTypeDefault];
 }
 
 + (BNTextField *)createTextFieldRect:(CGRect)rect text:(NSString *)text placeholder:(NSString *)placeholder font:(NSInteger)fontSize textAlignment:(NSTextAlignment)textAlignment keyboardType:(UIKeyboardType)keyboardType leftView:(UIView *)leftView leftPadding:(CGFloat)leftPadding rightView:(UIView *)rightView rightPadding:(CGFloat)rightPadding{
@@ -670,6 +673,10 @@
 //    textField.backgroundColor = UIColor.greenColor;
 
     return textField;
+}
+
++ (BNTextField *)createTextFieldRect:(CGRect)rect placeholder:(NSString *)placeholder leftView:(UIView *)leftView rightView:(UIView *)rightView{
+    return [UIView createTextFieldRect:CGRectZero text:nil placeholder:placeholder font:15 textAlignment:NSTextAlignmentLeft keyboardType:UIKeyboardTypeDefault leftView:leftView leftPadding:kPadding rightView:rightView rightPadding:kPadding];
 }
 
 + (UITextView *)createTextViewRect:(CGRect)rect text:(NSString *)text placeholder:(NSString *)placeholder font:(CGFloat)fontSize textAlignment:(NSTextAlignment)textAlignment keyType:(UIKeyboardType)keyboardType{
@@ -703,8 +710,11 @@
     return textView;
 }
 
-+ (UITextView *)createTextShowRect:(CGRect)rect text:(id)text font:(CGFloat)fontSize textAlignment:(NSTextAlignment)textAlignment
-{
++ (UITextView *)createTextViewRect:(CGRect)rect placeholder:(NSString *)placeholder{
+    return [UIView createTextViewRect:rect text:nil placeholder:placeholder font:15 textAlignment:NSTextAlignmentLeft keyType:UIKeyboardTypeDefault];
+}
+
++ (UITextView *)createTextShowRect:(CGRect)rect text:(id)text font:(CGFloat)fontSize textAlignment:(NSTextAlignment)textAlignment{
     UITextView *textView = [[UITextView alloc] initWithFrame:rect];
     if ([text isKindOfClass:[NSString class]]) {
         textView.text = text;
@@ -812,7 +822,7 @@
         
         NSString * title = elements[i];
         CGRect btnRect = CGRectMake(x, y, w, h);
-        UIButton * btn = [UIView createBtnRect:btnRect title:title font:16 image:nil tag:kTAG_BTN+i type:@0];
+        UIButton * btn = [UIView createBtnRect:btnRect title:title font:16 image:nil tag:kTAG_BTN+i type:@0];        
         btn.titleLabel.font = [UIFont systemFontOfSize:15];
         [backgroudView addSubview:btn];
         

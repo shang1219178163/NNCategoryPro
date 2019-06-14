@@ -13,8 +13,7 @@
 @implementation NSUserDefaults (Helper)
 
 + (NSArray *)typeList{
-    return @[@"NSData", @"NSString", @"NSNumber", @"NSDate", @"NSArray", @"NSDictionary"];
-    
+    return @[@"NSString", @"NSNumber", @"NSDate", @"NSArray", @"NSDictionary", @"NSData", ];
 }
 
 + (void)setObject:(id)value forKey:(NSString *)key iCloudSync:(BOOL)sync{
@@ -28,8 +27,9 @@
 + (void)setObject:(id)value forKey:(NSString *)key{
     //添加数组支持
     NSArray * array = self.typeList;
-    if (![array containsObject:NSStringFromClass([value class])])
+    if (![array containsObject:NSStringFromClass([value class])]) {
         value = [NSKeyedArchiver archivedDataWithRootObject:value];//保存自定义对象
+    }
     [self.standardUserDefaults setObject:value forKey:key];
     
 }
@@ -46,8 +46,9 @@
 
 + (id)objectForKey:(NSString *)key{
     id obj = [self.standardUserDefaults objectForKey:key];
-    if ([obj isKindOfClass:[NSData class]])
+    if ([obj isKindOfClass:[NSData class]]) {
         obj = [NSKeyedUnarchiver unarchiveObjectWithData:obj];//解档自定义对象
+    }
     return obj;
 }
 
@@ -62,7 +63,7 @@
 + (void)synchronize{
     [self synchronizeAndCloudSync:NO];
     
-    NSString *path = NSHomeDirectory();
+//    NSString *path = NSHomeDirectory();
     //    DDLog(@"\n%@",path);
 }
 
