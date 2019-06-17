@@ -480,7 +480,8 @@
     
     btn.frame = rect;
     [btn setTitle:title forState:UIControlStateNormal];
-    btn.titleLabel.adjustsFontSizeToFitWidth = YES;
+//    btn.titleLabel.adjustsFontSizeToFitWidth = YES;
+    btn.titleLabel.font = [UIFont systemFontOfSize:15];
     
     btn.imageView.contentMode = UIViewContentModeScaleAspectFit;
     

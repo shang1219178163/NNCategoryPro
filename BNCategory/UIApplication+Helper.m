@@ -239,6 +239,11 @@ static NSDictionary *_phoneTypeDic = nil;
 }
 
 + (void)setupAppearanceOthers{
+    UITextField.appearance.font = [UIFont systemFontOfSize:12];
+    UITextView.appearance.font = [UIFont systemFontOfSize:12];
+    
+    UIButton.appearance.titleLabel.textColor = UIColor.blackColor;
+    UIButton.appearance.titleLabel.font = [UIFont systemFontOfSize:12];
     UIButton.appearance.exclusiveTouch = NO;
 
     UITabBar.appearance.tintColor = UIColor.themeColor;
