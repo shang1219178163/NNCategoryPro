@@ -41,7 +41,7 @@ CGFloat CGDegreesFromRadian(CGFloat x){
     return (x * 180.0)/(M_PI);
 }
 
-CGFloat roundFloat(CGFloat value,NSInteger num){
+CGFloat roundFloat(CGFloat value, NSInteger num){
     NSInteger tem = pow(10, num);
     CGFloat x = value*tem + 0.5;
     CGFloat figure = (floorf(x))/tem;
@@ -104,10 +104,11 @@ id JSONObjectFromData(NSData *obj){
             NSLog(@"fail to get NSData from obj: %@, error: %@", obj, error);
 #endif
         }
-    } else if ([obj isKindOfClass: UIImage.class]){
-        data = UIImageJPEGRepresentation(obj, 1.0);
-        
     }
+//    else if ([obj isKindOfClass: UIImage.class]){
+//        data = UIImageJPEGRepresentation(obj, 1.0);
+//        
+//    }
     return data;
 }
 
@@ -338,8 +339,6 @@ void dispatchApplyGlobal(id obj ,void(^block)(size_t index)){
 #pragma mark - -validObject
 
 -(BOOL)validObject{
-//    if (self == nil) return NO;//无法捕捉
-    if ([self isEqual:[NSNull null]])  return NO;
     if ([self isKindOfClass:[NSNull class]]) return NO;
     
     if ([self isKindOfClass:[NSString class]] || [self isKindOfClass:[NSAttributedString class]]){

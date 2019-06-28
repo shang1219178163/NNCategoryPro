@@ -10,8 +10,6 @@
 
 @interface NSUserDefaults (Helper)
 
-@property (class, nonatomic, readonly) NSArray *typeList;
-
 + (void)setObject:(id)value forKey:(NSString *)key iCloudSync:(BOOL)sync;
 
 + (void)setObject:(id)value forKey:(NSString *)key;

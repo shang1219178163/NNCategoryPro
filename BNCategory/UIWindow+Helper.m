@@ -123,21 +123,6 @@
     });
 }
 
-//+ (void)showPopByView:(UIView *)pointView items:(NSArray<NSDictionary *> *)items handler:(BlockPopoverView)handler{
-//    
-//    dispatch_async(dispatch_get_main_queue(), ^{
-//        //        UIWindow *keyWindow = UIApplication.sharedApplication.keyWindow;
-//        
-//        PopoverView *view = [PopoverView popoverView];
-//        view.arrowStyle = PopoverViewArrowStyleRound;
-//        view.style = PopoverViewStyleDark;
-//        
-//        [view showToView:pointView items:items];
-//        view.blockView = handler;
-//        
-//    });
-//}
-
 
 @end
 
