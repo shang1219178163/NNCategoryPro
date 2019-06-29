@@ -30,7 +30,7 @@
     return [NSAttributedString attrString:string font:14 alignment:NSTextAlignmentLeft];
 }
 
-+(id)hyperlinkFromString:(NSString *)string withURL:(NSURL *)aURL font:(UIFont *)font{
++ (NSAttributedString *)hyperlinkFromString:(NSString *)string withURL:(NSURL *)aURL font:(UIFont *)font{
     NSMutableAttributedString *attrString = [[NSMutableAttributedString alloc] initWithString: string];
     
     NSRange range = NSMakeRange(0, attrString.length);

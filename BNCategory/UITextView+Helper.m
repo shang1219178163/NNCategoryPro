@@ -69,16 +69,11 @@
 -(void)setHyperlinkDic:(NSDictionary *)dic{
     // both are needed, otherwise hyperlink won't accept mousedown
     UITextView *textView = self;
-    
     NSDictionary * attributes = @{
                                   NSFontAttributeName: textView.font,
-                                  
                                   };
     
-    NSAttributedString * attStr = [[NSAttributedString alloc]initWithString:textView.text attributes:attributes];
-    
-    __block NSMutableAttributedString * mattStr = [[NSMutableAttributedString alloc]init];
-    [mattStr replaceCharactersInRange:NSMakeRange(0, 0) withAttributedString:attStr];
+    __block NSMutableAttributedString * mattStr = [[NSMutableAttributedString alloc]initWithString:textView.text attributes:attributes];
     [dic enumerateKeysAndObjectsUsingBlock:^(NSString * key, id  _Nonnull obj, BOOL * _Nonnull stop) {
         NSURL *url = [NSURL URLWithString:obj];
         NSAttributedString * attStr = [NSAttributedString hyperlinkFromString:key withURL:url font:textView.font];
