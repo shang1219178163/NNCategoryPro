@@ -184,7 +184,7 @@ NSMutableDictionary *DicFromPlist(NSString *plistName){
     
 }
 
-- (NSString*)XMLStringWithRootElement:(NSString*)rootElement declaration:(NSString*)declaration{
+- (NSString*)XMLStringWithRootElement:(NSString *)rootElement declaration:(NSString *)declaration{
     NSMutableString *xml = [[NSMutableString alloc] initWithString:@""];
     if (declaration) {
         [xml appendString:declaration];

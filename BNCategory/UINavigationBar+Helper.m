@@ -13,7 +13,6 @@
 @implementation UINavigationBar (Helper)
 
 + (void)configureAppeare{
-    
     UINavigationBar.appearance.barTintColor = UIColor.themeColor;
     UINavigationBar.appearance.tintColor = UIColor.whiteColor;
     UINavigationBar.appearance.shadowImage = [[UIImage alloc] init];

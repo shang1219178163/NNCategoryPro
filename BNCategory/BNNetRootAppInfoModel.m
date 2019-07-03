@@ -6,7 +6,7 @@
 @implementation BNNetRootAppInfoModel
 
 + (NSDictionary<NSString *,id> *)modelContainerPropertyGenericClass{
-    return @{@"results" : [BNNetResultsAppInfoModel class]};
+    return @{@"results": [BNNetResultsAppInfoModel class]};
 }
 
 @end
@@ -16,7 +16,7 @@
 //返回一个 Dict，将 Model 属性名对映射到 JSON 的 Key。
 + (NSDictionary *)modelCustomPropertyMapper {
     return @{
-             @"desc" : @[@"description",]
+             @"desc": @[@"description",]
              };
 }
 

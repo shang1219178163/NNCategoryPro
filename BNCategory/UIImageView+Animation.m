@@ -14,7 +14,6 @@
 
     [UIView transitionWithView:self duration:1.5f options:UIViewAnimationOptionTransitionFlipFromLeft animations:^{
         self.tag++;
-        
         NSString * imgName = self.tag % 2 == 0 ? imageArr.firstObject : imageArr.lastObject;
         self.image = [UIImage imageNamed:imgName];
         

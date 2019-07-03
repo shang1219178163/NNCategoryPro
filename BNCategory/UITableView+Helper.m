@@ -41,7 +41,6 @@
     [self beginUpdates];
     [self reloadRowsAtIndexPaths:marr.copy withRowAnimation:rowAnimation];
     [self endUpdates];
-
 }
 
 -(void)insertRowList:(NSArray *)rowList section:(NSInteger)section rowAnimation:(UITableViewRowAnimation)rowAnimation{
@@ -56,7 +55,6 @@
     [self beginUpdates];
     [self insertRowsAtIndexPaths:marr.copy withRowAnimation:rowAnimation];
     [self endUpdates];
-    
 }
 
 -(void)deleteRowList:(NSArray *)rowList section:(NSInteger)section rowAnimation:(UITableViewRowAnimation)rowAnimation{
@@ -136,7 +134,6 @@
         bgView.backgroundColor = UIColor.clearColor;
         cell.backgroundView = bgView;
     }
-
 }
 
 

@@ -54,14 +54,12 @@
 
 - (void)setCustom_acceptEventTime:(NSTimeInterval)custom_acceptEventTime{
     objc_setAssociatedObject(self, @selector(custom_acceptEventTime), @(custom_acceptEventTime), OBJC_ASSOCIATION_RETAIN_NONATOMIC);
-    
 }
 
 #pragma mark -- 关联
 
 - (NSTimeInterval )custom_acceptEventInterval{
     return [objc_getAssociatedObject(self, _cmd) doubleValue];
-    
 }
 
 - (void)setCustom_acceptEventInterval:(NSTimeInterval)custom_acceptEventInterval{

@@ -54,26 +54,6 @@
         [self insertSegmentWithTitle:itemList[i] atIndex:i animated:NO];
         
     }
-//    if (itemList.count <= self.numberOfSegments) {
-//        for (NSInteger i = 0; i < self.numberOfSegments; i++) {
-//            if (i < itemList.count) {
-//                [self setTitle:itemList[i] forSegmentAtIndex:i];
-//
-//            } else {
-//                [self removeSegmentAtIndex:i animated:NO];
-//            }
-//        }
-//
-//    } else {
-//        for (NSInteger i = 0; i < itemList.count; i++) {
-//            if (i < self.numberOfSegments) {
-//                [self setTitle:itemList[i] forSegmentAtIndex:i];
-//
-//            } else {
-//                [self insertSegmentWithTitle:itemList[i] atIndex:i animated:NO];
-//            }
-//        }
-//    }
     self.selectedSegmentIndex = 0;
 }
 

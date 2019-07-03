@@ -64,14 +64,12 @@
 
 + (void)showToastWithTips:(NSString *)tips place:(id)place completion:(void(^)(BOOL didTap))completion{
     [self showToastWithTips:tips image:nil place:place completion:completion];
-    
 }
 
 
 + (void)showToastWithTips:(NSString *)tips success:(NSNumber *)success place:(id)place completion:(void(^)(BOOL didTap))completion{
     NSString *image = [success isEqualToNumber:@1]  ?   @"MBHUD_Info"   :   @"MBHUD_Error";
     [self showToastWithTips:tips image:image place:place completion:completion];
-    
 }
 
 + (void)showToastWithTips:(NSString *)tips image:(id)image place:(id)place completion:(void(^)(BOOL didTap))completion{

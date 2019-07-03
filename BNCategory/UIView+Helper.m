@@ -31,7 +31,7 @@
     self.frame = rect;
 }
 
--(CGFloat)originY{
+- (CGFloat)originY{
     return CGRectGetMinY(self.frame);
 }
 
@@ -55,7 +55,7 @@
     return CGRectGetHeight(self.frame);
 }
 
--(void)setSizeHeight:(CGFloat)sizeHeight{
+- (void)setSizeHeight:(CGFloat)sizeHeight{
     CGRect rect = self.frame;
     rect.size.height = sizeHeight;
     self.frame = rect;
@@ -614,22 +614,20 @@
         
     }
     return containView;
-    
 }
 
-
-+ (BNTextField *)createTextFieldRect:(CGRect)rect text:(NSString *)text placeholder:(NSString *)placeholder font:(NSInteger)fontSize textAlignment:(NSTextAlignment)textAlignment keyboardType:(UIKeyboardType)keyboardType
-{
-    BNTextField * textField = [[BNTextField alloc]initWithFrame:rect];
++ (__kindof UITextField *)createTextFieldRect:(CGRect)rect{
+    assert([self isSubclassOfClass:UITextField.class]);
+    UITextField * textField = [[self alloc]initWithFrame:rect];
     
-    textField.text = text;
-    textField.placeholder = placeholder;
-    textField.font = [UIFont systemFontOfSize:fontSize];
-    textField.textAlignment = textAlignment;
+//    textField.text = text;
+//    textField.placeholder = placeholder;
+    textField.font = [UIFont systemFontOfSize:15];
+    textField.textAlignment = NSTextAlignmentLeft;
     textField.contentVerticalAlignment = UIControlContentVerticalAlignmentCenter;
     
     textField.keyboardAppearance = UIKeyboardAppearanceDefault;
-    textField.keyboardType = keyboardType;
+    textField.keyboardType = UIKeyboardTypeDefault;
     
     //        textField.returnKeyType = UIReturnKeyDone;
     //        textField.clearButtonMode = UITextFieldViewModeAlways;
@@ -637,136 +635,119 @@
     textField.autocapitalizationType = UITextAutocapitalizationTypeNone;
     textField.autocorrectionType = UITextAutocorrectionTypeNo;
     textField.clearButtonMode = UITextFieldViewModeWhileEditing;//清楚键
-    //        textField.layer.borderWidth = 0.5;  // 给图层添加一个有色边框
-    //        textField.layer.borderColor = [UtilityHelper colorWithHexString:@"d2d2d2"].CGColor;
+    textField.borderStyle = UITextBorderStyleRoundedRect;
+
     textField.backgroundColor = UIColor.whiteColor;
     //    textField.backgroundColor = UIColor.clearColor;
     
     return textField;
 }
 
-+ (BNTextField *)createTextFieldRect:(CGRect)rect placeholder:(NSString *)placeholder{
-    return [UIView createTextFieldRect:rect text:nil placeholder:placeholder font:15 textAlignment:NSTextAlignmentLeft keyboardType:UIKeyboardTypeDefault];
++ (__kindof UITextField *)createTextFieldRect:(CGRect)rect placeholder:(NSString *)placeholder{
+    UITextField *textField = [self createTextFieldRect:rect];
+    textField.placeholder = placeholder;
+    return textField;
 }
 
-+ (BNTextField *)createTextFieldRect:(CGRect)rect text:(NSString *)text placeholder:(NSString *)placeholder font:(NSInteger)fontSize textAlignment:(NSTextAlignment)textAlignment keyboardType:(UIKeyboardType)keyboardType leftView:(UIView *)leftView leftPadding:(CGFloat)leftPadding rightView:(UIView *)rightView rightPadding:(CGFloat)rightPadding{
-    BNTextField * textField = [BNTextField createTextFieldRect:rect text:text placeholder:placeholder font:fontSize textAlignment:NSTextAlignmentLeft keyboardType:keyboardType];
-    textField.textAlignment = textAlignment;
-    
-    //    UIImageView *imgView = [[UIImageView alloc]initWithImage:[UIImage imageNamed:@"img_cardAdd.png"]];
-    //    imgView.frame = CGRectMake(0, 0, 21, 21);
-    textField.leftView = leftView;
++ (BNTextField *)createTextFieldRect:(CGRect)rect placeholder:(NSString *)placeholder leftView:(UIView *)leftView leftPadding:(CGFloat)leftPadding rightView:(UIView *)rightView rightPadding:(CGFloat)rightPadding{
+    BNTextField * textField = [BNTextField createTextFieldRect:rect];
+//    textField.text = text;
+    textField.textAlignment = NSTextAlignmentLeft;
+    textField.placeholder = placeholder;
+
+//    UIImageView *imgView = [[UIImageView alloc]initWithImage:[UIImage imageNamed:@"img_cardAdd.png"]];
+//    imgView.frame = CGRectMake(0, 0, 21, 21);
 //    textField.leftViewPadding = 5;
+    textField.leftView = leftView;
+    textField.leftViewMode = UITextFieldViewModeAlways;
     textField.leftViewPadding = leftPadding;
 
-    textField.leftViewMode = UITextFieldViewModeAlways;
-    
-    //    UIButton * btn = [UIButton createBtnRect:CGRectMake(0, 0, 40, textFieldHeight) title:@"搜 索" font:kFontSize16 image:nil tag:kTAG_BTN type:@2 target:self aSelector:@selector(goSearch)];
-    textField.rightView = rightView;
+//    UIButton * btn = [UIButton createBtnRect:CGRectMake(0, 0, 40, textFieldHeight) title:@"搜 索" font:kFontSize16 image:nil tag:kTAG_BTN type:@2 target:self aSelector:@selector(goSearch)];
 //    textField.rightViewPadding = 5;
-    textField.rightViewPadding = rightPadding;
     textField.rightViewMode = UITextFieldViewModeAlways;
-    
-    textField.keyboardType = keyboardType;
-    textField.returnKeyType = UIReturnKeyDone;
+    textField.rightViewPadding = rightPadding;
+    textField.rightView = rightView;
+
     textField.backgroundColor = [UIColor whiteColor];
 //    textField.backgroundColor = UIColor.greenColor;
-
     return textField;
 }
 
 + (BNTextField *)createTextFieldRect:(CGRect)rect placeholder:(NSString *)placeholder leftView:(UIView *)leftView rightView:(UIView *)rightView{
-    return [UIView createTextFieldRect:CGRectZero text:nil placeholder:placeholder font:15 textAlignment:NSTextAlignmentLeft keyboardType:UIKeyboardTypeDefault leftView:leftView leftPadding:kPadding rightView:rightView rightPadding:kPadding];
+    return [BNTextField createTextFieldRect:CGRectZero placeholder:placeholder leftView:leftView leftPadding:kPadding rightView:rightView rightPadding:kPadding];
 }
 
-+ (UITextView *)createTextViewRect:(CGRect)rect text:(NSString *)text placeholder:(NSString *)placeholder font:(CGFloat)fontSize textAlignment:(NSTextAlignment)textAlignment keyType:(UIKeyboardType)keyboardType{
-    
-    UITextView *textView = [[UITextView alloc] initWithFrame:rect];
-    
-    textView.text = text;
-    textView.placeHolderTextView.text = placeholder;
-    textView.placeHolderTextView.textColor = UIColor.titleSubColor;
++ (__kindof UITextView *)createTextViewRect:(CGRect)rect text:(NSString *)text{
+    assert([self isSubclassOfClass:UITextView.class]);
 
-    textView.font = [UIFont systemFontOfSize:fontSize];
+    UITextView *textView = [[self alloc] initWithFrame:rect];
+    textView.text = text;
+    
+    textView.font = [UIFont systemFontOfSize:15];
     textView.textAlignment = NSTextAlignmentLeft;
     
     textView.keyboardAppearance = UIKeyboardAppearanceDefault;
-    textView.keyboardType = keyboardType;
-    
-    //    textView.returnKeyType = UIReturnKeyDone;
+    textView.keyboardType = UIReturnKeyDefault;
     
     textView.autocorrectionType = UITextAutocorrectionTypeNo;
     textView.autocapitalizationType = UITextAutocapitalizationTypeNone;
     
     textView.layer.borderWidth = 0.5;
     textView.layer.borderColor = UIColor.lineColor.CGColor;
-    
     [textView scrollRectToVisible:rect animated:YES];
     //    textView.autoresizingMask = UIViewAutoresizingFlexibleHeight;
     
-//    textView.backgroundColor = [UIColor whiteColor];
-//    textView.backgroundColor = UIColor.clearColor;
+    //    textView.backgroundColor = UIColor.whiteColor;
+    //    textView.backgroundColor = UIColor.clearColor;
     
     return textView;
 }
 
-+ (UITextView *)createTextViewRect:(CGRect)rect placeholder:(NSString *)placeholder{
-    return [UIView createTextViewRect:rect text:nil placeholder:placeholder font:15 textAlignment:NSTextAlignmentLeft keyType:UIKeyboardTypeDefault];
++ (__kindof UITextView *)createTextViewRect:(CGRect)rect placeholder:(NSString *)placeholder{
+    UITextView *textView = [self createTextViewRect:rect text:@""];
+    textView.placeHolderTextView.text = placeholder;
+    textView.placeHolderTextView.textColor = UIColor.titleSubColor;
+    return textView;
 }
 
-+ (UITextView *)createTextShowRect:(CGRect)rect text:(id)text font:(CGFloat)fontSize textAlignment:(NSTextAlignment)textAlignment{
-    UITextView *textView = [[UITextView alloc] initWithFrame:rect];
++ (__kindof UITextView *)createTextShowRect:(CGRect)rect text:(id)text{
+    assert([text isKindOfClass: NSString.class] || [text isKindOfClass: NSAttributedString.class]);
+    UITextView *textView = [self createTextViewRect:rect text:@""];
+    textView.autoresizingMask = UIViewAutoresizingFlexibleWidth | UIViewAutoresizingFlexibleHeight;
+
     if ([text isKindOfClass:[NSString class]]) {
         textView.text = text;
-
+        
     }
     else if([text isKindOfClass:[NSAttributedString class]]){
         textView.attributedText = text;
-
     }
+    
     textView.contentOffset = CGPointMake(0, 8);//textView文本显示区域距离顶部为8像素
-
-    
-    textView.font = [UIFont systemFontOfSize:fontSize];
-    textView.textAlignment = NSTextAlignmentLeft;
-    
-    textView.keyboardAppearance = UIKeyboardAppearanceDefault;
-    //    textView.returnKeyType = UIReturnKeyDone;
-    
-    textView.autocorrectionType = UITextAutocorrectionTypeNo;
-    textView.autocapitalizationType = UITextAutocapitalizationTypeNone;
-    
-    [textView scrollRectToVisible:rect animated:YES];
-    //    textView.autoresizingMask = UIViewAutoresizingFlexibleHeight;
-    
     textView.editable = NO;
     textView.dataDetectorTypes = UIDataDetectorTypeAll;
-    
 //    textView.layer.borderWidth = 0.5;
 //    textView.layer.borderColor = UIColor.redColor.CGColor;
-
+    
     return textView;
 }
 
 + (UILabel *)createRichLabRect:(CGRect)rect text:(NSString *)text textTaps:(NSArray *)textTaps{
-    
     NSMutableAttributedString *attString = [[NSMutableAttributedString alloc]initWithString:text];
     for (NSString *textTap in textTaps) {
         [attString addAttribute:NSFontAttributeName value:[UIFont systemFontOfSize:kFontSize14] range:NSMakeRange(0, text.length)];
         [attString addAttribute:NSForegroundColorAttributeName value:UIColor.orangeColor range:[text rangeOfString:textTap]];
-        
     }
-    UILabel *ybLabel = [[UILabel alloc] initWithFrame:rect];
-    ybLabel.textColor = UIColor.titleColor;
-    ybLabel.backgroundColor = [UIColor whiteColor];
-    ybLabel.numberOfLines = 1;
     
-    ybLabel.attributedText = attString;
-    ybLabel.textAlignment = NSTextAlignmentCenter;
-//    ybLabel.enabledTapEffect = NO;
+    UILabel *label = [[UILabel alloc] initWithFrame:rect];
+    label.textColor = UIColor.titleColor;
+    label.backgroundColor = [UIColor whiteColor];
+    label.numberOfLines = 1;
     
-    return ybLabel;
-    
+    label.attributedText = attString;
+    label.textAlignment = NSTextAlignmentCenter;
+//    label.enabledTapEffect = NO;
+    return label;
 }
 
 //图片+文字
@@ -829,7 +810,6 @@
     }
     return backgroudView;
 }
-
 
 + (UIView *)createViewRect:(CGRect)rect items:(NSArray *)items numberOfRow:(NSInteger)numberOfRow itemHeight:(CGFloat)itemHeight padding:(CGFloat)padding type:(NSNumber *)type handler:(void(^)(id obj, id item, NSInteger idx))handler{
     
@@ -894,7 +874,6 @@
     return backgroudView;
 }
 
-
 //+ (BNAlertViewZero *)creatAlertViewTitle:(NSString *)title array:(NSArray *)array dict:(NSDictionary *)dict mustList:(NSArray *)mustList btnTitles:(NSArray *)btnTitles{
 //    
 //    NSMutableArray * marr = [NSMutableArray arrayWithCapacity:0];
@@ -916,7 +895,6 @@
 //    
 //    BNAlertViewZero * alertView = [BNAlertViewZero alertViewWithTitle:title items:marr btnTitles:btnTitles];
 //    return alertView;
-//    
 //}
 
 //向屏幕倾斜
@@ -983,8 +961,7 @@
     }
 }
 
-//- (void)touchesBegan:(NSSet<UITouch *> *)touches withEvent:(UIEvent *)event
-//{
+//- (void)touchesBegan:(NSSet<UITouch *> *)touches withEvent:(UIEvent *)event{
 //    UITouch *touch = [touches anyObject];
 //    CGPoint point = [touch locationInView:self];
 //}
@@ -1001,10 +978,8 @@
     UIVisualEffectView * visualView = [[UIVisualEffectView alloc]initWithEffect:blur];
     
     visualView.frame = view.bounds;
-    
     visualView.layer.masksToBounds = YES;
     visualView.layer.cornerRadius = CGRectGetHeight(visualView.frame);
-    
     
     //把要添加的视图加到毛玻璃上
     [visualView.contentView addSubview:view];
@@ -1028,9 +1003,9 @@
     layer.lineWidth = layerWidth;
     layer.path = path.CGPath;
     layer.strokeEnd = 1;
-    [[self superview].layer addSublayer:layer];
-    
+    [self.superview.layer addSublayer:layer];
 }
+
 /**
  移除所有子视图
  */
@@ -1039,7 +1014,6 @@
         [obj removeFromSuperview];
         
     }];
-    
 }
 
 - (NSIndexPath *)getCellIndexPath:(UITableView *)tableView{
@@ -1075,7 +1049,6 @@
     label.textColor = UIColor.titleColor;
     label.textAlignment = NSTextAlignmentCenter;
     return label;
-    
 }
 
 ////信任值展示,无点击手势
@@ -1111,8 +1084,5 @@
 //
 //    return starRateView;
 //}
-
-
-
 
 @end

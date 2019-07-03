@@ -25,7 +25,7 @@
 
 @implementation UIView (Animation)
 
-- (void)BNaimationBigValues:(NSArray *)values{
+- (void)aimationBigValues:(NSArray *)values{
     
     values = values ? : @[@1.6,];
     

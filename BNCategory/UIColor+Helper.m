@@ -128,11 +128,11 @@ UIColor * UIColorDim(CGFloat White,CGFloat a){
     //    return [UIColor colorWithWhite:0.2f alpha: 0.5];////white 0-1为黑到白,alpha透明度
 }
 #pragma mark- -十六进制颜色
-UIColor * UIColorRGBA(CGFloat r,CGFloat g,CGFloat b,CGFloat a){
+UIColor * UIColorRGBA(CGFloat r, CGFloat g, CGFloat b, CGFloat a){
     return [UIColor colorWithRed:r/255.0f green:g/255.0f blue:b/255.0f alpha:a];
 }
 
-UIColor * UIColorRGB(CGFloat r,CGFloat g,CGFloat b){
+UIColor * UIColorRGB(CGFloat r, CGFloat g, CGFloat b){
     return UIColorRGBA(r, g, b, 1);
 }
 
@@ -141,11 +141,18 @@ UIColor * UIColorHexValue(NSInteger hex){
 }
 
 UIColor * UIColorHexValueAlpha(NSInteger hex, CGFloat alpha){
-    return [UIColor colorWithRed:((hex & 0xFF0000) >> 16)/255.0 green:((hex & 0xFF00) >> 8)/255.0 blue:(hex & 0xFF)/255.0 alpha:alpha];
+    return [UIColor colorWithRed:((hex & 0xFF0000) >> 16)/255.0
+                           green:((hex & 0xFF00) >> 8)/255.0
+                            blue:(hex & 0xFF)/255.0
+                           alpha:alpha];
+}
+
+UIColor * UIColorHexAlpha(NSString *hex, CGFloat alpha){
+    return [UIColor colorWithHexString:hex alpha:alpha];
 }
 
 UIColor * UIColorHex(NSString *hex){
-    return [UIColor colorWithHexString:hex];
+    return [UIColor colorWithHexString:hex alpha:1.0];
 }
 
 NSArray * RGBAFromColor(UIColor *color){
@@ -168,8 +175,12 @@ BOOL isLightColor(UIColor *color){
     return isLight;
 }
 
-+ (UIColor *)colorWithHexString:(NSString *)colorString{
-    NSString *cString = [[colorString stringByTrimmingCharactersInSet:[NSCharacterSet whitespaceAndNewlineCharacterSet]] uppercaseString];
++ (UIColor *)colorWithHexString:(NSString *)colorStr{
+    return [UIColor colorWithHexString:colorStr alpha:1.0];
+}
+
++ (UIColor *)colorWithHexString:(NSString *)colorStr alpha:(CGFloat)alpha{
+    NSString *cString = [[colorStr stringByTrimmingCharactersInSet: NSCharacterSet.whitespaceAndNewlineCharacterSet] uppercaseString];
     
     // String should be 6 or 8 characters
     if (cString.length < 6) {
@@ -198,7 +209,10 @@ BOOL isLightColor(UIColor *color){
     [[NSScanner scannerWithString:gString] scanHexInt:&g];
     [[NSScanner scannerWithString:bString] scanHexInt:&b];
     
-    return [UIColor colorWithRed:((float) r /255.0f) green:((float) g /255.0f) blue:((float) b /255.0f) alpha:1.0f];
+    return [UIColor colorWithRed:((float) r /255.0f)
+                           green:((float) g /255.0f)
+                            blue:((float) b /255.0f)
+                           alpha:alpha];
 }
 
 

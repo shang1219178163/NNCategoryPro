@@ -214,8 +214,7 @@ NSString * const kDeafult_textFieldHistory = @"kDeafult_textFieldHistory" ;
     [def synchronize];
 }
 
-
-#pragma mark tableview datasource
+#pragma mark -tableview
 
 - (NSInteger)numberOfSectionsInTableView:(UITableView *)tableView{
     return 1;
@@ -241,7 +240,6 @@ NSString * const kDeafult_textFieldHistory = @"kDeafult_textFieldHistory" ;
 
 }
 
-#pragma mark - tableview delegate
 - (UIView *)tableView:(UITableView *)tableView viewForFooterInSection:(NSInteger)section{
     UIButton* clearButton = [UIButton buttonWithType:UIButtonTypeRoundedRect];
     [clearButton setTitle:@"全部清除" forState:UIControlStateNormal];

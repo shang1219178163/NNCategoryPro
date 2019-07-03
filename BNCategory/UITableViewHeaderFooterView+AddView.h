@@ -40,10 +40,9 @@
 @property (nonatomic, strong) NSString * title;
 @property (nonatomic, strong) NSString * titleSub;
 
-@property (nonatomic, strong) id image;
-
 @property (nonatomic, strong) NSMutableArray * dataList;
 
+@property (nonatomic, strong) id image;
 @property (nonatomic, assign) BOOL isOpen;
 
 @end

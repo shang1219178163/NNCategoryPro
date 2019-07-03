@@ -18,8 +18,9 @@
 
 - (void)p_handleActionBtn:(UIControl *)sender{
     void(^block)(UIControl *control) = objc_getAssociatedObject(self, @selector(addActionHandler:forControlEvents:));
-    if (block) block(sender);
-
+    if (block) {
+        block(sender);
+    }
 }
 
 

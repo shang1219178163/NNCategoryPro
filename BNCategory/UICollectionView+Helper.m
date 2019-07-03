@@ -50,7 +50,6 @@ NSString * const UICollectionElementKindSectionItem = @"UICollectionElementKindS
 
 - (NSDictionary *)dictClass{
     return objc_getAssociatedObject(self, _cmd);
-
 }
 
 - (void)setDictClass:(NSDictionary *)dictClass{
@@ -85,7 +84,6 @@ NSString * const UICollectionElementKindSectionItem = @"UICollectionElementKindS
         [self registerClass:NSClassFromString(className) forCellWithReuseIdentifier:className];
 
     }
-    
 }
 
 - (void)BNregisterListClassReusable:(NSArray *)listClass kind:(NSString *)kind{
@@ -94,7 +92,6 @@ NSString * const UICollectionElementKindSectionItem = @"UICollectionElementKindS
         [self registerClass:NSClassFromString(className) forSupplementaryViewOfKind:kind withReuseIdentifier:identifier];
 //        NSLog(@"%@,%@,%@",NSClassFromString(className),kind,identifier);
     }
-    
 }
 
 #pragma mark - -funtions

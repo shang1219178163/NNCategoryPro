@@ -40,14 +40,14 @@ FOUNDATION_EXPORT NSMutableDictionary *DicFromPlist(NSString *plistName);
  *  @param rootElement 根节点
  *  @return XML 字符串
  */
-- (NSString *)XMLStringDefaultDeclarationWithRootElement:(NSString*)rootElement;
+- (NSString *)XMLStringDefaultDeclarationWithRootElement:(NSString *)rootElement;
 /**
  *  @brief  将NSDictionary转换成XML字符串, 自定义根节点  自定义xml声明
  *  @param rootElement 根节点
  *  @param declaration xml声明
  *  @return 标准合法 XML 字符串
  */
-- (NSString *)XMLStringWithRootElement:(NSString*)rootElement declaration:(NSString*)declaration;
+- (NSString *)XMLStringWithRootElement:(NSString *)rootElement declaration:(NSString *)declaration;
 /**
  *  @brief  将NSDictionary转换成Plist字符串
  *  @return Plist 字符串

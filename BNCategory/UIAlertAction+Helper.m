@@ -15,7 +15,6 @@
 
 -(NSInteger)tag{
    return [objc_getAssociatedObject(self, _cmd) integerValue];
-    
 }
 
 - (void)setTag:(NSInteger)tag{

@@ -286,7 +286,8 @@
 -(BNTextField *)textField{
     BNTextField * view = objc_getAssociatedObject(self, _cmd);
     if (!view) {
-        view = [UIView createTextFieldRect:CGRectZero text:@"" placeholder:nil font:kFontSize16 textAlignment:NSTextAlignmentLeft keyboardType:UIKeyboardTypeDefault];
+        view = [BNTextField createTextFieldRect:CGRectZero];
+        view.font = [UIFont systemFontOfSize:kFontSize16];
         view.tag = kTAG_TEXTFIELD;
 
         objc_setAssociatedObject(self, _cmd, view, OBJC_ASSOCIATION_RETAIN_NONATOMIC);

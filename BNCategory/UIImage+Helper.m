@@ -15,7 +15,6 @@
 
 @implementation UIImage (Helper)
 
-
 - (NSString *)contentType{
     NSData * imgData = UIImageJPEGRepresentation(self, 1.0f);
     return [UIImage contentTypeForImageData:imgData];
@@ -28,7 +27,6 @@ UIImage * UIImageColor(UIColor * color){
 UIImage * UIImageColorHexAlpha(NSInteger hex, CGFloat alpha){
     return UIImageColor(UIColorHexValueAlpha(hex, alpha));
 }
-
 
 /**
  NSString->UIImage

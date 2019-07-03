@@ -10,7 +10,7 @@
 
 @interface UIView (Animation)
 
-- (void)BNaimationBigValues:(NSArray *)values;
+- (void)aimationBigValues:(NSArray *)values;
 
 - (CAAnimationGroup *)addAnimationBigShapeWithColor:(UIColor *)color;
 

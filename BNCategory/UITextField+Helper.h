@@ -30,6 +30,7 @@ FOUNDATION_EXPORT NSString * const kDeafult_textFieldHistory ;
 - (void)synchronize;
 
 - (void)showHistory;
+
 - (void)hideHistroy;
 
 - (void)clearHistory;

@@ -29,8 +29,9 @@
 
 - (void)performActionBlock {
     dispatch_block_t block = self.actionBlock;
-    if (block)
+    if (block) {
         block();
+    }
 }
 
 

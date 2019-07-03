@@ -121,7 +121,7 @@
     dispatch_resume(_timer);
 }
 
--(void)startTime:(NSInteger)timeout title:(NSString *)tittle waitTittle:(NSString *)waitTittle{
+- (void)startTime:(NSInteger)timeout title:(NSString *)tittle waitTittle:(NSString *)waitTittle{
     __block NSInteger timeOut=timeout; //倒计时时间
     dispatch_queue_t queue = dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_DEFAULT, 0);
     dispatch_source_t _timer = dispatch_source_create(DISPATCH_SOURCE_TYPE_TIMER, 0, 0,queue);
@@ -164,11 +164,11 @@
     [displayLink addToRunLoop:[NSRunLoop currentRunLoop] forMode:NSDefaultRunLoopMode];
     
 }
+
 - (void)handleDisplayLink:(CADisplayLink *)displayLink{
 
     
 }
-
 
 + (UIView *)buttonRect:(CGRect)rect attDict:(NSDictionary *)dict tag:(NSInteger)tag{
     

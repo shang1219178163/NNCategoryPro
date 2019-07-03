@@ -104,7 +104,6 @@ double RangeNumber(double endNumber, double duration){
         self.text = [NSString stringWithFormat:@"%.@",[formatter stringFromNumber:@(value)]];
         
     }
-    
 }
 
 @end

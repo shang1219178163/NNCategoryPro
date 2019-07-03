@@ -26,9 +26,11 @@
 @property (class, nonatomic, readonly) UIColor *titleColor6;
 @property (class, nonatomic, readonly) UIColor *titleColor9;
 /// 背景灰色半透明,子视图不透明
-FOUNDATION_EXPORT UIColor * UIColorDim(CGFloat White,CGFloat a);
-FOUNDATION_EXPORT UIColor * UIColorRGBA(CGFloat r,CGFloat g,CGFloat b,CGFloat a);
-FOUNDATION_EXPORT UIColor * UIColorRGB(CGFloat r,CGFloat g,CGFloat b);
+FOUNDATION_EXPORT UIColor * UIColorDim(CGFloat White, CGFloat a);
+FOUNDATION_EXPORT UIColor * UIColorRGBA(CGFloat r, CGFloat g, CGFloat b, CGFloat a);
+FOUNDATION_EXPORT UIColor * UIColorRGB(CGFloat r, CGFloat g, CGFloat b);
+/// 十六进制字符串
+FOUNDATION_EXPORT UIColor * UIColorHexAlpha(NSString *hex, CGFloat alpha);
 /// 十六进制字符串
 FOUNDATION_EXPORT UIColor * UIColorHex(NSString *hex);
 /// [源]0x十六进制数值
@@ -41,6 +43,8 @@ FOUNDATION_EXPORT NSArray * RGBAFromColor(UIColor *color);
 FOUNDATION_EXPORT BOOL isLightColor(UIColor *color);
 //
 + (UIColor *)colorWithHexString:(NSString *)colorString;
+
++ (UIColor *)colorWithHexString:(NSString *)colorStr alpha:(CGFloat)alpha;
 
 @end
 

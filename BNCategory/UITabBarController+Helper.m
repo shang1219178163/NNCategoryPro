@@ -95,7 +95,6 @@ UITabBarController * UITarBarCtrFromList(NSArray<NSArray *> *list){
         }
     }
     return marr.copy;
-    
 }
 
 /**
