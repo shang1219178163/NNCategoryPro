@@ -40,7 +40,7 @@
 -(UILabel *)labelLeft{
     UILabel * view = objc_getAssociatedObject(self, _cmd);
     if (!view) {
-        view = [UIView createLabelRect:CGRectZero text:@"" font:16 tag:kTAG_LABEL type:@2];
+        view = [UILabel createLabelRect:CGRectZero type:@2];
         view.textAlignment = NSTextAlignmentRight;
 //        view = ({
 //            UILabel * view = [[UILabel alloc] initWithFrame:CGRectZero];
@@ -68,7 +68,7 @@
 -(UILabel *)labelLeftMark{
     UILabel * view = objc_getAssociatedObject(self, _cmd);
     if (!view) {
-        view = [UIView createLabelRect:CGRectZero text:@"" font:16 tag:kTAG_LABEL+1 type:@2];
+        view = [UILabel createLabelRect:CGRectZero type:@2];
         view.textAlignment = NSTextAlignmentLeft;
 //        view = ({
 //            UILabel * view = [[UILabel alloc] initWithFrame:CGRectZero];
@@ -96,7 +96,7 @@
 -(UILabel *)labelLeftSub{
     UILabel * view = objc_getAssociatedObject(self, _cmd);
     if (!view) {
-        view = [UIView createLabelRect:CGRectZero text:@"" font:16 tag:kTAG_LABEL+2 type:@2];
+        view = [UILabel createLabelRect:CGRectZero type:@2];
         view.textAlignment = NSTextAlignmentLeft;
 //        view = ({
 //            UILabel * view = [[UILabel alloc] initWithFrame:CGRectZero];
@@ -124,7 +124,7 @@
 -(UILabel *)labelLeftSubMark{
     UILabel * view = objc_getAssociatedObject(self, _cmd);
     if (!view) {
-        view = [UIView createLabelRect:CGRectZero text:@"" font:16 tag:kTAG_LABEL+3 type:@2];
+        view = [UILabel createLabelRect:CGRectZero type:@2];
         view.textAlignment = NSTextAlignmentLeft;
 //        view = ({
 //            UILabel * view = [[UILabel alloc] initWithFrame:CGRectZero];
@@ -222,7 +222,7 @@
 -(UIButton *)btn{
     UIButton * view = objc_getAssociatedObject(self, _cmd);
     if (!view) {
-        view = [UIView createBtnRect:CGRectZero title:@"按钮" font:16 image:nil tag:kTAG_BTN type:@7];
+        view = [UIButton createBtnRect:CGRectZero title:@"按钮" image:nil type:@7];
 //        view = ({
 //            UIButton * view = [UIButton buttonWithType:UIButtonTypeCustom];
 //            [view setTitle:@"btn" forState:UIControlStateNormal];

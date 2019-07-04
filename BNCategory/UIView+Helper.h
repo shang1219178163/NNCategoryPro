@@ -133,12 +133,7 @@ typedef void(^BlockView)(UIView * view,id item, id obj);
 /**
  富文本
  */
-+ (UILabel *)createRichLabRect:(CGRect)rect text:(NSString *)text textTaps:(NSArray *)textTaps;
-
-/**
- 图片+文字
- */
-+ (UIView *)getImgLabViewRect:(CGRect)rect image:(id)image text:(id)text imgViewSize:(CGSize)imgViewSize tag:(NSInteger)tag;
++ (__kindof UILabel *)createRichLabRect:(CGRect)rect text:(NSString *)text textTaps:(NSArray *)textTaps;
 
 /**
  信任值展示,无点击手势

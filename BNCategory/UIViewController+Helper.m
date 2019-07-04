@@ -303,10 +303,13 @@ UINavigationController * UINavCtrFromObj(id obj){
 - (UIView *)createBarItem:(NSString *)obj isLeft:(BOOL)isLeft handler:(void(^)(id obj, UIView *item, NSInteger idx))handler{
     UIView * item = nil;
     if ([UIImage imageNamed:obj]) {
-        item = [UIView createImgViewRect:CGRectMake(0, 0, 32, 32) image:[UIImage imageNamed:obj] tag:0 type:0];
+        item = [UIImageView createImgViewRect:CGRectMake(0, 0, 32, 32) type:@0];
+        ((UIImageView *)item).image = [UIImage imageNamed:obj];
     }
     else{
-        item = [UIView createLabelRect:CGRectMake(0, 0, 72, 20) text:obj font:16 tag:0 type:@1];
+        item = [UILabel createLabelRect:CGRectMake(0, 0, 72, 20) type:@1];
+        ((UILabel *)item).text = obj;
+        ((UILabel *)item).font = [UIFont systemFontOfSize:kFontSize16];
         ((UILabel *)item).textAlignment = NSTextAlignmentCenter;
         ((UILabel *)item).textColor = UINavigationBar.appearance.tintColor;
     }

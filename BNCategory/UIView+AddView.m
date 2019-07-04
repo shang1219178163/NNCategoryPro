@@ -256,8 +256,8 @@
 + (UIView *)createArrowRect:(CGRect)rect{
     NSString * imageStrRight = kIMG_arrowRight;
 //    CGSize imgViewRightSize = CGSizeMake(25, 25);
-
-    UIImageView * imgViewRight = [UIView createImgViewRect:rect image:imageStrRight tag:kTAG_IMGVIEW type:@0];
+    UIImageView * imgViewRight = [UIImageView createImgViewRect:rect type:@0];
+    imgViewRight.image = [UIImage imageNamed:imageStrRight];
     return imgViewRight;
 }
 
@@ -266,8 +266,9 @@
 /**
  [源]UIView创建
  */
-+ (UIView *)createViewRect:(CGRect)rect tag:(NSInteger)tag{
-    UIView * backgroundView = [[UIView alloc]initWithFrame:rect];
++ (__kindof UIView *)createViewRect:(CGRect)rect tag:(NSInteger)tag{
+    assert([self isSubclassOfClass: UIImageView.class]);
+    UIView * backgroundView = [[self alloc]initWithFrame:rect];
     backgroundView.autoresizingMask = UIViewAutoresizingFlexibleWidth|UIViewAutoresizingFlexibleHeight;
     backgroundView.tag = tag;
     return backgroundView;
@@ -276,18 +277,11 @@
 /**
  [源]UILabel创建
  */
-+ (UILabel *)createLabelRect:(CGRect)rect text:(id)text font:(CGFloat)font tag:(NSInteger)tag type:(NSNumber *)type
-{
-    NSAssert([text isKindOfClass: NSString.class] || [text isKindOfClass: NSAttributedString.class], @"数据格式不对");
-    UILabel * label = [[UILabel alloc] initWithFrame:rect];
++ (__kindof UILabel *)createLabelRect:(CGRect)rect type:(NSNumber *)type{
+    assert([self isSubclassOfClass: UILabel.class]);
+    UILabel * label = [[self alloc] initWithFrame:rect];
     label.autoresizingMask = UIViewAutoresizingFlexibleWidth|UIViewAutoresizingFlexibleHeight;
-    label.font = [UIFont systemFontOfSize:font];
-    if ([text isKindOfClass:[NSAttributedString class]]){
-        label.attributedText = text;
-    } else {
-        label.text = text;
-    }
-    label.tag = tag;
+    label.font = [UIFont systemFontOfSize:kFontSize16];
     switch (type.integerValue) {
         case 0://无限折行
         {
@@ -351,9 +345,8 @@
 /**
  UILabel小标志专用,例如左侧头像上的"企"
  */
-+ (UILabel *)createTipLabelWithSize:(CGSize)size tipCenter:(CGPoint)tipCenter text:(NSString *)text textColor:(UIColor *)textColor tag:(NSInteger)tag
-{
-    UILabel * label = [UIView createLabelRect:CGRectMake(0, 0, size.width, size.height) text:text font:16 tag:tag type:@1];
++ (__kindof UILabel *)createTipLabelWithSize:(CGSize)size tipCenter:(CGPoint)tipCenter text:(NSString *)text textColor:(UIColor *)textColor{
+    UILabel * label = [self createLabelRect:CGRectMake(0, 0, size.width, size.height) type:@1];
     label.center = tipCenter;
     label.textColor = textColor;
     label.textAlignment = NSTextAlignmentCenter;
@@ -363,15 +356,15 @@
 /**
  [源]UIImageView创建
  */
-+ (UIImageView *)createImgViewRect:(CGRect)rect image:(id)image tag:(NSInteger)tag type:(NSNumber *)type{
-    UIImageView *imgView = [[UIImageView alloc] initWithFrame:rect];
++ (__kindof UIImageView *)createImgViewRect:(CGRect)rect type:(NSNumber *)type{
+    assert([self isSubclassOfClass: UIImageView.class]);
+    UIImageView *imgView = [[self alloc] initWithFrame:rect];
     imgView.autoresizingMask = UIViewAutoresizingFlexibleWidth|UIViewAutoresizingFlexibleHeight;
     imgView.contentMode = UIViewContentModeScaleAspectFit;
     imgView.userInteractionEnabled = YES;
-    imgView.tag = tag;
    
-    [imgView loadImage:image defaultImg:kIMG_defaultFailed_S];
-            
+//    [imgView loadImage:image defaultImg:kIMG_defaultFailed_S];
+    
     switch (type.integerValue) {
         case 1://圆形
         {
@@ -390,7 +383,7 @@
             CGFloat offsetXY = CGRectGetHeight(rect)/2.0 * sin(45 * M_PI/180.0);
             CGPoint tipCenter = CGPointMake(CGRectGetHeight(rect)/2.0 + offsetXY, CGRectGetHeight(rect)/2.0 + offsetXY);
             //
-            UILabel * labelTip = [UIView createTipLabelWithSize:CGSizeMake(textWH, textWH) tipCenter:tipCenter text:text textColor:UIColor.themeColor tag:kTAG_LABEL];
+            UILabel * labelTip = [UILabel createTipLabelWithSize:CGSizeMake(textWH, textWH) tipCenter:tipCenter text:text textColor:UIColor.themeColor];
             [imgView addSubview:labelTip];
             
         }
@@ -411,9 +404,9 @@
 /**
  UIImageView(上传图片)选择图片使用
  */
-+ (UIImageView *)createImgViewRect:(CGRect)rect image:(id)image tag:(NSInteger)tag type:(NSNumber *)type hasDeleteBtn:(BOOL)hasDeleteBtn
-{
-    UIImageView *imgView = [UIView createImgViewRect:rect image:image tag:tag type:type];
++ (__kindof UIImageView *)createImgViewRect:(CGRect)rect type:(NSNumber *)type hasDeleteBtn:(BOOL)hasDeleteBtn{
+    assert([self isSubclassOfClass: UIImageView.class]);
+    UIImageView *imgView = [self createImgViewRect:rect type:type];
     
     CGSize btnSize = CGSizeMake(25, 25);
     UIButton * deleteBtn = [UIButton buttonWithType:UIButtonTypeCustom];
@@ -432,11 +425,10 @@
 /**
  [源]UITextField创建
  */
-+ (UITextField *)createTextFieldRect:(CGRect)rect text:(NSString *)text tag:(NSInteger)tag
-{
-    UITextField * textField = [[UITextField alloc]initWithFrame:rect];
++ (__kindof UITextField *)createTextFieldRect:(CGRect)rect text:(NSString *)text{
+    assert([self isSubclassOfClass: UITextField.class]);
+    UITextField * textField = [[self alloc]initWithFrame:rect];
     textField.autoresizingMask = UIViewAutoresizingFlexibleWidth|UIViewAutoresizingFlexibleHeight;
-    textField.tag = tag;
     
     textField.text = text;
     textField.placeholder = @"请输入";
@@ -463,18 +455,8 @@
 /**
  [源]UIButton创建
  */
-+ (UIButton *)createBtnRect:(CGRect)rect title:(NSString *)title font:(CGFloat)font image:(NSString *)image tag:(NSInteger)tag type:(NSNumber *)type{
-    UIButton * btn = [UIView createBtnRect:rect title:title image:image type:type];
-    btn.titleLabel.font = [UIFont systemFontOfSize:font];
-    btn.tag = tag;
-
-    return btn;
-}
-
-/**
- [简]UIButton创建
- */
-+ (UIButton *)createBtnRect:(CGRect)rect title:(NSString *)title image:(NSString *)image type:(NSNumber *)type{
++ (__kindof UIButton *)createBtnRect:(CGRect)rect title:(NSString *)title image:(NSString *)image type:(NSNumber *)type{
+    assert([self isSubclassOfClass: UIButton.class]);
     UIButton * btn = [UIButton buttonWithType:UIButtonTypeCustom];
     btn.autoresizingMask = UIViewAutoresizingFlexibleWidth|UIViewAutoresizingFlexibleHeight;
     
@@ -643,8 +625,10 @@
 /**
  [源]UISegmentedControl创建方法
  */
-+ (UISegmentedControl *)createSegmentRect:(CGRect)rect items:(NSArray *)items selectedIndex:(NSInteger)selectedIndex type:(NSNumber *)type{
-    UISegmentedControl *view = [[UISegmentedControl alloc] initWithItems:items];
++ (__kindof UISegmentedControl *)createSegmentRect:(CGRect)rect items:(NSArray *)items selectedIndex:(NSInteger)selectedIndex type:(NSNumber *)type{
+    assert([self isSubclassOfClass: UISegmentedControl.class]);
+
+    UISegmentedControl *view = [[self alloc] initWithItems:items];
     view.autoresizingMask = UIViewAutoresizingFlexibleWidth|UIViewAutoresizingFlexibleHeight;
     view.frame = rect;
     
@@ -732,7 +716,9 @@
 /**
  [源]UISlider创建方法
  */
-+ (UISlider *)createSliderRect:(CGRect)rect value:(CGFloat)value minValue:(CGFloat)minValue maxValue:(CGFloat)maxValue{
++ (__kindof UISlider *)createSliderRect:(CGRect)rect value:(CGFloat)value minValue:(CGFloat)minValue maxValue:(CGFloat)maxValue{
+    assert([self isSubclassOfClass: UISlider.class]);
+
     UISlider *view = [[UISlider alloc] initWithFrame:rect];
     view.autoresizingMask = UIViewAutoresizingFlexibleWidth;
     view.minimumValue = minValue;
@@ -747,7 +733,9 @@
 /**
  [源]UISwitch创建方法
  */
-+ (UISwitch *)createSwitchRect:(CGRect)rect isOn:(BOOL)isOn{
++ (__kindof UISwitch *)createSwitchRect:(CGRect)rect isOn:(BOOL)isOn{
+    assert([self isSubclassOfClass: UISwitch.class]);
+
     UISwitch *view = [[UISwitch alloc]initWithFrame:rect];
     view.autoresizingMask = UIViewAutoresizingFlexibleWidth|UIViewAutoresizingFlexibleHeight;
     view.on = isOn;//设置初始为ON的一边
@@ -757,7 +745,9 @@
     return view;
 }
 
-+ (UITabBarItem *)createTabBarItem:(nullable NSString *)title image:(nullable NSString *)image selectedImage:(nullable NSString *)selectedImage{
++ (__kindof UITabBarItem *)createTabBarItem:(nullable NSString *)title image:(nullable NSString *)image selectedImage:(nullable NSString *)selectedImage{
+    assert([self isSubclassOfClass: UITabBarItem.class]);
+
     UITabBarItem *tabBarItem = [[UITabBarItem alloc]initWithTitle:title image:[UIImage imageNamed:image] selectedImage:[UIImage imageNamed:selectedImage]];
     return tabBarItem;
 }
@@ -765,14 +755,16 @@
 /**
  导航栏 UIBarButtonItem
  */
-+ (UIBarButtonItem *)createBarItem:(NSString *)obj style:(UIBarButtonItemStyle)style{
-    return [UIView createBarItem:obj style:style target:nil action:nil];
++ (__kindof UIBarButtonItem *)createBarItem:(NSString *)obj style:(UIBarButtonItemStyle)style{
+    return [self createBarItem:obj style:style target:nil action:nil];
 }
 
 /**
  [源] 导航栏 UIBarButtonItem
  */
-+ (UIBarButtonItem *)createBarItem:(NSString *)obj style:(UIBarButtonItemStyle)style target:(id)target action:(nullable SEL)action{
++ (__kindof UIBarButtonItem *)createBarItem:(NSString *)obj style:(UIBarButtonItemStyle)style target:(id)target action:(nullable SEL)action{
+    assert([self isSubclassOfClass: UIBarButtonItem.class]);
+
     if ([UIImage imageNamed:obj]) {
         UIBarButtonItem* barItem = [[UIBarButtonItem alloc] initWithImage:[[UIImage imageNamed:obj] imageWithRenderingMode:UIImageRenderingModeAlwaysTemplate] style:style target:target action:action];
         return barItem;

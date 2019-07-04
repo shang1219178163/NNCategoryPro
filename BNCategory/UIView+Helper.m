@@ -583,16 +583,16 @@
     return sectionView;
 }
 
-+ (UIImageView *)createCardViewRect:(CGRect)rect title:(NSString *)title image:(id)image tag:(NSInteger)tag target:(id)target aSelector:(SEL)aSelector{
++ (UIImageView *)createCardViewRect:(CGRect)rect title:(NSString *)title target:(id)target aSelector:(SEL)aSelector{
     
-    UIImageView * containView = [UIView createImgViewRect:rect image:image tag:tag type:@0];
-    
+    UIImageView * containView = [UIImageView createImgViewRect:rect type:@0];
     CGSize imgViewSize = CGSizeMake(kH_LABEL_SMALL, kH_LABEL_SMALL);
     CGFloat YGap = (CGRectGetHeight(rect) - imgViewSize.height*2)/2.0;
     CGFloat XGapImgView = (CGRectGetWidth(rect) - imgViewSize.width)/2.0;
     
     CGRect imgViewRect = CGRectMake(XGapImgView, YGap, imgViewSize.width, imgViewSize.height);
-    UIImageView * imgView = [UIView createImgViewRect:imgViewRect image:@"img_cardAdd.png" tag:kTAG_IMGVIEW type:@0];
+    UIImageView * imgView = [UIImageView createImgViewRect:imgViewRect type:@0];
+    imgView.image = [UIImage imageNamed:@"img_cardAdd.png"];
     imgView.layer.backgroundColor = UIColor.whiteColor.CGColor;
     [containView addSubview:imgView];
     
@@ -600,19 +600,15 @@
     CGFloat XGapLab = (CGRectGetWidth(rect) - textSize.width)/2.0;
     
     CGRect labRect = CGRectMake(XGapLab, CGRectGetMaxY(imgViewRect), textSize.width, kH_LABEL_SMALL);
-    UILabel * lab = [UIView createLabelRect:labRect text:title font:16 tag:kTAG_LABEL type:@2];
+    UILabel * lab = [UILabel createLabelRect:labRect type:@2];
+    lab.text = title;
+    lab.tag = kTAG_LABEL;
+    
     lab.textColor = UIColor.titleSubColor;
     lab.font = [UIFont systemFontOfSize:kFontSize14];
     lab.textAlignment = NSTextAlignmentCenter;
     [containView addSubview:lab];
     
-    if (!image) {
-        imgView.hidden = lab.hidden = NO;
-        
-    } else {
-        imgView.hidden = lab.hidden = YES;
-        
-    }
     return containView;
 }
 
@@ -662,7 +658,7 @@
     textField.leftViewMode = UITextFieldViewModeAlways;
     textField.leftViewPadding = leftPadding;
 
-//    UIButton * btn = [UIButton createBtnRect:CGRectMake(0, 0, 40, textFieldHeight) title:@"搜 索" font:kFontSize16 image:nil tag:kTAG_BTN type:@2 target:self aSelector:@selector(goSearch)];
+//    UIButton * btn = [UIButton createBtnRect:CGRectMake(0, 0, 40, textFieldHeight) title:@"搜 索" image:nil type:@2 target:self aSelector:@selector(goSearch)];
 //    textField.rightViewPadding = 5;
     textField.rightViewMode = UITextFieldViewModeAlways;
     textField.rightViewPadding = rightPadding;
@@ -678,7 +674,7 @@
 }
 
 + (__kindof UITextView *)createTextViewRect:(CGRect)rect text:(NSString *)text{
-    assert([self isSubclassOfClass:UITextView.class]);
+    assert([self isSubclassOfClass: UITextView.class]);
 
     UITextView *textView = [[self alloc] initWithFrame:rect];
     textView.text = text;
@@ -732,7 +728,9 @@
     return textView;
 }
 
-+ (UILabel *)createRichLabRect:(CGRect)rect text:(NSString *)text textTaps:(NSArray *)textTaps{
++ (__kindof UILabel *)createRichLabRect:(CGRect)rect text:(NSString *)text textTaps:(NSArray *)textTaps{
+    assert([self isSubclassOfClass: UILabel.class]);
+
     NSMutableAttributedString *attString = [[NSMutableAttributedString alloc]initWithString:text];
     for (NSString *textTap in textTaps) {
         [attString addAttribute:NSFontAttributeName value:[UIFont systemFontOfSize:kFontSize14] range:NSMakeRange(0, text.length)];
@@ -748,39 +746,6 @@
     label.textAlignment = NSTextAlignmentCenter;
 //    label.enabledTapEffect = NO;
     return label;
-}
-
-//图片+文字
-+ (UIView *)getImgLabViewRect:(CGRect)rect image:(id)image text:(id)text imgViewSize:(CGSize)imgViewSize tag:(NSInteger)tag{
-    UIView * backgroudView = [[UIView alloc]initWithFrame:rect];
-    backgroudView.tag = tag;
-    
-    CGFloat padding = kPadding;
-    CGRect imgViewRect = CGRectMake(0, 0, imgViewSize.width, imgViewSize.height);
-    
-    if (imgViewSize.height > CGRectGetHeight(rect)) {
-        CGRect rect = backgroudView.frame;
-        rect.size.height = imgViewSize.height;
-        backgroudView.frame = rect;
-        
-    } else {
-        CGFloat XYGap = (CGRectGetHeight(backgroudView.frame) - imgViewSize.height)/2.0;
-        imgViewRect = CGRectMake(XYGap, XYGap, imgViewSize.width, imgViewSize.height);
-        
-    }
-    
-    CGRect labelRect = CGRectMake(CGRectGetMaxX(imgViewRect) + padding, CGRectGetMinY(imgViewRect), CGRectGetWidth(backgroudView.frame) - CGRectGetWidth(imgViewRect) - padding, CGRectGetHeight(imgViewRect));
-    
-    UIImageView * imgView = [UIView createImgViewRect:imgViewRect image:image tag:kTAG_IMGVIEW type:@0];
-    imgView.tag = kTAG_IMGVIEW;
-    [backgroudView addSubview:imgView];
-    
-    
-    UILabel * labelVehicle = [UIView createLabelRect:labelRect text:text font:16 tag:kTAG_LABEL type:@2];
-    labelVehicle.font = [UIFont systemFontOfSize:kFontSize14];
-    [backgroudView addSubview:labelVehicle];
-    
-    return backgroudView;
 }
 
 + (UIView *)createViewRect:(CGRect)rect elements:(NSArray *)elements numberOfRow:(NSInteger)numberOfRow viewHeight:(CGFloat)viewHeight padding:(CGFloat)padding{
@@ -803,7 +768,8 @@
         
         NSString * title = elements[i];
         CGRect btnRect = CGRectMake(x, y, w, h);
-        UIButton * btn = [UIView createBtnRect:btnRect title:title font:16 image:nil tag:kTAG_BTN+i type:@0];        
+        UIButton * btn = [UIButton createBtnRect:btnRect title:title image:nil type:@0];
+        btn.tag = kTAG_BTN+i;
         btn.titleLabel.font = [UIFont systemFontOfSize:15];
         [backgroudView addSubview:btn];
         
@@ -839,7 +805,7 @@
             case 0://uibutton
             {
                 view = ({
-                    UIButton * view = [UIView createBtnRect:itemRect title:title font:16 image:nil tag:i type:@5];
+                    UIButton * view = [UIButton createBtnRect:itemRect title:title font:16 image:nil tag:i type:@5];
                     view.titleLabel.font = [UIFont systemFontOfSize:15];
                     view;
                 });
@@ -847,14 +813,21 @@
                 break;
             case 1://UIImageVIew
             {
-                view = [UIView createImgViewRect:itemRect image:title tag:i type:@0];
+                view = ({
+                    UIImageView *view = [UIImageView createImgViewRect:itemRect type:@0];
+                    view.image = [UIImage imageNamed:title];
+                    view.tag = i;
+                    view;
+                });
                 
             }
                 break;
             case 2://UILabel
             {
                 view = ({
-                    UILabel * view = [UIView createLabelRect:itemRect text:title font:16 tag:i type:@0];
+                    UILabel * view = [UILabel createLabelRect:itemRect type:@0];
+                    view.text = title;
+                    view.tag = i;
                     view.font = [UIFont systemFontOfSize:15];
                     view.textAlignment = NSTextAlignmentCenter;
                     view;
@@ -1040,12 +1013,15 @@
     
     if ([unitString containsString:@"img_"]) {
         CGSize size = CGSizeMake(20, 20);
-        UIImageView * imgView = [UIView createImgViewRect:CGRectMake(0, 0, size.width, size.height) image:unitString tag:kTAG_IMGVIEW type:@0];
+        UIImageView * imgView = [UIImageView createImgViewRect:CGRectMake(0, 0, size.width, size.height) type:@0];
+        imgView.image = [UIImage imageNamed:unitString];
         return imgView;
     }
     
     CGSize size = [self sizeWithText:unitString font:@(kFontSize14) width:kScreenWidth];
-    UILabel * label = [UIView createLabelRect:CGRectMake(0, 0, size.width+2, 25) text:unitString font:16 tag:kTAG_LABEL type:@2];
+    UILabel * label = [UILabel createLabelRect:CGRectMake(0, 0, size.width+2, 25) type:@2];
+    label.text = unitString;
+    label.tag = kTAG_LABEL;
     label.textColor = UIColor.titleColor;
     label.textAlignment = NSTextAlignmentCenter;
     return label;

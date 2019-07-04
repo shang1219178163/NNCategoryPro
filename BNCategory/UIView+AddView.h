@@ -38,45 +38,45 @@
 
 #pragma mark - - 类方法
 
-+ (UIView *)createViewRect:(CGRect)rect tag:(NSInteger)tag;
++ (__kindof UIView *)createViewRect:(CGRect)rect tag:(NSInteger)tag;
 
-+ (UILabel *)createLabelRect:(CGRect)rect text:(id)text font:(CGFloat)font tag:(NSInteger)tag type:(NSNumber *)type;
++ (__kindof UILabel *)createLabelRect:(CGRect)rect type:(NSNumber *)type;
 //小标志专用,例如左侧头像上的"企"
-+ (UILabel *)createTipLabelWithSize:(CGSize)size tipCenter:(CGPoint)tipCenter text:(NSString *)text textColor:(UIColor *)textColor tag:(NSInteger)tag;
++ (__kindof UILabel *)createTipLabelWithSize:(CGSize)size tipCenter:(CGPoint)tipCenter text:(NSString *)text textColor:(UIColor *)textColor;
 
 //imageView通用创建方法
-+ (UIImageView *)createImgViewRect:(CGRect)rect image:(id)image tag:(NSInteger)tag type:(NSNumber *)type;
++ (__kindof UIImageView *)createImgViewRect:(CGRect)rect type:(NSNumber *)type;
 
 //选择图片使用
-+ (UIImageView *)createImgViewRect:(CGRect)rect image:(id)image tag:(NSInteger)tag type:(NSNumber *)type hasDeleteBtn:(BOOL)hasDeleteBtn;
++ (__kindof UIImageView *)createImgViewRect:(CGRect)rect type:(NSNumber *)type hasDeleteBtn:(BOOL)hasDeleteBtn;
 
-+ (UITextField *)createTextFieldRect:(CGRect)rect text:(NSString *)text tag:(NSInteger)tag;
++ (__kindof UITextField *)createTextFieldRect:(CGRect)rect text:(NSString *)text;
 
-+ (UIButton *)createBtnRect:(CGRect)rect title:(NSString *)title font:(CGFloat)font image:(NSString *)image tag:(NSInteger)tag type:(NSNumber *)type;
++ (__kindof UIButton *)createBtnRect:(CGRect)rect title:(NSString *)title font:(CGFloat)font image:(NSString *)image tag:(NSInteger)tag type:(NSNumber *)type;
 
-+ (UIButton *)createBtnRect:(CGRect)rect title:(NSString *)title image:(NSString *)image type:(NSNumber *)type;
++ (__kindof UIButton *)createBtnRect:(CGRect)rect title:(NSString *)title image:(NSString *)image type:(NSNumber *)type;
     
 + (UIView *)createBtnViewRect:(CGRect)rect imgName:(NSString *)imgName imgHeight:(CGFloat)imgHeight title:(NSString *)title titleColor:(UIColor *)titleColor type:(NSNumber *)type;
 
 /**
  UISegmentedControl通用创建方法
  */
-+ (UISegmentedControl *)createSegmentRect:(CGRect)rect items:(NSArray *)items selectedIndex:(NSInteger)selectedIndex type:(NSNumber *)type;
++ (__kindof UISegmentedControl *)createSegmentRect:(CGRect)rect items:(NSArray *)items selectedIndex:(NSInteger)selectedIndex type:(NSNumber *)type;
 
 /**
  UISlider通用创建方法
  */
-+ (UISlider *)createSliderRect:(CGRect)rect value:(CGFloat)value minValue:(CGFloat)minValue maxValue:(CGFloat)maxValue;
++ (__kindof UISlider *)createSliderRect:(CGRect)rect value:(CGFloat)value minValue:(CGFloat)minValue maxValue:(CGFloat)maxValue;
 
 /**
  UISwitch通用创建方法
  */
-+ (UISwitch *)createSwitchRect:(CGRect)rect isOn:(BOOL)isOn;
++ (__kindof UISwitch *)createSwitchRect:(CGRect)rect isOn:(BOOL)isOn;
 
-+ (UITabBarItem *)createTabBarItem:(nullable NSString *)title image:(nullable NSString *)image selectedImage:(nullable NSString *)selectedImage;
++ (__kindof UITabBarItem *)createTabBarItem:(nullable NSString *)title image:(nullable NSString *)image selectedImage:(nullable NSString *)selectedImage;
 
-+ (UIBarButtonItem *)createBarItem:(NSString *)obj style:(UIBarButtonItemStyle)style;
++ (__kindof UIBarButtonItem *)createBarItem:(NSString *)obj style:(UIBarButtonItemStyle)style;
 
-+ (UIBarButtonItem *)createBarItem:(NSString *)obj style:(UIBarButtonItemStyle)style target:(id)target action:(nullable SEL)action;
++ (__kindof UIBarButtonItem *)createBarItem:(NSString *)obj style:(UIBarButtonItemStyle)style target:(id)target action:(nullable SEL)action;
 
 @end

@@ -32,7 +32,9 @@ FOUNDATION_EXPORT NSString *JSONStringFromObj(id obj);
 FOUNDATION_EXPORT id JSONObjectFromString(NSString *string);
 /// NSData -> NSObject/NSDiction/NSArray
 FOUNDATION_EXPORT id JSONObjectFromData(NSData *data);
-    
+
+NS_ASSUME_NONNULL_BEGIN
+
 @interface NSObject (Helper)<NSCoding>
 
 void dispatchAsyncMain(void(^block)(void));
@@ -140,3 +142,5 @@ void dispatchApplyGlobal(id obj ,void(^block)(size_t index));
 - (NSInteger)rowCountWithItemList:(NSArray *)itemList rowOfNumber:(NSInteger)rowOfNumber;
 
 @end
+
+NS_ASSUME_NONNULL_END
