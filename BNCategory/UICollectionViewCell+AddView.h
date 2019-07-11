@@ -13,6 +13,8 @@
 
 #import "UICollectionView+Helper.h"
 
+NS_ASSUME_NONNULL_BEGIN
+
 @interface UICollectionViewCell (AddView)
 
 @property (nonatomic, strong) UIImageView *imgView;
@@ -24,3 +26,5 @@
 + (instancetype)viewWithCollectionView:(UICollectionView *)collectionView indexPath:(NSIndexPath *)indexPath identifier:(NSString *)identifier;
 
 @end
+
+NS_ASSUME_NONNULL_END

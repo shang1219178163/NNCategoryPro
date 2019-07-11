@@ -8,6 +8,8 @@
 
 #import <UIKit/UIKit.h>
 
+NS_ASSUME_NONNULL_BEGIN
+
 @interface UIView (AddView)
 
 @property (nonatomic, strong) CAGradientLayer *gradientLayer;
@@ -19,9 +21,9 @@
 
 -(void)holderView:(NSString *)title image:(NSString *)image;
 
--(void)addLineRect:(CGRect)rect isDash:(BOOL)isDash tag:(NSInteger)tag inView:(UIView *)inView;
+-(void)addLineRect:(CGRect)rect isDash:(BOOL)isDash inView:(UIView *)inView;
 
-+(UIView *)createLineRect:(CGRect)rect isDash:(BOOL)isDash hidden:(BOOL)hidden tag:(NSInteger)tag;
++(UIView *)createLineRect:(CGRect)rect isDash:(BOOL)isDash hidden:(BOOL)hidden;
 
 -(CALayer *)createLayerType:(NSNumber *)type;
 
@@ -38,12 +40,41 @@
 
 #pragma mark - - 类方法
 
-+ (__kindof UIView *)createViewRect:(CGRect)rect tag:(NSInteger)tag;
++ (__kindof UIView *)createViewRect:(CGRect)rect;
 
 + (__kindof UILabel *)createLabelRect:(CGRect)rect type:(NSNumber *)type;
 //小标志专用,例如左侧头像上的"企"
 + (__kindof UILabel *)createTipLabelWithSize:(CGSize)size tipCenter:(CGPoint)tipCenter text:(NSString *)text textColor:(UIColor *)textColor;
 
+/**
+ UITextField创建方法
+ */
++ (__kindof UITextField *)createTextFieldRect:(CGRect)rect;
+
+/**
+ [简]UITextField创建方法
+ */
++ (__kindof UITextField *)createTextFieldRect:(CGRect)rect placeholder:(NSString *)placeholder;
+
+/**
+ 带提示的textView
+ */
++ (__kindof UITextView *)createTextViewRect:(CGRect)rect;
+
+/**
+ [简]带提示的textView
+ */
++ (__kindof UITextView *)createTextViewRect:(CGRect)rect placeholder:(NSString *)placeholder;
+
+/**
+ 展示性质的textView,不提供编辑
+ */
++ (__kindof UITextView *)createTextShowRect:(CGRect)rect;
+
+/**
+ 富文本
+ */
++ (__kindof UILabel *)createRichLabRect:(CGRect)rect text:(NSString *)text textTaps:(NSArray *)textTaps;
 //imageView通用创建方法
 + (__kindof UIImageView *)createImgViewRect:(CGRect)rect type:(NSNumber *)type;
 
@@ -52,7 +83,7 @@
 
 + (__kindof UITextField *)createTextFieldRect:(CGRect)rect text:(NSString *)text;
 
-+ (__kindof UIButton *)createBtnRect:(CGRect)rect title:(NSString *)title font:(CGFloat)font image:(NSString *)image tag:(NSInteger)tag type:(NSNumber *)type;
++ (__kindof UIButton *)createBtnRect:(CGRect)rect title:(NSString *)title font:(CGFloat)font image:(NSString *)image type:(NSNumber *)type;
 
 + (__kindof UIButton *)createBtnRect:(CGRect)rect title:(NSString *)title image:(NSString *)image type:(NSNumber *)type;
     
@@ -75,8 +106,10 @@
 
 + (__kindof UITabBarItem *)createTabBarItem:(nullable NSString *)title image:(nullable NSString *)image selectedImage:(nullable NSString *)selectedImage;
 
-+ (__kindof UIBarButtonItem *)createBarItem:(NSString *)obj style:(UIBarButtonItemStyle)style;
++ (__kindof UIBarButtonItem *_Nonnull)createBarItem:(NSString *_Nonnull)obj style:(UIBarButtonItemStyle)style;
 
-+ (__kindof UIBarButtonItem *)createBarItem:(NSString *)obj style:(UIBarButtonItemStyle)style target:(id)target action:(nullable SEL)action;
++ (__kindof UIBarButtonItem *)createBarItem:(NSString *_Nonnull)obj style:(UIBarButtonItemStyle)style target:(nullable id)target action:(nullable SEL)action;
 
 @end
+
+NS_ASSUME_NONNULL_END

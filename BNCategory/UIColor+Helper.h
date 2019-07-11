@@ -8,6 +8,8 @@
 
 #import <UIKit/UIKit.h>
 
+NS_ASSUME_NONNULL_BEGIN
+
 @interface UIColor (Helper)
 
 @property (class, nonatomic) UIColor *themeColor;
@@ -48,3 +50,4 @@ FOUNDATION_EXPORT BOOL isLightColor(UIColor *color);
 
 @end
 
+NS_ASSUME_NONNULL_END

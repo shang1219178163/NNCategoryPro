@@ -8,6 +8,7 @@
 
 #import <Foundation/Foundation.h>
 
+NS_ASSUME_NONNULL_BEGIN
 
 @interface NSNumber (Helper)
 
@@ -15,7 +16,6 @@
 
 /**
  NSNumberFormatter格式化
- 
  */
 -(NSString *)stringValue;
 
@@ -48,3 +48,5 @@ NSNumber * NSNumberFromRoundFloor(NSNumber *number, NSUInteger digit);
 
 
 @end
+
+NS_ASSUME_NONNULL_END

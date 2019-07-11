@@ -15,6 +15,8 @@
 #define kJPush_type          @"into_page_type"
 #define kJPush_extras        @"extras"
 
+NS_ASSUME_NONNULL_BEGIN
+
 @interface UIApplication (Helper)
 
 @property (class, nonnull) UIWindow *keyWindow;
@@ -49,3 +51,4 @@
 
 @end
 
+NS_ASSUME_NONNULL_END

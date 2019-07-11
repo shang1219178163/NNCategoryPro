@@ -11,7 +11,7 @@
 @interface UITableViewCell (Helper)
 
 /// cell高度缓存
-FOUNDATION_EXPORT CGFloat CellHeightFromParams(NSMutableDictionary *dic, NSIndexPath * indexPath, CGFloat height);
+FOUNDATION_EXPORT CGFloat CellHeightFromParams(NSMutableDictionary *dic, NSIndexPath *indexPath, CGFloat height);
 
 @end
 

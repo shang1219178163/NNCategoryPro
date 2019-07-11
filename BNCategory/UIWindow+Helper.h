@@ -8,6 +8,7 @@
 
 #import <UIKit/UIKit.h>
 
+NS_ASSUME_NONNULL_BEGIN
 
 @interface UIWindow (Helper)
 
@@ -18,10 +19,8 @@
 
 /**
  推荐
- 
  */
 + (void)showHUDinView:(UIView *)inView animated:(BOOL)animated;
-
 
 /**
  推荐
@@ -35,3 +34,5 @@
 + (void)showToastWithTips:(NSString *)tips image:(id)image place:(id)place completion:(void(^)(BOOL didTap))completion;
 
 @end
+
+NS_ASSUME_NONNULL_END

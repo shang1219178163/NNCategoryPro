@@ -16,15 +16,17 @@
 
 @implementation UIViewController (AddView)
 
-- (UITableView *)tableView {
-    UITableView* view = objc_getAssociatedObject(self, _cmd);
+- (UITableView *)tableView{
+    UITableView *view = objc_getAssociatedObject(self, _cmd);
     if (!view) {
-        view = [[UITableView alloc] initWithFrame:self.view.bounds style:UITableViewStyleGrouped];
-        view.autoresizingMask = UIViewAutoresizingFlexibleWidth|UIViewAutoresizingFlexibleHeight;
-//        view.separatorInset = UIEdgeInsetsZero;
-//        view.separatorStyle = UITableViewCellSeparatorStyleSingleLine;
-//        view.rowHeight = 60;
+        view = [[UITableView alloc]initWithFrame:self.view.bounds style:UITableViewStyleGrouped];
+        view.autoresizingMask = UIViewAutoresizingFlexibleWidth | UIViewAutoresizingFlexibleHeight;
+        view.separatorInset = UIEdgeInsetsZero;
+        view.separatorStyle = UITableViewCellSeparatorStyleSingleLine;
+        view.rowHeight = 70;
         view.backgroundColor = UIColor.backgroudColor;
+        view.tableFooterView = [[UIView alloc]init];
+
 //        table.keyboardDismissMode = UIScrollViewKeyboardDismissModeOnDrag;
         [view registerClass:[UITableViewCell class] forCellReuseIdentifier:@"UITableViewCell"];
         if ([self conformsToProtocol:@protocol(UITableViewDataSource)]) view.dataSource = self;
@@ -40,7 +42,7 @@
 }
 
 - (UICollectionView *)collectionView{
-    UICollectionView* view = objc_getAssociatedObject(self, _cmd);
+    UICollectionView *view = objc_getAssociatedObject(self, _cmd);
     if (!view) {
         view = ({
             UICollectionView *view = [[UICollectionView alloc]initWithFrame:self.view.bounds collectionViewLayout:UICollectionView.layoutDefault];

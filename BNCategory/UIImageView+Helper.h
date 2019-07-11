@@ -8,11 +8,12 @@
 
 #import <UIKit/UIKit.h>
 
+NS_ASSUME_NONNULL_BEGIN
+
 @interface UIImageView (Helper)
 
 /**
  gift效果
-
  @param type 不同的创建方式
  */
 +(UIImageView *)imgViewRect:(CGRect)rect imageList:(NSArray *)imageList type:(NSNumber *)type;
@@ -20,13 +21,11 @@
 
 /**
  切圆形
-
  */
 - (void)clipCorner:(CGFloat)radius;
 
 /**
  通用image加载方式
-
  */
 - (void)loadImage:(id)image defaultImg:(NSString *)imageDefault;
 
@@ -46,3 +45,5 @@
 -(void)renderTintColor:(UIColor *)tintColor mode:(UIImageRenderingMode)mode;
     
 @end
+
+NS_ASSUME_NONNULL_END

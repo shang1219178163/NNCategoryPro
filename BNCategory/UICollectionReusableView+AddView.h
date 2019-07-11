@@ -13,6 +13,8 @@
 
 #import "UICollectionView+Helper.h"
 
+NS_ASSUME_NONNULL_BEGIN
+
 @interface UICollectionReusableView (AddView)
 
 @property (nonatomic, strong) UIImageView *imgView;
@@ -23,3 +25,4 @@
 
 @end
 
+NS_ASSUME_NONNULL_END

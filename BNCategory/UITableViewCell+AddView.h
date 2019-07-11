@@ -12,6 +12,8 @@
 
 @class BNTextField;
 
+NS_ASSUME_NONNULL_BEGIN
+
 @interface UITableViewCell (AddView)
 
 +(instancetype)cellWithTableView:(UITableView *)tableView identifier:(NSString *)identifier style:(UITableViewCellStyle)style;
@@ -43,3 +45,5 @@
 @property (nonatomic, strong) BNTextField * textField;
 
 @end
+
+NS_ASSUME_NONNULL_END

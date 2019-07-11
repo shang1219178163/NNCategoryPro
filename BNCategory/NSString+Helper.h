@@ -11,6 +11,8 @@
 
 #import "NSString+Other.h"
 
+NS_ASSUME_NONNULL_BEGIN
+
 @interface NSString (Helper)
 
 @property (nonatomic, strong, readonly) NSString *localized;
@@ -33,7 +35,6 @@ FOUNDATION_EXPORT NSString * NSStringFromFloat(CGFloat obj);
 
 /**
  字符串转number
-
  */
 - (id)numberValue;
 
@@ -62,13 +63,11 @@ FOUNDATION_EXPORT NSString * NSStringFromFloat(CGFloat obj);
 
 /**
  随即字符串
- 
  */
 + (NSString *)randomStringLength:(NSInteger)length;
 
 /**
  随即产生字符串部分字符组合
- 
  */
 - (NSString *)randomStringPartLength:(NSInteger)length;
 
@@ -88,7 +87,6 @@ FOUNDATION_EXPORT NSString * NSStringFromFloat(CGFloat obj);
 
 + (NSString *)stringFromData:(NSData *)data;
 
-
 /**
  过滤特殊字符集
  */
@@ -98,9 +96,6 @@ FOUNDATION_EXPORT NSString * NSStringFromFloat(CGFloat obj);
 
 - (NSString *)deleteWhiteSpaceBeginEnd;
 
-/**
- 
- */
 - (NSString *)stringByTitle;
 
 /**
@@ -113,7 +108,6 @@ FOUNDATION_EXPORT NSString * NSStringFromFloat(CGFloat obj);
  */
 - (NSString *)getAsteriskStringByRange:(NSRange)range;
 
-
 /**
  取代字符串中某个索引字符
  */
@@ -122,12 +116,10 @@ FOUNDATION_EXPORT NSString * NSStringFromFloat(CGFloat obj);
 /**
  获取随机子字符串
  e.g.:0123456789ABCDEFGHIJKLMNOPQRSTUVWXYZ
-
  */
 - (NSString *)randomStringLength:(NSInteger)length;
 
 /**
- 
  @param array 字符串数组
  @return 包含所有元素
  */
@@ -166,3 +158,5 @@ FOUNDATION_EXPORT NSString * NSStringFromFloat(CGFloat obj);
 - (BOOL)callPhone;
 
 @end
+
+NS_ASSUME_NONNULL_END

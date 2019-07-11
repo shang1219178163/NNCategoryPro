@@ -44,6 +44,8 @@ FOUNDATION_EXPORT NSString * const kTransformPath ;
 FOUNDATION_EXPORT NSString * const kTransformStrokeEnd ;
 
 //kCAValueFunctionRotateX
+NS_ASSUME_NONNULL_BEGIN
+
 @interface CABasicAnimation (Helper)
 
 @property (class, nonatomic, readonly, nullable) NSArray *functionNames;
@@ -60,3 +62,5 @@ FOUNDATION_EXPORT NSString * const kTransformStrokeEnd ;
 +(CABasicAnimation *)animKeyPath:(NSString *)keyPath duration:(CFTimeInterval)duration fromValue:(id)fromValue toValue:(id)toValue;
 
 @end
+
+NS_ASSUME_NONNULL_END

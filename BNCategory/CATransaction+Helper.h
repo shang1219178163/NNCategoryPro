@@ -14,8 +14,12 @@ CATransaction是事务，用于批量提交多个对layer-tree的操作，并且
 
 #import <QuartzCore/QuartzCore.h>
 
+NS_ASSUME_NONNULL_BEGIN
+
 @interface CATransaction (Helper)
 
 +(void)animDuration:(CGFloat)duration animations:(void(^)(void))animations completion:(nullable void (^)(void))completion;
 
 @end
+
+NS_ASSUME_NONNULL_END

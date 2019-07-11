@@ -9,6 +9,8 @@
 #import <QuartzCore/QuartzCore.h>
 #import <UIKit/UIKit.h>
 
+NS_ASSUME_NONNULL_BEGIN
+
 @interface CAShapeLayer (Helper)
 
 +(CAShapeLayer *)layerRect:(CGRect)rect path:(CGPathRef)path strokeEnd:(CGFloat)strokeEnd fillColor:(UIColor *)fillColor strokeColor:(UIColor *)strokeColor lineWidth:(CGFloat)lineWidth;
@@ -20,3 +22,5 @@
 +(CAShapeLayer *)layerPath:(UIBezierPath *)path;
 
 @end
+
+NS_ASSUME_NONNULL_END

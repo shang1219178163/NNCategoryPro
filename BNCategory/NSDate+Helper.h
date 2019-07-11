@@ -8,6 +8,7 @@
 
 #import <Foundation/Foundation.h>
 
+NS_ASSUME_NONNULL_BEGIN
 
 @interface NSDate (Helper)
 
@@ -165,3 +166,5 @@
 @property (nonatomic, readonly) NSDateComponents *components;
 
 @end
+
+NS_ASSUME_NONNULL_END

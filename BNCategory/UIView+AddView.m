@@ -15,6 +15,8 @@
 #import "UIView+Helper.h"
 #import "UIImage+Helper.h"
 #import "UIImageView+Helper.h"
+#import "UITextView+Helper.h"
+
 #import "CAGradientLayer+Helper.h"
 
 #import <SDWebImage/UIImageView+WebCache.h>
@@ -83,68 +85,37 @@
     
 }
 
--(void)addLineRect:(CGRect)rect isDash:(BOOL)isDash tag:(NSInteger)tag inView:(UIView *)inView{
+-(void)addLineRect:(CGRect)rect isDash:(BOOL)isDash inView:(UIView *)inView{
     if (!isDash) {
-        if (![inView viewWithTag:tag]) {
-            UIView * lineView = [[UIView alloc]initWithFrame:rect];
-            //            lineView.backgroundColor = [Utilities colorWithHexString:@"#d2d2d2"];
-            lineView.backgroundColor = UIColor.lineColor;
-            
-            [inView addSubview:lineView];
-        } else {
-            UIView * linView = (UIView *)[inView viewWithTag:tag];
-            linView.frame = rect;
-        }
+        UIView * lineView = [[UIView alloc]initWithFrame:rect];
+//            lineView.backgroundColor = [Utilities colorWithHexString:@"#d2d2d2"];
+        lineView.backgroundColor = UIColor.lineColor;
+        [inView addSubview:lineView];
         
     } else {
-        if (![inView viewWithTag:tag]) {
-            UIImageView *imgView = [[UIImageView alloc]initWithFrame:rect];
-            imgView.tag = tag;
-            imgView.backgroundColor = UIColor.clearColor;
-            [inView addSubview:imgView];
-            
-            UIGraphicsBeginImageContext(imgView.frame.size);   //开始画线
-            [imgView.image drawInRect:CGRectMake(0, 0, CGRectGetWidth(imgView.frame), CGRectGetHeight(imgView.frame))];
-            CGContextSetLineCap(UIGraphicsGetCurrentContext(), kCGLineCapRound);  //设置线条终点形状
-            
-            CGFloat lengths[] = {3,1.5};
-            CGContextRef line = UIGraphicsGetCurrentContext();
-            CGContextSetStrokeColorWithColor(line, UIColor.lightGrayColor.CGColor);
-            
-            CGContextSetLineDash(line, 0, lengths, 2);  //画虚线
-            CGContextMoveToPoint(line, 0, 0);    //开始画线
-            CGContextAddLineToPoint(line, CGRectGetMaxX(imgView.frame), 0);
-            CGContextStrokePath(line);
-            
-            imgView.image = UIGraphicsGetImageFromCurrentImageContext();
-            UIGraphicsEndImageContext();
-
-        } else {
-            UIImageView * imageView = (UIImageView *)[inView viewWithTag:tag];
-            imageView.frame = rect;
-            imageView.backgroundColor = UIColor.clearColor;
-            
-            UIGraphicsBeginImageContext(imageView.frame.size);   //开始画线
-            [imageView.image drawInRect:CGRectMake(0, 0, CGRectGetWidth(imageView.frame), CGRectGetHeight(imageView.frame))];
-            CGContextSetLineCap(UIGraphicsGetCurrentContext(), kCGLineCapRound);  //设置线条终点形状
-            
-            CGFloat lengths[] = {3,1.5};
-            CGContextRef line = UIGraphicsGetCurrentContext();
-            CGContextSetStrokeColorWithColor(line, UIColor.lightGrayColor.CGColor);
-            
-            CGContextSetLineDash(line, 0, lengths, 2);  //画虚线
-            CGContextMoveToPoint(line, 0, 0);    //开始画线
-            CGContextAddLineToPoint(line, CGRectGetMaxX(imageView.frame), 0);
-            CGContextStrokePath(line);
-            
-            imageView.image = UIGraphicsGetImageFromCurrentImageContext();
-            UIGraphicsEndImageContext();
-
-        }
+        UIImageView *imgView = [[UIImageView alloc]initWithFrame:rect];
+        imgView.backgroundColor = UIColor.clearColor;
+        [inView addSubview:imgView];
+        
+        UIGraphicsBeginImageContext(imgView.frame.size);   //开始画线
+        [imgView.image drawInRect:CGRectMake(0, 0, CGRectGetWidth(imgView.frame), CGRectGetHeight(imgView.frame))];
+        CGContextSetLineCap(UIGraphicsGetCurrentContext(), kCGLineCapRound);  //设置线条终点形状
+        
+        CGFloat lengths[] = {3,1.5};
+        CGContextRef line = UIGraphicsGetCurrentContext();
+        CGContextSetStrokeColorWithColor(line, UIColor.lightGrayColor.CGColor);
+        
+        CGContextSetLineDash(line, 0, lengths, 2);  //画虚线
+        CGContextMoveToPoint(line, 0, 0);    //开始画线
+        CGContextAddLineToPoint(line, CGRectGetMaxX(imgView.frame), 0);
+        CGContextStrokePath(line);
+        
+        imgView.image = UIGraphicsGetImageFromCurrentImageContext();
+        UIGraphicsEndImageContext();
     }
 }
 
-+(UIView *)createLineRect:(CGRect)rect isDash:(BOOL)isDash hidden:(BOOL)hidden tag:(NSInteger)tag{
++(UIView *)createLineRect:(CGRect)rect isDash:(BOOL)isDash hidden:(BOOL)hidden{
     if (!isDash) {
         UIView * lineView = [[UIView alloc]initWithFrame:rect];
         lineView.backgroundColor = UIColor.lineColor;
@@ -154,7 +125,6 @@
         
         UIImageView *imgView = [[UIImageView alloc]initWithFrame:rect];
         imgView.autoresizingMask = UIViewAutoresizingFlexibleWidth|UIViewAutoresizingFlexibleHeight;
-        imgView.tag = tag;
         imgView.backgroundColor = UIColor.clearColor;
         
         UIGraphicsBeginImageContext(imgView.frame.size);   //开始画线
@@ -266,11 +236,10 @@
 /**
  [源]UIView创建
  */
-+ (__kindof UIView *)createViewRect:(CGRect)rect tag:(NSInteger)tag{
++ (__kindof UIView *)createViewRect:(CGRect)rect{
     assert([self isSubclassOfClass: UIImageView.class]);
     UIView * backgroundView = [[self alloc]initWithFrame:rect];
     backgroundView.autoresizingMask = UIViewAutoresizingFlexibleWidth|UIViewAutoresizingFlexibleHeight;
-    backgroundView.tag = tag;
     return backgroundView;
 }
 
@@ -425,12 +394,11 @@
 /**
  [源]UITextField创建
  */
-+ (__kindof UITextField *)createTextFieldRect:(CGRect)rect text:(NSString *)text{
++ (__kindof UITextField *)createTextFieldRect:(CGRect)rect{
     assert([self isSubclassOfClass: UITextField.class]);
     UITextField * textField = [[self alloc]initWithFrame:rect];
-    textField.autoresizingMask = UIViewAutoresizingFlexibleWidth|UIViewAutoresizingFlexibleHeight;
+    textField.autoresizingMask = UIViewAutoresizingFlexibleWidth | UIViewAutoresizingFlexibleHeight;
     
-    textField.text = text;
     textField.placeholder = @"请输入";
     textField.textAlignment = NSTextAlignmentLeft;
     textField.contentVerticalAlignment = UIControlContentVerticalAlignmentCenter;
@@ -444,12 +412,69 @@
     textField.autocapitalizationType = UITextAutocapitalizationTypeNone;
     textField.autocorrectionType = UITextAutocorrectionTypeNo;
     textField.clearButtonMode = UITextFieldViewModeWhileEditing;//清楚键
-    //        textField.layer.borderWidth = 1;  // 给图层添加一个有色边框
-    //        textField.layer.borderColor = [UtilityHelper colorWithHexString:@"d2d2d2"].CGColor;
+    textField.borderStyle = UITextBorderStyleRoundedRect;
+
     textField.backgroundColor = UIColor.whiteColor;
 //    textField.backgroundColor = UIColor.clearColor;
     
     return textField;
+}
+
++ (__kindof UITextField *)createTextFieldRect:(CGRect)rect placeholder:(NSString *)placeholder{
+    UITextField *textField = [self createTextFieldRect:rect];
+    textField.placeholder = placeholder;
+    return textField;
+}
+
+/**
+ [源]UITextView创建
+ */
++ (__kindof UITextView *)createTextViewRect:(CGRect)rect{
+    assert([self isSubclassOfClass: UITextView.class]);
+    
+    UITextView *textView = [[self alloc] initWithFrame:rect];
+    textView.autoresizingMask = UIViewAutoresizingFlexibleWidth | UIViewAutoresizingFlexibleHeight;
+    
+    textView.font = [UIFont systemFontOfSize:15];
+    textView.textAlignment = NSTextAlignmentLeft;
+    
+    textView.keyboardAppearance = UIKeyboardAppearanceDefault;
+    textView.keyboardType = UIReturnKeyDefault;
+    
+    textView.autocorrectionType = UITextAutocorrectionTypeNo;
+    textView.autocapitalizationType = UITextAutocapitalizationTypeNone;
+    
+    textView.layer.borderWidth = 0.5;
+    textView.layer.borderColor = UIColor.lineColor.CGColor;
+    [textView scrollRectToVisible:rect animated:YES];
+    //    textView.autoresizingMask = UIViewAutoresizingFlexibleHeight;
+    
+    //    textView.backgroundColor = UIColor.whiteColor;
+    //    textView.backgroundColor = UIColor.clearColor;
+    
+    return textView;
+}
+
++ (__kindof UITextView *)createTextViewRect:(CGRect)rect placeholder:(NSString *)placeholder{
+    UITextView *textView = [self createTextViewRect:rect];
+    textView.placeHolderTextView.text = placeholder;
+    textView.placeHolderTextView.textColor = UIColor.titleSubColor;
+    return textView;
+}
+
+/**
+ 不可编辑UITextView创建
+ */
++ (__kindof UITextView *)createTextShowRect:(CGRect)rect{
+    UITextView *textView = [self createTextViewRect:rect];
+    
+    textView.contentOffset = CGPointMake(0, 8);//textView文本显示区域距离顶部为8像素
+    textView.editable = NO;
+    textView.dataDetectorTypes = UIDataDetectorTypeAll;
+    //    textView.layer.borderWidth = 0.5;
+    //    textView.layer.borderColor = UIColor.redColor.CGColor;
+    
+    return textView;
 }
 
 /**
@@ -772,5 +797,6 @@
     UIBarButtonItem* barItem = [[UIBarButtonItem alloc] initWithTitle:obj style:style target:target action:action];
     return barItem;
 }
+
 
 @end

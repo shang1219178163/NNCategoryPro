@@ -15,6 +15,8 @@
 
 typedef void(^BlockView)(UIView * view,id item, id obj);
 
+NS_ASSUME_NONNULL_BEGIN
+
 @interface UIView (Helper)
 
 //与自动布局类库属性重名冲突,废弃
@@ -61,19 +63,19 @@ typedef void(^BlockView)(UIView * view,id item, id obj);
 - (UIView *)addCornersAll;
 
 
-- (UITapGestureRecognizer *)addGestureTap:(void(^)(UIGestureRecognizer * sender))block;
+- (UITapGestureRecognizer *)addGestureTap:(void(^)(UIGestureRecognizer *reco))block;
 
-- (UILongPressGestureRecognizer *)addGestureLongPress:(void(^)(UIGestureRecognizer * sender))block forDuration:(NSTimeInterval)minimumPressDuration;
+- (UILongPressGestureRecognizer *)addGestureLongPress:(void(^)(UIGestureRecognizer *reco))block forDuration:(NSTimeInterval)minimumPressDuration;
 
-- (UIPanGestureRecognizer *)addGesturePan:(void(^)(UIGestureRecognizer * sender))block;
+- (UIPanGestureRecognizer *)addGesturePan:(void(^)(UIGestureRecognizer *reco))block;
 
-- (UIScreenEdgePanGestureRecognizer *)addGestureEdgPan:(void(^)(UIGestureRecognizer * sender))block forEdges:(UIRectEdge)edges;
+- (UIScreenEdgePanGestureRecognizer *)addGestureEdgPan:(void(^)(UIGestureRecognizer *reco))block forEdges:(UIRectEdge)edges;
 
-- (UISwipeGestureRecognizer *)addGestureSwipe:(void(^)(UIGestureRecognizer * sender))block forDirection:(UISwipeGestureRecognizerDirection)direction;
+- (UISwipeGestureRecognizer *)addGestureSwipe:(void(^)(UIGestureRecognizer *reco))block forDirection:(UISwipeGestureRecognizerDirection)direction;
 
-- (UIPinchGestureRecognizer *)addGesturePinch:(void(^)(UIGestureRecognizer * sender))block;
+- (UIPinchGestureRecognizer *)addGesturePinch:(void(^)(UIGestureRecognizer *reco))block;
 
-- (UIRotationGestureRecognizer *)addGestureRotation:(void(^)(UIGestureRecognizer * sender))block;
+- (UIRotationGestureRecognizer *)addGestureRotation:(void(^)(UIGestureRecognizer *reco))block;
 
 - (void)addActionHandler:(void(^)(id obj, id item, NSInteger idx))handler;
 
@@ -93,17 +95,6 @@ typedef void(^BlockView)(UIView * view,id item, id obj);
  上传证件类VIew
  */
 + (UIImageView *)createCardViewRect:(CGRect)rect title:(NSString *)title image:(id)image tag:(NSInteger)tag target:(id)target aSelector:(SEL)aSelector;
-//+ (UIView *)createCardViewRect:(CGRect)rect title:(NSString *)title image:(NSString *)image tag:(NSInteger)tag;
-
-/**
- UITextField创建方法
- */
-+ (__kindof UITextField *)createTextFieldRect:(CGRect)rect;
-
-/**
- [简]UITextField创建方法
- */
-+ (__kindof UITextField *)createTextFieldRect:(CGRect)rect placeholder:(NSString *)placeholder;
 
 /**
  搜索框
@@ -114,26 +105,6 @@ typedef void(^BlockView)(UIView * view,id item, id obj);
  [简]搜索框
  */
 + (BNTextField *)createTextFieldRect:(CGRect)rect placeholder:(NSString *)placeholder leftView:(UIView *)leftView rightView:(UIView *)rightView;
-
-/**
- 带提示的textView
- */
-+ (__kindof UITextView *)createTextViewRect:(CGRect)rect text:(NSString *)text;
-
-/**
- [简]带提示的textView
- */
-+ (__kindof UITextView *)createTextViewRect:(CGRect)rect placeholder:(NSString *)placeholder;
-
-/**
- 展示性质的textView,不提供编辑
- */
-+ (__kindof UITextView *)createTextShowRect:(CGRect)rect text:(id)text;
-
-/**
- 富文本
- */
-+ (__kindof UILabel *)createRichLabRect:(CGRect)rect text:(NSString *)text textTaps:(NSArray *)textTaps;
 
 /**
  信任值展示,无点击手势
@@ -185,3 +156,5 @@ typedef void(^BlockView)(UIView * view,id item, id obj);
 //+ (id)getStarViewRect:(CGRect)rect rateStyle:(NSString *)rateStyle currentScore:(CGFloat)currentScore;
 
 @end
+
+NS_ASSUME_NONNULL_END

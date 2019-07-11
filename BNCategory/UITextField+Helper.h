@@ -11,6 +11,8 @@
 /// NSUserDefault 存储Key
 FOUNDATION_EXPORT NSString * const kDeafult_textFieldHistory ;
 
+NS_ASSUME_NONNULL_BEGIN
+
 @interface UITextField (Helper)
 
 @property (nonatomic, assign) NSInteger maxLength;//if <=0, no limit
@@ -36,3 +38,5 @@ FOUNDATION_EXPORT NSString * const kDeafult_textFieldHistory ;
 - (void)clearHistory;
 
 @end
+
+NS_ASSUME_NONNULL_END

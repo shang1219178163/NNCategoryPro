@@ -318,13 +318,11 @@ static NSDictionary *_phoneTypeDic = nil;
     }
     else{
         NSString *tips = [urlStr stringByAppendingString:@"打开失败"];
-        [UIApplication.rootController showAlertTitle:tips msg:tips];
+        [UIApplication.rootController showAlertTitle:tips msg:nil actionTitles:nil handler:nil];
         
     }
     return isOpenUrl;
-    
 }
-
 
 
 @end

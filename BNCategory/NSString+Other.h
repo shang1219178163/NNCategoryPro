@@ -10,6 +10,8 @@
 
 #define kPwdKey_AES           @"mbqh1Gtpj9L8pJuv"
 
+NS_ASSUME_NONNULL_BEGIN
+
 @interface NSString (Other)
 
 - (BOOL)isValidMobileNumber;
@@ -78,5 +80,6 @@
 - (NSString *)AES128DecryptKey:(NSString *)key encodeType:(NSString *)encodeType;
 
 
-
 @end
+
+NS_ASSUME_NONNULL_END

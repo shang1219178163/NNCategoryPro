@@ -25,8 +25,12 @@ FOUNDATION_EXPORT NSString * const kCATransitionCameraIrisHollowOpen ;
 /// 相机镜头关闭效果
 FOUNDATION_EXPORT NSString * const kCATransitionCameraIrisHollowClose ;
 
+NS_ASSUME_NONNULL_BEGIN
+
 @interface CATransition (Helper)
 
 + (CATransition *)animDuration:(CGFloat)duration functionName:(CAMediaTimingFunctionName)name type:(NSString *)type subType:(CATransitionSubtype)subTyp;
 
 @end
+
+NS_ASSUME_NONNULL_END

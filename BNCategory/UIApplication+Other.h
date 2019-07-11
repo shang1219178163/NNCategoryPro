@@ -33,6 +33,8 @@ typedef NS_ENUM(NSUInteger,PrivacyStatus) {
     PrivacyStatusUnkonwn,
 };
 
+NS_ASSUME_NONNULL_BEGIN
+
 @interface UIApplication (Other)
 
 @property (class, nonatomic, readonly) NSDictionary * dictPrivacy;
@@ -70,6 +72,7 @@ typedef NS_ENUM(NSUInteger,PrivacyStatus) {
 
 @end
 
+NS_ASSUME_NONNULL_END
 
 @interface BNShareModel : NSObject
 

@@ -21,8 +21,6 @@ NSString * const kAlertActionColor = @"titleTextColor";
 
 + (instancetype)createAlertTitle:(NSString * _Nullable)title msg:(NSString *_Nullable)msg placeholders:(NSArray *_Nullable)placeholders actionTitles:(NSArray *_Nullable)actionTitles handler:(void(^)(UIAlertController * _Nonnull alertVC, UIAlertAction * _Nonnull action))handler{
     
-    UIWindow * keyWindow = UIApplication.sharedApplication.delegate.window;
-    
     UIAlertController * alertController = [UIAlertController alertControllerWithTitle:title message:msg preferredStyle:UIAlertControllerStyleAlert];
     for (NSString * placeholder in placeholders) {
         [alertController addTextFieldWithConfigurationHandler:^(UITextField * _Nonnull textField) {
@@ -47,7 +45,8 @@ NSString * const kAlertActionColor = @"titleTextColor";
         }]];
     }
     
-    [keyWindow.rootViewController presentViewController:alertController animated:YES completion:nil];
+//    UIWindow * keyWindow = UIApplication.sharedApplication.delegate.window;
+//    [keyWindow.rootViewController presentViewController:alertController animated:YES completion:nil];
     return alertController;
 }
 
@@ -62,8 +61,10 @@ NSString * const kAlertActionColor = @"titleTextColor";
             });
             
         }];
+    } else {
+        [keyWindow.rootViewController presentViewController:alertController animated:YES completion:nil];
+        
     }
-    [keyWindow.rootViewController presentViewController:alertController animated:YES completion:nil];
     return alertController;
 }
 
@@ -99,14 +100,14 @@ NSString * const kAlertActionColor = @"titleTextColor";
 /**
  展示alert,然后执行异步block代码,然后主线程dismiss
  */
-+ (instancetype)showAletTitle:(NSString *_Nullable)title msg:(NSString *_Nullable)msg block:(void(^)(void))block{
++ (instancetype)showAletTitle:(NSString *_Nullable)title msg:(NSString *_Nullable)msg handler:(void(^)(void))handler{
     UIWindow * keyWindow = UIApplication.sharedApplication.delegate.window;
     //UIApplication.sharedApplication.keyWindow.rootViewController
     UIAlertController * alertController = [UIAlertController alertControllerWithTitle:title message:msg preferredStyle:UIAlertControllerStyleAlert];
     [keyWindow.rootViewController presentViewController:alertController animated:false completion:nil];
     
     dispatch_async(dispatch_get_global_queue(0, 0), ^{
-        block();
+        handler();
         dispatch_async(dispatch_get_main_queue(), ^{
             [alertController dismissViewControllerAnimated:true completion:nil];
             

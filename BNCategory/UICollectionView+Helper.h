@@ -11,6 +11,8 @@
 /// UICollectionElementKindSectionItem
 FOUNDATION_EXPORT NSString * const UICollectionElementKindSectionItem ;
 
+NS_ASSUME_NONNULL_BEGIN
+
 @interface UICollectionView (Helper)
 
 @property (nonatomic, strong, class) UICollectionViewLayout * layoutDefault;
@@ -43,3 +45,5 @@ FOUNDATION_EXPORT NSString * const UICollectionElementKindSectionItem ;
 - (UICollectionViewFlowLayout *)createItemHeight:(CGFloat)itemHeight spacing:(CGFloat)spacing headerHeight:(CGFloat)headerHeight footerHeight:(CGFloat)footerHeight;
 
 @end
+
+NS_ASSUME_NONNULL_END

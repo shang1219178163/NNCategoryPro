@@ -8,6 +8,8 @@
 
 #import <Foundation/Foundation.h>
 
+NS_ASSUME_NONNULL_BEGIN
+
 @interface NSDictionary (Helper)
 
 /// id类型转字典
@@ -61,3 +63,5 @@ FOUNDATION_EXPORT NSMutableDictionary *DicFromPlist(NSString *plistName);
 
 
 @end
+
+NS_ASSUME_NONNULL_END

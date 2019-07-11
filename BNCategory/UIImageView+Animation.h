@@ -8,9 +8,12 @@
 
 #import <UIKit/UIKit.h>
 
+NS_ASSUME_NONNULL_BEGIN
+
 @interface UIImageView (Animation)
 
 - (void)addAnimWithImageArr:(NSArray *)imageArr;
 
 @end
 
+NS_ASSUME_NONNULL_END

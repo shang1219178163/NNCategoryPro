@@ -8,6 +8,8 @@
 
 #import <QuartzCore/QuartzCore.h>
 
+NS_ASSUME_NONNULL_BEGIN
+
 @interface CAKeyframeAnimation (Helper)
 
 /**
@@ -24,5 +26,6 @@
 
 +(CAKeyframeAnimation *)animValues:(NSArray<NSValue *>*)values duration:(CFTimeInterval)duration autoreverses:(BOOL)autoreverses repeatCount:(float)repeatCount;
 
-
 @end
+
+NS_ASSUME_NONNULL_END

@@ -17,7 +17,9 @@ NSLog(@"/n%@",[@[temp1, temp2] valueForKeyPath:@"@distinctUnionOfArrays.self"]);
 NSLog(@"/n%@",[@[temp1, temp2] valueForKeyPath:@"@unionOfArrays.self"]);
 输出两个数组:( 5, 1, 2, 3, 4 ), ( 3, 2, 2, 1, 3, 4, 5 )。
 */
- 
+
+NS_ASSUME_NONNULL_BEGIN
+
 @interface NSArray (Helper)
 
 + (NSArray *)arrayWithItem:(id)item count:(NSInteger)count;
@@ -40,7 +42,6 @@ NSLog(@"/n%@",[@[temp1, temp2] valueForKeyPath:@"@unionOfArrays.self"]);
 
 - (NSArray *)BNfilterListByQueryContain:(NSString *)query;
 
-
 - (id)BNfilterModelByKey:(NSString *)key value:(id)value;
 
 - (id)BNresultBykeyPath:(NSString *)key valuePath:(NSString *)value isImg:(BOOL)isImg;
@@ -52,3 +53,5 @@ NSLog(@"/n%@",[@[temp1, temp2] valueForKeyPath:@"@unionOfArrays.self"]);
 - (NSArray *)arrayWithObjOffset:(NSInteger)offSet;
 
 @end
+
+NS_ASSUME_NONNULL_END

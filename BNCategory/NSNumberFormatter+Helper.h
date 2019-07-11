@@ -26,6 +26,8 @@ FOUNDATION_EXPORT NSString * const kNumIdentify_exponentSymbol ;
 /// #,##0.00
 FOUNDATION_EXPORT NSString * const kNumFormat;
 
+NS_ASSUME_NONNULL_BEGIN
+
 @interface NSNumberFormatter (Helper)
 
 + (NSNumberFormatter *)numberIdentify:(NSString *)identify;
@@ -34,5 +36,6 @@ FOUNDATION_EXPORT NSString * const kNumFormat;
 
 + (NSString *)numberStyle:(NSNumberFormatterStyle)nstyle number:(id)number;
 
-
 @end
+
+NS_ASSUME_NONNULL_END

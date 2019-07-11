@@ -8,6 +8,8 @@
 
 #import <UIKit/UIKit.h>
 
+NS_ASSUME_NONNULL_BEGIN
+
 @interface UIScreen (Helper)
 
 @property (class, nonatomic, assign, readonly) CGFloat statusBarHeight;
@@ -23,3 +25,4 @@
 
 @end
 
+NS_ASSUME_NONNULL_END

@@ -8,6 +8,7 @@
 
 #import <UIKit/UIKit.h>
 //#import "NSObject+Helper.h"//优点全部子类使用;使用性能较差需要一级级去查找
+NS_ASSUME_NONNULL_BEGIN
 
 @interface UIButton (Helper)
 
@@ -49,3 +50,4 @@
 
 @end
 
+NS_ASSUME_NONNULL_END

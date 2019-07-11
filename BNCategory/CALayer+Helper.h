@@ -9,6 +9,8 @@
 #import <QuartzCore/QuartzCore.h>
 #import <UIKit/UIKit.h>
 
+NS_ASSUME_NONNULL_BEGIN
+
 @interface CALayer (Helper)
 
 - (void)getLayer;
@@ -29,9 +31,10 @@
 
 - (void)addAnimationRotation;
 
-
 - (CAShapeLayer *)addAnimMask:(NSString *)animKey;
 - (CAShapeLayer *)addAnimPackup:(NSString *)animKey;
 - (CAShapeLayer *)addAnimLoading:(NSString *)animKey duration:(CFTimeInterval)duration;
 
 @end
+
+NS_ASSUME_NONNULL_END

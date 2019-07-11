@@ -47,49 +47,40 @@ UINavigationController * UINavCtrFromObj(id obj){
     self.edgesForExtendedLayout = UIRectEdgeNone;
     self.view.backgroundColor = UIColor.whiteColor;
     self.title = self.controllerName;
-    
 }
 
 #pragma make - - 给控制器添加额外属性
 
 -(UIViewController *)frontVC{
     return objc_getAssociatedObject(self, _cmd);
-
 }
 
 -(void)setFrontVC:(UIViewController *)frontVC{
     objc_setAssociatedObject(self, @selector(frontVC), frontVC, OBJC_ASSOCIATION_RETAIN_NONATOMIC);
-    
 }
 
 -(id)obj{
     return objc_getAssociatedObject(self, _cmd);
-
 }
 
 -(void)setObj:(id)obj{
     objc_setAssociatedObject(self, @selector(obj), obj, OBJC_ASSOCIATION_RETAIN_NONATOMIC);
-
 }
 
 -(id)objModel{
     return objc_getAssociatedObject(self, _cmd);
-
 }
 
 -(void)setObjModel:(id)objModel{
     objc_setAssociatedObject(self, @selector(objModel), objModel, OBJC_ASSOCIATION_RETAIN_NONATOMIC);
-
 }
 
 -(id)objOne{
     return objc_getAssociatedObject(self, _cmd);
-    
 }
 
 -(void)setObjOne:(id)objOne{
     objc_setAssociatedObject(self, @selector(objOne), objOne, OBJC_ASSOCIATION_RETAIN_NONATOMIC);
-    
 }
 
 -(NSTimeInterval)timeInterval{
@@ -105,12 +96,10 @@ UINavigationController * UINavCtrFromObj(id obj){
 
 -(BlockAlertController)blockAlertController{
     return objc_getAssociatedObject(self, _cmd);
-    
 }
 
 -(void)setBlockAlertController:(BlockAlertController)blockAlertController{
     objc_setAssociatedObject(self, @selector(blockAlertController), blockAlertController, OBJC_ASSOCIATION_COPY_NONATOMIC);
-    
 }
 
 #pragma make - -网络请求失败加载图
@@ -119,7 +108,6 @@ UINavigationController * UINavCtrFromObj(id obj){
     UIView * view = [self refreshViewWithTitle:title type:@0 inView:self.view];
     [self.view addSubview:view];
     [self.view bringSubviewToFront:view];
-    
 }
 
 - (void)removeFailRefreshView:(UIView *)inView{
@@ -142,11 +130,9 @@ UINavigationController * UINavCtrFromObj(id obj){
     if (viewNoData){
         viewNoData.hidden = YES;
     }
-    
 }
 
 - (void)removeFailRefreshView{
-    
     if ([self.view viewWithTag:20178015] && [self.view viewWithTag:20181019]) {
         UIView *view = [self.view viewWithTag:20178015];
         UIView *viewNoData = [self.view viewWithTag:20181019];
@@ -266,15 +252,14 @@ UINavigationController * UINavCtrFromObj(id obj){
     btn.center = view.center;
     [view addSubview:btn];
     
-    //父视图调用子视图方法参数
-    [view addActionHandler:^(id obj, id item, NSInteger idx) {
+    //父视图调用子视图方法参数    
+    [view addGestureTap:^(UIGestureRecognizer * _Nonnull reco) {
         if (btn.isHidden == 1) return ;
         
         if (NSDate.date.timeIntervalSince1970 - self.timeInterval < 1) return;
         if (self.timeInterval > 0) self.timeInterval = NSDate.date.timeIntervalSince1970;
-    
-        handler(obj, btn, btn.tag);
-
+        
+        handler(reco, btn, btn.tag);
     }];
     
     [btn addActionHandler:^(id obj, id item, NSInteger idx) {
@@ -542,6 +527,7 @@ UINavigationController * UINavCtrFromObj(id obj){
 }
 
 #pragma mark -------------alert升级方法-------------------
+
 - (void)showAlertTitle:(NSString *_Nullable)title msg:(NSString *_Nullable)msg{
     [UIAlertController createAlertTitle:title msg:msg placeholders:nil actionTitles:nil handler:nil];
 }
@@ -550,13 +536,10 @@ UINavigationController * UINavCtrFromObj(id obj){
     [UIAlertController createAlertTitle:title msg:msg placeholders:nil actionTitles:@[kActionTitle_Cancell,kActionTitle_Sure] handler:handler];
 }
 
-- (void)showAlertTitle:(NSString *_Nullable)title msg:(NSString *_Nullable)msg actionTitles:(NSArray *_Nonnull)actionTitleList handler:(void(^)(UIAlertController * _Nonnull alertVC, UIAlertAction * _Nullable action))handler{
-    [UIAlertController createAlertTitle:title msg:msg placeholders:nil actionTitles:actionTitleList handler:handler];
-
-}
-
-- (void)showAlertTitle:(NSString *_Nullable)title placeholders:(NSArray *_Nullable)placeholders msg:(NSString *)msg actionTitles:(NSArray *_Nonnull)actionTitles handler:(void(^)(UIAlertController * _Nonnull alertVC, UIAlertAction * _Nonnull action))handler{
-    [UIAlertController createAlertTitle:title msg:msg placeholders:placeholders actionTitles:actionTitles handler:handler];
+- (void)showAlertTitle:(NSString *_Nullable)title msg:(NSString *_Nullable)msg actionTitles:(NSArray *_Nullable)actionTitleList handler:(void(^)(UIAlertController * _Nonnull alertVC, UIAlertAction * _Nullable action))handler{
+    UIAlertController *alertController = [UIAlertController createAlertTitle:title msg:msg placeholders:nil actionTitles:actionTitleList handler:handler];
+    UIWindow * keyWindow = UIApplication.sharedApplication.delegate.window;
+    [keyWindow.rootViewController presentViewController:alertController animated:YES completion:nil];
 }
 
 - (void)callPhone:(NSString *)phoneNumber{

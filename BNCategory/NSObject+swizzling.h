@@ -12,8 +12,9 @@
 */
 
 #import <Foundation/Foundation.h>
-
 #import <objc/runtime.h>
+
+NS_ASSUME_NONNULL_BEGIN
 
 @interface NSObject (swizzling)
 
@@ -72,5 +73,6 @@ FOUNDATION_EXPORT BOOL SwizzleMethodClass(id clz, SEL origSelector, SEL replSele
  */
 - (BOOL)isMethodOverride:(id)clz selector:(SEL)sel;
 
-
 @end
+
+NS_ASSUME_NONNULL_END

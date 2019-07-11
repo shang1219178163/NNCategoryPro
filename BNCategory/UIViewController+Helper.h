@@ -19,6 +19,8 @@
 
 typedef void(^BlockAlertController)(UIAlertController * _Nonnull alertController, UIAlertAction * _Nullable action);
 
+NS_ASSUME_NONNULL_BEGIN
+
 @interface UIViewController (Helper)
 
 /// 字符串->UIViewController
@@ -94,8 +96,9 @@ FOUNDATION_EXPORT UINavigationController * _Nullable UINavCtrFromObj(id _Nonnull
 
 - (UIViewController *)addChildControllerView:(NSString *)className;
 
+
 /**
- 系统弹窗__按钮默认(知道了)
+ 系统弹窗__无按钮 toast
  */
 - (void)showAlertTitle:(NSString *_Nullable)title msg:(NSString *_Nullable)msg;
 
@@ -107,13 +110,7 @@ FOUNDATION_EXPORT UINavigationController * _Nullable UINavCtrFromObj(id _Nonnull
 /**
  系统弹窗__按钮自定义(actionTitleList传入按钮标题)
  */
-- (void)showAlertTitle:(nullable NSString *)title msg:(nullable NSString *)msg actionTitles:(NSArray *_Nonnull)actionTitles handler:(void(^_Nullable)(UIAlertController * _Nonnull alertVC, UIAlertAction * _Nullable action))handler;
-
-/**
- 弹窗源方法
- placeholderList或者 msg  其中一个必须为nil
- */
-- (void)showAlertTitle:(NSString *_Nullable)title placeholders:(NSArray *_Nullable)placeholders msg:(NSString *)msg actionTitles:(NSArray *_Nonnull)actionTitles handler:(void(^)(UIAlertController * _Nonnull alertVC, UIAlertAction * _Nonnull action))handler;
+- (void)showAlertTitle:(nullable NSString *)title msg:(nullable NSString *)msg actionTitles:(NSArray *_Nullable)actionTitles handler:(void(^_Nullable)(UIAlertController * _Nonnull alertVC, UIAlertAction * _Nullable action))handler;
 
 //app星际评价,自定义app链接
 - (void)dispalyAppEvalutionStarLevelAppID:(NSString *_Nonnull)appID;
@@ -126,3 +123,5 @@ FOUNDATION_EXPORT UINavigationController * _Nullable UINavCtrFromObj(id _Nonnull
 - (UIButton *)createBackItem:(UIImage *)image tintColor:(UIColor *)tintColor;
 
 @end
+
+NS_ASSUME_NONNULL_END

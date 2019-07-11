@@ -7,6 +7,8 @@
 
 #import <WebKit/WebKit.h>
 
+NS_ASSUME_NONNULL_BEGIN
+
 @interface WKWebView (Helper)
 
 @property (class, nonatomic, nonnull) WKWebViewConfiguration *confiDefault;
@@ -17,4 +19,4 @@
 
 @end
 
-
+NS_ASSUME_NONNULL_END

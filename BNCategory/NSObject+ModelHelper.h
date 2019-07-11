@@ -9,6 +9,8 @@
 #import <Foundation/Foundation.h>
 #import <UIKit/UIKit.h>
 
+NS_ASSUME_NONNULL_BEGIN
+
 @interface NSObject (ModelHelper)
 
 -(id)convertFromDict:(NSDictionary *)dict key:(NSString *)key;
@@ -22,5 +24,6 @@
 
 //- (NSMutableArray *)dataByList:(NSArray *)modelList propertyList:(NSArray *)propertyList isNumValue:(BOOL)isNumValue;
 
-
 @end
+
+NS_ASSUME_NONNULL_END

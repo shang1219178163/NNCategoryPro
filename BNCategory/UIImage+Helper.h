@@ -8,6 +8,8 @@
 
 #import <UIKit/UIKit.h>
 
+NS_ASSUME_NONNULL_BEGIN
+
 @interface UIImage (Helper)
 
 @property (nonatomic, strong, readonly) NSString *contentType;
@@ -104,3 +106,5 @@ FOUNDATION_EXPORT bool UIImageEquelToImage(UIImage *image0, UIImage *image1);
 - (id)compressToByte:(NSUInteger)maxLength type:(NSNumber *)type;
 
 @end
+
+NS_ASSUME_NONNULL_END

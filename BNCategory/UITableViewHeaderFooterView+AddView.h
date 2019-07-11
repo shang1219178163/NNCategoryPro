@@ -11,6 +11,8 @@
 #import "NSObject+Helper.h"
 #import "UIView+Helper.h"
 
+NS_ASSUME_NONNULL_BEGIN
+
 @interface UITableViewHeaderFooterView (AddView)
 
 @property (nonatomic, strong) UIImageView * viewIndicator;
@@ -46,3 +48,5 @@
 @property (nonatomic, assign) BOOL isOpen;
 
 @end
+
+NS_ASSUME_NONNULL_END

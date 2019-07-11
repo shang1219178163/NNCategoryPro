@@ -202,7 +202,7 @@
 /**
  手势 - 单指点击
  */
-- (UITapGestureRecognizer *)addGestureTap:(void(^)(UIGestureRecognizer * sender))block{
+- (UITapGestureRecognizer *)addGestureTap:(void(^)(UIGestureRecognizer *reco))block{
     NSString *funcAbount = NSStringFromSelector(_cmd);
     NSString *runtimeKey = RuntimeKeyFromParams(self, funcAbount);
     
@@ -227,7 +227,7 @@
 /**
  手势 - 长按
  */
-- (UILongPressGestureRecognizer *)addGestureLongPress:(void(^)(UIGestureRecognizer * sender))block forDuration:(NSTimeInterval)minimumPressDuration{
+- (UILongPressGestureRecognizer *)addGestureLongPress:(void(^)(UIGestureRecognizer *reco))block forDuration:(NSTimeInterval)minimumPressDuration{
     NSString *funcAbount = [NSStringFromSelector(_cmd) stringByAppendingFormat:@",%@",@(minimumPressDuration)];
     NSString *runtimeKey = RuntimeKeyFromParams(self, funcAbount);
 
@@ -248,7 +248,7 @@
 /**
  手势 - 拖动
  */
-- (UIPanGestureRecognizer *)addGesturePan:(void(^)(UIGestureRecognizer * sender))block{
+- (UIPanGestureRecognizer *)addGesturePan:(void(^)(UIGestureRecognizer *reco))block{
     NSString *funcAbount = NSStringFromSelector(_cmd);
     NSString *runtimeKey = RuntimeKeyFromParams(self, funcAbount);
 
@@ -270,7 +270,7 @@
 /**
  手势 - 边缘拖动
  */
-- (UIScreenEdgePanGestureRecognizer *)addGestureEdgPan:(void(^)(UIGestureRecognizer * sender))block forEdges:(UIRectEdge)edges{
+- (UIScreenEdgePanGestureRecognizer *)addGestureEdgPan:(void(^)(UIGestureRecognizer *reco))block forEdges:(UIRectEdge)edges{
     NSString *funcAbount = [NSStringFromSelector(_cmd) stringByAppendingFormat:@",%@",@(edges)];
     NSString *runtimeKey = RuntimeKeyFromParams(self, funcAbount);
 
@@ -290,7 +290,7 @@
 /**
  手势 - 轻扫
  */
-- (UISwipeGestureRecognizer *)addGestureSwipe:(void(^)(UIGestureRecognizer * sender))block forDirection:(UISwipeGestureRecognizerDirection)direction{
+- (UISwipeGestureRecognizer *)addGestureSwipe:(void(^)(UIGestureRecognizer *reco))block forDirection:(UISwipeGestureRecognizerDirection)direction{
     NSString *funcAbount = [NSStringFromSelector(_cmd) stringByAppendingFormat:@",%@",@(direction)];
     NSString *runtimeKey = RuntimeKeyFromParams(self, funcAbount);
 
@@ -311,7 +311,7 @@
 /**
  手势 - 捏合
  */
-- (UIPinchGestureRecognizer *)addGesturePinch:(void(^)(UIGestureRecognizer * sender))block{
+- (UIPinchGestureRecognizer *)addGesturePinch:(void(^)(UIGestureRecognizer *reco))block{
     NSString *funcAbount = NSStringFromSelector(_cmd);
     NSString *runtimeKey = RuntimeKeyFromParams(self, funcAbount);
 
@@ -332,7 +332,7 @@
 /**
  手势 - 旋转
  */
-- (UIRotationGestureRecognizer *)addGestureRotation:(void(^)(UIGestureRecognizer * sender))block{
+- (UIRotationGestureRecognizer *)addGestureRotation:(void(^)(UIGestureRecognizer *reco))block{
     NSString *funcAbount = NSStringFromSelector(_cmd);
     NSString *runtimeKey = RuntimeKeyFromParams(self, funcAbount);
 
@@ -612,38 +612,6 @@
     return containView;
 }
 
-+ (__kindof UITextField *)createTextFieldRect:(CGRect)rect{
-    assert([self isSubclassOfClass:UITextField.class]);
-    UITextField * textField = [[self alloc]initWithFrame:rect];
-    
-//    textField.text = text;
-//    textField.placeholder = placeholder;
-    textField.font = [UIFont systemFontOfSize:15];
-    textField.textAlignment = NSTextAlignmentLeft;
-    textField.contentVerticalAlignment = UIControlContentVerticalAlignmentCenter;
-    
-    textField.keyboardAppearance = UIKeyboardAppearanceDefault;
-    textField.keyboardType = UIKeyboardTypeDefault;
-    
-    //        textField.returnKeyType = UIReturnKeyDone;
-    //        textField.clearButtonMode = UITextFieldViewModeAlways;
-    
-    textField.autocapitalizationType = UITextAutocapitalizationTypeNone;
-    textField.autocorrectionType = UITextAutocorrectionTypeNo;
-    textField.clearButtonMode = UITextFieldViewModeWhileEditing;//清楚键
-    textField.borderStyle = UITextBorderStyleRoundedRect;
-
-    textField.backgroundColor = UIColor.whiteColor;
-    //    textField.backgroundColor = UIColor.clearColor;
-    
-    return textField;
-}
-
-+ (__kindof UITextField *)createTextFieldRect:(CGRect)rect placeholder:(NSString *)placeholder{
-    UITextField *textField = [self createTextFieldRect:rect];
-    textField.placeholder = placeholder;
-    return textField;
-}
 
 + (BNTextField *)createTextFieldRect:(CGRect)rect placeholder:(NSString *)placeholder leftView:(UIView *)leftView leftPadding:(CGFloat)leftPadding rightView:(UIView *)rightView rightPadding:(CGFloat)rightPadding{
     BNTextField * textField = [BNTextField createTextFieldRect:rect];
@@ -671,82 +639,6 @@
 
 + (BNTextField *)createTextFieldRect:(CGRect)rect placeholder:(NSString *)placeholder leftView:(UIView *)leftView rightView:(UIView *)rightView{
     return [BNTextField createTextFieldRect:CGRectZero placeholder:placeholder leftView:leftView leftPadding:kPadding rightView:rightView rightPadding:kPadding];
-}
-
-+ (__kindof UITextView *)createTextViewRect:(CGRect)rect text:(NSString *)text{
-    assert([self isSubclassOfClass: UITextView.class]);
-
-    UITextView *textView = [[self alloc] initWithFrame:rect];
-    textView.autoresizingMask = UIViewAutoresizingFlexibleWidth | UIViewAutoresizingFlexibleHeight;
-
-    textView.text = text;
-    
-    textView.font = [UIFont systemFontOfSize:15];
-    textView.textAlignment = NSTextAlignmentLeft;
-    
-    textView.keyboardAppearance = UIKeyboardAppearanceDefault;
-    textView.keyboardType = UIReturnKeyDefault;
-    
-    textView.autocorrectionType = UITextAutocorrectionTypeNo;
-    textView.autocapitalizationType = UITextAutocapitalizationTypeNone;
-    
-    textView.layer.borderWidth = 0.5;
-    textView.layer.borderColor = UIColor.lineColor.CGColor;
-    [textView scrollRectToVisible:rect animated:YES];
-    //    textView.autoresizingMask = UIViewAutoresizingFlexibleHeight;
-    
-    //    textView.backgroundColor = UIColor.whiteColor;
-    //    textView.backgroundColor = UIColor.clearColor;
-    
-    return textView;
-}
-
-+ (__kindof UITextView *)createTextViewRect:(CGRect)rect placeholder:(NSString *)placeholder{
-    UITextView *textView = [self createTextViewRect:rect text:@""];
-    textView.placeHolderTextView.text = placeholder;
-    textView.placeHolderTextView.textColor = UIColor.titleSubColor;
-    return textView;
-}
-
-+ (__kindof UITextView *)createTextShowRect:(CGRect)rect text:(id)text{
-    assert([text isKindOfClass: NSString.class] || [text isKindOfClass: NSAttributedString.class]);
-    UITextView *textView = [self createTextViewRect:rect text:@""];
-
-    if ([text isKindOfClass:[NSString class]]) {
-        textView.text = text;
-        
-    }
-    else if([text isKindOfClass:[NSAttributedString class]]){
-        textView.attributedText = text;
-    }
-    
-    textView.contentOffset = CGPointMake(0, 8);//textView文本显示区域距离顶部为8像素
-    textView.editable = NO;
-    textView.dataDetectorTypes = UIDataDetectorTypeAll;
-//    textView.layer.borderWidth = 0.5;
-//    textView.layer.borderColor = UIColor.redColor.CGColor;
-    
-    return textView;
-}
-
-+ (__kindof UILabel *)createRichLabRect:(CGRect)rect text:(NSString *)text textTaps:(NSArray *)textTaps{
-    assert([self isSubclassOfClass: UILabel.class]);
-
-    NSMutableAttributedString *attString = [[NSMutableAttributedString alloc]initWithString:text];
-    for (NSString *textTap in textTaps) {
-        [attString addAttribute:NSFontAttributeName value:[UIFont systemFontOfSize:kFontSize14] range:NSMakeRange(0, text.length)];
-        [attString addAttribute:NSForegroundColorAttributeName value:UIColor.orangeColor range:[text rangeOfString:textTap]];
-    }
-    
-    UILabel *label = [[UILabel alloc] initWithFrame:rect];
-    label.textColor = UIColor.titleColor;
-    label.backgroundColor = [UIColor whiteColor];
-    label.numberOfLines = 1;
-    
-    label.attributedText = attString;
-    label.textAlignment = NSTextAlignmentCenter;
-//    label.enabledTapEffect = NO;
-    return label;
 }
 
 + (UIView *)createViewRect:(CGRect)rect elements:(NSArray *)elements numberOfRow:(NSInteger)numberOfRow viewHeight:(CGFloat)viewHeight padding:(CGFloat)padding{
@@ -806,7 +698,8 @@
             case 0://uibutton
             {
                 view = ({
-                    UIButton * view = [UIButton createBtnRect:itemRect title:title font:16 image:nil tag:i type:@5];
+                    UIButton * view = [UIButton createBtnRect:itemRect title:title font:16 image:nil type:@5];
+                    view.tag = i;
                     view.titleLabel.font = [UIFont systemFontOfSize:15];
                     view;
                 });

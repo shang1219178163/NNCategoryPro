@@ -15,6 +15,7 @@ FOUNDATION_EXPORT NSString * _Nonnull const kAlertCtlrMessage;
 /// UIAlertController按钮颜色key
 FOUNDATION_EXPORT NSString * _Nonnull const kAlertActionColor;
 
+NS_ASSUME_NONNULL_BEGIN
 
 @interface UIAlertController (Helper)
 
@@ -26,7 +27,7 @@ FOUNDATION_EXPORT NSString * _Nonnull const kAlertActionColor;
 
 + (instancetype)showSheetTitle:(NSString *_Nullable)title msg:(NSString *_Nullable)msg actionTitles:(NSArray *_Nullable)actionTitles handler:(void(^)(UIAlertController * _Nonnull alertVC, UIAlertAction * _Nonnull action))handler;
 
-+ (instancetype)showAletTitle:(NSString *_Nullable)title msg:(NSString *_Nullable)msg block:(void(^)(void))block;
++ (instancetype)showAletTitle:(NSString *_Nullable)title msg:(NSString *_Nullable)msg handler:(void(^)(void))handler;
 
 /// 设置标题颜色
 - (void)setTitleColor:(UIColor *_Nonnull)color;
@@ -35,3 +36,4 @@ FOUNDATION_EXPORT NSString * _Nonnull const kAlertActionColor;
 
 @end
 
+NS_ASSUME_NONNULL_END

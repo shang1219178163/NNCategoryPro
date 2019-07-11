@@ -8,6 +8,8 @@
 
 #import <Foundation/Foundation.h>
 
+NS_ASSUME_NONNULL_BEGIN
+
 @interface NSHTTPCookieStorage (Helper)
 
 + (void)saveCookie;
@@ -19,3 +21,5 @@
 + (NSString *)cookieDesWithToken:(NSString *)token tokenTimeout:(NSNumber *)tokenTimeout;
 
 @end
+
+NS_ASSUME_NONNULL_END

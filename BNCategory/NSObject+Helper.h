@@ -62,13 +62,11 @@ void dispatchApplyGlobal(id obj ,void(^block)(size_t index));
 
 /**
  模型转字典
- 
  */
 - (NSDictionary *)modelToDictionary;
 
 /**
  模型转JSON
- 
  */
 - (NSString *)modelToJSONWithError:(NSError **)error;
 

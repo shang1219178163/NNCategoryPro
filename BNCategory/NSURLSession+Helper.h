@@ -5,7 +5,7 @@
 //  Created by BIN on 2018/11/28.
 //
 
-
+#import <Foundation/Foundation.h>
 
 NS_ASSUME_NONNULL_BEGIN
 
