@@ -25,7 +25,7 @@ static WKWebViewConfiguration *_confiDefault = nil;
             confi.preferences = [[WKPreferences alloc] init];
             confi.preferences.javaScriptCanOpenWindowsAutomatically = false;
             confi.preferences.javaScriptEnabled = true;
-            confi.preferences.minimumFontSize = 17;
+//            confi.preferences.minimumFontSize = 17;
             confi;
         });
     }

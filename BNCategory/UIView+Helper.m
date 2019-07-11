@@ -677,6 +677,8 @@
     assert([self isSubclassOfClass: UITextView.class]);
 
     UITextView *textView = [[self alloc] initWithFrame:rect];
+    textView.autoresizingMask = UIViewAutoresizingFlexibleWidth | UIViewAutoresizingFlexibleHeight;
+
     textView.text = text;
     
     textView.font = [UIFont systemFontOfSize:15];
@@ -709,7 +711,6 @@
 + (__kindof UITextView *)createTextShowRect:(CGRect)rect text:(id)text{
     assert([text isKindOfClass: NSString.class] || [text isKindOfClass: NSAttributedString.class]);
     UITextView *textView = [self createTextViewRect:rect text:@""];
-    textView.autoresizingMask = UIViewAutoresizingFlexibleWidth | UIViewAutoresizingFlexibleHeight;
 
     if ([text isKindOfClass:[NSString class]]) {
         textView.text = text;
@@ -859,7 +860,7 @@
 //        
 //        NSString * title = array[i];
 //        NSString * starString = @"*";
-//        model.title = [self getAttringByPrefix:starString content:title isMust:model.isMust];
+//        model.title = [NSAttributedString getAttringByPrefix:starString content:title isMust:model.isMust];
 ////        model.content = array[i];
 //        model.placeHolder = dict[title];
 //        

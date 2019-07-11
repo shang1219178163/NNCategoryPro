@@ -11,6 +11,8 @@
 
 #import "UIApplication+Helper.h"
 #import "UIViewController+Helper.h"
+
+#import "NSAttributedString+Helper.h"
 #import "NSDate+Helper.h"
 #import "NSDateFormatter+Helper.h"
 
@@ -452,7 +454,8 @@ NSString * NSStringFromFloat(CGFloat obj){
  */
 - (NSAttributedString *)toAsterisk{
     BOOL isMust = [self containsString:kAsterisk] ? YES : NO;
-    NSAttributedString *titleAtt = [self getAttringByPrefix:kAsterisk content:self must:@(isMust)];
+    NSAttributedString *titleAtt = [NSAttributedString getAttringByPrefix:kAsterisk content:self isMust:isMust];
+    
     return titleAtt;
 }
 
