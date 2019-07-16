@@ -23,38 +23,39 @@
 }
 
 
-- (void)pushController:(id)controller item:(UIView *)item type:(NSNumber *)type{
+- (void)pushController:(id)controller title:(NSString *)title item:(UIView *)item type:(NSNumber *)type{
     CGRect rect = [item convertRect:item.bounds toView:nil];
-    [self pushController:controller rect:rect type:type];
-    
+    [self pushController:controller title:title rect:rect type:type];
 }
 
-- (void)pushController:(id)controller rect:(CGRect)rect type:(NSNumber *)type{
+- (void)pushController:(id)controller title:(NSString *)title rect:(CGRect)rect type:(NSNumber *)type{
     if ([controller isKindOfClass:[NSString class]]) {
         controller = [NSClassFromString(controller) new];
     }
-    
+    assert([controller isKindOfClass:UIViewController.class]);
+
+    ((UIViewController *)controller).title = title;
+    ((UIViewController *)controller).hidesBottomBarWhenPushed = true;
+
     UIViewController.animation.circleCenterRect = rect;
     self.navigationController.delegate = self;
     [self.navigationController pushViewController:controller animated:YES];
-    
 }
 
-- (void)presentController:(id)controller item:(UIView *)item type:(NSNumber *)type completion:(void (^ __nullable)(void))completion{
+- (void)presentController:(id)controller title:(NSString *)title item:(UIView *)item type:(NSNumber *)type completion:(void (^ __nullable)(void))completion{
     CGRect rect = [item convertRect:item.bounds toView:nil];
-    [self presentController:controller rect:rect type:type completion:completion];
-   
+    [self presentController:controller title:title rect:rect type:type completion:completion];
 }
 
-- (void)presentController:(id)controller rect:(CGRect)rect type:(NSNumber *)type completion:(void (^ __nullable)(void))completion{
+- (void)presentController:(id)controller title:(NSString *)title rect:(CGRect)rect type:(NSNumber *)type completion:(void (^ __nullable)(void))completion{
     if ([controller isKindOfClass:[NSString class]]) {
         controller = [NSClassFromString(controller) new];
     }
-    
+    assert([controller isKindOfClass:UIViewController.class]);
+    ((UIViewController *)controller).title = title;
     UIViewController.animation.circleCenterRect = rect;
     ((UIViewController *)controller).transitioningDelegate = self;//是否调用动画
     [self presentViewController:controller animated:YES completion:completion];
-    
 }
 
 #pragma mark == 修改页面跳转效果 ==

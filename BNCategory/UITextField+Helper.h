@@ -9,9 +9,10 @@
 #import <UIKit/UIKit.h>
 
 /// NSUserDefault 存储Key
-FOUNDATION_EXPORT NSString * const kDeafult_textFieldHistory ;
 
 NS_ASSUME_NONNULL_BEGIN
+
+FOUNDATION_EXPORT NSString * const kDeafult_textFieldHistory ;
 
 @interface UITextField (Helper)
 

@@ -14,11 +14,15 @@
     return objc_getAssociatedObject(self, _cmd);
 }
 
+//- (void)setActionBlock:(void (^)(void))actionBlock{
+//    objc_setAssociatedObject(self, @selector(actionBlock), actionBlock, OBJC_ASSOCIATION_COPY_NONATOMIC);
+//}
+
 - (void)setActionBlock:(void (^)(void))actionBlock{
     if (actionBlock != self.actionBlock) {
         [self willChangeValueForKey:@"actionBlock"];
         
-        objc_setAssociatedObject(self,@selector(actionBlock),actionBlock,OBJC_ASSOCIATION_COPY);
+        objc_setAssociatedObject(self, @selector(actionBlock), actionBlock, OBJC_ASSOCIATION_COPY);
         
         // Sets up the action.
         self.target = self;

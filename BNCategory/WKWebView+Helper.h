@@ -11,7 +11,7 @@ NS_ASSUME_NONNULL_BEGIN
 
 @interface WKWebView (Helper)
 
-@property (class, nonatomic, nonnull) WKWebViewConfiguration *confiDefault;
+@property (class, nonatomic) WKWebViewConfiguration *confiDefault;
 
 + (NSString *)changTextFontRatio:(CGFloat)fontRatio;
 

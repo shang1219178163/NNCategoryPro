@@ -17,7 +17,9 @@ FOUNDATION_EXPORT NSBundle *NSBundleFromPodName(NSString *podName);
 /// 获取第三方库bundle资源
 FOUNDATION_EXPORT NSBundle *NSBundleFromName(NSString *bundleName, NSString *podName);
 
-+ (NSString *)pathBundle:(NSString *)bundleName resource:(NSString *)resource type:(NSString *)type;
++(NSBundle *)bundleWithPodName:(NSString *)podName bundleName:(NSString *)bundleName;
+/// 获取第三方库bundle资源文件路径
++ (NSString *)pathBundle:(NSString *)bundleName resource:(NSString *)resource type:(NSString *_Nullable)type;
 
 @end
 

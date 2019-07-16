@@ -50,7 +50,7 @@
  @param tapColor 特殊部分颜色
  @return 富文本字符串
  */
-+ (NSAttributedString *)getAttString:(NSString *)text textTaps:(nullable NSArray<NSString *> *)textTaps font:(CGFloat)font tapFont:(CGFloat)tapFont color:(UIColor *)color tapColor:(UIColor *)tapColor alignment:(NSTextAlignment)alignment{
++ (NSAttributedString *)getAttString:(NSString *)text textTaps:(NSArray<NSString *> *_Nullable)textTaps font:(CGFloat)font tapFont:(CGFloat)tapFont color:(UIColor *)color tapColor:(UIColor *)tapColor alignment:(NSTextAlignment)alignment{
     
     // 设置段落
     NSDictionary *paraDict = [NSAttributedString paraDictWithFont:font textColor:color alignment:alignment];

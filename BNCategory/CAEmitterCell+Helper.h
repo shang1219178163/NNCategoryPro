@@ -12,7 +12,7 @@ NS_ASSUME_NONNULL_BEGIN
 
 @interface CAEmitterCell (Helper)
 
-+(CAEmitterCell *)cellWithContents:(id)contents emitterCells:(nullable NSArray *)emitterCells type:(NSNumber *)type;
++(CAEmitterCell *)cellWithContents:(id)contents emitterCells:(NSArray *_Nullable)emitterCells type:(NSNumber *)type;
 
 @end
 

@@ -17,20 +17,21 @@
 
 @end
 
-typedef void(^BlockAlertController)(UIAlertController * _Nonnull alertController, UIAlertAction * _Nullable action);
-
 NS_ASSUME_NONNULL_BEGIN
+
+typedef void(^BlockAlertController)(UIAlertController *alertController, UIAlertAction *_Nullable action);
+
 
 @interface UIViewController (Helper)
 
 /// 字符串->UIViewController
-FOUNDATION_EXPORT UIViewController * _Nullable UICtrFromString(NSString * _Nonnull obj);
+FOUNDATION_EXPORT UIViewController * _Nullable UICtrFromString(NSString *obj);
 /// 字符串->UINavigationController
-FOUNDATION_EXPORT UINavigationController * _Nullable UINavCtrFromObj(id _Nonnull obj);
+FOUNDATION_EXPORT UINavigationController * _Nullable UINavCtrFromObj(id obj);
 
 - (BOOL)isCurrentVisibleViewController;
 
-- (void)addFailRefreshViewWithTitle:(NSString *_Nonnull)title;
+- (void)addFailRefreshViewWithTitle:(NSString *)title;
 
 - (void)addNoDataRefreshViewWithTitle:(NSString *_Nullable)title;
 - (void)addNoDataRefreshViewWithTitle:(NSString *_Nullable)title inView:(UIView *_Nullable)inView;
@@ -48,13 +49,12 @@ FOUNDATION_EXPORT UINavigationController * _Nullable UINavCtrFromObj(id _Nonnull
 
 @property (nonatomic, strong) id obj;
 @property (nonatomic, strong) id objOne;
-@property (nonatomic, strong) id _Nonnull objModel;
+@property (nonatomic, strong) id objModel;
 
 @property (nonatomic, assign) NSTimeInterval timeInterval;
 @property (nonatomic, strong, readonly) NSString * _Nullable controllerName;
 
 - (void)configureDefault;
-
 
 /**
   导航栏按钮
@@ -63,36 +63,36 @@ FOUNDATION_EXPORT UINavigationController * _Nullable UINavCtrFromObj(id _Nonnull
 
 - (UIView *)createBarItem:(NSString *)obj isLeft:(BOOL)isLeft handler:(void(^)(id obj, UIView *item, NSInteger idx))handler;
 
-- (UITableViewCell *_Nonnull)cellByClickView:(UIView *_Nonnull)view;
+- (UITableViewCell *)cellByClickView:(UIView *)view;
 
-- (NSIndexPath *_Nonnull)indexPathByClickView:(UIView *_Nonnull)view tableView:(UITableView *_Nonnull)tableView;
+- (NSIndexPath *)indexPathByClickView:(UIView *)view tableView:(UITableView *)tableView;
 
 /**
  找导航控制器栈中控制器
  */
-- (id _Nullable )findController:(NSString *_Nonnull)contollerName navController:(UINavigationController *_Nonnull)navController;
+- (id _Nullable )findController:(NSString *)contollerName navController:(UINavigationController *)navController;
 
 /**
  (推荐)跳转到contollerName控制器中去,先在navController栈中查找有就返回没有就创建一个(用于无参数跳转界面)
  
  */
-- (void)goController:(NSString *_Nonnull)contollerName title:(NSString *_Nullable)title;
-- (void)goController:(NSString *_Nonnull)contollerName title:(NSString *_Nullable)title obj:(id _Nullable)obj;
-- (void)goController:(NSString *_Nonnull)contollerName title:(NSString *_Nullable)title obj:(id _Nullable)obj objOne:(id _Nullable)objOne;
+- (void)goController:(NSString *)contollerName title:(NSString *_Nullable)title;
+- (void)goController:(NSString *)contollerName title:(NSString *_Nullable)title obj:(id _Nullable)obj;
+- (void)goController:(NSString *)contollerName title:(NSString *_Nullable)title obj:(id _Nullable)obj objOne:(id _Nullable)objOne;
 
-- (void)presentController:(NSString *_Nonnull)contollerName title:(NSString *_Nullable)title;
-- (void)presentController:(NSString *_Nonnull)contollerName title:(NSString *_Nullable)title animated:(BOOL)animated;
+- (void)presentController:(NSString *)contollerName title:(NSString *_Nullable)title;
+- (void)presentController:(NSString *)contollerName title:(NSString *_Nullable)title animated:(BOOL)animated;
 
-- (void)presentController:(NSString *_Nonnull)contollerName title:(NSString *_Nullable)title obj:(id _Nullable)obj;
-- (void)presentController:(NSString *_Nonnull)contollerName title:(NSString *_Nullable)title obj:(id _Nullable)obj objOne:(id _Nullable)objOne;
-- (void)presentController:(NSString *_Nonnull)contollerName title:(NSString * _Nullable)title obj:(id _Nullable)obj objOne:(id _Nullable)objOne animated:(BOOL)animated;
+- (void)presentController:(NSString *)contollerName title:(NSString *_Nullable)title obj:(id _Nullable)obj;
+- (void)presentController:(NSString *)contollerName title:(NSString *_Nullable)title obj:(id _Nullable)obj objOne:(id _Nullable)objOne;
+- (void)presentController:(NSString *)contollerName title:(NSString * _Nullable)title obj:(id _Nullable)obj objOne:(id _Nullable)objOne animated:(BOOL)animated;
 
 /**
  堆栈中查找控制器,找到返回,没有创建
  */
-- (UIViewController *_Nonnull)getController:(NSString *_Nonnull)contollerName navController:(UINavigationController *_Nullable)navController;
+- (UIViewController *)getController:(NSString *)contollerName navController:(UINavigationController *_Nullable)navController;
 
-- (UIViewController *_Nullable)getController:(NSString *_Nonnull)contollerName;
+- (UIViewController *_Nullable)getController:(NSString *)contollerName;
 
 - (UIViewController *)addChildControllerView:(NSString *)className;
 
@@ -105,17 +105,17 @@ FOUNDATION_EXPORT UINavigationController * _Nullable UINavCtrFromObj(id _Nonnull
 /**
  系统弹窗__按钮默认(取消,确认)
  */
-- (void)showAlertTitle:(NSString *_Nullable)title msg:(NSString *_Nullable)msg handler:(void(^)(UIAlertController * _Nonnull alertVC, UIAlertAction * _Nullable action))handler;
+- (void)showAlertTitle:(NSString *_Nullable)title msg:(NSString *_Nullable)msg handler:(void(^)(UIAlertController *alertVC, UIAlertAction * _Nullable action))handler;
 
 /**
  系统弹窗__按钮自定义(actionTitleList传入按钮标题)
  */
-- (void)showAlertTitle:(nullable NSString *)title msg:(nullable NSString *)msg actionTitles:(NSArray *_Nullable)actionTitles handler:(void(^_Nullable)(UIAlertController * _Nonnull alertVC, UIAlertAction * _Nullable action))handler;
+- (void)showAlertTitle:(NSString *_Nullable)title msg:(NSString *_Nullable)msg actionTitles:(NSArray *_Nullable)actionTitles handler:(void(^_Nullable)(UIAlertController *alertVC, UIAlertAction *_Nullable action))handler;
 
 //app星际评价,自定义app链接
-- (void)dispalyAppEvalutionStarLevelAppID:(NSString *_Nonnull)appID;
+- (void)dispalyAppEvalutionStarLevelAppID:(NSString *)appID;
 
-- (void)callPhone:(NSString *_Nonnull)phoneNumber;
+- (void)callPhone:(NSString *)phoneNumber;
 
 - (void)setupNavigationBarBackgroundImage:(UIImage *)image;
 

@@ -25,6 +25,8 @@ FOUNDATION_EXPORT UIImage * UIImageFromName(NSString *obj, UIImageRenderingMode 
 FOUNDATION_EXPORT UIImage * UIImageObj(id obj);
 /// UIImage是否相等
 FOUNDATION_EXPORT bool UIImageEquelToImage(UIImage *image0, UIImage *image1);
+/// 获取第三方库bundle中图像资源
++ (UIImage *)imageNamed:(NSString *)imgName podName:(NSString *)podName;
 
 /// 通过图片Data数据第一个字节 来获取图片扩展名
 + (NSString *)contentTypeForImageData:(NSData *)data;

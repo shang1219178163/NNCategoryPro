@@ -19,12 +19,12 @@ NSString * const kHTTPMethodDELETE = @"DELETE";
     return request;
 }
 
-+(instancetype)requestPostURL:(NSString *)url body:(nullable NSData *)body{
++(instancetype)requestPostURL:(NSString *)url body:(NSData *_Nullable)body{
     NSMutableURLRequest *request = [NSMutableURLRequest requestURL:url method:kHTTPMethodPOST body:body cachePolicy:NSURLRequestReloadIgnoringCacheData timeoutInterval:6];
     return request;
 }
 
-+(instancetype)requestURL:(NSString *)url method:(NSString *)method body:(nullable NSData *)body cachePolicy:(NSURLRequestCachePolicy)cachePolicy timeoutInterval:(NSTimeInterval)timeoutInterval{
++(instancetype)requestURL:(NSString *)url method:(NSString *)method body:(NSData *_Nullable)body cachePolicy:(NSURLRequestCachePolicy)cachePolicy timeoutInterval:(NSTimeInterval)timeoutInterval{
     NSMutableURLRequest *request = [NSMutableURLRequest requestWithURL:[NSURL URLWithString:url] cachePolicy:cachePolicy timeoutInterval:timeoutInterval];
     request.HTTPMethod = method;
     request.HTTPBody = body;

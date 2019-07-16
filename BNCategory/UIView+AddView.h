@@ -83,9 +83,9 @@ NS_ASSUME_NONNULL_BEGIN
 
 + (__kindof UITextField *)createTextFieldRect:(CGRect)rect text:(NSString *)text;
 
-+ (__kindof UIButton *)createBtnRect:(CGRect)rect title:(NSString *)title font:(CGFloat)font image:(NSString *)image type:(NSNumber *)type;
++ (__kindof UIButton *)createBtnRect:(CGRect)rect title:(NSString *)title font:(CGFloat)font image:(NSString *_Nullable)image type:(NSNumber *)type;
 
-+ (__kindof UIButton *)createBtnRect:(CGRect)rect title:(NSString *)title image:(NSString *)image type:(NSNumber *)type;
++ (__kindof UIButton *)createBtnRect:(CGRect)rect title:(NSString *)title image:(NSString *_Nullable)image type:(NSNumber *)type;
     
 + (UIView *)createBtnViewRect:(CGRect)rect imgName:(NSString *)imgName imgHeight:(CGFloat)imgHeight title:(NSString *)title titleColor:(UIColor *)titleColor type:(NSNumber *)type;
 
@@ -104,11 +104,11 @@ NS_ASSUME_NONNULL_BEGIN
  */
 + (__kindof UISwitch *)createSwitchRect:(CGRect)rect isOn:(BOOL)isOn;
 
-+ (__kindof UITabBarItem *)createTabBarItem:(nullable NSString *)title image:(nullable NSString *)image selectedImage:(nullable NSString *)selectedImage;
++ (__kindof UITabBarItem *)createTabBarItem:(NSString *_Nullable)title image:(NSString *_Nullable)image selectedImage:(NSString *_Nullable)selectedImage;
 
-+ (__kindof UIBarButtonItem *_Nonnull)createBarItem:(NSString *_Nonnull)obj style:(UIBarButtonItemStyle)style;
++ (__kindof UIBarButtonItem *)createBarItem:(NSString *)obj style:(UIBarButtonItemStyle)style;
 
-+ (__kindof UIBarButtonItem *)createBarItem:(NSString *_Nonnull)obj style:(UIBarButtonItemStyle)style target:(nullable id)target action:(nullable SEL)action;
++ (__kindof UIBarButtonItem *)createBarItem:(NSString *)obj style:(UIBarButtonItemStyle)style target:(id _Nullable)target action:(SEL _Nullable)action;
 
 @end
 

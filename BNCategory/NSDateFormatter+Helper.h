@@ -13,6 +13,7 @@
 
 #import <Foundation/Foundation.h>
 
+NS_ASSUME_NONNULL_BEGIN
 /// 1s
 FOUNDATION_EXPORT const NSInteger kDate_second ;
 /// 60s
@@ -28,16 +29,16 @@ FOUNDATION_EXPORT const NSInteger kDate_year ;
 
 /// yyyy-MM-dd HH:mm:ss
 FOUNDATION_EXPORT NSString * const kFormatDate ;
+/// yyyy-MM-dd HH:mm
+FOUNDATION_EXPORT NSString * const kFormatDate_mm ;
 /// yyyy-MM-dd
-FOUNDATION_EXPORT NSString * const kFormatDate_one ;
+FOUNDATION_EXPORT NSString * const kFormatDate_dd ;
 /// yyyyMMdd
 FOUNDATION_EXPORT NSString * const kFormatDate_two ;
 /// yyyyMMddHHmmss
 FOUNDATION_EXPORT NSString * const kFormatDate_five ;
 /// EEE, dd MMM yyyy HH:mm:ss GMT
 FOUNDATION_EXPORT NSString * const kFormatDate_Six ;
-
-NS_ASSUME_NONNULL_BEGIN
 
 @interface NSDateFormatter (Helper)
 

@@ -480,7 +480,7 @@
 /**
  [源]UIButton创建
  */
-+ (__kindof UIButton *)createBtnRect:(CGRect)rect title:(NSString *)title image:(NSString *)image type:(NSNumber *)type{
++ (__kindof UIButton *)createBtnRect:(CGRect)rect title:(NSString *)title image:(NSString *_Nullable)image type:(NSNumber *)type{
     assert([self isSubclassOfClass: UIButton.class]);
     UIButton * btn = [UIButton buttonWithType:UIButtonTypeCustom];
     btn.autoresizingMask = UIViewAutoresizingFlexibleWidth|UIViewAutoresizingFlexibleHeight;
@@ -770,7 +770,7 @@
     return view;
 }
 
-+ (__kindof UITabBarItem *)createTabBarItem:(nullable NSString *)title image:(nullable NSString *)image selectedImage:(nullable NSString *)selectedImage{
++ (__kindof UITabBarItem *)createTabBarItem:(NSString *_Nullable)title image:(NSString *_Nullable)image selectedImage:(NSString *_Nullable)selectedImage{
     assert([self isSubclassOfClass: UITabBarItem.class]);
 
     UITabBarItem *tabBarItem = [[UITabBarItem alloc]initWithTitle:title image:[UIImage imageNamed:image] selectedImage:[UIImage imageNamed:selectedImage]];
@@ -787,7 +787,7 @@
 /**
  [源] 导航栏 UIBarButtonItem
  */
-+ (__kindof UIBarButtonItem *)createBarItem:(NSString *)obj style:(UIBarButtonItemStyle)style target:(id)target action:(nullable SEL)action{
++ (__kindof UIBarButtonItem *)createBarItem:(NSString *)obj style:(UIBarButtonItemStyle)style target:(id _Nullable)target action:(SEL _Nullable)action{
     assert([self isSubclassOfClass: UIBarButtonItem.class]);
 
     if ([UIImage imageNamed:obj]) {

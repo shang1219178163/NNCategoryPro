@@ -12,6 +12,7 @@
 
 #import "BNGloble.h"
 #import "UIColor+Helper.h"
+#import "NSBundle+Helper.h"
 
 @implementation UIImage (Helper)
 
@@ -65,6 +66,12 @@ bool UIImageEquelToImage(UIImage *image0, UIImage *image1){
     NSData *data0 = UIImagePNGRepresentation(image0);
     NSData *data1 = UIImagePNGRepresentation(image1);
     return  [data0 isEqualToData:data1];
+}
+
++ (UIImage *)imageNamed:(NSString *)imgName podName:(NSString *)podName{
+    NSBundle *resource_bundle = [NSBundle bundleWithPodName:podName bundleName:podName];
+    UIImage *image = [UIImage imageNamed:imgName inBundle:resource_bundle compatibleWithTraitCollection:nil];
+    return image;
 }
 
 + (NSString *)contentTypeForImageData:(NSData *)data{

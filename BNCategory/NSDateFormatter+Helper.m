@@ -17,7 +17,9 @@ const NSInteger kDate_week = 604800 ;
 const NSInteger kDate_year = 31556926;
 
 NSString * const kFormatDate = @"yyyy-MM-dd HH:mm:ss";
-NSString * const kFormatDate_one = @"yyyy-MM-dd";
+NSString * const kFormatDate_mm = @"yyyy-MM-dd HH:mm";
+NSString * const kFormatDate_dd = @"yyyy-MM-dd";
+
 NSString * const kFormatDate_two = @"yyyyMMdd";
 NSString * const kFormatDate_five = @"yyyyMMddHHmmss";
 NSString * const kFormatDate_Six = @"EEE, dd MMM yyyy HH:mm:ss 'GMT'";
@@ -118,7 +120,7 @@ NSString *TimeStampFromObj(id obj){
         
     }
     else if ([dateStr containsString:@"-"] && ![dateStr containsString:@":"]){
-        formatStr = kFormatDate_one;
+        formatStr = kFormatDate_dd;
         
     }
     else if (![dateStr containsString:@"-"] && ![dateStr containsString:@":"]){

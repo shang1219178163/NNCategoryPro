@@ -30,6 +30,8 @@ NS_ASSUME_NONNULL_BEGIN
 - (unsigned long long)sizeOfFolder:(NSString *)folderPath;
 - (NSString *)appFileSize;
 
++(id)paserJsonFile:(NSString *)fileName;
+
 @end
 
 NS_ASSUME_NONNULL_END

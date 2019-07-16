@@ -14,7 +14,7 @@
 
 @implementation CATransaction (Helper)
 
-+(void)animDuration:(CGFloat)duration animations:(void(^)(void))animations completion:(nullable void (^)(void))completion{
++(void)animDuration:(CGFloat)duration animations:(void(^)(void))animations completion:(void (^_Nullable)(void))completion{
     
     [CATransaction begin];
     [CATransaction setAnimationDuration:duration];

@@ -140,7 +140,6 @@ NSString * NSStringFromFloat(CGFloat obj){
     return [returnStr stringByReplacingOccurrencesOfString:@"\\r\\n"withString:@"\n"];
 }
 
-
 - (NSString *)subStringFrom:(NSString *)startString to:(NSString *)endString{
     NSRange startRange = [self rangeOfString:startString];
     NSRange endRange = [self rangeOfString:endString];
@@ -157,24 +156,20 @@ NSString * NSStringFromFloat(CGFloat obj){
     return string;
 }
 
-
 + (NSString *)stringFromNumber:(NSNumber *)number{
     NSString * sting = [number stringValue];
     return sting;
 }
-
 
 + (NSString *)stringFromInter:(NSInteger)inter{
     NSString * sting = [@(inter) stringValue];
     return sting;
 }
 
-
 + (NSString *)stringFromFloat:(CGFloat )inter{
     NSString * sting = [@(inter) stringValue];
     return sting;
 }
-
 
 + (NSString *)stringFromDouble:(double)inter{
     NSString * sting = [@(inter) stringValue];
@@ -376,7 +371,6 @@ NSString * NSStringFromFloat(CGFloat obj){
 }
 
 /**
-
  @param array 字符串数组
  @return 包含所有元素
  */
@@ -393,7 +387,6 @@ NSString * NSStringFromFloat(CGFloat obj){
     placeHolder = [placeHolder stringByReplacingOccurrencesOfString:@":" withString:@""];
     return placeHolder;
 }
-
 
 + (NSString *)ramdomText{
     
@@ -419,7 +412,6 @@ NSString * NSStringFromFloat(CGFloat obj){
     CGFloat result = [self floatValue] * [anothor floatValue];
     return [@(result) stringValue];
 }
-
 
 -(NSString *)divideAnothor:(NSString *)anothor{
     NSAssert([self isPureInteger] || [self isPureFloat], @"支持持纯数字字符串");

@@ -89,4 +89,19 @@
     return folderSizeStr;
 }
 
++(id)paserJsonFile:(NSString *)fileName{
+    NSParameterAssert([fileName containsString:@".geojson"]);
+    
+    NSArray * fileNameArray = [fileName componentsSeparatedByString:@"."];
+    NSString * path = [NSBundle.mainBundle pathForResource:fileNameArray.firstObject ofType:fileNameArray.lastObject];
+    NSData * data = [NSData dataWithContentsOfFile:path];
+    NSString *jsonString = [[NSString alloc] initWithData:data encoding:NSUTF8StringEncoding];
+    jsonString = [jsonString stringByReplacingOccurrencesOfString:@"\\" withString:@""];
+    
+    NSError * error = nil;
+    id obj = [NSJSONSerialization JSONObjectWithData:[jsonString dataUsingEncoding:NSUTF8StringEncoding] options:NSJSONReadingMutableContainers error:&error];
+//    DDLog(@"%@",error.description);
+    return obj;
+}
+
 @end

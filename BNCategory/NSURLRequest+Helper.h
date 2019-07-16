@@ -7,23 +7,23 @@
 
 #import <Foundation/Foundation.h>
 
-FOUNDATION_EXPORT NSString * _Nonnull const kHTTPMethodGET ;
-FOUNDATION_EXPORT NSString * _Nonnull const kHTTPMethodPOST ;
-FOUNDATION_EXPORT NSString * _Nonnull const kHTTPMethodPUT ;
-FOUNDATION_EXPORT NSString * _Nonnull const kHTTPMethodDELETE ;
-
 NS_ASSUME_NONNULL_BEGIN
+
+FOUNDATION_EXPORT NSString * const kHTTPMethodGET ;
+FOUNDATION_EXPORT NSString * const kHTTPMethodPOST ;
+FOUNDATION_EXPORT NSString * const kHTTPMethodPUT ;
+FOUNDATION_EXPORT NSString * const kHTTPMethodDELETE ;
 
 @interface NSURLRequest (Helper)
 
 +(instancetype)requestGetURL:(NSString *)url;
 
-+(instancetype)requestPostURL:(NSString *)url body:(nullable NSData *)body;
++(instancetype)requestPostURL:(NSString *)url body:(NSData *_Nullable)body;
 
 /**
  method
  */
-+(instancetype)requestURL:(NSString *)url method:(NSString *)method body:(nullable NSData *)body cachePolicy:(NSURLRequestCachePolicy)cachePolicy timeoutInterval:(NSTimeInterval)timeoutInterval;
++(instancetype)requestURL:(NSString *)url method:(NSString *)method body:(NSData *_Nullable)body cachePolicy:(NSURLRequestCachePolicy)cachePolicy timeoutInterval:(NSTimeInterval)timeoutInterval;
 
 /**
  *  生成单文件上传的 multipart/form-data 请求

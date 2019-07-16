@@ -7,6 +7,9 @@
 //
 
 #import <Foundation/Foundation.h>
+
+NS_ASSUME_NONNULL_BEGIN
+
 /// 四舍五入
 FOUNDATION_EXPORT NSString * const kNumIdentify ;// 默认(四舍五入)
 /// 分隔符,
@@ -25,8 +28,6 @@ FOUNDATION_EXPORT NSString * const kNumIdentify_minusSign ;
 FOUNDATION_EXPORT NSString * const kNumIdentify_exponentSymbol ;
 /// #,##0.00
 FOUNDATION_EXPORT NSString * const kNumFormat;
-
-NS_ASSUME_NONNULL_BEGIN
 
 @interface NSNumberFormatter (Helper)
 
