@@ -109,6 +109,15 @@ NS_ASSUME_NONNULL_BEGIN
 + (__kindof UIBarButtonItem *)createBarItem:(NSString *)obj style:(UIBarButtonItemStyle)style;
 
 + (__kindof UIBarButtonItem *)createBarItem:(NSString *)obj style:(UIBarButtonItemStyle)style target:(id _Nullable)target action:(SEL _Nullable)action;
+/**
+ [源]UITableView创建方法
+ */
++ (__kindof UITableView *)createTableViewRect:(CGRect)rect style:(UITableViewStyle)style;
+
+/**
+ [源]UICollectionView创建方法
+ */
++ (__kindof UICollectionView *)createCTViewRect:(CGRect)rect layout:(UICollectionViewLayout *)layout;
 
 @end
 

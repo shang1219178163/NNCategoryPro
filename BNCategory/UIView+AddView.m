@@ -798,5 +798,38 @@
     return barItem;
 }
 
+/**
+ [源]UITableView创建方法
+ */
++ (__kindof UITableView *)createTableViewRect:(CGRect)rect style:(UITableViewStyle)style{
+    assert([self isSubclassOfClass: UITableView.class]);
+    
+    UITableView *view = [[self alloc] initWithFrame:rect style:style];
+    view.autoresizingMask = UIViewAutoresizingFlexibleWidth|UIViewAutoresizingFlexibleHeight;
+    view.separatorInset = UIEdgeInsetsZero;
+    view.separatorStyle = UITableViewCellSeparatorStyleSingleLine;
+    view.rowHeight = 70;
+    view.backgroundColor = UIColor.backgroudColor;
+    view.tableFooterView = [[UIView alloc]init];
+    view.keyboardDismissMode = UIScrollViewKeyboardDismissModeOnDrag;
+    [view registerClass:[UITableViewCell class] forCellReuseIdentifier:@"UITableViewCell"];
+    
+    return view;
+}
+
+/**
+ [源]UICollectionView创建方法
+ */
++ (__kindof UICollectionView *)createCTViewRect:(CGRect)rect layout:(UICollectionViewLayout *)layout{
+    assert([self isSubclassOfClass: UICollectionView.class]);
+    
+    UICollectionView *view = [[self alloc]initWithFrame:rect collectionViewLayout:layout];
+    view.backgroundColor = [UIColor whiteColor];
+    view.scrollsToTop = false;
+    view.showsVerticalScrollIndicator = false;
+    view.showsHorizontalScrollIndicator = false;
+    
+    return view;
+}
 
 @end
