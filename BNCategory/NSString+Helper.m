@@ -246,15 +246,6 @@ NSString * NSStringFromFloat(CGFloat obj){
     return dateStr;
 }
 
-- (NSString *)toBeforeDays:(NSInteger)days{
-    NSTimeInterval timeInterval = [TimeStampFromObj(self) integerValue] - days*24*3600;
-    
-    NSDateFormatter *formatter = [NSDateFormatter dateFormat:kFormatDate];
-    NSDate *date = [NSDate dateWithTimeIntervalSince1970:timeInterval];
-    NSString * timeStr = [formatter stringFromDate:date];
-    return timeStr;
-}
-
 - (NSString *)compareDate:(NSString *)otherDate isMax:(BOOL)isMax type:(NSNumber *)type{
     
     NSString * timestampA = @"";

@@ -692,8 +692,8 @@ static NSArray * _weekList = nil;
 
 - (NSDate *)dateByAddingDay:(NSInteger)day hour:(NSInteger)hour minute:(NSInteger)minute second:(NSInteger)second{
     NSTimeInterval aTimeInterval = self.timeIntervalSince1970 + kDate_day*day + kDate_hour*hour + kDate_minute*minute + kDate_second*second;
-    NSDate *newDate = [NSDate dateWithTimeIntervalSinceReferenceDate:aTimeInterval];
-    return newDate;
+    NSDate *date = [NSDate dateWithTimeIntervalSince1970:aTimeInterval];
+    return date;
 }
 
 - (NSDate *)dateByAddDays:(NSInteger) dDays{

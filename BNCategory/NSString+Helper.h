@@ -81,8 +81,6 @@ FOUNDATION_EXPORT NSString * NSStringFromFloat(CGFloat obj);
 
 - (NSString *)toDateMonthDay;
 
-- (NSString *)toBeforeDays:(NSInteger)days;
-
 - (NSString *)compareDate:(NSString *)otherDate isMax:(BOOL)isMax type:(NSNumber *)type;
 
 + (NSString *)stringFromData:(NSData *)data;
