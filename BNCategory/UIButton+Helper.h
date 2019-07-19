@@ -48,6 +48,9 @@ NS_ASSUME_NONNULL_BEGIN
 
 - (void)showImageType:(NSNumber *)type image:(id)image;
 
+/// 上 左 下 右
+- (void)layoutStyle:(NSInteger )style space:(CGFloat)space;
+
 @end
 
 NS_ASSUME_NONNULL_END

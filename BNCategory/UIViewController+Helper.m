@@ -376,7 +376,7 @@ UINavigationController * UINavCtrFromObj(id obj){
         [navController popToViewController:controller animated:YES];
     }
     else{
-        UIViewController * controller  = [NSClassFromString(contollerName) new];
+        UIViewController * controller = [NSClassFromString(contollerName) new];
         controller.frontVC = self;
         controller.title = [title stringByReplacingOccurrencesOfString:@" " withString:@""];
         controller.obj = obj;

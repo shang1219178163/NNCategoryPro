@@ -196,7 +196,7 @@
     UIButton *sender = self;
     CGSize btnTitleSize = [self sizeWithText:sender.titleLabel.text font:sender.titleLabel.font width:UIScreen.width];
 
-    CGSize  imgSize = sender.imageView.image != nil ? CGSizeMake(height, height) : CGSizeZero;
+    CGSize imgSize = sender.imageView.image != nil ? CGSizeMake(height, height) : CGSizeZero;
     CGSize btnSize = CGSizeMake(btnTitleSize.width + imgSize.width + kPadding*2, height);
 
     return btnSize;
@@ -207,14 +207,7 @@
 - (void)showImageType:(NSNumber *)type image:(id)image{
     
     NSParameterAssert([image isKindOfClass:[NSString class]] || [image isKindOfClass:[UIImage class]]);
-    UIImage * img = nil;
-    if ([image isKindOfClass:[NSString class]]) {
-        img = [UIImage imageNamed:image];
-        
-    } else {
-        img = image;
-        
-    }
+    UIImage * img = [image isKindOfClass:[NSString class]] ? [UIImage imageNamed:image] : image;
     
     switch (type.integerValue) {
         case 1:
@@ -230,25 +223,55 @@
     }
 }
 
-//- (void)showImageType:(NSNumber *)type{
-//
-//    UIButton *sender = self;
-//
-//    CGSize sizeLab = sender.titleLabel.bounds.size;
-//    CGSize sizeImg = sender.imageView.bounds.size;
-//
-//    switch (type.integerValue) {
-//        case 1:
-//        {
-//            //字+图
-//            sender.imageEdgeInsets = UIEdgeInsetsMake(0, sizeLab.width, 0, -sizeLab.width);
-//            sender.titleEdgeInsets = UIEdgeInsetsMake(0, -sizeImg.width, 0, sizeImg.width);
-//        }
-//            break;
-//        default:
-//            break;
-//    }
-//}
+/// 上 左 下 右
+- (void)layoutStyle:(NSInteger )style space:(CGFloat)space{
+
+    //得到imageView和titleLabel的宽高
+    CGFloat imageWidth = self.imageView.frame.size.width;
+    CGFloat imageHeight = self.imageView.frame.size.height;
+    
+    CGFloat labelWidth = self.titleLabel.intrinsicContentSize.width;
+    CGFloat labelHeight = self.titleLabel.intrinsicContentSize.height;
+    
+    //初始化imageEdgeInsets和labelEdgeInsets
+    UIEdgeInsets imageEdgeInsets = UIEdgeInsetsZero;
+    UIEdgeInsets labelEdgeInsets = UIEdgeInsetsZero;
+    
+    switch (style) {//上 左 下 右
+        case 0:
+        {
+            imageEdgeInsets = UIEdgeInsetsMake(-labelHeight-space/2, 0, 0, -labelWidth);
+            labelEdgeInsets = UIEdgeInsetsMake( 0, -imageWidth, -imageHeight-space/2, 0);
+        }
+            break;
+        case 1:
+        {
+            imageEdgeInsets = UIEdgeInsetsMake( 0, -space/2, 0, space);
+            labelEdgeInsets = UIEdgeInsetsMake( 0, space/2, 0, -space/2);
+        }
+            break;
+        case 2:
+        {
+            imageEdgeInsets = UIEdgeInsetsMake( 0, 0, -labelHeight-space/2, -labelWidth);
+            labelEdgeInsets = UIEdgeInsetsMake( -imageHeight-space/2, -imageWidth, 0, 0);
+        }
+            break;
+        case 3:
+        {
+            imageEdgeInsets = UIEdgeInsetsMake( 0, labelWidth+space/2, 0, -labelWidth-space/2);
+            labelEdgeInsets = UIEdgeInsetsMake( 0, -imageWidth-space/2, 0, imageWidth+space/2);
+        }
+            break;
+        default:
+        {
+            imageEdgeInsets = UIEdgeInsetsMake( 0, labelWidth+space/2, 0, -labelWidth-space/2);
+            labelEdgeInsets = UIEdgeInsetsMake( 0, -imageWidth-space/2, 0, imageWidth+space/2);
+        }
+            break;
+    }
+    self.titleEdgeInsets = labelEdgeInsets;
+    self.imageEdgeInsets = imageEdgeInsets;
+}
 
 
 @end

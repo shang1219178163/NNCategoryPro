@@ -177,5 +177,12 @@
 
 }
 
+- (void)transformImage:(CGFloat)duration{
+    assert(self);
+    UIImageView *sender = self;
+    [UIView animateWithDuration:duration animations:^{
+        sender.transform = CGAffineTransformIsIdentity(sender.transform) ? CGAffineTransformRotate(sender.transform, M_PI) : CGAffineTransformIdentity;
+    }];
+}
 
 @end

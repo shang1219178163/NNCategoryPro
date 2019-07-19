@@ -43,7 +43,12 @@ NS_ASSUME_NONNULL_BEGIN
  渲染
  */
 -(void)renderTintColor:(UIColor *)tintColor mode:(UIImageRenderingMode)mode;
-    
+
+/**
+ 翻转图像
+ */
+- (void)transformImage:(CGFloat)duration;
+
 @end
 
 NS_ASSUME_NONNULL_END
