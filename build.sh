@@ -15,7 +15,7 @@ gitFuntion(){
     echo "commit the change to version reposit"
     git tag -a $1 -m "update"
     git push --tags
-    pod trunk push $2 --allow-warnings --use-libraries
+    failingcommand=pod trunk push $2 --allow-warnings --use-libraries
     # echo "finished !"
     if ! failingcommand
     then
