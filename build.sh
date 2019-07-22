@@ -6,6 +6,14 @@ function currentDate(){
     echo `date "+"%Y:%m:%d %H:%M"`
 }
 
+gitFuntion(){
+    git add .
+    git commit -m "update"
+    git tag -a $1 -m "update"
+    git push --tags
+    pod trunk push $2 --allow-warnings --use-libraries
+}
+
 # echo "####################################################################"
 # echo "####################################################################"
 # echo "####################################################################"
@@ -53,13 +61,15 @@ do
     # echo "文件内容___${var}"
 
     version=$(grep -E 's\.version.+=' ${filename} | grep -E '[0-9][0-9.]+' -o)
-    echo "version__${tmp}"
+    echo "version__${version}"
 
-    git add .
-    git commit -m "update"
-    git tag -a ${version} -m "update"
-    git push --tags
-    pod trunk push ${filename} --allow-warnings --use-libraries
+    # git add .
+    # git commit -m "update"
+    # git tag -a ${version} -m "update"
+    # git push --tags
+    # pod trunk push ${filename} --allow-warnings --use-libraries
+
+    gitFuntion version, filename;
 
   else
     echo "不包含_${filename}"
@@ -72,3 +82,5 @@ echo ${filepath}
 
 # basepath=$(cd `dirname $0`; pwd)
 # echo $basepath
+
+
