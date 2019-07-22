@@ -87,5 +87,35 @@
 }
 
 
+static UICollectionViewFlowLayout *_layoutDefault;
+
++ (void)setLayoutDefault:(UICollectionViewFlowLayout *)layoutDefault{
+    _layoutDefault = layoutDefault;
+}
+
++ (UICollectionViewFlowLayout *)layoutDefault{
+    if (!_layoutDefault) {
+        _layoutDefault = ({
+            UICollectionViewFlowLayout *layout = [[UICollectionViewFlowLayout alloc] init];
+            //item水平间距
+            layout.minimumLineSpacing = 10;
+            //item垂直间距
+            layout.minimumInteritemSpacing = 10;
+            //item的尺寸
+            layout.itemSize = CGSizeMake(90, 100);
+            //item的UIEdgeInsets
+            layout.sectionInset = UIEdgeInsetsMake(10, 10, 10, 10);
+            //滑动方向,默认垂直
+            layout.scrollDirection = UICollectionViewScrollDirectionHorizontal;
+            //sectionView 尺寸
+            layout.headerReferenceSize = CGSizeMake(kScreenWidth, 40);
+            layout.footerReferenceSize = CGSizeMake(kScreenWidth, 20);
+
+            layout;
+        });
+    }
+    return _layoutDefault;
+}
+
 @end
 

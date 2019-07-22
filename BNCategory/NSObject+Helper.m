@@ -234,12 +234,13 @@ id JSONObjectFromData(NSData *obj){
  模型转字典
  */
 - (NSDictionary *)modelToDictionary{
+    assert([self isKindOfClass:NSObject.class]);
     id obj = self;
     NSMutableDictionary *dic = [NSMutableDictionary dictionary];
-    unsigned int propsCount;
+    unsigned int count;
     
-    objc_property_t *props = class_copyPropertyList([obj class], &propsCount);//获得属性列表
-    for(NSInteger i = 0;i < propsCount; i++){
+    objc_property_t *props = class_copyPropertyList([obj class], &count);//获得属性列表
+    for(NSInteger i = 0;i < count; i++){
         
         objc_property_t prop = props[i];
         NSString *propName = [NSString stringWithUTF8String:property_getName(prop)];//获得属性的名称

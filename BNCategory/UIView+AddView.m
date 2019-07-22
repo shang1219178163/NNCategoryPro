@@ -744,7 +744,7 @@
 + (__kindof UISlider *)createSliderRect:(CGRect)rect value:(CGFloat)value minValue:(CGFloat)minValue maxValue:(CGFloat)maxValue{
     assert([self isSubclassOfClass: UISlider.class]);
 
-    UISlider *view = [[UISlider alloc] initWithFrame:rect];
+    UISlider *view = [[self alloc] initWithFrame:rect];
     view.autoresizingMask = UIViewAutoresizingFlexibleWidth;
     view.minimumValue = minValue;
     view.maximumValue = maxValue;
@@ -761,7 +761,7 @@
 + (__kindof UISwitch *)createSwitchRect:(CGRect)rect isOn:(BOOL)isOn{
     assert([self isSubclassOfClass: UISwitch.class]);
 
-    UISwitch *view = [[UISwitch alloc]initWithFrame:rect];
+    UISwitch *view = [[self alloc]initWithFrame:rect];
     view.autoresizingMask = UIViewAutoresizingFlexibleWidth|UIViewAutoresizingFlexibleHeight;
     view.on = isOn;//设置初始为ON的一边
     view.onTintColor = UIColor.themeColor;
@@ -773,7 +773,7 @@
 + (__kindof UITabBarItem *)createTabBarItem:(NSString *_Nullable)title image:(NSString *_Nullable)image selectedImage:(NSString *_Nullable)selectedImage{
     assert([self isSubclassOfClass: UITabBarItem.class]);
 
-    UITabBarItem *tabBarItem = [[UITabBarItem alloc]initWithTitle:title image:[UIImage imageNamed:image] selectedImage:[UIImage imageNamed:selectedImage]];
+    UITabBarItem *tabBarItem = [[self alloc]initWithTitle:title image:[UIImage imageNamed:image] selectedImage:[UIImage imageNamed:selectedImage]];
     return tabBarItem;
 }
 
@@ -791,10 +791,10 @@
     assert([self isSubclassOfClass: UIBarButtonItem.class]);
 
     if ([UIImage imageNamed:obj]) {
-        UIBarButtonItem* barItem = [[UIBarButtonItem alloc] initWithImage:[[UIImage imageNamed:obj] imageWithRenderingMode:UIImageRenderingModeAlwaysTemplate] style:style target:target action:action];
+        UIBarButtonItem* barItem = [[self alloc] initWithImage:[[UIImage imageNamed:obj] imageWithRenderingMode:UIImageRenderingModeAlwaysTemplate] style:style target:target action:action];
         return barItem;
     }
-    UIBarButtonItem* barItem = [[UIBarButtonItem alloc] initWithTitle:obj style:style target:target action:action];
+    UIBarButtonItem* barItem = [[self alloc] initWithTitle:obj style:style target:target action:action];
     return barItem;
 }
 
