@@ -8,14 +8,14 @@ function currentDate(){
 
 gitFuntion(){
     git pull
-    echo "Start to pull from remote...\n"
+    echo "---Start to pull from remote...\n"
     git add .
-    echo "add the change file to local reposit"
+    echo "---add the change file to local reposit"
     git commit -m "update"
-    echo "commit the change to version reposit"
-    git tag -a $1 -m "update"
+    echo "---commit the change to version reposit"
+    failingcommand=git tag -a $1 -m "update"
     git push --tags
-    failingcommand=$(pod trunk push $2 --allow-warnings --use-libraries)
+    $(pod trunk push $2 --allow-warnings --use-libraries)
     # echo "finished !"
     if ! failingcommand
     then
