@@ -69,7 +69,7 @@ do
     # git push --tags
     # pod trunk push ${filename} --allow-warnings --use-libraries
 
-    gitFuntion version, filename;
+    gitFuntion ${version}, ${filename};
 
   else
     echo "不包含_${filename}"
