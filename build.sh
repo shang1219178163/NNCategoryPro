@@ -17,7 +17,7 @@ gitFuntion(){
     git push --tags
     pod trunk push $2 --allow-warnings --use-libraries
     # echo "finished !"
-    if ! command; then echo "command failed"; exit 1; fi
+    if !command; then echo "command failed"; exit 1; fi
 
 }
 
