@@ -52,12 +52,12 @@ do
     # var=$(cat ${filename})
     # echo "文件内容___${var}"
 
-    tmp=$(grep -E 's\.version.+=' ${filename} | grep -E '[0-9][0-9.]+' -o)
+    version=$(grep -E 's\.version.+=' ${filename} | grep -E '[0-9][0-9.]+' -o)
     echo "version__${tmp}"
 
     git add .
     git commit -m "update"
-    git tag -a 1.9.8.4 -m "update"
+    git tag -a ${version} -m "update"
     git push --tags
     pod trunk push ${filename} --allow-warnings --use-libraries
 
@@ -72,5 +72,3 @@ echo ${filepath}
 
 # basepath=$(cd `dirname $0`; pwd)
 # echo $basepath
-
-echo "1111111111111111"
