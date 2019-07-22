@@ -1,5 +1,0 @@
-BNCategory
-BNCategory.podspec
-LICENSE
-README.md
-build.sh
