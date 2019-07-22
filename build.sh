@@ -58,7 +58,8 @@ do
     git add .
     git commit -m "update"
     git tag -a 1.9.8.4 -m "update"
-    pod trunk push ${filename} --allow-warnings --use-librariesgit push --tags
+    git push --tags
+    pod trunk push ${filename} --allow-warnings --use-libraries
 
   else
     echo "不包含_${filename}"
