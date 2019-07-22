@@ -7,11 +7,21 @@ function currentDate(){
 }
 
 gitFuntion(){
+    git pull
+    echo "Start to pull from remote...\n"
     git add .
+    echo "add the change file to local reposit"
     git commit -m "update"
+    echo "commit the change to version reposit"
     git tag -a $1 -m "update"
     git push --tags
     pod trunk push $2 --allow-warnings --use-libraries
+    # echo "finished !"
+    if ! failingcommand
+    then
+        echo >&2 message
+        exit 1
+    fi
 }
 
 # echo "####################################################################"
