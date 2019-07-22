@@ -13,9 +13,9 @@ gitFuntion(){
     echo "---add the change file to local reposit"
     git commit -m "update"
     echo "---commit the change to version reposit"
-    failingcommand=git tag -a $1 -m "update"
+    failingcommand=$(git tag -a $1 -m "update")
     git push --tags
-    $(pod trunk push $2 --allow-warnings --use-libraries)
+    # pod trunk push $2 --allow-warnings --use-libraries
     # echo "finished !"
     if ! failingcommand
     then
