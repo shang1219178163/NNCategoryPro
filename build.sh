@@ -1,4 +1,4 @@
-#!/bin/bash
+#!/bin/bash -e
 
 export LANG="zh_CN.GB2312"
 
@@ -15,7 +15,7 @@ gitFuntion(){
     echo "---commit the change to remote reposit---"
     addtag=$(git tag -a $1 -m "update")
     gitPushTag=$(git push --tags)
-    echo "---pod trunk push to remote reposit---"
+    # echo "---pod trunk push to remote reposit---"
     # pod trunk push $2 --allow-warnings --use-libraries
     # echo "finished !"
     # if !command; then echo "command failed"; exit 1; fi
