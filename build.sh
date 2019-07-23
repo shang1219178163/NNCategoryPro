@@ -1,4 +1,4 @@
-#!/bin/bash -e
+#!/bin/bash set -o errexit
 
 export LANG="zh_CN.GB2312"
 
@@ -7,19 +7,21 @@ function currentDate(){
 }
 
 gitFuntion(){
-    git pull
     echo "---Start to pull from remote---"
+    git pull
+    echo "---add change's file to local reposit---"
     git add .
-    echo "---add the change file to local reposit---"
+    echo "---commit change to remote reposit---"
     git commit -m "update"
-    echo "---commit the change to remote reposit---"
+    echo "---add tag to local reposit---"
     git tag -a $1 -m "update"
+    echo "---push tag to remote reposit---"
     git push --tags
     echo "---pod trunk push to remote reposit---"
     pod trunk push $2 --allow-warnings --use-libraries
     echo "finished !"
     # if !command; then echo "command failed"; exit 1; fi
-    
+
 }
 
 # gitFuntion(){
