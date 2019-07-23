@@ -13,16 +13,13 @@ gitFuntion(){
     echo "---add the change file to local reposit---"
     git commit -m "update"
     echo "---commit the change to remote reposit---"
-    addtag=$(git tag -a $1 -m "update")
-    gitPushTag=$(git push --tags)
-    # echo "---pod trunk push to remote reposit---"
-    # pod trunk push $2 --allow-warnings --use-libraries
-    # echo "finished !"
+    git tag -a $1 -m "update"
+    git push --tags
+    echo "---pod trunk push to remote reposit---"
+    pod trunk push $2 --allow-warnings --use-libraries
+    echo "finished !"
     # if !command; then echo "command failed"; exit 1; fi
-    echo "version__$1"
-    echo "addtag__${addtag}"
-    echo "gitPushTag__${gitPushTag}"
-
+    
 }
 
 # gitFuntion(){
