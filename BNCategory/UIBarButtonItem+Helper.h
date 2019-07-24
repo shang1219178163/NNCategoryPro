@@ -14,6 +14,8 @@ NS_ASSUME_NONNULL_BEGIN
 @property (nonatomic, copy) void(^itemBlock)(UIBarButtonItem *item);
 
 - (void)setActionBlock:(void (^)(void))actionBlock;
+/// 是否隐藏按钮
+- (void)setHidden:(BOOL)hidden;
 
 @end
 

@@ -1,112 +1,99 @@
-#!/bin/bash set -o errexit
+#!/bin/bash
+
+source Shells/common.sh
+source Shells/echo_color.sh
+source Shells/git_action.sh
 
 export LANG="zh_CN.GB2312"
 
-function currentDate(){
-    echo `date "+"%Y:%m:%d %H:%M"`
+testLogColor(){
+    send=$(datetime)
+    echo $send
+    echo_red "red $send"
+    echo_green "green $send"
+    echo_yellow "yellow $send"
+    echo_blue "blue $send"
+    echo_purple "purple $send"
+    echo_cyan "cyan $send"
+    echo_white "white $send"
+
+    # echo_redbg "red $send"
+    # echo_greenbg "green $send"
+    # echo_yellowbg "yellow $send"
+    # echo_bluebg "blue $send"
+    # echo_purplebg "purple $send"
+    # echo_cyanbg "cyan $send"
+    # echo_whitebg "white $send"
+
+    log "${send}"
+
+    log debug "${send}"
+    log info "${send}"
+    log warn "${send}"
+    log error "${send}"
+
+    # echo "___$?___"
+    # echo_purple `$now()`
+
+    tmp=$(datetime)
+    tmpNew=`datetime`
+    echo "___$(datetime)___"
+    echo "___${tmp}___"
+    echo "___${tmpNew}___"
+    echo "___$(datetimeStamp)___"
+
+    exit 1;
+
 }
-
-gitFuntion(){
-    echo "---Start to pull from remote---"
-    git pull
-    echo "---add change's file to local reposit---"
-    git add .
-    echo "---commit change to remote reposit---"
-    git commit -m "update"
-    echo "---add tag to local reposit---"
-    git tag -a $1 -m "update"
-    echo "---push tag to remote reposit---"
-    git push --tags
-    echo "---pod trunk push to remote reposit---"
-    pod trunk push $2 --allow-warnings --use-libraries
-    echo "finished !"
-    # if !command; then echo "command failed"; exit 1; fi
-
-}
-
-# gitFuntion(){
-#     git pull
-#     echo "---Start to pull from remote---"
-#     git add .
-#     echo "---add the change file to local reposit---"
-#     git commit -m "update"
-#     echo "---commit the change to remote reposit---"
-#     git tag -a $1 -m "update"
-#     git push --tags
-#     echo "---pod trunk push to remote reposit---"
-#     pod trunk push $2 --allow-warnings --use-libraries
-#     # echo "finished !"
-#     # if !command; then echo "command failed"; exit 1; fi
-
-# }
-
-# echo "####################################################################"
-# echo "####################################################################"
-# echo "####################################################################"
-# echo "##################----------####//##############//##################"
-# echo "#################//#######//#####//##############//#################"
-# echo "################//#######//#####//####//########//##################"
-# echo "###############//#######//#####//###//#//######//###################"
-# echo "##############//--------#####//##//###//####//######################"
-# echo "#############//##############//#//######//##//######################"
-# echo "############//###############/////#######////#######################"
-# echo "###########//#######################################################"
-# echo "####################################################################"
-# echo "####################################################################"
-# echo "####################################################################"
-# echo "####################################################################"
 
 #------------------------------------------------------------------------
 #配置项目名称和路径等相关参数
 #------------------------------------------------------------------------
-# projectName="IntelligentOfParking" #项目所在目录的名称
-#projectTarget="IntelligentOfParking"
-#buildConfig="Test" #编译的方式,默认为Release,Debug,Test等
-#codeSignIdentity="iPhone Distribution: Xi'an iRain IOT Technology Service CO., Ltd. (UB99NJ7K8G)"
-#provisioningProfile="cdff2b5d-d1a3-49fb-af8f-275d3afdee3e"
-
-#------------------------------------------------------------------------
-#初始化参数
-#------------------------------------------------------------------------
-#projectDir=`pwd`
-#buildDir=${projectDir}/build
-
 # find -name BNCategory.podspec
+#遍历文件目录
+# path=$1
+# files=$(ls $path)
+# for filename in $files
+# do
+# #   echo $filename >> filename.txt
+# #   echo "filename——${filename}"
+#   result=$(echo ${filename} | grep ".podspec")
+#   if [[ "$result" != "" ]]
+#   then
+#     echo "包含___${filename}"
+#     var=$(cat ${filename})
+#     # echo "文件内容___${var}"
+#     # echo ${var%s.summary*}
 
-path=$1
-files=$(ls $path)
-for filename in $files
-do
-#   echo $filename >> filename.txt
-#   echo "filename——${filename}"
-  result=$(echo ${filename} | grep ".podspec")
-  if [[ "$result" != "" ]]
-  then
-    echo "包含___${filename}"
-    # var=$(cat ${filename})
-    # echo "文件内容___${var}"
+#     # gitFuntion ${filename};
 
-    version=$(grep -E 's\.version.+=' ${filename} | grep -E '[0-9][0-9.]+' -o)
-    echo "version__${version}"
+#   else
+#     echo "不包含_${filename}"
+#   fi 
 
-    # git add .
-    # git commit -m "update"
-    # git tag -a ${version} -m "update"
-    # git push --tags
-    # pod trunk push ${filename} --allow-warnings --use-libraries
-
-    gitFuntion ${version}, ${filename};
-
-  else
-    echo "不包含_${filename}"
-  fi 
-
-done
+# done
 
 filepath=$(cd "$(dirname "$0")"; pwd)
 echo ${filepath}
+fileName=${filepath##*/}
+echo "fileName_${fileName}"
 
-# basepath=$(cd `dirname $0`; pwd)
-# echo $basepath
+fileNameAll="${fileName}.podspec"
+echo "fileNameAll_${fileNameAll}"
+
+result=$(echo ${fileNameAll} | grep ".podspec")
+if [[ "$result" != "" ]]
+then
+    # echo_green "--- 存在：${fileNameAll} ---"
+    echo_green "--- date: $(datetime) ---"
+#    testLogColor;
+
+    gitUpdatePod ${fileNameAll};
+
+else
+    echo_bred "--- 不存在：${fileNameAll} ---"
+fi 
+
+ 
 
 

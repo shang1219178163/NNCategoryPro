@@ -7,6 +7,7 @@
 
 #import "UIBarButtonItem+Helper.h"
 #import <objc/runtime.h>
+#import "UIColor+Helper.h"
 
 @implementation UIBarButtonItem (Helper)
 
@@ -38,6 +39,10 @@
     }
 }
 
+- (void)setHidden:(BOOL)hidden{
+    self.enabled = !hidden;
+    self.tintColor = !hidden ? UIColor.themeColor : UIColor.clearColor;
+}
 
 
 @end
