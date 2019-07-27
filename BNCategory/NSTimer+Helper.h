@@ -23,8 +23,7 @@ NS_ASSUME_NONNULL_BEGIN
 /**
  GCD定时器(秒)
  */
-+ (dispatch_source_t)createGCDTimer:(dispatch_source_t)timer
-                           interval:(NSTimeInterval)interval
++ (dispatch_source_t)createGCDTimer:(NSTimeInterval)interval
                             repeats:(BOOL)repeats
                               block:(void (^)(void))block;
 
