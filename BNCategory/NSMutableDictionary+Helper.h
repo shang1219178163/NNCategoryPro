@@ -12,7 +12,7 @@ NS_ASSUME_NONNULL_BEGIN
 
 @interface NSMutableDictionary (Helper)
 
--(void)setSafeObjct:(id)obj forKey:(id<NSCopying>)akey;
+-(void)setSafeObjct:(id _Nullable)obj forKey:(id<NSCopying>)akey;
 
 
 @end

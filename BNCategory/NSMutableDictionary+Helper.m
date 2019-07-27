@@ -10,15 +10,23 @@
 
 @implementation NSMutableDictionary (Helper)
 
--(void)setSafeObjct:(id)obj forKey:(id<NSCopying>)akey{
+-(void)setSafeObjct:(id _Nullable)obj forKey:(id<NSCopying>)akey{
     if (!obj || [obj isKindOfClass:[NSNull class]]) {
         [self setObject:@"" forKey:akey];
-        
-    } else {
-        [self setObject:obj forKey:akey];
-        
+        return;
     }
+    [self setObject:obj forKey:akey];
 }
+
+//-(void)setSafeObjct:(id _Nullable)obj forKey:(id<NSCopying>)akey{
+//    if (!obj || [obj isKindOfClass:[NSNull class]]) {
+//        [self setObject:@"" forKey:akey];
+//
+//    } else {
+//        [self setObject:obj forKey:akey];
+//
+//    }
+//}
 
 
 @end

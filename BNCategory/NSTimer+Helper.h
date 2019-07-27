@@ -11,7 +11,7 @@
 NS_ASSUME_NONNULL_BEGIN
 
 @interface NSTimer (Helper)
-
+ 
 + (NSTimer *)scheduledTimer:(NSTimeInterval)interval
                       block:(void(^)(NSTimer *timer))block
                     repeats:(BOOL)repeats;
@@ -23,7 +23,10 @@ NS_ASSUME_NONNULL_BEGIN
 /**
  GCD定时器(秒)
  */
-+ (dispatch_source_t)counterWithTimer:(dispatch_source_t)timer handler:(void (^)(void))handler;
++ (dispatch_source_t)createGCDTimer:(dispatch_source_t)timer
+                           interval:(NSTimeInterval)interval
+                            repeats:(BOOL)repeats
+                              block:(void (^)(void))block;
 
 +(void)destoryTimer:(dispatch_source_t)timer;
 
