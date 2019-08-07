@@ -42,7 +42,7 @@ CGFloat CGDegreesFromRadian(CGFloat x){
     return (x * 180.0)/(M_PI);
 }
 
-CGFloat roundFloat(CGFloat value, NSInteger num){
+CGFloat RoundFloat(CGFloat value, NSInteger num){
     NSInteger tem = pow(10, num);
     CGFloat x = value*tem + 0.5;
     CGFloat figure = (floorf(x))/tem;
@@ -54,34 +54,6 @@ NSString *SwiftClassName(NSString *className){
     NSString * appName = infoDict[(NSString *)kCFBundleExecutableKey] ? : infoDict[(NSString *)kCFBundleNameKey];
     NSString * string = [NSString stringWithFormat:@"%@.%@",appName,className];
     return string;
-}
-
-NSData *JSONDataFromObj(id obj){
-    if (!obj) {
-        return ((NSObject *)obj).jsonData;
-    }
-    return nil;
-}
-
-NSString *JSONStringFromObj(id obj){
-    if (!obj) {
-        return ((NSObject *)obj).jsonString;
-    }
-    return nil;
-}
-
-id JSONObjectFromString(NSString *obj){
-    if (!obj) {
-        return ((NSObject *)obj).objValue;
-    }
-    return nil;
-}
-
-id JSONObjectFromData(NSData *obj){
-    if (!obj) {
-        return ((NSObject *)obj).objValue;
-    }
-    return nil;
 }
 
 @implementation NSObject (Helper)

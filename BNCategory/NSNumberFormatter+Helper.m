@@ -10,7 +10,7 @@
 #import "BNGloble.h"
 
 NSString * const kNumIdentify = @"四舍五入";// 默认
-NSString * const kNumIdentify_decimal = @"分隔符,";
+NSString * const kNumIdentify_decimal = @"分隔符,保留3位小数";
 NSString * const kNumIdentify_percent = @"百分比";
 NSString * const kNumIdentify_currency = @"货币$";
 NSString * const kNumIdentify_scientific = @"科学计数法 1.234E8";
@@ -22,6 +22,21 @@ NSString * const kNumFormat = @"#,##0.00";
 
 @implementation NSNumberFormatter (Helper)
 
+static NSDictionary *_styleDic = nil;
+
++ (NSDictionary *)styleDic{
+    if (!_styleDic) {
+        _styleDic = @{
+                      kNumIdentify: @(NSNumberFormatterNoStyle),
+                      kNumIdentify_decimal: @(NSNumberFormatterDecimalStyle),
+                      kNumIdentify_percent: @(NSNumberFormatterPercentStyle),
+                      kNumIdentify_currency: @(NSNumberFormatterCurrencyStyle),
+                      kNumIdentify_scientific: @(NSNumberFormatterScientificStyle),
+                      };
+    }
+    return _styleDic;
+}
+
 + (NSNumberFormatter *)numberIdentify:(NSString *)identify{
     //使用当前线程字典来保存对象
     NSMutableDictionary *threadDic = NSThread.currentThread.threadDictionary;
@@ -29,15 +44,41 @@ NSString * const kNumFormat = @"#,##0.00";
     if (!formatter) {
         formatter = [[NSNumberFormatter alloc]init];
         formatter.locale = [NSLocale localeWithLocaleIdentifier:kLanguageCN];
-
+        formatter.minimumFractionDigits = 2;//最少两位整数
+        formatter.maximumFractionDigits = 2;//最多两位小数
+        formatter.roundingMode = NSNumberFormatterRoundUp;
+        //格式
+        if ([NSNumberFormatter.styleDic.allKeys containsObject:identify]) {
+            NSUInteger style = [NSNumberFormatter.styleDic[identify] unsignedIntegerValue];
+            if (style > 10 || style == 7) {
+                formatter.numberStyle = NSNumberFormatterNoStyle;
+            }
+        }
         [threadDic setObject:formatter forKey:identify];
     }
     return formatter;
 }
 
-+ (NSNumberFormatter *)numberFormat:(NSString *)formatStr{
-    NSNumberFormatter *formatter = [self numberIdentify:formatStr];
-    formatter.numberStyle = NSNumberFormatterNoStyle;//
+// 小数位数
++ (NSString *)fractionDigits:(NSNumber *)obj
+                         min:(NSUInteger)min
+                         max:(NSUInteger)max
+                roundingMode:(NSNumberFormatterRoundingMode)roundingMode{
+    NSNumberFormatter *formatter = [NSNumberFormatter numberIdentify:kNumIdentify];
+    formatter.minimumFractionDigits = min;//最少一位整数
+    formatter.maximumFractionDigits = max;//最多两位小数
+    formatter.roundingMode = roundingMode;
+    return [formatter stringFromNumber:obj] ? : @"";
+}
+
+// 小数位数
++ (NSString *)fractionDigits:(NSNumber *)obj{
+    NSString *result = [NSNumberFormatter fractionDigits:obj min:2 max:2 roundingMode:NSNumberFormatterRoundUp];
+    return result;
+}
+
++ (NSNumberFormatter *)positiveFormat:(NSString *)formatStr{
+    NSNumberFormatter *formatter = [NSNumberFormatter numberIdentify:formatStr];
     formatter.positiveFormat = formatStr;
     return formatter;
 }

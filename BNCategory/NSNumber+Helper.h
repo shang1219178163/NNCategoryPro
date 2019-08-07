@@ -14,37 +14,14 @@ NS_ASSUME_NONNULL_BEGIN
 
 @property (nonatomic, strong, readonly) NSDecimalNumber *decNumer;
 
-/**
- NSNumberFormatter格式化
- */
+/// 转为max位小数四舍五入
+-(NSString *)to_string:(NSUInteger)max;
+
+/// 转为2位小数四舍五入
+-(NSString *)to_string;
+
+/// 转为2位小数四舍五入
 -(NSString *)stringValue;
-
-NSString * NSStringFromRoundHalfUp(NSNumber *number, NSUInteger digit, NSNumberFormatterStyle numberStyle);
-
-#pragma mark - ceil , round, floor
-
-NSNumber * NSNumberFromRound(NSNumber *number, NSUInteger digit, NSNumberFormatterRoundingMode roundingMode);
-/**
- 四舍五入
- 
- @param number 穿传入值
- @param digit 限制最大位数
- */
-NSNumber * NSNumberFromRoundHalfUp(NSNumber *number, NSUInteger digit);
-/**
- 向上取整
- 
- @param number 穿传入值
- @param digit 限制最大位数
- */
-NSNumber * NSNumberFromRoundCeil(NSNumber *number, NSUInteger digit);
-/**
- 向下取整
- 
- @param number 穿传入值
- @param digit 限制最大位数
- */
-NSNumber * NSNumberFromRoundFloor(NSNumber *number, NSUInteger digit);
 
 
 @end

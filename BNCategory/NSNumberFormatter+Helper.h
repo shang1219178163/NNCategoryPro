@@ -31,9 +31,19 @@ FOUNDATION_EXPORT NSString * const kNumFormat;
 
 @interface NSNumberFormatter (Helper)
 
+@property (class, nonatomic, strong, readonly) NSDictionary *styleDic;
+
 + (NSNumberFormatter *)numberIdentify:(NSString *)identify;
 
-+ (NSNumberFormatter *)numberFormat:(NSString *)formatStr;
+/// [源]小数位数及四射五入处理
++ (NSString *)fractionDigits:(NSNumber *)obj
+                         min:(NSUInteger)min
+                         max:(NSUInteger)max
+                roundingMode:(NSNumberFormatterRoundingMode)roundingMode;
+/// [简]2位小数四射五入处理
++ (NSString *)fractionDigits:(NSNumber *)obj;
+
++ (NSNumberFormatter *)positiveFormat:(NSString *)formatStr;
 
 + (NSString *)numberStyle:(NSNumberFormatterStyle)nstyle number:(id)number;
 

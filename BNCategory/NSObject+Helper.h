@@ -21,17 +21,9 @@ FOUNDATION_EXPORT CGFloat CGRadianFromDegrees(CGFloat x);
 /// 弧度转换角度
 FOUNDATION_EXPORT CGFloat CGDegreesFromRadian(CGFloat x);
 /// 四舍五入
-FOUNDATION_EXPORT CGFloat roundFloat(CGFloat value, NSInteger num);
+FOUNDATION_EXPORT CGFloat RoundFloat(CGFloat value, NSInteger num);
 /// swift类需要加命名空间
 FOUNDATION_EXPORT NSString *SwiftClassName(NSString *className);
-// NSObject -> NSData
-FOUNDATION_EXPORT NSData *JSONDataFromObj(id obj);
-/// NSObject -> NSString
-FOUNDATION_EXPORT NSString *JSONStringFromObj(id obj);
-/// NSString -> NSObject/NSDiction/NSArray
-FOUNDATION_EXPORT id JSONObjectFromString(NSString *string);
-/// NSData -> NSObject/NSDiction/NSArray
-FOUNDATION_EXPORT id JSONObjectFromData(NSData *data);
 
 NS_ASSUME_NONNULL_BEGIN
 
