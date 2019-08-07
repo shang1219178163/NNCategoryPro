@@ -78,7 +78,7 @@ static NSDictionary *_styleDic = nil;
 }
 
 + (NSNumberFormatter *)positiveFormat:(NSString *)formatStr{
-    NSNumberFormatter *formatter = [NSNumberFormatter numberIdentify:formatStr];
+    NSNumberFormatter *formatter = [NSNumberFormatter numberIdentify:kNumIdentify];
     formatter.positiveFormat = formatStr;
     return formatter;
 }
