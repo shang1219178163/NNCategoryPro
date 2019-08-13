@@ -24,8 +24,9 @@ NS_ASSUME_NONNULL_BEGIN
 
 + (void)synchronize;
 
+/// 保存自定义对象
 + (void)setArcObject:(id)value forKey:(NSString *)key;
-
+/// 读取自定义对象
 + (id)arcObjectForKey:(NSString *)key;
     
 @end

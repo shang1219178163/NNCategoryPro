@@ -133,6 +133,19 @@
     return nil;
 }
 
+- (BOOL)validText{
+    assert([self isKindOfClass:UITextView.class] || [self isKindOfClass:UITextField.class] || [self isKindOfClass:UILabel.class]);
+    NSString *text = [self valueForKey:@"text"];
+    if (text) {
+        text = [text stringByReplacingOccurrencesOfString:@" " withString:@""] ;
+    }
+    NSArray *textNulls = @[@"", @"nil", @"null",  @"NULL"];
+    if (text == nil || [textNulls containsObject:text]) {
+        return false;
+    }
+    return true;
+}
+
 #pragma mak - -绘制
 
 #pragma mark - 设置部分圆角

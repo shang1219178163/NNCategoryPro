@@ -33,16 +33,14 @@
         [NSUbiquitousKeyValueStore.defaultStore setValue:value forKey:key];
     }
     [self setObject:value forKey:key];
-    
 }
 
 + (void)setObject:(id)value forKey:(NSString *)key{
-    //添加数组支持
-    if (![NSUserDefaults isSupport:value]) {
-        value = [NSKeyedArchiver archivedDataWithRootObject:value];//保存自定义对象
+    if ([self isSupport:value]) {
+        [self.standardUserDefaults setObject:value forKey:key];
+        return;
     }
-    [self.standardUserDefaults setObject:value forKey:key];
-    
+    [self setArcObject:value forKey:key];//保存自定义对象
 }
 
 + (id)objectForKey:(NSString *)key iCloudSync:(BOOL)sync{
@@ -56,12 +54,11 @@
 }
 
 + (id)objectForKey:(NSString *)key{
-    id obj = [self.standardUserDefaults objectForKey:key];
-    if ([obj isKindOfClass:[NSData class]]) {
-        obj = [NSKeyedUnarchiver unarchiveObjectWithData:obj];//解档自定义对象
-
+    id value = [self.standardUserDefaults objectForKey:key];
+    if ([value isKindOfClass: NSData.class]) {
+        value = [self arcObjectForKey:key];//解档自定义对象
     }
-    return obj;
+    return value;
 }
 
 + (void)synchronizeAndCloudSync:(BOOL)sync{
@@ -69,7 +66,6 @@
         [NSUbiquitousKeyValueStore.defaultStore synchronize];
     }
     [self.standardUserDefaults synchronize];
-
 }
 
 + (void)synchronize{
@@ -79,13 +75,14 @@
     //    DDLog(@"\n%@",path);
 }
 
-+ (void)setArcObject:(id)value forKey:(NSString *)key {
++ (void)setArcObject:(id)value forKey:(NSString *)key{
     NSData * data = [NSKeyedArchiver archivedDataWithRootObject:value];
     [self.standardUserDefaults setObject:data forKey:key];
 }
 
-+ (id)arcObjectForKey:(NSString *)key {
-    return [NSKeyedUnarchiver unarchiveObjectWithData:[NSUserDefaults.standardUserDefaults objectForKey:key]];
++ (id)arcObjectForKey:(NSString *)key{
+    id value = [NSUserDefaults.standardUserDefaults objectForKey:key];
+    return [NSKeyedUnarchiver unarchiveObjectWithData:value];
 }
 
 @end

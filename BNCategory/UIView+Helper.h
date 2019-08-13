@@ -47,6 +47,8 @@ NS_ASSUME_NONNULL_BEGIN
 @property (nonatomic, assign) BOOL selected;
 
 @property (nonatomic, strong, readonly) UIViewController * parController;
+/// text是否有效
+@property (nonatomic, assign, readonly) BOOL validText;
 
 - (UIView *)addCorners:(UIRectCorner)corners cornerRadii:(CGSize)cornerRadii width:(CGFloat)width color:(UIColor *)color;
 
