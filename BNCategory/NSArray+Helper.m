@@ -81,7 +81,6 @@
 + (NSArray *)arrayRandomFrom:(NSInteger)from to:(NSInteger)to count:(NSInteger)count{
     NSMutableArray * marr = [NSMutableArray arrayWithCapacity:0];
     for (NSInteger i = 0; i < count; i++) {
-        
         NSInteger inter = (from + (arc4random() % (to - from + 1)));
         [marr addObject:@(inter)];
     }
@@ -92,7 +91,6 @@
     NSMutableArray *marr = [NSMutableArray array];
     for (NSInteger i = startIndex; i <= startIndex + count; i++) {
         NSString *title = [NSString stringWithFormat:@"%@%@",prefix,@(i)];
-        
         switch (type.integerValue) {
             case 1:
             {
@@ -119,7 +117,6 @@
             [marr addSafeObjct:value];
         }
         [listArr addSafeObjct:marr];
-        
     }];
     return listArr;
 }
@@ -146,7 +143,6 @@
 
 - (NSArray *)arrayWithObjOffset:(NSInteger)offSet{
     __block NSMutableArray * marr = [NSMutableArray arrayWithCapacity:0];
-    
     for (NSInteger i = 0; i < self.count; i++) {
         id obj = self[i];
         if ([obj isEqualToString:@""]) continue;
