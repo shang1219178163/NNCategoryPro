@@ -283,7 +283,7 @@ static NSDictionary *_phoneTypeDic = nil;
     [UINavigationBar.appearance setShadowImage:UIImageColor(barTintColor)];
     
     NSDictionary * dic = @{
-                           NSForegroundColorAttributeName   :   tintColor,
+                           NSForegroundColorAttributeName:   tintColor,
                            };
     UINavigationBar.appearance.titleTextAttributes = dic;
     if (iOSVer(11)) {

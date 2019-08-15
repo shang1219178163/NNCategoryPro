@@ -169,11 +169,9 @@ UINavigationController * UINavCtrFromObj(id obj){
 }
 
 - (UIView *)refreshViewWithTitle:(NSString *)title type:(NSNumber *)type inView:(UIView *)inView{
-    
     NSDictionary * dic  = @{
-                            @0    :   @"img_request_Failed",
-                            @1    :   @"img_NoData",
-                          
+                            @0: @"img_request_Failed",
+                            @1: @"img_NoData",
                             };
     
     UIView *view = [inView viewWithTag:20181019];

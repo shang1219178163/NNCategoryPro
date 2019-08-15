@@ -36,18 +36,17 @@ NSDictionary *NSDictionaryFromObj(id obj){
 
 
 NSDictionary<NSAttributedStringKey, id> * AttributeDict(NSNumber * type){
-    
     NSDictionary *dic = @{
-                          NSForegroundColorAttributeName   :   UIColor.blackColor,
-                          NSBackgroundColorAttributeName   :   UIColor.whiteColor,
+                          NSForegroundColorAttributeName:   UIColor.blackColor,
+                          NSBackgroundColorAttributeName:   UIColor.whiteColor,
                           };
     
     switch (type.integerValue) {
         case 1://下划线
         {
             dic = @{
-                    NSUnderlineStyleAttributeName   :   @(NSUnderlineStyleSingle),
-                    NSUnderlineColorAttributeName  :   UIColor.redColor,
+                    NSUnderlineStyleAttributeName:   @(NSUnderlineStyleSingle),
+                    NSUnderlineColorAttributeName:   UIColor.redColor,
                     
                     };
             
@@ -56,15 +55,15 @@ NSDictionary<NSAttributedStringKey, id> * AttributeDict(NSNumber * type){
         case 2://贯穿县
         {
             dic = @{
-                    NSStrikethroughStyleAttributeName   :   @(NSUnderlineStyleSingle),
-                    NSStrikethroughColorAttributeName   :   UIColor.redColor,
+                    NSStrikethroughStyleAttributeName:   @(NSUnderlineStyleSingle),
+                    NSStrikethroughColorAttributeName:   UIColor.redColor,
                     };
         }
             break;
         case 3://设置字形倾斜度取值为 NSNumber （float）,正值右倾，负值左倾
         {
             dic = @{
-                    NSObliquenessAttributeName   :   @(0.8),
+                    NSObliquenessAttributeName:   @(0.8),
                     
                     };
         }
@@ -73,7 +72,7 @@ NSDictionary<NSAttributedStringKey, id> * AttributeDict(NSNumber * type){
         {
             //正值横向拉伸文本，负值横向压缩文本
             dic = @{
-                    NSExpansionAttributeName   :   @(0.3),
+                    NSExpansionAttributeName:   @(0.3),
                     
                     };
         }
@@ -81,8 +80,8 @@ NSDictionary<NSAttributedStringKey, id> * AttributeDict(NSNumber * type){
         case 5://书写方向(RightToLeft)
         {
             dic = @{
-                    NSWritingDirectionAttributeName   :   @[@(3)],
-                    //                    NSWritingDirectionAttributeName    :   @[@(NSWritingDirectionRightToLeft | NSWritingDirectionOverride)],
+                    NSWritingDirectionAttributeName:   @[@(3)],
+//                    NSWritingDirectionAttributeName:   @[@(NSWritingDirectionRightToLeft | NSWritingDirectionOverride)],
                     
                     };
             

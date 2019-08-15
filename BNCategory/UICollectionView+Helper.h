@@ -22,15 +22,15 @@ NS_ASSUME_NONNULL_BEGIN
 /**
  注意字典格式,如下
  collectionView.dictClass = @{
-                                 UICollectionElementKindSectionItem   :     @[
+                                 UICollectionElementKindSectionItem:     @[
                                                                          @"UICollectionViewCell",
                                                                          ],
-                                 UICollectionElementKindSectionHeader   :   @[
-                                                                            @"UICollectionReusableOneView",
-                                                                            ],
-                                 UICollectionElementKindSectionFooter   :   @[
-                                                                             @"UICollectionReusableOneView",
-                                                                             ],
+                                 UICollectionElementKindSectionHeader:   @[
+                                                                        @"UICollectionReusableOneView",
+                                                                        ],
+                                 UICollectionElementKindSectionFooter:   @[
+                                                                         @"UICollectionReusableOneView",
+                                                                         ],
  
  };
  */
