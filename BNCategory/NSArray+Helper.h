@@ -22,8 +22,29 @@ NS_ASSUME_NONNULL_BEGIN
 
 @interface NSArray (Helper)
 
-+ (NSArray *)arrayWithItem:(id)item count:(NSInteger)count;
+/**
+ map 高阶函数(使用时需要将obj强转为数组元素类型)
+ */
+- (NSArray<NSString *> *)map:(NSString *(^)(NSObject *obj, NSUInteger idx))handler;
+/**
+ filter 高阶函数(使用时需要将obj强转为数组元素类型)
+ */
+- (NSArray *)filter:(BOOL(^)(NSObject *obj, NSUInteger idx))handler;
+/**
+ 数组排序
+ */
+- (NSArray *)sortedAscending:(BOOL)isAscending;
 
+/**
+ 排序器排序
+ @param dic key为排序键;value是升序yes/降序false
+ */
+- (NSArray *)sorteDescriptorAscending:(NSDictionary<NSString*, NSNumber*> *)dic;
+
++ (NSArray *)arrayWithItem:(id)item count:(NSInteger)count;
+/**
+ from,to之间的随机数数组
+ */
 + (NSArray *)arrayRandomFrom:(NSInteger)from to:(NSInteger)to count:(NSInteger)count;
 
 /**
@@ -38,15 +59,8 @@ NS_ASSUME_NONNULL_BEGIN
  推荐
  */
 - (NSMutableArray *)BNfilterByPropertyList:(NSArray *)propertyList isNumValue:(BOOL)isNumValue;
+
 - (NSMutableArray *)BNfilterByPropertyList:(NSArray *)propertyList prefix:(NSString *)prefix isNumValue:(BOOL)isNumValue;
-
-- (NSArray *)BNfilterListByQueryContain:(NSString *)query;
-
-- (id)BNfilterModelByKey:(NSString *)key value:(id)value;
-
-- (id)BNresultBykeyPath:(NSString *)key valuePath:(NSString *)value isImg:(BOOL)isImg;
-
-- (NSArray *)sortedByAscending;
 
 - (NSArray *)arrayWithObjRange:(NSRange)objRange;
 

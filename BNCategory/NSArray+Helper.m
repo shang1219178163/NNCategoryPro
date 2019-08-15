@@ -32,6 +32,44 @@
 
 @implementation NSArray (Helper)
 
+- (NSArray<NSString *> *)map:(NSString *(^)(NSObject *obj, NSUInteger idx))handler{
+    __block NSMutableArray *marr = [NSMutableArray array];
+    [self enumerateObjectsUsingBlock:^(NSObject *_Nonnull obj, NSUInteger idx, BOOL * _Nonnull stop) {
+        if (handler) {
+            id blockResult = handler(obj, idx) ? : @"";
+            [marr addObject:blockResult];
+        }
+    }];
+    return marr.copy;
+}
+
+- (NSArray *)filter:(BOOL(^)(NSObject *obj, NSUInteger idx))handler{
+    __block NSMutableArray *marr = [NSMutableArray array];
+    [self enumerateObjectsUsingBlock:^(NSObject *_Nonnull obj, NSUInteger idx, BOOL * _Nonnull stop) {
+        if (handler && handler(obj, idx) == true) {
+            [marr addObject:obj];
+        }
+    }];
+    return marr.copy;
+}
+
+- (NSArray *)sortedAscending:(BOOL)isAscending{
+    NSArray *list = [self sortedArrayUsingSelector:@selector(compare:)];
+    if (isAscending) {
+        return list;
+    }
+    return list.reverseObjectEnumerator.allObjects;
+}
+
+- (NSArray *)sorteDescriptorAscending:(NSDictionary<NSString*, NSNumber*> *)dic{
+    __block NSMutableArray *marr = [NSMutableArray array];
+    [dic enumerateKeysAndObjectsUsingBlock:^(NSString * _Nonnull key, NSNumber * _Nonnull obj, BOOL * _Nonnull stop) {
+        NSSortDescriptor *sort = [NSSortDescriptor sortDescriptorWithKey:key ascending: obj.boolValue];
+        [marr addObject:sort];
+    }];
+    return [self sortedArrayUsingDescriptors:marr.copy];
+}
+
 + (NSArray *)arrayWithItem:(id)item count:(NSInteger)count{
     NSMutableArray * marr = [NSMutableArray arrayWithCapacity:0];
     for (NSInteger i = 0; i < count; i++) {
@@ -40,9 +78,6 @@
     return marr.copy;
 }
 
-/**
- from,to之间的随机数数组
- */
 + (NSArray *)arrayRandomFrom:(NSInteger)from to:(NSInteger)to count:(NSInteger)count{
     NSMutableArray * marr = [NSMutableArray arrayWithCapacity:0];
     for (NSInteger i = 0; i < count; i++) {
@@ -100,110 +135,13 @@
 }
 
 - (NSArray *)BNfilterListByQueryContain:(NSString *)query{
-    
     NSMutableArray * marr = [NSMutableArray arrayWithCapacity:0];
     [self enumerateObjectsUsingBlock:^(id  _Nonnull obj, NSUInteger idx, BOOL * _Nonnull stop) {
         if ([query containsString:obj]) {
             [marr addObject:obj];
-            
         }
     }];
     return marr.copy;
-}
-
-
-- (id)BNfilterModelByKey:(NSString *)key value:(id)value{
-    NSParameterAssert([value isKindOfClass:[NSString class]] || [value isKindOfClass:[NSNumber class]]);
-    if ([value isKindOfClass:[NSNumber class]]) {
-        value = [value stringValue];
-    }
-    
-    for (id obj in self) {
-        if ([[obj valueForKey:key] isEqualToString:value]) {
-            return obj;
-        }
-    }
-    return nil;
-}
-
-
-- (id)BNresultBykeyPath:(NSString *)key valuePath:(NSString *)value isImg:(BOOL)isImg{
-    
-    if (!value) {
-        __block NSMutableArray * marr = [NSMutableArray array];
-        [self enumerateObjectsUsingBlock:^(id  _Nonnull obj, NSUInteger idx, BOOL * _Nonnull stop) {
-            NSString * value = [obj valueForKey:key];
-            [marr addSafeObjct:value];
-            
-        }];
-        return marr;
-        
-    }
-    else{
-        NSMutableDictionary * mdic = [NSMutableDictionary dictionary];
-        [self enumerateObjectsUsingBlock:^(id  _Nonnull obj, NSUInteger idx, BOOL * _Nonnull stop) {
-            if (key && [key validObject]) {
-                NSString * objKey = [obj valueForKey:key];
-                NSString * objValue = [obj valueForKey:value];
-                objValue = [objValue validObject] ? objValue : @"";
-                [mdic setSafeObjct:objValue forKey:objKey];
-                
-            }
-        }];
-        return mdic;
-        
-    }
-    return nil;
-}
-
-
-- (NSArray *)sortedByAscending{
-    //block比较方法，数组中可以是NSInteger，NSString（需要转换）
-    if ([[self firstObject] isKindOfClass:[NSString class]]) {
-        NSComparator sort = ^(id string1,id string2){
-            if ([string1 integerValue] > [string2 integerValue]) {
-                return NSOrderedDescending;
-                
-            }
-            else if ([string1 integerValue] < [string2 integerValue]){
-                return NSOrderedAscending;
-                
-            }
-            else
-                return NSOrderedSame;
-        };
-        
-        //数组排序：
-        NSArray *resultArray = [self sortedArrayUsingComparator:sort];
-//        NSLog(@"第一种排序结果：%@",resultArray);
-        return resultArray;
-        
-    }
-    else if ([[self firstObject] isKindOfClass:[NSNumber class]]) {
-        NSStringCompareOptions options = NSCaseInsensitiveSearch|NSNumericSearch|
-        NSWidthInsensitiveSearch|NSForcedOrderingSearch;
-        NSComparator sort = ^(NSString *obj1,NSString *obj2){
-            NSRange range = NSMakeRange(0,obj1.length);
-            return [obj1 compare:obj2 options:options range:range];
-        };
-        NSArray *resultArray = [self sortedArrayUsingComparator:sort];
-//        NSLog(@"字符串数组排序结果%@",resultArray2);
-        return resultArray;
-
-    }
-    return nil;
-    
-}
-
-
-- (NSArray *)arrayWithObjRange:(NSRange)objRange {
-    __block NSMutableArray * marr = [NSMutableArray arrayWithCapacity:0];
-    [self enumerateObjectsUsingBlock:^(NSString * _Nonnull obj, NSUInteger idx, BOOL * _Nonnull stop) {
-        NSString * tmp = [obj substringWithRange:objRange];
-        [marr addSafeObjct:tmp];
-        
-    }];
-    return marr;
 }
 
 - (NSArray *)arrayWithObjOffset:(NSInteger)offSet{
