@@ -149,8 +149,10 @@
         } forDirection:UISwipeGestureRecognizerDirectionRight];
         
         UIImageView *imgView = [[UIImageView alloc]initWithFrame:CGRectMake(0, 0, imgSize.width, imgSize.height)];
-        view.tag = 991;
+        imgView.tag = 991;
         imgView.image = image;
+        imgView.layer.borderColor = UIColor.grayColor.CGColor;
+        imgView.layer.borderWidth = 0.5;
         [view addSubview:imgView];
         
         title = title ? : @"求助反馈";
