@@ -33,6 +33,11 @@ NS_ASSUME_NONNULL_BEGIN
 
 + (void)showToastWithTips:(NSString *)tips image:(id)image place:(id)place completion:(void(^)(BOOL didTap))completion;
 
+/**
+ 展示截屏反馈视图（UIImageView *imgView = [btn.superview viewWithTag:991];）
+ */
+- (UIButton *)showFeedbackView:(UIImage *)image title:(NSString *)title;
+
 @end
 
 NS_ASSUME_NONNULL_END

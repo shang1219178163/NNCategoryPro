@@ -33,7 +33,7 @@ FOUNDATION_EXPORT bool UIImageEquelToImage(UIImage *image0, UIImage *image1);
 
 + (UIImage *)imageWithColor:(UIColor *)color;
 
-+ (UIImage *)screenshotFromView:(UIView *)view;
++ (UIImage *)snapshotImageWithView:(UIView *)view;
 
 - (UIImage *)croppedImage:(CGRect)cropRect;
 

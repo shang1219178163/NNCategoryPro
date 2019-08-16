@@ -115,13 +115,15 @@ bool UIImageEquelToImage(UIImage *image0, UIImage *image1){
     return image;
 }
 
-+ (UIImage *)screenshotFromView:(UIView *)view{
-    UIGraphicsBeginImageContext(view.bounds.size);   //self为需要截屏的UI控件 即通过改变此参数可以截取特定的UI控件
++ (UIImage *)snapshotImageWithView:(UIView *)view{
+    if (nil == view) {
+        return nil;
+    }
+    UIGraphicsBeginImageContextWithOptions(view.bounds.size, YES, UIScreen.mainScreen.scale);
     [view.layer renderInContext:UIGraphicsGetCurrentContext()];
-    UIImage *fullScreenshot = UIGraphicsGetImageFromCurrentImageContext();
+    UIImage *image = UIGraphicsGetImageFromCurrentImageContext();
     UIGraphicsEndImageContext();
-    
-    return fullScreenshot;
+    return image;
 }
 
 - (UIImage *)croppedImage:(CGRect)cropRect{

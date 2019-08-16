@@ -163,7 +163,7 @@
 }
 
 - (CALayer *)shipLabyerWithList:(NSMutableArray *)cacheList sender:(UIView *)sender{
-    UIImage * image = [UIImage screenshotFromView:sender];
+    UIImage * image = [UIImage snapshotImageWithView:sender];
 
     CALayer *shipLabyer = nil;
     if (cacheList.count > 0) {
