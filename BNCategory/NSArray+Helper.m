@@ -32,11 +32,22 @@
 
 @implementation NSArray (Helper)
 
-- (NSArray<NSString *> *)map:(NSString *(^)(NSObject *obj, NSUInteger idx))handler{
+//- (NSArray<NSString *> *)map:(NSString *(^)(NSObject *obj, NSUInteger idx))handler{
+//    __block NSMutableArray *marr = [NSMutableArray array];
+//    [self enumerateObjectsUsingBlock:^(NSObject *_Nonnull obj, NSUInteger idx, BOOL * _Nonnull stop) {
+//        if (handler) {
+//            id blockResult = handler(obj, idx) ? : @"";
+//            [marr addObject:blockResult];
+//        }
+//    }];
+//    return marr.copy;
+//}
+
+- (NSArray<NSObject *> *)map:(NSObject *(^)(NSObject *obj, NSUInteger idx))handler{
     __block NSMutableArray *marr = [NSMutableArray array];
     [self enumerateObjectsUsingBlock:^(NSObject *_Nonnull obj, NSUInteger idx, BOOL * _Nonnull stop) {
         if (handler) {
-            id blockResult = handler(obj, idx) ? : @"";
+            NSObject * blockResult = handler(obj, idx) ? : obj;
             [marr addObject:blockResult];
         }
     }];

@@ -23,7 +23,6 @@ NS_ASSUME_NONNULL_BEGIN
 /// 转为2位小数四舍五入
 -(NSString *)stringValue;
 
-
 @end
 
 NS_ASSUME_NONNULL_END

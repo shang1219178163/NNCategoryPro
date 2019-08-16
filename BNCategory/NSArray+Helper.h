@@ -25,7 +25,10 @@ NS_ASSUME_NONNULL_BEGIN
 /**
  map 高阶函数(使用时需要将obj强转为数组元素类型)
  */
-- (NSArray<NSString *> *)map:(NSString *(^)(NSObject *obj, NSUInteger idx))handler;
+//- (NSArray<NSString *> *)map:(NSString *(^)(NSObject *obj, NSUInteger idx))handler;
+
+- (NSArray<NSObject *> *)map:(NSObject *(^)(NSObject *obj, NSUInteger idx))handler;
+
 /**
  filter 高阶函数(使用时需要将obj强转为数组元素类型)
  */

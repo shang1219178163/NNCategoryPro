@@ -29,14 +29,6 @@
 }
 
 -(NSString *)stringValue{
-//    NSParameterAssert([self isKindOfClass:[NSNumber class]]);
-//    NSNumberFormatter *formatter = [NSNumberFormatter numberIdentify:kNumIdentify];
-//    formatter.numberStyle = NSNumberFormatterNoStyle;
-//    DDLog(@"_%p_",formatter);
-//    formatter.minimumIntegerDigits = 1;//最少一位整数
-//    formatter.maximumFractionDigits = 2;//最多两位小数
-//    formatter.roundingMode = NSNumberFormatterRoundHalfUp;
-//    NSString *result = [formatter stringFromNumber:self];
     return [self to_string];
 }
 

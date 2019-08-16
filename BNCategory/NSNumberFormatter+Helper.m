@@ -44,8 +44,9 @@ static NSDictionary *_styleDic = nil;
     if (!formatter) {
         formatter = [[NSNumberFormatter alloc]init];
         formatter.locale = [NSLocale localeWithLocaleIdentifier:kLanguageCN];
-        formatter.minimumFractionDigits = 2;//最少两位整数
-        formatter.maximumFractionDigits = 2;//最多两位小数
+        formatter.minimumIntegerDigits = 1;//最少小数点前的位数
+        formatter.minimumFractionDigits = 2;//最少小数点后的位数
+        formatter.maximumFractionDigits = 2;//最多小数点后的位数
         formatter.roundingMode = NSNumberFormatterRoundUp;
         //格式
         if ([NSNumberFormatter.styleDic.allKeys containsObject:identify]) {
@@ -65,8 +66,8 @@ static NSDictionary *_styleDic = nil;
                          max:(NSUInteger)max
                 roundingMode:(NSNumberFormatterRoundingMode)roundingMode{
     NSNumberFormatter *formatter = [NSNumberFormatter numberIdentify:kNumIdentify];
-    formatter.minimumFractionDigits = min;//最少一位整数
-    formatter.maximumFractionDigits = max;//最多两位小数
+    formatter.minimumFractionDigits = min;//最少小数点后的位数
+    formatter.maximumFractionDigits = max;//最多小数点后的位数
     formatter.roundingMode = roundingMode;
     return [formatter stringFromNumber:obj] ? : @"";
 }
