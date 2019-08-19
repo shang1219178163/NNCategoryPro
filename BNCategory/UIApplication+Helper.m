@@ -13,6 +13,9 @@
 
 #import "UIImage+Helper.h"
 
+NSString * const kJPush_type = @"into_page_type";
+NSString * const kJPush_extras = @"extras";
+
 @implementation UIApplication (Helper)
 
 static NSDictionary *_phoneTypeDic = nil;

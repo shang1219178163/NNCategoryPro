@@ -33,6 +33,12 @@ NS_ASSUME_NONNULL_BEGIN
  filter 高阶函数(使用时需要将obj强转为数组元素类型)
  */
 - (NSArray *)filter:(BOOL(^)(NSObject *obj, NSUInteger idx))handler;
+
+/**
+ reduce 高阶函数(求和,累加等)
+ */
+- (NSNumber *)reduce:(NSNumber *(^)(NSNumber *num1, NSNumber *num2))handler;
+
 /**
  数组排序
  */
@@ -43,6 +49,8 @@ NS_ASSUME_NONNULL_BEGIN
  @param dic key为排序键;value是升序yes/降序false
  */
 - (NSArray *)sorteDescriptorAscending:(NSDictionary<NSString*, NSNumber*> *)dic;
+
+- (NSArray *)contactArray:(NSArray *)array;
 
 + (NSArray *)arrayWithItem:(id)item count:(NSInteger)count;
 /**

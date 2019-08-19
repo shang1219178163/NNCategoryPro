@@ -64,6 +64,21 @@
     return marr.copy;
 }
 
+- (NSNumber *)reduce:(NSNumber *(^)(NSNumber *num1, NSNumber *num2))handler{
+    __block CGFloat result = 0.0;
+    [self enumerateObjectsUsingBlock:^(NSNumber *_Nonnull obj, NSUInteger idx, BOOL * _Nonnull stop) {
+        if (idx < self.count - 1) {
+            NSNumber *num1 = idx == 0 ? obj : @(result);
+            NSNumber *num2 = self[idx+1];
+            if (handler) {
+                result = handler(num1, num2).floatValue;
+//                DDLog(@"handler_%@_%@_%@_%@",num1, num2, handler(num1, num2), @(result));
+            }
+        }
+    }];
+    return @(result);
+}
+
 - (NSArray *)sortedAscending:(BOOL)isAscending{
     NSArray *list = [self sortedArrayUsingSelector:@selector(compare:)];
     if (isAscending) {
@@ -79,6 +94,12 @@
         [marr addObject:sort];
     }];
     return [self sortedArrayUsingDescriptors:marr.copy];
+}
+
+- (NSArray *)contactArray:(NSArray *)array{
+    NSMutableArray *marr = [NSMutableArray arrayWithArray:self];
+    [marr addObjectsFromArray:array];
+    return marr.copy;
 }
 
 + (NSArray *)arrayWithItem:(id)item count:(NSInteger)count{

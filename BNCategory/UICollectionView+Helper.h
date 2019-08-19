@@ -8,10 +8,10 @@
 
 #import <UIKit/UIKit.h>
 
+NS_ASSUME_NONNULL_BEGIN
+
 /// UICollectionElementKindSectionItem
 FOUNDATION_EXPORT NSString * const UICollectionElementKindSectionItem ;
-
-NS_ASSUME_NONNULL_BEGIN
 
 @interface UICollectionView (Helper)
 

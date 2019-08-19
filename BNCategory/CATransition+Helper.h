@@ -8,6 +8,7 @@
 
 #import <QuartzCore/QuartzCore.h>
 
+NS_ASSUME_NONNULL_BEGIN
 /// 立方体效果
 FOUNDATION_EXPORT NSString * const kCATransitionCube ;
 /// 阿拉神灯效果
@@ -24,8 +25,6 @@ FOUNDATION_EXPORT NSString * const kCATransitionPageUnCurl ;
 FOUNDATION_EXPORT NSString * const kCATransitionCameraIrisHollowOpen ;
 /// 相机镜头关闭效果
 FOUNDATION_EXPORT NSString * const kCATransitionCameraIrisHollowClose ;
-
-NS_ASSUME_NONNULL_BEGIN
 
 @interface CATransition (Helper)
 

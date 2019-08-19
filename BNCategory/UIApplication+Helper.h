@@ -12,10 +12,10 @@
 #import "UIApplication+Other.h"
 #import "UIViewController+Helper.h"
 
-#define kJPush_type          @"into_page_type"
-#define kJPush_extras        @"extras"
-
 NS_ASSUME_NONNULL_BEGIN
+
+FOUNDATION_EXPORT NSString * const kJPush_type;
+FOUNDATION_EXPORT NSString * const kJPush_extras;
 
 @interface UIApplication (Helper)
 

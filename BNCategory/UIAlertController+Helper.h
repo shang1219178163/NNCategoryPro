@@ -8,14 +8,14 @@
 
 #import <UIKit/UIKit.h>
 
-/// UIAlertController标题富文本key
-FOUNDATION_EXPORT NSString * _Nonnull const kAlertCtlrTitle;
-/// UIAlertController信息富文本key
-FOUNDATION_EXPORT NSString * _Nonnull const kAlertCtlrMessage;
-/// UIAlertController按钮颜色key
-FOUNDATION_EXPORT NSString * _Nonnull const kAlertActionColor;
-
 NS_ASSUME_NONNULL_BEGIN
+
+/// UIAlertController标题富文本key
+FOUNDATION_EXPORT NSString * const kAlertCtlrTitle;
+/// UIAlertController信息富文本key
+FOUNDATION_EXPORT NSString * const kAlertCtlrMessage;
+/// UIAlertController按钮颜色key
+FOUNDATION_EXPORT NSString * const kAlertActionColor;
 
 @interface UIAlertController (Helper)
 

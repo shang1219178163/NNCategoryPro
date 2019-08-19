@@ -8,6 +8,8 @@
 
 #import <QuartzCore/QuartzCore.h>
 
+NS_ASSUME_NONNULL_BEGIN
+
 /// x方向平移
 FOUNDATION_EXPORT NSString * const kTransformMoveX ;
 /// y方向平移
@@ -44,7 +46,6 @@ FOUNDATION_EXPORT NSString * const kTransformPath ;
 FOUNDATION_EXPORT NSString * const kTransformStrokeEnd ;
 
 //kCAValueFunctionRotateX
-NS_ASSUME_NONNULL_BEGIN
 
 @interface CABasicAnimation (Helper)
 

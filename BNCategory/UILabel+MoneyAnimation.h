@@ -8,6 +8,8 @@
 
 #import <UIKit/UIKit.h>
 
+NS_ASSUME_NONNULL_BEGIN
+
 //每次数字跳动相差的间隔数
 UIKIT_EXTERN NSString * const kNumberRangeKey ;
 //起始数字
@@ -23,3 +25,5 @@ UIKIT_EXTERN double kFrequency ;
 
 
 @end
+
+NS_ASSUME_NONNULL_END
