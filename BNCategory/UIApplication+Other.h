@@ -45,9 +45,9 @@ NS_ASSUME_NONNULL_BEGIN
  * @param type `The enumeration type for access permission` -> 获取权限枚举类型
  * @param completion `A block for the permission result and the value of authorization status` -> 获取权限结果和对应权限状态的block
  */
-+ (void)privacy:(PrivacyType)type completion:(void(^)(BOOL response,PrivacyStatus status, NSString *name))completion;
++ (void)privacy:(PrivacyType)type completion:(nullable void(^)(BOOL response,PrivacyStatus status, NSString *name))completion;
 
-+ (BOOL)privacy:(PrivacyType)type handler:(void(^)(BOOL response, NSString *name))handler;
++ (BOOL)privacy:(PrivacyType)type handler:(nullable void(^)(BOOL response, NSString *name))handler;
 
 + (BOOL)hasRightOfPhotosLibrary;
 
@@ -55,13 +55,29 @@ NS_ASSUME_NONNULL_BEGIN
 
 + (BOOL)hasRightOfAVCapture;
 
++ (BOOL)hasRightOfPush;
+
 + (void)setupIQKeyboardManager;
 
 + (void)registerAPNsWithDelegate:(id)delegate;
 
-+ (void)addLocalUserNotiTrigger:(id)trigger content:(UNMutableNotificationContent *)content identifier:(NSString *)identifier notiCategories:(id)notiCategories handler:(void(^)(UNUserNotificationCenter* center, UNNotificationRequest *request,NSError * _Nullable error))handler API_AVAILABLE(ios(10.0));
++ (void)addLocalUserNotiTrigger:(id)trigger
+                        content:(UNMutableNotificationContent *)content
+                     identifier:(NSString *)identifier
+                 notiCategories:(id)notiCategories
+                        repeats:(BOOL)repeats
+                        handler:(void(^)(UNUserNotificationCenter* center, UNNotificationRequest *request, NSError * _Nullable error))handler API_AVAILABLE(ios(10.0));
 
 + (void)addLocalNotification;
+/**
+ iOS10添加本地通知
+ */
++ (void)addLocalNoti:(NSString *)title
+                                      body:(NSString *)body
+                                  userInfo:(NSDictionary *)userInfo
+                                identifier:(NSString *)identifier
+                                   handler:(void(^)(UNUserNotificationCenter* center, UNNotificationRequest *request, NSError * _Nullable error))handler API_AVAILABLE(ios(10.0));
++ (UILocalNotification *)addLocalNoti:(NSString *)title body:(NSString *)body userInfo:(NSDictionary *)userInfo fireDate:(NSDate *)fireDate repeatInterval:(NSCalendarUnit)repeatInterval region:(CLRegion *)region;
 
 //+ (void)registerShareSDK;
 //+ (void)handleMsgShareDataModel:(BNShareModel *)dataModel type:(NSNumber *)type;

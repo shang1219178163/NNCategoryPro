@@ -29,10 +29,11 @@ NS_ASSUME_NONNULL_BEGIN
 
 @interface NSObject (Helper)<NSCoding>
 
-void dispatchAsyncMain(void(^block)(void));
-void dispatchAsyncGlobal(void(^block)(void));
-void dispatchAfterMain(double delay ,void(^block)(void));
-void dispatchApplyGlobal(id obj ,void(^block)(size_t index));
+#pragma mark - -dispatchAsync
+void GCDBlock(void(^block)(void));
+void GCDMainBlock(void(^block)(void));
+void GCDAfterMain(double delay ,void(^block)(void));
+void GCDApplyGlobal(id obj ,void(^block)(size_t index));
 
 /**
  代码块返回单个参数的时候,不适用于id不能代表的类型()

@@ -347,45 +347,52 @@ static NSDictionary *_dictPrivacy = nil;
 + (BOOL)hasRightOfCameraUsage{
     //相机权限
     return [UIApplication privacy:PrivacyTypeCamera handler:nil];
-
 }
 
 + (BOOL)hasRightOfAVCapture{
-    
-    __block BOOL isHasRight = NO;
+    __block BOOL isHasRight = false;
     AVCaptureDevice *device = [AVCaptureDevice defaultDeviceWithMediaType:AVMediaTypeVideo];
-    if (device) {
-        AVAuthorizationStatus status = [AVCaptureDevice authorizationStatusForMediaType:AVMediaTypeVideo];
-        switch (status) {
-            case AVAuthorizationStatusNotDetermined: {
-                [AVCaptureDevice requestAccessForMediaType:AVMediaTypeVideo completionHandler:^(BOOL granted) {
-                    if (granted) {
-                        isHasRight = YES;
-                        DDLog(@"用户第一次同意了访问相机权限 - - %@", NSThread.currentThread);
-                    } else {
-                        DDLog(@"用户第一次拒绝了访问相机权限 - - %@", NSThread.currentThread);
-                    }
-                }];
-                break;
-            }
-            case AVAuthorizationStatusAuthorized: {
-                isHasRight = YES;
-                break;
-            }
-            case AVAuthorizationStatusDenied: {
-                NSString * msg = [NSString stringWithFormat:@"请去-> [设置 - 隐私 - 相机 - %@] 打开访问开关",UIApplication.appName];
-                [UIWindow showToastWithTips:msg place:@1];
-                
-                break;
-            }
-            case AVAuthorizationStatusRestricted: {
-                NSString * msg = @"因为系统原因, 无法访问相册";
-                [UIWindow showToastWithTips:msg place:@1];
-                break;
-            }
-            default:
-                break;
+    if (!device) {
+        return false;
+    }
+    AVAuthorizationStatus status = [AVCaptureDevice authorizationStatusForMediaType:AVMediaTypeVideo];
+    switch (status) {
+        case AVAuthorizationStatusNotDetermined: {
+            [AVCaptureDevice requestAccessForMediaType:AVMediaTypeVideo completionHandler:^(BOOL granted) {
+                if (granted) {
+                    isHasRight = true;
+                    DDLog(@"用户第一次同意了访问相机权限 - - %@", NSThread.currentThread);
+                } else {
+                    DDLog(@"用户第一次拒绝了访问相机权限 - - %@", NSThread.currentThread);
+                }
+            }];
+            break;
         }
+        case AVAuthorizationStatusAuthorized: {
+            isHasRight = true;
+            break;
+        }
+        case AVAuthorizationStatusDenied: {
+            NSString * msg = [NSString stringWithFormat:@"请去-> [设置 - 隐私 - 相机 - %@] 打开访问开关",UIApplication.appName];
+            [UIWindow showToastWithTips:msg place:@1];
+            
+            break;
+        }
+        case AVAuthorizationStatusRestricted: {
+            NSString * msg = @"因为系统原因, 无法访问相册";
+            [UIWindow showToastWithTips:msg place:@1];
+            break;
+        }
+        default:
+            break;
+    }
+    return isHasRight;
+}
+
++ (BOOL)hasRightOfPush{
+    BOOL isHasRight = true;
+    if (UIApplication.sharedApplication.currentUserNotificationSettings.types == UIUserNotificationTypeNone) {
+        isHasRight = false;
     }
     return isHasRight;
 }
@@ -427,9 +434,14 @@ static NSDictionary *_dictPrivacy = nil;
 }
 
 /**
- 添加本地通知,trigger为NSDate/NSDateComponents未来时间点触发,CLCircularRegion进出特定区域触发
+ iOS10添加本地通知,trigger为NSDate/NSDateComponents未来时间点触发,CLCircularRegion进出特定区域触发
  */
-+ (void)addLocalUserNotiTrigger:(id)trigger content:(UNMutableNotificationContent *)content identifier:(NSString *)identifier notiCategories:(id)notiCategories handler:(void(^)(UNUserNotificationCenter* center, UNNotificationRequest *request,NSError * _Nullable error))handler API_AVAILABLE(ios(10.0)){
++ (void)addLocalUserNotiTrigger:(id)trigger
+                        content:(UNMutableNotificationContent *)content
+                     identifier:(NSString *)identifier
+                 notiCategories:(id)notiCategories
+                        repeats:(BOOL)repeats
+                        handler:(void(^)(UNUserNotificationCenter* center, UNNotificationRequest *request, NSError * _Nullable error))handler API_AVAILABLE(ios(10.0)){
     NSParameterAssert([trigger isKindOfClass: NSDate.class] || [trigger isKindOfClass: NSDateComponents.class] || [trigger isKindOfClass: CLCircularRegion.class]);
 
     UNNotificationTrigger * notiTrigger = nil;
@@ -438,7 +450,7 @@ static NSDictionary *_dictPrivacy = nil;
         DDLog(@"_%@_",@(interval));
         interval = interval < 0 ? 1 : interval;
         
-        UNTimeIntervalNotificationTrigger *timeTrigger = [UNTimeIntervalNotificationTrigger triggerWithTimeInterval:interval repeats:NO];
+        UNTimeIntervalNotificationTrigger *timeTrigger = [UNTimeIntervalNotificationTrigger triggerWithTimeInterval:interval repeats:repeats];
         notiTrigger = timeTrigger;
         
     }
@@ -448,7 +460,7 @@ static NSDictionary *_dictPrivacy = nil;
         //        components.weekday = 4;
         //        components.hour = 10;
         //        components.minute = 12;
-        UNCalendarNotificationTrigger *calendarTrigger = [UNCalendarNotificationTrigger triggerWithDateMatchingComponents:trigger repeats:YES];
+        UNCalendarNotificationTrigger *calendarTrigger = [UNCalendarNotificationTrigger triggerWithDateMatchingComponents:trigger repeats:repeats];
         notiTrigger = calendarTrigger;
         
     }
@@ -457,7 +469,7 @@ static NSDictionary *_dictPrivacy = nil;
         //        CLCircularRegion *region = [[CLCircularRegion alloc] initWithCenter:center1 radius:500 identifier:@"经海五路"];
         //        region.notifyOnEntry = YES;
         //        region.notifyOnExit = YES
-        UNLocationNotificationTrigger *locationTrigger = [UNLocationNotificationTrigger triggerWithRegion:trigger repeats:YES];
+        UNLocationNotificationTrigger *locationTrigger = [UNLocationNotificationTrigger triggerWithRegion:trigger repeats:repeats];
         notiTrigger = locationTrigger;
         
     }
@@ -469,12 +481,13 @@ static NSDictionary *_dictPrivacy = nil;
     [center setNotificationCategories:[UIApplication notiCategories:notiCategories identifier:@"locationCategory"]];
     // 将通知请求 add 到 UNUserNotificationCenter
     
-    __weak typeof(center) weakCenter = center;
+    @weakify(center);
     [center addNotificationRequest:request withCompletionHandler:^(NSError * _Nullable error) {
-        __strong typeof(weakCenter) strongCenter = weakCenter;
-        handler(strongCenter,request,error);
+        @strongify(center);
+        handler(center, request, error);
         if (!error) {
             DDLog(@"推送已添加成功 %@", identifier);
+            
             //你自己的需求例如下面：
 //            UIAlertController *alert = [UIAlertController alertControllerWithTitle:@"本地通知" message:@"成功添加推送" preferredStyle:UIAlertControllerStyleAlert];
 //            UIAlertAction *cancelAction = [UIAlertAction actionWithTitle:@"取消" style:UIAlertActionStyleCancel handler:nil];
@@ -534,6 +547,73 @@ static NSDictionary *_dictPrivacy = nil;
     return marr;
 }
 
+/**
+ iOS10添加本地通知
+ */
++ (void)addLocalNoti:(NSString *)title
+                                      body:(NSString *)body
+                                  userInfo:(NSDictionary *)userInfo
+                                identifier:(NSString *)identifier
+                                   handler:(void(^)(UNUserNotificationCenter* center, UNNotificationRequest *request, NSError * _Nullable error))handler API_AVAILABLE(ios(10.0)){
+    if (UIApplication.sharedApplication.currentUserNotificationSettings.types == UIUserNotificationTypeNone) {
+#ifdef DEBUG
+        NSLog(@"请在[设置]-[通知]中打开推送功能");
+#endif
+        return;
+    }
+  
+    UNUserNotificationCenter *center = UNUserNotificationCenter.currentNotificationCenter;
+    
+    UNMutableNotificationContent *content = [[UNMutableNotificationContent alloc] init];
+    content.sound = UNNotificationSound.defaultSound;
+    content.title = title;
+    content.body = body;
+    content.userInfo = userInfo;
+    
+    UNNotificationRequest *request = [UNNotificationRequest requestWithIdentifier:identifier content:content trigger:nil];
+    @weakify(center);
+    [center addNotificationRequest:request withCompletionHandler:^(NSError *_Nullable error) {
+        @strongify(center);
+        if (handler) handler(center, request, error);
+        if (error) {
+#ifdef DEBUG
+            NSLog(@"%@", error.localizedDescription);
+#endif
+            return ;
+        }
+        UIApplication.sharedApplication.applicationIconBadgeNumber += 1;
+        NSLog(@"成功添加推送");
+    }];
+}
+
+/**
+ iOS8-9添加本地通知
+ */
++ (UILocalNotification *)addLocalNoti:(NSString *)title body:(NSString *)body userInfo:(NSDictionary *)userInfo fireDate:(NSDate *)fireDate repeatInterval:(NSCalendarUnit)repeatInterval region:(CLRegion *)region{
+    if (UIApplication.sharedApplication.currentUserNotificationSettings.types == UIUserNotificationTypeNone) {
+#ifdef DEBUG
+        NSLog(@"请在[设置]-[通知]中打开推送功能");
+#endif
+        return nil;
+    }
+    // 1.创建本地通知
+    UILocalNotification *localNote = [[UILocalNotification alloc] init];
+    localNote.soundName = UILocalNotificationDefaultSoundName;
+    // 2.设置本地通知(发送的时间和内容是必须设置的)
+    localNote.fireDate = fireDate;
+    localNote.repeatInterval = repeatInterval;
+    localNote.region = region;
+
+    localNote.alertTitle = title;
+    localNote.alertBody = body;
+    localNote.alertAction = title; // 锁屏状态下显示: 滑动来快点啊
+    
+    localNote.applicationIconBadgeNumber += 1;
+    localNote.userInfo = userInfo;
+    // 3.调用通知
+    [UIApplication.sharedApplication scheduleLocalNotification:localNote];
+    return localNote;
+}
 /**
  ios10之前本地通知创建
  */

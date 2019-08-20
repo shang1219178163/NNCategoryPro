@@ -272,11 +272,13 @@ NSString *SwiftClassName(NSString *className){
     return [self modelToDictionary];
 }
 
-#pragma mark - -dispatchAsyncMain
+#pragma mark - -dispatchAsync
+void GCDBlock(void(^block)(void)){
+    dispatch_async(dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_DEFAULT, 0), block);
+}
 
-void dispatchAsyncMain(void(^block)(void)){
-//    dispatch_async(dispatch_get_main_queue(), block);
-    if ([NSThread isMainThread]) {
+void GCDMainBlock(void(^block)(void)){
+    if (NSThread.isMainThread) {
         block();
     }
     else{
@@ -284,21 +286,11 @@ void dispatchAsyncMain(void(^block)(void)){
     }
 }
 
-void dispatchAsyncGlobal(void(^block)(void)){
-    //    dispatch_async(dispatch_get_global_queue(0, 0), block);
-    if (![NSThread isMainThread]) {
-        block();
-    }
-    else{
-        dispatch_async(dispatch_get_global_queue(0, 0), block);
-    }
-}
-
-void dispatchAfterMain(double delay ,void(^block)(void)){
+void GCDAfterMain(double delay ,void(^block)(void)){
     dispatch_after(dispatch_time(DISPATCH_TIME_NOW, (int64_t)(delay * NSEC_PER_SEC)), dispatch_get_main_queue(), block);
 }
 
-void dispatchApplyGlobal(id obj ,void(^block)(size_t index)){
+void GCDApplyGlobal(id obj ,void(^block)(size_t index)){
     NSCAssert([obj isKindOfClass:[NSArray class]] || [obj isKindOfClass:[NSDictionary class]] || [obj isKindOfClass:[NSNumber class]] || [obj isKindOfClass:[NSSet class]], @"必须是集合或者NSNumber");
     if ([obj isKindOfClass:[NSNumber class]]) {
         dispatch_apply([obj unsignedIntegerValue], dispatch_get_global_queue(0, 0), block);
