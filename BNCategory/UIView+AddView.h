@@ -19,7 +19,7 @@ NS_ASSUME_NONNULL_BEGIN
  */
 @property (nonatomic, strong) UIView *holderView;
 
--(void)holderView:(NSString *)title image:(NSString *)image;
+-(void)holderView:(NSString *)title image:(NSString *_Nullable)image;
 
 -(void)addLineRect:(CGRect)rect isDash:(BOOL)isDash inView:(UIView *)inView;
 

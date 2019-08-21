@@ -72,7 +72,9 @@ NSString * const kFormatDate_Six = @"EEE, dd MMM yyyy HH:mm:ss 'GMT'";
  */
 + (NSString *)IntervalFromDateStr:(NSString *)dateStr format:(NSString *)format{
     NSDate * date = [NSDateFormatter dateFromString:dateStr format:format];
-    return [@(date.timeIntervalSince1970) stringValue];
+    NSString *intervalStr = [@(date.timeIntervalSince1970) stringValue];
+    intervalStr = [intervalStr stringByReplacingOccurrencesOfString:@".00" withString:@""];
+    return intervalStr;
 }
 
 /**

@@ -102,6 +102,21 @@
     return marr.copy;
 }
 
++ (NSArray<NSNumber *> *)range:(NSInteger)start end:(NSInteger)end step:(NSInteger)step{
+    assert(start < end);
+    NSMutableArray * list = [NSMutableArray array];
+    
+    NSInteger count = end - start + 1;
+    NSInteger k = 0;
+    for (NSInteger i = 0; i < count; i++) {
+        k = start + step*i;
+        if (k < end) {
+            [list addObject:@(k)];
+        }
+    }
+    return list.copy;
+}
+
 + (NSArray *)arrayWithItem:(id)item count:(NSInteger)count{
     NSMutableArray * marr = [NSMutableArray arrayWithCapacity:0];
     for (NSInteger i = 0; i < count; i++) {

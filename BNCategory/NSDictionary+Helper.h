@@ -49,7 +49,7 @@ FOUNDATION_EXPORT NSMutableDictionary *DicFromPlist(NSString *plistName);
  *  @param declaration xml声明
  *  @return 标准合法 XML 字符串
  */
-- (NSString *)XMLStringWithRootElement:(NSString *)rootElement declaration:(NSString *)declaration;
+- (NSString *)XMLStringWithRootElement:(nullable NSString *)rootElement declaration:(nullable NSString *)declaration;
 /**
  *  @brief  将NSDictionary转换成Plist字符串
  *  @return Plist 字符串

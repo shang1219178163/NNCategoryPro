@@ -34,7 +34,6 @@ NSDictionary *NSDictionaryFromObj(id obj){
     return dic;
 }
 
-
 NSDictionary<NSAttributedStringKey, id> * AttributeDict(NSNumber * type){
     NSDictionary *dic = @{
                           NSForegroundColorAttributeName:   UIColor.blackColor,

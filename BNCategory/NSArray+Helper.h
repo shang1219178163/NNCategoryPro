@@ -49,8 +49,11 @@ NS_ASSUME_NONNULL_BEGIN
  @param dic key为排序键;value是升序yes/降序false
  */
 - (NSArray *)sorteDescriptorAscending:(NSDictionary<NSString*, NSNumber*> *)dic;
-
+/// 合并数组
 - (NSArray *)contactArray:(NSArray *)array;
+
+/// 快速生成一个数组(step代表步长)
++ (NSArray<NSNumber *> *)range:(NSInteger)start end:(NSInteger)end step:(NSInteger)step;
 
 + (NSArray *)arrayWithItem:(id)item count:(NSInteger)count;
 /**
