@@ -12,6 +12,8 @@ NS_ASSUME_NONNULL_BEGIN
 
 @interface NSDictionary (Helper)
 
+- (NSDictionary *)invert;
+
 /// id类型转字典
 FOUNDATION_EXPORT NSDictionary *NSDictionaryFromObj(id obj);
 /// 富文本配置字典

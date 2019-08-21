@@ -14,6 +14,16 @@
 
 @implementation NSDictionary (Helper)
 
+- (NSDictionary *)invert{
+    __block NSMutableDictionary *mdic = [NSMutableDictionary dictionary];
+    [self enumerateKeysAndObjectsUsingBlock:^(id  _Nonnull key, id  _Nonnull obj, BOOL * _Nonnull stop) {
+        if (obj) {
+            [mdic setObject:key forKey:obj];
+        }
+    }];
+    return mdic.copy;
+}
+
 NSDictionary *NSDictionaryFromObj(id obj){
     if (!obj) return nil;
     assert([obj isKindOfClass: NSDictionary.class] || [obj isKindOfClass: NSString.class] || [obj isKindOfClass: NSData.class]);
