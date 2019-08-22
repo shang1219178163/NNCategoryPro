@@ -200,6 +200,8 @@ UINavigationController * UINavCtrFromObj(id obj){
     UIImageView *imageView = [[UIImageView alloc] initWithFrame:imgViewRect];
     imageView.image = image;
     imageView.contentMode = UIViewContentModeScaleAspectFit;
+    imageView.backgroundColor = UIColor.blackColor;
+    imageView.userInteractionEnabled = YES;
     
     UILabel * tipLabel = [[UILabel alloc]initWithFrame:CGRectMake(kX_GAP, CGRectGetMaxY(imgViewRect)+5, CGRectGetWidth(inView.bounds) - 2*kX_GAP, 30)];
     tipLabel.text = title ? : @"";

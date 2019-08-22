@@ -193,6 +193,7 @@
             UIImageView *view = [[UIImageView alloc] initWithFrame:CGRectZero];
             view.autoresizingMask = UIViewAutoresizingFlexibleWidth|UIViewAutoresizingFlexibleHeight;
             view.contentMode = UIViewContentModeScaleAspectFit;
+            view.backgroundColor = UIColor.blackColor;
             view.userInteractionEnabled = YES;
             
             view;
@@ -214,8 +215,9 @@
             UIImageView *view = [[UIImageView alloc] initWithFrame:CGRectZero];
             view.autoresizingMask = UIViewAutoresizingFlexibleWidth|UIViewAutoresizingFlexibleHeight;
             view.contentMode = UIViewContentModeScaleAspectFit;
+            view.backgroundColor = UIColor.blackColor;
             view.userInteractionEnabled = YES;
-            //            imgView.backgroundColor = UIColor.orangeColor;
+            
             view.frame = CGRectMake(self.contentView.maxX - kX_GAP - kSizeArrow.width, (self.contentView.maxY - kSizeArrow.height)/2.0, kSizeArrow.width, kSizeArrow.height);
             view.image = [UIImage imageNamed:kIMG_arrowRight];
             

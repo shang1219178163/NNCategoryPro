@@ -156,8 +156,8 @@
             UIImageView *view = [[UIImageView alloc] initWithFrame:CGRectZero];
             view.autoresizingMask = UIViewAutoresizingFlexibleWidth|UIViewAutoresizingFlexibleHeight;
             view.contentMode = UIViewContentModeScaleAspectFit;
+            view.backgroundColor = UIColor.blackColor;
             view.userInteractionEnabled = YES;
-//            imgView.backgroundColor = UIColor.orangeColor;
             imgV.tag = kTAG_IMGVIEW+2;
 
             view;
@@ -178,6 +178,7 @@
             UIImageView *view = [[UIImageView alloc] initWithFrame:CGRectZero];
             view.autoresizingMask = UIViewAutoresizingFlexibleWidth|UIViewAutoresizingFlexibleHeight;
             view.contentMode = UIViewContentModeScaleAspectFit;
+            view.backgroundColor = UIColor.blackColor;
             view.userInteractionEnabled = YES;
             //            imgView.backgroundColor = UIColor.orangeColor;
             view.tag = kTAG_IMGVIEW;
@@ -200,6 +201,7 @@
             UIImageView *view = [[UIImageView alloc] initWithFrame:CGRectZero];
             view.autoresizingMask = UIViewAutoresizingFlexibleWidth|UIViewAutoresizingFlexibleHeight;
             view.contentMode = UIViewContentModeScaleAspectFit;
+            view.backgroundColor = UIColor.blackColor;
             view.userInteractionEnabled = YES;
             //            imgView.backgroundColor = UIColor.orangeColor;
             view.frame = CGRectMake(self.maxX - kX_GAP - kSizeArrow.width, (self.maxY - kSizeArrow.height)/2.0, kSizeArrow.width, kSizeArrow.height);

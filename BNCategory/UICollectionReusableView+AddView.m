@@ -45,6 +45,7 @@
             UIImageView *view = [[UIImageView alloc] initWithFrame:CGRectZero];
             view.autoresizingMask = UIViewAutoresizingFlexibleWidth|UIViewAutoresizingFlexibleHeight;
             view.contentMode = UIViewContentModeScaleAspectFit;
+            view.backgroundColor = UIColor.blackColor;
             view.userInteractionEnabled = YES;
             view.tag = kTAG_IMGVIEW;
             view;

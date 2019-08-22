@@ -50,6 +50,7 @@
             
             UIImageView *imgView = [[UIImageView alloc] initWithFrame:CGRectMake(0, YGap, CGRectGetWidth(self.bounds), height*0.3)];
             imgView.contentMode = UIViewContentModeScaleAspectFit;
+            view.backgroundColor = UIColor.blackColor;
             imgView.userInteractionEnabled = YES;
             imgView.tag = kTAG_IMGVIEW;
             [view addSubview:imgView];
@@ -327,18 +328,20 @@
  */
 + (__kindof UIImageView *)createImgViewRect:(CGRect)rect type:(NSNumber *)type{
     assert([self isSubclassOfClass: UIImageView.class]);
-    UIImageView *imgView = [[self alloc] initWithFrame:rect];
-    imgView.autoresizingMask = UIViewAutoresizingFlexibleWidth|UIViewAutoresizingFlexibleHeight;
-    imgView.contentMode = UIViewContentModeScaleAspectFit;
-    imgView.userInteractionEnabled = YES;
-   
-//    [imgView loadImage:image defaultImg:kIMG_defaultFailed_S];
+    UIImageView *view = [[self alloc] initWithFrame:rect];
+    view.autoresizingMask = UIViewAutoresizingFlexibleWidth|UIViewAutoresizingFlexibleHeight;
+    view.contentMode = UIViewContentModeScaleAspectFit;
+    view.backgroundColor = UIColor.blackColor;
+    view.userInteractionEnabled = YES;
+    view.backgroundColor = UIColor.blackColor;
+
+//    [view loadImage:image defaultImg:kIMG_defaultFailed_S];
     
     switch (type.integerValue) {
         case 1://圆形
         {
-            imgView.contentMode = UIViewContentModeScaleToFill;
-            [imgView addCornersAll];
+            view.contentMode = UIViewContentModeScaleToFill;
+            [view addCornersAll];
 
         }
             break;
@@ -353,21 +356,21 @@
             CGPoint tipCenter = CGPointMake(CGRectGetHeight(rect)/2.0 + offsetXY, CGRectGetHeight(rect)/2.0 + offsetXY);
             //
             UILabel * labelTip = [UILabel createTipLabelWithSize:CGSizeMake(textWH, textWH) tipCenter:tipCenter text:text textColor:UIColor.themeColor];
-            [imgView addSubview:labelTip];
+            [view addSubview:labelTip];
             
         }
             break;
         case 3://圆角矩形
         {
-            imgView.contentMode = UIViewContentModeScaleToFill;
-            [imgView addCorners:UIRectCornerAllCorners cornerRadii:CGSizeMake(5, 5)];
+            view.contentMode = UIViewContentModeScaleToFill;
+            [view addCorners:UIRectCornerAllCorners cornerRadii:CGSizeMake(5, 5)];
 
         }
             break;
         default:
             break;
     }
-    return imgView;
+    return view;
 }
 
 /**
@@ -572,6 +575,7 @@
     UIImageView * imgView = [[UIImageView alloc]initWithImage:[UIImage imageNamed:imgName]];
     imgView.autoresizingMask = UIViewAutoresizingFlexibleWidth|UIViewAutoresizingFlexibleHeight;
     imgView.contentMode = UIViewContentModeScaleAspectFit;
+    imgView.backgroundColor = UIColor.blackColor;
     imgView.userInteractionEnabled = YES;
     imgView.tag = kTAG_IMGVIEW;
     
