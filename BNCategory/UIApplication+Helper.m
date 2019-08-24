@@ -248,6 +248,8 @@ static NSDictionary *_phoneTypeDic = nil;
     UIButton.appearance.titleLabel.textColor = UIColor.blackColor;
     UIButton.appearance.titleLabel.font = [UIFont systemFontOfSize:12];
     UIButton.appearance.exclusiveTouch = NO;
+    
+    UISwitch.appearance.onTintColor = UIColor.themeColor;
 
     UITabBar.appearance.tintColor = UIColor.themeColor;
     UITabBar.appearance.barTintColor = UIColor.whiteColor;

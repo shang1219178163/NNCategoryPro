@@ -43,10 +43,17 @@ UINavigationController * UINavCtrFromObj(id obj){
     return nil;
 }
 
-- (void)configureDefault{
+- (void)setupExtendedLayout{
     self.edgesForExtendedLayout = UIRectEdgeNone;
     self.view.backgroundColor = UIColor.whiteColor;
     self.title = self.controllerName;
+    
+    if (@available(iOS 11.0, *)) {
+        UIScrollView.appearance.contentInsetAdjustmentBehavior = UIScrollViewContentInsetAdjustmentNever;
+    } else {
+        // Fallback on earlier versions
+        self.automaticallyAdjustsScrollViewInsets = false;
+    }
 }
 
 #pragma make - - 给控制器添加额外属性

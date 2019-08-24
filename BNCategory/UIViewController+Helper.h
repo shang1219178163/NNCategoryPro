@@ -54,7 +54,7 @@ FOUNDATION_EXPORT UINavigationController * _Nullable UINavCtrFromObj(id obj);
 @property (nonatomic, assign) NSTimeInterval timeInterval;
 @property (nonatomic, strong, readonly) NSString * _Nullable controllerName;
 
-- (void)configureDefault;
+- (void)setupExtendedLayout;
 
 /**
   导航栏按钮

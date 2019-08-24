@@ -711,7 +711,7 @@
             case 0://uibutton
             {
                 view = ({
-                    UIButton * view = [UIButton createBtnRect:itemRect title:title font:16 image:nil type:@5];
+                    UIButton * view = [UIButton createBtnRect:itemRect title:title image:nil type:@5];
                     view.tag = i;
                     view.titleLabel.font = [UIFont systemFontOfSize:15];
                     view;

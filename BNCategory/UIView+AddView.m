@@ -829,10 +829,11 @@
     
     UICollectionView *view = [[self alloc]initWithFrame:rect collectionViewLayout:layout];
     view.backgroundColor = [UIColor whiteColor];
-    view.scrollsToTop = false;
     view.showsVerticalScrollIndicator = false;
     view.showsHorizontalScrollIndicator = false;
-    
+    view.scrollsToTop = false;
+    view.pagingEnabled = true;
+
     return view;
 }
 

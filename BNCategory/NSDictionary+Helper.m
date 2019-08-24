@@ -220,6 +220,7 @@ NSMutableDictionary *DicFromPlist(NSString *plistName){
     NSString *result = [[NSString alloc] initWithData:[self plistData]  encoding:NSUTF8StringEncoding];
     return result;
 }
+
 - (NSData *)plistData{
     //    return [NSPropertyListSerialization dataFromPropertyList:self format:NSPropertyListXMLFormat_v1_0   errorDescription:nil];
     NSError *error = nil;

@@ -52,7 +52,7 @@
         view = ({
             UILabel * view = [[UILabel alloc] initWithFrame:CGRectZero];
             view.autoresizingMask = UIViewAutoresizingFlexibleWidth|UIViewAutoresizingFlexibleHeight;
-            view.font = [UIFont systemFontOfSize:17];
+            view.font = [UIFont systemFontOfSize:15];
             view.textAlignment = NSTextAlignmentLeft;
             view.numberOfLines = 0;
             view.userInteractionEnabled = true;

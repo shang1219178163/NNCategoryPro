@@ -83,8 +83,6 @@ NS_ASSUME_NONNULL_BEGIN
 
 + (__kindof UITextField *)createTextFieldRect:(CGRect)rect text:(NSString *)text;
 
-+ (__kindof UIButton *)createBtnRect:(CGRect)rect title:(NSString *)title font:(CGFloat)font image:(NSString *_Nullable)image type:(NSNumber *)type;
-
 + (__kindof UIButton *)createBtnRect:(CGRect)rect title:(NSString *)title image:(NSString *_Nullable)image type:(NSNumber *)type;
     
 + (UIView *)createBtnViewRect:(CGRect)rect imgName:(NSString *)imgName imgHeight:(CGFloat)imgHeight title:(NSString *)title titleColor:(UIColor *)titleColor type:(NSNumber *)type;

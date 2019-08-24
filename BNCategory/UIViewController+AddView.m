@@ -47,9 +47,10 @@
         view = ({
             UICollectionView *view = [[UICollectionView alloc]initWithFrame:self.view.bounds collectionViewLayout:UICollectionView.layoutDefault];
             view.backgroundColor = UIColor.whiteColor;
-            view.scrollsToTop = NO;
-            view.showsVerticalScrollIndicator = NO;
-            view.showsHorizontalScrollIndicator = NO;
+            view.showsVerticalScrollIndicator = false;
+            view.showsHorizontalScrollIndicator = false;
+            view.scrollsToTop = false;
+            view.pagingEnabled = true;
 //            view.dictClass = self.dictClass;
             
             view;
