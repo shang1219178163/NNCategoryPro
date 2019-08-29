@@ -16,7 +16,7 @@
 
 @implementation UIViewController (AddView)
 
-- (UITableView *)tableView{
+- (UITableView *)tbView{
     UITableView *view = objc_getAssociatedObject(self, _cmd);
     if (!view) {
         view = [[UITableView alloc]initWithFrame:self.view.bounds style:UITableViewStyleGrouped];
@@ -37,11 +37,11 @@
     return view;
 }
 
--(void)setTableView:(UITableView *)tableView{
-    objc_setAssociatedObject(self, @selector(tableView), tableView, OBJC_ASSOCIATION_RETAIN_NONATOMIC);
+- (void)setTbView:(UITableView *)tbView{
+    objc_setAssociatedObject(self, @selector(tbView), tbView, OBJC_ASSOCIATION_RETAIN_NONATOMIC);
 }
 
-- (UICollectionView *)collectionView{
+- (UICollectionView *)ctView{
     UICollectionView *view = objc_getAssociatedObject(self, _cmd);
     if (!view) {
         view = ({
@@ -60,16 +60,16 @@
     return view;
 }
 
+- (void)setCtView:(UICollectionView *)ctView{
+    objc_setAssociatedObject(self, @selector(ctView), ctView, OBJC_ASSOCIATION_RETAIN_NONATOMIC);
+}
+
 -(NSInteger)pageIndex{
     return [objc_getAssociatedObject(self, _cmd) integerValue];
 }
 
 -(void)setPageIndex:(NSInteger)pageIndex{
     objc_setAssociatedObject(self, @selector(pageIndex), @(pageIndex), OBJC_ASSOCIATION_ASSIGN);
-}
-
--(void)setCollectionView:(UICollectionView *)collectionView{
-    objc_setAssociatedObject(self, @selector(collectionView), collectionView, OBJC_ASSOCIATION_RETAIN_NONATOMIC);
 }
 
 -(NSMutableArray *)dataList{
@@ -84,7 +84,6 @@
 -(void)setDataList:(NSMutableArray *)dataList{
     objc_setAssociatedObject(self, @selector(dataList), dataList, OBJC_ASSOCIATION_RETAIN_NONATOMIC);
 }
-
 
 -(NSMutableDictionary *)heightMdict{
     NSMutableDictionary * dic = objc_getAssociatedObject(self, _cmd);

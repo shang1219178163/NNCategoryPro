@@ -109,4 +109,12 @@ NSString * const UICollectionElementKindSectionItem = @"UICollectionElementKindS
     return layout;
 }
 
+- (void)scrollItemToCenterAtIndexPath:(NSIndexPath *)indexPath animated:(BOOL)animated{
+    assert([self.collectionViewLayout isKindOfClass: UICollectionViewFlowLayout.class]);
+    UICollectionViewFlowLayout *layout = (UICollectionViewFlowLayout *)self.collectionViewLayout;
+    BOOL isScrollHorizontal = layout.scrollDirection == UICollectionViewScrollDirectionHorizontal;
+    UICollectionViewScrollPosition scrollPosition = isScrollHorizontal ? UICollectionViewScrollPositionCenteredHorizontally : UICollectionViewScrollPositionCenteredVertically;
+    [self scrollToItemAtIndexPath:indexPath atScrollPosition:scrollPosition animated:animated];
+}
+
 @end

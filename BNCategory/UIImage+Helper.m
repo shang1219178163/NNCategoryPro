@@ -476,6 +476,19 @@ bool UIImageEquelToImage(UIImage *image0, UIImage *image1){
 }
 
 #pragma mark - - 压缩
++ (UIImage *)resizeImage:(UIImage *)image toMaxSize:(CGSize)maxSize {
+    CGFloat widthRatio = maxSize.width / image.size.width;
+    CGFloat heightRatio = maxSize.height / image.size.height;
+    CGFloat scaleRatio = widthRatio < heightRatio ? widthRatio : heightRatio;
+    CGSize newSize = CGSizeMake(image.size.width * scaleRatio, image.size.height * scaleRatio);
+    
+    UIGraphicsBeginImageContextWithOptions(newSize, NO, image.scale);
+    [image drawInRect:CGRectMake(0, 0, newSize.width, newSize.height)];
+    UIImage *resizedImage = UIGraphicsGetImageFromCurrentImageContext();
+    UIGraphicsEndImageContext();
+    
+    return resizedImage;
+}
 
 //1.自动缩放到指定大小
 - (UIImage *)thumbnailToFileSize:(CGSize)asize{

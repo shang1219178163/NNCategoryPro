@@ -77,6 +77,7 @@ FOUNDATION_EXPORT bool UIImageEquelToImage(UIImage *image0, UIImage *image1);
 - (UIColor *)colorAtPixel:(CGPoint)point;
 
 #pragma mark - -压缩图片
++ (UIImage *)resizeImage:(UIImage *)image toMaxSize:(CGSize)maxSize;
 
 //1.自动缩放到指定大小
 - (UIImage *)thumbnailToFileSize:(CGSize)asize;

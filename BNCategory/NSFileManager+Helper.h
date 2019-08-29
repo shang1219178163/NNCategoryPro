@@ -32,6 +32,8 @@ NS_ASSUME_NONNULL_BEGIN
 
 +(id)paserJsonFile:(NSString *)fileName;
 
++ (void)deleteDocument:(UIDocument *)document withCompletionBlock:(void (^)(void))completionBlock;
+
 @end
 
 NS_ASSUME_NONNULL_END

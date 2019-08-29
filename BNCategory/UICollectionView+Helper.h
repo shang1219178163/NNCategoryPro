@@ -44,6 +44,8 @@ FOUNDATION_EXPORT NSString * const UICollectionElementKindSectionItem ;
 
 - (UICollectionViewFlowLayout *)createItemHeight:(CGFloat)itemHeight spacing:(CGFloat)spacing headerHeight:(CGFloat)headerHeight footerHeight:(CGFloat)footerHeight;
 
+- (void)scrollItemToCenterAtIndexPath:(NSIndexPath *)indexPath animated:(BOOL)animated;
+
 @end
 
 NS_ASSUME_NONNULL_END
