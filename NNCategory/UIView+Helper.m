@@ -649,7 +649,7 @@
 }
 
 + (NNTextField *)createTextFieldRect:(CGRect)rect placeholder:(NSString *)placeholder leftView:(UIView *)leftView rightView:(UIView *)rightView{
-    return [BNTextField createTextFieldRect:CGRectZero placeholder:placeholder leftView:leftView leftPadding:kPadding rightView:rightView rightPadding:kPadding];
+    return [NNTextField createTextFieldRect:CGRectZero placeholder:placeholder leftView:leftView leftPadding:kPadding rightView:rightView rightPadding:kPadding];
 }
 
 + (UIView *)createViewRect:(CGRect)rect elements:(NSArray *)elements numberOfRow:(NSInteger)numberOfRow viewHeight:(CGFloat)viewHeight padding:(CGFloat)padding{
