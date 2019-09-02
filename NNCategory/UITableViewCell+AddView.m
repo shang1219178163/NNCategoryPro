@@ -16,8 +16,6 @@
 #import "NSObject+Helper.h"
 #import "UIImage+Helper.h"
 
-#import "BNTextField.h"
-
 @implementation UITableViewCell (AddView)
 
 +(instancetype)cellWithTableView:(UITableView *)tableView identifier:(NSString *)identifier style:(UITableViewCellStyle)style{

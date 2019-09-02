@@ -17,8 +17,6 @@
 #import "UIGestureRecognizer+Helper.h"
 #import "UITextView+Helper.h"
 
-#import "BNTextField.h"
-
 @implementation UIView (Helper)
 
 - (CGFloat)originX{
