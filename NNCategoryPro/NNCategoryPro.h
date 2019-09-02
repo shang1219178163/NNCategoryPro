@@ -1,13 +1,13 @@
 //
-//  NNCategory.h
-//  NNCategory.h
+//  NNCategoryPro.h
+//  NNCategoryPro.h
 //
 //  Created by BIN on 2018/9/26.
 //  Copyright © 2018年 whkj. All rights reserved.
 //
 
-#ifndef NNCategory_h
-#define NNCategory_h
+#ifndef NNCategoryPro_h
+#define NNCategoryPro_h
 
 #import "AVSpeechSynthesizer+Helper.h"
 #import "AVAudioSession+Helper.h"
@@ -100,7 +100,7 @@
 #import "UIWindow+Helper.h"
 #import "WKWebView+Helper.h"
 
-#endif /* NNCategory_h */
+#endif /* NNCategoryPro_h */
 
 
 
