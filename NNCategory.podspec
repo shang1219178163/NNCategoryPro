@@ -26,8 +26,7 @@ Pod::Spec.new do |s|
    'AssetsLibrary', 'MobileCoreServices', 'SystemConfiguration','ImageIO',
    'JavaScriptCore','WebKit'
 
-   s.dependency 'BNGloble'
-   s.dependency 'BNKit'
+   s.dependency 'NNGloble'
 
    s.dependency 'AESCrypt-ObjC'
    s.dependency 'FLAnimatedImage'
