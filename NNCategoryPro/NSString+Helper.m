@@ -72,14 +72,26 @@ NSString * NSStringFromFloat(CGFloat obj){
     return [@(obj) stringValue];
 }
 
-//整形判断
+/// 判断是否时间戳字符串
+- (BOOL)isTimeStamp{
+    if ([self containsString:@" "] || [self containsString:@"-"] || [self containsString:@":"]) {
+        return false;
+    }
+    
+    if (![self isPureInteger] || self.doubleValue < NSDate.date.timeIntervalSince1970) {
+        return false;
+    }
+    return true;
+}
+
+/// 整形判断
 - (BOOL)isPureInteger{
     NSString * string = self;
     NSScanner * scan = [NSScanner scannerWithString:string];
     NSInteger val = 0;
     return [scan scanInteger:&val] && [scan isAtEnd];
 }
-//浮点形判断：
+/// 浮点形判断
 - (BOOL)isPureFloat{
     NSString * string = self;
     NSScanner * scan = [NSScanner scannerWithString:string];
@@ -213,7 +225,7 @@ NSString * NSStringFromFloat(CGFloat obj){
     
     NSString * tmp = @"01 00:00:00";//后台接口时间戳不要时分秒
     dateStr = [dateStr stringByReplacingCharactersInRange:NSMakeRange(dateStr.length - tmp.length, tmp.length) withString:tmp];
-    return TimeStampFromObj(dateStr);
+    return [NSDateFormatter intervalFromDateStr:dateStr format:kFormatDate];
 }
 
 - (NSString *)toTimestampShort{
@@ -222,7 +234,7 @@ NSString * NSStringFromFloat(CGFloat obj){
     NSString * tmp = @" 00:00:00";//后台接口时间戳不要时分秒
     if (dateStr.length == 10) dateStr = [dateStr stringByAppendingString:tmp];
     dateStr = [dateStr stringByReplacingCharactersInRange:NSMakeRange(dateStr.length - tmp.length, tmp.length) withString:tmp];
-    return TimeStampFromObj(dateStr);
+    return [NSDateFormatter intervalFromDateStr:dateStr format:kFormatDate];
 }
 
 - (NSString *)toTimestampFull{
@@ -231,54 +243,19 @@ NSString * NSStringFromFloat(CGFloat obj){
     NSString * tmp = @" 23:59:59";//后台接口时间戳不要时分秒
     if (dateStr.length == 10) dateStr = [dateStr stringByAppendingString:tmp];
     dateStr = [dateStr stringByReplacingCharactersInRange:NSMakeRange(dateStr.length - tmp.length, tmp.length) withString:tmp];
-    return TimeStampFromObj(dateStr);
+    return [NSDateFormatter intervalFromDateStr:dateStr format:kFormatDate];
 }
 
 - (NSString *)toDateShort{
-    if (IsTimeStamp(self)) return self;
+    if (self.isTimeStamp) return self;
     NSString *dateStr = [self substringToIndex:10];
     return dateStr;
 }
 
 - (NSString *)toDateMonthDay{
-    if (IsTimeStamp(self)) return self;
+    if (self.isTimeStamp) return self;
     NSString *dateStr = [self substringWithRange:NSMakeRange(5, 5)];
     return dateStr;
-}
-
-- (NSString *)compareDate:(NSString *)otherDate isMax:(BOOL)isMax type:(NSNumber *)type{
-    
-    NSString * timestampA = @"";
-    NSString * timestampB = @"";
-    switch (type.integerValue) {
-        case 1:
-        {
-            timestampA = [self toTimestampShort];
-            timestampB = [otherDate toTimestampShort];
-        }
-            break;
-        case 2:
-        {
-            timestampA = [self toTimestampFull];
-            timestampB = [otherDate toTimestampFull];
-        }
-            break;
-        default:
-        {
-            timestampA = TimeStampFromObj(self);
-            timestampB = TimeStampFromObj(otherDate);
-        }
-            break;
-    }
-    
-    if ([timestampA integerValue] >= [timestampB integerValue] && isMax) {
-        return self;
-        
-    } else {
-        return otherDate;
-        
-    }
-    return nil;
 }
 
 + (NSString *)stringFromData:(NSData *)data{

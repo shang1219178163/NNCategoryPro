@@ -70,7 +70,7 @@ NSString * const kFormatDate_Six = @"EEE, dd MMM yyyy HH:mm:ss 'GMT'";
 /**
  日期字符串->时间戳字符串
  */
-+ (NSString *)IntervalFromDateStr:(NSString *)dateStr format:(NSString *)format{
++ (NSString *)intervalFromDateStr:(NSString *)dateStr format:(NSString *)format{
     NSDate * date = [NSDateFormatter dateFromString:dateStr format:format];
     NSString *intervalStr = [@(date.timeIntervalSince1970) stringValue];
     intervalStr = [intervalStr stringByReplacingOccurrencesOfString:@".00" withString:@""];
@@ -87,55 +87,8 @@ NSString * const kFormatDate_Six = @"EEE, dd MMM yyyy HH:mm:ss 'GMT'";
 /**
  NSDate->时间戳
  */
-+ (NSString *)IntervalFromDate:(NSDate *)date{
++ (NSString *)intervalFromDate:(NSDate *)date{
     return [@(date.timeIntervalSince1970) stringValue];
-}
-
-bool IsTimeStamp(id obj){
-    if ([obj isKindOfClass:[NSString class]]) {
-        NSString * string = (NSString *)obj;
-        if (string.length < 10 || [string containsString:@" "]) {
-            return NO;
-        }
-       
-    } else {
-        NSNumber * value = (NSNumber *)obj;
-        if (value.integerValue < (NSInteger)10000000000) {//时间戳都是十位以上
-            return NO;
-        }
-    }
-    return YES;
-}
-
-NSString *TimeStampFromObj(id obj){
-    assert([obj isKindOfClass:[NSString class]] || [obj isKindOfClass:[NSNumber class]] || [obj isKindOfClass:[NSDate class]]);
-    
-    if ([obj isKindOfClass:[NSDate class]]) {
-        NSString * timestamp = [@([(NSDate *)obj timeIntervalSince1970]) stringValue];//时间转时间戳的方法:
-        return timestamp;
-    }
-    
-    NSString * dateStr = [obj isKindOfClass:[NSString class]] ? (NSString *)obj : [(NSNumber *)obj stringValue];
-    NSString * formatStr = kFormatDate;
-    if ([dateStr containsString:@"-"] && [dateStr containsString:@":"]){
-        formatStr = kFormatDate;
-        
-    }
-    else if ([dateStr containsString:@"-"] && ![dateStr containsString:@":"]){
-        formatStr = kFormatDate_dd;
-        
-    }
-    else if (![dateStr containsString:@"-"] && ![dateStr containsString:@":"]){
-        formatStr = kFormatDate_two;
-        
-    }
-    else{
-        NSLog(@"<%@>时间格式不对",dateStr);
-        
-    }
-    //时间转时间戳的方法:
-    NSString * timestamp = [NSDateFormatter IntervalFromDateStr:dateStr format:formatStr];
-    return timestamp;
 }
 
 //+ (NSString *)currentGMT {

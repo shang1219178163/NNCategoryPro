@@ -29,8 +29,11 @@ FOUNDATION_EXPORT NSString * NSStringFromInt(NSInteger obj);
 /// CGFloat->字符串
 FOUNDATION_EXPORT NSString * NSStringFromFloat(CGFloat obj);
 
+/// 判断是否时间戳字符串
+- (BOOL)isTimeStamp;
+/// 整形判断
 - (BOOL)isPureInteger;
-//浮点形判断：
+/// 浮点形判断：
 - (BOOL)isPureFloat;
 
 /**
@@ -80,8 +83,6 @@ FOUNDATION_EXPORT NSString * NSStringFromFloat(CGFloat obj);
 - (NSString *)toDateShort;
 
 - (NSString *)toDateMonthDay;
-
-- (NSString *)compareDate:(NSString *)otherDate isMax:(BOOL)isMax type:(NSNumber *)type;
 
 + (NSString *)stringFromData:(NSData *)data;
 

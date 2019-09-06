@@ -25,6 +25,19 @@
 
 @implementation UIView (Animation)
 
+/// [源] 往返旋转图像
+- (void)transformRotationCycle:(CGFloat)duration angle:(CGFloat)angle{
+    angle = angle > 0 ? angle : M_PI;
+    [UIView animateWithDuration:duration animations:^{
+        self.transform = CGAffineTransformIsIdentity(self.transform) ? CGAffineTransformRotate(self.transform, angle) : CGAffineTransformIdentity;
+    }];
+}
+
+/// 往返旋转图像(默认180°)
+- (void)transformRotationCycle:(CGFloat)duration{
+    return [self transformRotationCycle:0.35 angle:M_PI];
+}
+
 - (void)aimationBigValues:(NSArray *)values{
     
     values = values ? : @[@1.6,];

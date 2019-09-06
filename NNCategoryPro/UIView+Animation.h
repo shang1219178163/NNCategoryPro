@@ -12,6 +12,11 @@ NS_ASSUME_NONNULL_BEGIN
 
 @interface UIView (Animation)
 
+/// [源] 往返旋转图像
+- (void)transformRotationCycle:(CGFloat)duration angle:(CGFloat)angle;
+/// 往返旋转图像(默认180°)
+- (void)transformRotationCycle:(CGFloat)duration;
+
 - (void)aimationBigValues:(NSArray *)values;
 
 - (CAAnimationGroup *)addAnimationBigShapeWithColor:(UIColor *)color;

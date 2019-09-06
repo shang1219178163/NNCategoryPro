@@ -70,11 +70,7 @@
 }
 
 -(void)loadImage:(id)image defaultImg:(NSString *)imageDefault{
-//    NSParameterAssert([image isKindOfClass:[NSString class]] || [image isKindOfClass:[UIImage class]]);
-    if ((!image || ![image validObject]) && [image isKindOfClass:[NSString class]]) {
-        self.image = [UIImage imageNamed:imageDefault];
-        return;
-    }
+    NSParameterAssert([image isKindOfClass:[NSString class]] || [image isKindOfClass:[UIImage class]] || [image isKindOfClass:[NSData class]]);
     
     if ([image isKindOfClass:[UIImage class]]) {
         self.image = image;
@@ -88,14 +84,10 @@
     
     if ([image isKindOfClass:[NSString class]]) {
         if ([image hasPrefix:@"http"]) {
-            self.image = [UIImage imageNamed:imageDefault];//占位
-            imageDefault = imageDefault ? : kIMG_defaultFailed_S;//
-            [self sd_setImageWithURL:image placeholderImage:self.image];//
-            
+            [self sd_setImageWithURL:[NSURL URLWithString:image] placeholderImage:[UIImage imageNamed:imageDefault]];
         }
-        else{
-            self.image = [UIImage imageNamed:image];
-            
+        else {
+            self.image = [UIImage imageNamed:image] ? : [UIImage imageNamed:imageDefault];
         }
     }
     
@@ -167,22 +159,12 @@
 }
 
 -(void)renderTintColor:(UIColor *)tintColor{
-    [self renderTintColor:tintColor mode:UIImageRenderingModeAlwaysTemplate];
+    [self renderTintColor:tintColor mode:UIImageRenderingModeAlwaysOriginal];
 }
 
 -(void)renderTintColor:(UIColor *)tintColor mode:(UIImageRenderingMode)mode {
     self.tintColor = tintColor;
     self.image = [self.image imageWithRenderingMode:mode];
-//    self.image = [self.image imageWithRenderingMode:UIImageRenderingModeAlwaysTemplate];
-
-}
-
-- (void)transformImage:(CGFloat)duration{
-    assert(self);
-    UIImageView *sender = self;
-    [UIView animateWithDuration:duration animations:^{
-        sender.transform = CGAffineTransformIsIdentity(sender.transform) ? CGAffineTransformRotate(sender.transform, M_PI) : CGAffineTransformIdentity;
-    }];
 }
 
 @end

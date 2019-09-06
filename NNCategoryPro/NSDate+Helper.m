@@ -60,15 +60,14 @@ static NSArray * _weekList = nil;
  *  获取时间的时间戳
  */
 -(NSString *)timeStamp{
-   return TimeStampFromObj(self);
+   return [NSDateFormatter intervalFromDate:self];
 }
 
 /**
  *  获取当前时间
  */
 -(NSString *)now{
-    NSDateFormatter *formatter = [NSDateFormatter dateFormat:kFormatDate];
-    NSString * dateStr = [formatter stringFromDate:self];
+    NSString * dateStr = [NSDateFormatter stringFromDate:self format:kFormatDate];
     return dateStr;
 }
 

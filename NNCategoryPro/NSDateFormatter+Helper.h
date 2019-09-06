@@ -50,15 +50,11 @@ FOUNDATION_EXPORT NSString * const kFormatDate_Six ;
 
 + (NSString *)stringFromInterval:(NSString *)interval format:(NSString *)format;
 
-+ (NSString *)IntervalFromDateStr:(NSString *)dateStr format:(NSString *)format;
++ (NSString *)intervalFromDateStr:(NSString *)dateStr format:(NSString *)format;
 
 + (NSDate *)dateFromInterval:(NSString *)interval;
 
-+ (NSString *)IntervalFromDate:(NSDate *)date;
-
-bool IsTimeStamp(id obj);
-
-NSString *TimeStampFromObj(id obj);
++ (NSString *)intervalFromDate:(NSDate *)date;
 
 @end
 
