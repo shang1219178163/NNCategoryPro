@@ -31,7 +31,7 @@ NS_ASSUME_NONNULL_BEGIN
 
 + (void)showToastWithTips:(NSString *)tips success:(NSNumber *)success place:(id)place completion:(void(^)(BOOL didTap))completion;
 
-+ (void)showToastWithTips:(NSString *)tips image:(id)image place:(id)place completion:(void(^)(BOOL didTap))completion;
++ (void)showToastWithTips:(NSString *)tips image:(nullable id)image place:(id)place completion:(void(^)(BOOL didTap))completion;
 
 /**
  展示截屏反馈视图（UIImageView *imgView = [btn.superview viewWithTag:991];）
