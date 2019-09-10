@@ -70,7 +70,10 @@
 }
 
 -(void)loadImage:(id)image defaultImg:(NSString *)imageDefault{
-    NSParameterAssert([image isKindOfClass:[NSString class]] || [image isKindOfClass:[UIImage class]] || [image isKindOfClass:[NSData class]]);
+    if (!image) {
+        self.image = [UIImage imageNamed:imageDefault];
+        return;
+    }
     
     if ([image isKindOfClass:[UIImage class]]) {
         self.image = image;

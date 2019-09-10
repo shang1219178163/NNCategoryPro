@@ -27,7 +27,7 @@ NS_ASSUME_NONNULL_BEGIN
 /**
  通用image加载方式
  */
-- (void)loadImage:(id)image defaultImg:(NSString *)imageDefault;
+- (void)loadImage:(nullable id)image defaultImg:(NSString *)imageDefault;
 
 /**
  单图全屏展示
