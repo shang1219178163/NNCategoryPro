@@ -25,6 +25,7 @@ FOUNDATION_EXPORT NSString * const kJPush_extras;
 
 @property (class, readonly) NSDictionary *infoDic;
 @property (class, readonly, nullable) NSString *appName;
+@property (class, readonly, nullable) NSString *appBundleName;
 @property (class, readonly, nullable) UIImage *appIcon;
 @property (class, readonly, nullable) NSString *appVer;
 @property (class, readonly, nullable) NSString *appBuild;

@@ -67,6 +67,10 @@ static NSDictionary *_infoDic = nil;
     return self.infoDic[@"CFBundleDisplayName"] ? : self.infoDic[@"CFBundleName"];
 }
 
++(NSString *)appBundleName{
+    return self.infoDic[@"CFBundleExecutable"];
+}
+
 +(UIImage *)appIcon{
     NSString *icon = [[self.infoDic valueForKeyPath:@"CFBundleIcons.CFBundlePrimaryIcon.CFBundleIconFiles"] lastObject];
     UIImage *image = [UIImage imageNamed:icon];
