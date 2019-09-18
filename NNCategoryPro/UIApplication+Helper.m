@@ -312,11 +312,18 @@ static NSDictionary *_infoDic = nil;
     }
 }
 
-+ (BOOL)openURL:(NSString *)urlStr{
+/**
+ 打开网络链接(prefix为 http://或 tel:// )
+ */
++ (BOOL)openURLStr:(NSString *)urlStr prefix:(NSString *)prefix{
+    if (![urlStr hasPrefix:prefix]) {
+        urlStr = [prefix stringByAppendingString:urlStr];
+    }
+    
     UIApplication * app = UIApplication.sharedApplication;
     NSURL *url = [NSURL URLWithString:urlStr];
-    BOOL isOpenUrl = [app canOpenURL:url];
-    if (isOpenUrl) {
+    BOOL canOpenUrl = [app canOpenURL:url];
+    if (canOpenUrl) {
         if (@available(iOS 10.0, *)) {
             [app openURL:url options:@{} completionHandler:nil];
         } else {
@@ -328,8 +335,30 @@ static NSDictionary *_infoDic = nil;
         [UIApplication.rootController showAlertTitle:tips msg:nil actionTitles:nil handler:nil];
         
     }
-    return isOpenUrl;
+    return canOpenUrl;
 }
 
+/**
+ 远程推送deviceToken处理
+ */
++ (NSString *)deviceTokenStringWithDeviceToken:(NSData *)deviceToken {
+    NSString *deviceString = @"";
+    if (@available(iOS 13.0, *)) {
+        NSMutableString *deviceTokenString = [NSMutableString string];
+        const char *bytes = deviceToken.bytes;
+        NSInteger count = deviceToken.length;
+        for (int i = 0; i < count; i++) {
+            [deviceTokenString appendFormat:@"%02x", bytes[i]&0x000000FF];
+        }
+        deviceString = [NSString stringWithString:deviceTokenString];
+        
+    } else {
+        deviceString = [deviceToken.description stringByTrimmingCharactersInSet:[NSCharacterSet characterSetWithCharactersInString:@"<> "]];
+    }
+#if DEBUG
+    NSLog(@"%@", deviceString);
+#endif
+    return deviceString;
+}
 
 @end

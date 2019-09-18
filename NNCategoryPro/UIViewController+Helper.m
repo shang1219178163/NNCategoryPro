@@ -520,16 +520,38 @@ UINavigationController * UINavCtrFromObj(id obj){
     
 }
 
-- (UIViewController *)addChildControllerView:(NSString *)className{
+- (UIViewController *)addControllerName:(NSString *)className{
     UIViewController * controller = [NSClassFromString(className) new];
-    [self addChildViewController:controller];
-    [controller didMoveToParentViewController:self];
-
-    [self.view addSubview:controller.view];
-    
-    self.navigationItem.leftBarButtonItem = controller.navigationItem.leftBarButtonItem;
-    self.navigationItem.rightBarButtonItem = controller.navigationItem.rightBarButtonItem;
+    [self addControllerVC:controller];
     return controller;
+}
+
+/// 添加子控制器(对应方法 removeControllerVC)
+- (void)addControllerVC:(UIViewController *)controller{
+    [self addChildViewController:controller];
+    [self.view addSubview:controller.view];
+    controller.view.frame = self.view.bounds;
+    [controller didMoveToParentViewController:self];
+}
+
+/// 移除添加的子控制器(对应方法 addControllerVC)
+- (void)removeFromSuperVC{
+    [self willMoveToParentViewController:nil];//子控制器被通知即将解除父子关系
+    [self.view removeFromSuperview];//把子控制器的 view 从到父控制器的 view 上面移除
+    [self removeFromParentViewController];//真正的解除关系,会自己调用 [self.vc1 didMoveToParentViewController:nil]
+}
+
+/// 显示controller(手动调用viewWillAppear和viewDidAppear,viewWillDisappear)
+- (void)transitionToVC:(UIViewController *)controller {
+    [self beginAppearanceTransition:NO animated:YES];  //调用self的 viewWillDisappear:
+    [controller beginAppearanceTransition:YES animated:YES];  //调用VC的 viewWillAppear:
+    [self endAppearanceTransition]; //调用self的viewDidDisappear:
+    [controller endAppearanceTransition]; //调用VC的viewDidAppear:
+    /*
+     isAppearing 设置为 true : 触发 viewWillAppear:;
+     isAppearing 设置为 false : 触发 viewWillDisappear:;
+     endAppearanceTransition方法会基于我们传入的isAppearing来调用viewDidAppear:以及viewDidDisappear:方法
+     */
 }
 
 #pragma mark -------------alert升级方法-------------------

@@ -113,6 +113,8 @@ NS_ASSUME_NONNULL_BEGIN
  默认五颗星星
  */
 //+ (id)getStarViewRect:(CGRect)rect rateStyle:(NSString *)rateStyle currentScore:(CGFloat)currentScore;
+/// 获取密集子视图的总高度
++ (CGFloat)UIGroupViewHeight:(NSInteger)count numberOfRow:(NSInteger)numberOfRow padding:(CGFloat)padding itemHeight:(CGFloat)itemHeight;
 
 + (UIView *)createViewRect:(CGRect)rect elements:(NSArray *)elements numberOfRow:(NSInteger)numberOfRow viewHeight:(CGFloat)viewHeight padding:(CGFloat)padding;
 

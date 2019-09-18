@@ -49,7 +49,9 @@ FOUNDATION_EXPORT NSString * const kJPush_extras;
 
 + (void)setupAppearanceNavigationBar;
 
-+ (BOOL)openURL:(NSString *)urlStr;
++ (BOOL)openURLStr:(NSString *)urlStr prefix:(NSString *)prefix;
+
++ (NSString *)deviceTokenStringWithDeviceToken:(NSData *)deviceToken;
 
 @end
 

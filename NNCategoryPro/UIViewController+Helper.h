@@ -94,8 +94,13 @@ FOUNDATION_EXPORT UINavigationController * _Nullable UINavCtrFromObj(id obj);
 
 - (UIViewController *_Nullable)getController:(NSString *)contollerName;
 
-- (UIViewController *)addChildControllerView:(NSString *)className;
+- (UIViewController *)addControllerName:(NSString *)className;
 
+- (void)addControllerVC:(UIViewController *)controller;
+
+- (void)removeFromSuperVC;
+
+- (void)transitionToVC:(UIViewController *)controller;
 
 /**
  系统弹窗__无按钮 toast

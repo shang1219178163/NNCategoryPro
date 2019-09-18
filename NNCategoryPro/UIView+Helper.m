@@ -652,6 +652,11 @@
     return [NNTextField createTextFieldRect:CGRectZero placeholder:placeholder leftView:leftView leftPadding:kPadding rightView:rightView rightPadding:kPadding];
 }
 
++ (CGFloat)UIGroupViewHeight:(NSInteger)count numberOfRow:(NSInteger)numberOfRow padding:(CGFloat)padding itemHeight:(CGFloat)itemHeight{
+    NSInteger rowCount = count % numberOfRow == 0 ? count/numberOfRow : count/numberOfRow + 1;
+    return rowCount * itemHeight + (rowCount - 1) * padding;
+}
+
 + (UIView *)createViewRect:(CGRect)rect elements:(NSArray *)elements numberOfRow:(NSInteger)numberOfRow viewHeight:(CGFloat)viewHeight padding:(CGFloat)padding{
     
     //    CGFloat padding = 15;

@@ -547,7 +547,7 @@
                         UIAlertController * alertController = [UIAlertController showAlertTitle:versionInfo msg:releaseNotes placeholders:nil actionTitles:@[kActionTitle_Call,kActionTitle_Update] handler:^(UIAlertController * _Nonnull alertVC, UIAlertAction * _Nonnull action) {
                             if ([action.title isEqualToString:kActionTitle_Update]) {
                                 // 升级去
-                                [UIApplication openURL: [UIApplication appUrlWithID:appStoreID]];
+                                [UIApplication openURLStr: [UIApplication appUrlWithID:appStoreID] prefix:@"http://"];
                                 
                             }
                         }];

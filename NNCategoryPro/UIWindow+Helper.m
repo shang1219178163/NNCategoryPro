@@ -13,9 +13,7 @@
 #import "NSObject+Helper.h"
 #import "UIImageView+Helper.h"
 #import "MBProgressHUD.h"
-//#import "PopoverView.h"
 #import "UIView+Helper.h"
-
 
 @implementation UIWindow (Helper)
 

@@ -212,21 +212,21 @@ static NSArray * _weekList = nil;
 /*格式化日期描述*/
 
 - (NSString *)formattedDateDescription{
-    NSDateFormatter  *dateFormatter = [NSDateFormatter dateFormat:@"yyyy-MM-dd"];
+    NSDateFormatter *dateFormatter = [NSDateFormatter dateFormat:@"yyyy-MM-dd"];
     
     NSString *theDay = [dateFormatter stringFromDate:self];//日期的年月日
-    NSString *currentDay = [dateFormatter stringFromDate:[NSDate date]];//当前年月日
-    NSInteger  timeInterval = -[self timeIntervalSinceNow];
+    NSString *currentDay = [dateFormatter stringFromDate: NSDate.date];//当前年月日
+    NSInteger timeInterval = -self.timeIntervalSinceNow;
     
-    if(timeInterval <60) {
-        return NSLocalizedString(@"NSDateCategory.text1",@"");
-        
+    if(timeInterval < 60) {
+        return [NSString stringWithFormat:@"%@秒之前", @(timeInterval)];
+
     } else if (timeInterval <3600) {//1小时内
-        return [NSString stringWithFormat:NSLocalizedString(@"NSDateCategory.text2",@""), timeInterval /60];
-        
+        return [NSString stringWithFormat:@"%@分钟之前", @(timeInterval/60)];
+
     } else if (timeInterval <21600) {//6小时内
-        return [NSString stringWithFormat:NSLocalizedString(@"NSDateCategory.text3",@""), timeInterval /3600];
-        
+        return [NSString stringWithFormat:@"%@小时之前", @(timeInterval/3600)];
+
     } else if ([theDay isEqualToString:currentDay]) {//当天
         dateFormatter.dateFormat = @"HH:mm";
         return [NSString stringWithFormat:NSLocalizedString(@"NSDateCategory.text14",@""), [dateFormatter stringFromDate:self ]];
@@ -243,9 +243,8 @@ static NSArray * _weekList = nil;
 }
 
 - (double)timeIntervalSince1970InMilliSecond {
-    double ret = [self  timeIntervalSince1970] *1000;
+    double ret = self.timeIntervalSince1970 *1000;
     return ret;
-    
 }
 
 + (NSDate*)dateWithTimeIntervalInMilliSecondSince1970:(double)timeIntervalInMilliSecond {
