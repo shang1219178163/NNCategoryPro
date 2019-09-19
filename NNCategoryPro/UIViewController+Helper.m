@@ -609,6 +609,7 @@ UINavigationController * UINavCtrFromObj(id obj){
 - (UIButton *)createBackItem:(UIImage *)image tintColor:(UIColor *)tintColor {
     NSParameterAssert(image != nil);
     UIButton * btn = [UIButton buttonWithType:UIButtonTypeCustom];
+    btn.adjustsImageWhenHighlighted = false;
     btn.frame = CGRectMake(0, 0, 30, 40);
     btn.imageEdgeInsets = UIEdgeInsetsMake(0, -20, 0, 0);
     

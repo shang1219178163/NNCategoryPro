@@ -21,6 +21,8 @@ NS_ASSUME_NONNULL_BEGIN
 
 -(void)holderView:(NSString *)title image:(NSString *_Nullable)image;
 
+- (void)addLineDashLayerColor:(UIColor *)color width:(CGFloat)width dashPattern:(NSArray <NSNumber *>*_Nullable)dashPattern cornerRadius:(CGFloat)cornerRadius;
+
 -(void)addLineRect:(CGRect)rect isDash:(BOOL)isDash inView:(UIView *)inView;
 
 +(UIView *)createLineRect:(CGRect)rect isDash:(BOOL)isDash hidden:(BOOL)hidden;

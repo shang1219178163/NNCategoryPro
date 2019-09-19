@@ -53,6 +53,8 @@ FOUNDATION_EXPORT NSString * const kJPush_extras;
 
 + (NSString *)deviceTokenStringWithDeviceToken:(NSData *)deviceToken;
 
++ (void)didEnterBackgroundBlock:(void (^_Nullable)(void))block;
+
 @end
 
 NS_ASSUME_NONNULL_END

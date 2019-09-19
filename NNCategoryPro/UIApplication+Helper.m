@@ -361,4 +361,28 @@ static NSDictionary *_infoDic = nil;
     return deviceString;
 }
 
+/**
+ block内任务后台执行(block为空可填入AppDelegate.m方法 applicationDidEnterBackground中)
+ */
++ (void)didEnterBackgroundBlock:(void (^_Nullable)(void))block{
+    UIApplication *application = UIApplication.sharedApplication;
+    __block UIBackgroundTaskIdentifier bgTask;
+    bgTask = [application beginBackgroundTaskWithExpirationHandler:^{
+        // End the task if time expires.
+        if (bgTask != UIBackgroundTaskInvalid) {
+            [application endBackgroundTask:bgTask];
+            bgTask = UIBackgroundTaskInvalid;
+        }
+    }];
+    
+    if(block != nil) {
+        block();
+        // End the task assertion.
+        [application endBackgroundTask:bgTask];
+    }
+    bgTask = UIBackgroundTaskInvalid;
+}
+
+
+
 @end

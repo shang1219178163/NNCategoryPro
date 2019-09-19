@@ -13,19 +13,15 @@
 
 @implementation UIButton (swizzing)
 
-//+ (void)load {
-//    static dispatch_once_t onceToken;
-//    dispatch_once(&onceToken, ^{
-//        [self swizzleMethodClass:self.class origSel:@selector(sendAction:to:forEvent:) newSel:@selector(swz_sendAction:to:forEvent:)];
-//        
-//    });
-//}
-
 + (void)initialize{
     if (self == self.class) {
         static dispatch_once_t onceToken;
         dispatch_once(&onceToken, ^{
             SwizzleMethodInstance(@"UIButton", @selector(sendAction:to:forEvent:), @selector(swz_sendAction:to:forEvent:));
+            
+            SwizzleMethodInstance(@"UIButton", @selector(setImage:forState:), @selector(swz_setImage:forState:));
+
+            SwizzleMethodInstance(@"UIButton", @selector(swz_setBackgroundImage:forState:), @selector(swz_setBackgroundImage:forState:));
             
         });
     }
@@ -47,23 +43,37 @@
     
 }
 
-- (NSTimeInterval )custom_acceptEventTime{
+- (NSTimeInterval)custom_acceptEventTime{
     return [objc_getAssociatedObject(self, _cmd) doubleValue];
-    
 }
 
 - (void)setCustom_acceptEventTime:(NSTimeInterval)custom_acceptEventTime{
     objc_setAssociatedObject(self, @selector(custom_acceptEventTime), @(custom_acceptEventTime), OBJC_ASSOCIATION_RETAIN_NONATOMIC);
 }
 
-#pragma mark -- 关联
-
-- (NSTimeInterval )custom_acceptEventInterval{
+#pragma mark -关联
+- (NSTimeInterval)custom_acceptEventInterval{
     return [objc_getAssociatedObject(self, _cmd) doubleValue];
 }
 
 - (void)setCustom_acceptEventInterval:(NSTimeInterval)custom_acceptEventInterval{
     objc_setAssociatedObject(self, @selector(custom_acceptEventInterval), @(custom_acceptEventInterval), OBJC_ASSOCIATION_RETAIN_NONATOMIC);
+}
+
+#pragma mark -swz_setImage
+- (void)swz_setImage:(nullable UIImage *)image forState:(UIControlState)state{
+    [self swz_setImage:image forState:state];
+    if (image) {
+        self.adjustsImageWhenHighlighted = false;
+    }
+}
+
+#pragma mark -swz_setBackgroundImage
+- (void)swz_setBackgroundImage:(nullable UIImage *)image forState:(UIControlState)state{
+    [self swz_setBackgroundImage:image forState:state];
+    if (image) {
+        self.adjustsImageWhenHighlighted = false;
+    }
 }
 
 @end

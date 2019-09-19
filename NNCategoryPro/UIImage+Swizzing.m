@@ -13,7 +13,7 @@
 @implementation UIImage (Swizzing)
 
 + (void)initialize{
-    if (self == [self class]) {
+    if (self == self.class) {
         static dispatch_once_t onceToken;
         dispatch_once(&onceToken, ^{
 //            NSLog(@"%@,%@,%@",self,self.class,NSClassFromString(@"UIImage"));

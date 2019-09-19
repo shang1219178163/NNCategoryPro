@@ -85,6 +85,38 @@
     
 }
 
+/**
+ 增加虚线边框
+ */
+- (void)addLineDashLayerColor:(UIColor *)color width:(CGFloat)width dashPattern:(NSArray <NSNumber *>*)dashPattern cornerRadius:(CGFloat)cornerRadius {
+    assert(CGRectEqualToRect(CGRectZero, self.bounds) == false);
+    UIView *view = self;
+    view.layer.borderColor = UIColor.clearColor.CGColor;
+    view.layer.borderWidth = 0;
+    
+    CAShapeLayer *shapeLayer = CAShapeLayer.layer;
+    //虚线的颜色
+    shapeLayer.strokeColor = color.CGColor ? : UIColor.redColor.CGColor;
+    //填充的颜色
+    shapeLayer.fillColor = UIColor.clearColor.CGColor;
+    shapeLayer.frame = view.bounds;
+    shapeLayer.path = [UIBezierPath bezierPathWithRoundedRect:shapeLayer.frame cornerRadius:cornerRadius].CGPath;
+    
+    //虚线的宽度
+    shapeLayer.lineWidth = width > 0.5 ? width : 1;
+    //虚线的间隔
+    shapeLayer.lineDashPattern = dashPattern ? : @[@4, @2];
+    //设置线条的样式
+    //    shapeLayer.lineCap = @"square";
+    
+    if (cornerRadius > 0) {
+        view.layer.cornerRadius = cornerRadius;
+        view.layer.masksToBounds = true;
+    }
+    
+    [view.layer addSublayer:shapeLayer];
+}
+
 -(void)addLineRect:(CGRect)rect isDash:(BOOL)isDash inView:(UIView *)inView{
     if (!isDash) {
         UIView * lineView = [[UIView alloc]initWithFrame:rect];
@@ -509,7 +541,7 @@
         {
             [btn setBackgroundImage:[UIImage imageNamed:image] forState:UIControlStateNormal];
             [btn setBackgroundImage:UIImageColor(UIColor.lightGrayColor) forState:UIControlStateDisabled];
-            
+            btn.adjustsImageWhenHighlighted = false;
         }
             break;
         case 4://白色背景主题色字体和边框
