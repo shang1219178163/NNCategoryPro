@@ -64,6 +64,8 @@ FOUNDATION_EXPORT NSString * NSStringFromFloat(CGFloat obj);
 
 + (NSString *)stringFromDouble:(double)inter;
 
+- (NSString *)transformToPinyin;
+
 /**
  随即字符串
  */

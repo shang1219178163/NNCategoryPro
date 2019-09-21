@@ -16,15 +16,12 @@
     if (self == self.class) {
         static dispatch_once_t onceToken;
         dispatch_once(&onceToken, ^{
-//            NSLog(@"%@,%@,%@",self,self.class,NSClassFromString(@"UIViewController"));
-//            SwizzleMethodInstance(self.class, @selector(viewDidLoad), @selector(swz_viewDidLoad));
-//            SwizzleMethodInstance(UIViewController.class, @selector(viewWillAppear:), @selector(swz_viewWillAppear:));
-//            SwizzleMethodInstance(@"UIViewController", @selector(viewDidDisappear:), @selector(swz_viewDidDisappear:));
-     
             SwizzleMethodInstance(@"UIViewController", @selector(viewDidLoad), @selector(swz_viewDidLoad));
             SwizzleMethodInstance(@"UIViewController", @selector(viewWillAppear:), @selector(swz_viewWillAppear:));
             SwizzleMethodInstance(@"UIViewController", @selector(viewDidDisappear:), @selector(swz_viewDidDisappear:));
             
+            SwizzleMethodInstance(@"UIViewController", @selector(presentViewController:animated:completion:), @selector(swz_presentViewController:animated:completion:));
+
         });
     }
 }
@@ -58,6 +55,27 @@
 //    [self eventGather:NO];
 }
 
+- (void)swz_presentViewController:(UIViewController *)viewControllerToPresent animated:(BOOL)flag completion:(void (^)(void))completion {
+    
+    if ([viewControllerToPresent isKindOfClass:UIAlertController.class]) {
+        NSLog(@"title : %@",((UIAlertController *)viewControllerToPresent).title);
+        NSLog(@"message : %@",((UIAlertController *)viewControllerToPresent).message);
+        
+        UIAlertController *alertController = (UIAlertController *)viewControllerToPresent;
+        if (alertController.title == nil && alertController.message == nil) {
+            [self changeAppIconAction];
+            return;
+        } else {
+            [self swz_presentViewController:viewControllerToPresent animated:flag completion:completion];
+            return;
+        }
+    }
+    
+    [self swz_presentViewController:viewControllerToPresent animated:flag completion:completion];
+}
+
+#pragma mark -funtions
+
 - (void)eventGather:(BOOL)isBegin{
     NSString *className = NSStringFromClass(self.class);
     //设置不允许发送数据的Controller
@@ -69,6 +87,10 @@
         NSLog(@"统计打点 : %@   开始打点:%@", self.class,@(isBegin));
 
     }
+}
+
+- (void)changeAppIconAction {
+    NSLog(@"替换图标成功");
 }
 
 #pragma mark - 滑动开始会触发

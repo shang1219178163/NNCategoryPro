@@ -55,6 +55,8 @@ FOUNDATION_EXPORT NSString * const kJPush_extras;
 
 + (void)didEnterBackgroundBlock:(void (^_Nullable)(void))block;
 
++ (void)setAppIconWithName:(NSString *_Nullable)iconName;
+
 @end
 
 NS_ASSUME_NONNULL_END

@@ -188,6 +188,23 @@ NSString * NSStringFromFloat(CGFloat obj){
     return sting;
 }
 
+/**
+ 汉字转拼音
+ */
+- (NSString *)transformToPinyin{
+    //转成了可变字符串
+    NSMutableString *mstr = [NSMutableString stringWithString:self];
+//    //先转换为带声调的拼音
+//    CFStringTransform((CFMutableStringRef)mstr, NULL, kCFStringTransformMandarinLatin, false);
+//    //再转换为不带声调的拼音
+//    CFStringTransform((CFMutableStringRef)mstr, NULL, kCFStringTransformStripCombiningMarks, false);
+    bool canTransform = CFStringTransform((CFMutableStringRef)mstr, NULL, kCFStringTransformMandarinLatin, false) && CFStringTransform((CFMutableStringRef)mstr, NULL, kCFStringTransformStripCombiningMarks, false);
+    if (canTransform == true) {
+        return [NSString stringWithString:mstr];
+    }
+    return @"";
+}
+
 + (NSString *)randomStringLength:(NSInteger)length{
     NSArray * alphabetArray = @[@"A",@"B",@"C",@"D",@"E",@"F",@"G",
                                 @"H",@"I",@"J",@"K",@"L",@"M",@"N",

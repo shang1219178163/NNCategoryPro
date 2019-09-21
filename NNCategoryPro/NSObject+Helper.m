@@ -170,11 +170,19 @@ NSString *SwiftClassName(NSString *className){
 
 //KVC
 -(void)setValue:(id)value forUndefinedKey:(NSString *)key{
-    NSLog(@"不存在键_%@:%@",key,value);
+    NSLog(@"setValue: forUndefinedKey:, 动态创建Key: %@",key);
+    objc_setAssociatedObject(self, CFBridgingRetain(key), value, OBJC_ASSOCIATION_RETAIN_NONATOMIC);
 }
 
--(id)valueForUndefinedKey:(NSString *)key{
-    return nil;
+-(nullable id)valueForUndefinedKey:(NSString *)key{
+    NSLog(@"valueForUndefinedKey:, 获取未知键 %@ 的值", key);
+//    return nil;
+    return objc_getAssociatedObject(self, CFBridgingRetain(key));
+}
+
+- (void)setNilValueForKey:(NSString *)key{
+    NSLog(@"Invoke setNilValueForKey:, 不能给非指针对象(如NSInteger)赋值 nil");
+    return;//给一个非指针对象(如NSInteger)赋值 nil, 直接忽略
 }
 
 

@@ -383,6 +383,25 @@ static NSDictionary *_infoDic = nil;
     bgTask = UIBackgroundTaskInvalid;
 }
 
+/**
+ 配置app图标(传 nil 换为默认值)
+ */
++ (void)setAppIconWithName:(NSString *_Nullable)iconName {
+    if (@available(iOS 10.3, *)) {
+        if (!UIApplication.sharedApplication.supportsAlternateIcons) {
+            return;
+        }
+        
+        if ([iconName isEqualToString:@""]) {
+            iconName = nil;
+        }
+        [UIApplication.sharedApplication setAlternateIconName:iconName completionHandler:^(NSError * _Nullable error) {
+            if (error) {
+                NSLog(@"更换app图标发生错误了 ： %@",error);
+            }
+        }];
+    }
+}
 
 
 @end
