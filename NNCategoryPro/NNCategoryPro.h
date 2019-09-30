@@ -69,6 +69,7 @@
 #import "UICollectionViewLayout+AddView.h"
 #import "UIColor+Helper.h"
 #import "UIControl+Helper.h"
+#import "UIFont+Swizzing.h"
 #import "UIGestureRecognizer+Helper.h"
 #import "UIImage+Helper.h"
 #import "UIImage+Swizzing.h"

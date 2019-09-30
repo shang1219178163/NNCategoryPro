@@ -18,19 +18,14 @@
 }
 
 // 转为max位小数四舍五入
--(NSString *)to_string:(NSUInteger)max{
+-(NSString *)toString:(NSUInteger)max{
     NSString *result = [NSNumberFormatter fractionDigits:self min:2 max:max roundingMode:NSNumberFormatterRoundUp];
     return result;
 }
 
 // 转为2位小数四舍五入
--(NSString *)to_string{
-    return [self to_string:2];
+-(NSString *)toString{
+    return [self toString:2];
 }
-
--(NSString *)stringValue{
-    return [self to_string];
-}
-
 
 @end
