@@ -895,6 +895,15 @@
 //    searchBar.showsSearchResultsButton = true;
     //5. 设置搜索Icon
 //    [searchBar setImage:[UIImage imageNamed:@"Search_Icon"] forSearchBarIcon:UISearchBarIconSearch state:UIControlStateNormal];
+    
+    /// textField设置默认配置
+    UITextField *textField = (UITextField *)[searchBar findSubview:@"UITextField" resursion:YES];
+    [textField setBackgroundColor: UIColor.clearColor];
+    // 根据@"_placeholderLabel.textColor" 找到placeholder的字体颜色
+    // 输入文本颜色
+    textField.textColor = UIColor.whiteColor;
+    textField.font = [UIFont systemFontOfSize:13];
+    
     return searchBar;
 }
 

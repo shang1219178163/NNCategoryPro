@@ -87,6 +87,8 @@ NS_ASSUME_NONNULL_BEGIN
 
 - (void)getViewLayer;
 
+- (UIView *)findSubview:(NSString *)name resursion:(BOOL)resursion;
+
 - (void)showLayerColor:(UIColor *)layerColor;
 
 - (void)imageToSavedPhotosAlbum:(void(^)(NSError *error))block;

@@ -12,7 +12,7 @@ NS_ASSUME_NONNULL_BEGIN
 
 @interface UISearchBar (Helper)
 
-- (void)setupTextField;
+@property (nonatomic, strong) NSString *placeholderStr;
 
 @end
 
