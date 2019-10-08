@@ -119,6 +119,11 @@ NS_ASSUME_NONNULL_BEGIN
  */
 + (__kindof UICollectionView *)createCTViewRect:(CGRect)rect layout:(UICollectionViewLayout *)layout;
 
+/**
+ [源]UISearchBar创建方法
+ */
++ (__kindof UISearchBar *)createSearchBarRect:(CGRect)rect;
+
 @end
 
 NS_ASSUME_NONNULL_END

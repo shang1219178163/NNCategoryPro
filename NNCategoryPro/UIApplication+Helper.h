@@ -49,6 +49,8 @@ FOUNDATION_EXPORT NSString * const kJPush_extras;
 
 + (void)setupAppearanceNavigationBar;
 
++ (void)setupAppearanceSearchbarCancellButton;
+
 + (BOOL)openURLStr:(NSString *)urlStr prefix:(NSString *)prefix;
 
 + (NSString *)deviceTokenStringWithDeviceToken:(NSData *)deviceToken;

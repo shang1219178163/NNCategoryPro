@@ -294,7 +294,7 @@ static NSDictionary *_infoDic = nil;
                            NSForegroundColorAttributeName:   tintColor,
                            };
     UINavigationBar.appearance.titleTextAttributes = dic;
-    if (iOSVer(11)) {
+    if (@available(iOS 11.0, *)) {
 //        UIImage *origImage = [UIImage imageNamed:@"img_btnBack.png"];
 //        //系统返回按钮处的title偏移到可视范围之外
 //        //iOS11 和 iOS11以下分别处理
@@ -310,6 +310,24 @@ static NSDictionary *_infoDic = nil;
     else{
         
     }
+}
+
+/**
+ 导航栏UISearchBar搜索框 取消按钮字体,颜色设置
+ */
++ (void)setupAppearanceSearchbarCancellButton{
+    NSShadow *shadow = ({
+        NSShadow *shadow = [[NSShadow alloc]init];
+        shadow.shadowColor = UIColor.darkGrayColor;
+        shadow.shadowOffset = CGSizeMake(0, -1);
+        shadow;
+    });
+    NSDictionary *attDic = @{NSForegroundColorAttributeName:  UIColor.whiteColor,
+                             NSFontAttributeName: [UIFont systemFontOfSize:13],
+                             NSShadowAttributeName: shadow,
+                             };
+    [UIBarButtonItem.appearance setTitleTextAttributes:attDic forState: UIControlStateNormal];
+    [UIBarButtonItem appearanceWhenContainedInInstancesOfClasses: @[UISearchBar.class]];
 }
 
 /**

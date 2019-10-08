@@ -864,5 +864,38 @@
 
     return view;
 }
+/**
+ [源]UISearchBar创建方法
+ */
++ (__kindof UISearchBar *)createSearchBarRect:(CGRect)rect{
+    assert([self isSubclassOfClass: UISearchBar.class]);
+    
+//    UISearchBar *searchBar = [[UISearchBar alloc] initWithFrame:CGRectMake(0, 0, kScreenWidth - 100, 30)];
+//    searchBar.layer.cornerRadius = 15;
+
+    UISearchBar *searchBar = [[UISearchBar alloc] initWithFrame:rect];
+    searchBar.layer.cornerRadius = CGRectGetHeight(rect)*0.5;
+    searchBar.layer.masksToBounds = true;
+    //设置背景图是为了去掉上下黑线
+    searchBar.backgroundImage = [[UIImage alloc] init];
+    //searchBar.backgroundImage = [UIImage imageNamed:@"sexBankgroundImage"];
+    // 设置SearchBar的主题颜色
+    //searchBar.barTintColor = [UIColor colorWithRed:111 green:212 blue:163 alpha:1];
+    //设置背景色
+    searchBar.backgroundColor = [UIColor colorWithRed:0/255.0f green:0/255.0f blue:0/255.0f alpha:0.1];
+    
+    searchBar.barStyle = UIBarStyleDefault;
+    searchBar.keyboardType = UIKeyboardTypeNamePhonePad;
+    //searchBar.searchBarStyle = UISearchBarStyleMinimal;
+    //没有背影，透明样式
+    // 修改cancel
+    // 修改cancel
+    [searchBar setValue:@"取消" forKey:@"cancelButtonText"];
+    searchBar.showsCancelButton = true;
+//    searchBar.showsSearchResultsButton = true;
+    //5. 设置搜索Icon
+//    [searchBar setImage:[UIImage imageNamed:@"Search_Icon"] forSearchBarIcon:UISearchBarIconSearch state:UIControlStateNormal];
+    return searchBar;
+}
 
 @end
