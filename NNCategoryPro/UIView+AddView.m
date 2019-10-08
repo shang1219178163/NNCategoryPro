@@ -820,13 +820,11 @@
  [源] 导航栏 UIBarButtonItem
  */
 + (__kindof UIBarButtonItem *)createBarItem:(NSString *)obj style:(UIBarButtonItemStyle)style target:(id _Nullable)target action:(SEL _Nullable)action{
-    assert([self isSubclassOfClass: UIBarButtonItem.class]);
-
     if ([UIImage imageNamed:obj]) {
         UIBarButtonItem* barItem = [[self alloc] initWithImage:[[UIImage imageNamed:obj] imageWithRenderingMode:UIImageRenderingModeAlwaysTemplate] style:style target:target action:action];
         return barItem;
     }
-    UIBarButtonItem* barItem = [[self alloc] initWithTitle:obj style:style target:target action:action];
+    UIBarButtonItem* barItem = [[UIBarButtonItem alloc] initWithTitle:obj style:style target:target action:action];
     return barItem;
 }
 
@@ -895,6 +893,10 @@
 //    searchBar.showsSearchResultsButton = true;
     //5. 设置搜索Icon
 //    [searchBar setImage:[UIImage imageNamed:@"Search_Icon"] forSearchBarIcon:UISearchBarIconSearch state:UIControlStateNormal];
+    
+    [searchBar setPositionAdjustment:UIOffsetMake(-8, 1) forSearchBarIcon:UISearchBarIconSearch];
+    // 删除按钮往右移一点
+    [searchBar setPositionAdjustment:UIOffsetMake(8, 0) forSearchBarIcon:UISearchBarIconClear];
     
     /// textField设置默认配置
     UITextField *textField = (UITextField *)[searchBar findSubview:@"UITextField" resursion:YES];
