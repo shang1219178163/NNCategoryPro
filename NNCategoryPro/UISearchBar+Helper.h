@@ -11,8 +11,12 @@
 NS_ASSUME_NONNULL_BEGIN
 
 @interface UISearchBar (Helper)
+/// 输入框textField
+@property (nonatomic, strong, readonly) UITextField *textField;
+/// 输入框取消按钮,仅在按钮可见时存在
+@property (nonatomic, strong, readonly, nullable) UIButton *cancellBtn;
 
-@property (nonatomic, strong) NSString *placeholderStr;
+//@property (nonatomic, strong) NSString *placeholderStr;
 
 @end
 

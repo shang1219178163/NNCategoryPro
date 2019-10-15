@@ -12,29 +12,48 @@
 
 @implementation UISearchBar (Helper)
 
-- (NSString *)placeholderStr{
-    NSString *obj = objc_getAssociatedObject(self, _cmd);
+- (UITextField *)textField{
+    UITextField *obj = objc_getAssociatedObject(self, _cmd);
     if (!obj) {
+        obj = (UITextField *)[self findSubview:@"UITextField" resursion:YES];
         objc_setAssociatedObject(self, _cmd, obj, OBJC_ASSOCIATION_RETAIN_NONATOMIC);
     }
     return obj;
 }
 
-- (void)setPlaceholderStr:(NSString *)placeholderStr{
-    objc_setAssociatedObject(self, @selector(placeholderStr), placeholderStr, OBJC_ASSOCIATION_RETAIN_NONATOMIC);
-    if (placeholderStr.length <= 0) {
-        return;
+- (UIButton *)cancellBtn{
+    UIButton *obj = objc_getAssociatedObject(self, _cmd);
+    if (!obj) {
+        obj = (UIButton *)[self findSubview:@"UINavigationButton" resursion:YES];
+        objc_setAssociatedObject(self, _cmd, obj, OBJC_ASSOCIATION_RETAIN_NONATOMIC);
     }
-    // iOS13不能KVC设置颜色了，所以不能直接设置 self.searchBar.placeholder = _placeholderStr; 。需要通过下面方式来设置颜色
-    NSDictionary *attDic = @{
-                             NSForegroundColorAttributeName: [UIColor.whiteColor colorWithAlphaComponent:0.5],
-                             NSFontAttributeName: [UIFont boldSystemFontOfSize:13],
-                             };
-    
-    UITextField *textField = (UITextField *)[self findSubview:@"UITextField" resursion:YES];
-    textField.attributedPlaceholder = [[NSAttributedString alloc]initWithString:placeholderStr
-                                                                     attributes:attDic];
+    return obj;
 }
+
+//- (NSString *)placeholderStr{
+//    NSString *obj = objc_getAssociatedObject(self, _cmd);
+//    if (!obj) {
+//        objc_setAssociatedObject(self, _cmd, obj, OBJC_ASSOCIATION_RETAIN_NONATOMIC);
+//    }
+//    return obj;
+//}
+//
+//- (void)setPlaceholderStr:(NSString *)placeholderStr{
+//    objc_setAssociatedObject(self, @selector(placeholderStr), placeholderStr, OBJC_ASSOCIATION_RETAIN_NONATOMIC);
+//    if (placeholderStr.length <= 0) {
+//        return;
+//    }
+//    // iOS13不能KVC设置颜色了，所以不能直接设置 self.searchBar.placeholder = _placeholderStr; 。需要通过下面方式来设置颜色
+//    NSDictionary *attDic = @{
+//                             NSForegroundColorAttributeName: [UIColor.whiteColor colorWithAlphaComponent:0.5],
+//                             NSFontAttributeName: [UIFont boldSystemFontOfSize:13],
+//                             };
+//
+//    UITextField *textField = (UITextField *)[self findSubview:@"UITextField" resursion:YES];
+//    textField.attributedPlaceholder = [[NSAttributedString alloc]initWithString:placeholderStr
+//                                                                     attributes:attDic];
+//}
+
 
 
 @end

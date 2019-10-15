@@ -98,7 +98,6 @@ UINavigationController * UINavCtrFromObj(id obj){
     objc_setAssociatedObject(self, @selector(timeInterval), @(timeInterval), OBJC_ASSOCIATION_ASSIGN);
 }
 
-
 #pragma make - - 声明代码块
 
 -(BlockAlertController)blockAlertController{
@@ -234,6 +233,31 @@ UINavigationController * UINavCtrFromObj(id obj){
     return view;
 }
 
+- (UISearchController *)createSearchVC:(UIViewController *)resultsController {
+    self.definesPresentationContext = true;
+    
+    UISearchController *searchVC = [[UISearchController alloc]initWithSearchResultsController:resultsController];
+    //    searchVC.view.backgroundColor = [UIColor.whiteColor colorWithAlphaComponent:1];
+    
+    //是否添加半透明覆盖层
+    searchVC.dimsBackgroundDuringPresentation = true;
+    if (@available(iOS 9.1, *)) {
+        searchVC.obscuresBackgroundDuringPresentation = true;
+    }
+    //    //是否隐藏导航栏
+    //    searchVC.hidesNavigationBarDuringPresentation = YES;
+    
+    searchVC.searchBar.barStyle = UIBarStyleDefault;
+    searchVC.searchBar.translucent = YES;
+    [searchVC.searchBar setValue:@"取消" forKey:@"_cancelButtonText"];
+    //    searchVC.searchBar.barTintColor = UIColor.brownColor;
+    //    searchVC.searchBar.tintColor = UIColor.redColor;
+    // searchController.searchBar.layer.borderColor = [UIColor redColor].CGColor;
+    //searchController.searchResultsUpdater = result;
+    
+    searchVC.searchBar.placeholder = @"搜索";
+    return searchVC;
+}
 
 /**
  [弃用]可隐藏的导航按钮
@@ -504,7 +528,6 @@ UINavigationController * UINavCtrFromObj(id obj){
 }
 
 - (id _Nullable )frontViewController:(UINavigationController *_Nonnull)navContoller{
-
     UIViewController * viewController = nil;
 
     NSUInteger count = navContoller.viewControllers.count;
@@ -517,7 +540,6 @@ UINavigationController * UINavCtrFromObj(id obj){
     }
 //    self.frontController = viewController;//初始化
     return viewController;
-    
 }
 
 - (UIViewController *)addControllerName:(NSString *)className{

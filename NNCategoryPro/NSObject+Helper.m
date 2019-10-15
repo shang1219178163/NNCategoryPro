@@ -56,6 +56,17 @@ NSString *SwiftClassName(NSString *className){
     return string;
 }
 
+NSString *UrlAddress(NSString *hostname, NSString *port){
+    NSString *webUrl = [NSString stringWithFormat:@"%@", hostname];
+    if (![hostname containsString:@"http://"]) {
+        webUrl = [@"http://" stringByAppendingString: hostname];
+    }
+    if (![port isEqualToString:@""]) {
+        webUrl = [webUrl stringByAppendingFormat:@":%@", port];
+    }
+    return webUrl;
+}
+
 @implementation NSObject (Helper)
 
 -(NSData *)jsonData{

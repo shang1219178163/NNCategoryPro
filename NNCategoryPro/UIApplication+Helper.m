@@ -323,7 +323,7 @@ static NSDictionary *_infoDic = nil;
         shadow;
     });
     NSDictionary *attDic = @{NSForegroundColorAttributeName:  UIColor.whiteColor,
-                             NSFontAttributeName: [UIFont systemFontOfSize:13],
+                             NSFontAttributeName: [UIFont systemFontOfSize:13 weight:UIFontWeightBold],
                              NSShadowAttributeName: shadow,
                              };
     [UIBarButtonItem.appearance setTitleTextAttributes:attDic forState: UIControlStateNormal];
@@ -402,17 +402,15 @@ static NSDictionary *_infoDic = nil;
 }
 
 /**
- 配置app图标(传 nil 换为默认值)
+ 配置app图标(传 @"AppIcon"/@"默认"/@"", 换为默认值)
  */
-+ (void)setAppIconWithName:(NSString *_Nullable)iconName {
++ (void)setAppIconWithName:(NSString *)iconName {
     if (@available(iOS 10.3, *)) {
         if (!UIApplication.sharedApplication.supportsAlternateIcons) {
             return;
         }
         
-        if ([iconName isEqualToString:@""]) {
-            iconName = nil;
-        }
+        iconName = [@[@"AppIcon", @"默认", @"",] containsObject: iconName] ? nil : iconName;
         [UIApplication.sharedApplication setAlternateIconName:iconName completionHandler:^(NSError * _Nullable error) {
             if (error) {
                 NSLog(@"更换app图标发生错误了 ： %@",error);

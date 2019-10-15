@@ -24,6 +24,8 @@ FOUNDATION_EXPORT CGFloat CGDegreesFromRadian(CGFloat x);
 FOUNDATION_EXPORT CGFloat RoundFloat(CGFloat value, NSInteger num);
 /// swift类需要加命名空间
 FOUNDATION_EXPORT NSString *SwiftClassName(NSString *className);
+/// 地址字符串(hostname + port)
+FOUNDATION_EXPORT NSString *UrlAddress(NSString *hostname, NSString *port);
 
 NS_ASSUME_NONNULL_BEGIN
 
