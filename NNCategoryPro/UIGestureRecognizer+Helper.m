@@ -19,6 +19,31 @@
     objc_setAssociatedObject(self, @selector(funcName), actionName, OBJC_ASSOCIATION_RETAIN_NONATOMIC);
 }
 
+//- (void (^)(UIGestureRecognizer *reco))actionBlock{
+//    return objc_getAssociatedObject(self, _cmd);
+//}
+//
+//- (void)setActionBlock:(void (^)(UIGestureRecognizer * _Nonnull))actionBlock{
+//    if (actionBlock) {
+//        objc_setAssociatedObject(self, @selector(actionBlock), actionBlock, OBJC_ASSOCIATION_COPY_NONATOMIC);
+//        [self addTarget:self action:@selector(invoke:)];
+//    }
+//}
+
+- (void)addActionBlock:(void(^)(UIGestureRecognizer *reco))actionBlock {
+    if (actionBlock) {
+        objc_setAssociatedObject(self, @selector(actionBlock), actionBlock, OBJC_ASSOCIATION_COPY_NONATOMIC);
+        [self addTarget:self action:@selector(invoke:)];
+    }
+}
+
+- (void)invoke:(id)sender {
+    void(^block)(UIGestureRecognizer *reco) = objc_getAssociatedObject(self, @selector(actionBlock));
+    if (block) {
+        block(sender);
+    }
+}
+
 /**
  手势点返回的矩形
  */

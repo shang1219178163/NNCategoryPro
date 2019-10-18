@@ -327,6 +327,8 @@ static NSDictionary *_infoDic = nil;
                              NSShadowAttributeName: shadow,
                              };
     [UIBarButtonItem.appearance setTitleTextAttributes:attDic forState: UIControlStateNormal];
+    [UIBarButtonItem.appearance setTitleTextAttributes:attDic forState: UIControlStateHighlighted];
+
     [UIBarButtonItem appearanceWhenContainedInInstancesOfClasses: @[UISearchBar.class]];
 }
 

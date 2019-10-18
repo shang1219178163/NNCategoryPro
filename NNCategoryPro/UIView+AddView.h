@@ -48,15 +48,21 @@ NS_ASSUME_NONNULL_BEGIN
 //小标志专用,例如左侧头像上的"企"
 + (__kindof UILabel *)createTipLabelWithSize:(CGSize)size tipCenter:(CGPoint)tipCenter text:(NSString *)text textColor:(UIColor *)textColor;
 
+//imageView通用创建方法
++ (__kindof UIImageView *)createImgViewRect:(CGRect)rect type:(NSNumber *)type;
+
+//选择图片使用
++ (__kindof UIImageView *)createImgViewRect:(CGRect)rect type:(NSNumber *)type hasDeleteBtn:(BOOL)hasDeleteBtn;
+
 /**
  UITextField创建方法
  */
 + (__kindof UITextField *)createTextFieldRect:(CGRect)rect;
 
 /**
- [简]UITextField创建方法
+ UITextField密码输入框创建
  */
-+ (__kindof UITextField *)createTextFieldRect:(CGRect)rect placeholder:(NSString *)placeholder;
++ (__kindof UITextField *)createTextFieldPwdRect:(CGRect)rect image:(UIImage *)image imageSelected:(UIImage *)imageSelected;
 
 /**
  带提示的textView
@@ -72,18 +78,6 @@ NS_ASSUME_NONNULL_BEGIN
  展示性质的textView,不提供编辑
  */
 + (__kindof UITextView *)createTextShowRect:(CGRect)rect;
-
-/**
- 富文本
- */
-+ (__kindof UILabel *)createRichLabRect:(CGRect)rect text:(NSString *)text textTaps:(NSArray *)textTaps;
-//imageView通用创建方法
-+ (__kindof UIImageView *)createImgViewRect:(CGRect)rect type:(NSNumber *)type;
-
-//选择图片使用
-+ (__kindof UIImageView *)createImgViewRect:(CGRect)rect type:(NSNumber *)type hasDeleteBtn:(BOOL)hasDeleteBtn;
-
-+ (__kindof UITextField *)createTextFieldRect:(CGRect)rect text:(NSString *)text;
 
 + (__kindof UIButton *)createBtnRect:(CGRect)rect title:(NSString *)title image:(NSString *_Nullable)image type:(NSNumber *)type;
     
