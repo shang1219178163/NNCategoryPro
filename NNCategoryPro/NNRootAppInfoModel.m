@@ -2,17 +2,17 @@
 //Created by ESJsonFormatForMac on 18/09/18.
 //
 
-#import "NNNetRootAppInfoModel.h"
+#import "NNRootAppInfoModel.h"
 
-@implementation NNNetRootAppInfoModel
+@implementation NNRootAppInfoModel
 
 + (NSDictionary<NSString *,id> *)modelContainerPropertyGenericClass{
-    return @{@"results": [BNNetResultsAppInfoModel class]};
+    return @{@"results": [NNResultsAppInfoModel class]};
 }
 
 @end
 
-@implementation BNNetResultsAppInfoModel
+@implementation NNResultsAppInfoModel
 
 //返回一个 Dict，将 Model 属性名对映射到 JSON 的 Key。
 + (NSDictionary *)modelCustomPropertyMapper {

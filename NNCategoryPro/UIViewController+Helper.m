@@ -156,14 +156,12 @@ UINavigationController * UINavCtrFromObj(id obj){
     if (viewNoData){
          viewNoData.hidden = YES;
     }
-    
 }
 
 - (void)addNoDataRefreshViewWithTitle:(NSString *)title{
     UIView * view = [self refreshViewWithTitle:title type:@1 inView:self.view];
     [self.view addSubview:view];
     [self.view bringSubviewToFront:view];
-    
 }
 
 - (void)addNoDataRefreshViewWithTitle:(NSString *)title inView:(UIView *)inView{
@@ -171,7 +169,6 @@ UINavigationController * UINavCtrFromObj(id obj){
     UIView * view = [self refreshViewWithTitle:title type:@1 inView:inView];
     [inView addSubview:view];
     [inView bringSubviewToFront:view];
-    
 }
 
 - (UIView *)refreshViewWithTitle:(NSString *)title type:(NSNumber *)type inView:(UIView *)inView{

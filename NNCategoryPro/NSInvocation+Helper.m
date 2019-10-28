@@ -164,7 +164,6 @@ static const char *__BlockSignature__(id blockObj){
     }
     
     return [temp sortedArrayUsingSelector:@selector(localizedCaseInsensitiveCompare:)];
-    
 }
 
 + (NSArray *)getMethodListForClass:(NSString *)className matchingPattern:(NSString *)matchingPattern{
@@ -344,7 +343,6 @@ static const char *__BlockSignature__(id blockObj){
         UIEdgeInsets myArg = [arg UIEdgeInsetsValue];
         [self setArgument:&myArg atIndex:argIdx];
     }
-    
 }
 
 - (id)getEncodedReturnValue{

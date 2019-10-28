@@ -25,7 +25,6 @@
 - (void)swz_Dealloc {
     [NSNotificationCenter.defaultCenter removeObserver:self];
     [self swz_Dealloc];
-    
 }
 
 #pragma mark - - 属性

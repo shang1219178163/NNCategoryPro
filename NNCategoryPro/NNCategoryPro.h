@@ -12,7 +12,7 @@
 #import "AVSpeechSynthesizer+Helper.h"
 #import "AVAudioSession+Helper.h"
 #import "NNAnimationObject.h"
-#import "NNNetRootAppInfoModel.h"
+#import "NNRootAppInfoModel.h"
 #import "CAAnimationGroup+Helper.h"
 #import "CABasicAnimation+Helper.h"
 #import "CAEmitterCell+Helper.h"

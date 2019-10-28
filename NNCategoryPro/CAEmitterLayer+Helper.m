@@ -38,7 +38,6 @@
     
     CAEmitterLayer * layer = [CAEmitterLayer layerWithSize:size positon:position cells:marr.copy];
     return layer;
-    
 }
 
 +(CAEmitterLayer *)layerRect:(CGRect)rect imgList:(NSArray *)imgList type:(NSNumber *)type{

@@ -311,9 +311,7 @@ NSString * NSStringFromFloat(CGFloat obj){
     NSString * string = self;
     string = [string stringByReplacingOccurrencesOfString:@" " withString:@""];
     string = [string stringByReplacingOccurrencesOfString:@":" withString:@""];
-
     return string;
-    
 }
 
 - (NSString *)stringByReplacingAsteriskRange:(NSRange)range{
@@ -385,7 +383,6 @@ NSString * NSStringFromFloat(CGFloat obj){
         [mstr appendString:text];
     }
     return mstr;
-    
 }
 
 -(NSString *)multiplyAnothor:(NSString *)anothor{
@@ -478,7 +475,6 @@ NSString * NSStringFromFloat(CGFloat obj){
 
 - (void)copyToPasteboard{
     [self copyToPasteboard:YES];
-    
 }
 
 - (BOOL)openThisURL{

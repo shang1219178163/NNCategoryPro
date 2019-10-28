@@ -23,6 +23,10 @@ static UIColor * _excelColor = nil;
 static UIColor * _titleColor = nil;
 static UIColor * _titleSubColor = nil;
 
+static UIColor * _lightBlue = nil;
+static UIColor * _lightOrange = nil;
+static UIColor * _lightGreen = nil;
+
 static UIColor * _titleColor3 = nil;
 static UIColor * _titleColor6 = nil;
 static UIColor * _titleColor9 = nil;
@@ -54,7 +58,7 @@ static UIColor * _titleColor9 = nil;
 
 + (UIColor *)lineColor{
     if (!_lineColor) {
-        _lineColor = UIColorHexValue(0xe0e0e0);
+        _lineColor = UIColorHexValue(0xBCBAC0);
     }
     return _lineColor;
 }
@@ -99,6 +103,27 @@ static UIColor * _titleColor9 = nil;
         _titleSubColor = UIColorHexValue(0x999999);
     }
     return _titleSubColor;
+}
+
++ (UIColor *)lightBlue{
+    if (!_lightBlue) {
+        _lightBlue = UIColorHexValue(0x29B5FE);
+    }
+    return _lineColor;
+}
+
++ (UIColor *)lightOrange{
+    if (!_lightOrange) {
+        _lightOrange = UIColorHexValue(0xFFBB50);
+    }
+    return _lightOrange;
+}
+
++ (UIColor *)lightGreen{
+    if (!_lightGreen) {
+        _lightGreen = UIColorHexValue(0x1AC756);
+    }
+    return _lightGreen;
 }
 
 + (UIColor *)titleColor3{

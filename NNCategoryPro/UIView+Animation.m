@@ -62,7 +62,6 @@
         }];
         
     } completion:nil];
-    
 }
 
 - (CAAnimationGroup *)addAnimationBigShapeWithColor:(UIColor *)color{
@@ -142,7 +141,6 @@
             });
         });
     });
-    
 }
 
 #pragma mark - - ShopingCart
@@ -209,7 +207,6 @@
     }
     UIColor * color = supView.backgroundColor;
     return color;
-    
 }
 
 
@@ -263,7 +260,6 @@
     [self.cacheList addSafeObjct:layer];
     [layer removeFromSuperlayer];
     [self.keepList removeObject:layer];
-    
     
 }
 

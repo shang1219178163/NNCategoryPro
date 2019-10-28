@@ -176,7 +176,6 @@ NSMutableDictionary *DicFromPlist(NSString *plistName){
 
 - (NSString*)XMLStringDefaultDeclarationWithRootElement:(NSString*)rootElement{
     return [self XMLStringWithRootElement:rootElement declaration:@"<?xml version=\"1.0\" encoding=\"utf-8\"?>"];
-    
 }
 
 - (NSString*)XMLStringWithRootElement:(NSString *)rootElement declaration:(NSString *)declaration{
@@ -222,7 +221,6 @@ NSMutableDictionary *DicFromPlist(NSString *plistName){
 }
 
 - (NSData *)plistData{
-    //    return [NSPropertyListSerialization dataFromPropertyList:self format:NSPropertyListXMLFormat_v1_0   errorDescription:nil];
     NSError *error = nil;
     return [NSPropertyListSerialization dataWithPropertyList:self format:NSPropertyListXMLFormat_v1_0 options:0 error:&error];
 }

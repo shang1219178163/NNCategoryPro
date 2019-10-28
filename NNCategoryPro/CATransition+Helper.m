@@ -41,5 +41,4 @@ NSString * const kCATransitionCameraIrisHollowClose = @"cameraIrisHollowClose";
     return anim;
 }
 
-
 @end

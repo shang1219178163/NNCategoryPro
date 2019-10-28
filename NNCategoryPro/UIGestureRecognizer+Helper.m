@@ -33,11 +33,11 @@
 - (void)addActionBlock:(void(^)(UIGestureRecognizer *reco))actionBlock {
     if (actionBlock) {
         objc_setAssociatedObject(self, @selector(actionBlock), actionBlock, OBJC_ASSOCIATION_COPY_NONATOMIC);
-        [self addTarget:self action:@selector(invoke:)];
+        [self addTarget:self action:@selector(p_invoke:)];
     }
 }
 
-- (void)invoke:(id)sender {
+- (void)p_invoke:(id)sender {
     void(^block)(UIGestureRecognizer *reco) = objc_getAssociatedObject(self, @selector(actionBlock));
     if (block) {
         block(sender);

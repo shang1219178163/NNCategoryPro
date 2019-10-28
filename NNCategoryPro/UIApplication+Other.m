@@ -26,7 +26,7 @@
 #import <IQKeyboardManager/IQKeyboardManager.h>
 
 //#import <AFNetworking/AFNetworking.h>
-//#import "NNNetRootAppInfoModel.h"
+//#import "NNRootAppInfoModel.h"
 
 @implementation UIApplication (Other)
 
@@ -367,7 +367,6 @@
     
     // 3.调用通知
     [UIApplication.sharedApplication scheduleLocalNotification:localNote];
-    
 }
 
 //+ (void)registerShareSDK{
@@ -587,8 +586,8 @@
 //
 //        dispatch_async(dispatch_get_global_queue(0, 0), ^{
 //
-//            NNNetRootAppInfoModel * rootModel = [NNNetRootAppInfoModel yy_modelWithJSON:responseObject];
-//            BNNetResultsAppInfoModel * dataModel = rootModel.results.firstObject;
+//            NNRootAppInfoModel * rootModel = [NNRootAppInfoModel yy_modelWithJSON:responseObject];
+//            NNResultsAppInfoModel * dataModel = rootModel.results.firstObject;
 //
 //            NSString * appStoreVersion = dataModel.version;// appStore 最新版本号
 //            NSString *releaseNotes = dataModel.releaseNotes;// 取更新日志信息

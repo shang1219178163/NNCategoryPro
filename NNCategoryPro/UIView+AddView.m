@@ -24,6 +24,46 @@
 
 @implementation UIView (AddView)
 
+-(UIView *)lineTop{
+    id obj = objc_getAssociatedObject(self, _cmd);
+    if (!obj) {
+        obj = ({
+            CGRect rect = CGRectMake(0, 0, CGRectGetWidth(self.bounds), kH_LINE_VIEW);
+            UIView *view = [[UIView alloc] initWithFrame:rect];
+            view.hidden = true;
+           
+            view;
+        });
+        objc_setAssociatedObject(self, _cmd, obj, OBJC_ASSOCIATION_RETAIN_NONATOMIC);
+        
+    }
+    return obj;
+}
+
+- (void)setLineTop:(UIView *)lineTop{
+    objc_setAssociatedObject(self, @selector(lineTop), lineTop, OBJC_ASSOCIATION_RETAIN_NONATOMIC);
+}
+
+-(UIView *)lineBottom{
+    id obj = objc_getAssociatedObject(self, _cmd);
+    if (!obj) {
+        obj = ({
+            CGRect rect = CGRectMake(0, CGRectGetHeight(self.bounds) - kH_LINE_VIEW, CGRectGetWidth(self.bounds), kH_LINE_VIEW);
+            UIView *view = [[UIView alloc] initWithFrame:rect];
+            view.hidden = true;
+           
+            view;
+        });
+        objc_setAssociatedObject(self, _cmd, obj, OBJC_ASSOCIATION_RETAIN_NONATOMIC);
+        
+    }
+    return obj;
+}
+
+- (void)setLineBottom:(UIView *)lineBottom{
+    objc_setAssociatedObject(self, @selector(lineBottom), lineBottom, OBJC_ASSOCIATION_RETAIN_NONATOMIC);
+}
+
 -(CAGradientLayer *)gradientLayer{
     id obj = objc_getAssociatedObject(self, _cmd);
     if (!obj) {
@@ -83,7 +123,6 @@
     } else {
         imgView.image = UIImageNamed(image);
     }
-    
 }
 
 /**
@@ -238,7 +277,6 @@
 }
 
 -(CALayer *)createLayerType:(NSNumber *)type{
-    
     UIView * view = self;
     CALayer * layer = [view createLayerType:type color:UIColor.lineColor width:kW_LayerBorder paddingScale:0];
     
@@ -630,7 +668,6 @@
             break;
     }
     return btn;
-    
 }
 
 /**

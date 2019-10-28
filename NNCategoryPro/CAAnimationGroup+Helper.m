@@ -19,16 +19,13 @@
     anim.removedOnCompletion = removedOnCompletion;
     
     return anim;
-    
 }
 
 +(CAAnimationGroup *)animList:(NSArray<CAAnimation *> *)list duration:(CFTimeInterval)duration autoreverses:(BOOL)autoreverses repeatCount:(float)repeatCount fillMode:(NSString *)fillMode removedOnCompletion:(BOOL)removedOnCompletion{
     
     CAAnimationGroup *anim = [CAAnimationGroup animDuration:duration autoreverses:autoreverses repeatCount:repeatCount fillMode:fillMode removedOnCompletion:removedOnCompletion];
     anim.animations = list;
-    
     return anim;
-    
 }
 
 +(CAAnimationGroup *)animList:(NSArray<CAAnimation *> *)list duration:(CFTimeInterval)duration autoreverses:(BOOL)autoreverses repeatCount:(float)repeatCount{
@@ -36,7 +33,6 @@
     CAAnimationGroup *anim = [CAAnimationGroup animDuration:duration autoreverses:autoreverses repeatCount:repeatCount fillMode:kCAFillModeForwards removedOnCompletion:NO];
     anim.animations = list;
     return anim;
-    
 }
 
 @end

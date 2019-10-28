@@ -93,7 +93,6 @@
             self.image = [UIImage imageNamed:image] ? : [UIImage imageNamed:imageDefault];
         }
     }
-    
 }
 
 -(void)showImageEnlarge{

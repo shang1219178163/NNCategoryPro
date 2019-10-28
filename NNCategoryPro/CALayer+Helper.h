@@ -29,6 +29,8 @@ NS_ASSUME_NONNULL_BEGIN
 
 - (void)addAnimationDefaultWithType:(NSNumber *)type;
 
+- (void)addAnimationFade;
+
 - (void)addAnimationRotation;
 
 - (CAShapeLayer *)addAnimMask:(NSString *)animKey;

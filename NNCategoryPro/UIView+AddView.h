@@ -12,6 +12,9 @@ NS_ASSUME_NONNULL_BEGIN
 
 @interface UIView (AddView)
 
+@property (nonatomic, strong) UIView *lineTop;
+@property (nonatomic, strong) UIView *lineBottom;
+
 @property (nonatomic, strong) CAGradientLayer *gradientLayer;
 
 /**

@@ -58,7 +58,6 @@
 
 + (void)showToastWithTips:(NSString *)tips place:(id)place{
     [self showToastWithTips:tips image:nil place:place completion:nil];
-    
 }
 
 + (void)showToastWithTips:(NSString *)tips place:(id)place completion:(void(^)(BOOL didTap))completion{

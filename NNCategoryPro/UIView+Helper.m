@@ -109,7 +109,6 @@
 
 - (void)setBlockView:(BlockView)blockView{
     objc_setAssociatedObject(self, @selector(blockView), blockView, OBJC_ASSOCIATION_COPY_NONATOMIC);
-    
 }
 
 - (BOOL)selected{

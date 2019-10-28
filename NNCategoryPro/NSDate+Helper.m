@@ -140,7 +140,6 @@ static NSArray * _weekList = nil;
         return [dateFormatter stringFromDate:  self ];
         
     }
-    
 }
 
 /*标准时间日期描述*/
@@ -206,7 +205,6 @@ static NSArray * _weekList = nil;
     
     ret = [dateFormatter stringFromDate:  self ];
     return ret;
-    
 }
 
 /*格式化日期描述*/
@@ -422,7 +420,6 @@ static NSArray * _weekList = nil;
         
     }
     return  result;
-    
 }
 
 + (NSString *)compareCurrentTimeDays:(NSDate *)date{
@@ -454,7 +451,6 @@ static NSArray * _weekList = nil;
         
     }
     return  result;
-    
 }
 
 + (NSDate *)dateWithDaysFromNow: (NSInteger )days{

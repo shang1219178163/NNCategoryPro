@@ -45,7 +45,6 @@ static NSDictionary *_phoneTypeDic = nil;
 +(void)setRootController:(UIViewController *)rootVC{
     if (!rootVC) return;
     UIApplication.keyWindow.rootViewController = rootVC;
-    
 }
 
 + (UITabBarController *)tabBarController{

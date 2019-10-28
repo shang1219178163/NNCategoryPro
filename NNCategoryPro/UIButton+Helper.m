@@ -150,7 +150,6 @@
         }
     });
     dispatch_resume(_timer);
-    
 }
 
 /**
@@ -162,7 +161,6 @@
 - (void)startDisplayLink{
     CADisplayLink *displayLink = [CADisplayLink displayLinkWithTarget:self selector:@selector(handleDisplayLink:)];
     [displayLink addToRunLoop:[NSRunLoop currentRunLoop] forMode:NSDefaultRunLoopMode];
-    
 }
 
 - (void)handleDisplayLink:(CADisplayLink *)displayLink{
@@ -188,7 +186,6 @@
     button.imageEdgeInsets = UIEdgeInsetsMake(5, 10, 5, 60);
 
     return button;
-    
 }
 
 - (CGSize)btnSizeByHeight:(CGFloat)height{
@@ -200,9 +197,7 @@
     CGSize btnSize = CGSizeMake(btnTitleSize.width + imgSize.width + kPadding*2, height);
 
     return btnSize;
-    
 }
-
 
 - (void)showImageType:(NSNumber *)type image:(id)image{
     

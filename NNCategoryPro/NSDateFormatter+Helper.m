@@ -9,10 +9,10 @@
 #import "NSDateFormatter+Helper.h"
 #import "NNGloble.h"
 
-const NSInteger kDate_second = 1 ;
-const NSInteger kDate_minute = 60 ;
-const NSInteger kDate_hour = 3600 ;
-const NSInteger kDate_day = 86400 ;
+const NSInteger kDate_second = 1;
+const NSInteger kDate_minute = 60;
+const NSInteger kDate_hour = 3600;
+const NSInteger kDate_day = 86400;
 const NSInteger kDate_week = 604800 ;
 const NSInteger kDate_year = 31556926;
 

@@ -240,7 +240,6 @@
         default:
             break;
     }
-    
 }
 
 + (CAAnimationGroup *)animationGroup{
@@ -290,9 +289,19 @@
     animation.repeatCount = repeatCount;
     
     return animation;
-    
 }
 
+- (void)addAnimationFade{
+    CATransition *transition = [[CATransition alloc] init];
+      
+    transition.timingFunction = [CAMediaTimingFunction functionWithName:kCAMediaTimingFunctionEaseIn];
+    transition.type = kCATransitionFade;
+    transition.duration = 0.5;
+    transition.removedOnCompletion = YES;
+
+//    UIWindow *keyWindow = UIApplication.sharedApplication.delegate.window;
+//    [keyWindow.layer addAnimation:transition forKey:@"change_view_controller"];
+}
 
 - (void)addAnimationRotation{
     CABasicAnimation * animation = [CABasicAnimation animationWithKeyPath:@"transform.rotation.z"];
@@ -388,7 +397,6 @@
     [shapeLayer addAnimation:groupAnim forKey:animKey];
     
     return shapeLayer;
-    
 }
 
 @end

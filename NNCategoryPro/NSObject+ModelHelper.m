@@ -279,7 +279,6 @@
     
     pthread_mutex_unlock(&mutex);
     pthread_mutex_destroy(&mutex);
-    
 }
 
 /**
@@ -304,7 +303,6 @@
         }
     }];
     return result;
-    
 }
 
 -(void)convertBaseTypesForYYModelDict:(NSDictionary *)dict{
@@ -335,7 +333,6 @@
     
     pthread_mutex_unlock(&mutex);
     pthread_mutex_destroy(&mutex);
-    
 }
 
 //-(void)convertBaseTypesForYYModelDict:(NSDictionary *)dict{

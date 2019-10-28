@@ -30,6 +30,11 @@ FOUNDATION_EXPORT NSString *UrlAddress(NSString *hostname, NSString *port);
 NS_ASSUME_NONNULL_BEGIN
 
 @interface NSObject (Helper)<NSCoding>
+/// 模型转字典
+- (NSDictionary *)dictionaryFromModel;
+
+/// 带model的数组或字典转字典
+- (id)idFromObject:(id)object;
 
 #pragma mark - -dispatchAsync
 void GCDBlock(void(^block)(void));

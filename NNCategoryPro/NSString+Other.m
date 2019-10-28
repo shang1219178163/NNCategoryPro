@@ -377,7 +377,6 @@ static char base64EncodingTable[64] = {
     }
     NSString *unicodeString = [NSString stringWithCString:myBuffer encoding:4];
     return unicodeString;
-    
 }
 
 //普通字符串转换为十六进制的。
@@ -586,7 +585,6 @@ static char base64EncodingTable[64] = {
     
     free(buffer);
     return nil;
-    
 }
 
 + (NSString *)processDecodedString:(NSString *)decoded{
@@ -601,7 +599,6 @@ static char base64EncodingTable[64] = {
     }
     NSString *final=[[NSString alloc]initWithBytes:tmpStr length:i encoding:NSUTF8StringEncoding];
     return final;
-    
 }
 
 - (NSString *)processDecodedString:(NSString *)decoded{
@@ -616,7 +613,6 @@ static char base64EncodingTable[64] = {
     }
     NSString *final = [[NSString alloc]initWithBytes:tmpStr length:i encoding:NSUTF8StringEncoding];
     return final;
-    
 }
 
 + (BOOL)validKey:(NSString *)key{
@@ -769,8 +765,7 @@ static char base64EncodingTable[64] = {
  @param key 秘钥
  @return 加密字符串
  */
-- (NSString *)AES256EncryptWithKey:(NSString *)key
-{
+- (NSString *)AES256EncryptWithKey:(NSString *)key{
     NSData *plainData = [self dataUsingEncoding:NSUTF8StringEncoding];
     NSData *encryptedData = [plainData AES256EncryptWithKey:key];
     

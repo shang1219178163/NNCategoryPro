@@ -40,7 +40,6 @@
         // 两次点击的时间间隔小于设定的时间间隔时，才执行响应事件
         [self swz_sendAction:action to:target forEvent:event];
     }
-    
 }
 
 - (NSTimeInterval)custom_acceptEventTime{

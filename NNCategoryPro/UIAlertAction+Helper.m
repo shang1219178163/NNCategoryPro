@@ -19,7 +19,6 @@
 
 - (void)setTag:(NSInteger)tag{
     objc_setAssociatedObject(self, @selector(tag), @(tag), OBJC_ASSOCIATION_ASSIGN);
-    
 }
 
 - (void)setTitleColor:(UIColor *)color{

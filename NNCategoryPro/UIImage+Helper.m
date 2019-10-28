@@ -364,7 +364,6 @@ bool UIImageEquelToImage(UIImage *image0, UIImage *image1){
         imgDataNew = image;
     }
     return [imgData isEqualToData:imgDataNew];
-    
 }
 
 //根据图片获取图片的主色调
@@ -433,7 +432,6 @@ bool UIImageEquelToImage(UIImage *image0, UIImage *image1){
     
     //    NSLog(@"{%@,%@,%@,%@}",@(r),@(g),@(b),@(a));
     return [UIColor colorWithRed:(r/255.0f) green:(g/255.0f) blue:(b/255.0f) alpha:(a/255.0f)];
-    
 }
 
 //获取图像某一点的颜色
@@ -501,7 +499,6 @@ bool UIImageEquelToImage(UIImage *image0, UIImage *image1){
         UIGraphicsEndImageContext();
     }
     return newimage;
-    
 }
 
 //2.保持原来的长宽比，生成一个缩略图
@@ -536,7 +533,6 @@ bool UIImageEquelToImage(UIImage *image0, UIImage *image1){
         UIGraphicsEndImageContext();
     }
     return newimage;
-    
 }
 
 #pragma mark 调整图片分辨率/尺寸（等比例缩放）

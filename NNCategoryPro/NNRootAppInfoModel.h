@@ -4,15 +4,15 @@
 
 #import <Foundation/Foundation.h>
  
-@class BNNetResultsAppInfoModel;
-@interface NNNetRootAppInfoModel : NSObject
+@class NNResultsAppInfoModel;
+@interface NNRootAppInfoModel : NSObject
 
-@property (nonatomic, strong) NSArray<BNNetResultsAppInfoModel *> *results;
+@property (nonatomic, strong) NSArray<NNResultsAppInfoModel *> *results;
 @property (nonatomic, assign) NSInteger resultCount;
 
 @end
-@interface BNNetResultsAppInfoModel : NSObject
-
+@interface NNResultsAppInfoModel : NSObject
+ 
 @property (nonatomic, strong) NSArray<NSString *> *advisories;
 
 @property (nonatomic, strong) NSArray *appletvScreenshotUrls;

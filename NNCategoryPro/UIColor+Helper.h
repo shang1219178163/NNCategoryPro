@@ -24,6 +24,10 @@ NS_ASSUME_NONNULL_BEGIN
 @property (class, nonatomic, readonly) UIColor *titleColor;
 @property (class, nonatomic, readonly) UIColor *titleSubColor;
 
+@property (class, nonatomic, readonly) UIColor *lightBlue;
+@property (class, nonatomic, readonly) UIColor *lightOrange;
+@property (class, nonatomic, readonly) UIColor *lightGreen;
+
 @property (class, nonatomic, readonly) UIColor *titleColor3;
 @property (class, nonatomic, readonly) UIColor *titleColor6;
 @property (class, nonatomic, readonly) UIColor *titleColor9;

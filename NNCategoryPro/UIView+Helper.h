@@ -64,7 +64,6 @@ NS_ASSUME_NONNULL_BEGIN
 
 - (UIView *)addCornersAll;
 
-
 - (UITapGestureRecognizer *)addGestureTap:(void(^)(UIGestureRecognizer *reco))block;
 
 - (UILongPressGestureRecognizer *)addGestureLongPress:(void(^)(UIGestureRecognizer *reco))block forDuration:(NSTimeInterval)minimumPressDuration;
