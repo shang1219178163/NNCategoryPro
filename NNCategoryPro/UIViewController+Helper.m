@@ -246,7 +246,11 @@ UINavigationController * UINavCtrFromObj(id obj){
     
     searchVC.searchBar.barStyle = UIBarStyleDefault;
     searchVC.searchBar.translucent = YES;
-    [searchVC.searchBar setValue:@"取消" forKey:@"_cancelButtonText"];
+    if (@available(iOS 13.0, *)) {
+        
+    } else {
+        [searchVC.searchBar setValue:@"取消" forKey:@"_cancelButtonText"];
+    }
     //    searchVC.searchBar.barTintColor = UIColor.brownColor;
     //    searchVC.searchBar.tintColor = UIColor.redColor;
     // searchController.searchBar.layer.borderColor = [UIColor redColor].CGColor;

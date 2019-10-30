@@ -918,10 +918,11 @@
     view.separatorStyle = UITableViewCellSeparatorStyleSingleLine;
     view.rowHeight = 70;
     view.backgroundColor = UIColor.backgroudColor;
-    view.tableFooterView = [[UIView alloc]init];
-    view.keyboardDismissMode = UIScrollViewKeyboardDismissModeOnDrag;
+//    view.tableHeaderView = [[UIView alloc]init];
+//    view.tableFooterView = [[UIView alloc]init];
+//    view.keyboardDismissMode = UIScrollViewKeyboardDismissModeOnDrag;
     [view registerClass:[UITableViewCell class] forCellReuseIdentifier:@"UITableViewCell"];
-    
+
     return view;
 }
 
@@ -965,8 +966,12 @@
     //searchBar.searchBarStyle = UISearchBarStyleMinimal;
     //没有背影，透明样式
     // 修改cancel
-    // 修改cancel
-    [searchBar setValue:@"取消" forKey:@"cancelButtonText"];
+
+    if (@available(iOS 13.0, *)) {
+
+    } else {
+        [searchBar setValue:@"取消" forKey:@"cancelButtonText"];
+    }
     searchBar.showsCancelButton = true;
 //    searchBar.showsSearchResultsButton = true;
     //5. 设置搜索Icon
