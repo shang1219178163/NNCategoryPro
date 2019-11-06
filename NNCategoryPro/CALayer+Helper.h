@@ -29,7 +29,9 @@ NS_ASSUME_NONNULL_BEGIN
 
 - (void)addAnimationDefaultWithType:(NSNumber *)type;
 
-- (void)addAnimationFade;
+- (void)addAnimationFadeDuration:(float)duration functionName:(CAMediaTimingFunctionName)functionName;
+
+- (void)addAnimationFadeDuration:(float)duration;
 
 - (void)addAnimationRotation;
 

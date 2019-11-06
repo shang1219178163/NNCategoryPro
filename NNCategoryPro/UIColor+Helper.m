@@ -58,7 +58,7 @@ static UIColor * _titleColor9 = nil;
 
 + (UIColor *)lineColor{
     if (!_lineColor) {
-        _lineColor = UIColorHexValue(0xBCBAC0);
+        _lineColor = UIColorHexValue(0xe4e4e4);
     }
     return _lineColor;
 }

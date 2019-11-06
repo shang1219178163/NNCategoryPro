@@ -291,16 +291,23 @@
     return animation;
 }
 
-- (void)addAnimationFade{
+
+- (void)addAnimationFadeDuration:(float)duration functionName:(CAMediaTimingFunctionName)functionName{
     CATransition *transition = [[CATransition alloc] init];
       
-    transition.timingFunction = [CAMediaTimingFunction functionWithName:kCAMediaTimingFunctionEaseIn];
+    bool isValid = [CABasicAnimation.functionNames containsObject:functionName];
+    transition.timingFunction = [CAMediaTimingFunction functionWithName: isValid ? functionName : kCAMediaTimingFunctionEaseIn];
     transition.type = kCATransitionFade;
     transition.duration = 0.5;
     transition.removedOnCompletion = YES;
+    [self addAnimation:transition forKey:@"change_view_controller"];
 
 //    UIWindow *keyWindow = UIApplication.sharedApplication.delegate.window;
 //    [keyWindow.layer addAnimation:transition forKey:@"change_view_controller"];
+}
+
+- (void)addAnimationFadeDuration:(float)duration{
+    [self addAnimationFadeDuration:duration functionName:kCAMediaTimingFunctionEaseIn];
 }
 
 - (void)addAnimationRotation{
