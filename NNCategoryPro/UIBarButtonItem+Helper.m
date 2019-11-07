@@ -11,31 +11,21 @@
 
 @implementation UIBarButtonItem (Helper)
 
-- (void (^)(void))actionBlock {
-    return objc_getAssociatedObject(self, _cmd);
-}
-
-//- (void)setActionBlock:(void (^)(void))actionBlock{
-//    objc_setAssociatedObject(self, @selector(actionBlock), actionBlock, OBJC_ASSOCIATION_COPY_NONATOMIC);
-//}
-
-- (void)setActionBlock:(void (^)(void))actionBlock{
-    if (actionBlock != self.actionBlock) {
+- (void)addActionBlock:(void (^)(UIBarButtonItem *item))actionBlock{
+    if (actionBlock) {
         [self willChangeValueForKey:@"actionBlock"];
-        
         objc_setAssociatedObject(self, @selector(actionBlock), actionBlock, OBJC_ASSOCIATION_COPY);
-        
         // Sets up the action.
         self.target = self;
-        self.action = @selector(performActionBlock);
+        self.action = @selector(p_invoke);
         [self didChangeValueForKey:@"actionBlock"];
     }
 }
 
-- (void)performActionBlock {
-    dispatch_block_t block = self.actionBlock;
+- (void)p_invoke {
+    void(^block)(UIBarButtonItem *item) = objc_getAssociatedObject(self, @selector(actionBlock));
     if (block) {
-        block();
+        block(self);
     }
 }
 

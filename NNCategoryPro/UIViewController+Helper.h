@@ -53,6 +53,10 @@ FOUNDATION_EXPORT UINavigationController * _Nullable UINavCtrFromObj(id obj);
 
 @property (nonatomic, assign) NSTimeInterval timeInterval;
 @property (nonatomic, strong, readonly) NSString * _Nullable controllerName;
+/// 返回按钮
+@property (nonatomic, strong) UIButton *backBtn;
+
+- (UIButton *)createBackItem:(UIImage *)image;
 
 - (void)setupExtendedLayout;
 
@@ -127,8 +131,6 @@ FOUNDATION_EXPORT UINavigationController * _Nullable UINavCtrFromObj(id obj);
 
 - (void)setupNavigationBarBackgroundImage:(UIImage *)image;
 
-- (UIButton *)createBackItem:(UIImage *)image;
-- (UIButton *)createBackItem:(UIImage *)image tintColor:(UIColor *)tintColor;
 
 @end
 

@@ -28,7 +28,8 @@
     viewController.view.backgroundColor = UIColor.whiteColor;
     if (self.viewControllers.count > 0) {
         viewController.hidesBottomBarWhenPushed = YES;
-        [viewController createBackItem:[UIImage imageNamed:@"icon_arowLeft_black"]];//leftBaritem在控制器的本身左上角;与backitem不同
+        viewController.navigationItem.leftBarButtonItem = [[UIBarButtonItem alloc]initWithCustomView:viewController.backBtn];;
+   
     }
     self.navigationController.delegate = nil;
     [self swz_PushViewController:viewController animated:animated];

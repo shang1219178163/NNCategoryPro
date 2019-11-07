@@ -18,6 +18,7 @@
 #import "UIAlertController+Helper.h"
 
 #import "UIView+Helper.h"
+#import "UIBarButtonItem+Helper.h"
 #import "UIButton+Helper.h"
 #import "UIScreen+Helper.h"
 #import "UIControl+Helper.h"
@@ -42,6 +43,42 @@ UINavigationController * UINavCtrFromObj(id obj){
     }
     return nil;
 }
+
+- (UIButton *)backBtn{
+    UIButton *view = objc_getAssociatedObject(self, _cmd);
+    if (!view) {
+        view = [self createBackItem:[UIImage imageNamed:@"icon_arowLeft_black"]];
+        objc_setAssociatedObject(self, _cmd, view, OBJC_ASSOCIATION_RETAIN_NONATOMIC);
+    }
+    return view;
+}
+
+- (void)setBackBtn:(UIButton *)backBtn{
+    objc_setAssociatedObject(self, @selector(backBtn), backBtn, OBJC_ASSOCIATION_RETAIN_NONATOMIC);
+}
+/**
+ 返回按钮专用
+ */
+- (UIButton *)createBackItem:(UIImage *)image{
+    UIColor *tintColor = UINavigationBar.appearance.tintColor ? : UIColor.redColor;
+
+    NSParameterAssert(image != nil);
+    UIButton *btn = [UIButton buttonWithType:UIButtonTypeCustom];
+    btn.adjustsImageWhenHighlighted = false;
+    btn.frame = CGRectMake(0, 0, 30, 40);
+    btn.imageEdgeInsets = UIEdgeInsetsMake(0, -20, 0, 0);
+
+    [btn setImage:[image imageWithRenderingMode:UIImageRenderingModeAlwaysTemplate] forState:UIControlStateNormal];
+    btn.imageView.tintColor = tintColor;
+    btn.highlighted = false;
+    [btn addActionHandler:^(UIControl * _Nonnull control) {
+        [self.navigationController popViewControllerAnimated:true];
+
+    } forControlEvents:UIControlEventTouchUpInside];
+//    [btn getViewLayer];
+    return btn;
+}
+
 
 - (void)setupExtendedLayout{
     self.edgesForExtendedLayout = UIRectEdgeNone;
@@ -621,33 +658,8 @@ UINavigationController * UINavCtrFromObj(id obj){
     [self.navigationController.navigationBar setBackgroundImage:image forBarMetrics:UIBarMetricsDefault];
     [self.navigationController.navigationBar setShadowImage:image];
 }
-/**
- 返回按钮专用
- */
-- (UIButton *)createBackItem:(UIImage *)image{
-    UIColor *tintColor = UINavigationBar.appearance.tintColor != nil ? UINavigationBar.appearance.tintColor : UIColor.redColor;
-    return [self createBackItem:image tintColor:tintColor];
-}
 
-- (UIButton *)createBackItem:(UIImage *)image tintColor:(UIColor *)tintColor {
-    NSParameterAssert(image != nil);
-    UIButton * btn = [UIButton buttonWithType:UIButtonTypeCustom];
-    btn.adjustsImageWhenHighlighted = false;
-    btn.frame = CGRectMake(0, 0, 30, 40);
-    btn.imageEdgeInsets = UIEdgeInsetsMake(0, -20, 0, 0);
-    
-    [btn setImage:[image imageWithRenderingMode:UIImageRenderingModeAlwaysTemplate] forState:UIControlStateNormal];
-    btn.imageView.tintColor = tintColor;
-    btn.highlighted = false;
-    [btn addActionHandler:^(UIControl * _Nonnull control) {
-        [self.navigationController popViewControllerAnimated:true];
-        
-    } forControlEvents:UIControlEventTouchUpInside];
-    
-    UIBarButtonItem * backItem = [[UIBarButtonItem alloc]initWithCustomView:btn];
-    self.navigationItem.leftBarButtonItem = backItem;
-    return btn;
-}
+
 
 
 @end

@@ -12,8 +12,7 @@ NS_ASSUME_NONNULL_BEGIN
 @interface UIGestureRecognizer (Helper)
 
 @property (nonatomic, strong) NSString *funcName;
-/// 动作回调属性
-//@property(nonatomic, copy) void(^actionBlock)(UIGestureRecognizer *reco);
+
 /// 动作回调
 - (void)addActionBlock:(void(^)(UIGestureRecognizer *reco))actionBlock;
 
