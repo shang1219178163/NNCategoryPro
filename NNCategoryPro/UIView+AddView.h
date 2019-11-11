@@ -47,79 +47,9 @@ NS_ASSUME_NONNULL_BEGIN
 
 + (__kindof UIView *)createViewRect:(CGRect)rect;
 
-//+ (__kindof UILabel *)createRect:(CGRect)rect type:(NSNumber *)type;
-////小标志专用,例如左侧头像上的"企"
-//+ (__kindof UILabel *)createTipLabelWithSize:(CGSize)size tipCenter:(CGPoint)tipCenter text:(NSString *)text textColor:(UIColor *)textColor;
 
-////imageView通用创建方法
-//+ (__kindof UIImageView *)createRect:(CGRect)rect type:(NSNumber *)type;
-//
-////选择图片使用
-//+ (__kindof UIImageView *)createRect:(CGRect)rect type:(NSNumber *)type hasDeleteBtn:(BOOL)hasDeleteBtn;
-
-///**
-// UITextField创建方法
-// */
-//+ (__kindof UITextField *)createRect:(CGRect)rect;
-//
-///**
-// UITextField密码输入框创建
-// */
-//+ (__kindof UITextField *)createTextFieldPwdRect:(CGRect)rect image:(UIImage *)image imageSelected:(UIImage *)imageSelected;
-
-///**
-// 带提示的textView
-// */
-//+ (__kindof UITextView *)createTextViewRect:(CGRect)rect;
-//
-///**
-// [简]带提示的textView
-// */
-//+ (__kindof UITextView *)createTextViewRect:(CGRect)rect placeholder:(NSString *)placeholder;
-//
-///**
-// 展示性质的textView,不提供编辑
-// */
-//+ (__kindof UITextView *)createTextShowRect:(CGRect)rect;
-
-//+ (__kindof UIButton *)createRect:(CGRect)rect title:(NSString *)title image:(NSString *_Nullable)image type:(NSNumber *)type;
-    
 + (UIView *)createBtnViewRect:(CGRect)rect imgName:(NSString *)imgName imgHeight:(CGFloat)imgHeight title:(NSString *)title titleColor:(UIColor *)titleColor type:(NSNumber *)type;
 
-/**
- UISegmentedControl通用创建方法
-// */
-//+ (__kindof UISegmentedControl *)createSegmentRect:(CGRect)rect items:(NSArray *)items selectedIndex:(NSInteger)selectedIndex type:(NSNumber *)type;
-
-///**
-// UISlider通用创建方法
-// */
-//+ (__kindof UISlider *)createSliderRect:(CGRect)rect value:(CGFloat)value minValue:(CGFloat)minValue maxValue:(CGFloat)maxValue;
-
-///**
-// UISwitch通用创建方法
-// */
-//+ (__kindof UISwitch *)createSwitchRect:(CGRect)rect isOn:(BOOL)isOn;
-//
-//+ (__kindof UITabBarItem *)createTabBarItem:(NSString *_Nullable)title image:(NSString *_Nullable)image selectedImage:(NSString *_Nullable)selectedImage;
-
-//+ (__kindof UIBarButtonItem *)createBarItem:(NSString *)obj style:(UIBarButtonItemStyle)style;
-//
-//+ (__kindof UIBarButtonItem *)createBarItem:(NSString *)obj style:(UIBarButtonItemStyle)style target:(id _Nullable)target action:(SEL _Nullable)action;
-///**
-// [源]UITableView创建方法
-// */
-//+ (__kindof UITableView *)createRect:(CGRect)rect style:(UITableViewStyle)style;
-
-/**
- [源]UICollectionView创建方法
-// */
-//+ (__kindof UICollectionView *)createCTViewRect:(CGRect)rect layout:(UICollectionViewLayout *)layout;
-
-///**
-// [源]UISearchBar创建方法
-// */
-//+ (__kindof UISearchBar *)createSearchBarRect:(CGRect)rect;
 
 @end
 

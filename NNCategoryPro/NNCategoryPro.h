@@ -81,6 +81,7 @@
 #import "UINavigationBar+Helper.h"
 #import "UINavigationController+swizzing.h"
 #import "UIResponder+Helper.h"
+#import "UIPageControl+Helper.h"
 #import "UIScreen+Helper.h"
 #import "UISegmentedControl+Helper.h"
 #import "UISearchBar+Helper.h"
