@@ -7,7 +7,6 @@
 //
 
 #import "UIViewController+Helper.h"
-
 #import <objc/runtime.h>
 #import <StoreKit/StoreKit.h>
 
@@ -20,8 +19,10 @@
 #import "UIView+Helper.h"
 #import "UIBarButtonItem+Helper.h"
 #import "UIButton+Helper.h"
-#import "UIScreen+Helper.h"
 #import "UIControl+Helper.h"
+#import "UIImageView+Helper.h"
+#import "UILabel+Helper.h"
+#import "UIScreen+Helper.h"
 
 @implementation UIViewController (Helper)
 
@@ -356,11 +357,11 @@ UINavigationController * UINavCtrFromObj(id obj){
 - (UIView *)createBarItem:(NSString *)obj isLeft:(BOOL)isLeft handler:(void(^)(id obj, UIView *item, NSInteger idx))handler{
     UIView * item = nil;
     if ([UIImage imageNamed:obj]) {
-        item = [UIImageView createImgViewRect:CGRectMake(0, 0, 32, 32) type:@0];
+        item = [UIImageView createRect:CGRectMake(0, 0, 32, 32) type:@0];
         ((UIImageView *)item).image = [UIImage imageNamed:obj];
     }
     else{
-        item = [UILabel createLabelRect:CGRectMake(0, 0, 72, 20) type:@1];
+        item = [UILabel createRect:CGRectMake(0, 0, 72, 20) type:@1];
         ((UILabel *)item).text = obj;
         ((UILabel *)item).font = [UIFont systemFontOfSize:kFontSize16];
         ((UILabel *)item).textAlignment = NSTextAlignmentCenter;

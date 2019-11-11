@@ -66,6 +66,20 @@ NSString * const UICollectionElementKindSectionItem = @"UICollectionElementKindS
     }
 }
 
+/**
+ [源]UICollectionView创建方法
+ */
++ (instancetype)createRect:(CGRect)rect layout:(UICollectionViewLayout *)layout{    
+    UICollectionView *view = [[self alloc]initWithFrame:rect collectionViewLayout:layout];
+    view.backgroundColor = [UIColor whiteColor];
+    view.showsVerticalScrollIndicator = false;
+    view.showsHorizontalScrollIndicator = false;
+    view.scrollsToTop = false;
+    view.pagingEnabled = true;
+
+    return view;
+}
+
 + (NSString *)cellIdentifierByClassName:(NSString *)className{
     return className;
 }

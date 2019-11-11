@@ -16,7 +16,11 @@ NS_ASSUME_NONNULL_BEGIN
 /// 输入框取消按钮,仅在按钮可见时存在
 @property (nonatomic, strong, readonly, nullable) UIButton *cancellBtn;
 
-//@property (nonatomic, strong) NSString *placeholderStr;
+/**
+ [源]UISearchBar创建方法
+ */
++ (instancetype)createRect:(CGRect)rect;
+
 
 @end
 

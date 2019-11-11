@@ -10,9 +10,28 @@
 #import "UITableView+Helper.h"
 
 #import "NNGloble.h"
+#import "UIColor+Helper.h"
 #import "NSArray+Helper.h"
 
 @implementation UITableView (Helper)
+
+/**
+ [源]UITableView创建方法
+ */
++ (instancetype)createRect:(CGRect)rect style:(UITableViewStyle)style{
+    UITableView *view = [[self alloc] initWithFrame:rect style:style];
+    view.autoresizingMask = UIViewAutoresizingFlexibleWidth|UIViewAutoresizingFlexibleHeight;
+    view.separatorInset = UIEdgeInsetsZero;
+    view.separatorStyle = UITableViewCellSeparatorStyleSingleLine;
+    view.rowHeight = 70;
+    view.backgroundColor = UIColor.backgroudColor;
+//    view.tableHeaderView = [[UIView alloc]init];
+//    view.tableFooterView = [[UIView alloc]init];
+//    view.keyboardDismissMode = UIScrollViewKeyboardDismissModeOnDrag;
+    [view registerClass:[UITableViewCell class] forCellReuseIdentifier:@"UITableViewCell"];
+
+    return view;
+}
 
 -(void)logTableViewContentInset{
     NSLog(@"frame:%@",NSStringFromCGRect(self.frame));

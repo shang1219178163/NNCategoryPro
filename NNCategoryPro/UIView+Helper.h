@@ -43,7 +43,6 @@ NS_ASSUME_NONNULL_BEGIN
 
 @property (nonatomic, copy)BlockView blockView;
 
-//@property (nonatomic, assign, getter=isSelected) BOOL selected;
 @property (nonatomic, assign) BOOL selected;
 
 @property (nonatomic, strong, readonly) UIViewController * parController;
@@ -102,12 +101,12 @@ NS_ASSUME_NONNULL_BEGIN
 /**
  搜索框
  */
-+ (NNTextField *)createTextFieldRect:(CGRect)rect placeholder:(NSString *)placeholder leftView:(UIView *)leftView leftPadding:(CGFloat)leftPadding rightView:(UIView *)rightView rightPadding:(CGFloat)rightPadding;
++ (NNTextField *)createRect:(CGRect)rect placeholder:(NSString *)placeholder leftView:(UIView *)leftView leftPadding:(CGFloat)leftPadding rightView:(UIView *)rightView rightPadding:(CGFloat)rightPadding;
 
 /**
  [简]搜索框
  */
-+ (NNTextField *)createTextFieldRect:(CGRect)rect placeholder:(NSString *)placeholder leftView:(UIView *)leftView rightView:(UIView *)rightView;
++ (NNTextField *)createRect:(CGRect)rect placeholder:(NSString *)placeholder leftView:(UIView *)leftView rightView:(UIView *)rightView;
 
 /**
  信任值展示,无点击手势

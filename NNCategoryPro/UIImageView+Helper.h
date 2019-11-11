@@ -13,6 +13,16 @@ NS_ASSUME_NONNULL_BEGIN
 @interface UIImageView (Helper)
 
 /**
+ [源]UIImageView创建
+ */
++ (instancetype)createRect:(CGRect)rect type:(NSNumber *)type;
+
+/**
+ UIImageView(上传图片)选择图片使用
+ */
++ (instancetype)createRect:(CGRect)rect type:(NSNumber *)type hasDeleteBtn:(BOOL)hasDeleteBtn;
+
+/**
  gift效果
  @param type 不同的创建方式
  */

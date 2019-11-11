@@ -16,6 +16,8 @@ NS_ASSUME_NONNULL_BEGIN
 @property (nonatomic, strong) UITableView *tbViewGrouped;
 
 @property (nonatomic, strong) UICollectionView *ctView;
+@property (nonatomic, strong) UILabel *tipLabel;
+
 @property (nonatomic, assign) NSInteger pageIndex;
 @property (nonatomic, strong) NSMutableArray * dataList;
 @property (nonatomic, strong) NSMutableDictionary * heightMdic;

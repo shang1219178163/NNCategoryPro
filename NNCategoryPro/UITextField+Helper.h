@@ -16,27 +16,38 @@ FOUNDATION_EXPORT NSString * const kDeafult_textFieldHistory ;
 
 @interface UITextField (Helper)
 
-@property (nonatomic, assign) NSInteger maxLength;//if <=0, no limit
-
-- (BOOL)handlePhoneWithReplacementString:(NSString *)string;
-
-- (BOOL)backToEmptyWithReplacementString:(NSString *)string;
+/**
+ UITextField创建方法
+ */
++ (instancetype)createRect:(CGRect)rect;
 
 /**
- *  identity of this textfield
+ UITextField密码输入框创建
  */
-@property (nonatomic, retain) NSString *identify;
-@property (nonatomic, strong) UITableView *historyTableView;
++ (instancetype)createPwdRect:(CGRect)rect image:(UIImage *)image imageSelected:(UIImage *)imageSelected;
 
-- (NSArray *)loadHistroy;
 
-- (void)synchronize;
-
-- (void)showHistory;
-
-- (void)hideHistroy;
-
-- (void)clearHistory;
+//@property (nonatomic, assign) NSInteger maxLength;//if <=0, no limit
+//
+//- (BOOL)handlePhoneWithReplacementString:(NSString *)string;
+//
+//- (BOOL)backToEmptyWithReplacementString:(NSString *)string;
+//
+///**
+// *  identity of this textfield
+// */
+//@property (nonatomic, retain) NSString *identify;
+//@property (nonatomic, strong) UITableView *historyTableView;
+//
+//- (NSArray *)loadHistroy;
+//
+//- (void)synchronize;
+//
+//- (void)showHistory;
+//
+//- (void)hideHistroy;
+//
+//- (void)clearHistory;
 
 @end
 

@@ -11,6 +11,25 @@
 
 @implementation UIBarButtonItem (Helper)
 
+/**
+ 导航栏 UIBarButtonItem
+ */
++ (instancetype)createItem:(NSString *)obj style:(UIBarButtonItemStyle)style{
+    return [self createItem:obj style:style target:nil action:nil];
+}
+
+/**
+ [源] 导航栏 UIBarButtonItem
+ */
++ (instancetype)createItem:(NSString *)obj style:(UIBarButtonItemStyle)style target:(id _Nullable)target action:(SEL _Nullable)action{
+    if ([UIImage imageNamed:obj]) {
+        UIBarButtonItem *barItem = [[self alloc] initWithImage:[[UIImage imageNamed:obj] imageWithRenderingMode:UIImageRenderingModeAlwaysTemplate] style:style target:target action:action];
+        return barItem;
+    }
+    UIBarButtonItem *barItem = [[UIBarButtonItem alloc] initWithTitle:obj style:style target:target action:action];
+    return barItem;
+}
+
 - (void)addActionBlock:(void (^)(UIBarButtonItem *item))actionBlock{
     if (actionBlock) {
         [self willChangeValueForKey:@"actionBlock"];

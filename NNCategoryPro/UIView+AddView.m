@@ -297,7 +297,7 @@
 + (UIView *)createArrowRect:(CGRect)rect{
     NSString * imageStrRight = kIMG_arrowRight;
 //    CGSize imgViewRightSize = CGSizeMake(25, 25);
-    UIImageView * imgViewRight = [UIImageView createImgViewRect:rect type:@0];
+    UIImageView * imgViewRight = [UIImageView createRect:rect type:@0];
     imgViewRight.image = [UIImage imageNamed:imageStrRight];
     return imgViewRight;
 }
@@ -313,362 +313,362 @@
     backgroundView.autoresizingMask = UIViewAutoresizingFlexibleWidth|UIViewAutoresizingFlexibleHeight;
     return backgroundView;
 }
-
-/**
- [源]UILabel创建
- */
-+ (__kindof UILabel *)createLabelRect:(CGRect)rect type:(NSNumber *)type{
-    assert([self isSubclassOfClass: UILabel.class]);
-    UILabel * label = [[self alloc] initWithFrame:rect];
-    label.autoresizingMask = UIViewAutoresizingFlexibleWidth|UIViewAutoresizingFlexibleHeight;
-    label.font = [UIFont systemFontOfSize:kFontSize16];
-    switch (type.integerValue) {
-        case 0://无限折行
-        {
-            label.numberOfLines = 0;
-            label.lineBreakMode = NSLineBreakByCharWrapping;
-
-        }
-            break;
-        case 1://abc...
-        {
-            
-            label.numberOfLines = 1;
-            label.lineBreakMode = NSLineBreakByTruncatingTail;
-            
-        }
-            break;
-        case 2://一行字体大小自动调节
-        {
-            label.numberOfLines = 1;
-            label.lineBreakMode = NSLineBreakByTruncatingTail;
-            
-            label.adjustsFontSizeToFitWidth = YES;
-//            label.minimumScaleFactor = 0.8;
-        }
-            break;
-        case 3://圆形
-        {
-            label.textAlignment = NSTextAlignmentCenter;
-            label.numberOfLines = 1;
-      
+//
+///**
+// [源]UILabel创建
+// */
+//+ (__kindof UILabel *)createRect:(CGRect)rect type:(NSNumber *)type{
+//    assert([self isSubclassOfClass: UILabel.class]);
+//    UILabel * label = [[self alloc] initWithFrame:rect];
+//    label.autoresizingMask = UIViewAutoresizingFlexibleWidth|UIViewAutoresizingFlexibleHeight;
+//    label.font = [UIFont systemFontOfSize:kFontSize16];
+//    switch (type.integerValue) {
+//        case 0://无限折行
+//        {
+//            label.numberOfLines = 0;
+//            label.lineBreakMode = NSLineBreakByCharWrapping;
+//
+//        }
+//            break;
+//        case 1://abc...
+//        {
+//
+//            label.numberOfLines = 1;
+//            label.lineBreakMode = NSLineBreakByTruncatingTail;
+//
+//        }
+//            break;
+//        case 2://一行字体大小自动调节
+//        {
+//            label.numberOfLines = 1;
+//            label.lineBreakMode = NSLineBreakByTruncatingTail;
+//
+//            label.adjustsFontSizeToFitWidth = YES;
+////            label.minimumScaleFactor = 0.8;
+//        }
+//            break;
+//        case 3://圆形
+//        {
+//            label.textAlignment = NSTextAlignmentCenter;
+//            label.numberOfLines = 1;
+//
+////            label.layer.masksToBounds = YES;
+//            label.layer.cornerRadius = CGRectGetWidth(rect)/2.0;
+//
+//            label.layer.shouldRasterize = YES;
+//            label.layer.rasterizationScale = UIScreen.mainScreen.scale;
+//        }
+//            break;
+//        case 4://带边框的圆角矩形标签
+//        {
+//            label.numberOfLines = 1;
+//
+//            label.layer.borderColor = UIColor.themeColor.CGColor;
+//            label.layer.borderWidth = 1.0;
 //            label.layer.masksToBounds = YES;
-            label.layer.cornerRadius = CGRectGetWidth(rect)/2.0;
-            
-            label.layer.shouldRasterize = YES;
-            label.layer.rasterizationScale = UIScreen.mainScreen.scale;
-        }
-            break;
-        case 4://带边框的圆角矩形标签
-        {
-            label.numberOfLines = 1;
-            
-            label.layer.borderColor = UIColor.themeColor.CGColor;
-            label.layer.borderWidth = 1.0;
-            label.layer.masksToBounds = YES;
-            label.layer.cornerRadius = 3;
-        }
-            break;
-        default:
-            break;
-    }
-
-//    label.backgroundColor = UIColor.greenColor;
-//    label.backgroundColor = UIColor.whiteColor;
-    
-//    label.layer.borderWidth = kW_LayerBorder;
-//    label.layer.borderColor = UIColor.blueColor.CGColor;
-
-    return label;
-}
-
-/**
- UILabel小标志专用,例如左侧头像上的"企"
- */
-+ (__kindof UILabel *)createTipLabelWithSize:(CGSize)size tipCenter:(CGPoint)tipCenter text:(NSString *)text textColor:(UIColor *)textColor{
-    UILabel * label = [self createLabelRect:CGRectMake(0, 0, size.width, size.height) type:@1];
-    label.center = tipCenter;
-    label.textColor = textColor;
-    label.textAlignment = NSTextAlignmentCenter;
-    return label;
-}
+//            label.layer.cornerRadius = 3;
+//        }
+//            break;
+//        default:
+//            break;
+//    }
+//
+////    label.backgroundColor = UIColor.greenColor;
+////    label.backgroundColor = UIColor.whiteColor;
+//
+////    label.layer.borderWidth = kW_LayerBorder;
+////    label.layer.borderColor = UIColor.blueColor.CGColor;
+//
+//    return label;
+//}
+//
+///**
+// UILabel小标志专用,例如左侧头像上的"企"
+// */
+//+ (__kindof UILabel *)createTipLabelWithSize:(CGSize)size tipCenter:(CGPoint)tipCenter text:(NSString *)text textColor:(UIColor *)textColor{
+//    UILabel * label = [self createRect:CGRectMake(0, 0, size.width, size.height) type:@1];
+//    label.center = tipCenter;
+//    label.textColor = textColor;
+//    label.textAlignment = NSTextAlignmentCenter;
+//    return label;
+//}
 
 /**
  [源]UIImageView创建
  */
-+ (__kindof UIImageView *)createImgViewRect:(CGRect)rect type:(NSNumber *)type{
-    assert([self isSubclassOfClass: UIImageView.class]);
-    UIImageView *view = [[self alloc] initWithFrame:rect];
-    view.autoresizingMask = UIViewAutoresizingFlexibleWidth|UIViewAutoresizingFlexibleHeight;
-    view.contentMode = UIViewContentModeScaleAspectFit;
-    view.userInteractionEnabled = YES;
-
-//    [view loadImage:image defaultImg:kIMG_defaultFailed_S];
-    
-    switch (type.integerValue) {
-        case 1://圆形
-        {
-            view.contentMode = UIViewContentModeScaleToFill;
-            [view addCornersAll];
-
-        }
-            break;
-        case 2://带右下角icon
-        {
-            //小标志
-            NSString * text = @"企";
-            CGSize textSize = [self sizeWithText:text font:@(kFontSize14) width:kScreenWidth];
-            CGFloat textWH = textSize.height > textSize.width ? textSize.height :textSize.width;
-            textWH += 5;
-            CGFloat offsetXY = CGRectGetHeight(rect)/2.0 * sin(45 * M_PI/180.0);
-            CGPoint tipCenter = CGPointMake(CGRectGetHeight(rect)/2.0 + offsetXY, CGRectGetHeight(rect)/2.0 + offsetXY);
-            //
-            UILabel * labelTip = [UILabel createTipLabelWithSize:CGSizeMake(textWH, textWH) tipCenter:tipCenter text:text textColor:UIColor.themeColor];
-            [view addSubview:labelTip];
-            
-        }
-            break;
-        case 3://圆角矩形
-        {
-            view.contentMode = UIViewContentModeScaleToFill;
-            [view addCorners:UIRectCornerAllCorners cornerRadii:CGSizeMake(5, 5)];
-
-        }
-            break;
-        default:
-            break;
-    }
-    return view;
-}
-
-/**
- UIImageView(上传图片)选择图片使用
- */
-+ (__kindof UIImageView *)createImgViewRect:(CGRect)rect type:(NSNumber *)type hasDeleteBtn:(BOOL)hasDeleteBtn{
-    assert([self isSubclassOfClass: UIImageView.class]);
-    UIImageView *imgView = [self createImgViewRect:rect type:type];
-    
-    CGSize btnSize = CGSizeMake(25, 25);
-    UIButton * deleteBtn = [UIButton buttonWithType:UIButtonTypeCustom];
-    deleteBtn.frame = CGRectMake(CGRectGetWidth(rect) - btnSize.width, 0, btnSize.width, btnSize.height);
-    [deleteBtn setImage:[UIImage imageNamed:kIMG_pictureDelete] forState:UIControlStateNormal];
-    //    deleteBtn.imageEdgeInsets = UIEdgeInsetsMake(-10, 0, 0, -10);
-    deleteBtn.tag = kTAG_BTN;
-    deleteBtn.alpha = 0.6;
-    [imgView addSubview:deleteBtn];
-
-    deleteBtn.hidden = !hasDeleteBtn;
-
-    return imgView;
-}
+//+ (__kindof UIImageView *)createRect:(CGRect)rect type:(NSNumber *)type{
+//    assert([self isSubclassOfClass: UIImageView.class]);
+//    UIImageView *view = [[self alloc] initWithFrame:rect];
+//    view.autoresizingMask = UIViewAutoresizingFlexibleWidth|UIViewAutoresizingFlexibleHeight;
+//    view.contentMode = UIViewContentModeScaleAspectFit;
+//    view.userInteractionEnabled = YES;
+//
+////    [view loadImage:image defaultImg:kIMG_defaultFailed_S];
+//
+//    switch (type.integerValue) {
+//        case 1://圆形
+//        {
+//            view.contentMode = UIViewContentModeScaleToFill;
+//            [view addCornersAll];
+//
+//        }
+//            break;
+//        case 2://带右下角icon
+//        {
+//            //小标志
+//            NSString * text = @"企";
+//            CGSize textSize = [self sizeWithText:text font:@(kFontSize14) width:kScreenWidth];
+//            CGFloat textWH = textSize.height > textSize.width ? textSize.height :textSize.width;
+//            textWH += 5;
+//            CGFloat offsetXY = CGRectGetHeight(rect)/2.0 * sin(45 * M_PI/180.0);
+//            CGPoint tipCenter = CGPointMake(CGRectGetHeight(rect)/2.0 + offsetXY, CGRectGetHeight(rect)/2.0 + offsetXY);
+//            //
+//            UILabel * labelTip = [UILabel createTipLabelWithSize:CGSizeMake(textWH, textWH) tipCenter:tipCenter text:text textColor:UIColor.themeColor];
+//            [view addSubview:labelTip];
+//
+//        }
+//            break;
+//        case 3://圆角矩形
+//        {
+//            view.contentMode = UIViewContentModeScaleToFill;
+//            [view addCorners:UIRectCornerAllCorners cornerRadii:CGSizeMake(5, 5)];
+//
+//        }
+//            break;
+//        default:
+//            break;
+//    }
+//    return view;
+//}
+//
+///**
+// UIImageView(上传图片)选择图片使用
+// */
+//+ (__kindof UIImageView *)createRect:(CGRect)rect type:(NSNumber *)type hasDeleteBtn:(BOOL)hasDeleteBtn{
+//    assert([self isSubclassOfClass: UIImageView.class]);
+//    UIImageView *imgView = [self createRect:rect type:type];
+//
+//    CGSize btnSize = CGSizeMake(25, 25);
+//    UIButton * deleteBtn = [UIButton buttonWithType:UIButtonTypeCustom];
+//    deleteBtn.frame = CGRectMake(CGRectGetWidth(rect) - btnSize.width, 0, btnSize.width, btnSize.height);
+//    [deleteBtn setImage:[UIImage imageNamed:kIMG_pictureDelete] forState:UIControlStateNormal];
+//    //    deleteBtn.imageEdgeInsets = UIEdgeInsetsMake(-10, 0, 0, -10);
+//    deleteBtn.tag = kTAG_BTN;
+//    deleteBtn.alpha = 0.6;
+//    [imgView addSubview:deleteBtn];
+//
+//    deleteBtn.hidden = !hasDeleteBtn;
+//
+//    return imgView;
+//}
 
 /**
  [源]UITextField创建
  */
-+ (__kindof UITextField *)createTextFieldRect:(CGRect)rect{
-    assert([self isSubclassOfClass: UITextField.class]);
-    UITextField * textField = [[self alloc]initWithFrame:rect];
-    textField.autoresizingMask = UIViewAutoresizingFlexibleWidth | UIViewAutoresizingFlexibleHeight;
-    
-    textField.placeholder = @"请输入";
-    textField.textAlignment = NSTextAlignmentLeft;
-    textField.contentVerticalAlignment = UIControlContentVerticalAlignmentCenter;
-    
-    textField.keyboardAppearance = UIKeyboardAppearanceDefault;
-    textField.keyboardType = UIReturnKeyDone;
-    
-    //        textField.returnKeyType = UIReturnKeyDone;
-    //        textField.clearButtonMode = UITextFieldViewModeAlways;
-    
-    textField.autocapitalizationType = UITextAutocapitalizationTypeNone;
-    textField.autocorrectionType = UITextAutocorrectionTypeNo;
-    textField.clearButtonMode = UITextFieldViewModeWhileEditing;//清楚键
-    textField.borderStyle = UITextBorderStyleRoundedRect;
+//+ (__kindof UITextField *)createRect:(CGRect)rect{
+//    assert([self isSubclassOfClass: UITextField.class]);
+//    UITextField * textField = [[self alloc]initWithFrame:rect];
+//    textField.autoresizingMask = UIViewAutoresizingFlexibleWidth | UIViewAutoresizingFlexibleHeight;
+//
+//    textField.placeholder = @"请输入";
+//    textField.textAlignment = NSTextAlignmentLeft;
+//    textField.contentVerticalAlignment = UIControlContentVerticalAlignmentCenter;
+//
+//    textField.keyboardAppearance = UIKeyboardAppearanceDefault;
+//    textField.keyboardType = UIReturnKeyDone;
+//
+//    //        textField.returnKeyType = UIReturnKeyDone;
+//    //        textField.clearButtonMode = UITextFieldViewModeAlways;
+//
+//    textField.autocapitalizationType = UITextAutocapitalizationTypeNone;
+//    textField.autocorrectionType = UITextAutocorrectionTypeNo;
+//    textField.clearButtonMode = UITextFieldViewModeWhileEditing;//清楚键
+//    textField.borderStyle = UITextBorderStyleRoundedRect;
+//
+//    textField.backgroundColor = UIColor.whiteColor;
+////    textField.backgroundColor = UIColor.clearColor;
+//
+//    return textField;
+//}
+//
+///**
+// [源]UITextField密码输入框创建(NNTextFieldOne 调用)
+// */
+//+ (__kindof UITextField *)createTextFieldPwdRect:(CGRect)rect image:(UIImage *)image imageSelected:(UIImage *)imageSelected {
+//    UITextField *textField = [[self alloc]initWithFrame:rect];
+//    textField.placeholder = @"  请输入密码";
+//    textField.backgroundColor = UIColor.greenColor;
+//    textField.clearsOnBeginEditing = true;
+//    textField.clearButtonMode = UITextFieldViewModeAlways;
+//    textField.secureTextEntry = true;
+//
+//    textField.leftViewMode = UITextFieldViewModeAlways;
+//    textField.leftView = ({
+//        CGRect imgViewRect = CGRectEqualToRect(CGRectZero, rect) ? CGRectMake(0, 0, 30, 30) : CGRectMake(0, 0, CGRectGetHeight(rect) - 5, CGRectGetHeight(rect) - 5);
+//        UIImageView *imgView = [[UIImageView alloc]initWithFrame: imgViewRect];
+//        imgView.userInteractionEnabled = true;
+//        imgView.contentMode = UIViewContentModeCenter;
+//        //        imgView.backgroundColor = UIColor.redColor;
+//        imgView.image = image;
+//
+//        UITapGestureRecognizer *tap = [[UITapGestureRecognizer alloc] init];
+//        tap.numberOfTapsRequired = 1;
+//        tap.numberOfTouchesRequired = 1;
+//        //    tapGesture.cancelsTouchesInView = NO;
+//        //    tapGesture.delaysTouchesEnded = NO;
+//        [tap addActionBlock:^(UIGestureRecognizer * _Nonnull reco) {
+//            //            DDLog(@"%@", reco)
+//            UIImageView * sender = (UIImageView *)reco.view;
+//            sender.selected = !sender.selected;
+//            sender.image = sender.selected == false ? image : imageSelected;
+//
+//            NSString *tempPwdStr = textField.text;
+//            textField.text = @""; // 这句代码可以防止切换的时候光标偏移
+//            textField.secureTextEntry = !sender.selected;
+//            textField.text = tempPwdStr;
+//        }];
+//
+//        [imgView addGestureRecognizer:tap];
+//
+//        imgView;
+//    });
+//    return textField;
+//}
 
-    textField.backgroundColor = UIColor.whiteColor;
-//    textField.backgroundColor = UIColor.clearColor;
-    
-    return textField;
-}
+///**
+// [源]UITextView创建
+// */
+//+ (__kindof UITextView *)createTextViewRect:(CGRect)rect{
+//    assert([self isSubclassOfClass: UITextView.class]);
+//
+//    UITextView *textView = [[self alloc] initWithFrame:rect];
+//    textView.autoresizingMask = UIViewAutoresizingFlexibleWidth | UIViewAutoresizingFlexibleHeight;
+//
+//    textView.font = [UIFont systemFontOfSize:15];
+//    textView.textAlignment = NSTextAlignmentLeft;
+//
+//    textView.keyboardAppearance = UIKeyboardAppearanceDefault;
+//    textView.keyboardType = UIReturnKeyDefault;
+//
+//    textView.autocorrectionType = UITextAutocorrectionTypeNo;
+//    textView.autocapitalizationType = UITextAutocapitalizationTypeNone;
+//
+//    textView.layer.borderWidth = 0.5;
+//    textView.layer.borderColor = UIColor.lineColor.CGColor;
+//    [textView scrollRectToVisible:rect animated:YES];
+//    //    textView.autoresizingMask = UIViewAutoresizingFlexibleHeight;
+//
+//    //    textView.backgroundColor = UIColor.whiteColor;
+//    //    textView.backgroundColor = UIColor.clearColor;
+//
+//    return textView;
+//}
+//
+//+ (__kindof UITextView *)createTextViewRect:(CGRect)rect placeholder:(NSString *)placeholder{
+//    UITextView *textView = [self createTextViewRect:rect];
+//    textView.placeHolderTextView.text = placeholder;
+//    textView.placeHolderTextView.textColor = UIColor.titleSubColor;
+//    return textView;
+//}
+//
+///**
+// 不可编辑UITextView创建
+// */
+//+ (__kindof UITextView *)createTextShowRect:(CGRect)rect{
+//    UITextView *textView = [self createTextViewRect:rect];
+//
+//    textView.contentOffset = CGPointMake(0, 8);//textView文本显示区域距离顶部为8像素
+//    textView.editable = NO;
+//    textView.dataDetectorTypes = UIDataDetectorTypeAll;
+//    //    textView.layer.borderWidth = 0.5;
+//    //    textView.layer.borderColor = UIColor.redColor.CGColor;
+//
+//    return textView;
+//}
 
-/**
- [源]UITextField密码输入框创建(NNTextFieldOne 调用)
- */
-+ (__kindof UITextField *)createTextFieldPwdRect:(CGRect)rect image:(UIImage *)image imageSelected:(UIImage *)imageSelected {
-    UITextField *textField = [[self alloc]initWithFrame:rect];
-    textField.placeholder = @"  请输入密码";
-    textField.backgroundColor = UIColor.greenColor;
-    textField.clearsOnBeginEditing = true;
-    textField.clearButtonMode = UITextFieldViewModeAlways;
-    textField.secureTextEntry = true;
-    
-    textField.leftViewMode = UITextFieldViewModeAlways;
-    textField.leftView = ({
-        CGRect imgViewRect = CGRectEqualToRect(CGRectZero, rect) ? CGRectMake(0, 0, 30, 30) : CGRectMake(0, 0, CGRectGetHeight(rect) - 5, CGRectGetHeight(rect) - 5);
-        UIImageView *imgView = [[UIImageView alloc]initWithFrame: imgViewRect];
-        imgView.userInteractionEnabled = true;
-        imgView.contentMode = UIViewContentModeCenter;
-        //        imgView.backgroundColor = UIColor.redColor;
-        imgView.image = image;
-        
-        UITapGestureRecognizer *tap = [[UITapGestureRecognizer alloc] init];
-        tap.numberOfTapsRequired = 1;
-        tap.numberOfTouchesRequired = 1;
-        //    tapGesture.cancelsTouchesInView = NO;
-        //    tapGesture.delaysTouchesEnded = NO;
-        [tap addActionBlock:^(UIGestureRecognizer * _Nonnull reco) {
-            //            DDLog(@"%@", reco)
-            UIImageView * sender = (UIImageView *)reco.view;
-            sender.selected = !sender.selected;
-            sender.image = sender.selected == false ? image : imageSelected;
-            
-            NSString *tempPwdStr = textField.text;
-            textField.text = @""; // 这句代码可以防止切换的时候光标偏移
-            textField.secureTextEntry = !sender.selected;
-            textField.text = tempPwdStr;
-        }];
-        
-        [imgView addGestureRecognizer:tap];
-        
-        imgView;
-    });
-    return textField;
-}
-
-/**
- [源]UITextView创建
- */
-+ (__kindof UITextView *)createTextViewRect:(CGRect)rect{
-    assert([self isSubclassOfClass: UITextView.class]);
-    
-    UITextView *textView = [[self alloc] initWithFrame:rect];
-    textView.autoresizingMask = UIViewAutoresizingFlexibleWidth | UIViewAutoresizingFlexibleHeight;
-    
-    textView.font = [UIFont systemFontOfSize:15];
-    textView.textAlignment = NSTextAlignmentLeft;
-    
-    textView.keyboardAppearance = UIKeyboardAppearanceDefault;
-    textView.keyboardType = UIReturnKeyDefault;
-    
-    textView.autocorrectionType = UITextAutocorrectionTypeNo;
-    textView.autocapitalizationType = UITextAutocapitalizationTypeNone;
-    
-    textView.layer.borderWidth = 0.5;
-    textView.layer.borderColor = UIColor.lineColor.CGColor;
-    [textView scrollRectToVisible:rect animated:YES];
-    //    textView.autoresizingMask = UIViewAutoresizingFlexibleHeight;
-    
-    //    textView.backgroundColor = UIColor.whiteColor;
-    //    textView.backgroundColor = UIColor.clearColor;
-    
-    return textView;
-}
-
-+ (__kindof UITextView *)createTextViewRect:(CGRect)rect placeholder:(NSString *)placeholder{
-    UITextView *textView = [self createTextViewRect:rect];
-    textView.placeHolderTextView.text = placeholder;
-    textView.placeHolderTextView.textColor = UIColor.titleSubColor;
-    return textView;
-}
-
-/**
- 不可编辑UITextView创建
- */
-+ (__kindof UITextView *)createTextShowRect:(CGRect)rect{
-    UITextView *textView = [self createTextViewRect:rect];
-    
-    textView.contentOffset = CGPointMake(0, 8);//textView文本显示区域距离顶部为8像素
-    textView.editable = NO;
-    textView.dataDetectorTypes = UIDataDetectorTypeAll;
-    //    textView.layer.borderWidth = 0.5;
-    //    textView.layer.borderColor = UIColor.redColor.CGColor;
-    
-    return textView;
-}
-
-/**
- [源]UIButton创建
- */
-+ (__kindof UIButton *)createBtnRect:(CGRect)rect title:(NSString *)title image:(NSString *_Nullable)image type:(NSNumber *)type{
-    assert([self isSubclassOfClass: UIButton.class]);
-    UIButton * btn = [UIButton buttonWithType:UIButtonTypeCustom];
-    btn.autoresizingMask = UIViewAutoresizingFlexibleWidth|UIViewAutoresizingFlexibleHeight;
-    
-    btn.frame = rect;
-    [btn setTitle:title forState:UIControlStateNormal];
-//    btn.titleLabel.adjustsFontSizeToFitWidth = YES;
-    btn.titleLabel.font = [UIFont systemFontOfSize:15];
-    
-    btn.imageView.contentMode = UIViewContentModeScaleAspectFit;
-    
-    switch (type.integerValue) {
-        case 1://主题背景白色字体无圆角
-        {
-            [btn setTitleColor:UIColor.whiteColor forState:UIControlStateNormal];
-            [btn setBackgroundImage:UIImageColor(UIColor.themeColor) forState:UIControlStateNormal];
-            
-        }
-            break;
-        case 2://白色背景灰色字体无边框
-        {
-            [btn setTitleColor:UIColor.titleSubColor forState:UIControlStateNormal];
-        }
-            break;
-        case 3://地图定位按钮一类
-        {
-            [btn setBackgroundImage:[UIImage imageNamed:image] forState:UIControlStateNormal];
-            [btn setBackgroundImage:UIImageColor(UIColor.lightGrayColor) forState:UIControlStateDisabled];
-            btn.adjustsImageWhenHighlighted = false;
-        }
-            break;
-        case 4://白色背景主题色字体和边框
-        {
-            [btn setTitleColor:UIColor.themeColor forState:UIControlStateNormal];
-            btn.layer.borderColor = UIColor.themeColor.CGColor;
-            btn.layer.borderWidth = kW_LayerBorder;
-            
-        }
-            break;
-        case 5://白色背景主题字体无边框
-        {
-            [btn setTitleColor:UIColor.themeColor forState:UIControlStateNormal];
-            
-        }
-            break;
-        case 6://红色背景白色字体
-        {
-            [btn setBackgroundImage:UIImageColor(UIColor.redColor) forState:UIControlStateNormal];
-            [btn setTitleColor:UIColor.whiteColor forState:UIControlStateNormal];
-            
-            [btn showLayerColor:UIColor.redColor];
-        }
-            break;
-        case 7://灰色背景黑色字体无边框
-        {
-            [btn setTitleColor:UIColor.blackColor forState:UIControlStateNormal];
-            [btn setBackgroundImage:UIImageColor(UIColor.backgroudColor) forState:UIControlStateNormal];
-            
-            [btn setTitleColor:UIColor.whiteColor forState:UIControlStateSelected];
-            [btn setBackgroundImage:UIImageColor(UIColor.themeColor) forState:UIControlStateSelected];
-            
-        }
-            break;
-        case 8://白色背景红色字体无边框
-        {
-            [btn setTitleColor:UIColor.redColor forState:UIControlStateNormal];
-        }
-            break;
-        default:
-        {
-            //白色背景黑色字体灰色边框
-            [btn setTitleColor:UIColor.blackColor forState:UIControlStateNormal];
-            btn.layer.borderColor = UIColor.lineColor.CGColor;
-            btn.layer.borderWidth = 1;
-        }
-            break;
-    }
-    return btn;
-}
+///**
+// [源]UIButton创建
+// */
+//+ (__kindof UIButton *)createRect:(CGRect)rect title:(NSString *)title image:(NSString *_Nullable)image type:(NSNumber *)type{
+//    assert([self isSubclassOfClass: UIButton.class]);
+//    UIButton * btn = [UIButton buttonWithType:UIButtonTypeCustom];
+//    btn.autoresizingMask = UIViewAutoresizingFlexibleWidth|UIViewAutoresizingFlexibleHeight;
+//
+//    btn.frame = rect;
+//    [btn setTitle:title forState:UIControlStateNormal];
+////    btn.titleLabel.adjustsFontSizeToFitWidth = YES;
+//    btn.titleLabel.font = [UIFont systemFontOfSize:15];
+//
+//    btn.imageView.contentMode = UIViewContentModeScaleAspectFit;
+//
+//    switch (type.integerValue) {
+//        case 1://主题背景白色字体无圆角
+//        {
+//            [btn setTitleColor:UIColor.whiteColor forState:UIControlStateNormal];
+//            [btn setBackgroundImage:UIImageColor(UIColor.themeColor) forState:UIControlStateNormal];
+//
+//        }
+//            break;
+//        case 2://白色背景灰色字体无边框
+//        {
+//            [btn setTitleColor:UIColor.titleSubColor forState:UIControlStateNormal];
+//        }
+//            break;
+//        case 3://地图定位按钮一类
+//        {
+//            [btn setBackgroundImage:[UIImage imageNamed:image] forState:UIControlStateNormal];
+//            [btn setBackgroundImage:UIImageColor(UIColor.lightGrayColor) forState:UIControlStateDisabled];
+//            btn.adjustsImageWhenHighlighted = false;
+//        }
+//            break;
+//        case 4://白色背景主题色字体和边框
+//        {
+//            [btn setTitleColor:UIColor.themeColor forState:UIControlStateNormal];
+//            btn.layer.borderColor = UIColor.themeColor.CGColor;
+//            btn.layer.borderWidth = kW_LayerBorder;
+//
+//        }
+//            break;
+//        case 5://白色背景主题字体无边框
+//        {
+//            [btn setTitleColor:UIColor.themeColor forState:UIControlStateNormal];
+//
+//        }
+//            break;
+//        case 6://红色背景白色字体
+//        {
+//            [btn setBackgroundImage:UIImageColor(UIColor.redColor) forState:UIControlStateNormal];
+//            [btn setTitleColor:UIColor.whiteColor forState:UIControlStateNormal];
+//
+//            [btn showLayerColor:UIColor.redColor];
+//        }
+//            break;
+//        case 7://灰色背景黑色字体无边框
+//        {
+//            [btn setTitleColor:UIColor.blackColor forState:UIControlStateNormal];
+//            [btn setBackgroundImage:UIImageColor(UIColor.backgroudColor) forState:UIControlStateNormal];
+//
+//            [btn setTitleColor:UIColor.whiteColor forState:UIControlStateSelected];
+//            [btn setBackgroundImage:UIImageColor(UIColor.themeColor) forState:UIControlStateSelected];
+//
+//        }
+//            break;
+//        case 8://白色背景红色字体无边框
+//        {
+//            [btn setTitleColor:UIColor.redColor forState:UIControlStateNormal];
+//        }
+//            break;
+//        default:
+//        {
+//            //白色背景黑色字体灰色边框
+//            [btn setTitleColor:UIColor.blackColor forState:UIControlStateNormal];
+//            btn.layer.borderColor = UIColor.lineColor.CGColor;
+//            btn.layer.borderWidth = 1;
+//        }
+//            break;
+//    }
+//    return btn;
+//}
 
 /**
  BtnView创建
@@ -755,241 +755,241 @@
 
 #pragma mark - - otherFuntions
 
+///**
+// [源]UISegmentedControl创建方法
+// */
+//+ (__kindof UISegmentedControl *)createSegmentRect:(CGRect)rect items:(NSArray *)items selectedIndex:(NSInteger)selectedIndex type:(NSNumber *)type{
+//    assert([self isSubclassOfClass: UISegmentedControl.class]);
+//
+//    UISegmentedControl *view = [[self alloc] initWithItems:items];
+//    view.autoresizingMask = UIViewAutoresizingFlexibleWidth|UIViewAutoresizingFlexibleHeight;
+//    view.frame = rect;
+//
+//    view.selectedSegmentIndex = selectedIndex < items.count ? selectedIndex : 0;
+//    switch (type.integerValue) {
+//        case 1:
+//        {
+//            view.tintColor = UIColor.themeColor;
+//            view.backgroundColor = UIColor.whiteColor;
+//
+//            view.layer.borderWidth = 1;
+//            view.layer.borderColor = UIColor.whiteColor.CGColor;
+//
+//            NSDictionary * dict = @{
+//                                    NSForegroundColorAttributeName: UIColor.blackColor,
+//                                    NSFontAttributeName:            [UIFont systemFontOfSize:15],
+//
+//                                    };
+//
+//            [view setTitleTextAttributes:dict forState:UIControlStateNormal];
+//            [view setDividerImage:UIImageColor(UIColor.whiteColor) forLeftSegmentState:UIControlStateNormal rightSegmentState:UIControlStateNormal barMetrics:UIBarMetricsDefault];
+//
+//        }
+//            break;
+//        case 2:
+//        {
+//            view.tintColor = UIColor.whiteColor;
+//            view.backgroundColor = UIColor.whiteColor;
+//
+//            NSDictionary *attDic_N = @{
+//                                       NSFontAttributeName:             [UIFont boldSystemFontOfSize:15],
+//                                       NSForegroundColorAttributeName:  UIColor.blackColor,
+//                                       };
+//
+//            NSDictionary *attDic_H = @{
+//                                       NSFontAttributeName:             [UIFont boldSystemFontOfSize:18],
+//                                       NSForegroundColorAttributeName:  UIColor.themeColor,
+//                                       };
+//
+//            [view setTitleTextAttributes:attDic_N forState:UIControlStateNormal];
+//            [view setTitleTextAttributes:attDic_H forState:UIControlStateSelected];
+//
+//        }
+//            break;
+//        case 3:
+//        {
+//            //背景透明,只有标题颜色
+//            // 去掉颜色,现在整个segment偶看不到,可以相应点击事件
+//            view.tintColor = UIColor.clearColor;
+//            view.backgroundColor = UIColor.lineColor;
+//
+//            // 正常状态下
+//            NSDictionary * attDic_N = @{
+//                                        NSForegroundColorAttributeName: UIColor.blackColor,
+//                                        NSFontAttributeName:            [UIFont systemFontOfSize:15.0f],
+//
+//                                        };
+//
+//            // 选中状态下
+//            NSDictionary * attDic_H = @{
+//                                        NSForegroundColorAttributeName: UIColor.themeColor,
+//                                        NSFontAttributeName:            [UIFont boldSystemFontOfSize:18.0f],
+//
+//                                        };
+//            [view setTitleTextAttributes:attDic_N forState:UIControlStateNormal];
+//            [view setTitleTextAttributes:attDic_H forState:UIControlStateSelected];
+//        }
+//            break;
+//        default:
+//        {
+//            view.tintColor = UIColor.themeColor;
+//            view.backgroundColor = UIColor.whiteColor;
+//
+//            NSDictionary * dict = @{
+//                                    NSFontAttributeName:    [UIFont systemFontOfSize:15],
+//
+//                                    };
+//
+//            [view setTitleTextAttributes:dict forState:UIControlStateNormal];
+//        }
+//            break;
+//    }
+//    return view;
+//}
 /**
- [源]UISegmentedControl创建方法
- */
-+ (__kindof UISegmentedControl *)createSegmentRect:(CGRect)rect items:(NSArray *)items selectedIndex:(NSInteger)selectedIndex type:(NSNumber *)type{
-    assert([self isSubclassOfClass: UISegmentedControl.class]);
-
-    UISegmentedControl *view = [[self alloc] initWithItems:items];
-    view.autoresizingMask = UIViewAutoresizingFlexibleWidth|UIViewAutoresizingFlexibleHeight;
-    view.frame = rect;
-    
-    view.selectedSegmentIndex = selectedIndex < items.count ? selectedIndex : 0;
-    switch (type.integerValue) {
-        case 1:
-        {
-            view.tintColor = UIColor.themeColor;
-            view.backgroundColor = UIColor.whiteColor;
-            
-            view.layer.borderWidth = 1;
-            view.layer.borderColor = UIColor.whiteColor.CGColor;
-            
-            NSDictionary * dict = @{
-                                    NSForegroundColorAttributeName: UIColor.blackColor,
-                                    NSFontAttributeName:            [UIFont systemFontOfSize:15],
-                                    
-                                    };
-            
-            [view setTitleTextAttributes:dict forState:UIControlStateNormal];
-            [view setDividerImage:UIImageColor(UIColor.whiteColor) forLeftSegmentState:UIControlStateNormal rightSegmentState:UIControlStateNormal barMetrics:UIBarMetricsDefault];
-            
-        }
-            break;
-        case 2:
-        {
-            view.tintColor = UIColor.whiteColor;
-            view.backgroundColor = UIColor.whiteColor;
-            
-            NSDictionary *attDic_N = @{
-                                       NSFontAttributeName:             [UIFont boldSystemFontOfSize:15],
-                                       NSForegroundColorAttributeName:  UIColor.blackColor,
-                                       };
-            
-            NSDictionary *attDic_H = @{
-                                       NSFontAttributeName:             [UIFont boldSystemFontOfSize:18],
-                                       NSForegroundColorAttributeName:  UIColor.themeColor,
-                                       };
-            
-            [view setTitleTextAttributes:attDic_N forState:UIControlStateNormal];
-            [view setTitleTextAttributes:attDic_H forState:UIControlStateSelected];
-            
-        }
-            break;
-        case 3:
-        {
-            //背景透明,只有标题颜色
-            // 去掉颜色,现在整个segment偶看不到,可以相应点击事件
-            view.tintColor = UIColor.clearColor;
-            view.backgroundColor = UIColor.lineColor;
-            
-            // 正常状态下
-            NSDictionary * attDic_N = @{
-                                        NSForegroundColorAttributeName: UIColor.blackColor,
-                                        NSFontAttributeName:            [UIFont systemFontOfSize:15.0f],
-                                        
-                                        };
-            
-            // 选中状态下
-            NSDictionary * attDic_H = @{
-                                        NSForegroundColorAttributeName: UIColor.themeColor,
-                                        NSFontAttributeName:            [UIFont boldSystemFontOfSize:18.0f],
-                                        
-                                        };
-            [view setTitleTextAttributes:attDic_N forState:UIControlStateNormal];
-            [view setTitleTextAttributes:attDic_H forState:UIControlStateSelected];
-        }
-            break;
-        default:
-        {
-            view.tintColor = UIColor.themeColor;
-            view.backgroundColor = UIColor.whiteColor;
-            
-            NSDictionary * dict = @{
-                                    NSFontAttributeName:    [UIFont systemFontOfSize:15],
-                                    
-                                    };
-            
-            [view setTitleTextAttributes:dict forState:UIControlStateNormal];
-        }
-            break;
-    }
-    return view;
-}
-/**
- [源]UISlider创建方法
- */
-+ (__kindof UISlider *)createSliderRect:(CGRect)rect value:(CGFloat)value minValue:(CGFloat)minValue maxValue:(CGFloat)maxValue{
-    assert([self isSubclassOfClass: UISlider.class]);
-
-    UISlider *view = [[self alloc] initWithFrame:rect];
-    view.autoresizingMask = UIViewAutoresizingFlexibleWidth;
-    view.minimumValue = minValue;
-    view.maximumValue = maxValue;
-    view.value = value;
-    
-    view.minimumTrackTintColor = UIColor.themeColor;
-//    view.maximumTrackTintColor = UIColor.redColor;
-//    view.thumbTintColor = UIColor.yellowColor;
-    return view;
-}
-/**
- [源]UISwitch创建方法
- */
-+ (__kindof UISwitch *)createSwitchRect:(CGRect)rect isOn:(BOOL)isOn{
-    assert([self isSubclassOfClass: UISwitch.class]);
-
-    UISwitch *view = [[self alloc]initWithFrame:rect];
-    view.autoresizingMask = UIViewAutoresizingFlexibleWidth|UIViewAutoresizingFlexibleHeight;
-    view.on = isOn;//设置初始为ON的一边
-    view.onTintColor = UIColor.themeColor;
-//    view.tintColor = UIColor.whiteColor;
-    
-    return view;
-}
+// [源]UISlider创建方法
+// */
+//+ (__kindof UISlider *)createSliderRect:(CGRect)rect value:(CGFloat)value minValue:(CGFloat)minValue maxValue:(CGFloat)maxValue{
+//    assert([self isSubclassOfClass: UISlider.class]);
+//
+//    UISlider *view = [[self alloc] initWithFrame:rect];
+//    view.autoresizingMask = UIViewAutoresizingFlexibleWidth;
+//    view.minimumValue = minValue;
+//    view.maximumValue = maxValue;
+//    view.value = value;
+//
+//    view.minimumTrackTintColor = UIColor.themeColor;
+////    view.maximumTrackTintColor = UIColor.redColor;
+////    view.thumbTintColor = UIColor.yellowColor;
+//    return view;
+//}
+///**
+// [源]UISwitch创建方法
+// */
+//+ (__kindof UISwitch *)createSwitchRect:(CGRect)rect isOn:(BOOL)isOn{
+//    assert([self isSubclassOfClass: UISwitch.class]);
+//
+//    UISwitch *view = [[self alloc]initWithFrame:rect];
+//    view.autoresizingMask = UIViewAutoresizingFlexibleWidth|UIViewAutoresizingFlexibleHeight;
+//    view.on = isOn;//设置初始为ON的一边
+//    view.onTintColor = UIColor.themeColor;
+////    view.tintColor = UIColor.whiteColor;
+//
+//    return view;
+//}
 /**
  [源]UITabBarItem创建方法
  */
-+ (__kindof UITabBarItem *)createTabBarItem:(NSString *_Nullable)title image:(NSString *_Nullable)image selectedImage:(NSString *_Nullable)selectedImage{
-    assert([self isSubclassOfClass: UITabBarItem.class] && [UIImage imageNamed:image] && [UIImage imageNamed:selectedImage]);
+//+ (__kindof UITabBarItem *)createTabBarItem:(NSString *_Nullable)title image:(NSString *_Nullable)image selectedImage:(NSString *_Nullable)selectedImage{
+//    assert([self isSubclassOfClass: UITabBarItem.class] && [UIImage imageNamed:image] && [UIImage imageNamed:selectedImage]);
+//
+//    UITabBarItem *tabBarItem = [[self alloc]initWithTitle:title image:[UIImage imageNamed:image] selectedImage:[UIImage imageNamed:selectedImage]];
+//    return tabBarItem;
+//}
 
-    UITabBarItem *tabBarItem = [[self alloc]initWithTitle:title image:[UIImage imageNamed:image] selectedImage:[UIImage imageNamed:selectedImage]];
-    return tabBarItem;
-}
+///**
+// 导航栏 UIBarButtonItem
+// */
+//+ (__kindof UIBarButtonItem *)createBarItem:(NSString *)obj style:(UIBarButtonItemStyle)style{
+//    return [self createBarItem:obj style:style target:nil action:nil];
+//}
+//
+///**
+// [源] 导航栏 UIBarButtonItem
+// */
+//+ (__kindof UIBarButtonItem *)createBarItem:(NSString *)obj style:(UIBarButtonItemStyle)style target:(id _Nullable)target action:(SEL _Nullable)action{
+//    if ([UIImage imageNamed:obj]) {
+//        UIBarButtonItem *barItem = [[self alloc] initWithImage:[[UIImage imageNamed:obj] imageWithRenderingMode:UIImageRenderingModeAlwaysTemplate] style:style target:target action:action];
+//        return barItem;
+//    }
+//    UIBarButtonItem *barItem = [[UIBarButtonItem alloc] initWithTitle:obj style:style target:target action:action];
+//    return barItem;
+//}
 
-/**
- 导航栏 UIBarButtonItem
- */
-+ (__kindof UIBarButtonItem *)createBarItem:(NSString *)obj style:(UIBarButtonItemStyle)style{
-    return [self createBarItem:obj style:style target:nil action:nil];
-}
-
-/**
- [源] 导航栏 UIBarButtonItem
- */
-+ (__kindof UIBarButtonItem *)createBarItem:(NSString *)obj style:(UIBarButtonItemStyle)style target:(id _Nullable)target action:(SEL _Nullable)action{
-    if ([UIImage imageNamed:obj]) {
-        UIBarButtonItem *barItem = [[self alloc] initWithImage:[[UIImage imageNamed:obj] imageWithRenderingMode:UIImageRenderingModeAlwaysTemplate] style:style target:target action:action];
-        return barItem;
-    }
-    UIBarButtonItem *barItem = [[UIBarButtonItem alloc] initWithTitle:obj style:style target:target action:action];
-    return barItem;
-}
-
-/**
- [源]UITableView创建方法
- */
-+ (__kindof UITableView *)createTableViewRect:(CGRect)rect style:(UITableViewStyle)style{
-    assert([self isSubclassOfClass: UITableView.class]);
-    
-    UITableView *view = [[self alloc] initWithFrame:rect style:style];
-    view.autoresizingMask = UIViewAutoresizingFlexibleWidth|UIViewAutoresizingFlexibleHeight;
-    view.separatorInset = UIEdgeInsetsZero;
-    view.separatorStyle = UITableViewCellSeparatorStyleSingleLine;
-    view.rowHeight = 70;
-    view.backgroundColor = UIColor.backgroudColor;
-//    view.tableHeaderView = [[UIView alloc]init];
-//    view.tableFooterView = [[UIView alloc]init];
-//    view.keyboardDismissMode = UIScrollViewKeyboardDismissModeOnDrag;
-    [view registerClass:[UITableViewCell class] forCellReuseIdentifier:@"UITableViewCell"];
-
-    return view;
-}
-
-/**
- [源]UICollectionView创建方法
- */
-+ (__kindof UICollectionView *)createCTViewRect:(CGRect)rect layout:(UICollectionViewLayout *)layout{
-    assert([self isSubclassOfClass: UICollectionView.class]);
-    
-    UICollectionView *view = [[self alloc]initWithFrame:rect collectionViewLayout:layout];
-    view.backgroundColor = [UIColor whiteColor];
-    view.showsVerticalScrollIndicator = false;
-    view.showsHorizontalScrollIndicator = false;
-    view.scrollsToTop = false;
-    view.pagingEnabled = true;
-
-    return view;
-}
-/**
- [源]UISearchBar创建方法
- */
-+ (__kindof UISearchBar *)createSearchBarRect:(CGRect)rect{
-    assert([self isSubclassOfClass: UISearchBar.class]);
-    
-//    UISearchBar *searchBar = [[UISearchBar alloc] initWithFrame:CGRectMake(0, 0, kScreenWidth - 100, 30)];
-//    searchBar.layer.cornerRadius = 15;
-
-    UISearchBar *searchBar = [[UISearchBar alloc] initWithFrame:rect];
-    searchBar.layer.cornerRadius = CGRectGetHeight(rect)*0.5;
-    searchBar.layer.masksToBounds = true;
-    //设置背景图是为了去掉上下黑线
-    searchBar.backgroundImage = [[UIImage alloc] init];
-    //searchBar.backgroundImage = [UIImage imageNamed:@"sexBankgroundImage"];
-    // 设置SearchBar的主题颜色
-    //searchBar.barTintColor = [UIColor colorWithRed:111 green:212 blue:163 alpha:1];
-    //设置背景色
-    searchBar.backgroundColor = [UIColor colorWithRed:0/255.0f green:0/255.0f blue:0/255.0f alpha:0.1];
-    
-    searchBar.barStyle = UIBarStyleDefault;
-    searchBar.keyboardType = UIKeyboardTypeNamePhonePad;
-    //searchBar.searchBarStyle = UISearchBarStyleMinimal;
-    //没有背影，透明样式
-    // 修改cancel
-
-    if (@available(iOS 13.0, *)) {
-
-    } else {
-        [searchBar setValue:@"取消" forKey:@"cancelButtonText"];
-    }
-    searchBar.showsCancelButton = true;
-//    searchBar.showsSearchResultsButton = true;
-    //5. 设置搜索Icon
-//    [searchBar setImage:[UIImage imageNamed:@"Search_Icon"] forSearchBarIcon:UISearchBarIconSearch state:UIControlStateNormal];
-    
-    [searchBar setPositionAdjustment:UIOffsetMake(-8, 1) forSearchBarIcon:UISearchBarIconSearch];
-    // 删除按钮往右移一点
-    [searchBar setPositionAdjustment:UIOffsetMake(8, 0) forSearchBarIcon:UISearchBarIconClear];
-    
-    /// textField设置默认配置
-    UITextField *textField = (UITextField *)[searchBar findSubview:@"UITextField" resursion:YES];
-    [textField setBackgroundColor: UIColor.clearColor];
-    // 根据@"_placeholderLabel.textColor" 找到placeholder的字体颜色
-    // 输入文本颜色
-    textField.textColor = UIColor.whiteColor;
-    textField.font = [UIFont systemFontOfSize:13];
-    
-    return searchBar;
-}
+///**
+// [源]UITableView创建方法
+// */
+//+ (__kindof UITableView *)createRect:(CGRect)rect style:(UITableViewStyle)style{
+//    assert([self isSubclassOfClass: UITableView.class]);
+//
+//    UITableView *view = [[self alloc] initWithFrame:rect style:style];
+//    view.autoresizingMask = UIViewAutoresizingFlexibleWidth|UIViewAutoresizingFlexibleHeight;
+//    view.separatorInset = UIEdgeInsetsZero;
+//    view.separatorStyle = UITableViewCellSeparatorStyleSingleLine;
+//    view.rowHeight = 70;
+//    view.backgroundColor = UIColor.backgroudColor;
+////    view.tableHeaderView = [[UIView alloc]init];
+////    view.tableFooterView = [[UIView alloc]init];
+////    view.keyboardDismissMode = UIScrollViewKeyboardDismissModeOnDrag;
+//    [view registerClass:[UITableViewCell class] forCellReuseIdentifier:@"UITableViewCell"];
+//
+//    return view;
+//}
+//
+///**
+// [源]UICollectionView创建方法
+// */
+//+ (__kindof UICollectionView *)createCTViewRect:(CGRect)rect layout:(UICollectionViewLayout *)layout{
+//    assert([self isSubclassOfClass: UICollectionView.class]);
+//
+//    UICollectionView *view = [[self alloc]initWithFrame:rect collectionViewLayout:layout];
+//    view.backgroundColor = [UIColor whiteColor];
+//    view.showsVerticalScrollIndicator = false;
+//    view.showsHorizontalScrollIndicator = false;
+//    view.scrollsToTop = false;
+//    view.pagingEnabled = true;
+//
+//    return view;
+//}
+///**
+// [源]UISearchBar创建方法
+// */
+//+ (__kindof UISearchBar *)createSearchBarRect:(CGRect)rect{
+//    assert([self isSubclassOfClass: UISearchBar.class]);
+//
+////    UISearchBar *searchBar = [[UISearchBar alloc] initWithFrame:CGRectMake(0, 0, kScreenWidth - 100, 30)];
+////    searchBar.layer.cornerRadius = 15;
+//
+//    UISearchBar *searchBar = [[UISearchBar alloc] initWithFrame:rect];
+//    searchBar.layer.cornerRadius = CGRectGetHeight(rect)*0.5;
+//    searchBar.layer.masksToBounds = true;
+//    //设置背景图是为了去掉上下黑线
+//    searchBar.backgroundImage = [[UIImage alloc] init];
+//    //searchBar.backgroundImage = [UIImage imageNamed:@"sexBankgroundImage"];
+//    // 设置SearchBar的主题颜色
+//    //searchBar.barTintColor = [UIColor colorWithRed:111 green:212 blue:163 alpha:1];
+//    //设置背景色
+//    searchBar.backgroundColor = [UIColor colorWithRed:0/255.0f green:0/255.0f blue:0/255.0f alpha:0.1];
+//
+//    searchBar.barStyle = UIBarStyleDefault;
+//    searchBar.keyboardType = UIKeyboardTypeNamePhonePad;
+//    //searchBar.searchBarStyle = UISearchBarStyleMinimal;
+//    //没有背影，透明样式
+//    // 修改cancel
+//
+//    if (@available(iOS 13.0, *)) {
+//
+//    } else {
+//        [searchBar setValue:@"取消" forKey:@"cancelButtonText"];
+//    }
+//    searchBar.showsCancelButton = true;
+////    searchBar.showsSearchResultsButton = true;
+//    //5. 设置搜索Icon
+////    [searchBar setImage:[UIImage imageNamed:@"Search_Icon"] forSearchBarIcon:UISearchBarIconSearch state:UIControlStateNormal];
+//
+//    [searchBar setPositionAdjustment:UIOffsetMake(-8, 1) forSearchBarIcon:UISearchBarIconSearch];
+//    // 删除按钮往右移一点
+//    [searchBar setPositionAdjustment:UIOffsetMake(8, 0) forSearchBarIcon:UISearchBarIconClear];
+//
+//    /// textField设置默认配置
+//    UITextField *textField = (UITextField *)[searchBar findSubview:@"UITextField" resursion:YES];
+//    [textField setBackgroundColor: UIColor.clearColor];
+//    // 根据@"_placeholderLabel.textColor" 找到placeholder的字体颜色
+//    // 输入文本颜色
+//    textField.textColor = UIColor.whiteColor;
+//    textField.font = [UIFont systemFontOfSize:13];
+//
+//    return searchBar;
+//}
 
 @end

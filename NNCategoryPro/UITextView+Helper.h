@@ -13,6 +13,25 @@ NS_ASSUME_NONNULL_BEGIN
 
 @property (nonatomic, strong) UITextView *placeHolderTextView;
 
+/**
+ 带提示的textView
+ */
++ (instancetype)createwRect:(CGRect)rect;
+
+/**
+ [简]带提示的textView
+ */
++ (instancetype)createRect:(CGRect)rect placeholder:(NSString *)placeholder;
+
+/**
+ 展示性质的textView,不提供编辑
+ */
++ (instancetype)createShowRect:(CGRect)rect;
+
+-(void)setHyperlinkDic:(NSDictionary *)dic;
+
+
+
 @end
 
 NS_ASSUME_NONNULL_END

@@ -12,13 +12,97 @@
 #import "NSObject+Helper.h"
 #import "UIScreen+Helper.h"
 
+#import "UIView+Helper.h"
 #import "UIColor+Helper.h"
 #import "UILabel+Helper.h"
+#import "UIImage+Helper.h"
 
 #import "NNGloble.h"
 
 @implementation UIButton (Helper)
 
+/**
+ [源]UIButton创建
+ */
++ (instancetype)createRect:(CGRect)rect title:(NSString *)title image:(NSString *_Nullable)image type:(NSNumber *)type{
+    UIButton * btn = [self buttonWithType:UIButtonTypeCustom];
+    btn.autoresizingMask = UIViewAutoresizingFlexibleWidth|UIViewAutoresizingFlexibleHeight;
+
+    btn.frame = rect;
+    [btn setTitle:title forState:UIControlStateNormal];
+//    btn.titleLabel.adjustsFontSizeToFitWidth = YES;
+    btn.titleLabel.font = [UIFont systemFontOfSize:15];
+
+    btn.imageView.contentMode = UIViewContentModeScaleAspectFit;
+
+    switch (type.integerValue) {
+        case 1://主题背景白色字体无圆角
+        {
+            [btn setTitleColor:UIColor.whiteColor forState:UIControlStateNormal];
+            [btn setBackgroundImage:UIImageColor(UIColor.themeColor) forState:UIControlStateNormal];
+
+        }
+            break;
+        case 2://白色背景灰色字体无边框
+        {
+            [btn setTitleColor:UIColor.titleSubColor forState:UIControlStateNormal];
+        }
+            break;
+        case 3://地图定位按钮一类
+        {
+            [btn setBackgroundImage:[UIImage imageNamed:image] forState:UIControlStateNormal];
+            [btn setBackgroundImage:UIImageColor(UIColor.lightGrayColor) forState:UIControlStateDisabled];
+            btn.adjustsImageWhenHighlighted = false;
+        }
+            break;
+        case 4://白色背景主题色字体和边框
+        {
+            [btn setTitleColor:UIColor.themeColor forState:UIControlStateNormal];
+            btn.layer.borderColor = UIColor.themeColor.CGColor;
+            btn.layer.borderWidth = kW_LayerBorder;
+
+        }
+            break;
+        case 5://白色背景主题字体无边框
+        {
+            [btn setTitleColor:UIColor.themeColor forState:UIControlStateNormal];
+
+        }
+            break;
+        case 6://红色背景白色字体
+        {
+            [btn setBackgroundImage:UIImageColor(UIColor.redColor) forState:UIControlStateNormal];
+            [btn setTitleColor:UIColor.whiteColor forState:UIControlStateNormal];
+
+            [btn showLayerColor:UIColor.redColor];
+        }
+            break;
+        case 7://灰色背景黑色字体无边框
+        {
+            [btn setTitleColor:UIColor.blackColor forState:UIControlStateNormal];
+            [btn setBackgroundImage:UIImageColor(UIColor.backgroudColor) forState:UIControlStateNormal];
+
+            [btn setTitleColor:UIColor.whiteColor forState:UIControlStateSelected];
+            [btn setBackgroundImage:UIImageColor(UIColor.themeColor) forState:UIControlStateSelected];
+
+        }
+            break;
+        case 8://白色背景红色字体无边框
+        {
+            [btn setTitleColor:UIColor.redColor forState:UIControlStateNormal];
+        }
+            break;
+        default:
+        {
+            //白色背景黑色字体灰色边框
+            [btn setTitleColor:UIColor.blackColor forState:UIControlStateNormal];
+            btn.layer.borderColor = UIColor.lineColor.CGColor;
+            btn.layer.borderWidth = 1;
+        }
+            break;
+    }
+    return btn;
+}
 /**
  UIButton不同状态下设置富文本标题
  */

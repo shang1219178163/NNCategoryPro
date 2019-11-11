@@ -12,6 +12,11 @@ NS_ASSUME_NONNULL_BEGIN
 
 @interface UITableView (Helper)
 
+/**
+ [源]UITableView创建方法
+ */
++ (instancetype)createRect:(CGRect)rect style:(UITableViewStyle)style;
+
 -(void)logTableViewContentInset;
 
 -(void)reloadRowList:(NSArray *)rowList section:(NSInteger)section rowAnimation:(UITableViewRowAnimation)rowAnimation;

@@ -8,18 +8,20 @@
 //
 
 #import "UIViewController+AddView.h"
-
 #import <objc/runtime.h>
+
 #import "UIView+AddView.h"
+#import "UILabel+Helper.h"
 #import "UICollectionView+Helper.h"
 #import "UIColor+Helper.h"
+#import "UITableView+Helper.h"
 
 @implementation UIViewController (AddView)
 
 - (UITableView *)tbView{
     UITableView *view = objc_getAssociatedObject(self, _cmd);
     if (!view) {
-        view = [UITableView createTableViewRect:self.view.bounds style:UITableViewStylePlain];
+        view = [UITableView createRect:self.view.bounds style:UITableViewStylePlain];
         if ([self conformsToProtocol:@protocol(UITableViewDataSource)]) view.dataSource = self;
         if ([self conformsToProtocol:@protocol(UITableViewDelegate)]) view.delegate = self;
         objc_setAssociatedObject(self, _cmd, view, OBJC_ASSOCIATION_RETAIN_NONATOMIC);
@@ -34,7 +36,7 @@
 - (UITableView *)tbViewGrouped{
     UITableView *view = objc_getAssociatedObject(self, _cmd);
     if (!view) {
-        view = [UITableView createTableViewRect:self.view.bounds style:UITableViewStyleGrouped];
+        view = [UITableView createRect:self.view.bounds style:UITableViewStyleGrouped];
         if ([self conformsToProtocol:@protocol(UITableViewDataSource)]) view.dataSource = self;
         if ([self conformsToProtocol:@protocol(UITableViewDelegate)]) view.delegate = self;
         objc_setAssociatedObject(self, _cmd, view, OBJC_ASSOCIATION_RETAIN_NONATOMIC);
@@ -67,6 +69,20 @@
 
 - (void)setCtView:(UICollectionView *)ctView{
     objc_setAssociatedObject(self, @selector(ctView), ctView, OBJC_ASSOCIATION_RETAIN_NONATOMIC);
+}
+
+- (UILabel *)tipLabel{
+    UILabel * view = objc_getAssociatedObject(self, _cmd);
+    if (!view) {
+        view = [UILabel createRect:CGRectZero type:@2];
+        view.textAlignment = NSTextAlignmentLeft;
+        objc_setAssociatedObject(self, _cmd, view, OBJC_ASSOCIATION_RETAIN_NONATOMIC);
+    }
+    return view;
+}
+
+- (void)setTipLabel:(UILabel *)tipLabel{
+    objc_setAssociatedObject(self, @selector(tipLabel), tipLabel, OBJC_ASSOCIATION_RETAIN_NONATOMIC);
 }
 
 -(NSInteger)pageIndex{

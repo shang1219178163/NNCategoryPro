@@ -10,12 +10,17 @@
 #import <objc/runtime.h>
 
 #import "NNGloble.h"
-#import "UIView+AddView.h"
 #import "NSObject+Helper.h"
 #import "NSBundle+Helper.h"
+
+#import "UIButton+Helper.h"
 #import "UIControl+Helper.h"
+#import "UIImageView+Helper.h"
+#import "UILabel+Helper.h"
 #import "UIGestureRecognizer+Helper.h"
+#import "UITextField+Helper.h"
 #import "UITextView+Helper.h"
+#import "UIView+AddView.h"
 
 @implementation UIView (Helper)
 
@@ -614,13 +619,13 @@
 
 + (UIImageView *)createCardViewRect:(CGRect)rect title:(NSString *)title target:(id)target aSelector:(SEL)aSelector{
     
-    UIImageView * containView = [UIImageView createImgViewRect:rect type:@0];
+    UIImageView * containView = [UIImageView createRect:rect type:@0];
     CGSize imgViewSize = CGSizeMake(kH_LABEL_SMALL, kH_LABEL_SMALL);
     CGFloat YGap = (CGRectGetHeight(rect) - imgViewSize.height*2)/2.0;
     CGFloat XGapImgView = (CGRectGetWidth(rect) - imgViewSize.width)/2.0;
     
     CGRect imgViewRect = CGRectMake(XGapImgView, YGap, imgViewSize.width, imgViewSize.height);
-    UIImageView * imgView = [UIImageView createImgViewRect:imgViewRect type:@0];
+    UIImageView * imgView = [UIImageView createRect:imgViewRect type:@0];
     imgView.image = [UIImage imageNamed:@"img_cardAdd.png"];
     imgView.layer.backgroundColor = UIColor.whiteColor.CGColor;
     [containView addSubview:imgView];
@@ -629,7 +634,7 @@
     CGFloat XGapLab = (CGRectGetWidth(rect) - textSize.width)/2.0;
     
     CGRect labRect = CGRectMake(XGapLab, CGRectGetMaxY(imgViewRect), textSize.width, kH_LABEL_SMALL);
-    UILabel * lab = [UILabel createLabelRect:labRect type:@2];
+    UILabel * lab = [UILabel createRect:labRect type:@2];
     lab.text = title;
     lab.tag = kTAG_LABEL;
     
@@ -642,8 +647,8 @@
 }
 
 
-+ (NNTextField *)createTextFieldRect:(CGRect)rect placeholder:(NSString *)placeholder leftView:(UIView *)leftView leftPadding:(CGFloat)leftPadding rightView:(UIView *)rightView rightPadding:(CGFloat)rightPadding{
-    NNTextField * textField = [NNTextField createTextFieldRect:rect];
++ (NNTextField *)createRect:(CGRect)rect placeholder:(NSString *)placeholder leftView:(UIView *)leftView leftPadding:(CGFloat)leftPadding rightView:(UIView *)rightView rightPadding:(CGFloat)rightPadding{
+    NNTextField * textField = [NNTextField createRect:rect];
 //    textField.text = text;
     textField.textAlignment = NSTextAlignmentLeft;
     textField.placeholder = placeholder;
@@ -655,7 +660,7 @@
     textField.leftViewMode = UITextFieldViewModeAlways;
     textField.leftViewPadding = leftPadding;
 
-//    UIButton * btn = [UIButton createBtnRect:CGRectMake(0, 0, 40, textFieldHeight) title:@"搜 索" image:nil type:@2 target:self aSelector:@selector(goSearch)];
+//    UIButton * btn = [UIButton createRect:CGRectMake(0, 0, 40, textFieldHeight) title:@"搜 索" image:nil type:@2 target:self aSelector:@selector(goSearch)];
 //    textField.rightViewPadding = 5;
     textField.rightViewMode = UITextFieldViewModeAlways;
     textField.rightViewPadding = rightPadding;
@@ -666,8 +671,8 @@
     return textField;
 }
 
-+ (NNTextField *)createTextFieldRect:(CGRect)rect placeholder:(NSString *)placeholder leftView:(UIView *)leftView rightView:(UIView *)rightView{
-    return [NNTextField createTextFieldRect:CGRectZero placeholder:placeholder leftView:leftView leftPadding:kPadding rightView:rightView rightPadding:kPadding];
++ (NNTextField *)createRect:(CGRect)rect placeholder:(NSString *)placeholder leftView:(UIView *)leftView rightView:(UIView *)rightView{
+    return [NNTextField createRect:CGRectZero placeholder:placeholder leftView:leftView leftPadding:kPadding rightView:rightView rightPadding:kPadding];
 }
 
 + (CGFloat)UIGroupViewHeight:(NSInteger)count numberOfRow:(NSInteger)numberOfRow padding:(CGFloat)padding itemHeight:(CGFloat)itemHeight{
@@ -695,7 +700,7 @@
         
         NSString * title = elements[i];
         CGRect btnRect = CGRectMake(x, y, w, h);
-        UIButton * btn = [UIButton createBtnRect:btnRect title:title image:nil type:@0];
+        UIButton * btn = [UIButton createRect:btnRect title:title image:nil type:@0];
         btn.tag = kTAG_BTN+i;
         btn.titleLabel.font = [UIFont systemFontOfSize:15];
         [backgroudView addSubview:btn];
@@ -732,7 +737,7 @@
             case 0://uibutton
             {
                 view = ({
-                    UIButton * view = [UIButton createBtnRect:itemRect title:title image:nil type:@5];
+                    UIButton * view = [UIButton createRect:itemRect title:title image:nil type:@5];
                     view.tag = i;
                     view.titleLabel.font = [UIFont systemFontOfSize:15];
                     view;
@@ -742,7 +747,7 @@
             case 1://UIImageVIew
             {
                 view = ({
-                    UIImageView *view = [UIImageView createImgViewRect:itemRect type:@0];
+                    UIImageView *view = [UIImageView createRect:itemRect type:@0];
                     view.image = [UIImage imageNamed:title];
                     view.tag = i;
                     view;
@@ -753,7 +758,7 @@
             case 2://UILabel
             {
                 view = ({
-                    UILabel * view = [UILabel createLabelRect:itemRect type:@0];
+                    UILabel * view = [UILabel createRect:itemRect type:@0];
                     view.text = title;
                     view.tag = i;
                     view.font = [UIFont systemFontOfSize:15];
@@ -941,13 +946,13 @@
     
     if ([unitString containsString:@"img_"]) {
         CGSize size = CGSizeMake(20, 20);
-        UIImageView * imgView = [UIImageView createImgViewRect:CGRectMake(0, 0, size.width, size.height) type:@0];
+        UIImageView * imgView = [UIImageView createRect:CGRectMake(0, 0, size.width, size.height) type:@0];
         imgView.image = [UIImage imageNamed:unitString];
         return imgView;
     }
     
     CGSize size = [self sizeWithText:unitString font:@(kFontSize14) width:kScreenWidth];
-    UILabel * label = [UILabel createLabelRect:CGRectMake(0, 0, size.width+2, 25) type:@2];
+    UILabel * label = [UILabel createRect:CGRectMake(0, 0, size.width+2, 25) type:@2];
     label.text = unitString;
     label.tag = kTAG_LABEL;
     label.textColor = UIColor.titleColor;

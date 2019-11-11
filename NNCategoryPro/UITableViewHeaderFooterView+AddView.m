@@ -8,10 +8,13 @@
 //
 
 #import "UITableViewHeaderFooterView+AddView.h"
+#import <objc/runtime.h>
 
 #import "NNGloble.h"
-#import <objc/runtime.h>
+#import "UIView+AddView.h"
 #import "UIView+Helper.h"
+#import "UIButton+Helper.h"
+#import "UILabel+Helper.h"
 #import "UIScreen+Helper.h"
 #import "UIColor+Helper.h"
 
@@ -40,7 +43,7 @@
 -(UILabel *)labelLeft{
     UILabel * view = objc_getAssociatedObject(self, _cmd);
     if (!view) {
-        view = [UILabel createLabelRect:CGRectZero type:@2];
+        view = [UILabel createRect:CGRectZero type:@2];
         view.textAlignment = NSTextAlignmentRight;
 //        view = ({
 //            UILabel * view = [[UILabel alloc] initWithFrame:CGRectZero];
@@ -68,7 +71,7 @@
 -(UILabel *)labelLeftMark{
     UILabel * view = objc_getAssociatedObject(self, _cmd);
     if (!view) {
-        view = [UILabel createLabelRect:CGRectZero type:@2];
+        view = [UILabel createRect:CGRectZero type:@2];
         view.textAlignment = NSTextAlignmentLeft;
 //        view = ({
 //            UILabel * view = [[UILabel alloc] initWithFrame:CGRectZero];
@@ -96,7 +99,7 @@
 -(UILabel *)labelLeftSub{
     UILabel * view = objc_getAssociatedObject(self, _cmd);
     if (!view) {
-        view = [UILabel createLabelRect:CGRectZero type:@2];
+        view = [UILabel createRect:CGRectZero type:@2];
         view.textAlignment = NSTextAlignmentLeft;
 //        view = ({
 //            UILabel * view = [[UILabel alloc] initWithFrame:CGRectZero];
@@ -124,7 +127,7 @@
 -(UILabel *)labelLeftSubMark{
     UILabel * view = objc_getAssociatedObject(self, _cmd);
     if (!view) {
-        view = [UILabel createLabelRect:CGRectZero type:@2];
+        view = [UILabel createRect:CGRectZero type:@2];
         view.textAlignment = NSTextAlignmentLeft;
 //        view = ({
 //            UILabel * view = [[UILabel alloc] initWithFrame:CGRectZero];
@@ -220,7 +223,7 @@
 -(UIButton *)btn{
     UIButton * view = objc_getAssociatedObject(self, _cmd);
     if (!view) {
-        view = [UIButton createBtnRect:CGRectZero title:@"按钮" image:nil type:@7];
+        view = [UIButton createRect:CGRectZero title:@"按钮" image:nil type:@7];
 //        view = ({
 //            UIButton * view = [UIButton buttonWithType:UIButtonTypeCustom];
 //            [view setTitle:@"btn" forState:UIControlStateNormal];

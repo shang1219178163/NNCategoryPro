@@ -36,6 +36,11 @@ FOUNDATION_EXPORT NSString * const UICollectionElementKindSectionItem ;
  */
 @property (nonatomic, strong) NSDictionary * dictClass;
 
+/**
+ [源]UICollectionView创建方法
+ */
++ (instancetype)createRect:(CGRect)rect layout:(UICollectionViewLayout *)layout;
+
 + (NSString *)cellIdentifierByClassName:(NSString *)className;
 + (NSString *)viewIdentifierByClassName:(NSString *)className kind:(NSString *)kind;
 

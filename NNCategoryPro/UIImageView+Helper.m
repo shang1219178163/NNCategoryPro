@@ -10,6 +10,8 @@
 #import "UIImageView+Helper.h"
 
 #import "NNGloble.h"
+#import "UIView+Helper.h"
+#import "UILabel+Helper.h"
 #import "UIImage+Helper.h"
 #import "NSObject+Helper.h"
 
@@ -19,6 +21,73 @@
 #import <SDWebImage/UIImageView+WebCache.h>
 
 @implementation UIImageView (Helper)
+
+/**
+ [源]UIImageView创建
+ */
++ (instancetype)createRect:(CGRect)rect type:(NSNumber *)type{
+    UIImageView *view = [[self alloc] initWithFrame:rect];
+    view.autoresizingMask = UIViewAutoresizingFlexibleWidth|UIViewAutoresizingFlexibleHeight;
+    view.contentMode = UIViewContentModeScaleAspectFit;
+    view.userInteractionEnabled = YES;
+
+//    [view loadImage:image defaultImg:kIMG_defaultFailed_S];
+    
+    switch (type.integerValue) {
+        case 1://圆形
+        {
+            view.contentMode = UIViewContentModeScaleToFill;
+            [view addCornersAll];
+        }
+            break;
+        case 2://带右下角icon
+        {
+            //小标志
+            NSString * text = @"企";
+            CGSize textSize = [self sizeWithText:text font:@(kFontSize14) width:kScreenWidth];
+            CGFloat textWH = textSize.height > textSize.width ? textSize.height :textSize.width;
+            textWH += 5;
+            CGFloat offsetXY = CGRectGetHeight(rect)/2.0 * sin(45 * M_PI/180.0);
+            CGPoint tipCenter = CGPointMake(CGRectGetHeight(rect)/2.0 + offsetXY, CGRectGetHeight(rect)/2.0 + offsetXY);
+            //
+            UILabel * labelTip = [UILabel createTipWithSize:CGSizeMake(textWH, textWH) tipCenter:tipCenter text:text textColor:UIColor.themeColor];
+            [view addSubview:labelTip];
+            
+        }
+            break;
+        case 3://圆角矩形
+        {
+            view.contentMode = UIViewContentModeScaleToFill;
+            [view addCorners:UIRectCornerAllCorners cornerRadii:CGSizeMake(5, 5)];
+
+        }
+            break;
+        default:
+            break;
+    }
+    return view;
+}
+
+/**
+ UIImageView(上传图片)选择图片使用
+ */
++ (instancetype)createRect:(CGRect)rect type:(NSNumber *)type hasDeleteBtn:(BOOL)hasDeleteBtn{
+    UIImageView *imgView = [self createRect:rect type:type];
+    
+    CGSize btnSize = CGSizeMake(25, 25);
+    UIButton * deleteBtn = [UIButton buttonWithType:UIButtonTypeCustom];
+    deleteBtn.frame = CGRectMake(CGRectGetWidth(rect) - btnSize.width, 0, btnSize.width, btnSize.height);
+    [deleteBtn setImage:[UIImage imageNamed:kIMG_pictureDelete] forState:UIControlStateNormal];
+    //    deleteBtn.imageEdgeInsets = UIEdgeInsetsMake(-10, 0, 0, -10);
+    deleteBtn.tag = kTAG_BTN;
+    deleteBtn.alpha = 0.6;
+    [imgView addSubview:deleteBtn];
+
+    deleteBtn.hidden = !hasDeleteBtn;
+
+    return imgView;
+}
+
 
 +(UIImageView *)imgViewRect:(CGRect)rect imageList:(NSArray *)imageList type:(NSNumber *)type{
     UIImageView *imgView = nil;
