@@ -31,21 +31,21 @@ static NSArray * _weekList = nil;
 
 + (NSArray *)dayList{
     if (!_dayList) {
-        _dayList = [kDes_day componentsSeparatedByString:@","];
+        _dayList = [kDesDay componentsSeparatedByString:@","];
     }
     return _dayList;
 }
 
 + (NSArray *)monthList{
     if (!_monthList) {
-        _monthList = [kDes_month componentsSeparatedByString:@","];
+        _monthList = [kDesMonth componentsSeparatedByString:@","];
     }
     return _monthList;
 }
 
 + (NSArray *)weekList{
     if (!_weekList) {
-        _weekList = [kDes_week componentsSeparatedByString:@","];
+        _weekList = [kDesWeek componentsSeparatedByString:@","];
     }
     return _weekList;
 }
@@ -53,7 +53,7 @@ static NSArray * _weekList = nil;
 - (NSString *)timeByAddingDays:(id)days{
     NSParameterAssert([days isKindOfClass:[NSString class]] || [days isKindOfClass:[NSNumber class]]);
     if (!days) days = @0;
-    NSString *  newdate = [NSDateFormatter stringFromDate:[self dateByAddDays:[days integerValue]] format:kFormatDate];
+    NSString *  newdate = [NSDateFormatter stringFromDate:[self dateByAddDays:[days integerValue]] fmt:kFormatDate];
     return newdate;
 }
 /**
@@ -67,7 +67,7 @@ static NSArray * _weekList = nil;
  *  获取当前时间
  */
 -(NSString *)now{
-    NSString * dateStr = [NSDateFormatter stringFromDate:self format:kFormatDate];
+    NSString * dateStr = [NSDateFormatter stringFromDate:self fmt:kFormatDate];
     return dateStr;
 }
 
@@ -466,13 +466,13 @@ static NSArray * _weekList = nil;
 }
 
 + (NSDate *)dateWithHoursFromNow:(NSInteger )dHours{
-    NSTimeInterval aTimeInterval = NSDate.date.timeIntervalSince1970 +kDate_hour* dHours;
+    NSTimeInterval aTimeInterval = NSDate.date.timeIntervalSince1970 +kDateHour* dHours;
     NSDate *newDate = [NSDate dateWithTimeIntervalSinceReferenceDate:aTimeInterval];
     return newDate;
 }
 
 + (NSDate *)dateWithMinutesFromNow:(NSInteger )dMinutes{
-    NSTimeInterval aTimeInterval = NSDate.date.timeIntervalSince1970 +kDate_minute* dMinutes;
+    NSTimeInterval aTimeInterval = NSDate.date.timeIntervalSince1970 +kDateMinute* dMinutes;
     NSDate*newDate = [NSDate dateWithTimeIntervalSinceReferenceDate:aTimeInterval];
     return newDate;
 }
@@ -614,13 +614,13 @@ static NSArray * _weekList = nil;
 }
 
 - (BOOL)isNextWeek{
-    NSTimeInterval aTimeInterval = NSDate.date.timeIntervalSince1970 +kDate_week;
+    NSTimeInterval aTimeInterval = NSDate.date.timeIntervalSince1970 +kDateWeek;
     NSDate*newDate = [NSDate dateWithTimeIntervalSinceReferenceDate:aTimeInterval];
     return [self isSameWeekAsDate:newDate];
 }
 
 - (BOOL)isLastWeek{
-    NSTimeInterval aTimeInterval = NSDate.date.timeIntervalSince1970 -kDate_week;
+    NSTimeInterval aTimeInterval = NSDate.date.timeIntervalSince1970 -kDateWeek;
     NSDate *newDate = [NSDate dateWithTimeIntervalSinceReferenceDate:aTimeInterval];
     return [self isSameWeekAsDate:newDate];
 }
@@ -684,22 +684,22 @@ static NSArray * _weekList = nil;
 
 #pragma mark Adjusting Dates
 
-- (NSDate *)dateByAddingDay:(NSInteger)day hour:(NSInteger)hour minute:(NSInteger)minute second:(NSInteger)second{
-    NSTimeInterval aTimeInterval = self.timeIntervalSince1970 + kDate_day*day + kDate_hour*hour + kDate_minute*minute + kDate_second*second;
+- (NSDate *)addingDay:(NSInteger)day hour:(NSInteger)hour minute:(NSInteger)minute second:(NSInteger)second{
+    NSTimeInterval aTimeInterval = self.timeIntervalSince1970 + kDateDay*day + kDateHour*hour + kDateMinute*minute + second;
     NSDate *date = [NSDate dateWithTimeIntervalSince1970:aTimeInterval];
     return date;
 }
 
 - (NSDate *)dateByAddDays:(NSInteger) dDays{
-    return [self dateByAddingDay:dDays hour:0 minute:0 second:0];;
+    return [self addingDay:dDays hour:0 minute:0 second:0];;
 }
 
 - (NSDate *)dateByAddHours:(NSInteger )dHours{
-    return [self dateByAddingDay:0 hour:dHours minute:0 second:0];;
+    return [self addingDay:0 hour:dHours minute:0 second:0];;
 }
 
 - (NSDate *)dateByAddMinutes:(NSInteger )dMinutes{
-    return [self dateByAddingDay:0 hour:0 minute:dMinutes second:0];;
+    return [self addingDay:0 hour:0 minute:dMinutes second:0];;
 }
 
 /**
@@ -727,32 +727,32 @@ static NSArray * _weekList = nil;
 
 - (NSInteger)minutesAfterDate:(NSDate *)aDate{
     NSTimeInterval ti = [self timeIntervalSinceDate:aDate];
-    return (NSInteger ) (ti /kDate_minute);
+    return (NSInteger ) (ti /kDateMinute);
 }
 
 - (NSInteger)minutesBeforeDate:(NSDate *)aDate{
     NSTimeInterval ti = [aDate timeIntervalSinceDate:self ];
-    return (NSInteger)(ti /kDate_minute);
+    return (NSInteger)(ti /kDateMinute);
 }
 
 - (NSInteger)hoursAfterDate:(NSDate *)aDate{
     NSTimeInterval ti = [self timeIntervalSinceDate:aDate];
-    return (NSInteger)(ti /kDate_hour);
+    return (NSInteger)(ti /kDateHour);
 }
 
 - (NSInteger)hoursBeforeDate:(NSDate *)aDate{
     NSTimeInterval ti = [aDate timeIntervalSinceDate:self ];
-    return (NSInteger) (ti /kDate_hour);
+    return (NSInteger) (ti /kDateHour);
 }
 
 - (NSInteger)daysAfterDate:(NSDate *)aDate{
     NSTimeInterval ti = [self timeIntervalSinceDate:aDate];
-    return (NSInteger) (ti /kDate_day);
+    return (NSInteger) (ti /kDateDay);
 }
 
 - (NSInteger)daysBeforeDate:(NSDate *)aDate{
     NSTimeInterval ti = [aDate timeIntervalSinceDate:self ];
-    return (NSInteger) (ti /kDate_day);
+    return (NSInteger) (ti /kDateDay);
 }
 
 - (NSInteger)distanceInDaysToDate:(NSDate*)anotherDate{
@@ -764,7 +764,7 @@ static NSArray * _weekList = nil;
 #pragma mark -- Decomposing Dates
 
 - (NSInteger)nearestHour{
-    NSTimeInterval aTimeInterval = NSDate.date.timeIntervalSince1970 + kDate_minute*30;
+    NSTimeInterval aTimeInterval = NSDate.date.timeIntervalSince1970 + kDateMinute*30;
     NSDate *newDate = [NSDate dateWithTimeIntervalSinceReferenceDate:aTimeInterval];
     NSDateComponents *components = [NSDate dateComponentsFromDate:newDate];
     return components.hour;

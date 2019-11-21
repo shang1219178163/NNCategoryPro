@@ -31,15 +31,15 @@ NSString * const kAlertActionColor = @"titleTextColor";
     }
         
     for (NSString *title in actionTitles) {
-        UIAlertActionStyle style = [title isEqualToString:kActionTitle_Cancell] == true? UIAlertActionStyleDestructive : UIAlertActionStyleDefault;
+        UIAlertActionStyle style = [title isEqualToString:kTitleCancell] == true? UIAlertActionStyleDestructive : UIAlertActionStyleDefault;
         [alertController addAction:[UIAlertAction actionWithTitle:title style:style handler:^(UIAlertAction * _Nonnull action) {
             if (handler) handler(alertController,action);
             
         }]];
     }
     
-    if (![actionTitles containsObject:kActionTitle_Cancell]) {
-        [alertController addAction:[UIAlertAction actionWithTitle:kActionTitle_Cancell style:UIAlertActionStyleDestructive handler:^(UIAlertAction * _Nonnull action) {
+    if (![actionTitles containsObject:kTitleCancell]) {
+        [alertController addAction:[UIAlertAction actionWithTitle:kTitleCancell style:UIAlertActionStyleDestructive handler:^(UIAlertAction * _Nonnull action) {
             if (handler) handler(alertController,action);
             
         }]];
@@ -73,15 +73,15 @@ NSString * const kAlertActionColor = @"titleTextColor";
     UIAlertController * alertController = [UIAlertController alertControllerWithTitle:title message:msg preferredStyle:UIAlertControllerStyleActionSheet];
     
     for (NSString *title in actionTitles) {
-        UIAlertActionStyle style = [title isEqualToString:kActionTitle_Cancell] == true? UIAlertActionStyleCancel : UIAlertActionStyleDefault;
+        UIAlertActionStyle style = [title isEqualToString:kTitleCancell] == true? UIAlertActionStyleCancel : UIAlertActionStyleDefault;
         [alertController addAction:[UIAlertAction actionWithTitle:title style:style handler:^(UIAlertAction * _Nonnull action) {
             if (handler) handler(alertController,action);
             
         }]];
     }
     
-    if (![actionTitles containsObject:kActionTitle_Cancell]) {
-        [alertController addAction:[UIAlertAction actionWithTitle:kActionTitle_Cancell style:UIAlertActionStyleCancel handler:^(UIAlertAction * _Nonnull action) {
+    if (![actionTitles containsObject:kTitleCancell]) {
+        [alertController addAction:[UIAlertAction actionWithTitle:kTitleCancell style:UIAlertActionStyleCancel handler:^(UIAlertAction * _Nonnull action) {
             if (handler) handler(alertController,action);
             
         }]];

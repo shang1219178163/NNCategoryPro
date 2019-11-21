@@ -8,38 +8,44 @@
 
 #import "NSDateFormatter+Helper.h"
 #import "NNGloble.h"
+#import "NSDate+Helper.h"
 
-const NSInteger kDate_second = 1;
-const NSInteger kDate_minute = 60;
-const NSInteger kDate_hour = 3600;
-const NSInteger kDate_day = 86400;
-const NSInteger kDate_week = 604800 ;
-const NSInteger kDate_year = 31556926;
+const NSInteger kDateMinute = 60 ;
+const NSInteger kDateHour   = 3600 ;
+const NSInteger kDateDay    = 86400 ;
+const NSInteger kDateWeek   = 604800 ;
+const NSInteger kDateYear   = 31556926 ;
 
-NSString * const kFormatDate = @"yyyy-MM-dd HH:mm:ss";
-NSString * const kFormatDate_mm = @"yyyy-MM-dd HH:mm";
-NSString * const kFormatDate_dd = @"yyyy-MM-dd";
+NSString * const kFormatDate         = @"yyyy-MM-dd HH:mm:ss";
+NSString * const kDateFormatMinute   = @"yyyy-MM-dd HH:mm";
+NSString * const kDateFormatDay      = @"yyyy-MM-dd";
 
-NSString * const kFormatDate_two = @"yyyyMMdd";
-NSString * const kFormatDate_five = @"yyyyMMddHHmmss";
-NSString * const kFormatDate_Six = @"EEE, dd MMM yyyy HH:mm:ss 'GMT'";
+NSString * const kDateFormatMonth_CH = @"yyyy年MM月";
+NSString * const kDateFormatDay_CH   = @"yyyy年MM月dd日";
+
+NSString * const kDateFormatStart    = @"yyyy-MM-dd 00:00:00";
+NSString * const kDateFormatEnd      = @"yyyy-MM-dd 23:59:59";
+
+NSString * const kDateFormatTwo      = @"yyyyMMdd";
+NSString * const kFormatDateFive     = @"yyyyMMddHHmmss";
+NSString * const kFormatDateSix      = @"EEE, dd MMM yyyy HH:mm:ss 'GMT'";
 
 @implementation NSDateFormatter (Helper)
 
-+ (NSDateFormatter *)dateFormat:(NSString *)formatStr{
++ (NSDateFormatter *)dateFormat:(NSString *)formtStr{
     // 版本2 ，使用当前线程字典来保存对象
     NSMutableDictionary *threadDic = NSThread.currentThread.threadDictionary;
-    NSDateFormatter *formatter = [threadDic objectForKey:formatStr];
+    NSDateFormatter *formatter = [threadDic objectForKey:formtStr];
     if (!formatter) {
         formatter = [[NSDateFormatter alloc]init];
-        formatter.dateFormat = formatStr;
+        formatter.dateFormat = formtStr;
         formatter.locale = [NSLocale localeWithLocaleIdentifier:kLanguageCN];
         formatter.timeZone = NSTimeZone.systemTimeZone;
-        if ([formatStr containsString:@"GMT"]) {
+        if ([formtStr containsString:@"GMT"]) {
             formatter.timeZone = [NSTimeZone timeZoneWithName:@"GMT"];
         }
 
-        [threadDic setObject:formatter forKey:formatStr];
+        [threadDic setObject:formatter forKey:formtStr];
     }
     return formatter;
 }
@@ -47,14 +53,14 @@ NSString * const kFormatDate_Six = @"EEE, dd MMM yyyy HH:mm:ss 'GMT'";
 /**
  NSDate->日期字符串
  */
-+ (NSString *)stringFromDate:(NSDate *)date format:(NSString *)format{
++ (NSString *)stringFromDate:(NSDate *)date fmt:(NSString *)format{
     NSDateFormatter * fmt = [NSDateFormatter dateFormat:format];
     return [fmt stringFromDate:date];
 }
 /**
  日期字符串->NSDate
  */
-+ (NSDate *)dateFromString:(NSString *)dateStr format:(NSString *)format{
++ (NSDate *)dateFromString:(NSString *)dateStr fmt:(NSString *)format{
     NSDateFormatter * fmt = [NSDateFormatter dateFormat:format];
     return [fmt dateFromString:dateStr];
 }
@@ -62,16 +68,16 @@ NSString * const kFormatDate_Six = @"EEE, dd MMM yyyy HH:mm:ss 'GMT'";
 /**
  时间戳->日期字符串
  */
-+ (NSString *)stringFromInterval:(NSString *)interval format:(NSString *)format{
++ (NSString *)stringFromInterval:(NSString *)interval fmt:(NSString *)format{
     NSDate * date = [NSDate dateWithTimeIntervalSince1970:interval.doubleValue];
-    return [NSDateFormatter stringFromDate:date format:format];
+    return [NSDateFormatter stringFromDate:date fmt:format];
 }
 
 /**
  日期字符串->时间戳字符串
  */
-+ (NSString *)intervalFromDateStr:(NSString *)dateStr format:(NSString *)format{
-    NSDate * date = [NSDateFormatter dateFromString:dateStr format:format];
++ (NSString *)intervalFromDateStr:(NSString *)dateStr fmt:(NSString *)format{
+    NSDate * date = [NSDateFormatter dateFromString:dateStr fmt:format];
     NSString *intervalStr = [@(date.timeIntervalSince1970) stringValue];
     intervalStr = [intervalStr stringByReplacingOccurrencesOfString:@".00" withString:@""];
     return intervalStr;
@@ -89,6 +95,15 @@ NSString * const kFormatDate_Six = @"EEE, dd MMM yyyy HH:mm:ss 'GMT'";
  */
 + (NSString *)intervalFromDate:(NSDate *)date{
     return [@(date.timeIntervalSince1970) stringValue];
+}
+
++ (NSArray<NSString *> *)queryDate:(NSInteger)day{
+    NSDate *endDate = NSDate.date;
+    NSDate *startDate = [endDate addingDay:day hour:0 minute:0 second:0];
+    
+    NSString *endTime = [NSDateFormatter stringFromDate:endDate fmt:@"yyyy-MM-dd 23:59:59"];
+    NSString *startTime = [NSDateFormatter stringFromDate:startDate fmt:@"yyyy-MM-dd 00:00:00"];
+    return @[startTime, endTime];
 }
 
 //+ (NSString *)currentGMT {

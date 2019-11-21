@@ -76,12 +76,18 @@
 }
 
 + (void)setArcObject:(id)value forKey:(NSString *)key{
-    NSData * data = [NSKeyedArchiver archivedDataWithRootObject:value];
+    if (!value) {
+        return;
+    }
+    NSData *data = [NSKeyedArchiver archivedDataWithRootObject:value];
     [self.standardUserDefaults setObject:data forKey:key];
 }
 
 + (id)arcObjectForKey:(NSString *)key{
     id value = [NSUserDefaults.standardUserDefaults objectForKey:key];
+    if (!value) {
+        return nil;
+    }
     return [NSKeyedUnarchiver unarchiveObjectWithData:value];
 }
 

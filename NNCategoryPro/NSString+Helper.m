@@ -242,7 +242,7 @@ NSString * NSStringFromFloat(CGFloat obj){
     
     NSString * tmp = @"01 00:00:00";//后台接口时间戳不要时分秒
     dateStr = [dateStr stringByReplacingCharactersInRange:NSMakeRange(dateStr.length - tmp.length, tmp.length) withString:tmp];
-    return [NSDateFormatter intervalFromDateStr:dateStr format:kFormatDate];
+    return [NSDateFormatter intervalFromDateStr:dateStr fmt:kFormatDate];
 }
 
 - (NSString *)toTimestampShort{
@@ -251,7 +251,7 @@ NSString * NSStringFromFloat(CGFloat obj){
     NSString * tmp = @" 00:00:00";//后台接口时间戳不要时分秒
     if (dateStr.length == 10) dateStr = [dateStr stringByAppendingString:tmp];
     dateStr = [dateStr stringByReplacingCharactersInRange:NSMakeRange(dateStr.length - tmp.length, tmp.length) withString:tmp];
-    return [NSDateFormatter intervalFromDateStr:dateStr format:kFormatDate];
+    return [NSDateFormatter intervalFromDateStr:dateStr fmt:kFormatDate];
 }
 
 - (NSString *)toTimestampFull{
@@ -260,7 +260,7 @@ NSString * NSStringFromFloat(CGFloat obj){
     NSString * tmp = @" 23:59:59";//后台接口时间戳不要时分秒
     if (dateStr.length == 10) dateStr = [dateStr stringByAppendingString:tmp];
     dateStr = [dateStr stringByReplacingCharactersInRange:NSMakeRange(dateStr.length - tmp.length, tmp.length) withString:tmp];
-    return [NSDateFormatter intervalFromDateStr:dateStr format:kFormatDate];
+    return [NSDateFormatter intervalFromDateStr:dateStr fmt:kFormatDate];
 }
 
 - (NSString *)toDateShort{
@@ -518,8 +518,8 @@ NSString * NSStringFromFloat(CGFloat obj){
     NSMutableString *str = [[NSMutableString alloc]initWithFormat:@"tel:%@",phoneNum];
     
     __block  BOOL isSuccess = NO;
-    [UIApplication.rootController showAlertTitle:nil msg:phoneNum actionTitles:@[kActionTitle_Cancell,kActionTitle_Call] handler:^(UIAlertController * _Nonnull alertVC, UIAlertAction * _Nullable action) {
-        if ([action.title isEqualToString:kActionTitle_Call]) {
+    [UIApplication.rootController showAlertTitle:nil msg:phoneNum actionTitles:@[kTitleCancell,kTitleCall] handler:^(UIAlertController * _Nonnull alertVC, UIAlertAction * _Nullable action) {
+        if ([action.title isEqualToString:kTitleCall]) {
             isSuccess = [UIApplication.sharedApplication openURL:[NSURL URLWithString:str]];
             
         }

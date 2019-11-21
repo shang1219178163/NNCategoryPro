@@ -622,7 +622,7 @@ UINavigationController * UINavCtrFromObj(id obj){
 }
 
 - (void)showAlertTitle:(NSString *_Nullable)title msg:(NSString *_Nullable)msg handler:(void(^)(UIAlertController * _Nonnull alertVC, UIAlertAction * _Nullable action))handler{
-    [UIAlertController createAlertTitle:title msg:msg placeholders:nil actionTitles:@[kActionTitle_Cancell,kActionTitle_Sure] handler:handler];
+    [UIAlertController createAlertTitle:title msg:msg placeholders:nil actionTitles:@[kTitleCancell,kTitleSure] handler:handler];
 }
 
 - (void)showAlertTitle:(NSString *_Nullable)title msg:(NSString *_Nullable)msg actionTitles:(NSArray *_Nullable)actionTitleList handler:(void(^)(UIAlertController * _Nonnull alertVC, UIAlertAction * _Nullable action))handler{

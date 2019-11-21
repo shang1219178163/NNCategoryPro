@@ -71,6 +71,12 @@
     view.autoresizingMask = UIViewAutoresizingFlexibleWidth|UIViewAutoresizingFlexibleHeight;
     view.frame = rect;
     
+    if (@available(iOS 13, *)) {
+        view.tintColor = UIColor.whiteColor;
+        [view ensureiOS12Style];
+        return view;
+    }
+    
     view.selectedSegmentIndex = selectedIndex < items.count ? selectedIndex : 0;
     switch (type.integerValue) {
         case 1:
@@ -151,6 +157,28 @@
             break;
     }
     return view;
+}
+
+- (void)ensureiOS12Style {
+    // UISegmentedControl has changed in iOS 13 and setting the tint
+    // color now has no effect.
+    if (@available(iOS 13, *)) {
+        UIColor *tintColor = self.tintColor;
+        UIImage *tintColorImage = UIImageColor(tintColor);
+        // Must set the background image for normal to something (even clear) else the rest won't work
+        [self setBackgroundImage:UIImageColor(self.backgroundColor ? : UIColor.clearColor) forState:UIControlStateNormal barMetrics:UIBarMetricsDefault];
+        [self setBackgroundImage:tintColorImage forState:UIControlStateSelected barMetrics:UIBarMetricsDefault];
+        [self setBackgroundImage:UIImageColor([tintColor colorWithAlphaComponent:0.2]) forState:UIControlStateHighlighted barMetrics:UIBarMetricsDefault];
+        [self setBackgroundImage:tintColorImage forState:UIControlStateSelected|UIControlStateSelected barMetrics:UIBarMetricsDefault];
+        [self setTitleTextAttributes:@{NSForegroundColorAttributeName: tintColor,
+                                       NSFontAttributeName: [UIFont systemFontOfSize:13]} forState:UIControlStateNormal];
+        [self setDividerImage:tintColorImage
+          forLeftSegmentState:UIControlStateNormal
+            rightSegmentState:UIControlStateNormal
+                   barMetrics:UIBarMetricsDefault];
+        self.layer.borderWidth = 1;
+        self.layer.borderColor = tintColor.CGColor;
+    }
 }
 
 @end

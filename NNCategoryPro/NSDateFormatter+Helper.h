@@ -14,47 +14,63 @@
 #import <Foundation/Foundation.h>
 
 NS_ASSUME_NONNULL_BEGIN
-/// 1s
-FOUNDATION_EXPORT const NSInteger kDate_second ;
 /// 60s
-FOUNDATION_EXPORT const NSInteger kDate_minute ;
+FOUNDATION_EXPORT const NSInteger kDateMinute ;
 /// 3600s
-FOUNDATION_EXPORT const NSInteger kDate_hour ;
+FOUNDATION_EXPORT const NSInteger kDateHour ;
 /// 86400
-FOUNDATION_EXPORT const NSInteger kDate_day ;
+FOUNDATION_EXPORT const NSInteger kDateDay ;
 /// 604800
-FOUNDATION_EXPORT const NSInteger kDate_week ;
+FOUNDATION_EXPORT const NSInteger kDateWeek ;
 /// 31556926
-FOUNDATION_EXPORT const NSInteger kDate_year ;
+FOUNDATION_EXPORT const NSInteger kDateYear ;
 
 /// yyyy-MM-dd HH:mm:ss
 FOUNDATION_EXPORT NSString * const kFormatDate ;
 /// yyyy-MM-dd HH:mm
-FOUNDATION_EXPORT NSString * const kFormatDate_mm ;
+FOUNDATION_EXPORT NSString * const kDateFormatMinute ;
 /// yyyy-MM-dd
-FOUNDATION_EXPORT NSString * const kFormatDate_dd ;
+FOUNDATION_EXPORT NSString * const kDateFormatDay ;
+/// yyyy年M月
+FOUNDATION_EXPORT NSString * const kDateFormatMonth_CH ;
+/// yyyy年MM月dd日
+FOUNDATION_EXPORT NSString * const kDateFormatDay_CH ;
+/// yyyy-MM-dd 00:00:00
+FOUNDATION_EXPORT NSString * const kDateFormatStart ;
+/// yyyy-MM-dd 23:59:59
+FOUNDATION_EXPORT NSString * const kDateFormatEnd ;
 /// yyyyMMdd
-FOUNDATION_EXPORT NSString * const kFormatDate_two ;
+FOUNDATION_EXPORT NSString * const kDateFormatTwo ;
 /// yyyyMMddHHmmss
-FOUNDATION_EXPORT NSString * const kFormatDate_five ;
+FOUNDATION_EXPORT NSString * const kFormatDateFive ;
 /// EEE, dd MMM yyyy HH:mm:ss GMT
-FOUNDATION_EXPORT NSString * const kFormatDate_Six ;
+FOUNDATION_EXPORT NSString * const kFormatDateSix ;
 
 @interface NSDateFormatter (Helper)
 
+/// 获取DateFormatter(默认格式)
 + (NSDateFormatter *)dateFormat:(NSString *)formatStr;
 
-+ (NSString *)stringFromDate:(NSDate *)date format:(NSString *)format;
+/// Date -> String
++ (NSString *)stringFromDate:(NSDate *)date fmt:(NSString *)format;
 
-+ (NSDate *)dateFromString:(NSString *)dateStr format:(NSString *)format;
+/// String -> Date
++ (NSDate *)dateFromString:(NSString *)dateStr fmt:(NSString *)format;
 
-+ (NSString *)stringFromInterval:(NSString *)interval format:(NSString *)format;
+/// 时间戳字符串 -> 日期字符串
++ (NSString *)stringFromInterval:(NSString *)interval fmt:(NSString *)format;
 
-+ (NSString *)intervalFromDateStr:(NSString *)dateStr format:(NSString *)format;
+/// 日期字符串 -> 时间戳字符串
++ (NSString *)intervalFromDateStr:(NSString *)dateStr fmt:(NSString *)format;
 
+/// 时间戳->NSDate
 + (NSDate *)dateFromInterval:(NSString *)interval;
 
+/// NSDate->时间戳
 + (NSString *)intervalFromDate:(NSDate *)date;
+
+/// 时间区间
++ (NSArray<NSString *> *)queryDate:(NSInteger)day;
 
 @end
 

@@ -11,14 +11,14 @@
 
 @implementation NSHTTPCookieStorage (Helper)
 /**
- *  @brief cookies存储
+ *  cookies存储
  */
 + (void)saveCookie {
-    NSMutableArray* cookieData = [NSMutableArray array];
+    NSMutableArray *cookieData = [NSMutableArray array];
     
     NSHTTPCookieStorage *cookieStorage = NSHTTPCookieStorage.sharedHTTPCookieStorage;
-    for (NSHTTPCookie* cookie in cookieStorage.cookies) {
-        NSMutableDictionary* cookieDic = [NSMutableDictionary dictionary];
+    for (NSHTTPCookie *cookie in cookieStorage.cookies) {
+        NSMutableDictionary *cookieDic = [NSMutableDictionary dictionary];
         cookieDic[NSHTTPCookieName] = cookie.name;
         cookieDic[NSHTTPCookieValue] = cookie.value;
         cookieDic[NSHTTPCookieDomain] = cookie.domain;
@@ -36,10 +36,10 @@
  *  @brief  cookies加载
  */
 + (void)loadCookie{
-    NSMutableArray* cookies = [NSMutableArray arrayWithContentsOfFile:self.storagePath];
+    NSMutableArray *cookies = [NSMutableArray arrayWithContentsOfFile:self.storagePath];
     NSHTTPCookieStorage *cookieStorage = NSHTTPCookieStorage.sharedHTTPCookieStorage;
     
-    for (NSDictionary* cookieData in cookies) {
+    for (NSDictionary *cookieData in cookies) {
         [cookieStorage setCookie:[NSHTTPCookie cookieWithProperties:cookieData]];
     }
 }
@@ -50,11 +50,11 @@
 }
 
 
-+ (NSString *)cookieDesWithToken:(NSString *)token tokenTimeout:(NSNumber *)tokenTimeout{
++ (NSString *)cookieDesWithToken:(NSString *)token timeout:(NSNumber *)tokenTimeout{
 //    NSArray *cookies = NSHTTPCookieStorage.sharedHTTPCookieStorage.cookies;
 
     NSDate *expiresDate = [NSDate dateWithTimeIntervalSinceNow:tokenTimeout.integerValue];
-    NSString *expires = [NSDateFormatter stringFromDate:expiresDate format:kFormatDate_Six];
+    NSString *expires = [NSDateFormatter stringFromDate:expiresDate fmt:kFormatDateSix];
     
     NSString *cookieStr = @"";
 //    for (NSHTTPCookie *cookie in cookies) {

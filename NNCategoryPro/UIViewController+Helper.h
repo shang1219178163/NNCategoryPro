@@ -102,11 +102,11 @@ FOUNDATION_EXPORT UINavigationController * _Nullable UINavCtrFromObj(id obj);
 - (UIViewController *_Nullable)getController:(NSString *)contollerName;
 
 - (UIViewController *)addControllerName:(NSString *)className;
-
+/// 添加子控制器(对应方法 removeControllerVC)
 - (void)addControllerVC:(UIViewController *)controller;
 
 - (void)removeFromSuperVC;
-
+/// 显示controller(手动调用viewWillAppear和viewDidAppear,viewWillDisappear)
 - (void)transitionToVC:(UIViewController *)controller;
 
 /**

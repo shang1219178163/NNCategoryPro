@@ -19,6 +19,8 @@ NS_ASSUME_NONNULL_BEGIN
  */
 + (instancetype)createRect:(CGRect)rect items:(NSArray *)items selectedIndex:(NSInteger)selectedIndex type:(NSNumber *)type;
 
+- (void)ensureiOS12Style;
+
 @end
 
 NS_ASSUME_NONNULL_END

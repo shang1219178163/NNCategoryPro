@@ -28,7 +28,7 @@
         });
     }
     MBProgressHUD *hud = [MBProgressHUD showHUDAddedTo:keyWindow animated:animated];
-    //    hud.label.text = NSLocalizedString(kMsg_NetWorkRequesting, @"HUD loading title");
+    //    hud.label.text = NSLocalizedString(kNetWorkRequesting, @"HUD loading title");
     
     //自定义动画
     hud.mode = MBProgressHUDModeCustomView;
@@ -51,7 +51,7 @@
             [hud hideAnimated:YES];
         }
         MBProgressHUD *hud = [MBProgressHUD showHUDAddedTo:keyWindow animated:animated];
-        hud.label.text = NSLocalizedString(kMsg_NetWorkRequesting, @"HUD loading title");
+        hud.label.text = NSLocalizedString(kNetWorkRequesting, @"HUD loading title");
         
     });
 }
@@ -78,7 +78,7 @@
             MBProgressHUD * hud = [MBProgressHUD HUDForView:keyWindow];
             [hud hideAnimated:YES];
         }
-        NSString * msg = tips ? tips : kMsg_NetWorkFailed;
+        NSString * msg = tips ? tips : kNetWorkFailed;
         
         //添加在window上可以通用于多个导航控制器的情况
         NSString * position = (NSString *)CSToastPositionCenter;

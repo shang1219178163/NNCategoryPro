@@ -135,6 +135,16 @@
     return nil;
 }
 
+//- (UIViewController *)getCurrentVC {
+//    for (UIView *next = self.superview; next; next = next.superview) {
+//        UIResponder *nextResponder = next.nextResponder;
+//        if ([nextResponder isKindOfClass:[UIViewController class]]) {
+//            return (UIViewController *)nextResponder;
+//        }
+//    }
+//    return nil;
+//}
+
 - (BOOL)validText{
     assert([self isKindOfClass:UITextView.class] || [self isKindOfClass:UITextField.class] || [self isKindOfClass:UILabel.class]);
     NSString *text = [self valueForKey:@"text"];

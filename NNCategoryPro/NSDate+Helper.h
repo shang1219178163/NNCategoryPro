@@ -112,6 +112,7 @@ NS_ASSUME_NONNULL_BEGIN
 - (BOOL)isTypicallyWeekend;
 
 // Adjusting dates
+- (NSDate *)addingDay:(NSInteger)day hour:(NSInteger)hour minute:(NSInteger)minute second:(NSInteger)second;
 
 - (NSDate *)dateByAddDays:(NSInteger ) dDays;
 

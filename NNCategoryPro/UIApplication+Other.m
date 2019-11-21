@@ -543,8 +543,8 @@
                         NSString * versionInfo = [NSString stringWithFormat:@"新版本V%@!",appStoreVer];
                         // AppStore版本号大于当前版本号，强制更新
                         // 弹窗 更新
-                        UIAlertController * alertController = [UIAlertController showAlertTitle:versionInfo msg:releaseNotes placeholders:nil actionTitles:@[kActionTitle_Call,kActionTitle_Update] handler:^(UIAlertController * _Nonnull alertVC, UIAlertAction * _Nonnull action) {
-                            if ([action.title isEqualToString:kActionTitle_Update]) {
+                        UIAlertController * alertController = [UIAlertController showAlertTitle:versionInfo msg:releaseNotes placeholders:nil actionTitles:@[kTitleCall,kTitleUpdate] handler:^(UIAlertController * _Nonnull alertVC, UIAlertAction * _Nonnull action) {
+                            if ([action.title isEqualToString:kTitleUpdate]) {
                                 // 升级去
                                 [UIApplication openURLStr: [UIApplication appUrlWithID:appStoreID] prefix:@"http://"];
                                 
@@ -598,8 +598,8 @@
 //                // AppStore版本号大于当前版本号，强制更新
 //                if ([appStoreVersion compare:currentVersion options:NSNumericSearch] == NSOrderedDescending) {
 //                    // 弹窗 更新
-//                    [UIApplication.rootController createAlertTitle:versionInfo msg:releaseNotes actionTitleList:@[kActionTitle_Call,kActionTitle_Update] handler:^(UIAlertController * _Nonnull alertVC, UIAlertAction * _Nullable action) {
-//                        isUpdate = [action.title isEqualToString:kActionTitle_Update]  ? YES : NO;
+//                    [UIApplication.rootController createAlertTitle:versionInfo msg:releaseNotes actionTitleList:@[kTitleCall,kTitleUpdate] handler:^(UIAlertController * _Nonnull alertVC, UIAlertAction * _Nullable action) {
+//                        isUpdate = [action.title isEqualToString:kTitleUpdate]  ? YES : NO;
 //                        if (isUpdate) {
 //                            // 升级去
 //

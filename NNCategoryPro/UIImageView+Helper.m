@@ -105,7 +105,7 @@
             break;
         case 1:
         {
-            NSString  *filePath = [[NSBundle bundleWithPath:NSBundle.mainBundle.bundlePath]pathForResource:@"loading" ofType:@"gif"];
+            NSString *filePath = [[NSBundle bundleWithPath:NSBundle.mainBundle.bundlePath]pathForResource:@"loading" ofType:@"gif"];
             FLAnimatedImage *image = [FLAnimatedImage animatedImageWithGIFData:[NSData dataWithContentsOfFile:filePath]];
             imgView = [[FLAnimatedImageView alloc] initWithFrame:rect];
             ((FLAnimatedImageView *)imgView).animatedImage = image;
@@ -165,67 +165,61 @@
 }
 
 -(void)showImageEnlarge{
-    UITapGestureRecognizer *tap = [[UITapGestureRecognizer alloc]initWithTarget:self action:@selector(enlargeImageView:)];
+    UITapGestureRecognizer *tap = [[UITapGestureRecognizer alloc]initWithTarget:self action:@selector(p_enlargeImageView:)];
     self.userInteractionEnabled = YES;
     tap.numberOfTapsRequired = 1;
     tap.numberOfTouchesRequired = 1;
     [self addGestureRecognizer:tap];
     
-    [self enlargeImageView:tap];
+//    [self enlargeImageView:tap];
 }
 
--(void)enlargeImageView:(UITapGestureRecognizer *)tapAvatar{
-    CGFloat kHeight = UIScreen.mainScreen.bounds.size.height;
-    CGFloat kWidth = UIScreen.mainScreen.bounds.size.width;
-    
-    UIImageView *avatarImageView = (UIImageView *)tapAvatar.view;
-    UIImage *image = avatarImageView.image;
-    
+-(void)p_enlargeImageView:(UITapGestureRecognizer *)tapAvatar{
     UIWindow *window = UIApplication.sharedApplication.keyWindow;
-    
-    UIView *backgroundView = [[UIView alloc]initWithFrame:CGRectMake(0, 0, kWidth, kHeight)];
-    
+
+    UIImageView *avatarImageView = (UIImageView *)tapAvatar.view;
     CGRect oldframe = [avatarImageView convertRect:avatarImageView.bounds toView:window];
+        
+    UIImage *image = avatarImageView.image;
+    UIImageView *imageView = ({
+        UIImageView *view = [[UIImageView alloc]initWithFrame:oldframe];
+        view.contentMode = UIViewContentModeScaleAspectFit;
+        view.image = image;
+        view.tag = 1001;
+        view;
+    });
     
-    backgroundView.backgroundColor = UIColor.blackColor;
-    backgroundView.alpha = 1;
-    backgroundView.tag = 1000;
-    
-    
-    UIImageView *imageView = [[UIImageView alloc]initWithFrame:oldframe];
-    imageView.image = image;
-    imageView.tag = 1001;
+    UIView *backgroundView = ({
+        UIView *view = [[UIView alloc]initWithFrame:window.bounds];
+        view.backgroundColor = UIColor.blackColor;
+        view.alpha = 0;
+        view.tag = 1000;
+        view;
+    });
     [backgroundView addSubview:imageView];
-    
     [window insertSubview:backgroundView atIndex:1];
     //
-    UITapGestureRecognizer *tap = [[UITapGestureRecognizer alloc]initWithTarget:self action:@selector(hideImageView:)];
+    UITapGestureRecognizer *tap = [[UITapGestureRecognizer alloc]initWithTarget:self action:@selector(p_hideImageView:)];
     [backgroundView addGestureRecognizer:tap];
     
     [UIView animateWithDuration:0.15 animations:^{
-        imageView.frame = CGRectMake(0,
-                                     (kHeight - image.size.height*kWidth/image.size.width)/2,
-                                     kWidth,
-                                     image.size.height*kWidth/image.size.width);
-        
-        backgroundView.backgroundColor = UIColor.blackColor;
+        imageView.frame = window.bounds;
         backgroundView.alpha = 1;
     } completion:^(BOOL finished) {
         
     }];
 }
 
--(void)hideImageView:(UITapGestureRecognizer *)tap{
+-(void)p_hideImageView:(UITapGestureRecognizer *)tap{
     UIView *backgroundView = tap.view;
-    UIImageView *imageView = (UIImageView*)[tap.view viewWithTag:1001];
     
     [UIView animateWithDuration:0.15 animations:^{
-        imageView.frame = imageView.frame;
         backgroundView.alpha = 0;
         
     } completion:^(BOOL finished) {
-        [backgroundView removeFromSuperview];
-        
+        if (finished) {
+            [backgroundView removeFromSuperview];
+        }
     }];
 }
 

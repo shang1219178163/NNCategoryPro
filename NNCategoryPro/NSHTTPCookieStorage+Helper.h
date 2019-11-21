@@ -18,7 +18,7 @@ NS_ASSUME_NONNULL_BEGIN
 
 + (NSString *)storagePath;
 
-+ (NSString *)cookieDesWithToken:(NSString *)token tokenTimeout:(NSNumber *)tokenTimeout;
++ (NSString *)cookieDesWithToken:(NSString *)token timeout:(NSNumber *)tokenTimeout;
 
 @end
 

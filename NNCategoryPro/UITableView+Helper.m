@@ -47,7 +47,7 @@
 
     NSParameterAssert(section <= self.numberOfSections);
     
-    NSInteger rowMax = [[rowList valueForKeyPath:kArr_max_inter] integerValue];
+    NSInteger rowMax = [[rowList valueForKeyPath:kArrMax_inter] integerValue];
     NSParameterAssert(rowMax < [self numberOfRowsInSection:section]);
 
     NSMutableArray * marr = [NSMutableArray array];
@@ -80,7 +80,7 @@
     
     NSParameterAssert(section <= self.numberOfSections);
     
-    NSInteger rowMax = [[rowList valueForKeyPath:kArr_max_inter] integerValue];
+    NSInteger rowMax = [[rowList valueForKeyPath:kArrMax_inter] integerValue];
     NSParameterAssert(rowMax < [self numberOfRowsInSection:section]);
     
     if (!rowAnimation) rowAnimation = UITableViewRowAnimationNone;
