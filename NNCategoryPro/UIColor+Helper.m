@@ -186,6 +186,7 @@ NSArray * RGBAFromColor(UIColor *color){
     CGFloat blue = 0.0;
     CGFloat alpha = 0.0;
     [color getRed:&red green:&green blue:&blue alpha:&alpha];
+//    const CGFloat *components = CGColorGetComponents(color.CGColor);
     return @[@(red), @(green), @(blue), @(alpha)];
 }
 

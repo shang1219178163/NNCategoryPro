@@ -13,6 +13,7 @@ NS_ASSUME_NONNULL_BEGIN
 
 @interface NSData (Helper)
 
+
 + (NSData *)base64DataFromString:(NSString *)string;
 
 + (NSData *)dataFromHexString:(NSString *)hexString;
