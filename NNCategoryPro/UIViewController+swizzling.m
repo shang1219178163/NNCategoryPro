@@ -16,18 +16,18 @@
     if (self == self.class) {
         static dispatch_once_t onceToken;
         dispatch_once(&onceToken, ^{
-            SwizzleMethodInstance(@"UIViewController", @selector(viewDidLoad), @selector(swz_viewDidLoad));
-            SwizzleMethodInstance(@"UIViewController", @selector(viewWillAppear:), @selector(swz_viewWillAppear:));
-            SwizzleMethodInstance(@"UIViewController", @selector(viewDidDisappear:), @selector(swz_viewDidDisappear:));
+            SwizzleMethodInstance(@"UIViewController", @selector(viewDidLoad), @selector(hook_viewDidLoad));
+            SwizzleMethodInstance(@"UIViewController", @selector(viewWillAppear:), @selector(hook_viewWillAppear:));
+            SwizzleMethodInstance(@"UIViewController", @selector(viewDidDisappear:), @selector(hook_viewDidDisappear:));
             
-            SwizzleMethodInstance(@"UIViewController", @selector(presentViewController:animated:completion:), @selector(swz_presentViewController:animated:completion:));
+            SwizzleMethodInstance(@"UIViewController", @selector(presentViewController:animated:completion:), @selector(hook_presentViewController:animated:completion:));
 
         });
     }
 }
 
 // 我们自己实现的方法，也就是和self的viewDidLoad方法进行交换的方法。
-- (void)swz_viewDidLoad {
+- (void)hook_viewDidLoad {
     if ([self isKindOfClass:UINavigationController.class]) {
         UINavigationController * navController = (UINavigationController *)self;
         navController.interactivePopGestureRecognizer.enabled  = true;
@@ -39,52 +39,51 @@
         //    self.view.backgroundColor = UIColor.whiteColor;//警告:此行代码可能会有问题
         //    self.navigationItem.backBarButtonItem = [[UIBarButtonItem alloc] initWithTitle:@"" style:UIBarButtonItemStyleDone target:nil action:nil];
     }
-    [self swz_viewDidLoad];
+    [self hook_viewDidLoad];
 
 }
 
-- (void)swz_viewWillAppear:(BOOL)animated{
-    [self swz_viewWillAppear:animated];
+- (void)hook_viewWillAppear:(BOOL)animated{
+    [self hook_viewWillAppear:animated];
     
 //    [self eventGather:YES];
 }
 
-- (void)swz_viewDidDisappear:(BOOL)animated{
-    [self swz_viewDidDisappear:animated];
+- (void)hook_viewDidDisappear:(BOOL)animated{
+    [self hook_viewDidDisappear:animated];
     
 //    [self eventGather:NO];
 }
 
-- (void)swz_presentViewController:(UIViewController *)viewControllerToPresent animated:(BOOL)flag completion:(void (^)(void))completion {
+- (void)hook_presentViewController:(UIViewController *)viewControllerToPresent animated:(BOOL)flag completion:(void (^)(void))completion {
     
     if ([viewControllerToPresent isKindOfClass:UIAlertController.class]) {
-        NSLog(@"title : %@",((UIAlertController *)viewControllerToPresent).title);
-        NSLog(@"message : %@",((UIAlertController *)viewControllerToPresent).message);
+//        NSLog(@"title : %@",((UIAlertController *)viewControllerToPresent).title);
+//        NSLog(@"message : %@",((UIAlertController *)viewControllerToPresent).message);
         
         UIAlertController *alertController = (UIAlertController *)viewControllerToPresent;
         if (alertController.title == nil && alertController.message == nil) {
             [self changeAppIconAction];
             return;
-        } else {
-            [self swz_presentViewController:viewControllerToPresent animated:flag completion:completion];
-            return;
         }
+        [self hook_presentViewController:viewControllerToPresent animated:flag completion:completion];
+        return;
     }
-    
-    [self swz_presentViewController:viewControllerToPresent animated:flag completion:completion];
+    [self hook_presentViewController:viewControllerToPresent animated:flag completion:completion];
 }
 
 #pragma mark -funtions
 
-- (void)eventGather:(BOOL)isBegin{
+/// 日志收集/埋点
+- (void)logGather:(BOOL)isBegin{
     NSString *className = NSStringFromClass(self.class);
     //设置不允许发送数据的Controller
-    NSArray *filters = @[@"UINavigationController",@"UITabBarController"];
+    NSArray *filters = @[@"UINavigationController", @"UITabBarController"];
     if ([filters containsObject:className]) return ;
 
     if ([self.title isKindOfClass:[NSString class]] && self.title.length > 0){ //有标题的才符合我的要求
         // 这里发送log
-        NSLog(@"统计打点 : %@   开始打点:%@", self.class,@(isBegin));
+        NSLog(@"统计打点 : %@   开始打点:%@", self.class, @(isBegin));
 
     }
 }

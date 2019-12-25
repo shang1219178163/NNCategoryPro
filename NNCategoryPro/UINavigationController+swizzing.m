@@ -16,13 +16,13 @@
     if (self == self.class) {
         static dispatch_once_t onceToken;
         dispatch_once(&onceToken, ^{
-            SwizzleMethodInstance(@"UINavigationController", @selector(pushViewController:animated:), @selector(swz_PushViewController:animated:));
+            SwizzleMethodInstance(@"UINavigationController", @selector(pushViewController:animated:), @selector(hook_PushViewController:animated:));
             
         });
     }
 }
 
-- (void)swz_PushViewController:(UIViewController *)viewController animated:(BOOL)animated{
+- (void)hook_PushViewController:(UIViewController *)viewController animated:(BOOL)animated{
     if ([self.viewControllers containsObject:viewController]) return;
 //    viewController.navigationItem.backBarButtonItem = [[UIBarButtonItem alloc] initWithTitle:@"" style:UIBarButtonItemStyleDone target:nil action:nil];
     viewController.view.backgroundColor = UIColor.whiteColor;
@@ -32,7 +32,7 @@
    
     }
     self.navigationController.delegate = nil;
-    [self swz_PushViewController:viewController animated:animated];
+    [self hook_PushViewController:viewController animated:animated];
 }
 
 //- (BOOL)gestureRecognizerShouldBegin:(UIGestureRecognizer *)gestureRecognizer{

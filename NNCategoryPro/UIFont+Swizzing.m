@@ -23,13 +23,13 @@ NSString * const kPingFangThin       = @"PingFangSC-Thin";
     if (self == self.class) {
         static dispatch_once_t onceToken;
         dispatch_once(&onceToken, ^{
-            SwizzleMethodInstance(@"UIImageView", NSSelectorFromString(@"systemFont:"), NSSelectorFromString(@"swz_systemFont:"));
+            SwizzleMethodInstance(@"UIImageView", NSSelectorFromString(@"systemFont:"), NSSelectorFromString(@"hook_systemFont:"));
             
         });
     }
 }
 
-- (UIFont *)swz_systemFont:(CGFloat)fontSize {
+- (UIFont *)hook_systemFont:(CGFloat)fontSize{
     return [UIFont fontWithName:kPingFangRegular size:fontSize];
 }
 

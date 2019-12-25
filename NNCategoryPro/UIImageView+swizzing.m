@@ -16,15 +16,15 @@
     if (self == self.class) {
         static dispatch_once_t onceToken;
         dispatch_once(&onceToken, ^{
-//            SwizzleMethodInstance(@"UIImageView", @selector(setTintColor:), @selector(swz_setTintColor:));
-            SwizzleMethodInstance(@"UIImageView", NSSelectorFromString(@"setTintColor:"), NSSelectorFromString(@"swz_setTintColor:"));
+//            SwizzleMethodInstance(@"UIImageView", @selector(setTintColor:), @selector(hook_setTintColor:));
+            SwizzleMethodInstance(@"UIImageView", NSSelectorFromString(@"setTintColor:"), NSSelectorFromString(@"hook_setTintColor:"));
 
         });
     }
 }
 
-- (void)swz_setTintColor:(UIColor *)color {
-    [self swz_setTintColor:color];
+- (void)hook_setTintColor:(UIColor *)color {
+    [self hook_setTintColor:color];
     
     if ([self isKindOfClass:NSClassFromString(@"UITabBarSwappableImageView")]) {
         return;
