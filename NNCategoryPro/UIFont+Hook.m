@@ -1,13 +1,12 @@
 //
-//  UIFont+Helper.m
-//  ProductTemplet
+//  UIFont+Hook.m
+//  NNCategoryPro
 //
-//  Created by Bin Shang on 2019/8/23.
-//  Copyright © 2019 BN. All rights reserved.
+//  Created by Bin Shang on 2019/12/27.
 //
 
-#import "UIFont+Swizzing.h"
-#import "NSObject+swizzling.h"
+#import "UIFont+Hook.h"
+#import "NSObject+Hook.h"
 
 NSString * const kPingFang           = @"PingFang SC";
 NSString * const kPingFangMedium     = @"PingFangSC-Medium";
@@ -17,7 +16,7 @@ NSString * const kPingFangUltralight = @"PingFangSC-Ultralight";
 NSString * const kPingFangRegular    = @"PingFangSC-Regular";
 NSString * const kPingFangThin       = @"PingFangSC-Thin";
 
-@implementation UIFont (Swizzing)
+@implementation UIFont (Hook)
 
 + (void)initialize{
     if (self == self.class) {
@@ -32,8 +31,6 @@ NSString * const kPingFangThin       = @"PingFangSC-Thin";
 - (UIFont *)hook_systemFont:(CGFloat)fontSize{
     return [UIFont fontWithName:kPingFangRegular size:fontSize];
 }
-
-
 
 @end
 

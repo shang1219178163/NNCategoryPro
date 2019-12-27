@@ -1,16 +1,14 @@
 //
-//  UIViewController+swizzling.m
-//  
+//  UIViewController+Hook.m
+//  NNCategoryPro
 //
-//  Created by BIN on 2017/12/2.
-//  Copyright © 2017年 SHANG. All rights reserved.
+//  Created by Bin Shang on 2019/12/27.
 //
 
-#import "UIViewController+swizzling.h"
+#import "UIViewController+Hook.h"
+#import "NSObject+Hook.h"
 
-#import "NSObject+swizzling.h"
-
-@implementation UIViewController (swizzling)
+@implementation UIViewController (Hook)
 
 + (void)initialize{
     if (self == self.class) {
@@ -106,3 +104,4 @@
 
 
 @end
+

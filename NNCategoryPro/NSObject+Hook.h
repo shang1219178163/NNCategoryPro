@@ -1,26 +1,17 @@
 //
-//  NSObject+swizzling.h
-//  
+//  NSObject+Hook.h
+//  NNCategoryPro
 //
-//  Created by BIN on 2017/12/2.
-//  Copyright © 2017年 SHANG. All rights reserved.
+//  Created by Bin Shang on 2019/12/27.
 //
-
-/**
- 此类为swizzling方法源类,方法在此类实现,别处调用
- 
-*/
 
 #import <Foundation/Foundation.h>
-#import <objc/runtime.h>
 
 NS_ASSUME_NONNULL_BEGIN
 
-@interface NSObject (swizzling)
-
+@interface NSObject (Hook)
 
 FOUNDATION_EXPORT Class NSClassFromObj(id clz);
-
 
 /**
  (源方法)实例方法交换

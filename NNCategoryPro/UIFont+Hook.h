@@ -1,9 +1,8 @@
 //
-//  UIFont+Helper.h
-//  ProductTemplet
+//  UIFont+Hook.h
+//  NNCategoryPro
 //
-//  Created by Bin Shang on 2019/8/23.
-//  Copyright © 2019 BN. All rights reserved.
+//  Created by Bin Shang on 2019/12/27.
 //
 
 #import <UIKit/UIKit.h>
@@ -18,7 +17,7 @@ FOUNDATION_EXPORT NSString * const kPingFangUltralight ;
 FOUNDATION_EXPORT NSString * const kPingFangRegular ;
 FOUNDATION_EXPORT NSString * const kPingFangThin ;
 
-@interface UIFont (Swizzing)
+@interface UIFont (Hook)
 
 @end
 

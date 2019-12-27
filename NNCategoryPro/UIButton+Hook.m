@@ -1,17 +1,14 @@
-
 //
-//  UIButton+swizzing.m
-//  
+//  UIButton+Hook.m
+//  NNCategoryPro
 //
-//  Created by BIN on 2017/12/27.
-//  Copyright © 2017年 SHANG. All rights reserved.
+//  Created by Bin Shang on 2019/12/27.
 //
 
-#import "UIButton+swizzing.h"
+#import "UIButton+Hook.h"
+#import "NSObject+Hook.h"
 
-#import "NSObject+swizzling.h"
-
-@implementation UIButton (swizzing)
+@implementation UIButton (Hook)
 
 + (void)initialize{
     if (self == self.class) {
@@ -53,9 +50,9 @@
 /// 日志收集/埋点
 - (void)logGatherWithSendAction:(SEL)action to:(id)target forEvent:(UIEvent *)event {
     if (event.allTouches.anyObject.phase == UITouchPhaseEnded) {
-        NSString *actionStr = NSStringFromSelector(action);
-        NSString *targetName = NSStringFromClass([target class]);
-        NSString *identifer = [NSString stringWithFormat:@"%@ %@", targetName, actionStr];
+//        NSString *actionStr = NSStringFromSelector(action);
+//        NSString *targetName = NSStringFromClass([target class]);
+//        NSString *identifer = [NSString stringWithFormat:@"%@ %@", targetName, actionStr];
     }
 }
 
