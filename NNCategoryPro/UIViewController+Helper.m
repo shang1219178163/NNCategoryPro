@@ -94,6 +94,12 @@ UINavigationController * UINavCtrFromObj(id obj){
     }
 }
 
+- (void)setupContentInsetAdjustmentBehavior:(BOOL)isAutomatic{
+    if (@available(iOS 11.0, *)) {
+        UIScrollView.appearance.contentInsetAdjustmentBehavior = isAutomatic ? UIScrollViewContentInsetAdjustmentAutomatic : UIScrollViewContentInsetAdjustmentNever;
+    }
+}
+
 #pragma make - - 给控制器添加额外属性
 
 -(UIViewController *)frontVC{
