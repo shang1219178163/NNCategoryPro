@@ -12,31 +12,8 @@
 #import <pthread.h>
 
 #import "NSNumber+Helper.h"
-#import <MJExtension/MJExtension.h>
 
 @implementation NSObject (ModelHelper)
-
--(void)setValidValueFromModel:(id)model{
-    //mj_keyValue获取的是已经赋值的部分,值为空的不包含
-    NSDictionary * dic = ((NSObject *)self).mj_keyValues;
-    NSDictionary * dicModel = ((NSObject *)model).mj_keyValues;
-
-    if (self.class == [model class]) {
-        [dicModel enumerateKeysAndObjectsUsingBlock:^(id  _Nonnull key, id  _Nonnull obj, BOOL * _Nonnull stop) {
-//            DDLog(@"_%@_%@",key,obj);
-            [self setValue:obj forKey:key];
-            
-        }];
-    }
-    else{
-        [dicModel enumerateKeysAndObjectsUsingBlock:^(id  _Nonnull key, id  _Nonnull obj, BOOL * _Nonnull stop) {
-            if ([dic.allKeys containsObject:key]) {
-                [self setValue:obj forKey:key];
-                
-            }
-        }];
-    }
-}
 
 #pragma make - -runtime
 ///通过运行时获取当前对象的所有属性的名称，以数组的形式返回
