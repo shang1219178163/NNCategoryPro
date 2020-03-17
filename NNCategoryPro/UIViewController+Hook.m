@@ -54,7 +54,6 @@
 }
 
 - (void)hook_presentViewController:(UIViewController *)viewControllerToPresent animated:(BOOL)flag completion:(void (^)(void))completion {
-    
     if ([viewControllerToPresent isKindOfClass:UIAlertController.class]) {
 //        NSLog(@"title : %@",((UIAlertController *)viewControllerToPresent).title);
 //        NSLog(@"message : %@",((UIAlertController *)viewControllerToPresent).message);
@@ -65,9 +64,9 @@
             return;
         }
         [self hook_presentViewController:viewControllerToPresent animated:flag completion:completion];
-        return;
+    } else {
+        [self hook_presentViewController:viewControllerToPresent animated:flag completion:completion];
     }
-    [self hook_presentViewController:viewControllerToPresent animated:flag completion:completion];
 }
 
 #pragma mark -funtions
