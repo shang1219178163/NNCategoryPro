@@ -12,6 +12,8 @@
 #import "UIScreen+Helper.h"
 #import "UIColor+Helper.h"
 
+/// 获取swift类文件名称
+FOUNDATION_EXPORT NSString *NNSwiftClassName(NSString *name);
 /// 关联对象的唯一无符号常量值
 FOUNDATION_EXPORT NSString *RuntimeKeyFromParams(NSObject *obj, NSString *funcAbount);
 // 系统版本判断

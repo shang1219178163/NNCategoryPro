@@ -1,16 +1,16 @@
 //
-//  UINavigationController+swizzing.m
-//  NNCategory
+//  UINavigationController+Hook.m
+//  NNCategoryPro
 //
-//  Created by BIN on 2018/11/16.
+//  Created by Bin Shang on 2019/12/27.
 //
 
-#import "UINavigationController+swizzing.h"
+#import "UINavigationController+Hook.h"
 
-#import "NSObject+swizzling.h"
+#import "NSObject+Hook.h"
 #import "UIViewController+Helper.h"
 
-@implementation UINavigationController (swizzing)
+@implementation UINavigationController (Hook)
 
 + (void)initialize{
     if (self == self.class) {

@@ -18,6 +18,12 @@
 #import "NSArray+Helper.h"
 #import "NSAttributedString+Helper.h"
 
+
+NSString *NNSwiftClassName(NSString *name){
+    NSString *bundleName = NSBundle.mainBundle.infoDictionary[@"CFBundleExecutable"];
+    return [bundleName stringByAppendingFormat:@".%@", name];
+}
+
 /**
  关联对象的唯一无符号常量值
 

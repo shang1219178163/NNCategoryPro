@@ -60,6 +60,8 @@ FOUNDATION_EXPORT UINavigationController * _Nullable UINavCtrFromObj(id obj);
 
 - (void)setupExtendedLayout;
 
+- (void)setupContentInsetAdjustmentBehavior:(BOOL)isAutomatic;
+
 /// [源]创建UISearchController(设置IQKeyboardManager.shared.enable = false;//避免searchbar下移)
 - (UISearchController *)createSearchVC:(UIViewController *)resultsController;
 

@@ -1,15 +1,14 @@
 //
-//  NSObject+swizzling.m
-//  
+//  NSObject+Hook.m
+//  NNCategoryPro
 //
-//  Created by BIN on 2017/12/2.
-//  Copyright © 2017年 SHANG. All rights reserved.
+//  Created by Bin Shang on 2019/12/27.
 //
 
-#import "NSObject+swizzling.h"
+#import "NSObject+Hook.h"
 #import <objc/runtime.h>
 
-@implementation NSObject (swizzling)
+@implementation NSObject (Hook)
 
 Class NSClassFromObj(id clz){
     NSCAssert([clz isKindOfClass:NSObject.class] || [clz isKindOfClass:NSString.class],@"只允许是Class类型和NSString");
@@ -95,4 +94,3 @@ BOOL SwizzleMethodClass(id clz, SEL origSelector, SEL replSelector){
 }
 
 @end
-

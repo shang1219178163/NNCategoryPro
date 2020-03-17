@@ -348,22 +348,23 @@ bool UIImageEquelToImage(UIImage *image0, UIImage *image1){
 }
 
 - (BOOL)isEquelImage:(id)image{
-    NSParameterAssert([image isKindOfClass:[NSString class]] || [image isKindOfClass:[UIImage class]] || [image isKindOfClass:[NSData class]]);
+    NSParameterAssert([image isKindOfClass: NSString.class] || [image isKindOfClass: UIImage.class]);
     
-    NSData *imgData = UIImageJPEGRepresentation(self, 1.0);
-    NSData *imgDataNew = nil;
+    NSData *imageData = UIImageJPEGRepresentation(self, 1.0);
     if ([image isKindOfClass:[NSString class]]) {
-        imgDataNew = UIImageJPEGRepresentation([UIImage imageNamed:image], 1.0);
-       
+        UIImage *image1 = [UIImage imageNamed:image];
+        NSData *imageData1 = UIImageJPEGRepresentation(image1, 1.0);
+        return [imageData isEqualToData:imageData1];
     }
-    else if ([image isKindOfClass:[UIImage class]]) {
-        imgDataNew = UIImageJPEGRepresentation(image, 1.0);
-       
-    }
-    else{
-        imgDataNew = image;
-    }
-    return [imgData isEqualToData:imgDataNew];
+    
+    NSData *imageData1 = UIImageJPEGRepresentation(image, 1.0);
+    return [imageData isEqualToData:imageData1];
+}
+
++ (BOOL)image:(UIImage *)image1 isEqualTo:(UIImage *)image2{
+    NSData *data1 = UIImageJPEGRepresentation(image1, 1.0);
+    NSData *data2 = UIImageJPEGRepresentation(image2, 1.0);
+    return [data1 isEqualToData:data2];
 }
 
 //根据图片获取图片的主色调
@@ -599,8 +600,10 @@ bool UIImageEquelToImage(UIImage *image0, UIImage *image1){
     while (imageData.length > fileSize && compression > maxCompression) {
         compression -= 0.1;
         imageData = UIImageJPEGRepresentation(image, compression);
+        DDLog(@"压缩后图片大小:%@M__压缩系数:%@", @(imageData.length/1024), @(compression));
+
     }
-    //    DDLog(@"压缩后图片大小:%luK",imageData.length/1024);
+    DDLog(@"压缩后图片大小:%@M__压缩系数:%@", @(imageData.length/1024), @(compression));
     return imageData;
 }
 

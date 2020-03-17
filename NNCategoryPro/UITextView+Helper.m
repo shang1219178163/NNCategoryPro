@@ -7,7 +7,7 @@
 
 #import "UITextView+Helper.h"
 #import <objc/runtime.h>
-#import "NSObject+swizzling.h"
+#import "NSObject+Hook.h"
 #import "UIColor+Helper.h"
 #import "NSAttributedString+Helper.h"
 

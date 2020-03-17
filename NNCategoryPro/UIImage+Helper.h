@@ -71,6 +71,8 @@ FOUNDATION_EXPORT bool UIImageEquelToImage(UIImage *image0, UIImage *image1);
 
 - (BOOL)isEquelImage:(id)image;
 
++ (BOOL)image:(UIImage *)image1 isEqualTo:(UIImage *)image2;
+
 -(UIColor *)mostColor;
 
 //获取图像某一点的颜色

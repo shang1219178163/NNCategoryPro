@@ -1,16 +1,14 @@
 //
-//  UIImageView+swizzing.m
-//  ProductTemplet
+//  UIImageView+Hook.m
+//  NNCategoryPro
 //
-//  Created by Bin Shang on 2018/12/28.
-//  Copyright © 2018 BN. All rights reserved.
+//  Created by Bin Shang on 2019/12/27.
 //
 
-#import "UIImageView+swizzing.h"
+#import "UIImageView+Hook.h"
+#import "NSObject+Hook.h"
 
-#import "NSObject+swizzling.h"
-
-@implementation UIImageView (swizzing)
+@implementation UIImageView (Hook)
 
 + (void)initialize{
     if (self == self.class) {

@@ -15,14 +15,8 @@ NS_ASSUME_NONNULL_BEGIN
 
 -(id)convertFromDict:(NSDictionary *)dict key:(NSString *)key;
 
-//-(NSString *)convertToStrFromDict:(NSDictionary *)dict key:(NSString *)key;
-
 -(void)convertBaseTypesForYYModelDict:(NSDictionary *)dict;
 -(void)convertBaseTypesForYYModelDict:(NSDictionary *)dict mapperDict:(NSDictionary *)mapperDict;
-
--(void)setValidValueFromModel:(id)model;
-
-//- (NSMutableArray *)dataByList:(NSArray *)modelList propertyList:(NSArray *)propertyList isNumValue:(BOOL)isNumValue;
 
 @end
 

@@ -2,7 +2,7 @@
 Pod::Spec.new do |s|
 
   s.name         = "NNCategoryPro"
-  s.version      = "2.3.2"
+  s.version      = "2.3.4.1"
   s.summary      = "分类-项目通用方法封装."
   s.description  = "项目封装的实现主体,主要通过分类实现"
 
@@ -28,14 +28,14 @@ Pod::Spec.new do |s|
 
    s.dependency 'NNGloble'
 
-   s.dependency 'AESCrypt-ObjC'
-   s.dependency 'FLAnimatedImage'
+  #  s.dependency 'AESCrypt-ObjC'
+  #  s.dependency 'FLAnimatedImage'
    s.dependency 'IQKeyboardManager'
    s.dependency 'GTMBase64'
-   s.dependency 'MBProgressHUD'
-   s.dependency 'MJExtension'
+  #  s.dependency 'MBProgressHUD'
+  #  s.dependency 'MJExtension'
    s.dependency 'SDWebImage'
-   s.dependency 'Toast'
+ #  s.dependency 'Toast'
    s.dependency 'YYModel'
 
 end

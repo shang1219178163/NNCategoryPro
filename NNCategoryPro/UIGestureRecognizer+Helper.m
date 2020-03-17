@@ -1,7 +1,7 @@
 
 //
 //  UIGestureRecognizer+Helper.m
-//  AESCrypt-ObjC
+//  
 //
 //  Created by Bin Shang on 2019/1/4.
 //

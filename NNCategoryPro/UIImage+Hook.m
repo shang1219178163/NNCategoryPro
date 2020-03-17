@@ -1,16 +1,16 @@
 //
-//  UIImage+Swizzing.m
-//  BNKit
+//  UIImage+Hook.m
+//  NNCategoryPro
 //
-//  Created by dev on 2018/12/6.
+//  Created by Bin Shang on 2019/12/27.
 //
 
-#import "UIImage+Swizzing.h"
+#import "UIImage+Hook.h"
 #import <objc/runtime.h>
 #import "NSBundle+Helper.h"
-#import "NSObject+swizzling.h"
+#import "NSObject+Hook.h"
 
-@implementation UIImage (Swizzing)
+@implementation UIImage (Hook)
 
 + (void)initialize{
     if (self == self.class) {

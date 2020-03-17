@@ -9,7 +9,7 @@
 #import "NSObject+CashProtector.h"
 
 #import <objc/runtime.h>
-#import "NSObject+swizzling.h"
+#import "NSObject+Hook.h"
 #import "NNForwardingTarget.h"
  
 #define isOpenCashProtector  1
