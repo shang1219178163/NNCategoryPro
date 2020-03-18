@@ -15,7 +15,6 @@
 #import "UIImage+Helper.h"
 #import "NSObject+Helper.h"
 
-#import "FLAnimatedImage.h"
 #import "CABasicAnimation+Helper.h"
 
 #import <SDWebImage/UIImageView+WebCache.h>
@@ -101,14 +100,6 @@
             
             CABasicAnimation *anim = [CABasicAnimation animKeyPath:@"transform.rotation" duration:10 fromValue:@(0) toValue:@(M_PI*2) autoreverses:NO repeatCount:10];
             [imgView.layer addAnimation:anim forKey:nil];
-        }
-            break;
-        case 1:
-        {
-            NSString *filePath = [[NSBundle bundleWithPath:NSBundle.mainBundle.bundlePath]pathForResource:@"loading" ofType:@"gif"];
-            FLAnimatedImage *image = [FLAnimatedImage animatedImageWithGIFData:[NSData dataWithContentsOfFile:filePath]];
-            imgView = [[FLAnimatedImageView alloc] initWithFrame:rect];
-            ((FLAnimatedImageView *)imgView).animatedImage = image;
         }
             break;
         default:
