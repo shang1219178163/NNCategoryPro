@@ -3,7 +3,7 @@
 Pod::Spec.new do |s|
 
   s.name         = "NNCategoryPro"
-  s.version      = "2.3.4.4"
+  s.version      = "2.3.4.5"
   s.summary      = "分类-项目通用方法封装."
   s.description  = "项目封装的实现主体,主要通过分类实现"
 

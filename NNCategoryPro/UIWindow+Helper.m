@@ -7,6 +7,7 @@
 //
 
 #import "UIWindow+Helper.h"
+#import "UIView+Helper.h"
 
 @implementation UIWindow (Helper)
 

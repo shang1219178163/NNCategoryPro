@@ -633,7 +633,7 @@ UINavigationController * UINavCtrFromObj(id obj){
 
 - (void)showAlertTitle:(NSString *_Nullable)title msg:(NSString *_Nullable)msg actionTitles:(NSArray *_Nullable)actionTitleList handler:(void(^)(UIAlertController * _Nonnull alertVC, UIAlertAction * _Nullable action))handler{
     UIAlertController *alertController = [UIAlertController createAlertTitle:title msg:msg placeholders:nil actionTitles:actionTitleList handler:handler];
-    UIWindow * keyWindow = UIApplication.sharedApplication.delegate.window;
+    UIWindow *keyWindow = UIApplication.sharedApplication.delegate.window;
     [keyWindow.rootViewController presentViewController:alertController animated:YES completion:nil];
 }
 
