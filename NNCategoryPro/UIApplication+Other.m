@@ -20,7 +20,7 @@
 #import "UIViewController+Helper.h"
 
 #import "NNGloble.h"
-#import <YYModel/YYModel.h>
+//#import <YYModel/YYModel.h>
 #import <IQKeyboardManager/IQKeyboardManager.h>
 
 //#import <AFNetworking/AFNetworking.h>
