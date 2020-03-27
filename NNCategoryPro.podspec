@@ -29,9 +29,13 @@ Pod::Spec.new do |s|
 
    s.dependency 'NNGloble'
 
+  #  s.dependency 'AESCrypt-ObjC'
+  #  s.dependency 'FLAnimatedImage'
    s.dependency 'IQKeyboardManager'
    s.dependency 'GTMBase64'
+  #  s.dependency 'MBProgressHUD'
+  #  s.dependency 'MJExtension'
    s.dependency 'SDWebImage'
-   s.dependency 'YYModel'
+ #  s.dependency 'Toast'
 
 end
