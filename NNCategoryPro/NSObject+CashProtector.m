@@ -48,14 +48,15 @@ static NNForwardingTarget *_target = nil;
 
         if (isOpenCashProtector) {
             //NSClassFromString(@"__NSDictionaryM"),objc_getClass("__NSDictionaryM")
-            [self swizzleMethodInstance:NSClassFromString(@"__NSDictionaryM") origSel:@selector(setObject:forKey:) replSel:NSSelectorFromString(@"safe_setObject:forKey:")];
             
-            [self swizzleMethodInstance:NSClassFromString(@"__NSArrayI") origSel:@selector(objectAtIndex:) replSel:NSSelectorFromString(@"safe_objectAtIndex:")];
-            [self swizzleMethodInstance:NSClassFromString(@"__NSArrayM") origSel:@selector(objectAtIndex:) replSel:NSSelectorFromString(@"safe_objectAtIndex:")];
-            [self swizzleMethodInstance:NSClassFromString(@"__NSArrayM") origSel:@selector(addObject:) replSel:NSSelectorFromString(@"safe_addObject:")];
-            [self swizzleMethodInstance:NSClassFromString(@"__NSArrayM") origSel:@selector(insertObject:atIndex:) replSel:NSSelectorFromString(@"safe_insertObject:atIndex:")];
+            SwizzleMethodInstance(NSClassFromString(@"__NSDictionaryM"), @selector(setObject:forKey:), NSSelectorFromString(@"safe_setObject:forKey:"));
             
-            [self swizzleMethodInstance:self.class origSel:@selector(forwardingTargetForSelector:) replSel:@selector(swz_forwardingTargetForSelector:)];
+            SwizzleMethodInstance(NSClassFromString(@"__NSArrayI"), @selector(objectAtIndex:), NSSelectorFromString(@"safe_objectAtIndex:"));
+            SwizzleMethodInstance(NSClassFromString(@"__NSArrayM"), @selector(objectAtIndex:), NSSelectorFromString(@"safe_objectAtIndex:"));
+            SwizzleMethodInstance(NSClassFromString(@"__NSArrayM"), @selector(addObject:), NSSelectorFromString(@"safe_addObject:"));
+            SwizzleMethodInstance(NSClassFromString(@"__NSArrayM"), @selector(insertObject:atIndex:), NSSelectorFromString(@"safe_insertObject:atIndex:"));
+            
+            SwizzleMethodInstance(self.class, @selector(forwardingTargetForSelector:), @selector(swz_forwardingTargetForSelector:));
         }
     });
 }

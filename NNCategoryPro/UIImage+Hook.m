@@ -12,14 +12,12 @@
 
 @implementation UIImage (Hook)
 
-+ (void)initialize{
-    if (self == self.class) {
-        static dispatch_once_t onceToken;
-        dispatch_once(&onceToken, ^{
-            SwizzleMethodClass(@"UIImage", @selector(imageNamed:), @selector(hook_imageNamed:));
++ (void)load{
+    static dispatch_once_t onceToken;
+    dispatch_once(&onceToken, ^{
+        SwizzleMethodClass(self.class, @selector(imageNamed:), @selector(hook_imageNamed:));
 
-        });
-    }
+    });
 }
 
 + (UIImage *)hook_imageNamed:(NSString *)name{

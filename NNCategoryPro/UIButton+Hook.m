@@ -10,18 +10,13 @@
 
 @implementation UIButton (Hook)
 
-+ (void)initialize{
-    if (self == self.class) {
-        static dispatch_once_t onceToken;
-        dispatch_once(&onceToken, ^{
-            SwizzleMethodInstance(@"UIButton", @selector(sendAction:to:forEvent:), @selector(hook_sendAction:to:forEvent:));
-            
-            SwizzleMethodInstance(@"UIButton", @selector(setImage:forState:), @selector(hook_setImage:forState:));
-
-            SwizzleMethodInstance(@"UIButton", @selector(hook_setBackgroundImage:forState:), @selector(hook_setBackgroundImage:forState:));
-            
-        });
-    }
++ (void)load{
+    static dispatch_once_t onceToken;
+    dispatch_once(&onceToken, ^{
+        SwizzleMethodInstance(self.class, @selector(sendAction:to:forEvent:), @selector(hook_sendAction:to:forEvent:));
+        SwizzleMethodInstance(self.class, @selector(setImage:forState:), @selector(hook_setImage:forState:));
+        SwizzleMethodInstance(self.class, @selector(hook_setBackgroundImage:forState:), @selector(hook_setBackgroundImage:forState:));
+    });
 }
 
 -(void)hook_sendAction:(SEL)action to:(id)target forEvent:(UIEvent *)event{
