@@ -12,14 +12,12 @@
 
 @implementation UINavigationController (Hook)
 
-+ (void)initialize{
-    if (self == self.class) {
-        static dispatch_once_t onceToken;
-        dispatch_once(&onceToken, ^{
-            SwizzleMethodInstance(@"UINavigationController", @selector(pushViewController:animated:), @selector(hook_PushViewController:animated:));
-            
-        });
-    }
++ (void)load{
+    static dispatch_once_t onceToken;
+    dispatch_once(&onceToken, ^{
+        SwizzleMethodInstance(self.class, @selector(pushViewController:animated:), @selector(hook_PushViewController:animated:));
+        
+    });
 }
 
 - (void)hook_PushViewController:(UIViewController *)viewController animated:(BOOL)animated{
@@ -31,7 +29,6 @@
         viewController.navigationItem.leftBarButtonItem = [[UIBarButtonItem alloc]initWithCustomView:viewController.backBtn];;
    
     }
-    self.navigationController.delegate = nil;
     [self hook_PushViewController:viewController animated:animated];
 }
 

@@ -17,7 +17,7 @@
     if (self == self.class) {
         static dispatch_once_t onceToken;
         dispatch_once(&onceToken, ^{
-            SwizzleMethodInstance(@"UITextView",  NSSelectorFromString(@"dealloc"), @selector(swz_Dealloc));
+            SwizzleMethodInstance(self.class,  NSSelectorFromString(@"dealloc"), @selector(swz_Dealloc));
 
         });
     }

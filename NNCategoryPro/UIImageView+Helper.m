@@ -15,7 +15,6 @@
 #import "UIImage+Helper.h"
 #import "NSObject+Helper.h"
 
-#import "FLAnimatedImage.h"
 #import "CABasicAnimation+Helper.h"
 
 #import <SDWebImage/UIImageView+WebCache.h>
@@ -103,14 +102,6 @@
             [imgView.layer addAnimation:anim forKey:nil];
         }
             break;
-        case 1:
-        {
-            NSString *filePath = [[NSBundle bundleWithPath:NSBundle.mainBundle.bundlePath]pathForResource:@"loading" ofType:@"gif"];
-            FLAnimatedImage *image = [FLAnimatedImage animatedImageWithGIFData:[NSData dataWithContentsOfFile:filePath]];
-            imgView = [[FLAnimatedImageView alloc] initWithFrame:rect];
-            ((FLAnimatedImageView *)imgView).animatedImage = image;
-        }
-            break;
         default:
         {
             UIImage * image = [UIImage imageNamed:imageList.firstObject];
@@ -144,17 +135,17 @@
         return;
     }
     
-    if ([image isKindOfClass:[UIImage class]]) {
+    if ([image isKindOfClass: UIImage.class]) {
         self.image = image;
         return;
     }
     
-    if ([image isKindOfClass:[NSData class]]) {
+    if ([image isKindOfClass: NSData.class]) {
         self.image = [UIImage imageWithData:image];
         return;
     }
     
-    if ([image isKindOfClass:[NSString class]]) {
+    if ([image isKindOfClass: NSString.class]) {
         if ([image hasPrefix:@"http"]) {
             [self sd_setImageWithURL:[NSURL URLWithString:image] placeholderImage:[UIImage imageNamed:imageDefault]];
         }

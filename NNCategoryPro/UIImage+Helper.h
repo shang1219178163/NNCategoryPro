@@ -81,6 +81,9 @@ FOUNDATION_EXPORT bool UIImageEquelToImage(UIImage *image0, UIImage *image1);
 #pragma mark - -压缩图片
 + (UIImage *)resizeImage:(UIImage *)image toMaxSize:(CGSize)maxSize;
 
+// 大图缩小为显示尺寸的图
+- (UIImage *)downsampleImageAt:(NSURL *)imageURL to:(CGSize)pointSize scale:(CGFloat)scale;
+
 //1.自动缩放到指定大小
 - (UIImage *)thumbnailToFileSize:(CGSize)asize;
 

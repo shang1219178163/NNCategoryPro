@@ -10,18 +10,16 @@
 
 @implementation UIViewController (Hook)
 
-+ (void)initialize{
-    if (self == self.class) {
-        static dispatch_once_t onceToken;
-        dispatch_once(&onceToken, ^{
-            SwizzleMethodInstance(@"UIViewController", @selector(viewDidLoad), @selector(hook_viewDidLoad));
-            SwizzleMethodInstance(@"UIViewController", @selector(viewWillAppear:), @selector(hook_viewWillAppear:));
-            SwizzleMethodInstance(@"UIViewController", @selector(viewDidDisappear:), @selector(hook_viewDidDisappear:));
-            
-            SwizzleMethodInstance(@"UIViewController", @selector(presentViewController:animated:completion:), @selector(hook_presentViewController:animated:completion:));
++ (void)load{
+    static dispatch_once_t onceToken;
+    dispatch_once(&onceToken, ^{
+        SwizzleMethodInstance(self.class, @selector(viewDidLoad), @selector(hook_viewDidLoad));
+        SwizzleMethodInstance(self.class, @selector(viewWillAppear:), @selector(hook_viewWillAppear:));
+        SwizzleMethodInstance(self.class, @selector(viewDidDisappear:), @selector(hook_viewDidDisappear:));
+        
+        SwizzleMethodInstance(self.class, @selector(presentViewController:animated:completion:), @selector(hook_presentViewController:animated:completion:));
 
-        });
-    }
+    });
 }
 
 // 我们自己实现的方法，也就是和self的viewDidLoad方法进行交换的方法。

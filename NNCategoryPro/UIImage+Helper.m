@@ -488,6 +488,33 @@ bool UIImageEquelToImage(UIImage *image0, UIImage *image1){
     
     return resizedImage;
 }
+// 大图缩小为显示尺寸的图
+- (UIImage *)downsampleImageAt:(NSURL *)imageURL to:(CGSize)pointSize scale:(CGFloat)scale {
+    // 利用图像文件地址创建 image source
+    NSDictionary *imageSourceOptions =
+  @{
+    (__bridge NSString *)kCGImageSourceShouldCache: @NO // 原始图像不要解码
+    };
+    CGImageSourceRef imageSource =
+    CGImageSourceCreateWithURL((__bridge CFURLRef)imageURL, (__bridge CFDictionaryRef)imageSourceOptions);
+
+    // 下采样
+    CGFloat maxDimensionInPixels = MAX(pointSize.width, pointSize.height) * scale;
+    NSDictionary *downsampleOptions =
+    @{
+      (__bridge NSString *)kCGImageSourceCreateThumbnailFromImageAlways: @YES,
+      (__bridge NSString *)kCGImageSourceShouldCacheImmediately: @YES,  // 缩小图像的同时进行解码
+      (__bridge NSString *)kCGImageSourceCreateThumbnailWithTransform: @YES,
+      (__bridge NSString *)kCGImageSourceThumbnailMaxPixelSize: @(maxDimensionInPixels)
+       };
+    CGImageRef downsampledImage =
+    CGImageSourceCreateThumbnailAtIndex(imageSource, 0, (__bridge CFDictionaryRef)downsampleOptions);
+    UIImage *image = [[UIImage alloc] initWithCGImage:downsampledImage];
+    CGImageRelease(downsampledImage);
+    CFRelease(imageSource);
+
+    return image;
+}
 
 //1.自动缩放到指定大小
 - (UIImage *)thumbnailToFileSize:(CGSize)asize{

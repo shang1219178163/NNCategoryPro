@@ -10,15 +10,13 @@
 
 @implementation UIImageView (Hook)
 
-+ (void)initialize{
-    if (self == self.class) {
-        static dispatch_once_t onceToken;
-        dispatch_once(&onceToken, ^{
-//            SwizzleMethodInstance(@"UIImageView", @selector(setTintColor:), @selector(hook_setTintColor:));
-            SwizzleMethodInstance(@"UIImageView", NSSelectorFromString(@"setTintColor:"), NSSelectorFromString(@"hook_setTintColor:"));
++ (void)load{
+    static dispatch_once_t onceToken;
+    dispatch_once(&onceToken, ^{
+        SwizzleMethodInstance(self.class, NSSelectorFromString(@"setTintColor:"), NSSelectorFromString(@"hook_setTintColor:"));
 
-        });
-    }
+    });
+    
 }
 
 - (void)hook_setTintColor:(UIColor *)color {
