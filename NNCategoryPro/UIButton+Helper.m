@@ -17,7 +17,7 @@
 #import "UILabel+Helper.h"
 #import "UIImage+Helper.h"
 
-#import "NNGloble.h"
+#import <NNGloble/NNGloble.h>
 
 @implementation UIButton (Helper)
 

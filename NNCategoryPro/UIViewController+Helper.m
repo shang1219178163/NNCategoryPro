@@ -9,8 +9,7 @@
 #import "UIViewController+Helper.h"
 #import <objc/runtime.h>
 #import <StoreKit/StoreKit.h>
-
-#import "NNGloble.h"
+#import <NNGloble/NNGloble.h>
 
 #import "NSObject+Helper.h"
 #import "UIApplication+Helper.h"
@@ -628,7 +627,7 @@ UINavigationController * UINavCtrFromObj(id obj){
 }
 
 - (void)showAlertTitle:(NSString *_Nullable)title msg:(NSString *_Nullable)msg handler:(void(^)(UIAlertController * _Nonnull alertVC, UIAlertAction * _Nullable action))handler{
-    [UIAlertController createAlertTitle:title msg:msg placeholders:nil actionTitles:@[kTitleCancell,kTitleSure] handler:handler];
+    [UIAlertController createAlertTitle:title msg:msg placeholders:nil actionTitles:@[kTitleCancell, kTitleSure] handler:handler];
 }
 
 - (void)showAlertTitle:(NSString *_Nullable)title msg:(NSString *_Nullable)msg actionTitles:(NSArray *_Nullable)actionTitleList handler:(void(^)(UIAlertController * _Nonnull alertVC, UIAlertAction * _Nullable action))handler{

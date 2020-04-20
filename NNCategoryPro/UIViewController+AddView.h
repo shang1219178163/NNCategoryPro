@@ -20,7 +20,7 @@ NS_ASSUME_NONNULL_BEGIN
 
 @property (nonatomic, assign) NSInteger pageIndex;
 @property (nonatomic, strong) NSMutableArray * dataList;
-@property (nonatomic, strong) NSMutableDictionary * heightMdic;
+//@property (nonatomic, strong) NSMutableDictionary * heightMdic;
 
 @end
 

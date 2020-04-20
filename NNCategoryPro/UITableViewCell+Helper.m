@@ -9,7 +9,7 @@
 #import "UITableViewCell+Helper.h"
 
 #import <objc/runtime.h>
-#import "NNGloble.h"
+#import <NNGloble/NNGloble.h>
 
 @implementation UITableViewCell (Helper)
 

@@ -10,7 +10,7 @@
 #import "UITableViewHeaderFooterView+AddView.h"
 #import <objc/runtime.h>
 
-#import "NNGloble.h"
+#import <NNGloble/NNGloble.h>
 #import "UIView+AddView.h"
 #import "UIView+Helper.h"
 #import "UIButton+Helper.h"

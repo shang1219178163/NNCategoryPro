@@ -7,7 +7,7 @@
 //
 
 #import "AVSpeechSynthesizer+Helper.h"
-#import "NNGloble.h"
+#import <NNGloble/NNGloble.h>
 
 @implementation AVSpeechSynthesizer (Helper)
 

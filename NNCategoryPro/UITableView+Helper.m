@@ -9,7 +9,7 @@
 
 #import "UITableView+Helper.h"
 
-#import "NNGloble.h"
+#import <NNGloble/NNGloble.h>
 #import "UIColor+Helper.h"
 #import "NSArray+Helper.h"
 

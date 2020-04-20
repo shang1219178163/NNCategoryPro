@@ -10,7 +10,7 @@
 #import "UIImage+Helper.h"
 #import <Accelerate/Accelerate.h>
 
-#import "NNGloble.h"
+#import <NNGloble/NNGloble.h>
 #import "UIColor+Helper.h"
 #import "NSBundle+Helper.h"
 

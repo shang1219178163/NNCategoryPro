@@ -7,7 +7,7 @@
 //
 
 #import "NSNumberFormatter+Helper.h"
-#import "NNGloble.h"
+#import <NNGloble/NNGloble.h>
 
 NSString * const kNumIdentify = @"四舍五入";// 默认
 NSString * const kNumIdentify_decimal = @"分隔符,保留3位小数";

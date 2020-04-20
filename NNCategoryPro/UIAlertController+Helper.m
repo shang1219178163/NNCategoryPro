@@ -7,7 +7,7 @@
 //
 
 #import "UIAlertController+Helper.h"
-#import "NNGloble.h"
+#import <NNGloble/NNGloble.h>
 
 /// UIAlertController标题富文本key
 NSString * const kAlertCtlrTitle = @"attributedTitle";

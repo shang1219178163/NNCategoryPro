@@ -19,7 +19,7 @@
 #import "UIView+Helper.h"
 #import "UIViewController+Helper.h"
 
-#import "NNGloble.h"
+#import <NNGloble/NNGloble.h>
 #import <IQKeyboardManager/IQKeyboardManager.h>
 
 @implementation UIApplication (Other)

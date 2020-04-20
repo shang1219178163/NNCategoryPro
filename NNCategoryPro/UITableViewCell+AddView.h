@@ -8,7 +8,7 @@
 
 #import <UIKit/UIKit.h>
 
-#import "NNGloble.h"
+#import <NNGloble/NNGloble.h>
 
 @class NNTextField;
 

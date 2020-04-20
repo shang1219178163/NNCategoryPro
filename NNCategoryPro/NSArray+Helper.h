@@ -7,7 +7,7 @@
 //
 
 #import <Foundation/Foundation.h>
-#import "NNGloble.h"
+#import <NNGloble/NNGloble.h>
 
 /*
 数组合并(去重合并:distinctUnionOfArrays.self、直接合并:unionOfArrays.self)

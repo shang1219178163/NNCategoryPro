@@ -106,18 +106,18 @@
     objc_setAssociatedObject(self, @selector(dataList), dataList, OBJC_ASSOCIATION_RETAIN_NONATOMIC);
 }
 
--(NSMutableDictionary *)heightMdict{
-    NSMutableDictionary * dic = objc_getAssociatedObject(self, _cmd);
-    if (!dic) {
-        dic = [NSMutableDictionary dictionary];
-        objc_setAssociatedObject(self, _cmd, dic, OBJC_ASSOCIATION_RETAIN_NONATOMIC);
-    }
-    return dic;
-}
-
--(void)setHeightMdic:(NSMutableDictionary *)heightMdic{
-    objc_setAssociatedObject(self, @selector(heightMdic), heightMdic, OBJC_ASSOCIATION_RETAIN_NONATOMIC);
-}
+//-(NSMutableDictionary *)heightMdict{
+//    NSMutableDictionary * dic = objc_getAssociatedObject(self, _cmd);
+//    if (!dic) {
+//        dic = [NSMutableDictionary dictionary];
+//        objc_setAssociatedObject(self, _cmd, dic, OBJC_ASSOCIATION_RETAIN_NONATOMIC);
+//    }
+//    return dic;
+//}
+//
+//-(void)setHeightMdic:(NSMutableDictionary *)heightMdic{
+//    objc_setAssociatedObject(self, @selector(heightMdic), heightMdic, OBJC_ASSOCIATION_RETAIN_NONATOMIC);
+//}
 
 @end
 

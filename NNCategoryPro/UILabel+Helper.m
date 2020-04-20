@@ -8,7 +8,7 @@
 //
 
 #import "UILabel+Helper.h"
-#import "NNGloble.h"
+#import <NNGloble/NNGloble.h>
 #import "UIColor+Helper.h"
 
 @implementation UILabel (Helper)

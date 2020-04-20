@@ -9,7 +9,7 @@
 
 #import "UIImageView+Helper.h"
 
-#import "NNGloble.h"
+#import <NNGloble/NNGloble.h>
 #import "UIView+Helper.h"
 #import "UILabel+Helper.h"
 #import "UIImage+Helper.h"

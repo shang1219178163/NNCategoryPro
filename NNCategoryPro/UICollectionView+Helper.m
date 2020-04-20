@@ -9,7 +9,7 @@
 
 #import "UICollectionView+Helper.h"
 #import <objc/runtime.h>
-#import "NNGloble.h"
+#import <NNGloble/NNGloble.h>
 #import "UICollectionViewLayout+AddView.h"
 
 NSString * const UICollectionElementKindSectionItem = @"UICollectionElementKindSectionItem";

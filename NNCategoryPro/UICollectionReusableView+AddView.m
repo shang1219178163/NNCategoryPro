@@ -10,7 +10,7 @@
 #import "UICollectionReusableView+AddView.h"
 
 #import <objc/runtime.h>
-#import "NNGloble.h"
+#import <NNGloble/NNGloble.h>
 
 @implementation UICollectionReusableView (AddView)
 

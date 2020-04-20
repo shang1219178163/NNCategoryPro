@@ -19,7 +19,7 @@
 #import "NSNumberFormatter+Helper.h"
 #import "NSNumber+Helper.h"
 
-#import "NNGloble.h"
+#import <NNGloble/NNGloble.h>
 
 @implementation NSString (Helper)
 

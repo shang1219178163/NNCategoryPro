@@ -8,7 +8,7 @@
 
 #import "UIColor+Helper.h"
 
-#import "NNGloble.h"
+#import <NNGloble/NNGloble.h>
 #import "UIApplication+Helper.h"
 
 @implementation UIColor (Helper)
