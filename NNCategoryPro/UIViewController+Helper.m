@@ -622,25 +622,24 @@ UINavigationController * UINavCtrFromObj(id obj){
 
 #pragma mark -------------alert升级方法-------------------
 
-- (void)showAlertTitle:(NSString *_Nullable)title msg:(NSString *_Nullable)msg{
-    [UIAlertController createAlertTitle:title msg:msg placeholders:nil actionTitles:nil handler:nil];
-}
-
-- (void)showAlertTitle:(NSString *_Nullable)title msg:(NSString *_Nullable)msg handler:(void(^)(UIAlertController * _Nonnull alertVC, UIAlertAction * _Nullable action))handler{
-    [UIAlertController createAlertTitle:title msg:msg placeholders:nil actionTitles:@[kTitleCancell, kTitleSure] handler:handler];
-}
-
-- (void)showAlertTitle:(NSString *_Nullable)title msg:(NSString *_Nullable)msg actionTitles:(NSArray *_Nullable)actionTitleList handler:(void(^)(UIAlertController * _Nonnull alertVC, UIAlertAction * _Nullable action))handler{
-    UIAlertController *alertController = [UIAlertController createAlertTitle:title msg:msg placeholders:nil actionTitles:actionTitleList handler:handler];
-    UIWindow *keyWindow = UIApplication.sharedApplication.delegate.window;
-    [keyWindow.rootViewController presentViewController:alertController animated:YES completion:nil];
-}
+//- (void)showAlertTitle:(NSString *_Nullable)title msg:(NSString *_Nullable)msg{
+//    [UIAlertController createAlertTitle:title msg:msg placeholders:nil actionTitles:nil handler:nil];
+//}
+//
+//- (void)showAlertTitle:(NSString *_Nullable)title msg:(NSString *_Nullable)msg handler:(void(^)(UIAlertController * _Nonnull alertVC, UIAlertAction * _Nullable action))handler{
+//    [UIAlertController createAlertTitle:title msg:msg placeholders:nil actionTitles:@[kTitleCancell, kTitleSure] handler:handler];
+//}
+//
+//- (void)showAlertTitle:(NSString *_Nullable)title msg:(NSString *_Nullable)msg actionTitles:(NSArray *_Nullable)actionTitleList handler:(void(^)(UIAlertController * _Nonnull alertVC, UIAlertAction * _Nullable action))handler{
+//    UIAlertController *alertController = [UIAlertController createAlertTitle:title msg:msg placeholders:nil actionTitles:actionTitleList handler:handler];
+//    UIWindow *keyWindow = UIApplication.sharedApplication.delegate.window;
+//    [keyWindow.rootViewController presentViewController:alertController animated:YES completion:nil];
+//}
 
 - (void)callPhone:(NSString *)phoneNumber{
-    
-    NSArray * titleList = @[@"取消",@"呼叫"];
-    [self showAlertTitle:nil msg:phoneNumber actionTitles:titleList handler:^(UIAlertController * _Nonnull alertController, UIAlertAction * _Nullable action) {
-        if ([action.title isEqualToString:[titleList lastObject]]) {
+    NSArray *titles = @[@"取消",@"呼叫"];
+    [UIAlertController showAlertTitle:nil msg:phoneNumber actionTitles:titles handler:^(UIAlertController * _Nonnull alertController, UIAlertAction * _Nullable action) {
+        if ([action.title isEqualToString:[titles lastObject]]) {
             
             dispatch_async(dispatch_get_global_queue(0, 0), ^{
                 NSString * phoneStr = [NSString stringWithFormat:@"tel:%@",phoneNumber];

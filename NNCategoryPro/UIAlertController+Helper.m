@@ -19,9 +19,13 @@ NSString * const kAlertActionColor = @"titleTextColor";
 
 @implementation UIAlertController (Helper)
 
-+ (instancetype)createAlertTitle:(NSString * _Nullable)title msg:(NSString *_Nullable)msg placeholders:(NSArray *_Nullable)placeholders actionTitles:(NSArray *_Nullable)actionTitles handler:(void(^_Nullable)(UIAlertController *alertVC, UIAlertAction *action))handler{
++ (instancetype)createAlertTitle:(NSString * _Nullable)title
+                             msg:(NSString *_Nullable)msg
+                    placeholders:(NSArray *_Nullable)placeholders
+                    actionTitles:(NSArray *_Nullable)actionTitles
+                         handler:(void(^_Nullable)(UIAlertController *alertVC, UIAlertAction *action))handler{
     
-    UIAlertController * alertController = [UIAlertController alertControllerWithTitle:title message:msg preferredStyle:UIAlertControllerStyleAlert];
+    UIAlertController *alertController = [UIAlertController alertControllerWithTitle:title message:msg preferredStyle:UIAlertControllerStyleAlert];
     for (NSString * placeholder in placeholders) {
         [alertController addTextFieldWithConfigurationHandler:^(UITextField * _Nonnull textField) {
             textField.placeholder = placeholder;
@@ -50,10 +54,14 @@ NSString * const kAlertActionColor = @"titleTextColor";
     return alertController;
 }
 
-+ (instancetype)showAlertTitle:(NSString * _Nullable)title msg:(NSString *_Nullable)msg placeholders:(NSArray *_Nullable)placeholders actionTitles:(NSArray *_Nullable)actionTitles handler:(void(^_Nullable)(UIAlertController *alertVC, UIAlertAction *action))handler{
++ (instancetype)showAlertTitle:(NSString * _Nullable)title
+                           msg:(NSString *_Nullable)msg
+                  placeholders:(NSArray *_Nullable)placeholders
+                  actionTitles:(NSArray *_Nullable)actionTitles
+                       handler:(void(^_Nullable)(UIAlertController *alertVC, UIAlertAction *action))handler{
     UIWindow *keyWindow = UIApplication.sharedApplication.delegate.window;
 
-    UIAlertController * alertController = [UIAlertController createAlertTitle:title msg:msg placeholders:placeholders actionTitles:actionTitles handler:handler];
+    UIAlertController *alertController = [UIAlertController createAlertTitle:title msg:msg placeholders:placeholders actionTitles:actionTitles handler:handler];
     if (alertController.actions.count == 0) {
         [keyWindow.rootViewController presentViewController:alertController animated:YES completion:^{
             dispatch_after(dispatch_time(DISPATCH_TIME_NOW, (int64_t)(kDurationToast * NSEC_PER_SEC)), dispatch_get_main_queue(), ^{
@@ -68,7 +76,10 @@ NSString * const kAlertActionColor = @"titleTextColor";
     return alertController;
 }
 
-+ (instancetype)createSheetTitle:(NSString *_Nullable)title msg:(NSString *_Nullable)msg actionTitles:(NSArray *_Nullable)actionTitles handler:(void(^_Nullable)(UIAlertController *alertVC, UIAlertAction *action))handler{
++ (instancetype)createSheetTitle:(NSString *_Nullable)title
+                             msg:(NSString *_Nullable)msg
+                    actionTitles:(NSArray *_Nullable)actionTitles
+                         handler:(void(^_Nullable)(UIAlertController *alertVC, UIAlertAction *action))handler{
     
     UIAlertController * alertController = [UIAlertController alertControllerWithTitle:title message:msg preferredStyle:UIAlertControllerStyleActionSheet];
     
@@ -89,7 +100,10 @@ NSString * const kAlertActionColor = @"titleTextColor";
     return alertController;
 }
 
-+ (instancetype)showSheetTitle:(NSString *_Nullable)title msg:(NSString *_Nullable)msg actionTitles:(NSArray *_Nullable)actionTitles handler:(void(^_Nullable)(UIAlertController *alertVC, UIAlertAction *action))handler{
++ (instancetype)showSheetTitle:(NSString *_Nullable)title
+                           msg:(NSString *_Nullable)msg
+                  actionTitles:(NSArray *_Nullable)actionTitles
+                       handler:(void(^_Nullable)(UIAlertController *alertVC, UIAlertAction *action))handler{
     UIAlertController * alertController = [UIAlertController createSheetTitle:title msg:msg actionTitles:actionTitles handler:handler];
     
     UIWindow *keyWindow = UIApplication.sharedApplication.delegate.window;
@@ -100,21 +114,35 @@ NSString * const kAlertActionColor = @"titleTextColor";
 /**
  展示alert,然后执行异步block代码,然后主线程dismiss
  */
-+ (instancetype)showAletTitle:(NSString *_Nullable)title msg:(NSString *_Nullable)msg handler:(void(^ _Nullable)(void))handler{
-    UIWindow *keyWindow = UIApplication.sharedApplication.delegate.window;
-    UIAlertController * alertController = [UIAlertController alertControllerWithTitle:title message:msg preferredStyle:UIAlertControllerStyleAlert];
-    [keyWindow.rootViewController presentViewController:alertController animated:false completion:nil];
-    
-    dispatch_async(dispatch_get_global_queue(0, 0), ^{
-        if (handler) {
-            handler();
-        }
-        dispatch_after(dispatch_time(DISPATCH_TIME_NOW, (int64_t)(2 * NSEC_PER_SEC)), dispatch_get_main_queue(), ^{
-            [alertController dismissViewControllerAnimated:true completion:nil];
-        });
-    });
-    return alertController;
+//+ (instancetype)showAletTitle:(NSString *_Nullable)title msg:(NSString *_Nullable)msg handler:(void(^ _Nullable)(void))handler{
+//    UIWindow *keyWindow = UIApplication.sharedApplication.delegate.window;
+//    UIAlertController * alertController = [UIAlertController alertControllerWithTitle:title message:msg preferredStyle:UIAlertControllerStyleAlert];
+//    [keyWindow.rootViewController presentViewController:alertController animated:false completion:nil];
+//
+//    dispatch_async(dispatch_get_global_queue(0, 0), ^{
+//        if (handler) {
+//            handler();
+//        }
+//        dispatch_after(dispatch_time(DISPATCH_TIME_NOW, (int64_t)(2 * NSEC_PER_SEC)), dispatch_get_main_queue(), ^{
+//            [alertController dismissViewControllerAnimated:true completion:nil];
+//        });
+//    });
+//    return alertController;
+//}
+
++ (instancetype)showAlertTitle:(NSString * _Nullable)title
+                           msg:(NSString *_Nullable)msg
+                  actionTitles:(NSArray *_Nullable)actionTitles
+                       handler:(void(^_Nullable)(UIAlertController *alertVC, UIAlertAction *action))handler{
+    return [UIAlertController showAlertTitle:title msg:msg placeholders:nil actionTitles:actionTitles handler:handler];
 }
+
++ (instancetype)showAlertTitle:(NSString *_Nullable)title
+                           msg:(NSString *_Nullable)msg
+                       handler:(void(^)(UIAlertController * _Nonnull alertVC, UIAlertAction * _Nullable action))handler{
+    return [UIAlertController showAlertTitle:title msg:msg placeholders:nil actionTitles:@[kTitleCancell, kTitleSure] handler:handler];
+}
+
 
 - (void)setTitleColor:(UIColor *)color{
     assert(self.title != nil);

@@ -18,6 +18,7 @@
 
 #import "NSNumberFormatter+Helper.h"
 #import "NSNumber+Helper.h"
+#import "UIAlertController+Helper.h"
 
 #import <NNGloble/NNGloble.h>
 
@@ -469,7 +470,7 @@ NSString * NSStringFromFloat(CGFloat obj){
     if (hiddenTips == NO) {
         NSString * tips = [NSString stringWithFormat:@"'%@'已复制!",pasteboard.string];
 //        [(UIView *)UIApplication.keyWindow makeToast:tips duration:1 position:CSToastPositionCenter];
-        [UIApplication.rootController showAlertTitle:@"" msg:tips actionTitles:nil handler:nil];
+        [UIAlertController showAlertTitle:@"" msg:tips actionTitles:nil handler:nil];
     }
 }
 
@@ -518,7 +519,7 @@ NSString * NSStringFromFloat(CGFloat obj){
     NSMutableString *str = [[NSMutableString alloc]initWithFormat:@"tel:%@",phoneNum];
     
     __block  BOOL isSuccess = NO;
-    [UIApplication.rootController showAlertTitle:nil msg:phoneNum actionTitles:@[kTitleCancell,kTitleCall] handler:^(UIAlertController * _Nonnull alertVC, UIAlertAction * _Nullable action) {
+    [UIAlertController showAlertTitle:nil msg:phoneNum actionTitles:@[kTitleCancell, kTitleCall] handler:^(UIAlertController * _Nonnull alertVC, UIAlertAction * _Nullable action) {
         if ([action.title isEqualToString:kTitleCall]) {
             isSuccess = [UIApplication.sharedApplication openURL:[NSURL URLWithString:str]];
             

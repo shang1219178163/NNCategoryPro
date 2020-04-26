@@ -32,7 +32,7 @@
     [PHPhotoLibrary requestAuthorization:^(PHAuthorizationStatus status) {
         if(status == PHAuthorizationStatusAuthorized || status == PHAuthorizationStatusDenied){
             NSString * msg = [NSString stringWithFormat:@"请去-> [设置 - 隐私 - %@ - %@] 打开访问开关", @"相册" , UIApplication.appName];
-            [UIAlertController showAletTitle:@"提示" msg:msg handler:nil];
+            [UIAlertController showAlertTitle:@"提示" msg:msg actionTitles:@[kTitleKnow] handler:nil];
             isRight = false;
         }
     }];
@@ -46,7 +46,7 @@
     AVAuthorizationStatus status = [AVCaptureDevice authorizationStatusForMediaType:AVMediaTypeAudio];//读取设备授权状态
     if(status == AVAuthorizationStatusRestricted || status == AVAuthorizationStatusDenied){
         NSString * msg = [NSString stringWithFormat:@"请去-> [设置 - 隐私 - %@ - %@] 打开访问开关", @"相机" , UIApplication.appName];
-        [UIAlertController showAletTitle:@"提示" msg:msg handler:nil];
+        [UIAlertController showAlertTitle:@"提示" msg:msg actionTitles:@[kTitleKnow] handler:nil];
         return false;
     }
     return true;
@@ -82,7 +82,7 @@
         case AVAuthorizationStatusRestricted:
         {
             NSString * msg = [NSString stringWithFormat:@"请去-> [设置 - 隐私 - 相机 - %@] 打开访问开关",UIApplication.appName];
-            [UIAlertController showAletTitle:@"提示" msg:msg handler:nil];
+            [UIAlertController showAlertTitle:@"提示" msg:msg actionTitles:@[kTitleKnow] handler:nil];
             break;
         }
         default:

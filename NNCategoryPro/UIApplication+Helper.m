@@ -12,6 +12,7 @@
 #import <sys/utsname.h>
 
 #import "UIImage+Helper.h"
+#import "UIAlertController+Helper.h"
 
 NSString * const kJPush_type = @"into_page_type";
 NSString * const kJPush_extras = @"extras";
@@ -351,7 +352,7 @@ static NSDictionary *_infoDic = nil;
     }
     else{
         NSString *tips = [urlStr stringByAppendingString:@"打开失败"];
-        [UIApplication.rootController showAlertTitle:tips msg:nil actionTitles:nil handler:nil];
+        [UIAlertController showAlertTitle:tips msg:nil actionTitles:nil handler:nil];
         
     }
     return canOpenUrl;
