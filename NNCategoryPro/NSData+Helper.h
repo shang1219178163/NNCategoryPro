@@ -13,6 +13,8 @@ NS_ASSUME_NONNULL_BEGIN
 
 @interface NSData (Helper)
 
+///->id
+@property (nonatomic, strong, readonly) id objValue;
 
 + (NSData *)base64DataFromString:(NSString *)string;
 

@@ -75,73 +75,73 @@ NSString *UrlAddress(NSString *hostname, NSString *port){
 
 @implementation NSObject (Helper)
 
--(NSData *)jsonData{
-    id obj = self;
-
-    NSData *data = nil;
-    if ([obj isKindOfClass: NSData.class]) {
-        data = obj;
-        
-    } else if ([obj isKindOfClass: NSString.class]) {
-        data = [obj dataUsingEncoding:NSUTF8StringEncoding];
-        
-    }
-    else if ([obj isKindOfClass:[NSDictionary class]] || [obj isKindOfClass:[NSArray class]]){
-        NSError * error = nil;
-        data = [NSJSONSerialization dataWithJSONObject:obj options:kNilOptions error:&error];
-        if (error) {
-#ifdef DEBUG
-            NSLog(@"fail to get NSData from obj: %@, error: %@", obj, error);
-#endif
-        }
-    }
-//    else if ([obj isKindOfClass: UIImage.class]){
-//        data = UIImageJPEGRepresentation(obj, 1.0);
-//        
+//-(NSData *)jsonData{
+//    id obj = self;
+//
+//    NSData *data = nil;
+//    if ([obj isKindOfClass: NSData.class]) {
+//        data = obj;
+//
+//    } else if ([obj isKindOfClass: NSString.class]) {
+//        data = [obj dataUsingEncoding:NSUTF8StringEncoding];
+//
 //    }
-    return data;
-}
-
--(NSString *)jsonString{
-    NSData *jsonData = self.jsonData;
-    NSString *jsonString = [[NSString alloc] initWithData:jsonData encoding:NSUTF8StringEncoding];
-    return jsonString;
-}
-
-- (id)objValue{
-    assert([self isKindOfClass: NSString.class] || [self isKindOfClass:NSData.class] || [self isKindOfClass: NSDictionary.class] || [self isKindOfClass: NSArray.class]);
-    if ([self isKindOfClass: NSDictionary.class] || [self isKindOfClass: NSArray.class]) {
-        return self;
-    }
-    
-    NSError *error = nil;
-    if ([self isKindOfClass: NSString.class]) {
-        NSData *data = [(NSString *)self dataUsingEncoding:NSUTF8StringEncoding];
-        id obj = [NSJSONSerialization JSONObjectWithData:data options:kNilOptions error:&error];
-        if (!error) {
-            return obj;
-        }
-#ifdef DEBUG
-        NSLog(@"fail to get dictioanry from JSON: %@, error: %@", data, error);
-#endif
-    } else if ([self isKindOfClass: NSData.class]) {
-        id obj = [NSJSONSerialization JSONObjectWithData:(NSData *)self options:kNilOptions error:&error];
-        if (!error) {
-            return obj;
-        }
-#ifdef DEBUG
-        NSLog(@"fail to get dictioanry from JSON: %@, error: %@", obj, error);
-#endif
-    }
-    return nil;
-}
-
-- (NSDictionary *)dictValue{
-    if ([self.objValue isKindOfClass: NSDictionary.class]) {
-        return self.objValue;
-    }
-    return nil;
-}
+//    else if ([obj isKindOfClass:[NSDictionary class]] || [obj isKindOfClass:[NSArray class]]){
+//        NSError * error = nil;
+//        data = [NSJSONSerialization dataWithJSONObject:obj options:kNilOptions error:&error];
+//        if (error) {
+//#ifdef DEBUG
+//            NSLog(@"fail to get NSData from obj: %@, error: %@", obj, error);
+//#endif
+//        }
+//    }
+////    else if ([obj isKindOfClass: UIImage.class]){
+////        data = UIImageJPEGRepresentation(obj, 1.0);
+////
+////    }
+//    return data;
+//}
+//
+//-(NSString *)jsonString{
+//    NSData *jsonData = self.jsonData;
+//    NSString *jsonString = [[NSString alloc] initWithData:jsonData encoding:NSUTF8StringEncoding];
+//    return jsonString;
+//}
+//
+//- (id)objValue{
+//    assert([self isKindOfClass: NSString.class] || [self isKindOfClass:NSData.class] || [self isKindOfClass: NSDictionary.class] || [self isKindOfClass: NSArray.class]);
+//    if ([self isKindOfClass: NSDictionary.class] || [self isKindOfClass: NSArray.class]) {
+//        return self;
+//    }
+//
+//    NSError *error = nil;
+//    if ([self isKindOfClass: NSString.class]) {
+//        NSData *data = [(NSString *)self dataUsingEncoding:NSUTF8StringEncoding];
+//        id obj = [NSJSONSerialization JSONObjectWithData:data options:kNilOptions error:&error];
+//        if (!error) {
+//            return obj;
+//        }
+//#ifdef DEBUG
+//        NSLog(@"fail to get dictioanry from JSON: %@, error: %@", data, error);
+//#endif
+//    } else if ([self isKindOfClass: NSData.class]) {
+//        id obj = [NSJSONSerialization JSONObjectWithData:(NSData *)self options:kNilOptions error:&error];
+//        if (!error) {
+//            return obj;
+//        }
+//#ifdef DEBUG
+//        NSLog(@"fail to get dictioanry from JSON: %@, error: %@", obj, error);
+//#endif
+//    }
+//    return nil;
+//}
+//
+//- (NSDictionary *)dictValue{
+//    if ([self.objValue isKindOfClass: NSDictionary.class]) {
+//        return self.objValue;
+//    }
+//    return nil;
+//}
 
 //为 NSObject 扩展 NSCoding 协议里的两个方法, 用来便捷实现复杂对象的归档与反归档
 - (void)encodeWithCoder:(NSCoder *)aCoder {
@@ -185,6 +185,23 @@ NSString *UrlAddress(NSString *hostname, NSString *port){
     return self;
 }
 
+- (NSDictionary *)toDictionary{
+    NSMutableDictionary *userDic = [NSMutableDictionary dictionary];
+    unsigned int count = 0;
+    objc_property_t *properties = class_copyPropertyList([self class], &count);
+    for (int i = 0; i < count; i++) {
+        const char *name = property_getName(properties[i]);
+
+        NSString *propertyName = [NSString stringWithUTF8String:name];
+        id propertyValue = [self valueForKey:propertyName];
+        if (propertyValue) {
+            [userDic setObject:propertyValue forKey:propertyName];
+        }
+    }
+    free(properties);
+    return userDic;
+}
+
 //KVC
 -(void)setValue:(id)value forUndefinedKey:(NSString *)key{
     NSLog(@"setValue: forUndefinedKey:, 动态创建Key: %@",key);
@@ -201,7 +218,6 @@ NSString *UrlAddress(NSString *hostname, NSString *port){
     NSLog(@"Invoke setNilValueForKey:, 不能给非指针对象(如NSInteger)赋值 nil");
     return;//给一个非指针对象(如NSInteger)赋值 nil, 直接忽略
 }
-
 
 #pragma mark - -runtime
 ///通过运行时获取当前对象的所有属性的名称，以数组的形式返回

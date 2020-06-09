@@ -11,8 +11,8 @@
 NS_ASSUME_NONNULL_BEGIN
 
 @interface UIImageView (Animation)
-
-- (void)addAnimWithImageArr:(NSArray *)imageArr;
+///持续翻转动画
+- (void)addFlipAnimtion:(UIImage *)image backImage:(UIImage *)backImage;
 
 @end
 

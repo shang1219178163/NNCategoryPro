@@ -14,6 +14,15 @@
 
 @implementation NSData (Helper)
 
+-(id)objValue{
+    NSError *error;
+    id obj = [NSJSONSerialization JSONObjectWithData:self options:kNilOptions error:&error];
+    if (error) {
+        return nil;
+    }
+    return obj;
+}
+
 static char encodingTable[64] =
 {
     'A','B','C','D','E','F','G','H','I','J','K','L','M','N','O','P',

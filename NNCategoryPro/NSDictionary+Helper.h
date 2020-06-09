@@ -12,6 +12,11 @@ NS_ASSUME_NONNULL_BEGIN
 
 @interface NSDictionary (Helper)
 
+///->NSData
+@property (nonatomic, strong, readonly) NSData *jsonData;
+///->NSString
+@property (nonatomic, strong, readonly) NSString *jsonString;
+
 - (NSDictionary *)invert;
 
 /// id类型转字典

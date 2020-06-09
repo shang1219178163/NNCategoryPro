@@ -24,6 +24,37 @@
 
 @implementation NSString (Helper)
 
+-(NSData *)jsonData{
+    return [self dataUsingEncoding:NSUTF8StringEncoding];
+}
+
+-(id)objValue{
+    NSError *error;
+    id obj = [NSJSONSerialization JSONObjectWithData:self.jsonData options:kNilOptions error:&error];
+    if (error) {
+        return nil;
+    }
+    return obj;
+}
+
+-(NSDictionary *)dictValue{
+    NSError *error;
+    NSDictionary *result = [NSJSONSerialization JSONObjectWithData:self.jsonData options:kNilOptions error:&error];
+    if (error) {
+        return [NSDictionary dictionary];
+    }
+    return result;
+}
+
+-(NSArray *)arrayValue{
+    NSError *error;
+    NSArray *result = [NSJSONSerialization JSONObjectWithData:self.jsonData options:kNilOptions error:&error];
+    if (error) {
+        return [NSArray array];
+    }
+    return result;
+}
+
 -(NSString *)localized{
     return NSLocalizedString(self, self);
 }

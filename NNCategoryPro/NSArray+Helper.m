@@ -32,31 +32,39 @@
 
 @implementation NSArray (Helper)
 
-//- (NSArray<NSString *> *)map:(NSString *(^)(NSObject *obj, NSUInteger idx))handler{
-//    __block NSMutableArray *marr = [NSMutableArray array];
-//    [self enumerateObjectsUsingBlock:^(NSObject *_Nonnull obj, NSUInteger idx, BOOL * _Nonnull stop) {
-//        if (handler) {
-//            id blockResult = handler(obj, idx) ? : @"";
-//            [marr addObject:blockResult];
-//        }
-//    }];
-//    return marr.copy;
-//}
+-(NSData *)jsonData{
+    NSError *error;
+    NSData *data = [NSJSONSerialization JSONObjectWithData:self options:kNilOptions error:&error];
+    if (error) {
+        return nil;
+    }
+    return data;
+}
 
-- (NSArray<NSObject *> *)map:(NSObject *(^)(NSObject *obj, NSUInteger idx))handler{
+-(NSString *)jsonString{
+    NSError *error;
+    NSData *data = [[NSString alloc] initWithData:self encoding:NSUTF8StringEncoding];
+    if (error) {
+        return nil;
+    }
+    return data;
+}
+
+- (NSArray *)map:(id (^)(id obj, NSUInteger idx))handler{
     __block NSMutableArray *marr = [NSMutableArray array];
-    [self enumerateObjectsUsingBlock:^(NSObject *_Nonnull obj, NSUInteger idx, BOOL * _Nonnull stop) {
+    [self enumerateObjectsUsingBlock:^(id _Nonnull obj, NSUInteger idx, BOOL * _Nonnull stop) {
         if (handler) {
-            NSObject * blockResult = handler(obj, idx) ? : obj;
+            id blockResult = handler(obj, idx) ? : obj;
             [marr addObject:blockResult];
         }
     }];
+//    DDLog(@"%@->%@", self, marr.copy);
     return marr.copy;
 }
 
-- (NSArray *)filter:(BOOL(^)(NSObject *obj, NSUInteger idx))handler{
+- (NSArray *)filter:(BOOL(^)(id obj, NSUInteger idx))handler{
     __block NSMutableArray *marr = [NSMutableArray array];
-    [self enumerateObjectsUsingBlock:^(NSObject *_Nonnull obj, NSUInteger idx, BOOL * _Nonnull stop) {
+    [self enumerateObjectsUsingBlock:^(id _Nonnull obj, NSUInteger idx, BOOL * _Nonnull stop) {
         if (handler && handler(obj, idx) == true) {
             [marr addObject:obj];
         }
@@ -102,6 +110,14 @@
     return marr.copy;
 }
 
++ (NSArray *)repeateValue:(id)value count:(NSInteger)count {
+    NSMutableArray *marr = [NSMutableArray array];
+    for (NSInteger i = 0; i < count; i++) {
+        [marr addObject:value];
+    }
+    return marr.copy;
+}
+
 + (NSArray<NSNumber *> *)range:(NSInteger)start end:(NSInteger)end step:(NSInteger)step{
     assert(start < end);
     NSMutableArray * list = [NSMutableArray array];
@@ -115,14 +131,6 @@
         }
     }
     return list.copy;
-}
-
-+ (NSArray *)arrayWithItem:(id)item count:(NSInteger)count{
-    NSMutableArray * marr = [NSMutableArray arrayWithCapacity:0];
-    for (NSInteger i = 0; i < count; i++) {
-        [marr addObject:item];
-    }
-    return marr.copy;
 }
 
 + (NSArray *)arrayRandomFrom:(NSInteger)from to:(NSInteger)to count:(NSInteger)count{
@@ -197,6 +205,31 @@
         [marr addSafeObjct:value];
     }
     return marr.copy;
+}
+
+@end
+
+
+@implementation NSString (Ext)
+
+- (NSString *)mapOffsetFloat:(CGFloat)value{
+    NSString *result = [[[self componentsSeparatedByString:@","] map:^id _Nonnull(NSString *obj, NSUInteger idx) {
+        obj = ![obj isEqualToString:@""] ? obj : @"0.0";
+        NSNumber *num = @([obj floatValue] + value);
+        return [num stringValue];
+        
+    }] componentsJoinedByString:@","];
+    return result;
+}
+
+- (NSString *)mapOffsetInter:(NSInteger)value{
+    NSString *result = [[[self componentsSeparatedByString:@","] map:^id _Nonnull(NSString *obj, NSUInteger idx) {
+        obj = ![obj isEqualToString:@""] ? obj : @"0";
+        NSNumber *num = @([obj integerValue] + value);
+        return [num stringValue];
+        
+    }] componentsJoinedByString:@","];
+    return result;
 }
 
 @end

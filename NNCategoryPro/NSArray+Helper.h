@@ -22,17 +22,20 @@ NS_ASSUME_NONNULL_BEGIN
 
 @interface NSArray (Helper)
 
+///->NSData
+@property (nonatomic, strong, readonly) NSData *jsonData;
+///->NSString
+@property (nonatomic, strong, readonly) NSString *jsonString;
+
 /**
  map 高阶函数(使用时需要将obj强转为数组元素类型)
  */
-//- (NSArray<NSString *> *)map:(NSString *(^)(NSObject *obj, NSUInteger idx))handler;
-
-- (NSArray<NSObject *> *)map:(NSObject *(^)(NSObject *obj, NSUInteger idx))handler;
+- (NSArray *)map:(id (^)(id obj, NSUInteger idx))handler;
 
 /**
  filter 高阶函数(使用时需要将obj强转为数组元素类型)
  */
-- (NSArray *)filter:(BOOL(^)(NSObject *obj, NSUInteger idx))handler;
+- (NSArray *)filter:(BOOL(^)(id obj, NSUInteger idx))handler;
 
 /**
  reduce 高阶函数(求和,累加等)
@@ -52,10 +55,11 @@ NS_ASSUME_NONNULL_BEGIN
 /// 合并数组
 - (NSArray *)contactArray:(NSArray *)array;
 
+///重复元素
++ (NSArray *)repeateValue:(id)value count:(NSInteger)count;
+
 /// 快速生成一个数组(step代表步长)
 + (NSArray<NSNumber *> *)range:(NSInteger)start end:(NSInteger)end step:(NSInteger)step;
-
-+ (NSArray *)arrayWithItem:(id)item count:(NSInteger)count;
 /**
  from,to之间的随机数数组
  */
@@ -83,3 +87,13 @@ NS_ASSUME_NONNULL_BEGIN
 @end
 
 NS_ASSUME_NONNULL_END
+
+
+@interface NSString (Ext)
+
+///当子元素都是NSString,给每个元素添加相同哦值
+- (NSString *_Nonnull)mapOffsetFloat:(CGFloat)value;
+///当子元素都是NSString,给每个元素添加相同哦值
+- (NSString *_Nonnull)mapOffsetInter:(NSInteger)value;
+
+@end

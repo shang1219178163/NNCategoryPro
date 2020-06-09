@@ -14,7 +14,15 @@
 NS_ASSUME_NONNULL_BEGIN
 
 @interface NSString (Helper)
-
+///->NSData
+@property (nonatomic, strong, readonly) NSData *jsonData;
+///->id
+@property (nonatomic, strong, readonly) id objValue;
+///->NSDictionary
+@property (nonatomic, strong, readonly) NSDictionary *dictValue;
+///->NSArray
+@property (nonatomic, strong, readonly) NSArray *arrayValue;
+    
 @property (nonatomic, strong, readonly) NSString *localized;
 @property (nonatomic, strong, readonly) NSDecimalNumber *decNumer;
 

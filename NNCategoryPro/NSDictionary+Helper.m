@@ -14,6 +14,24 @@
 
 @implementation NSDictionary (Helper)
 
+-(NSData *)jsonData{
+    NSError *error;
+    NSData *data = [NSJSONSerialization JSONObjectWithData:self options:kNilOptions error:&error];
+    if (error) {
+        return nil;
+    }
+    return data;
+}
+
+-(NSString *)jsonString{
+    NSError *error;
+    NSData *data = [[NSString alloc] initWithData:self encoding:NSUTF8StringEncoding];
+    if (error) {
+        return nil;
+    }
+    return data;
+}
+
 - (NSDictionary *)invert{
     __block NSMutableDictionary *mdic = [NSMutableDictionary dictionary];
     [self enumerateKeysAndObjectsUsingBlock:^(id  _Nonnull key, id  _Nonnull obj, BOOL * _Nonnull stop) {

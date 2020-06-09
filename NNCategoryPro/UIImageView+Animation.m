@@ -10,16 +10,16 @@
 
 @implementation UIImageView (Animation)
 
-- (void)addAnimWithImageArr:(NSArray *)imageArr{
-
+- (void)addFlipAnimtion:(UIImage *)image backImage:(UIImage *)backImage{
     [UIView transitionWithView:self duration:1.5f options:UIViewAnimationOptionTransitionFlipFromLeft animations:^{
         self.tag++;
-        NSString * imgName = self.tag % 2 == 0 ? imageArr.firstObject : imageArr.lastObject;
+        NSString * imgName = self.tag % 2 == 0 ? image : backImage;
         self.image = [UIImage imageNamed:imgName];
         
     } completion:^(BOOL finished) {
-        [self addAnimWithImageArr:imageArr];
-        
+        if (finished) {
+            [self addFlipAnimtion:image backImage:backImage];
+        }
     }];
 }
 

@@ -32,6 +32,10 @@ FOUNDATION_EXPORT NSString *UrlAddress(NSString *hostname, NSString *port);
 NS_ASSUME_NONNULL_BEGIN
 
 @interface NSObject (Helper)<NSCoding>
+
+///详情模型转字典
+- (NSDictionary *)toDictionary;
+    
 /// 模型转字典
 - (NSDictionary *)dictionaryFromModel;
 
@@ -52,14 +56,16 @@ void GCDApplyGlobal(id obj ,void(^block)(size_t index));
 @property (nonatomic, copy) void (^block)(id sender);
 @property (nonatomic, copy, nonnull) NSString *runtimeKey;
 /// NSObject->NSData
-@property (nonatomic, strong, readonly) NSData * _Nullable jsonData;
-/// NSObject->NSString
-@property (nonatomic, strong, readonly) NSString * _Nullable jsonString;
-/// NSString/NSData->NSObject/NSDiction/NSArray
-@property (nonatomic, strong, readonly) id _Nullable objValue;
-/// NSString/NSData->NSDictionary
-@property (nonatomic, strong, readonly) NSDictionary * _Nullable dictValue;
+//@property (nonatomic, strong, readonly) NSData * _Nullable jsonData;
+///// NSObject->NSString
+//@property (nonatomic, strong, readonly) NSString * _Nullable jsonString;
+///// NSString/NSData->NSObject/NSDiction/NSArray
+//@property (nonatomic, strong, readonly) id _Nullable objValue;
+///// NSString/NSData->NSDictionary
+//@property (nonatomic, strong, readonly) NSDictionary * _Nullable dictValue;
 
+
+    
 - (NSArray *)allPropertyNames:(NSString *)clsName;
 
 /**
