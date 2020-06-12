@@ -16,7 +16,7 @@
 
 -(NSData *)jsonData{
     NSError *error;
-    NSData *data = [NSJSONSerialization JSONObjectWithData:self options:kNilOptions error:&error];
+    NSData *data = [NSJSONSerialization dataWithJSONObject:self options:kNilOptions error:&error];
     if (error) {
         return nil;
     }
@@ -25,7 +25,7 @@
 
 -(NSString *)jsonString{
     NSError *error;
-    NSData *data = [[NSString alloc] initWithData:self encoding:NSUTF8StringEncoding];
+    NSData *data = [[NSString alloc]initWithData:self.jsonData encoding:NSUTF8StringEncoding];
     if (error) {
         return nil;
     }

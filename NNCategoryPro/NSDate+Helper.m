@@ -53,43 +53,28 @@ static NSArray * _weekList = nil;
 - (NSString *)timeByAddingDays:(id)days{
     NSParameterAssert([days isKindOfClass:[NSString class]] || [days isKindOfClass:[NSNumber class]]);
     if (!days) days = @0;
-    NSString *  newdate = [NSDateFormatter stringFromDate:[self dateByAddDays:[days integerValue]] fmt:kFormatDate];
+    NSString * newdate = [NSDateFormatter stringFromDate:[self dateByAddDays:[days integerValue]] fmt:kFormatDate];
     return newdate;
 }
-/**
- *  获取时间的时间戳
- */
+
++ (NSDate *)dateLocale{
+//    return [NSDate.date dateByAddingTimeInterval:8 * 60 * 60];
+    NSTimeInterval interval = [NSTimeZone.systemTimeZone secondsFromGMTForDate: NSDate.date];
+    return [NSDate.date dateByAddingTimeInterval:interval];;
+}
+
+///获取时间的时间戳
 -(NSString *)timeStamp{
    return [NSDateFormatter intervalFromDate:self];
 }
 
-/**
- *  获取当前时间
- */
+///获取当前时间
 -(NSString *)now{
-    NSString * dateStr = [NSDateFormatter stringFromDate:self fmt:kFormatDate];
+    NSString *dateStr = [NSDateFormatter stringFromDate:self fmt:kFormatDate];
     return dateStr;
 }
 
-- (NSDate *)localFromUTC{
-    NSDate *soureDate = self;
-    //设置源日期时区
-    NSTimeZone * sourceTimeZone = [NSTimeZone timeZoneWithAbbreviation:@"UTC"];//或GMT
-    //设置转换后的目标日期时区
-    NSTimeZone * destinationTimeZone = [NSTimeZone localTimeZone];
-    //得到源日期与世界标准时间的偏移量
-    NSInteger sourceGMTOffset = [sourceTimeZone secondsFromGMTForDate:soureDate];
-    //目标日期与本地时区的偏移量
-    NSInteger destinationGMTOffset = [destinationTimeZone secondsFromGMTForDate:soureDate];
-    //得到时间偏移量的差值
-    NSTimeInterval interval = destinationGMTOffset - sourceGMTOffset;
-    //转为现在时间
-    NSDate * destinationDate = [[NSDate alloc] initWithTimeInterval:interval sinceDate:soureDate];
-    return destinationDate;
-}
-
 /*距离当前的时间间隔描述*/
-
 - (NSString *)timeIntervalDescription{
     NSTimeInterval timeInterval = -self.timeIntervalSinceNow;
     if(timeInterval < 60) {

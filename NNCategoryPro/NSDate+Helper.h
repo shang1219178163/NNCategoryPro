@@ -17,12 +17,14 @@ NS_ASSUME_NONNULL_BEGIN
 @property (class, nonatomic, readonly) NSArray *dayList;
 @property (class, nonatomic, readonly) NSArray *weekList;
 
+/// 本地时间(东八区时间)
+@property (class, nonatomic, readonly) NSDate *dateLocale;
+///获取当前时间戳
 @property (nonatomic, strong, readonly) NSString *timeStamp;
+///获取当前时间描述
 @property (nonatomic, strong, readonly) NSString *now;
 
 - (NSString *)timeByAddingDays:(id)days;
-
-- (NSDate *)localFromUTC;
 
 - (NSString *)timeIntervalDescription;//距离当前的时间间隔描述
 
