@@ -42,11 +42,10 @@ NS_ASSUME_NONNULL_BEGIN
  */
 - (NSNumber *)reduce:(NSNumber *(^)(NSNumber *num1, NSNumber *num2))handler;
 
-/**
- 数组排序
- */
-- (NSArray *)sortedAscending:(BOOL)isAscending;
-
+///数组排序
+- (NSArray *)sorted;
+///数组倒序
+- (NSArray *)reversed;
 /**
  排序器排序
  @param dic key为排序键;value是升序yes/降序false

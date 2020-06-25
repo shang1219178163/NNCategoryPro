@@ -525,10 +525,10 @@
             NSDictionary *dic = [NSJSONSerialization JSONObjectWithData:data options:NSJSONReadingMutableLeaves error:nil];
             if ([dic[@"resultCount"] isEqualToNumber:@1]) {
                 
-                NSDictionary * dicInfo = [dic[@"results"] firstObject];
+                NSDictionary *dicInfo = [dic[@"results"] firstObject];
                 
-                NSString * appStoreVer = dicInfo[@"version"];
-                NSString * releaseNotes = dicInfo[@"releaseNotes"];
+                NSString *appStoreVer = dicInfo[@"version"];
+                NSString *releaseNotes = dicInfo[@"releaseNotes"];
 //            NSString *trackViewUrl = dataModel.trackViewUrl;// appStore 跳转版本链接
                 
                 isUpdate = [appStoreVer compare:UIApplication.appVer options:NSNumericSearch] == NSOrderedDescending;
@@ -537,7 +537,7 @@
                         NSString * versionInfo = [NSString stringWithFormat:@"新版本V%@!",appStoreVer];
                         // AppStore版本号大于当前版本号，强制更新
                         // 弹窗 更新
-                        UIAlertController * alertController = [UIAlertController showAlertTitle:versionInfo msg:releaseNotes placeholders:nil actionTitles:@[kTitleCall,kTitleUpdate] handler:^(UIAlertController * _Nonnull alertVC, UIAlertAction * _Nonnull action) {
+                        UIAlertController *alertController = [UIAlertController showAlertTitle:versionInfo msg:releaseNotes placeholders:nil actionTitles:@[kTitleCall,kTitleUpdate] handler:^(UIAlertController * _Nonnull alertVC, UIAlertAction * _Nonnull action) {
                             if ([action.title isEqualToString:kTitleUpdate]) {
                                 // 升级去
                                 [UIApplication openURLStr: [UIApplication appUrlWithID:appStoreID] prefix:@"http://"];

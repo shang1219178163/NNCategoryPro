@@ -87,12 +87,12 @@
     return @(result);
 }
 
-- (NSArray *)sortedAscending:(BOOL)isAscending{
-    NSArray *list = [self sortedArrayUsingSelector:@selector(compare:)];
-    if (isAscending) {
-        return list;
-    }
-    return list.reverseObjectEnumerator.allObjects;
+- (NSArray *)sorted{
+    return [self sortedArrayUsingSelector:@selector(compare:)];
+}
+
+- (NSArray *)reversed{
+    return self.reverseObjectEnumerator.allObjects;
 }
 
 - (NSArray *)sorteDescriptorAscending:(NSDictionary<NSString*, NSNumber*> *)dic{

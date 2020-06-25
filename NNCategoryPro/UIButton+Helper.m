@@ -21,6 +21,14 @@
 
 @implementation UIButton (Helper)
 
+- (void)setBackgroundColor:(nullable UIColor *)color forState:(UIControlState)state{
+    if (color == nil) {
+        return;
+    }
+    UIImage *image = [UIImage imageWithColor:color];
+    [self setBackgroundImage:image forState:state];
+}
+
 /**
  [源]UIButton创建
  */

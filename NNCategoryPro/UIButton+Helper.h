@@ -11,6 +11,9 @@
 NS_ASSUME_NONNULL_BEGIN
 
 @interface UIButton (Helper)
+
+- (void)setBackgroundColor:(nullable UIColor *)color forState:(UIControlState)state;
+
 /*
  UIButton 创建
  @param type 0:白色背景黑色字体灰色边框,
