@@ -11,6 +11,7 @@
 
 NS_ASSUME_NONNULL_BEGIN
 
+//弃用
 @interface NSObject (ModelHelper)
 
 -(id)convertFromDict:(NSDictionary *)dict key:(NSString *)key;

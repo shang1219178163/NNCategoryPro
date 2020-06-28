@@ -79,7 +79,7 @@ FOUNDATION_EXPORT UINavigationController * _Nullable UINavCtrFromObj(id obj);
 /**
  找导航控制器栈中控制器
  */
-- (id _Nullable )findController:(NSString *)contollerName navController:(UINavigationController *)navController;
+- (id _Nullable)findController:(NSString *)contollerName navController:(UINavigationController *)navController;
 
 /**
  (推荐)跳转到contollerName控制器中去,先在navController栈中查找有就返回没有就创建一个(用于无参数跳转界面)

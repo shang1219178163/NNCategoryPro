@@ -8,6 +8,7 @@
 
 #import <Foundation/Foundation.h>
 #import <UIKit/UIKit.h>
+#import <objc/runtime.h>
 
 #import "UIScreen+Helper.h"
 #import "UIColor+Helper.h"
@@ -32,15 +33,17 @@ FOUNDATION_EXPORT NSString *UrlAddress(NSString *hostname, NSString *port);
 NS_ASSUME_NONNULL_BEGIN
 
 @interface NSObject (Helper)<NSCoding>
+///遍历成员变量列表
+- (void)enumerateIvars:(void(^)(Ivar v, NSString *name, _Nullable id value))block;
+///遍历属性列表
+- (void)enumeratePropertys:(void(^)(objc_property_t property, NSString *name, _Nullable id value))block;
+///遍历方法列表
+- (void)enumerateMethods:(void(^)(Method method, NSString *name, NSInteger idx))block;
+///遍历遵循的协议列表
+- (void)enumerateProtocols:(void(^)(Protocol *proto, NSString *name, NSInteger idx))block;
 
 ///详情模型转字典
 - (NSDictionary *)toDictionary;
-    
-/// 模型转字典
-- (NSDictionary *)dictionaryFromModel;
-
-/// 带model的数组或字典转字典
-- (id)idFromObject:(id)object;
 
 #pragma mark - -dispatchAsync
 void GCDBlock(void(^block)(void));
@@ -51,27 +54,9 @@ void GCDApplyGlobal(id obj ,void(^block)(size_t index));
 /**
  代码块返回单个参数的时候,不适用于id不能代表的类型()
 */
-//@property (nonatomic, copy) BlockObject blockObject;//其他类使用该属性注意性能
 @property (nonatomic, copy) void(^blockObject)(id obj, id item, NSInteger idx);//其他类使用该属性注意性能
 @property (nonatomic, copy) void (^block)(id sender);
 @property (nonatomic, copy, nonnull) NSString *runtimeKey;
-/// NSObject->NSData
-//@property (nonatomic, strong, readonly) NSData * _Nullable jsonData;
-///// NSObject->NSString
-//@property (nonatomic, strong, readonly) NSString * _Nullable jsonString;
-///// NSString/NSData->NSObject/NSDiction/NSArray
-//@property (nonatomic, strong, readonly) id _Nullable objValue;
-///// NSString/NSData->NSDictionary
-//@property (nonatomic, strong, readonly) NSDictionary * _Nullable dictValue;
-
-
-    
-- (NSArray *)allPropertyNames:(NSString *)clsName;
-
-/**
- 模型转字典
- */
-- (NSDictionary *)modelToDictionary;
 
 /**
  模型转JSON
@@ -79,9 +64,6 @@ void GCDApplyGlobal(id obj ,void(^block)(size_t index));
 - (NSString *)modelToJSONWithError:(NSError **)error;
 
 -(BOOL)validObject;
-
--(NSString *)showNilText;
-
 /**
  (通用)富文本只有和一般文字同字体大小才能计算高度
  */

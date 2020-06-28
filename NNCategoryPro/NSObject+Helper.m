@@ -7,7 +7,6 @@
 //
 
 #import "NSObject+Helper.h"
-#import <objc/runtime.h>
 
 #import "NSString+Helper.h"
 #import "NSDate+Helper.h"
@@ -75,73 +74,65 @@ NSString *UrlAddress(NSString *hostname, NSString *port){
 
 @implementation NSObject (Helper)
 
-//-(NSData *)jsonData{
-//    id obj = self;
-//
-//    NSData *data = nil;
-//    if ([obj isKindOfClass: NSData.class]) {
-//        data = obj;
-//
-//    } else if ([obj isKindOfClass: NSString.class]) {
-//        data = [obj dataUsingEncoding:NSUTF8StringEncoding];
-//
-//    }
-//    else if ([obj isKindOfClass:[NSDictionary class]] || [obj isKindOfClass:[NSArray class]]){
-//        NSError * error = nil;
-//        data = [NSJSONSerialization dataWithJSONObject:obj options:kNilOptions error:&error];
-//        if (error) {
-//#ifdef DEBUG
-//            NSLog(@"fail to get NSData from obj: %@, error: %@", obj, error);
-//#endif
-//        }
-//    }
-////    else if ([obj isKindOfClass: UIImage.class]){
-////        data = UIImageJPEGRepresentation(obj, 1.0);
-////
-////    }
-//    return data;
-//}
-//
-//-(NSString *)jsonString{
-//    NSData *jsonData = self.jsonData;
-//    NSString *jsonString = [[NSString alloc] initWithData:jsonData encoding:NSUTF8StringEncoding];
-//    return jsonString;
-//}
-//
-//- (id)objValue{
-//    assert([self isKindOfClass: NSString.class] || [self isKindOfClass:NSData.class] || [self isKindOfClass: NSDictionary.class] || [self isKindOfClass: NSArray.class]);
-//    if ([self isKindOfClass: NSDictionary.class] || [self isKindOfClass: NSArray.class]) {
-//        return self;
-//    }
-//
-//    NSError *error = nil;
-//    if ([self isKindOfClass: NSString.class]) {
-//        NSData *data = [(NSString *)self dataUsingEncoding:NSUTF8StringEncoding];
-//        id obj = [NSJSONSerialization JSONObjectWithData:data options:kNilOptions error:&error];
-//        if (!error) {
-//            return obj;
-//        }
-//#ifdef DEBUG
-//        NSLog(@"fail to get dictioanry from JSON: %@, error: %@", data, error);
-//#endif
-//    } else if ([self isKindOfClass: NSData.class]) {
-//        id obj = [NSJSONSerialization JSONObjectWithData:(NSData *)self options:kNilOptions error:&error];
-//        if (!error) {
-//            return obj;
-//        }
-//#ifdef DEBUG
-//        NSLog(@"fail to get dictioanry from JSON: %@, error: %@", obj, error);
-//#endif
-//    }
-//    return nil;
-//}
-//
-//- (NSDictionary *)dictValue{
-//    if ([self.objValue isKindOfClass: NSDictionary.class]) {
-//        return self.objValue;
-//    }
-//    return nil;
-//}
+#pragma mark -runtime
+
+- (void)enumerateIvars:(void(^)(Ivar v, NSString *name, _Nullable id value))block{
+    unsigned int count;
+    Ivar *ivars = class_copyIvarList(self.class, &count);
+
+    for(NSInteger i = 0; i < count; i++){
+        Ivar ivar = ivars[i];
+        NSString *ivarName = [NSString stringWithUTF8String:ivar_getName(ivar)];
+        id value = [self valueForKey:ivarName];//kvc读值
+        if (block) {
+            block(ivar, ivarName, value);
+        }
+    }
+    free(ivars);
+}
+
+- (void)enumeratePropertys:(void(^)(objc_property_t property, NSString *name, _Nullable id value))block{
+    unsigned int count = 0;
+    objc_property_t *properties = class_copyPropertyList(self.class, &count);
+    for (int i = 0; i < count; i++) {
+        objc_property_t property_t = properties[i];
+        const char *name = property_getName(property_t);
+        NSString *propertyName = [NSString stringWithUTF8String:name];
+        id value = [self valueForKey:propertyName];
+        if (block) {
+            block(property_t, propertyName, value);
+        }
+    }
+    free(properties);
+}
+
+- (void)enumerateMethods:(void(^)(Method method, NSString *name, NSInteger idx))block{
+    unsigned int count = 0;
+    Method *methodList = class_copyMethodList(self.class, &count);
+    for (unsigned int i = 0; i < count; i++) {
+        Method method = methodList[i];
+        SEL mthodName = method_getName(method);
+//        NSLog(@"MethodName(%d): %@", i, NSStringFromSelector(mthodName));
+        if (block) {
+            block(method, NSStringFromSelector(mthodName), i);
+        }
+    }
+    free(methodList);
+}
+
+- (void)enumerateProtocols:(void(^)(Protocol *proto, NSString *name, NSInteger idx))block{
+    unsigned int count = 0;
+    __unsafe_unretained Protocol **protocolList = class_copyProtocolList(self.class, &count);
+    for (int i = 0; i < count; i++) {
+        Protocol *protocal = protocolList[i];
+        const char *protocolName = protocol_getName(protocal);
+//        NSLog(@"protocol(%d): %@", i, [NSString stringWithUTF8String:protocolName]);
+        if (block) {
+            block(protocal, [NSString stringWithUTF8String:protocolName], i);
+        }
+    }
+    free(protocolList);
+}
 
 //为 NSObject 扩展 NSCoding 协议里的两个方法, 用来便捷实现复杂对象的归档与反归档
 - (void)encodeWithCoder:(NSCoder *)aCoder {
@@ -158,7 +149,7 @@ NSString *UrlAddress(NSString *hostname, NSString *port){
         NSString *ivarName = [NSString stringWithUTF8String:ivar_getName(ivar)];
         // 获取该成员变量对应的值
         id value = [self valueForKey:ivarName];
-        // 归档, 就是把对象 key-value 对一对一对的 encode
+        // 归档, 就是把对象 key-value 对 encode
         [aCoder encodeObject:value forKey:ivarName];
     }
     // 释放 ivars
@@ -175,7 +166,7 @@ NSString *UrlAddress(NSString *hostname, NSString *port){
             
             Ivar ivar = ivars[i];
             NSString *ivarName = [NSString stringWithUTF8String:ivar_getName(ivar)];
-            // 反归档, 就是把 key-value 对一对一对 decode
+            // 解档, 就是把 key-value 对 decode
             id value = [aDecoder decodeObjectForKey:ivarName];
             // 赋值
             [self setValue:value forKey:ivarName];
@@ -186,20 +177,11 @@ NSString *UrlAddress(NSString *hostname, NSString *port){
 }
 
 - (NSDictionary *)toDictionary{
-    NSMutableDictionary *userDic = [NSMutableDictionary dictionary];
-    unsigned int count = 0;
-    objc_property_t *properties = class_copyPropertyList([self class], &count);
-    for (int i = 0; i < count; i++) {
-        const char *name = property_getName(properties[i]);
-
-        NSString *propertyName = [NSString stringWithUTF8String:name];
-        id propertyValue = [self valueForKey:propertyName];
-        if (propertyValue) {
-            [userDic setObject:propertyValue forKey:propertyName];
-        }
-    }
-    free(properties);
-    return userDic;
+    NSMutableDictionary *mdic = [NSMutableDictionary dictionary];
+    [self enumeratePropertys:^(objc_property_t _Nonnull property, NSString * _Nonnull name, id  _Nullable value) {
+        mdic[name] = value ? : @"";
+    }];
+    return mdic;
 }
 
 //KVC
@@ -214,192 +196,9 @@ NSString *UrlAddress(NSString *hostname, NSString *port){
     return objc_getAssociatedObject(self, CFBridgingRetain(key));
 }
 
-- (void)setNilValueForKey:(NSString *)key{
+-(void)setNilValueForKey:(NSString *)key{
     NSLog(@"Invoke setNilValueForKey:, 不能给非指针对象(如NSInteger)赋值 nil");
     return;//给一个非指针对象(如NSInteger)赋值 nil, 直接忽略
-}
-
-#pragma mark - -runtime
-///通过运行时获取当前对象的所有属性的名称，以数组的形式返回
-- (NSArray *)allPropertyNames:(NSString *)clsName{
-    ///存储所有的属性名称
-    NSMutableArray *allNames = [NSMutableArray arrayWithCapacity:0];
-    
-    ///存储属性的个数
-    unsigned int propertyCount = 0;
-    ///通过运行时获取当前类的属性
-    objc_property_t *propertys = class_copyPropertyList([NSClassFromString(clsName) class], &propertyCount);
-    
-    //把属性放到数组中
-    for (int i = 0; i < propertyCount; i ++) {
-        ///取出第一个属性
-        objc_property_t property = propertys[i];
-        
-        const char * propertyName = property_getName(property);
-        [allNames addObject:[NSString stringWithUTF8String:propertyName]];
-    }
-    ///释放
-    free(propertys);
-    return allNames;
-}
-
-/**
- 模型转字典
- */
-- (NSDictionary *)modelToDictionary{
-    assert([self isKindOfClass:NSObject.class]);
-    id obj = self;
-    NSMutableDictionary *dic = [NSMutableDictionary dictionary];
-    unsigned int count;
-    
-    objc_property_t *props = class_copyPropertyList([obj class], &count);//获得属性列表
-    for(NSInteger i = 0;i < count; i++){
-        
-        objc_property_t prop = props[i];
-        NSString *propName = [NSString stringWithUTF8String:property_getName(prop)];//获得属性的名称
-        
-        id value = [obj valueForKey:propName];//kvc读值
-        
-//        value = value == nil ? [NSNull null] : [self handleObj:obj];
-        value = !value ? [NSNull null] : [self handleObj:obj];
-        [dic setObject:value forKey:propName];
-    }
-    free(props);
-    return dic;
-}
-
-/**
- 模型转JSON
- 
- */
-- (NSString *)modelToJSONWithError:(NSError **)error{
-    id obj = self;
-    NSData *jsonData = [NSJSONSerialization dataWithJSONObject:[self handleObj:obj] options:NSJSONWritingPrettyPrinted error:error];
-    NSString *jsonText = [[NSString alloc]initWithData:jsonData encoding:NSUTF8StringEncoding];
-    return jsonText;
-}
-
-/**
- 自定义处理数组，字典，其他类
- */
-- (id)handleObj:(id)obj{
-    //类型
-    if([obj isKindOfClass:[NSString class]] || [obj isKindOfClass:[NSNumber class]] || [obj isKindOfClass:[NSNull class]]){
-        return obj;
-    }
-    
-    if([obj isKindOfClass:[NSArray class]]) {
-        
-        NSArray *objArr = obj;
-        NSMutableArray *arr = [NSMutableArray arrayWithCapacity:objArr.count];
-        for(NSInteger i = 0;i < objArr.count; i++){
-            //            [arr setObject:[self handleObj:objArr[i]] atIndexedSubscript:i];
-            [arr addObject:[self handleObj:objArr[i]]];
-        }
-        return arr;
-    }
-    
-    if([obj isKindOfClass:[NSDictionary class]]){
-        
-        NSDictionary *objDic = obj;
-        NSMutableDictionary *dic = [NSMutableDictionary dictionaryWithCapacity:[objDic count]];
-        for(NSString *key in objDic.allKeys){
-            [dic setObject:[self handleObj:objDic[key]] forKey:key];
-            
-        }
-        return dic;
-    }
-    return [self modelToDictionary];
-}
-
-- (NSDictionary *)dictionaryFromModel{
-    unsigned int count = 0;
-    
-    objc_property_t *properties = class_copyPropertyList([self class], &count);
-    NSMutableDictionary *dict = [NSMutableDictionary dictionaryWithCapacity:count];
-    
-    for (int i = 0; i < count; i++) {
-        NSString *key = [NSString stringWithUTF8String:property_getName(properties[i])];
-        id value = [self valueForKey:key];
-        
-        //only add it to dictionary if it is not nil
-        if (key && value) {
-            if ([value isKindOfClass:[NSString class]]
-                || [value isKindOfClass:[NSNumber class]]) {
-                // 普通类型的直接变成字典的值
-                [dict setObject:value forKey:key];
-            }
-            else if ([value isKindOfClass:[NSArray class]]
-                     || [value isKindOfClass:[NSDictionary class]]) {
-                // 数组类型或字典类型
-                [dict setObject:[self idFromObject:value] forKey:key];
-            }
-            else {
-                // 如果model里有其他自定义模型，则递归将其转换为字典
-                [dict setObject:[value dictionaryFromModel] forKey:key];
-            }
-        } else if (key && value == nil) {
-            // 如果当前对象该值为空，设为nil。在字典中直接加nil会抛异常，需要加NSNull对象
-            [dict setObject:[NSNull null] forKey:key];
-        }
-    }
-    
-    free(properties);
-    return dict;
-}
-
-- (id)idFromObject:(nonnull id)object{
-    if ([object isKindOfClass:[NSArray class]]) {
-        if (object != nil && [(NSArray *)object count] > 0) {
-            NSMutableArray *array = [NSMutableArray array];
-            for (id obj in object) {
-                // 基本类型直接添加
-                if ([obj isKindOfClass:[NSString class]]
-                    || [obj isKindOfClass:[NSNumber class]]) {
-                    [array addObject:obj];
-                }
-                // 字典或数组需递归处理
-                else if ([obj isKindOfClass:[NSDictionary class]]
-                         || [obj isKindOfClass:[NSArray class]]) {
-                    [array addObject:[self idFromObject:obj]];
-                }
-                // model转化为字典
-                else {
-                    [array addObject:[obj dictionaryFromModel]];
-                }
-            }
-            return array;
-        }
-        else {
-            return object ? : [NSNull null];
-        }
-    }
-    else if ([object isKindOfClass:[NSDictionary class]]) {
-        if (object && [[object allKeys] count] > 0) {
-            NSMutableDictionary *dic = [NSMutableDictionary dictionary];
-            for (NSString *key in [object allKeys]) {
-                // 基本类型直接添加
-                if ([object[key] isKindOfClass:[NSNumber class]]
-                    || [object[key] isKindOfClass:[NSString class]]) {
-                    [dic setObject:object[key] forKey:key];
-                }
-                // 字典或数组需递归处理
-                else if ([object[key] isKindOfClass:[NSArray class]]
-                         || [object[key] isKindOfClass:[NSDictionary class]]) {
-                    [dic setObject:[self idFromObject:object[key]] forKey:key];
-                }
-                // model转化为字典
-                else {
-                    [dic setObject:[object[key] dictionaryFromModel] forKey:key];
-                }
-            }
-            return dic;
-        }
-        else {
-            return object ? : [NSNull null];
-        }
-    }
-    return [NSNull null];
 }
 
 
@@ -473,10 +272,6 @@ void GCDApplyGlobal(id obj ,void(^block)(size_t index)){
     return YES;
 }
 
--(NSString *)showNilText{
-    NSParameterAssert([self isKindOfClass:[NSString class]]);
-    return [self validObject]  ? (NSString *)self : @"--";
-}
 
 -(void (^)(id, id, NSInteger))blockObject{
     return objc_getAssociatedObject(self, _cmd);
