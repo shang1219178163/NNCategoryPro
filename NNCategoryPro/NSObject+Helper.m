@@ -17,7 +17,6 @@
 #import "NSArray+Helper.h"
 #import "NSAttributedString+Helper.h"
 
-
 NSString *NNSwiftClassName(NSString *name){
     NSString *bundleName = NSBundle.mainBundle.infoDictionary[@"CFBundleExecutable"];
     return [bundleName stringByAppendingFormat:@".%@", name];
@@ -106,7 +105,7 @@ NSString *UrlAddress(NSString *hostname, NSString *port){
     free(properties);
 }
 
-- (void)enumerateMethods:(void(^)(Method method, NSString *name, NSInteger idx))block{
+- (void)enumerateMethods:(void(^)(Method method, NSString *name))block{
     unsigned int count = 0;
     Method *methodList = class_copyMethodList(self.class, &count);
     for (unsigned int i = 0; i < count; i++) {
@@ -114,13 +113,13 @@ NSString *UrlAddress(NSString *hostname, NSString *port){
         SEL mthodName = method_getName(method);
 //        NSLog(@"MethodName(%d): %@", i, NSStringFromSelector(mthodName));
         if (block) {
-            block(method, NSStringFromSelector(mthodName), i);
+            block(method, NSStringFromSelector(mthodName));
         }
     }
     free(methodList);
 }
 
-- (void)enumerateProtocols:(void(^)(Protocol *proto, NSString *name, NSInteger idx))block{
+- (void)enumerateProtocols:(void(^)(Protocol *proto, NSString *name))block{
     unsigned int count = 0;
     __unsafe_unretained Protocol **protocolList = class_copyProtocolList(self.class, &count);
     for (int i = 0; i < count; i++) {
@@ -128,7 +127,7 @@ NSString *UrlAddress(NSString *hostname, NSString *port){
         const char *protocolName = protocol_getName(protocal);
 //        NSLog(@"protocol(%d): %@", i, [NSString stringWithUTF8String:protocolName]);
         if (block) {
-            block(protocal, [NSString stringWithUTF8String:protocolName], i);
+            block(protocal, [NSString stringWithUTF8String:protocolName]);
         }
     }
     free(protocolList);
@@ -314,14 +313,11 @@ void GCDApplyGlobal(id obj ,void(^block)(size_t index)){
     CGSize size = CGSizeZero;
     if ([text isKindOfClass:[NSString class]]) {
         size = [text boundingRectWithSize:CGSizeMake(width, MAXFLOAT) options:NSStringDrawingUsesLineFragmentOrigin|NSStringDrawingUsesFontLeading attributes:attrDict context:nil].size;
-        
     } else {
         size = [text boundingRectWithSize:CGSizeMake(width, MAXFLOAT) options:NSStringDrawingUsesLineFragmentOrigin|NSStringDrawingUsesFontLeading context:nil].size;
-        
     }
     size.width = ceil(size.width);
     size.height = ceil(size.height);
-    
     return size;
 }
 
@@ -339,38 +335,19 @@ void GCDApplyGlobal(id obj ,void(^block)(size_t index)){
     return size;
 }
 
-/**
- 布尔值转字符串
-
- */
+///布尔值转字符串
 - (NSString *)stringFromBool:(NSNumber *)boolNum {
-    NSParameterAssert([boolNum boolValue]  || [boolNum boolValue] == NO);
-    
-    NSString *string = [boolNum boolValue]  ? @"1"  :   @"0";
+    NSParameterAssert([boolNum boolValue] || [boolNum boolValue] == NO);
+    NSString *string = [boolNum boolValue] ? @"1" : @"0";
     return string;
 }
 
-/**
- 字符串转布尔值
-
- */
+///字符串转布尔值
 - (BOOL)stringToBool:(NSString *)string{
     NSAssert(([@[@"1",@"0"] containsObject:string] ), @"string值只能为1或者0");
-
-    BOOL boolValue = [string integerValue] == 1 ? YES : NO;
+    BOOL boolValue = [string integerValue] >= 1 ? YES : NO;
     return boolValue;
 }
-
-+ (NSString *)getMaxLengthStrFromArr:(NSArray *)arr{
-    NSString *temp = [arr firstObject];
-    for (NSString * obj in arr){
-        if (obj.length > temp.length){
-            temp = obj;
-        }
-    }
-    return temp;
-}
-
 
 #pragma mark - -获取随机数，范围在[from,to]，包括from，包括to
 - (NSInteger)getRandomNum:(NSInteger)from to:(NSInteger)to{
@@ -381,12 +358,5 @@ void GCDApplyGlobal(id obj ,void(^block)(size_t index)){
     NSInteger random = [self getRandomNum:from to:to];
     return [@(random) stringValue];
 }
-
-- (NSInteger)rowCountWithItemList:(NSArray *)itemList rowOfNumber:(NSInteger)rowOfNumber{
-    
-    NSInteger rowCount = itemList.count % rowOfNumber == 0 ? itemList.count/rowOfNumber : (itemList.count/rowOfNumber + 1);
-    return rowCount;
-}
-
 
 @end

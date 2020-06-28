@@ -38,9 +38,9 @@ NS_ASSUME_NONNULL_BEGIN
 ///遍历属性列表
 - (void)enumeratePropertys:(void(^)(objc_property_t property, NSString *name, _Nullable id value))block;
 ///遍历方法列表
-- (void)enumerateMethods:(void(^)(Method method, NSString *name, NSInteger idx))block;
+- (void)enumerateMethods:(void(^)(Method method, NSString *name))block;
 ///遍历遵循的协议列表
-- (void)enumerateProtocols:(void(^)(Protocol *proto, NSString *name, NSInteger idx))block;
+- (void)enumerateProtocols:(void(^)(Protocol *proto, NSString *name))block;
 
 ///详情模型转字典
 - (NSDictionary *)toDictionary;
@@ -58,34 +58,21 @@ void GCDApplyGlobal(id obj ,void(^block)(size_t index));
 @property (nonatomic, copy) void (^block)(id sender);
 @property (nonatomic, copy, nonnull) NSString *runtimeKey;
 
-/**
- 模型转JSON
- */
-- (NSString *)modelToJSONWithError:(NSError **)error;
-
 -(BOOL)validObject;
-/**
- (通用)富文本只有和一般文字同字体大小才能计算高度
- */
+///(通用)富文本只有和一般文字同字体大小才能计算高度
 - (CGSize)sizeWithText:(id)text font:(id)font width:(CGFloat)width;
 
-/**
- (通用)密集view父视图尺寸
- */
+///(通用)密集view父视图尺寸
 - (CGSize)sizeItemsViewWidth:(CGFloat)width items:(NSArray *)items numberOfRow:(NSInteger)numberOfRow itemHeight:(CGFloat)itemHeight padding:(CGFloat)padding;
 
 - (NSString *)stringFromBool:(NSNumber *)boolNum;
 
 - (BOOL)stringToBool:(NSString *)string;
 
-+ (NSString *)getMaxLengthStrFromArr:(NSArray *)arr;
-
 //获取随机数
 - (NSInteger)getRandomNum:(NSInteger)from to:(NSInteger)to;
 
 - (NSString *)getRandomStr:(NSInteger)from to:(NSInteger)to;
-
-- (NSInteger)rowCountWithItemList:(NSArray *)itemList rowOfNumber:(NSInteger)rowOfNumber;
 
 @end
 

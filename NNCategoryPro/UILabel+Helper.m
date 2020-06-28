@@ -10,6 +10,7 @@
 #import "UILabel+Helper.h"
 #import <NNGloble/NNGloble.h>
 #import "UIColor+Helper.h"
+#import "NSAttributedString+Helper.h"
 
 @implementation UILabel (Helper)
 
@@ -90,9 +91,7 @@
     label.textAlignment = NSTextAlignmentCenter;
     return label;
 }
-/**
- UILabel富文本设置
- */
+///UILabel富文本设置
 - (NSMutableAttributedString *)setContent:(NSString *)content attDic:(NSDictionary *)attDic{
     NSAssert([self.text containsString:content], @"包含子标题");
     NSString * text = self.text;
@@ -103,5 +102,20 @@
     return attString;
 }
 
+///富文本只有和一般文字同字体大小才能计算高度
+- (CGSize)sizeWithAttributedText:(BOOL)isAttributedText font:(UIFont *)font width:(CGFloat)width{
+    NSDictionary *attrDict = [NSAttributedString paraDictWithFont:font.pointSize textColor:UIColor.blackColor alignment:NSTextAlignmentLeft];
+    CGSize size = CGSizeZero;
+    if (isAttributedText == true) {
+        assert(self.text != nil);
+        size = [self.text boundingRectWithSize:CGSizeMake(width, MAXFLOAT) options:NSStringDrawingUsesLineFragmentOrigin|NSStringDrawingUsesFontLeading attributes:attrDict context:nil].size;
+    } else {
+        assert(self.attributedText != nil);
+        size = [self.attributedText boundingRectWithSize:CGSizeMake(width, MAXFLOAT) options:NSStringDrawingUsesLineFragmentOrigin|NSStringDrawingUsesFontLeading context:nil].size;
+    }
+    size.width = ceil(size.width);
+    size.height = ceil(size.height);
+    return size;
+}
 
 @end

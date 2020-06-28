@@ -312,34 +312,6 @@
     pthread_mutex_destroy(&mutex);
 }
 
-//-(void)convertBaseTypesForYYModelDict:(NSDictionary *)dict{
-//
-//    pthread_mutex_t mutex;
-//    pthread_mutex_init(&mutex,NULL);
-//    pthread_mutex_lock(&mutex);
-//    //do your stuff
-//    [dict enumerateKeysAndObjectsUsingBlock:^(id  _Nonnull key, id  _Nonnull obj, BOOL * _Nonnull stop) {
-//        id value = [dict valueForKey:key];
-//        if ([value isKindOfClass:[NSArray class]]) {
-//            return ;
-//        }
-//        else if ([value isKindOfClass:[NSString class]]) {
-//            [self setValue:value forKey:key];
-//
-//        }
-//        else{
-//            NSString * string = [self convertFromDict:dict key:key];
-//            [self setValue:string forKey:key];
-//
-//        }
-//    }];
-//
-//    pthread_mutex_unlock(&mutex);
-//    pthread_mutex_destroy(&mutex);
-//
-//}
-
-
 /**
  * @property (readonly, copy) NSString *description;
  * description是NSObject的一个只读属性，对于一般的属性都会有getter和setter方法，但是readonly的属性顾名思义就只有getter方法啦。

@@ -26,6 +26,8 @@ UILabel富文本设置
 */
 - (NSMutableAttributedString *)setContent:(NSString *)content attDic:(NSDictionary *)attDic;
 
+- (CGSize)sizeWithAttributedText:(BOOL)isAttributedText font:(UIFont *)font width:(CGFloat)width;
+
 @end
 
 NS_ASSUME_NONNULL_END

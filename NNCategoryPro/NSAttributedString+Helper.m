@@ -30,7 +30,7 @@
  */
 + (NSDictionary *)paraDictWithFont:(CGFloat)font textColor:(UIColor *)textColor alignment:(NSTextAlignment)alignment{
     
-    NSMutableParagraphStyle * paraStyle = [[NSMutableParagraphStyle alloc] init];
+    NSMutableParagraphStyle *paraStyle = [[NSMutableParagraphStyle alloc] init];
     paraStyle.lineBreakMode = NSLineBreakByCharWrapping;
     paraStyle.alignment = alignment;
     //    paraStyle.lineSpacing = 5;//行间距
