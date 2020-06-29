@@ -46,6 +46,19 @@ CGFloat CGDegreesFromRadian(CGFloat x){
     return (x * 180.0)/(M_PI);
 }
 
+NSInteger RandomInteger(NSInteger from, NSInteger to){
+    return (NSInteger)(from + (arc4random() % (to - from + 1)));
+}
+
+NSInteger StringFromBool(BOOL value){
+    return value == true ? @"1" : @"0";
+}
+
+BOOL BoolFromString(NSString *value){
+    assert(value == @"0" || value == @"1");
+    return [value integerValue] >= 1;
+}
+
 CGFloat RoundFloat(CGFloat value, NSInteger num){
     NSInteger tem = pow(10, num);
     CGFloat x = value*tem + 0.5;
@@ -223,70 +236,13 @@ void GCDApplyGlobal(id obj ,void(^block)(size_t index)){
     NSCAssert([obj isKindOfClass:[NSArray class]] || [obj isKindOfClass:[NSDictionary class]] || [obj isKindOfClass:[NSNumber class]] || [obj isKindOfClass:[NSSet class]], @"必须是集合或者NSNumber");
     if ([obj isKindOfClass:[NSNumber class]]) {
         dispatch_apply([obj unsignedIntegerValue], dispatch_get_global_queue(0, 0), block);
-
     }
-    else{
+    else {
         dispatch_apply([obj count], dispatch_get_global_queue(0, 0), block);
-
     }
 }
 
 #pragma mark - -validObject
-
--(BOOL)validObject{
-    if ([self isKindOfClass:[NSNull class]]) return NO;
-    
-    if ([self isKindOfClass:[NSString class]] || [self isKindOfClass:[NSAttributedString class]]){
-        NSString *str = @"";
-        if ([self isKindOfClass:[NSAttributedString class]]){
-            str = [(NSAttributedString *)self string];
-            
-        } else {
-            str = (NSString *)self;
-            
-        }
-        
-        str = [str stringByTrimmingCharactersInSet:[NSCharacterSet whitespaceAndNewlineCharacterSet]];
-        str = [str stringByReplacingOccurrencesOfString:@" " withString:@""];
-        
-        NSArray * array = @[@"",@"nil",@"null"];
-        if ([array containsObject:str] || [str containsString:@"null"]) {
-//            NSLog(@"无效字符->(%@)",string);
-           return NO;
-        }
-        
-    }
-    else if ([self isKindOfClass:[NSArray class]]){
-        if ([(NSArray *)self count] == 0){
-//            NSLog(@"空数组->(%@)",self);
-            return NO;
-        }
-    }
-    else if ([self isKindOfClass:[NSDictionary class]]){
-        if ([(NSDictionary *)self count] == 0){
-//            NSLog(@"空字典->(%@)",self);
-           return NO;
-        }
-    }
-    return YES;
-}
-
-
--(void (^)(id, id, NSInteger))blockObject{
-    return objc_getAssociatedObject(self, _cmd);
-}
-
--(void)setBlockObject:(void (^)(id, id, NSInteger))blockObject{
-    objc_setAssociatedObject(self, @selector(blockObject), blockObject, OBJC_ASSOCIATION_COPY_NONATOMIC);
-}
-
-- (void (^)(id))block{
-    return objc_getAssociatedObject(self, _cmd);
-}
-
-- (void)setBlock:(void (^)(id))block{
-    objc_setAssociatedObject(self, @selector(block), block, OBJC_ASSOCIATION_COPY_NONATOMIC);
-}
 
 -(NSString *)runtimeKey{
     return objc_getAssociatedObject(self, _cmd);
@@ -300,7 +256,7 @@ void GCDApplyGlobal(id obj ,void(^block)(size_t index)){
  富文本只有和一般文字同字体大小才能计算高度
  */
 - (CGSize)sizeWithText:(id)text font:(id)font width:(CGFloat)width{
-    if (![text validObject]) return CGSizeZero;
+    if (!text) return CGSizeZero;
 
     NSAssert([text isKindOfClass:[NSString class]] || [text isKindOfClass:[NSAttributedString class]], @"请检查text格式!");
     NSAssert([font isKindOfClass:[UIFont class]] || [font isKindOfClass:[NSNumber class]], @"请检查font格式!");
@@ -309,9 +265,9 @@ void GCDApplyGlobal(id obj ,void(^block)(size_t index)){
         font = [UIFont systemFontOfSize:[(NSNumber *)font floatValue]];
     }
     
-    NSDictionary *attrDict = [NSAttributedString paraDictWithFont:((UIFont *)font).pointSize textColor:UIColor.blackColor alignment:NSTextAlignmentLeft];
     CGSize size = CGSizeZero;
     if ([text isKindOfClass:[NSString class]]) {
+        NSDictionary *attrDict = [NSAttributedString paraDictWithFont:((UIFont *)font).pointSize textColor:UIColor.blackColor alignment:NSTextAlignmentLeft];
         size = [text boundingRectWithSize:CGSizeMake(width, MAXFLOAT) options:NSStringDrawingUsesLineFragmentOrigin|NSStringDrawingUsesFontLeading attributes:attrDict context:nil].size;
     } else {
         size = [text boundingRectWithSize:CGSizeMake(width, MAXFLOAT) options:NSStringDrawingUsesLineFragmentOrigin|NSStringDrawingUsesFontLeading context:nil].size;
@@ -321,42 +277,5 @@ void GCDApplyGlobal(id obj ,void(^block)(size_t index)){
     return size;
 }
 
-
-- (CGSize)sizeItemsViewWidth:(CGFloat)width items:(NSArray *)items numberOfRow:(NSInteger)numberOfRow itemHeight:(CGFloat)itemHeight padding:(CGFloat)padding{
-
-//    CGFloat padding = 10;
-//    CGFloat viewHeight = 30;
-//    NSInteger numberOfRow = 4;
-    NSInteger rowCount = items.count % numberOfRow == 0 ? items.count/numberOfRow : items.count/numberOfRow + 1;
-    CGFloat itemWidth = (width - (numberOfRow-1)*padding)/numberOfRow;
-    itemHeight = itemHeight == 0.0 ? itemWidth : itemHeight;;
-    //
-    CGSize size = CGSizeMake(width, rowCount * itemHeight + (rowCount - 1) * padding);
-    return size;
-}
-
-///布尔值转字符串
-- (NSString *)stringFromBool:(NSNumber *)boolNum {
-    NSParameterAssert([boolNum boolValue] || [boolNum boolValue] == NO);
-    NSString *string = [boolNum boolValue] ? @"1" : @"0";
-    return string;
-}
-
-///字符串转布尔值
-- (BOOL)stringToBool:(NSString *)string{
-    NSAssert(([@[@"1",@"0"] containsObject:string] ), @"string值只能为1或者0");
-    BOOL boolValue = [string integerValue] >= 1 ? YES : NO;
-    return boolValue;
-}
-
-#pragma mark - -获取随机数，范围在[from,to]，包括from，包括to
-- (NSInteger)getRandomNum:(NSInteger)from to:(NSInteger)to{
-    return (NSInteger)(from + (arc4random() % (to - from + 1)));
-}
-
-- (NSString *)getRandomStr:(NSInteger)from to:(NSInteger)to{
-    NSInteger random = [self getRandomNum:from to:to];
-    return [@(random) stringValue];
-}
 
 @end
