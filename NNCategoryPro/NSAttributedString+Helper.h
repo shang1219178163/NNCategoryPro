@@ -11,6 +11,10 @@
 NS_ASSUME_NONNULL_BEGIN
 
 @interface NSAttributedString (Helper)
+
+///判断 self是否有效
+@property (nonatomic, assign, readonly) BOOL isValid;
+
 #pragma mark- - 富文本
 /**
  富文本特殊部分设置

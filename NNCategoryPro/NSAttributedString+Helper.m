@@ -11,6 +11,18 @@
 
 @implementation NSAttributedString (Helper)
 
+-(BOOL)isValid{
+    NSString *tmp = self;
+    tmp = [tmp stringByReplacingOccurrencesOfString:@" " withString:@""];
+            
+    NSArray *array = @[@"",@"nil",@"null"];
+    if ([array containsObject:tmp] || [tmp containsString:@"null"]) {
+//         NSLog(@"无效字符->(%@)",string);
+        return false;
+    }
+    return true;
+}
+
 #pragma mark- - 富文本
 /**
  富文本特殊部分设置

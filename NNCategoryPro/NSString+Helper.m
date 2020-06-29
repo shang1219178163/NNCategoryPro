@@ -24,6 +24,18 @@
 
 @implementation NSString (Helper)
 
+-(BOOL)isValid{
+    NSString *tmp = self;
+    tmp = [tmp stringByReplacingOccurrencesOfString:@" " withString:@""];
+            
+    NSArray *array = @[@"",@"nil",@"null"];
+    if ([array containsObject:tmp] || [tmp containsString:@"null"]) {
+//         NSLog(@"无效字符->(%@)",string);
+        return false;
+    }
+    return true;
+}
+
 -(NSData *)jsonData{
     return [self dataUsingEncoding:NSUTF8StringEncoding];
 }
@@ -54,6 +66,7 @@
     }
     return result;
 }
+
 
 -(NSString *)localized{
     return NSLocalizedString(self, self);
@@ -93,7 +106,7 @@ NSString * NSStringFromHTML(NSString *html) {
 }
 
 NSString * NSStringFromLet(id obj) {
-    return [NSString stringWithFormat:@"%@",obj];
+    return [NSString stringWithFormat:@"%@", obj];
 }
 
 NSString * NSStringFromInt(NSInteger obj){

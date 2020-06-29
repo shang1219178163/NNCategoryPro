@@ -14,6 +14,8 @@
 NS_ASSUME_NONNULL_BEGIN
 
 @interface NSString (Helper)
+///判断 self是否有效
+@property (nonatomic, assign, readonly) BOOL isValid;
 ///->NSData
 @property (nonatomic, strong, readonly) NSData *jsonData;
 ///->id
@@ -22,7 +24,7 @@ NS_ASSUME_NONNULL_BEGIN
 @property (nonatomic, strong, readonly) NSDictionary *dictValue;
 ///->NSArray
 @property (nonatomic, strong, readonly) NSArray *arrayValue;
-    
+
 @property (nonatomic, strong, readonly) NSString *localized;
 @property (nonatomic, strong, readonly) NSDecimalNumber *decNumer;
 
