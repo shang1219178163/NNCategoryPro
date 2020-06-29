@@ -284,8 +284,8 @@ UINavigationController * UINavCtrFromObj(id obj){
     if (@available(iOS 9.1, *)) {
         searchVC.obscuresBackgroundDuringPresentation = true;
     }
-    //    //是否隐藏导航栏
-    //    searchVC.hidesNavigationBarDuringPresentation = YES;
+//    //是否隐藏导航栏
+//    searchVC.hidesNavigationBarDuringPresentation = YES;
     
     searchVC.searchBar.barStyle = UIBarStyleDefault;
     searchVC.searchBar.translucent = YES;
@@ -294,8 +294,8 @@ UINavigationController * UINavCtrFromObj(id obj){
     } else {
         [searchVC.searchBar setValue:@"取消" forKey:@"_cancelButtonText"];
     }
-    //    searchVC.searchBar.barTintColor = UIColor.brownColor;
-    //    searchVC.searchBar.tintColor = UIColor.redColor;
+//    searchVC.searchBar.barTintColor = UIColor.brownColor;
+//    searchVC.searchBar.tintColor = UIColor.redColor;
     // searchController.searchBar.layer.borderColor = [UIColor redColor].CGColor;
     //searchController.searchResultsUpdater = result;
     
@@ -622,19 +622,19 @@ UINavigationController * UINavCtrFromObj(id obj){
 
 #pragma mark -------------alert升级方法-------------------
 
-//- (void)showAlertTitle:(NSString *_Nullable)title msg:(NSString *_Nullable)msg{
-//    [UIAlertController createAlertTitle:title msg:msg placeholders:nil actionTitles:nil handler:nil];
-//}
-//
-//- (void)showAlertTitle:(NSString *_Nullable)title msg:(NSString *_Nullable)msg handler:(void(^)(UIAlertController * _Nonnull alertVC, UIAlertAction * _Nullable action))handler{
-//    [UIAlertController createAlertTitle:title msg:msg placeholders:nil actionTitles:@[kTitleCancell, kTitleSure] handler:handler];
-//}
-//
-//- (void)showAlertTitle:(NSString *_Nullable)title msg:(NSString *_Nullable)msg actionTitles:(NSArray *_Nullable)actionTitleList handler:(void(^)(UIAlertController * _Nonnull alertVC, UIAlertAction * _Nullable action))handler{
-//    UIAlertController *alertController = [UIAlertController createAlertTitle:title msg:msg placeholders:nil actionTitles:actionTitleList handler:handler];
-//    UIWindow *keyWindow = UIApplication.sharedApplication.delegate.window;
-//    [keyWindow.rootViewController presentViewController:alertController animated:YES completion:nil];
-//}
+- (void)showAlertTitle:(NSString *_Nullable)title msg:(NSString *_Nullable)msg{
+    [UIAlertController createAlertTitle:title msg:msg placeholders:nil actionTitles:nil handler:nil];
+}
+
+- (void)showAlertTitle:(NSString *_Nullable)title msg:(NSString *_Nullable)msg handler:(void(^)(UIAlertController * _Nonnull alertVC, UIAlertAction * _Nullable action))handler{
+    [UIAlertController createAlertTitle:title msg:msg placeholders:nil actionTitles:@[kTitleCancell,kTitleSure] handler:handler];
+}
+
+- (void)showAlertTitle:(NSString *_Nullable)title msg:(NSString *_Nullable)msg actionTitles:(NSArray *_Nullable)actionTitleList handler:(void(^)(UIAlertController * _Nonnull alertVC, UIAlertAction * _Nullable action))handler{
+    UIAlertController *alertController = [UIAlertController createAlertTitle:title msg:msg placeholders:nil actionTitles:actionTitleList handler:handler];
+    UIWindow *keyWindow = UIApplication.sharedApplication.delegate.window;
+    [keyWindow.rootViewController presentViewController:alertController animated:YES completion:nil];
+}
 
 - (void)callPhone:(NSString *)phoneNumber{
     NSArray *titles = @[@"取消",@"呼叫"];

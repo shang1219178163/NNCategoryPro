@@ -114,6 +114,7 @@ NSString * const kAlertActionColor = @"titleTextColor";
 /**
  展示alert,然后执行异步block代码,然后主线程dismiss
  */
+<<<<<<< HEAD
 //+ (instancetype)showAletTitle:(NSString *_Nullable)title msg:(NSString *_Nullable)msg handler:(void(^ _Nullable)(void))handler{
 //    UIWindow *keyWindow = UIApplication.sharedApplication.delegate.window;
 //    UIAlertController * alertController = [UIAlertController alertControllerWithTitle:title message:msg preferredStyle:UIAlertControllerStyleAlert];
@@ -141,6 +142,22 @@ NSString * const kAlertActionColor = @"titleTextColor";
                            msg:(NSString *_Nullable)msg
                        handler:(void(^)(UIAlertController * _Nonnull alertVC, UIAlertAction * _Nullable action))handler{
     return [UIAlertController showAlertTitle:title msg:msg placeholders:nil actionTitles:@[kTitleCancell, kTitleSure] handler:handler];
+=======
++ (instancetype)showAletTitle:(NSString *_Nullable)title msg:(NSString *_Nullable)msg handler:(void(^ _Nullable)(void))handler{
+    UIWindow *keyWindow = UIApplication.sharedApplication.delegate.window;
+    UIAlertController * alertController = [UIAlertController alertControllerWithTitle:title message:msg preferredStyle:UIAlertControllerStyleAlert];
+    [keyWindow.rootViewController presentViewController:alertController animated:false completion:nil];
+    
+    dispatch_async(dispatch_get_global_queue(0, 0), ^{
+        if (handler) {
+            handler();
+        }
+        dispatch_after(dispatch_time(DISPATCH_TIME_NOW, (int64_t)(2 * NSEC_PER_SEC)), dispatch_get_main_queue(), ^{
+            [alertController dismissViewControllerAnimated:true completion:nil];
+        });
+    });
+    return alertController;
+>>>>>>> develop
 }
 
 
