@@ -111,15 +111,9 @@ NS_ASSUME_NONNULL_BEGIN
  [简]搜索框
  */
 + (NNTextField *)createRect:(CGRect)rect placeholder:(NSString *)placeholder leftView:(UIView *)leftView rightView:(UIView *)rightView;
-
-/**
- 信任值展示,无点击手势
- 默认五颗星星
- */
-//+ (id)getStarViewRect:(CGRect)rect rateStyle:(NSString *)rateStyle currentScore:(CGFloat)currentScore;
-/// 获取密集子视图的总高度
-+ (CGFloat)UIGroupViewHeight:(NSInteger)count numberOfRow:(NSInteger)numberOfRow padding:(CGFloat)padding itemHeight:(CGFloat)itemHeight;
-
+///密集子元素尺寸
+- (CGSize)itemSizeWithCount:(NSInteger)count numberOfRow:(NSInteger)numberOfRow spacing:(CGFloat)spacing inset:(UIEdgeInsets)inset;
+    
 + (UIView *)createViewRect:(CGRect)rect elements:(NSArray *)elements numberOfRow:(NSInteger)numberOfRow viewHeight:(CGFloat)viewHeight padding:(CGFloat)padding;
 
 + (UIView *)createViewRect:(CGRect)rect items:(NSArray *)items numberOfRow:(NSInteger)numberOfRow itemHeight:(CGFloat)itemHeight padding:(CGFloat)padding type:(NSNumber *)type handler:(void(^)(id obj, id item, NSInteger idx))handler;

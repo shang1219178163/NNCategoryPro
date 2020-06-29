@@ -731,9 +731,12 @@
     return [NNTextField createRect:CGRectZero placeholder:placeholder leftView:leftView leftPadding:kPadding rightView:rightView rightPadding:kPadding];
 }
 
-+ (CGFloat)UIGroupViewHeight:(NSInteger)count numberOfRow:(NSInteger)numberOfRow padding:(CGFloat)padding itemHeight:(CGFloat)itemHeight{
+- (CGSize)itemSizeWithCount:(NSInteger)count numberOfRow:(NSInteger)numberOfRow spacing:(CGFloat)spacing inset:(UIEdgeInsets)inset{
     NSInteger rowCount = count % numberOfRow == 0 ? count/numberOfRow : count/numberOfRow + 1;
-    return rowCount * itemHeight + (rowCount - 1) * padding;
+    CGFloat itemWidth = (CGRectGetWidth(self.bounds) - (numberOfRow-1)*spacing - inset.left - inset.right)/numberOfRow;
+    CGFloat itemHeight = (CGRectGetHeight(self.bounds) - (rowCount-1)*spacing - inset.top - inset.bottom)/rowCount;
+    CGSize size = CGSizeMake(itemWidth, itemHeight);
+    return size;
 }
 
 + (UIView *)createViewRect:(CGRect)rect elements:(NSArray *)elements numberOfRow:(NSInteger)numberOfRow viewHeight:(CGFloat)viewHeight padding:(CGFloat)padding{
@@ -760,7 +763,6 @@
         btn.tag = kTAG_BTN+i;
         btn.titleLabel.font = [UIFont systemFontOfSize:15];
         [backgroudView addSubview:btn];
-        
     }
     return backgroudView;
 }
