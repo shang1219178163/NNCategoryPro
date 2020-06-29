@@ -35,22 +35,11 @@
 }
 
 +(instancetype)cellWithTableView:(UITableView *)tableView identifier:(NSString *)identifier{
-    return [self cellWithTableView:tableView identifier:self.identifier style:UITableViewCellStyleDefault];
+    return [self cellWithTableView:tableView identifier:NSStringFromClass(self.class) style:UITableViewCellStyleDefault];
 }
 
 +(instancetype)cellWithTableView:(UITableView *)tableView{
-//    NSString *identifier = NSStringFromClass(self.class);
-    return [self cellWithTableView:tableView identifier:self.identifier];
-}
-
-+(NSString *)identifier{
-    id obj = objc_getAssociatedObject(self, _cmd);
-    if (!obj) {
-        obj = NSStringFromClass(self.class);
-        objc_setAssociatedObject(self, @selector(identifier), obj, OBJC_ASSOCIATION_RETAIN_NONATOMIC);
-        
-    }
-    return obj;
+    return [self cellWithTableView:tableView identifier:NSStringFromClass(self.class)];
 }
 
 #pragma mark - -layz
@@ -64,7 +53,7 @@
 }
 
 -(UILabel *)labelRight{
-    UILabel * view = objc_getAssociatedObject(self, _cmd);
+    UILabel *view = objc_getAssociatedObject(self, _cmd);
     if (!view) {
         view = [UILabel createRect:CGRectZero type:@2];
         view.textAlignment = NSTextAlignmentRight;
@@ -75,7 +64,7 @@
 //            view.textAlignment = NSTextAlignmentLeft;
 //            view.numberOfLines = 0;
 //            view.userInteractionEnabled = true;
-//            //        label.backgroundColor = UIColor.greenColor;
+//            view.backgroundColor = UIColor.greenColor;
 //            view.tag = kTAG_LABEL + 4;
 //            view;
 //        });
@@ -100,7 +89,7 @@
 //            view.textAlignment = NSTextAlignmentLeft;
 //            view.numberOfLines = 0;
 //            view.userInteractionEnabled = true;
-//            //        label.backgroundColor = UIColor.greenColor;
+//            view.backgroundColor = UIColor.greenColor;
 //            view.tag = kTAG_LABEL;
 //            view;
 //        });
@@ -125,7 +114,7 @@
 //            view.textAlignment = NSTextAlignmentLeft;
 //            view.numberOfLines = 0;
 //            view.userInteractionEnabled = true;
-//            //        label.backgroundColor = UIColor.greenColor;
+//            view.backgroundColor = UIColor.greenColor;
 //            view.tag = kTAG_LABEL + 1;
 //            view;
 //        });
@@ -150,7 +139,7 @@
 //            view.textAlignment = NSTextAlignmentLeft;
 //            view.numberOfLines = 0;
 //            view.userInteractionEnabled = true;
-//            //        label.backgroundColor = UIColor.greenColor;
+//            view.backgroundColor = UIColor.greenColor;
 //            view.tag = kTAG_LABEL+2;
 //            view;
 //        });
@@ -175,7 +164,7 @@
 //            view.textAlignment = NSTextAlignmentLeft;
 //            view.numberOfLines = 0;
 //            view.userInteractionEnabled = true;
-//            //        label.backgroundColor = UIColor.greenColor;
+//            view.backgroundColor = UIColor.greenColor;
 //            view.tag = kTAG_LABEL+3;
 //            view;
 //        });
@@ -200,7 +189,6 @@
             view;
         });
         objc_setAssociatedObject(self, _cmd, view, OBJC_ASSOCIATION_RETAIN_NONATOMIC);
-        
     }
     return view;
 }
@@ -247,7 +235,6 @@
 //            view;
 //        });
         objc_setAssociatedObject(self, _cmd, view, OBJC_ASSOCIATION_RETAIN_NONATOMIC);
-        
     }
     return view;
 }
@@ -276,7 +263,6 @@
         [view setBackgroundImage:UIImageNamed(kIMG_selected_YES) forState:UIControlStateSelected];
         
         objc_setAssociatedObject(self, _cmd, view, OBJC_ASSOCIATION_RETAIN_NONATOMIC);
-
     }
     return view;
 }
@@ -339,20 +325,19 @@
 //            view.contentVerticalAlignment = UIControlContentVerticalAlignmentCenter;
 //            view.keyboardAppearance = UIKeyboardAppearanceDefault;
 //
-//            //        view.returnKeyType = UIReturnKeyDone;
-//            //        view.clearButtonMode = UITextFieldViewModeAlways;
+//            view.returnKeyType = UIReturnKeyDone;
+//            view.clearButtonMode = UITextFieldViewModeAlways;
 //
 //            view.autocapitalizationType = UITextAutocapitalizationTypeNone;
 //            view.autocorrectionType = UITextAutocorrectionTypeNo;
 //            view.clearButtonMode = UITextFieldViewModeWhileEditing;//清楚键
-//            //        view.layer.borderWidth = 0.5;  // 给图层添加一个有色边框
-//            //        view.layer.borderColor = [UtilityHelper colorWithHexString:@"d2d2d2"].CGColor;
+//            view.layer.borderWidth = 0.5;  // 给图层添加一个有色边框
+//            view.layer.borderColor = [UtilityHelper colorWithHexString:@"d2d2d2"].CGColor;
 //            view.backgroundColor = UIColor.whiteColor;
 //
 //            view;
 //        });
 //        objc_setAssociatedObject(self, _cmd, view, OBJC_ASSOCIATION_RETAIN_NONATOMIC);
-//
 //    }
 //    return view;
 //}

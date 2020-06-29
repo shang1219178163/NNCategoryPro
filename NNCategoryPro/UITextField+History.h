@@ -19,10 +19,7 @@ FOUNDATION_EXPORT NSString * const kDeafult_textFieldHistory ;
 
 - (BOOL)backToEmptyWithReplacementString:(NSString *)string;
 
-/**
- *  identity of this textfield
- */
-@property (nonatomic, retain) NSString *identify;
+@property (nonatomic, strong) NSString *identify;
 @property (nonatomic, strong) UITableView *historyTableView;
 
 - (NSArray *)loadHistroy;

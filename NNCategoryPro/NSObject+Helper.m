@@ -244,6 +244,10 @@ void GCDApplyGlobal(id obj ,void(^block)(size_t index)){
 
 #pragma mark - -validObject
 
++ (NSString *)identify{
+    return NSStringFromClass(self.class);
+}
+
 -(NSString *)runtimeKey{
     return objc_getAssociatedObject(self, _cmd);
 }

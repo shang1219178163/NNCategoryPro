@@ -136,32 +136,9 @@
     return nil;
 }
 
-//- (UIViewController *)getCurrentVC {
-//    for (UIView *next = self.superview; next; next = next.superview) {
-//        UIResponder *nextResponder = next.nextResponder;
-//        if ([nextResponder isKindOfClass:[UIViewController class]]) {
-//            return (UIViewController *)nextResponder;
-//        }
-//    }
-//    return nil;
-//}
+#pragma mak -绘制
 
-- (BOOL)validText{
-    assert([self isKindOfClass:UITextView.class] || [self isKindOfClass:UITextField.class] || [self isKindOfClass:UILabel.class]);
-    NSString *text = [self valueForKey:@"text"];
-    if (text) {
-        text = [text stringByReplacingOccurrencesOfString:@" " withString:@""] ;
-    }
-    NSArray *textNulls = @[@"", @"nil", @"null",  @"NULL"];
-    if (text == nil || [textNulls containsObject:text]) {
-        return false;
-    }
-    return true;
-}
-
-#pragma mak - -绘制
-
-#pragma mark - 设置部分圆角
+#pragma mark -设置部分圆角
 
 - (UIView *)addCorners:(UIRectCorner)corners cornerRadii:(CGSize)cornerRadii width:(CGFloat)width color:(UIColor *)color{
     UIBezierPath *maskPath = [UIBezierPath bezierPathWithRoundedRect:self.bounds
@@ -224,7 +201,6 @@
 }
 
 #pragma mak - -Recognizer
-
 /**
  手势 - 单指点击
  */
@@ -489,20 +465,6 @@
 }
 
 /**
- 寻找特定类型控件
- */
-+ (id)getControl:(NSString *)control view:(UIView *)view{
-    
-    for (id subview in view.subviews) {
-        if ([subview isKindOfClass:[NSClassFromString(control) class]]) {
-            return subview;
-        }
-        [self getControl:control view:subview];
-    }
-    return nil;
-}
-
-/**
  获取所有子视图(需要注意的是，我的level设置是从1开始的，这与方法中加空格时变量 i 起始的值是相呼应的，要改就要都改。)
  */
 + (void)getSub:(UIView *)view andLevel:(NSInteger)level {
@@ -528,18 +490,20 @@
     if (subviews.count == 0) return;
     for (UIView *subview in subviews) {
         subview.layer.borderWidth = kW_LayerBorder;
-        subview.layer.borderColor = UIColor.blueColor.CGColor;
-//        subview.layer.borderColor = UIColor.clearColor.CGColor;
-
-        [subview getViewLayer];
         
+        #if DEBUG
+        subview.layer.borderColor = UIColor.blueColor.CGColor;
+        #else
+        subview.layer.borderColor = UIColor.clearColor.CGColor;
+        #endif
+        [subview getViewLayer];
     }
 }
 
-- (UIView *)findSubview:(NSString *)name resursion:(BOOL)resursion{
+- (__kindof UIView *)findSubview:(NSString *)name resursion:(BOOL)resursion{
     Class class = NSClassFromString(name);
     for (UIView *subview in self.subviews) {
-        if ([subview isKindOfClass:class]) {
+        if ([subview isKindOfClass: class]) {
             return subview;
         }
     }
@@ -555,24 +519,30 @@
     return nil;
 }
 
+- (__kindof UIView *)findSuperView:(NSString *)name{
+    Class class = NSClassFromString(name);
+
+    UIView *supView = self.superview;
+    while (![supView isKindOfClass: class]) {
+        supView = supView.superview;
+    }
+    return supView;
+}
+
 - (void)showLayerColor:(UIColor *)layerColor{
     self.layer.borderWidth = kW_LayerBorder;
     self.layer.borderColor = layerColor.CGColor;
-    
     self.layer.masksToBounds = YES;
     
     CGFloat cornerRadius = 5.0;
     CGFloat max = CGRectGetWidth(self.frame) >= CGRectGetHeight(self.frame) ? CGRectGetWidth(self.frame): CGRectGetHeight(self.frame);
     if (max/10.0 <= 3.0) {
         cornerRadius = 3.0;
-        
     }
     else if (max/10.0 >= 5.0) {
         cornerRadius = 5.0;
-        
     } else {
         cornerRadius = max/10.0;
-        
     }
     self.layer.cornerRadius = cornerRadius;
 }
@@ -740,13 +710,9 @@
 }
 
 + (UIView *)createViewRect:(CGRect)rect elements:(NSArray *)elements numberOfRow:(NSInteger)numberOfRow viewHeight:(CGFloat)viewHeight padding:(CGFloat)padding{
-    
-    //    CGFloat padding = 15;
-    //    CGFloat viewHeight = 30;
-    //    NSInteger numberOfRow = 4;
     NSInteger rowCount = elements.count % numberOfRow == 0 ? elements.count/numberOfRow : elements.count/numberOfRow + 1;
     //
-    UIView * backgroudView = [[UIView alloc]initWithFrame:CGRectMake(CGRectGetMinX(rect), CGRectGetMinY(rect), CGRectGetWidth(rect), rowCount * viewHeight + (rowCount - 1) * padding)];
+    UIView *backgroudView = [[UIView alloc]initWithFrame:CGRectMake(CGRectGetMinX(rect), CGRectGetMinY(rect), CGRectGetWidth(rect), rowCount * viewHeight + (rowCount - 1) * padding)];
     backgroudView.backgroundColor = UIColor.greenColor;
     
     CGSize viewSize = CGSizeMake((CGRectGetWidth(backgroudView.frame) - (numberOfRow-1)*padding)/numberOfRow, viewHeight);
@@ -769,9 +735,6 @@
 
 + (UIView *)createViewRect:(CGRect)rect items:(NSArray *)items numberOfRow:(NSInteger)numberOfRow itemHeight:(CGFloat)itemHeight padding:(CGFloat)padding type:(NSNumber *)type handler:(void(^)(id obj, id item, NSInteger idx))handler{
     
-    //    CGFloat padding = 15;
-    //    CGFloat viewHeight = 30;
-    //    NSInteger numberOfRow = 4;
     NSInteger rowCount = items.count % numberOfRow == 0 ? items.count/numberOfRow : items.count/numberOfRow + 1;
     CGFloat itemWidth = (CGRectGetWidth(rect) - (numberOfRow-1)*padding)/numberOfRow;
     itemHeight = itemHeight == 0.0 ? itemWidth : itemHeight;;
@@ -838,28 +801,59 @@
     return backgroudView;
 }
 
-//+ (BNAlertViewZero *)creatAlertViewTitle:(NSString *)title array:(NSArray *)array dict:(NSDictionary *)dict mustList:(NSArray *)mustList btnTitles:(NSArray *)btnTitles{
-//    
-//    NSMutableArray * marr = [NSMutableArray arrayWithCapacity:0];
-//    for (NSInteger i = 0; i < array.count; i++) {
-//        ElementModel *model = [[ElementModel alloc]init];
-//        
-//        if ([mustList containsObject:@(i)]) {
-//            model.isMust = YES;
-//        }
-//        
-//        NSString * title = array[i];
-//        NSString * starString = @"*";
-//        model.title = [NSAttributedString getAttringByPrefix:starString content:title isMust:model.isMust];
-////        model.content = array[i];
-//        model.placeHolder = dict[title];
-//        
-//        [marr addObject:model];
-//    }
-//    
-//    BNAlertViewZero * alertView = [BNAlertViewZero alertViewWithTitle:title items:marr btnTitles:btnTitles];
-//    return alertView;
-//}
+/// classtype 只能为 UIView及其子类
++ (UIView *)createViewRect:(CGRect)rect items:(NSArray *)items numberOfRow:(NSInteger)numberOfRow padding:(CGFloat)padding inset:(UIEdgeInsets)inset classtype:(Class)classtype handler:(void(^)(__kindof UIView *))handler{
+
+    NSInteger rowCount = items.count % numberOfRow == 0 ? items.count/numberOfRow : items.count/numberOfRow + 1;
+    CGFloat itemWidth = (CGRectGetWidth(rect) - (numberOfRow-1)*padding - inset.left - inset.right)/numberOfRow;
+    CGFloat itemHeight = (CGRectGetHeight(rect) - (rowCount-1)*padding - inset.top - inset.bottom)/rowCount;
+    //
+    UIView *backgroudView = [[UIView alloc]initWithFrame:rect];
+    backgroudView.backgroundColor = UIColor.systemBlueColor;
+    
+    for (NSInteger i = 0; i< items.count; i++) {
+        CGFloat w = itemWidth;
+        CGFloat h = itemHeight;
+        CGFloat x = (i % numberOfRow) * (w + padding);
+        CGFloat y = (i / numberOfRow) * (h + padding);
+        
+        NSString *title = items[i];
+        CGRect itemRect = CGRectMake(x, y, itemWidth, itemHeight);
+        
+        UIView *view = nil;
+        if ([classtype isKindOfClass: UIButton.class]) {
+            view = ({
+                UIButton *view = [UIButton createRect:itemRect title:title image:nil type:@5];
+                view.tag = i;
+                view.titleLabel.font = [UIFont systemFontOfSize:15];
+                view;
+            });
+        } else if ([classtype isKindOfClass: UIImageView.class]) {
+            view = ({
+                 UIImageView *view = [UIImageView createRect:itemRect type:@0];
+                 view.image = [UIImage imageNamed:title];
+                 view.tag = i;
+                 view;
+             });
+        } else if ([classtype isKindOfClass: UILabel.class]) {
+            view = ({
+                UILabel *view = [UILabel createRect:itemRect type:@0];
+                view.text = title;
+                view.tag = i;
+                view.font = [UIFont systemFontOfSize:15];
+                view.textAlignment = NSTextAlignmentCenter;
+                view;
+            });
+        }
+        [backgroudView addSubview:view];
+        
+        if (handler) {
+            handler(view);
+        }
+    }
+    return backgroudView;
+}
+
 
 //向屏幕倾斜
 + (void)transformStateEventWithView:(UIView *)view {
@@ -931,23 +925,19 @@
 //}
 
 + (UIVisualEffectView *)createBlurViewEffect:(UIBlurEffectStyle)effect subView:(UIView *)view{
-    
-    UIBlurEffect * blur = [UIBlurEffect effectWithStyle:UIBlurEffectStyleDark];
+    UIBlurEffect *blur = [UIBlurEffect effectWithStyle:UIBlurEffectStyleDark];
     if (effect) {
         blur = [UIBlurEffect effectWithStyle:effect];
-        
     }
 //    UIVibrancyEffect *vibrancy = [UIVibrancyEffect effectForBlurEffect:blur];
-
-    UIVisualEffectView * visualView = [[UIVisualEffectView alloc]initWithEffect:blur];
+    UIVisualEffectView *visualView = [[UIVisualEffectView alloc]initWithEffect:blur];
     
     visualView.frame = view.bounds;
-    visualView.layer.masksToBounds = YES;
-    visualView.layer.cornerRadius = CGRectGetHeight(visualView.frame);
+//    visualView.layer.masksToBounds = YES;
+//    visualView.layer.cornerRadius = CGRectGetHeight(visualView.frame);
     
     //把要添加的视图加到毛玻璃上
     [visualView.contentView addSubview:view];
-    
     return visualView;
 }
 
@@ -976,25 +966,14 @@
 - (void)removeAllSubViews{
     [self.subviews enumerateObjectsUsingBlock:^(__kindof UIView * _Nonnull obj, NSUInteger idx, BOOL * _Nonnull stop) {
         [obj removeFromSuperview];
-        
     }];
 }
 
 - (NSIndexPath *)getCellIndexPath:(UITableView *)tableView{
-    UITableViewCell * cell = [self getClickViewCell];
-    NSIndexPath * indexPath = [tableView indexPathForRowAtPoint:cell.center];
-    //    DDLog(@"%@",indexPath);
+    UITableViewCell *cell = [self findSuperView: @"UITableViewCell"];
+    NSIndexPath *indexPath = [tableView indexPathForRowAtPoint:cell.center];
+//    DDLog(@"%@",indexPath);
     return indexPath;
-}
-
-- (UITableViewCell *)getClickViewCell{
-    UIView * view = self;
-    UIView * supView = [view superview];
-    while (![supView isKindOfClass:[UITableViewCell class]]) {
-        supView = [supView superview];
-    }
-    UITableViewCell * tableViewCell = (UITableViewCell *)supView;
-    return tableViewCell;
 }
 
 - (id)asoryView:(NSString *)unitString{

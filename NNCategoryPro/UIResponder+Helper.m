@@ -8,6 +8,18 @@
 #import "UIResponder+Helper.h"
 
 @implementation UIResponder (Helper)
+
+-(UIResponder *_Nullable)nextResponder:(NSString *)responderName{
+    UIResponder *next = self.nextResponder;
+    while (next){
+        if ([next isKindOfClass:[NSClassFromString(responderName) class]]){
+            return next;
+        }
+        next = [next nextResponder];
+    }
+    return nil;
+}
+
 /**
  *  @brief  响应者链
  *

@@ -19,7 +19,7 @@ NS_ASSUME_NONNULL_BEGIN
 @property (nonatomic, strong) UILabel *tipLabel;
 
 @property (nonatomic, assign) NSInteger pageIndex;
-@property (nonatomic, strong) NSMutableArray * dataList;
+@property (nonatomic, strong) NSMutableArray *dataList;
 //@property (nonatomic, strong) NSMutableDictionary * heightMdic;
 
 @end

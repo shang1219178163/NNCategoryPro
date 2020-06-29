@@ -79,7 +79,6 @@
     if ([self.title isKindOfClass:[NSString class]] && self.title.length > 0){ //有标题的才符合我的要求
         // 这里发送log
         NSLog(@"统计打点 : %@   开始打点:%@", self.class, @(isBegin));
-
     }
 }
 

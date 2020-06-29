@@ -12,7 +12,6 @@ NS_ASSUME_NONNULL_BEGIN
 
 @interface UIWindow (Helper)
 
-
 /**
  展示截屏反馈视图（UIImageView *imgView = [btn.superview viewWithTag:991];）
  */

@@ -11,9 +11,9 @@
 NS_ASSUME_NONNULL_BEGIN
 
 /// UIAlertController标题富文本key
-FOUNDATION_EXPORT NSString * const kAlertCtlrTitle;
+FOUNDATION_EXPORT NSString * const kAlertVCTitle;
 /// UIAlertController信息富文本key
-FOUNDATION_EXPORT NSString * const kAlertCtlrMessage;
+FOUNDATION_EXPORT NSString * const kAlertVCMessage;
 /// UIAlertController按钮颜色key
 FOUNDATION_EXPORT NSString * const kAlertActionColor;
 

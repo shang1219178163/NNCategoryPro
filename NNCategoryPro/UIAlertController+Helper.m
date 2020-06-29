@@ -10,9 +10,9 @@
 #import <NNGloble/NNGloble.h>
 
 /// UIAlertController标题富文本key
-NSString * const kAlertCtlrTitle = @"attributedTitle";
+NSString * const kAlertVCTitle = @"attributedTitle";
 /// UIAlertController信息富文本key
-NSString * const kAlertCtlrMessage = @"attributedMessage";
+NSString * const kAlertVCMessage = @"attributedMessage";
 /// UIAlertController按钮颜色key
 NSString * const kAlertActionColor = @"titleTextColor";
 
@@ -151,7 +151,7 @@ NSString * const kAlertActionColor = @"titleTextColor";
     [attr addAttributes:@{NSForegroundColorAttributeName: color,
                            }
                   range:NSMakeRange(0, self.title.length)];
-    [self setValue:attr forKey:kAlertCtlrTitle];
+    [self setValue:attr forKey:kAlertVCTitle];
 }
 
 - (void)setMessageParaStyle:(NSMutableParagraphStyle *)style{
@@ -161,7 +161,7 @@ NSString * const kAlertActionColor = @"titleTextColor";
     [attr addAttributes:@{NSParagraphStyleAttributeName: style,
                            }
                   range:NSMakeRange(0, self.message.length)];
-    [self setValue:attr forKey:kAlertCtlrMessage];
+    [self setValue:attr forKey:kAlertVCMessage];
 }
 
 @end

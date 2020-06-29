@@ -11,6 +11,8 @@ NS_ASSUME_NONNULL_BEGIN
 
 @interface UIResponder (Helper)
 
+-(UIResponder *_Nullable)nextResponder:(NSString *)responderName;
+
 - (NSString *)responderChainDescription;
 
 @end

@@ -10,17 +10,7 @@
 
 #import "UIViewController+AddView.h"
 
-@protocol FailRefreshViewDelegate<NSObject>
-
-@optional
-- (void)failRefresh;
-
-@end
-
 NS_ASSUME_NONNULL_BEGIN
-
-typedef void(^BlockAlertController)(UIAlertController *alertController, UIAlertAction *_Nullable action);
-
 
 @interface UIViewController (Helper)
 
@@ -29,32 +19,14 @@ FOUNDATION_EXPORT UIViewController * _Nullable UICtrFromString(NSString *obj);
 /// 字符串->UINavigationController
 FOUNDATION_EXPORT UINavigationController * _Nullable UINavCtrFromObj(id obj);
 
-- (BOOL)isCurrentVisibleViewController;
-
-- (void)addFailRefreshViewWithTitle:(NSString *)title;
-
-- (void)addNoDataRefreshViewWithTitle:(NSString *_Nullable)title;
-- (void)addNoDataRefreshViewWithTitle:(NSString *_Nullable)title inView:(UIView *_Nullable)inView;
-
-- (void)removeFailRefreshView;
-
-- (void)removeFailRefreshView:(UIView *)inView;
-
-@property (nonatomic, weak) id<FailRefreshViewDelegate> delegate;
-
-@property (nonatomic, copy) BlockAlertController _Nullable blockAlertController;
-
-@property (nonatomic, strong) UIViewController * _Nullable frontVC;
+@property (nonatomic, strong, readonly) NSString * _Nullable controllerName;
+@property (nonatomic, strong, readonly) UIViewController * _Nullable frontVC;
 @property (nonatomic, strong, readonly) UIViewController * _Nullable currentVC;
 
-@property (nonatomic, strong) id obj;
-@property (nonatomic, strong) id objOne;
-@property (nonatomic, strong) id objModel;
-
-@property (nonatomic, assign) NSTimeInterval timeInterval;
-@property (nonatomic, strong, readonly) NSString * _Nullable controllerName;
 /// 返回按钮
 @property (nonatomic, strong) UIButton *backBtn;
+
+- (BOOL)isCurrentVisibleVC;
 
 - (UIButton *)createBackItem:(UIImage *)image;
 
@@ -71,37 +43,19 @@ FOUNDATION_EXPORT UINavigationController * _Nullable UINavCtrFromObj(id obj);
 - (UIButton *)createBarItemTitle:(NSString *)title imgName:(NSString *_Nullable)imageName isLeft:(BOOL)isLeft isHidden:(BOOL)isHidden handler:(void(^)(id obj, UIButton * item, NSInteger idx))handler;
 
 - (UIView *)createBarItem:(NSString *)obj isLeft:(BOOL)isLeft handler:(void(^)(id obj, UIView *item, NSInteger idx))handler;
-
-- (UITableViewCell *)cellByClickView:(UIView *)view;
-
-- (NSIndexPath *)indexPathByClickView:(UIView *)view tableView:(UITableView *)tableView;
-
+ 
 /**
  找导航控制器栈中控制器
  */
-- (id _Nullable)findController:(NSString *)contollerName navController:(UINavigationController *)navController;
+- (__kindof UIViewController * _Nullable)findController:(NSString *)contollerName navController:(UINavigationController *)navController;
 
-/**
- (推荐)跳转到contollerName控制器中去,先在navController栈中查找有就返回没有就创建一个(用于无参数跳转界面)
- 
- */
-- (void)goController:(NSString *)contollerName title:(NSString *_Nullable)title;
-- (void)goController:(NSString *)contollerName title:(NSString *_Nullable)title obj:(id _Nullable)obj;
-- (void)goController:(NSString *)contollerName title:(NSString *_Nullable)title obj:(id _Nullable)obj objOne:(id _Nullable)objOne;
+- (__kindof UIViewController * _Nullable)frontViewController:(UINavigationController *_Nonnull)navContoller;
 
-- (void)presentController:(NSString *)contollerName title:(NSString *_Nullable)title;
-- (void)presentController:(NSString *)contollerName title:(NSString *_Nullable)title animated:(BOOL)animated;
+- (void)pushVC:(NSString *)vcName title:(NSString *)title animated:(BOOL)animated block:(void(^)(__kindof UIViewController *vc))block;
+- (void)pushVCType:(Class)classVC title:(NSString *)title animated:(BOOL)animated block:(void(^)(__kindof UIViewController *vc))block;
 
-- (void)presentController:(NSString *)contollerName title:(NSString *_Nullable)title obj:(id _Nullable)obj;
-- (void)presentController:(NSString *)contollerName title:(NSString *_Nullable)title obj:(id _Nullable)obj objOne:(id _Nullable)objOne;
-- (void)presentController:(NSString *)contollerName title:(NSString * _Nullable)title obj:(id _Nullable)obj objOne:(id _Nullable)objOne animated:(BOOL)animated;
-
-/**
- 堆栈中查找控制器,找到返回,没有创建
- */
-- (UIViewController *)getController:(NSString *)contollerName navController:(UINavigationController *_Nullable)navController;
-
-- (UIViewController *_Nullable)getController:(NSString *)contollerName;
+- (void)presentVC:(NSString *)vcName title:(NSString *)title animated:(BOOL)animated block:(void(^)(__kindof UIViewController *vc))block;
+- (void)presentVCType:(Class)classVC title:(NSString *)title animated:(BOOL)animated block:(void(^)(__kindof UIViewController *vc))block;
 
 - (UIViewController *)addControllerName:(NSString *)className;
 /// 添加子控制器(对应方法 removeControllerVC)
@@ -133,6 +87,13 @@ FOUNDATION_EXPORT UINavigationController * _Nullable UINavCtrFromObj(id obj);
 
 - (void)setupNavigationBarBackgroundImage:(UIImage *)image;
 
+
+@end
+
+
+@interface UINavigationController (Helper)
+
+- (__kindof UIViewController * _Nullable)findController:(Class)classVC;
 
 @end
 

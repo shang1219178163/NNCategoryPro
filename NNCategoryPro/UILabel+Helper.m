@@ -26,15 +26,12 @@
         {
             label.numberOfLines = 0;
             label.lineBreakMode = NSLineBreakByCharWrapping;
-
         }
             break;
         case 1://abc...
         {
-            
             label.numberOfLines = 1;
             label.lineBreakMode = NSLineBreakByTruncatingTail;
-            
         }
             break;
         case 2://一行字体大小自动调节

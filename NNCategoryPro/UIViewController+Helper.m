@@ -25,13 +25,11 @@
 
 @implementation UIViewController (Helper)
 
-@dynamic delegate;
-
-UIViewController * UICtrFromString(NSString *obj){
+UIViewController *UICtrFromString(NSString *obj){
     return [[NSClassFromString(obj) alloc]init];
 }
 
-UINavigationController * UINavCtrFromObj(id obj){
+UINavigationController *UINavCtrFromObj(id obj){
     if ([obj isKindOfClass:[UINavigationController class]]) {
         return obj;
     }
@@ -42,6 +40,26 @@ UINavigationController * UINavCtrFromObj(id obj){
         return [[UINavigationController alloc]initWithRootViewController:obj];
     }
     return nil;
+}
+
+#pragma make - -给控制器添加额外属性
+
+-(UIViewController *)frontVC{
+    UIViewController *viewController = nil;
+
+    NSUInteger count = self.navigationController.viewControllers.count;
+    if (count == 0) {
+        return nil;
+    }
+    
+    if (count == 1) {
+        return self.navigationController.viewControllers.lastObject;
+    }
+    return self.navigationController.viewControllers[count - 2];
+}
+
+- (BOOL)isCurrentVisibleVC{
+    return (self.isViewLoaded && self.view.window);
 }
 
 - (UIButton *)backBtn{
@@ -79,7 +97,6 @@ UINavigationController * UINavCtrFromObj(id obj){
     return btn;
 }
 
-
 - (void)setupExtendedLayout{
     self.edgesForExtendedLayout = UIRectEdgeNone;
     self.view.backgroundColor = UIColor.whiteColor;
@@ -99,193 +116,19 @@ UINavigationController * UINavCtrFromObj(id obj){
     }
 }
 
-#pragma make - - 给控制器添加额外属性
-
--(UIViewController *)frontVC{
-    return objc_getAssociatedObject(self, _cmd);
-}
-
--(void)setFrontVC:(UIViewController *)frontVC{
-    objc_setAssociatedObject(self, @selector(frontVC), frontVC, OBJC_ASSOCIATION_RETAIN_NONATOMIC);
-}
-
--(id)obj{
-    return objc_getAssociatedObject(self, _cmd);
-}
-
--(void)setObj:(id)obj{
-    objc_setAssociatedObject(self, @selector(obj), obj, OBJC_ASSOCIATION_RETAIN_NONATOMIC);
-}
-
--(id)objModel{
-    return objc_getAssociatedObject(self, _cmd);
-}
-
--(void)setObjModel:(id)objModel{
-    objc_setAssociatedObject(self, @selector(objModel), objModel, OBJC_ASSOCIATION_RETAIN_NONATOMIC);
-}
-
--(id)objOne{
-    return objc_getAssociatedObject(self, _cmd);
-}
-
--(void)setObjOne:(id)objOne{
-    objc_setAssociatedObject(self, @selector(objOne), objOne, OBJC_ASSOCIATION_RETAIN_NONATOMIC);
-}
-
--(NSTimeInterval)timeInterval{
-    return [objc_getAssociatedObject(self, _cmd) doubleValue];
-}
-
--(void)setTimeInterval:(NSTimeInterval)timeInterval{
-    objc_setAssociatedObject(self, @selector(timeInterval), @(timeInterval), OBJC_ASSOCIATION_ASSIGN);
-}
-
-#pragma make - - 声明代码块
-
--(BlockAlertController)blockAlertController{
-    return objc_getAssociatedObject(self, _cmd);
-}
-
--(void)setBlockAlertController:(BlockAlertController)blockAlertController{
-    objc_setAssociatedObject(self, @selector(blockAlertController), blockAlertController, OBJC_ASSOCIATION_COPY_NONATOMIC);
-}
-
-#pragma make - -网络请求失败加载图
-
-- (void)addFailRefreshViewWithTitle:(NSString *)title{
-    UIView * view = [self refreshViewWithTitle:title type:@0 inView:self.view];
-    [self.view addSubview:view];
-    [self.view bringSubviewToFront:view];
-}
-
-- (void)removeFailRefreshView:(UIView *)inView{
-    inView = inView ? : self.view;
-    
-    if ([inView viewWithTag:20178015] && [inView viewWithTag:20181019]) {
-        UIView *view = [inView viewWithTag:20178015];
-        UIView *viewNoData = [inView viewWithTag:20181019];
-        view.hidden = YES;
-        viewNoData.hidden = YES;
-        return;
-    }
-    
-    UIView *view = [inView viewWithTag:20178015];
-    if (view) {
-        view.hidden = YES;
-    }
-    
-    UIView *viewNoData = [inView viewWithTag:20181019];
-    if (viewNoData){
-        viewNoData.hidden = YES;
-    }
-}
-
-- (void)removeFailRefreshView{
-    if ([self.view viewWithTag:20178015] && [self.view viewWithTag:20181019]) {
-        UIView *view = [self.view viewWithTag:20178015];
-        UIView *viewNoData = [self.view viewWithTag:20181019];
-        view.hidden = YES;
-        viewNoData.hidden = YES;
-        return;
-    }
-        
-    UIView *view = [self.view viewWithTag:20178015];
-    if (view) {
-        view.hidden = YES;
-    }
-    
-    UIView *viewNoData = [self.view viewWithTag:20181019];
-    if (viewNoData){
-         viewNoData.hidden = YES;
-    }
-}
-
-- (void)addNoDataRefreshViewWithTitle:(NSString *)title{
-    UIView * view = [self refreshViewWithTitle:title type:@1 inView:self.view];
-    [self.view addSubview:view];
-    [self.view bringSubviewToFront:view];
-}
-
-- (void)addNoDataRefreshViewWithTitle:(NSString *)title inView:(UIView *)inView{
-    inView = inView ? : self.view;
-    UIView * view = [self refreshViewWithTitle:title type:@1 inView:inView];
-    [inView addSubview:view];
-    [inView bringSubviewToFront:view];
-}
-
-- (UIView *)refreshViewWithTitle:(NSString *)title type:(NSNumber *)type inView:(UIView *)inView{
-    NSDictionary * dic  = @{
-                            @0: @"img_request_Failed",
-                            @1: @"img_NoData",
-                            };
-    
-    UIView *view = [inView viewWithTag:20181019];
-    if (view) {
-        view.hidden = NO;
-        return view;
-    }
-    
-    view = [[UIView alloc] initWithFrame:inView.bounds];
-    view.autoresizingMask = UIViewAutoresizingFlexibleWidth | UIViewAutoresizingFlexibleHeight;
-    view.tag = 20181019;
-    view.backgroundColor = UIColor.whiteColor;
-    
-    UIImage * image = [UIImage imageNamed:dic[type]];
-    CGSize imgSize = CGSizeMake(65, 75);
-    if (image.size.width > imgSize.width) {
-        if (image.scale < 2) {
-            imgSize = CGSizeMake(image.size.width*0.5, image.size.height*0.5);
-            
-        }
-    }
-    
-    
-    CGRect imgViewRect = CGRectMake((CGRectGetWidth(inView.bounds) - imgSize.width)/2.0, (CGRectGetHeight(inView.bounds) - imgSize.height)/2.0, imgSize.width, imgSize.height);
-    
-    UIImageView *imageView = [[UIImageView alloc] initWithFrame:imgViewRect];
-    imageView.image = image;
-    imageView.contentMode = UIViewContentModeScaleAspectFit;
-    imageView.userInteractionEnabled = YES;
-    
-    UILabel * tipLabel = [[UILabel alloc]initWithFrame:CGRectMake(kX_GAP, CGRectGetMaxY(imgViewRect)+5, CGRectGetWidth(inView.bounds) - 2*kX_GAP, 30)];
-    tipLabel.text = title ? : @"";
-    tipLabel.font = [UIFont systemFontOfSize:15];
-    tipLabel.textAlignment = NSTextAlignmentCenter;
-    tipLabel.backgroundColor = UIColor.whiteColor;
-    tipLabel.userInteractionEnabled = YES;
-    
-    //    tipLabel.backgroundColor = UIColor.yellowColor;
-    //    imageView.backgroundColor = UIColor.greenColor;
-    
-    [view addSubview:tipLabel];
-    [view addSubview:imageView];
-    
-    if ([self respondsToSelector:@selector(failRefresh)]) {
-        UITapGestureRecognizer *tapGesture = [[UITapGestureRecognizer alloc] initWithTarget:self action:@selector(failRefresh)];
-        
-        tapGesture.numberOfTouchesRequired = 1;
-        
-        tapGesture.cancelsTouchesInView = NO;
-        tapGesture.delaysTouchesEnded = NO;
-        [view addGestureRecognizer:tapGesture];
-    }
-    return view;
-}
-
 - (UISearchController *)createSearchVC:(UIViewController *)resultsController {
     self.definesPresentationContext = true;
     
     UISearchController *searchVC = [[UISearchController alloc]initWithSearchResultsController:resultsController];
-    //    searchVC.view.backgroundColor = [UIColor.whiteColor colorWithAlphaComponent:1];
+//    searchVC.view.backgroundColor = [UIColor.whiteColor colorWithAlphaComponent:1];
     
     //是否添加半透明覆盖层
     searchVC.dimsBackgroundDuringPresentation = true;
     if (@available(iOS 9.1, *)) {
         searchVC.obscuresBackgroundDuringPresentation = true;
     }
-    //    //是否隐藏导航栏
-    //    searchVC.hidesNavigationBarDuringPresentation = YES;
+//    //是否隐藏导航栏
+//    searchVC.hidesNavigationBarDuringPresentation = YES;
     
     searchVC.searchBar.barStyle = UIBarStyleDefault;
     searchVC.searchBar.translucent = YES;
@@ -294,8 +137,8 @@ UINavigationController * UINavCtrFromObj(id obj){
     } else {
         [searchVC.searchBar setValue:@"取消" forKey:@"_cancelButtonText"];
     }
-    //    searchVC.searchBar.barTintColor = UIColor.brownColor;
-    //    searchVC.searchBar.tintColor = UIColor.redColor;
+//    searchVC.searchBar.barTintColor = UIColor.brownColor;
+//    searchVC.searchBar.tintColor = UIColor.redColor;
     // searchController.searchBar.layer.borderColor = [UIColor redColor].CGColor;
     //searchController.searchResultsUpdater = result;
     
@@ -329,18 +172,11 @@ UINavigationController * UINavCtrFromObj(id obj){
     //父视图调用子视图方法参数    
     [view addGestureTap:^(UIGestureRecognizer * _Nonnull reco) {
         if (btn.isHidden == 1) return ;
-        
-        if (NSDate.date.timeIntervalSince1970 - self.timeInterval < 1) return;
-        if (self.timeInterval > 0) self.timeInterval = NSDate.date.timeIntervalSince1970;
-        
         handler(reco, btn, btn.tag);
     }];
     
     [btn addActionHandler:^(id obj, id item, NSInteger idx) {
         if (btn.isHidden == 1) return ;
-
-        if (NSDate.date.timeIntervalSince1970 - self.timeInterval < 1) return;
-        if (self.timeInterval > 0) self.timeInterval = NSDate.date.timeIntervalSince1970;
 
         if (handler) {
             handler(obj, item, ((UIButton *)item).tag);
@@ -375,7 +211,7 @@ UINavigationController * UINavCtrFromObj(id obj){
     
     item.tag = isLeft ? kTAG_BTN_BackItem : kTAG_BTN_RightItem;
     //
-    UIView * view = [[UIView alloc]initWithFrame:CGRectMake(0, 0, 44, 44)];
+    UIView *view = [[UIView alloc]initWithFrame:CGRectMake(0, 0, 44, 44)];
     item.center = view.center;
     [view addSubview:item];
     
@@ -396,132 +232,47 @@ UINavigationController * UINavCtrFromObj(id obj){
     return view;
 }
 
-- (UITableViewCell *)cellByClickView:(UIView *)view{
-    UIView * supView = [view superview];
-    while (![supView isKindOfClass:[UITableViewCell class]]) {
-        
-        supView = [supView superview];
-    }
-    UITableViewCell * tableViewCell = (UITableViewCell *)supView;
-    return tableViewCell;
-}
-
-- (NSIndexPath *)indexPathByClickView:(UIView *)view tableView:(UITableView *)tableView{
-    UITableViewCell * cell = [self cellByClickView:view];
-    NSIndexPath * indexPath = [tableView indexPathForRowAtPoint:cell.center];
-//    DDLog(@"%@",indexPath);
-    return indexPath;
-}
-
-- (BOOL)isCurrentVisibleViewController{
-    return (self.isViewLoaded && self.view.window);
-}
-
-- (id)findController:(NSString *)contollerName navController:(UINavigationController *)navController{
-    if (!navController) {
-        navController = self.currentVC.navigationController;
-        
-    }
-    
-    __block UIViewController * controller = nil;
-    [navController.viewControllers enumerateObjectsWithOptions:NSEnumerationReverse usingBlock:^(__kindof UIViewController * _Nonnull obj, NSUInteger idx, BOOL * _Nonnull stop) {
-        if ([obj isKindOfClass:[NSClassFromString(contollerName) class]]) {
-            controller = obj;
-            *stop = YES;
-        }
-    }];
-    return controller;
-}
-
-- (void)goController:(NSString *)contollerName title:(NSString *)title navController:(UINavigationController *)navController obj:(id)obj objOne:(id)objOne{
-    
-    NSParameterAssert(![contollerName isEqualToString:@""]);
+- (__kindof UIViewController * _Nullable)findController:(NSString *)contollerName navController:(UINavigationController *)navController{
     if (!navController) {
         navController = self.currentVC.navigationController;
     }
-    
-    if ([self findController:contollerName navController:navController]) {
-        UIViewController * controller = [self findController:contollerName navController:navController];
-        controller.frontVC = self;
-        controller.title = title;
-        controller.obj = obj;
-        controller.objOne = objOne;
+    Class class = NSClassFromString(contollerName);
+    return [navController findController:class];
+}
 
-        [navController popToViewController:controller animated:YES];
+- (void)pushVC:(NSString *)vcName title:(NSString *)title animated:(BOOL)animated block:(void(^)(__kindof UIViewController *vc))block{
+    UIViewController *controller = [[NSClassFromString(vcName) alloc]init];
+    return [self pushVC:controller.class title:title animated:animated block:block];
+}
+
+- (void)pushVCType:(Class)classVC title:(NSString *)title animated:(BOOL)animated block:(void(^)(__kindof UIViewController *vc))block{
+    UIViewController *controller = [[classVC alloc]init];
+    controller.title = [title stringByReplacingOccurrencesOfString:@" " withString:@""];
+    if (block) {
+        block(controller);
     }
-    else{
-        UIViewController * controller = [NSClassFromString(contollerName) new];
-        controller.frontVC = self;
-        controller.title = [title stringByReplacingOccurrencesOfString:@" " withString:@""];
-        controller.obj = obj;
-        controller.objOne = objOne;
-
-        [navController pushViewController:controller animated:YES];
-        
-    }
+    [self.navigationController pushViewController:controller animated:animated];
 }
 
-- (void)goController:(NSString *)contollerName title:(NSString *)title{
-    [self goController:contollerName title:title navController:self.navigationController obj:nil objOne:nil];
+- (void)presentVC:(NSString *)vcName title:(NSString *)title animated:(BOOL)animated block:(void(^)(__kindof UIViewController *vc))block{
+    UIViewController *controller = [[NSClassFromString(vcName) alloc]init];
+    return [self presentVC:controller.class title:title animated:animated block:block];
 }
 
-- (void)goController:(NSString *)contollerName title:(NSString *)title obj:(id)obj{
-    [self goController:contollerName title:title navController:self.navigationController obj:obj objOne:nil];
-}
-
-- (void)goController:(NSString *)contollerName title:(NSString *)title obj:(id)obj objOne:(id)objOne{
-    [self goController:contollerName title:title navController:self.navigationController obj:obj objOne:objOne];
-}
-
-- (void)presentController:(NSString *_Nonnull)contollerName title:(NSString *)title{
-    [self presentController:contollerName title:title obj:nil objOne:nil animated:true];
-}
-
-- (void)presentController:(NSString *_Nonnull)contollerName title:(NSString *)title animated:(BOOL)animated{
-    [self presentController:contollerName title:title obj:nil objOne:nil animated:animated];
-}
-
-- (void)presentController:(NSString *_Nonnull)contollerName title:(NSString *)title obj:(id)obj{
-    [self presentController:contollerName title:title obj:obj objOne:nil animated:true];
-}
-
-- (void)presentController:(NSString *_Nonnull)contollerName title:(NSString *)title obj:(id)obj objOne:(id)objOne{
-    [self presentController:contollerName title:title obj:obj objOne:nil animated:true];
-}
-
-- (void)presentController:(NSString *_Nonnull)contollerName title:(NSString *)title obj:(id)obj objOne:(id)objOne animated:(BOOL)animated{
-    UIViewController * controller = [NSClassFromString(contollerName) new];
-    controller.title = title;
-    controller.obj = obj;
-    controller.objOne = objOne;
-    
+- (void)presentVCType:(Class)classVC title:(NSString *)title animated:(BOOL)animated block:(void(^)(__kindof UIViewController *vc))block{
+    UIViewController *controller = [[classVC alloc]init];
+    controller.title = [title stringByReplacingOccurrencesOfString:@" " withString:@""];
     UINavigationController *navController = [[UINavigationController alloc] initWithRootViewController:controller];
+    if (block) {
+        block(controller);
+    }
     [self presentViewController:navController animated:animated completion:^{
         
     }];
 }
 
-
-- (UIViewController *)getController:(NSString *)contollerName navController:(UINavigationController *)navController{
-    if (!navController) {
-//        navController = (UINavigationController *)[UIApplication.sharedApplication.keyWindow.rootViewController];
-        navController = self.currentVC.navigationController;
-    }
-    
-    UIViewController * viewController  = [NSClassFromString(contollerName) new];
-    if ([self findController:contollerName navController:navController]) {
-        viewController = [self findController:contollerName navController:navController];
-    }
-    return viewController;
-}
-
-- (UIViewController *)getController:(NSString *)contollerName{
-    UIViewController * viewController = [self getController:contollerName navController:self.currentVC.navigationController];
-    return viewController;
-}
-
 -(NSString *)controllerName{
-    NSString * className = NSStringFromClass(self.class);
+    NSString *className = NSStringFromClass(self.class);
     if ([className containsString:@"Controller"]) {
         NSRange range = NSMakeRange(0, 0);
         if ([className rangeOfString:@"ViewController"].location != NSNotFound) {
@@ -556,38 +307,20 @@ UINavigationController * UINavCtrFromObj(id obj){
     if ([rootVC isKindOfClass:[UITabBarController class]]) {
         // 根视图为UITabBarController
         currentVC = [self getCurrentVCFrom:[(UITabBarController *)rootVC selectedViewController]];
-        
     }
     else if ([rootVC isKindOfClass:[UINavigationController class]]){
         // 根视图为UINavigationController
         currentVC = [self getCurrentVCFrom:[(UINavigationController *)rootVC visibleViewController]];
-        
     }
     else {
         // 根视图为非导航类
         currentVC = rootVC;
-        
     }
     return currentVC;
 }
 
-- (id _Nullable )frontViewController:(UINavigationController *_Nonnull)navContoller{
-    UIViewController * viewController = nil;
-
-    NSUInteger count = navContoller.viewControllers.count;
-    if (count >= 2) {
-        viewController = navContoller.viewControllers[count - 2];
-    }
-    else{
-        viewController = UIApplication.rootController;
-        
-    }
-//    self.frontController = viewController;//初始化
-    return viewController;
-}
-
 - (UIViewController *)addControllerName:(NSString *)className{
-    UIViewController * controller = [NSClassFromString(className) new];
+    UIViewController *controller = [NSClassFromString(className) new];
     [self addControllerVC:controller];
     return controller;
 }
@@ -620,38 +353,24 @@ UINavigationController * UINavCtrFromObj(id obj){
      */
 }
 
-#pragma mark -------------alert升级方法-------------------
-
-//- (void)showAlertTitle:(NSString *_Nullable)title msg:(NSString *_Nullable)msg{
-//    [UIAlertController createAlertTitle:title msg:msg placeholders:nil actionTitles:nil handler:nil];
-//}
-//
-//- (void)showAlertTitle:(NSString *_Nullable)title msg:(NSString *_Nullable)msg handler:(void(^)(UIAlertController * _Nonnull alertVC, UIAlertAction * _Nullable action))handler{
-//    [UIAlertController createAlertTitle:title msg:msg placeholders:nil actionTitles:@[kTitleCancell, kTitleSure] handler:handler];
-//}
-//
-//- (void)showAlertTitle:(NSString *_Nullable)title msg:(NSString *_Nullable)msg actionTitles:(NSArray *_Nullable)actionTitleList handler:(void(^)(UIAlertController * _Nonnull alertVC, UIAlertAction * _Nullable action))handler{
-//    UIAlertController *alertController = [UIAlertController createAlertTitle:title msg:msg placeholders:nil actionTitles:actionTitleList handler:handler];
-//    UIWindow *keyWindow = UIApplication.sharedApplication.delegate.window;
-//    [keyWindow.rootViewController presentViewController:alertController animated:YES completion:nil];
-//}
+#pragma mark --callPhone
 
 - (void)callPhone:(NSString *)phoneNumber{
     NSArray *titles = @[@"取消",@"呼叫"];
     [UIAlertController showAlertTitle:nil msg:phoneNumber actionTitles:titles handler:^(UIAlertController * _Nonnull alertController, UIAlertAction * _Nullable action) {
-        if ([action.title isEqualToString:[titles lastObject]]) {
-            
-            dispatch_async(dispatch_get_global_queue(0, 0), ^{
-                NSString * phoneStr = [NSString stringWithFormat:@"tel:%@",phoneNumber];
-                if (iOSVer(10)) {
-                    [UIApplication.sharedApplication openURL:[NSURL URLWithString:phoneStr] options:@{} completionHandler:nil];
-                    
-                } else {
-                    [UIApplication.sharedApplication openURL:[NSURL URLWithString:phoneStr]];
-                    
-                }
-            });
+        if ([action.title isEqualToString: titles.firstObject]) {
+            return;
         }
+        dispatch_async(dispatch_get_global_queue(0, 0), ^{
+            NSString * phoneStr = [NSString stringWithFormat:@"tel:%@",phoneNumber];
+            if (iOSVer(10)) {
+                [UIApplication.sharedApplication openURL:[NSURL URLWithString:phoneStr] options:@{} completionHandler:nil];
+                
+            } else {
+                [UIApplication.sharedApplication openURL:[NSURL URLWithString:phoneStr]];
+                
+            }
+        });
     }];
 }
 
@@ -665,8 +384,20 @@ UINavigationController * UINavCtrFromObj(id obj){
 }
 
 
-
-
 @end
 
 
+@implementation UINavigationController (Helper)
+
+- (__kindof UIViewController * _Nullable)findController:(Class)classVC{
+    __block UIViewController *controller = nil;
+    [self.viewControllers enumerateObjectsWithOptions:NSEnumerationReverse usingBlock:^(__kindof UIViewController * _Nonnull obj, NSUInteger idx, BOOL * _Nonnull stop) {
+        if ([obj isKindOfClass: classVC]) {
+            controller = obj;
+            *stop = YES;
+        }
+    }];
+    return controller;
+}
+
+@end

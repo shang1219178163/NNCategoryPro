@@ -13,7 +13,7 @@
 
 @class NNTextField;
 
-typedef void(^BlockView)(UIView * view,id item, id obj);
+typedef void(^BlockView)(UIView *view,id item, id obj);
 
 NS_ASSUME_NONNULL_BEGIN
 
@@ -45,9 +45,7 @@ NS_ASSUME_NONNULL_BEGIN
 
 @property (nonatomic, assign) BOOL selected;
 
-@property (nonatomic, strong, readonly) UIViewController * parController;
-/// text是否有效
-@property (nonatomic, assign, readonly) BOOL validText;
+@property (nonatomic, strong, readonly) UIViewController *parController;
 
 - (UIView *)addCorners:(UIRectCorner)corners cornerRadii:(CGSize)cornerRadii width:(CGFloat)width color:(UIColor *)color;
 
@@ -79,13 +77,13 @@ NS_ASSUME_NONNULL_BEGIN
 
 - (void)addActionHandler:(void(^)(id obj, id item, NSInteger idx))handler;
 
-+ (id)getControl:(NSString *)control view:(UIView *)view;
-
 + (void)getSub:(UIView *)view andLevel:(NSInteger)level;
 
 - (void)getViewLayer;
 
-- (UIView *)findSubview:(NSString *)name resursion:(BOOL)resursion;
+- (__kindof UIView *)findSubview:(NSString *)name resursion:(BOOL)resursion;
+
+- (__kindof UIView *)findSuperView:(NSString *)name;
 
 - (void)showLayerColor:(UIColor *)layerColor;
 
@@ -118,6 +116,8 @@ NS_ASSUME_NONNULL_BEGIN
 
 + (UIView *)createViewRect:(CGRect)rect items:(NSArray *)items numberOfRow:(NSInteger)numberOfRow itemHeight:(CGFloat)itemHeight padding:(CGFloat)padding type:(NSNumber *)type handler:(void(^)(id obj, id item, NSInteger idx))handler;
 
+/// classtype 只能为 UIButton/UIImageView/UILabel及其子类
++ (UIView *)createViewRect:(CGRect)rect items:(NSArray *)items numberOfRow:(NSInteger)numberOfRow padding:(CGFloat)padding inset:(UIEdgeInsets)inset classtype:(Class)classtype handler:(void(^)(__kindof UIView *))handler;
 /**
  向屏幕倾斜
  */
@@ -128,18 +128,11 @@ NS_ASSUME_NONNULL_BEGIN
  */
 + (void)setCutCirculayWithView:(UIImageView *)view cornerRadius:(CGFloat )cornerRadius type:(NSNumber *)type;
 
-
-//- (void)tapActionWithView:(void (^) (UIView * view))tapClick;
-//- (void)tapView:(UIView* )view tapClick:(void (^) (UIView *View))tapClick;
-
-
 /**
  毛玻璃背景
-
  @param effect UIBlurEffectStyle
  @param view 控件父视图
  @return 返回毛玻璃效果的视图
- 
  tips:不要在UIVisuaEffectView实例化View上面直接添加subViews，应该将需要添加的子视图添加到其contentView上。同时，尽量避免将UIVisualEffectView对象的alpha值设置为小于1.0的值，因为创建半透明的视图会导致系统在离屏渲染时去对UIVisualEffectView对象及所有的相关的子视图做混合操作,比较消耗性能。
  */
 + (UIVisualEffectView *)createBlurViewEffect:(UIBlurEffectStyle)effect subView:(UIView *)view;
@@ -149,8 +142,6 @@ NS_ASSUME_NONNULL_BEGIN
 - (void)removeAllSubViews;
 
 - (NSIndexPath *)getCellIndexPath:(UITableView *)tableView;
-
-- (UITableViewCell *)getClickViewCell;
 
 - (id)asoryView:(NSString *)unitString;
 

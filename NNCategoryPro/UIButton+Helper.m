@@ -40,7 +40,6 @@
     [btn setTitle:title forState:UIControlStateNormal];
 //    btn.titleLabel.adjustsFontSizeToFitWidth = YES;
     btn.titleLabel.font = [UIFont systemFontOfSize:15];
-
     btn.imageView.contentMode = UIViewContentModeScaleAspectFit;
 
     switch (type.integerValue) {
@@ -48,7 +47,6 @@
         {
             [btn setTitleColor:UIColor.whiteColor forState:UIControlStateNormal];
             [btn setBackgroundImage:UIImageColor(UIColor.themeColor) forState:UIControlStateNormal];
-
         }
             break;
         case 2://白色背景灰色字体无边框
@@ -68,13 +66,11 @@
             [btn setTitleColor:UIColor.themeColor forState:UIControlStateNormal];
             btn.layer.borderColor = UIColor.themeColor.CGColor;
             btn.layer.borderWidth = kW_LayerBorder;
-
         }
             break;
         case 5://白色背景主题字体无边框
         {
             [btn setTitleColor:UIColor.themeColor forState:UIControlStateNormal];
-
         }
             break;
         case 6://红色背景白色字体
@@ -92,7 +88,6 @@
 
             [btn setTitleColor:UIColor.whiteColor forState:UIControlStateSelected];
             [btn setBackgroundImage:UIImageColor(UIColor.themeColor) forState:UIControlStateSelected];
-
         }
             break;
         case 8://白色背景红色字体无边框
