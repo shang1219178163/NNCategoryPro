@@ -13,7 +13,6 @@
  [源]UISwitch创建方法
  */
 + (instancetype)createRect:(CGRect)rect isOn:(BOOL)isOn{
-
     UISwitch *view = [[self alloc]initWithFrame:rect];
     view.autoresizingMask = UIViewAutoresizingFlexibleWidth|UIViewAutoresizingFlexibleHeight;
     view.on = isOn;//设置初始为ON的一边

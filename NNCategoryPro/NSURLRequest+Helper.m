@@ -15,17 +15,32 @@ NSString * const kHTTPMethodDELETE = @"DELETE";
 @implementation NSURLRequest (Helper)
 
 +(instancetype)requestGetURL:(NSString *)url{
-    NSMutableURLRequest *request = [NSMutableURLRequest requestURL:url method:kHTTPMethodGET body:nil  cachePolicy:NSURLRequestReloadIgnoringCacheData timeoutInterval:6];
+    NSMutableURLRequest *request = [NSMutableURLRequest requestURL:url
+                                                            method:kHTTPMethodGET
+                                                              body:nil
+                                                       cachePolicy:NSURLRequestReloadIgnoringCacheData
+                                                   timeoutInterval:6];
     return request;
 }
 
 +(instancetype)requestPostURL:(NSString *)url body:(NSData *_Nullable)body{
-    NSMutableURLRequest *request = [NSMutableURLRequest requestURL:url method:kHTTPMethodPOST body:body cachePolicy:NSURLRequestReloadIgnoringCacheData timeoutInterval:6];
+    NSMutableURLRequest *request = [NSMutableURLRequest requestURL:url
+                                                            method:kHTTPMethodPOST
+                                                              body:body
+                                                       cachePolicy:NSURLRequestReloadIgnoringCacheData
+                                                   timeoutInterval:6];
     return request;
 }
 
-+(instancetype)requestURL:(NSString *)url method:(NSString *)method body:(NSData *_Nullable)body cachePolicy:(NSURLRequestCachePolicy)cachePolicy timeoutInterval:(NSTimeInterval)timeoutInterval{
-    NSMutableURLRequest *request = [NSMutableURLRequest requestWithURL:[NSURL URLWithString:url] cachePolicy:cachePolicy timeoutInterval:timeoutInterval];
++(instancetype)requestURL:(NSString *)url
+                   method:(NSString *)method
+                     body:(NSData *_Nullable)body
+              cachePolicy:(NSURLRequestCachePolicy)cachePolicy
+          timeoutInterval:(NSTimeInterval)timeoutInterval{
+    
+    NSMutableURLRequest *request = [NSMutableURLRequest requestWithURL:[NSURL URLWithString:url]
+                                                           cachePolicy:cachePolicy
+                                                       timeoutInterval:timeoutInterval];
     request.HTTPMethod = method;
     request.HTTPBody = body;
     return request;
@@ -35,12 +50,14 @@ NSString * const kHTTPMethodDELETE = @"DELETE";
     return [self requestWithURL:URL fileURLs:@[fileURL] name:name];
 }
 
-+ (instancetype)requestWithURL:(NSURL *)URL fileURL:(NSURL *)fileURL fileName:(NSString *)fileName name:(NSString *)name {
++ (instancetype)requestWithURL:(NSURL *)URL
+                       fileURL:(NSURL *)fileURL
+                      fileName:(NSString *)fileName
+                          name:(NSString *)name {
     return [self requestWithURL:URL fileURLs:@[fileURL] fileNames:@[fileName] name:name];
 }
 
 + (instancetype)requestWithURL:(NSURL *)URL fileURLs:(NSArray *)fileURLs name:(NSString *)name {
-    
     NSMutableArray *fileNames = [NSMutableArray arrayWithCapacity:fileURLs.count];
     [fileURLs enumerateObjectsUsingBlock:^(NSURL *fileURL, NSUInteger idx, BOOL *stop) {
         [fileNames addObject:fileURL.path.lastPathComponent];
@@ -49,7 +66,10 @@ NSString * const kHTTPMethodDELETE = @"DELETE";
     return [self requestWithURL:URL fileURLs:fileURLs fileNames:fileNames name:name];
 }
 
-+ (instancetype)requestWithURL:(NSURL *)URL fileURLs:(NSArray *)fileURLs fileNames:(NSArray *)fileNames name:(NSString *)name {
++ (instancetype)requestWithURL:(NSURL *)URL
+                      fileURLs:(NSArray *)fileURLs
+                     fileNames:(NSArray *)fileNames
+                          name:(NSString *)name {
     NSMutableURLRequest *request = [NSMutableURLRequest requestWithURL:URL];
     request.HTTPMethod = @"POST";
     

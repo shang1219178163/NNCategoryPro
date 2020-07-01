@@ -10,7 +10,7 @@
 #import "UIView+Helper.h"
 #import "UIGestureRecognizer+Helper.h"
 
-@interface UITextField()<UITableViewDataSource,UITableViewDelegate>
+@interface UITextField()<UITableViewDataSource, UITableViewDelegate>
 
 @end
 
@@ -20,7 +20,7 @@
  [源]UITextField创建
  */
 + (instancetype)createRect:(CGRect)rect{
-    UITextField * textField = [[self alloc]initWithFrame:rect];
+    UITextField *textField = [[self alloc]initWithFrame:rect];
     textField.autoresizingMask = UIViewAutoresizingFlexibleWidth | UIViewAutoresizingFlexibleHeight;
     
     textField.placeholder = @"请输入";

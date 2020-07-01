@@ -22,11 +22,18 @@
  [源] 导航栏 UIBarButtonItem
  */
 + (instancetype)createItem:(NSString *)obj style:(UIBarButtonItemStyle)style target:(id _Nullable)target action:(SEL _Nullable)action{
-    if ([UIImage imageNamed:obj]) {
-        UIBarButtonItem *barItem = [[self alloc] initWithImage:[[UIImage imageNamed:obj] imageWithRenderingMode:UIImageRenderingModeAlwaysTemplate] style:style target:target action:action];
+    UIImage *image = [UIImage imageNamed:obj];
+    if (image) {
+        UIBarButtonItem *barItem = [[self alloc] initWithImage:[image imageWithRenderingMode:UIImageRenderingModeAlwaysTemplate]
+                                                         style:style
+                                                        target:target
+                                                        action:action];
         return barItem;
     }
-    UIBarButtonItem *barItem = [[UIBarButtonItem alloc] initWithTitle:obj style:style target:target action:action];
+    UIBarButtonItem *barItem = [[UIBarButtonItem alloc] initWithTitle:obj
+                                                                style:style
+                                                               target:target
+                                                               action:action];
     return barItem;
 }
 

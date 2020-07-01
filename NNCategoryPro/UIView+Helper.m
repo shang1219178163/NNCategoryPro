@@ -140,7 +140,10 @@
 
 #pragma mark -设置部分圆角
 
-- (UIView *)addCorners:(UIRectCorner)corners cornerRadii:(CGSize)cornerRadii width:(CGFloat)width color:(UIColor *)color{
+- (UIView *)addCorners:(UIRectCorner)corners
+           cornerRadii:(CGSize)cornerRadii
+                 width:(CGFloat)width
+                 color:(UIColor *)color{
     UIBezierPath *maskPath = [UIBezierPath bezierPathWithRoundedRect:self.bounds
                                                    byRoundingCorners:corners
                                                          cornerRadii:cornerRadii];
@@ -175,11 +178,31 @@
     CGFloat width = size.width;
     CGFloat height = size.height;
     
-    CGContextMoveToPoint(contextRef, width - halfBorderWidth, radius + halfBorderWidth);
-    CGContextAddArcToPoint(contextRef, width - halfBorderWidth, height - halfBorderWidth, width - radius - halfBorderWidth, height - halfBorderWidth, radius);  // 右下角角度
-    CGContextAddArcToPoint(contextRef, halfBorderWidth, height - halfBorderWidth, halfBorderWidth, height - radius - halfBorderWidth, radius); // 左下角角度
-    CGContextAddArcToPoint(contextRef, halfBorderWidth, halfBorderWidth, width - halfBorderWidth, halfBorderWidth, radius); // 左上角
-    CGContextAddArcToPoint(contextRef, width - halfBorderWidth, halfBorderWidth, width - halfBorderWidth, radius + halfBorderWidth, radius); // 右上角
+    CGContextMoveToPoint(contextRef,
+                         width - halfBorderWidth,
+                         radius + halfBorderWidth);
+    CGContextAddArcToPoint(contextRef,
+                           width - halfBorderWidth,
+                           height - halfBorderWidth,
+                           width - radius - halfBorderWidth,
+                           height - halfBorderWidth, radius);  // 右下角角度
+    CGContextAddArcToPoint(contextRef,
+                           halfBorderWidth,
+                           height - halfBorderWidth,
+                           halfBorderWidth,
+                           height - radius - halfBorderWidth, radius); // 左下角角度
+    CGContextAddArcToPoint(contextRef,
+                           halfBorderWidth,
+                           halfBorderWidth,
+                           width - halfBorderWidth,
+                           halfBorderWidth,
+                           radius); // 左上角
+    CGContextAddArcToPoint(contextRef,
+                           width - halfBorderWidth,
+                           halfBorderWidth,
+                           width - halfBorderWidth,
+                           radius + halfBorderWidth,
+                           radius); // 右上角
     CGContextDrawPath(contextRef, kCGPathFillStroke);
     UIImage *image = UIGraphicsGetImageFromCurrentImageContext();
     UIGraphicsEndImageContext();
@@ -444,7 +467,7 @@
         if (block) block(sender, sender, ((UIButton *)sender).tag);
 
     } else if ([sender isKindOfClass:UISegmentedControl.class]) {
-        UISegmentedControl * segmentCtl = sender;
+        UISegmentedControl *segmentCtl = sender;
         if (block) block(sender, sender, segmentCtl.selectedSegmentIndex);
     }
     else{
@@ -460,7 +483,6 @@
     void(^block)(id obj, id item, NSInteger idx) = objc_getAssociatedObject(self, @selector(addActionHandler:));
     if (block){
         block(tapGesture, tapGesture.view, tapGesture.view.tag);
-
     }
 }
 
@@ -519,6 +541,18 @@
     return nil;
 }
 
+- (NSArray<__kindof UIView *> *)findSubviews:(NSString *)name{
+    Class class = NSClassFromString(name);
+    
+    NSMutableArray *marr = [NSMutableArray array];
+    for (UIView *view in self.subviews){
+        if ([view isKindOfClass: class]){
+            [marr addObject:view];
+        }
+    }
+    return marr.copy;
+}
+
 - (__kindof UIView *)findSuperView:(NSString *)name{
     Class class = NSClassFromString(name);
 
@@ -527,24 +561,6 @@
         supView = supView.superview;
     }
     return supView;
-}
-
-- (void)showLayerColor:(UIColor *)layerColor{
-    self.layer.borderWidth = kW_LayerBorder;
-    self.layer.borderColor = layerColor.CGColor;
-    self.layer.masksToBounds = YES;
-    
-    CGFloat cornerRadius = 5.0;
-    CGFloat max = CGRectGetWidth(self.frame) >= CGRectGetHeight(self.frame) ? CGRectGetWidth(self.frame): CGRectGetHeight(self.frame);
-    if (max/10.0 <= 3.0) {
-        cornerRadius = 3.0;
-    }
-    else if (max/10.0 >= 5.0) {
-        cornerRadius = 5.0;
-    } else {
-        cornerRadius = max/10.0;
-    }
-    self.layer.cornerRadius = cornerRadius;
 }
 
 /**
@@ -557,8 +573,8 @@
     UIGraphicsBeginImageContextWithOptions(self.bounds.size, NO, 0);
     CGContextRef ctx =  UIGraphicsGetCurrentContext();
     [self.layer renderInContext:ctx];
-    UIImage * image = UIGraphicsGetImageFromCurrentImageContext();
-    if ([self isKindOfClass:UIImageView.class]) {
+    UIImage *image = UIGraphicsGetImageFromCurrentImageContext();
+    if ([self isKindOfClass: UIImageView.class]) {
         image = ((UIImageView *)self).image;
     }
     UIImageWriteToSavedPhotosAlbum(image,self,@selector(image:didFinishSavingWithError:contextInfo:),nil);
@@ -571,12 +587,20 @@
 }
 
 - (NSArray<__kindof UIView *> *)updateItems:(NSInteger)count aClassName:(NSString *)aClassName handler:(void(^)(__kindof UIView *obj))handler {
+    if (count == 0) {
+        return @[];
+    }
     Class cls = NSClassFromString(aClassName);
     NSArray *list = [self.subviews filter:^BOOL(UIView * obj, NSUInteger idx) {
         return [obj isKindOfClass:cls.class];
     }];
     
     if (list.count == count) {
+        [list enumerateObjectsUsingBlock:^(UIView * obj, NSUInteger idx, BOOL * _Nonnull stop) {
+            if (handler) {
+                handler(obj);
+            }
+        }];
         return list;
     }
     
@@ -604,10 +628,12 @@
         }
 //        NSString *clsName = NSStringFromClass(obj.class);
         UIButton *sender = (UIButton *)obj;
-        sender.titleLabel.font = [UIFont systemFontOfSize:15];
-        NSString *title = [NSString stringWithFormat:@"%@%@", aClassName, @(obj.tag)];
-        [sender setTitle:title forState:UIControlStateNormal];
-        [sender setTitleColor:UIColor.blackColor forState:UIControlStateNormal];
+        if (![sender titleForState:UIControlStateNormal]) {
+            sender.titleLabel.font = [UIFont systemFontOfSize:15];
+            NSString *title = [NSString stringWithFormat:@"%@%@", aClassName, @(obj.tag)];
+            [sender setTitle:title forState:UIControlStateNormal];
+            [sender setTitleColor:UIColor.blackColor forState:UIControlStateNormal];
+        }
         if (handler) {
             handler(obj);
         }
@@ -621,14 +647,17 @@
     }
 }
 
-+ (UIView *)createSectionView:(UITableView *)tableView text:(NSString *)text textAlignment:(NSTextAlignment)textAlignment height:(CGFloat)height{
++ (UIView *)createSectionView:(UITableView *)tableView
+                         text:(NSString *)text
+                textAlignment:(NSTextAlignment)textAlignment
+                       height:(CGFloat)height{
     UIView * sectionView = [[UIView alloc]init];
     if (text == nil) {
         return sectionView;
     }
     
     CGRect rect = CGRectMake(kX_GAP, 0, CGRectGetWidth(tableView.frame) - kX_GAP*2, height);
-    UILabel * view = [[UILabel alloc] initWithFrame:rect];
+    UILabel *view = [[UILabel alloc] initWithFrame:rect];
     view.autoresizingMask = UIViewAutoresizingFlexibleWidth|UIViewAutoresizingFlexibleHeight;
     view.font = [UIFont systemFontOfSize:16];
     view.userInteractionEnabled = true;
@@ -673,7 +702,12 @@
 }
 
 
-+ (NNTextField *)createRect:(CGRect)rect placeholder:(NSString *)placeholder leftView:(UIView *)leftView leftPadding:(CGFloat)leftPadding rightView:(UIView *)rightView rightPadding:(CGFloat)rightPadding{
++ (NNTextField *)createRect:(CGRect)rect
+                placeholder:(NSString *)placeholder
+                   leftView:(UIView *)leftView
+                leftPadding:(CGFloat)leftPadding
+                  rightView:(UIView *)rightView
+               rightPadding:(CGFloat)rightPadding{
     NNTextField * textField = [NNTextField createRect:rect];
 //    textField.text = text;
     textField.textAlignment = NSTextAlignmentLeft;
@@ -697,11 +731,22 @@
     return textField;
 }
 
-+ (NNTextField *)createRect:(CGRect)rect placeholder:(NSString *)placeholder leftView:(UIView *)leftView rightView:(UIView *)rightView{
-    return [NNTextField createRect:CGRectZero placeholder:placeholder leftView:leftView leftPadding:kPadding rightView:rightView rightPadding:kPadding];
++ (NNTextField *)createRect:(CGRect)rect
+                placeholder:(NSString *)placeholder
+                   leftView:(UIView *)leftView
+                  rightView:(UIView *)rightView{
+    return [NNTextField createRect:CGRectZero
+                       placeholder:placeholder
+                          leftView:leftView
+                       leftPadding:kPadding
+                         rightView:rightView
+                      rightPadding:kPadding];
 }
 
-- (CGSize)itemSizeWithCount:(NSInteger)count numberOfRow:(NSInteger)numberOfRow spacing:(CGFloat)spacing inset:(UIEdgeInsets)inset{
+- (CGSize)itemSizeWithCount:(NSInteger)count
+                numberOfRow:(NSInteger)numberOfRow
+                    spacing:(CGFloat)spacing
+                      inset:(UIEdgeInsets)inset{
     NSInteger rowCount = count % numberOfRow == 0 ? count/numberOfRow : count/numberOfRow + 1;
     CGFloat itemWidth = (CGRectGetWidth(self.bounds) - (numberOfRow-1)*spacing - inset.left - inset.right)/numberOfRow;
     CGFloat itemHeight = (CGRectGetHeight(self.bounds) - (rowCount-1)*spacing - inset.top - inset.bottom)/rowCount;
@@ -709,10 +754,17 @@
     return size;
 }
 
-+ (UIView *)createViewRect:(CGRect)rect elements:(NSArray *)elements numberOfRow:(NSInteger)numberOfRow viewHeight:(CGFloat)viewHeight padding:(CGFloat)padding{
++ (UIView *)createViewRect:(CGRect)rect
+                  elements:(NSArray *)elements
+               numberOfRow:(NSInteger)numberOfRow
+                viewHeight:(CGFloat)viewHeight
+                   padding:(CGFloat)padding{
     NSInteger rowCount = elements.count % numberOfRow == 0 ? elements.count/numberOfRow : elements.count/numberOfRow + 1;
     //
-    UIView *backgroudView = [[UIView alloc]initWithFrame:CGRectMake(CGRectGetMinX(rect), CGRectGetMinY(rect), CGRectGetWidth(rect), rowCount * viewHeight + (rowCount - 1) * padding)];
+    UIView *backgroudView = [[UIView alloc]initWithFrame:CGRectMake(CGRectGetMinX(rect),
+                                                                    CGRectGetMinY(rect),
+                                                                    CGRectGetWidth(rect),
+                                                                    rowCount * viewHeight + (rowCount - 1) * padding)];
     backgroudView.backgroundColor = UIColor.greenColor;
     
     CGSize viewSize = CGSizeMake((CGRectGetWidth(backgroudView.frame) - (numberOfRow-1)*padding)/numberOfRow, viewHeight);
@@ -733,14 +785,23 @@
     return backgroudView;
 }
 
-+ (UIView *)createViewRect:(CGRect)rect items:(NSArray *)items numberOfRow:(NSInteger)numberOfRow itemHeight:(CGFloat)itemHeight padding:(CGFloat)padding type:(NSNumber *)type handler:(void(^)(id obj, id item, NSInteger idx))handler{
++ (UIView *)createViewRect:(CGRect)rect
+                     items:(NSArray *)items
+               numberOfRow:(NSInteger)numberOfRow
+                itemHeight:(CGFloat)itemHeight
+                   padding:(CGFloat)padding
+                      type:(NSNumber *)type
+                   handler:(void(^)(id obj, id item, NSInteger idx))handler{
     
     NSInteger rowCount = items.count % numberOfRow == 0 ? items.count/numberOfRow : items.count/numberOfRow + 1;
     CGFloat itemWidth = (CGRectGetWidth(rect) - (numberOfRow-1)*padding)/numberOfRow;
     itemHeight = itemHeight == 0.0 ? itemWidth : itemHeight;;
     
     //
-    UIView * backgroudView = [[UIView alloc]initWithFrame:CGRectMake(CGRectGetMinX(rect), CGRectGetMinY(rect), CGRectGetWidth(rect), rowCount * itemHeight + (rowCount - 1) * padding)];
+    UIView * backgroudView = [[UIView alloc]initWithFrame:CGRectMake(CGRectGetMinX(rect),
+                                                                     CGRectGetMinY(rect),
+                                                                     CGRectGetWidth(rect),
+                                                                     rowCount * itemHeight + (rowCount - 1) * padding)];
     backgroudView.backgroundColor = UIColor.greenColor;
     
     for (NSInteger i = 0; i< items.count; i++) {
@@ -802,7 +863,13 @@
 }
 
 /// classtype 只能为 UIView及其子类
-+ (UIView *)createViewRect:(CGRect)rect items:(NSArray *)items numberOfRow:(NSInteger)numberOfRow padding:(CGFloat)padding inset:(UIEdgeInsets)inset classtype:(Class)classtype handler:(void(^)(__kindof UIView *))handler{
++ (UIView *)createViewRect:(CGRect)rect
+                     items:(NSArray *)items
+               numberOfRow:(NSInteger)numberOfRow
+                   padding:(CGFloat)padding
+                     inset:(UIEdgeInsets)inset
+                 classtype:(Class)classtype
+                   handler:(void(^)(__kindof UIView *))handler{
 
     NSInteger rowCount = items.count % numberOfRow == 0 ? items.count/numberOfRow : items.count/numberOfRow + 1;
     CGFloat itemWidth = (CGRectGetWidth(rect) - (numberOfRow-1)*padding - inset.left - inset.right)/numberOfRow;
@@ -823,7 +890,10 @@
         UIView *view = nil;
         if ([classtype isKindOfClass: UIButton.class]) {
             view = ({
-                UIButton *view = [UIButton createRect:itemRect title:title image:nil type:@5];
+                UIButton *view = [UIButton createRect:itemRect
+                                                title:title
+                                                image:nil
+                                                 type:@5];
                 view.tag = i;
                 view.titleLabel.font = [UIFont systemFontOfSize:15];
                 view;
@@ -902,7 +972,9 @@
         case 1:
         {
             // 创建BezierPath 并设置角 和 半径 这里只设置了 左上 和 右上
-            UIBezierPath *path = [UIBezierPath bezierPathWithRoundedRect:view.bounds byRoundingCorners:UIRectCornerAllCorners cornerRadii:CGSizeMake(cornerRadius, cornerRadius)];
+            UIBezierPath *path = [UIBezierPath bezierPathWithRoundedRect:view.bounds
+                                                       byRoundingCorners:UIRectCornerAllCorners
+                                                             cornerRadii:CGSizeMake(cornerRadius, cornerRadius)];
             CAShapeLayer *layer = CAShapeLayer.layer;
             layer.frame = view.bounds;
             layer.path = path.CGPath;
@@ -948,7 +1020,11 @@
     CGFloat radius = sqrt(pow(CGRectGetWidth(self.frame), 2) + pow(CGRectGetHeight(self.frame), 2))/2.0 + layerWidth*2;
     
     //创建贝塞尔路径
-    UIBezierPath *path = [UIBezierPath bezierPathWithArcCenter:center radius:radius startAngle:(-0.5f*M_PI) endAngle:1.5f*M_PI clockwise:YES];
+    UIBezierPath *path = [UIBezierPath bezierPathWithArcCenter:center
+                                                        radius:radius
+                                                    startAngle:(-0.5f*M_PI)
+                                                      endAngle:1.5f*M_PI
+                                                     clockwise:YES];
     //添加背景圆环
     CAShapeLayer *layer = CAShapeLayer.layer;
     layer.frame = self.bounds;

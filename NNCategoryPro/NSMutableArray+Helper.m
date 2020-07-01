@@ -14,16 +14,12 @@
     if (!obj || [obj isKindOfClass:[NSNull class]]) {
         [self addObject:@""];
 //        [self addObject:kNilText];
-
     } else {
         [self addObject:obj];
-        
     }
 }
 
-
 -(id)objectSafeAtIndex:(NSUInteger)index{
-    
     if (index > (self.count - 1)) {
         NSAssert(NO, @"beyond the boundary");
         return nil;
@@ -34,19 +30,15 @@
 }
 
 - (void)replaceObjectAtIndex:(NSUInteger)index withSafeObject:(id)anObject{
-    
     if (index > (self.count - 1)) {
         NSAssert(NO, @"beyond the boundary");
     }
     else{
         if (!anObject || [anObject isKindOfClass:[NSNull class]]) {
             [self replaceObjectAtIndex:index withObject:@""];
-            
         } else {
             [self replaceObjectAtIndex:index withObject:anObject];
-
         }
-        
     }
 }
 

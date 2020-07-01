@@ -10,7 +10,7 @@
 @implementation NSDecimalNumber (Helper)
 
 -(NSString *)string{
-    return [NSString stringWithFormat:@"%@",self];
+    return [NSString stringWithFormat:@"%@", self];
 }
 
 NSDecimalNumber * NSDecNumFromString(NSString *string){
@@ -24,10 +24,10 @@ NSDecimalNumber * NSDecNumFromFloat(CGFloat num){
 NSDecimalNumber * NSDecNumFrom(NSDecimalNumber *num, NSUInteger scale, NSRoundingMode roundingMode){
     NSDecimalNumberHandler * handler = [NSDecimalNumberHandler decimalNumberHandlerWithRoundingMode:roundingMode
                                                                                                scale:scale
-                                                                                    raiseOnExactness:NO
-                                                                                     raiseOnOverflow:NO
-                                                                                    raiseOnUnderflow:NO
-                                                                                 raiseOnDivideByZero:YES];
+                                                                                    raiseOnExactness:false
+                                                                                     raiseOnOverflow:false
+                                                                                    raiseOnUnderflow:false
+                                                                                 raiseOnDivideByZero:true];
     return [num decimalNumberByRoundingAccordingToBehavior:handler];
 }
 

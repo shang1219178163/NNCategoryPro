@@ -128,7 +128,10 @@
 /**
  增加虚线边框
  */
-- (void)addLineDashLayerColor:(UIColor *)color width:(CGFloat)width dashPattern:(NSArray <NSNumber *>*)dashPattern cornerRadius:(CGFloat)cornerRadius {
+- (void)addLineDashLayerColor:(UIColor *)color
+                        width:(CGFloat)width
+                  dashPattern:(NSArray <NSNumber *>*)dashPattern
+                 cornerRadius:(CGFloat)cornerRadius {
     assert(CGRectEqualToRect(CGRectZero, self.bounds) == false);
     UIView *view = self;
     view.layer.borderColor = UIColor.clearColor.CGColor;
@@ -267,7 +270,10 @@
     return layer;
 }
 
--(UIView *)createViewType:(NSNumber *)type color:(UIColor *)color width:(CGFloat)width paddingScale:(CGFloat)paddingScale{
+-(UIView *)createViewType:(NSNumber *)type
+                    color:(UIColor *)color
+                    width:(CGFloat)width
+             paddingScale:(CGFloat)paddingScale{
     UIView * view = self;
     UIView * layer = [[UIView alloc]init];
     layer.backgroundColor = color;
@@ -283,7 +289,10 @@
     return layer;
 }
 
--(CALayer *)createLayerType:(NSNumber *)type color:(UIColor *)color width:(CGFloat)width paddingScale:(CGFloat)paddingScale{
+-(CALayer *)createLayerType:(NSNumber *)type
+                      color:(UIColor *)color
+                      width:(CGFloat)width
+               paddingScale:(CGFloat)paddingScale{
     UIView * view = self;
     CALayer * layer = CALayer.layer;
     layer.backgroundColor = color.CGColor;
@@ -316,11 +325,16 @@
 /**
  BtnView创建
  */
-+ (UIView *)createBtnViewRect:(CGRect)rect imgName:(NSString *)imgName imgHeight:(CGFloat)imgHeight title:(NSString *)title titleColor:(UIColor *)titleColor type:(NSNumber *)type{
++ (UIView *)createBtnViewRect:(CGRect)rect
+                      imgName:(NSString *)imgName
+                    imgHeight:(CGFloat)imgHeight
+                        title:(NSString *)title
+                   titleColor:(UIColor *)titleColor
+                         type:(NSNumber *)type{
 
-    UIView * backgroudView = [[UIView alloc]initWithFrame:rect];
+    UIView *backgroudView = [[UIView alloc]initWithFrame:rect];
     
-    UIImageView * imgView = [[UIImageView alloc]initWithImage:[UIImage imageNamed:imgName]];
+    UIImageView *imgView = [[UIImageView alloc]initWithImage:[UIImage imageNamed:imgName]];
     imgView.autoresizingMask = UIViewAutoresizingFlexibleWidth|UIViewAutoresizingFlexibleHeight;
     imgView.contentMode = UIViewContentModeScaleAspectFit;
     imgView.userInteractionEnabled = YES;
@@ -333,7 +347,10 @@
             CGFloat gapY = (CGRectGetHeight(rect) - imgHeight - kH_LABEL)/3.0;
 //            imgV.frame = CGRectMake(0, gapY, CGRectGetWidth(rect), imgHeight);
 //            labRect = CGRectMake(CGRectGetMinX(rect), CGRectGetMaxY(imgV.frame)+gapY, CGRectGetWidth(imgV.frame), kH_LABEL);
-            labRect = CGRectMake(0, CGRectGetHeight(rect) - kH_LABEL - gapY, CGRectGetWidth(rect), kH_LABEL);
+            labRect = CGRectMake(0,
+                                 CGRectGetHeight(rect) - kH_LABEL - gapY,
+                                 CGRectGetWidth(rect),
+                                 kH_LABEL);
             imgView.frame = CGRectMake(0, gapY, CGRectGetWidth(rect), imgHeight);
         }
             break;
@@ -341,13 +358,19 @@
         {
             CGFloat gapY = (CGRectGetHeight(rect) - imgHeight)/2.0;
             imgView.frame = CGRectMake(kPadding, gapY, imgHeight, imgHeight);
-            labRect = CGRectMake(CGRectGetMaxX(imgView.frame) + kPadding, CGRectGetMinY(imgView.frame), CGRectGetWidth(rect) - CGRectGetMaxX(imgView.frame) - kPadding*2, CGRectGetHeight(imgView.frame));
+            labRect = CGRectMake(CGRectGetMaxX(imgView.frame) + kPadding,
+                                 CGRectGetMinY(imgView.frame),
+                                 CGRectGetWidth(rect) - CGRectGetMaxX(imgView.frame) - kPadding*2,
+                                 CGRectGetHeight(imgView.frame));
         }
             break;
         case 2://图左名右
         {
             imgView.frame = CGRectMake(0, 0, CGRectGetWidth(rect) * 1/3, CGRectGetHeight(rect));
-            labRect = CGRectMake(CGRectGetMaxX(imgView.frame), CGRectGetMinY(imgView.frame), CGRectGetWidth(rect) - CGRectGetWidth(imgView.frame), CGRectGetHeight(imgView.frame));
+            labRect = CGRectMake(CGRectGetMaxX(imgView.frame),
+                                 CGRectGetMinY(imgView.frame),
+                                 CGRectGetWidth(rect) - CGRectGetWidth(imgView.frame),
+                                 CGRectGetHeight(imgView.frame));
         }
             break;
         case 3://leftMenu 安全保障//图上名下
@@ -362,7 +385,10 @@
             CGFloat YGap = (CGRectGetHeight(rect) - imgHeight)/2.0;
             CGFloat padding = 0;
             imgView.frame = CGRectMake(YGap, YGap, imgHeight, imgHeight);
-            labRect = CGRectMake(CGRectGetMaxX(imgView.frame) + padding, CGRectGetMinY(imgView.frame), CGRectGetWidth(rect) - CGRectGetMaxX(imgView.frame) - CGRectGetMinX(imgView.frame) - padding , imgHeight);
+            labRect = CGRectMake(CGRectGetMaxX(imgView.frame) + padding,
+                                 CGRectGetMinY(imgView.frame),
+                                 CGRectGetWidth(rect) - CGRectGetMaxX(imgView.frame) - CGRectGetMinX(imgView.frame) - padding ,
+                                 imgHeight);
             
         }
             break;
@@ -390,13 +416,8 @@
         
     [backgroudView addSubview:imgView];
     [backgroudView addSubview:lab];
-    
-    [backgroudView getViewLayer];
-
     return backgroudView;
 }
-
-#pragma mark - otherFuntions
 
 
 @end

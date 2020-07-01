@@ -273,7 +273,6 @@ static NSDictionary *_infoDic = nil;
     //    for (UITabBarItem * item in items) {
     //        item.image = [item.image imageWithRenderingMode:UIImageRenderingModeAlwaysTemplate];
     //    }
-    
     //    UITabBarItem.appearance setTitleTextAttributes:<#(nullable NSDictionary<NSAttributedStringKey,id> *)#> forState:<#(UIControlState)#>
 }
 
@@ -290,8 +289,7 @@ static NSDictionary *_infoDic = nil;
     [UINavigationBar.appearance setBackgroundImage:UIImageColor(barTintColor) forBarMetrics:UIBarMetricsDefault];
     [UINavigationBar.appearance setShadowImage:UIImageColor(barTintColor)];
     
-    NSDictionary * dic = @{
-                           NSForegroundColorAttributeName:   tintColor,
+    NSDictionary * dic = @{NSForegroundColorAttributeName:   tintColor,
                            };
     UINavigationBar.appearance.titleTextAttributes = dic;
     if (@available(iOS 11.0, *)) {
@@ -335,27 +333,29 @@ static NSDictionary *_infoDic = nil;
 /**
  打开网络链接(prefix为 http://或 tel:// )
  */
-+ (BOOL)openURLStr:(NSString *)urlStr prefix:(NSString *)prefix{
-    if (![urlStr hasPrefix:prefix]) {
-        urlStr = [prefix stringByAppendingString:urlStr];
++ (void)openURLString:(NSString *)string prefix:(NSString *)prefix completion:(void (^ __nullable)(BOOL success))completion{
+    if (![string hasPrefix:prefix]) {
+        string = [prefix stringByAppendingString:string];
     }
     
-    UIApplication * app = UIApplication.sharedApplication;
-    NSURL *url = [NSURL URLWithString:urlStr];
-    BOOL canOpenUrl = [app canOpenURL:url];
-    if (canOpenUrl) {
-        if (@available(iOS 10.0, *)) {
-            [app openURL:url options:@{} completionHandler:nil];
-        } else {
-            [app openURL:url];
-        }
+    NSURL *URL = [NSURL URLWithString:string];
+    UIApplication *app = UIApplication.sharedApplication;
+    if (![app canOpenURL:URL]) {
+        completion(false);
+        return ;
     }
-    else{
-        NSString *tips = [urlStr stringByAppendingString:@"打开失败"];
-        [UIAlertController showAlertTitle:tips msg:nil actionTitles:nil handler:nil];
-        
+    [UIApplication openURL:URL completion:completion];
+}
+
++ (void)openURL:(NSURL *)url completion:(void (^ __nullable)(BOOL success))completion{
+    UIApplication *app = UIApplication.sharedApplication;
+    
+    if (@available(iOS 10.0, *)) {
+        [app openURL:url options:@{UIApplicationOpenURLOptionUniversalLinksOnly : @YES} completionHandler:completion];
+    } else {
+        BOOL success = [app openURL:url];
+        completion(success);
     }
-    return canOpenUrl;
 }
 
 /**

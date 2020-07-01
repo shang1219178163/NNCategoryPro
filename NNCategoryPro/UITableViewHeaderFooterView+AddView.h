@@ -15,16 +15,16 @@ NS_ASSUME_NONNULL_BEGIN
 
 @interface UITableViewHeaderFooterView (AddView)
 
-@property (nonatomic, strong) UIImageView * viewIndicator;
-@property (nonatomic, strong) UIImageView * imgViewLeft;
-@property (nonatomic, strong) UIImageView * imgViewRight;
+@property (nonatomic, strong) UIImageView *indicatorView;
+@property (nonatomic, strong) UIImageView *imgViewLeft;
+@property (nonatomic, strong) UIImageView *imgViewRight;
 
-@property (nonatomic, strong) UILabel * labelLeft;
-@property (nonatomic, strong) UILabel * labelLeftMark;
-@property (nonatomic, strong) UILabel * labelLeftSub;
-@property (nonatomic, strong) UILabel * labelLeftSubMark;
+@property (nonatomic, strong) UILabel *labelLeft;
+@property (nonatomic, strong) UILabel *labelLeftMark;
+@property (nonatomic, strong) UILabel *labelLeftSub;
+@property (nonatomic, strong) UILabel *labelLeftSubMark;
 
-@property (nonatomic, strong) UIButton * btn;
+@property (nonatomic, strong) UIButton *btn;
 
 @property (nonatomic, assign) BOOL isOpen;
 @property (nonatomic, assign) BOOL isCanOPen;//默认为NO

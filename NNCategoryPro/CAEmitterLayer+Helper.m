@@ -24,11 +24,13 @@
     emitterLayer.renderMode = kCAEmitterLayerAdditive;//混合渲染效果
 
     emitterLayer.emitterCells = cells;//设置粒子组
-
     return emitterLayer;
 }
 
-+(CAEmitterLayer *)layerWithSize:(CGSize)size positon:(CGPoint)position imgList:(NSArray *)imgList type:(NSNumber *)type{
++(CAEmitterLayer *)layerWithSize:(CGSize)size
+                         positon:(CGPoint)position
+                         imgList:(NSArray *)imgList
+                            type:(NSNumber *)type{
     
     NSMutableArray * marr = [NSMutableArray array];
     [imgList enumerateObjectsUsingBlock:^(NSString *  _Nonnull obj, NSUInteger idx, BOOL * _Nonnull stop) {

@@ -3,7 +3,7 @@
 //  Location
 //
 //  Created by BIN on 2017/12/21.
-//  Copyright © 2017年 Location. All rights reserved.
+//  Copyright © 2017年 Shang. All rights reserved.
 //
 
 #import <Foundation/Foundation.h>
@@ -13,19 +13,19 @@ NS_ASSUME_NONNULL_BEGIN
 /// 四舍五入
 FOUNDATION_EXPORT NSString * const kNumIdentify ;// 默认(四舍五入)
 /// 分隔符,
-FOUNDATION_EXPORT NSString * const kNumIdentify_decimal ;
+FOUNDATION_EXPORT NSString * const kNumIdentifyDecimal ;
 /// 百分比
-FOUNDATION_EXPORT NSString * const kNumIdentify_percent ;
+FOUNDATION_EXPORT NSString * const kNumIdentifyPercent ;
 /// 货币$
-FOUNDATION_EXPORT NSString * const kNumIdentify_currency ;
+FOUNDATION_EXPORT NSString * const kNumIdentifyCurrency ;
 /// 科学计数法 1.234E8
-FOUNDATION_EXPORT NSString * const kNumIdentify_scientific ;
+FOUNDATION_EXPORT NSString * const kNumIdentifyScientific ;
 /// 加号符号
-FOUNDATION_EXPORT NSString * const kNumIdentify_plusSign ;
+FOUNDATION_EXPORT NSString * const kNumIdentifyPlusSign ;
 /// 减号符号
-FOUNDATION_EXPORT NSString * const kNumIdentify_minusSign ;
+FOUNDATION_EXPORT NSString * const kNumIdentifyMinusSign ;
 /// 指数符号
-FOUNDATION_EXPORT NSString * const kNumIdentify_exponentSymbol ;
+FOUNDATION_EXPORT NSString * const kNumIdentifyExponentSymbol ;
 /// #,##0.00
 FOUNDATION_EXPORT NSString * const kNumFormat;
 
@@ -44,8 +44,14 @@ FOUNDATION_EXPORT NSString * const kNumFormat;
 + (NSString *)fractionDigits:(NSNumber *)obj;
 
 + (NSNumberFormatter *)positiveFormat:(NSString *)formatStr;
+///千分符
++ (NSNumberFormatter *)positive:(NSString *)formatStr
+                         prefix:(NSString *)prefix
+                         suffix:(NSString *)suffix
+                        defalut:(NSString *)defalut;
 
-+ (NSString *)numberStyle:(NSNumberFormatterStyle)nstyle number:(id)number;
+/// number为NSNumber/String
++ (NSString *)localizedString:(NSNumberFormatterStyle)nstyle number:(NSString *)number;
 
 @end
 

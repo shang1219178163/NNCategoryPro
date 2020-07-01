@@ -13,60 +13,33 @@
 
 @implementation UISegmentedControl (Helper)
 
-//-(void)setSegmentItems:(NSArray *)segmentItems{
-//    //    DDLog(@"%@_%@",@(segmentItems.count),@(self.numberOfSegments));
-//    if (segmentItems.count == 0) {
-//        return;
-//    }
-//    CGFloat width = CGRectGetWidth(self.bounds)/segmentItems.count;
-//    if (segmentItems.count <= self.numberOfSegments) {
-//        for (NSInteger i = 0; i < self.numberOfSegments; i++) {
-//            if (i < segmentItems.count) {
-//                [self setTitle:segmentItems[i] forSegmentAtIndex:i];
-//                [self setWidth:width forSegmentAtIndex:i];
-//
-//            } else {
-//                [self removeSegmentAtIndex:i animated:NO];
-//            }
-//        }
-//
-//    } else {
-//        for (NSInteger i = 0; i < segmentItems.count; i++) {
-//            if (i < self.numberOfSegments) {
-//                [self setTitle:segmentItems[i] forSegmentAtIndex:i];
-//                [self setWidth:width forSegmentAtIndex:i];
-//
-//            } else {
-//                [self insertSegmentWithTitle:segmentItems[i] atIndex:i animated:NO];
-//            }
-//        }
-//    }
-//    self.selectedSegmentIndex = 0;
-//}
+- (void)setItems:(NSArray<NSString *> *)items{
+    objc_setAssociatedObject(self, @selector(items), items, OBJC_ASSOCIATION_RETAIN_NONATOMIC);
+    [self updateItems:items];
+}
 
--(void)setItemList:(NSArray *)itemList{
-    objc_setAssociatedObject(self, @selector(itemList), itemList, OBJC_ASSOCIATION_RETAIN_NONATOMIC);
+-(NSArray *)items{
+    return objc_getAssociatedObject(self, _cmd);
+}
 
-    //    DDLog(@"%@_%@",@(segmentItems.count),@(self.numberOfSegments));
-    if (itemList.count == 0) {
+- (void)updateItems:(NSArray<NSString *> *)titles {
+    if (titles == nil || titles.count == 0) {
         return;
     }
     [self removeAllSegments];
-    for (NSInteger i = 0; i < itemList.count; i++) {
-        [self insertSegmentWithTitle:itemList[i] atIndex:i animated:NO];
-        
-    }
+    [titles enumerateObjectsUsingBlock:^(NSString * _Nonnull obj, NSUInteger idx, BOOL * _Nonnull stop) {
+        [self insertSegmentWithTitle:obj atIndex:idx animated:NO];
+    }];
     self.selectedSegmentIndex = 0;
-}
-
--(NSArray *)itemList{
-    return objc_getAssociatedObject(self, _cmd);
 }
 
 /**
  [源]UISegmentedControl创建方法
  */
-+ (instancetype)createRect:(CGRect)rect items:(NSArray *)items selectedIndex:(NSInteger)selectedIndex type:(NSNumber *)type{
++ (instancetype)createRect:(CGRect)rect
+                     items:(NSArray *)items
+             selectedIndex:(NSInteger)selectedIndex
+                      type:(NSNumber *)type{
     UISegmentedControl *view = [[self alloc] initWithItems:items];
     view.autoresizingMask = UIViewAutoresizingFlexibleWidth|UIViewAutoresizingFlexibleHeight;
     view.frame = rect;
@@ -180,5 +153,6 @@
         self.layer.borderColor = tintColor.CGColor;
     }
 }
+
 
 @end

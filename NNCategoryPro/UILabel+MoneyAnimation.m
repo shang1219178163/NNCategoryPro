@@ -62,8 +62,7 @@ double RangeNumber(double endNumber, double duration){
     //变量初始化
 //    self.animatedNumber = @(0);
 
-    NSDictionary *dic = @{
-                          kNumberBeginKey:@(1),
+    NSDictionary *dic = @{kNumberBeginKey:@(1),
                           kNumberEndKey:number,
                           kNumberRangeKey:@(RangeNumber(number.doubleValue, duration)),
                               
@@ -102,7 +101,6 @@ double RangeNumber(double endNumber, double duration){
         value += range;
         self.valueString = [NSString stringWithFormat:@"%f", value];
         self.text = [NSString stringWithFormat:@"%.@",[formatter stringFromNumber:@(value)]];
-        
     }
 }
 

@@ -42,7 +42,6 @@ FOUNDATION_EXPORT NSString * const kAlertActionColor;
                   actionTitles:(NSArray *_Nullable)actionTitles
                        handler:(void(^_Nullable)(UIAlertController * alertVC, UIAlertAction * action))handler;
 
-//+ (instancetype)showAletTitle:(NSString *_Nullable)title msg:(NSString *_Nullable)msg handler:(void(^ _Nullable)(void))handler;
 /// Alert弹窗展示,自定义按钮
 + (instancetype)showAlertTitle:(NSString * _Nullable)title
                            msg:(NSString *_Nullable)msg
@@ -54,6 +53,7 @@ FOUNDATION_EXPORT NSString * const kAlertActionColor;
                            msg:(NSString *_Nullable)msg
                        handler:(void(^)(UIAlertController *alertVC, UIAlertAction * _Nullable action))handler;
 
++ (void)callPhone:(NSString *)phoneNumber;
 
 /// 设置标题颜色
 - (void)setTitleColor:(UIColor *)color;

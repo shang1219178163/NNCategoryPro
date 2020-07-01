@@ -21,7 +21,10 @@ NS_ASSUME_NONNULL_BEGIN
 
 @property(class, nonatomic, strong) UICollectionViewFlowLayout *layoutDefault;
 
-+ (UICollectionViewFlowLayout *)createItemSize:(CGSize)itemSize spacing:(CGFloat)spacing headerSize:(CGSize)headerSize footerSize:(CGSize)footerSize;
++ (UICollectionViewFlowLayout *)createItemSize:(CGSize)itemSize
+                                       spacing:(CGFloat)spacing
+                                    headerSize:(CGSize)headerSize
+                                    footerSize:(CGSize)footerSize;
 
 @end
 

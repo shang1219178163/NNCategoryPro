@@ -272,9 +272,14 @@ void GCDApplyGlobal(id obj ,void(^block)(size_t index)){
     CGSize size = CGSizeZero;
     if ([text isKindOfClass:[NSString class]]) {
         NSDictionary *attrDict = [NSAttributedString paraDictWithFont:((UIFont *)font).pointSize textColor:UIColor.blackColor alignment:NSTextAlignmentLeft];
-        size = [text boundingRectWithSize:CGSizeMake(width, MAXFLOAT) options:NSStringDrawingUsesLineFragmentOrigin|NSStringDrawingUsesFontLeading attributes:attrDict context:nil].size;
+        size = [text boundingRectWithSize:CGSizeMake(width, MAXFLOAT)
+                                  options:NSStringDrawingUsesLineFragmentOrigin|NSStringDrawingUsesFontLeading
+                               attributes:attrDict
+                                  context:nil].size;
     } else {
-        size = [text boundingRectWithSize:CGSizeMake(width, MAXFLOAT) options:NSStringDrawingUsesLineFragmentOrigin|NSStringDrawingUsesFontLeading context:nil].size;
+        size = [text boundingRectWithSize:CGSizeMake(width, MAXFLOAT)
+                                  options:NSStringDrawingUsesLineFragmentOrigin|NSStringDrawingUsesFontLeading
+                                  context:nil].size;
     }
     size.width = ceil(size.width);
     size.height = ceil(size.height);

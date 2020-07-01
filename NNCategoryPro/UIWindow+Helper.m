@@ -24,7 +24,10 @@
         CGFloat height = window.frame.size.height;
         
         CGSize imgSize = CGSizeMake(width/5.0, height/5.0);
-        UIView *view = [[UIView alloc]initWithFrame:CGRectMake(width - imgSize.width, (height - imgSize.height - 30)/2.0, imgSize.width, imgSize.height + 30)];
+        UIView *view = [[UIView alloc]initWithFrame:CGRectMake(width - imgSize.width,
+                                                               (height - imgSize.height - 30)/2.0,
+                                                               imgSize.width,
+                                                               imgSize.height + 30)];
         view.tag = 9999;
         view.backgroundColor = [UIColor.blackColor colorWithAlphaComponent:0.6];
         

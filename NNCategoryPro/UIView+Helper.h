@@ -47,7 +47,10 @@ NS_ASSUME_NONNULL_BEGIN
 
 @property (nonatomic, strong, readonly) UIViewController *parController;
 
-- (UIView *)addCorners:(UIRectCorner)corners cornerRadii:(CGSize)cornerRadii width:(CGFloat)width color:(UIColor *)color;
+- (UIView *)addCorners:(UIRectCorner)corners
+           cornerRadii:(CGSize)cornerRadii
+                 width:(CGFloat)width
+                 color:(UIColor *)color;
 
 - (UIImage *)drawCorners:(UIRectCorner)corners
              cornerRadii:(CGFloat)radius
@@ -83,9 +86,9 @@ NS_ASSUME_NONNULL_BEGIN
 
 - (__kindof UIView *)findSubview:(NSString *)name resursion:(BOOL)resursion;
 
-- (__kindof UIView *)findSuperView:(NSString *)name;
+- (NSArray<__kindof UIView *> *)findSubviews:(NSString *)name;
 
-- (void)showLayerColor:(UIColor *)layerColor;
+- (__kindof UIView *)findSuperView:(NSString *)name;
 
 - (void)imageToSavedPhotosAlbum:(void(^)(NSError *error))block;
 
@@ -93,31 +96,66 @@ NS_ASSUME_NONNULL_BEGIN
 
 - (NSArray<__kindof UIButton *> *)updateButtonItems:(NSInteger)count aClassName:(NSString *)aClassName handler:(void(^)(__kindof UIButton *obj))handler;
 
-+ (UIView *)createSectionView:(UITableView *)tableView text:(NSString *)text textAlignment:(NSTextAlignment)textAlignment height:(CGFloat)height;
++ (UIView *)createSectionView:(UITableView *)tableView
+                         text:(NSString *)text
+                textAlignment:(NSTextAlignment)textAlignment
+                       height:(CGFloat)height;
 
 /**
  上传证件类VIew
  */
-+ (UIImageView *)createCardViewRect:(CGRect)rect title:(NSString *)title image:(id)image tag:(NSInteger)tag target:(id)target aSelector:(SEL)aSelector;
++ (UIImageView *)createCardViewRect:(CGRect)rect
+                              title:(NSString *)title
+                              image:(id)image
+                                tag:(NSInteger)tag
+                             target:(id)target
+                          aSelector:(SEL)aSelector;
 
 /**
  搜索框
  */
-+ (NNTextField *)createRect:(CGRect)rect placeholder:(NSString *)placeholder leftView:(UIView *)leftView leftPadding:(CGFloat)leftPadding rightView:(UIView *)rightView rightPadding:(CGFloat)rightPadding;
++ (NNTextField *)createRect:(CGRect)rect
+                placeholder:(NSString *)placeholder
+                   leftView:(UIView *)leftView
+                leftPadding:(CGFloat)leftPadding
+                  rightView:(UIView *)rightView
+               rightPadding:(CGFloat)rightPadding;
 
 /**
  [简]搜索框
  */
-+ (NNTextField *)createRect:(CGRect)rect placeholder:(NSString *)placeholder leftView:(UIView *)leftView rightView:(UIView *)rightView;
++ (NNTextField *)createRect:(CGRect)rect
+                placeholder:(NSString *)placeholder
+                   leftView:(UIView *)leftView
+                  rightView:(UIView *)rightView;
 ///密集子元素尺寸
-- (CGSize)itemSizeWithCount:(NSInteger)count numberOfRow:(NSInteger)numberOfRow spacing:(CGFloat)spacing inset:(UIEdgeInsets)inset;
+- (CGSize)itemSizeWithCount:(NSInteger)count
+                numberOfRow:(NSInteger)numberOfRow
+                    spacing:(CGFloat)spacing
+                      inset:(UIEdgeInsets)inset;
     
-+ (UIView *)createViewRect:(CGRect)rect elements:(NSArray *)elements numberOfRow:(NSInteger)numberOfRow viewHeight:(CGFloat)viewHeight padding:(CGFloat)padding;
++ (UIView *)createViewRect:(CGRect)rect
+                  elements:(NSArray *)elements
+               numberOfRow:(NSInteger)numberOfRow
+                viewHeight:(CGFloat)viewHeight
+                   padding:(CGFloat)padding;
 
-+ (UIView *)createViewRect:(CGRect)rect items:(NSArray *)items numberOfRow:(NSInteger)numberOfRow itemHeight:(CGFloat)itemHeight padding:(CGFloat)padding type:(NSNumber *)type handler:(void(^)(id obj, id item, NSInteger idx))handler;
++ (UIView *)createViewRect:(CGRect)rect
+                     items:(NSArray *)items
+               numberOfRow:(NSInteger)numberOfRow
+                itemHeight:(CGFloat)itemHeight
+                   padding:(CGFloat)padding
+                      type:(NSNumber *)type
+                   handler:(void(^)(id obj, id item, NSInteger idx))handler;
 
 /// classtype 只能为 UIButton/UIImageView/UILabel及其子类
-+ (UIView *)createViewRect:(CGRect)rect items:(NSArray *)items numberOfRow:(NSInteger)numberOfRow padding:(CGFloat)padding inset:(UIEdgeInsets)inset classtype:(Class)classtype handler:(void(^)(__kindof UIView *))handler;
++ (UIView *)createViewRect:(CGRect)rect
+                     items:(NSArray *)items
+               numberOfRow:(NSInteger)numberOfRow
+                   padding:(CGFloat)padding
+                     inset:(UIEdgeInsets)inset
+                 classtype:(Class)classtype
+                   handler:(void(^)(__kindof UIView *))handler;
 /**
  向屏幕倾斜
  */

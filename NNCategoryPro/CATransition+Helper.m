@@ -27,7 +27,10 @@ NSString * const kCATransitionCameraIrisHollowClose = @"cameraIrisHollowClose";
  @param type 必须是CATransitionType类型/kCATransition开头的常量
 
  */
-+ (CATransition *)animDuration:(CGFloat)duration functionName:(CAMediaTimingFunctionName)name type:(NSString *)type subType:(CATransitionSubtype)subType {
++ (CATransition *)animDuration:(CGFloat)duration
+                  functionName:(CAMediaTimingFunctionName)name
+                          type:(NSString *)type
+                       subType:(CATransitionSubtype)subType {
     
     CATransition *anim = [CATransition animation];
     //动画时间

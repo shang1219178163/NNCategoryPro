@@ -21,7 +21,6 @@
 
 -(void)hook_sendAction:(SEL)action to:(id)target forEvent:(UIEvent *)event{
 //    [self logGatherWithSendAction:action to:target forEvent:event];
-
     [self hook_sendAction:action to:target forEvent:event];
     
 }

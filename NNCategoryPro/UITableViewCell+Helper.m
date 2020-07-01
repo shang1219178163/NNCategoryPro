@@ -20,7 +20,6 @@ CGFloat CellHeightFromParams(NSMutableDictionary *dic, NSIndexPath *indexPath, C
         
     } else {
         [dic setObject:@(height) forKey:cachKey];
-        
     }
     return height;
 }

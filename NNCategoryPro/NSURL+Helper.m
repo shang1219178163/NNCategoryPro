@@ -15,7 +15,7 @@
  *  @return 参数转字典结果
  */
 - (NSDictionary *)paramDic{
-    NSMutableDictionary * dic = [NSMutableDictionary dictionary];
+    NSMutableDictionary *dic = [NSMutableDictionary dictionary];
     NSArray * queryComponents = [self.query componentsSeparatedByString:@"&"];
     for (NSString * queryComponent in queryComponents) {
         NSString * key = [queryComponent componentsSeparatedByString:@"="].firstObject;

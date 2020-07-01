@@ -54,13 +54,34 @@ FOUNDATION_EXPORT NSString * const kTransformStrokeEnd ;
 /**
  源方法
  */
-+(CABasicAnimation *)animKeyPath:(NSString *)keyPath duration:(CFTimeInterval)duration autoreverses:(BOOL)autoreverses repeatCount:(float)repeatCount fillMode:(NSString *)fillMode removedOnCompletion:(BOOL)removedOnCompletion functionName:(CAMediaTimingFunctionName)functionName;
++(CABasicAnimation *)animKeyPath:(NSString *)keyPath
+                        duration:(CFTimeInterval)duration
+                    autoreverses:(BOOL)autoreverses
+                     repeatCount:(float)repeatCount
+                        fillMode:(NSString *)fillMode
+             removedOnCompletion:(BOOL)removedOnCompletion
+                    functionName:(CAMediaTimingFunctionName)functionName;
 
-+(CABasicAnimation *)animKeyPath:(NSString *)keyPath duration:(CFTimeInterval)duration fromValue:(id)fromValue toValue:(id)toValue autoreverses:(BOOL)autoreverses repeatCount:(float)repeatCount fillMode:(NSString *)fillMode removedOnCompletion:(BOOL)removedOnCompletion functionName:(CAMediaTimingFunctionName)functionName;
++(CABasicAnimation *)animKeyPath:(NSString *)keyPath
+                        duration:(CFTimeInterval)duration
+                       fromValue:(id)fromValue
+                         toValue:(id)toValue
+                    autoreverses:(BOOL)autoreverses
+                     repeatCount:(float)repeatCount
+                        fillMode:(NSString *)fillMode
+             removedOnCompletion:(BOOL)removedOnCompletion
+                    functionName:(CAMediaTimingFunctionName)functionName;
 
-+(CABasicAnimation *)animKeyPath:(NSString *)keyPath duration:(CFTimeInterval)duration fromValue:(id)fromValue toValue:(id)toValue autoreverses:(BOOL)autoreverses repeatCount:(float)repeatCount;
++(CABasicAnimation *)animKeyPath:(NSString *)keyPath
+                        duration:(CFTimeInterval)duration
+                       fromValue:(id)fromValue
+                         toValue:(id)toValue
+                    autoreverses:(BOOL)autoreverses
+                     repeatCount:(float)repeatCount;
 
-+(CABasicAnimation *)animKeyPath:(NSString *)keyPath duration:(CFTimeInterval)duration fromValue:(id)fromValue toValue:(id)toValue;
++(CABasicAnimation *)animKeyPath:(NSString *)keyPath
+                        duration:(CFTimeInterval)duration
+                       fromValue:(id)fromValue toValue:(id)toValue;
 
 @end
 

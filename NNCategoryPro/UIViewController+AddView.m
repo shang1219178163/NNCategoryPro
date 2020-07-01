@@ -52,13 +52,14 @@
     UICollectionView *view = objc_getAssociatedObject(self, _cmd);
     if (!view) {
         view = ({
-            UICollectionView *view = [[UICollectionView alloc]initWithFrame:self.view.bounds collectionViewLayout:UICollectionView.layoutDefault];
+            UICollectionView *view = [[UICollectionView alloc]initWithFrame:self.view.bounds
+                                                       collectionViewLayout:UICollectionView.layoutDefault];
             view.backgroundColor = UIColor.whiteColor;
             view.showsVerticalScrollIndicator = false;
             view.showsHorizontalScrollIndicator = false;
             view.scrollsToTop = false;
             view.pagingEnabled = true;
-//            view.dictClass = self.dictClass;
+            [view registerClass:UICollectionViewCell.class forCellWithReuseIdentifier:@"UICollectionViewCell"];
             
             view;
         });

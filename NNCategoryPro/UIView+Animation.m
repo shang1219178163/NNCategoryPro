@@ -233,16 +233,38 @@
     //CGPathAddCurveToPoint(pathRef, nil, CGFloat cp1x, CGFloat cp1y, CGFloat cp2x, CGFloat cp2y, CGFloat x, CGFloat y)
     
     //路径动画
-    CAKeyframeAnimation *keyframeAnim = [CAKeyframeAnimation animPath:pathRef duration:1 autoreverses:NO repeatCount:1];
+    CAKeyframeAnimation *keyframeAnim = [CAKeyframeAnimation animPath:pathRef
+                                                             duration:1
+                                                         autoreverses:NO
+                                                          repeatCount:1];
     
     //旋转动画
-    CABasicAnimation* rotationAnim = [CABasicAnimation animKeyPath:kTransformRotationZ duration:1.5 fromValue:@(0) toValue:@(M_PI * 2.0) autoreverses:NO repeatCount:1 fillMode:kCAFillModeForwards removedOnCompletion:NO functionName:kCAMediaTimingFunctionEaseIn];
+    CABasicAnimation* rotationAnim = [CABasicAnimation animKeyPath:kTransformRotationZ
+                                                          duration:1.5
+                                                         fromValue:@(0)
+                                                           toValue:@(M_PI * 2.0)
+                                                      autoreverses:NO
+                                                       repeatCount:1
+                                                          fillMode:kCAFillModeForwards
+                                               removedOnCompletion:NO
+                                                      functionName:kCAMediaTimingFunctionEaseIn];
     
     //缩放动画
-    CABasicAnimation* scaleAnim = [CABasicAnimation animKeyPath:kTransformScale duration:1.5 fromValue:@(1.0) toValue:@(0.1) autoreverses:NO repeatCount:1 fillMode:kCAFillModeForwards removedOnCompletion:NO functionName:kCAMediaTimingFunctionEaseIn];
+    CABasicAnimation* scaleAnim = [CABasicAnimation animKeyPath:kTransformScale
+                                                       duration:1.5
+                                                      fromValue:@(1.0)
+                                                        toValue:@(0.1)
+                                                   autoreverses:NO
+                                                    repeatCount:1
+                                                       fillMode:kCAFillModeForwards
+                                            removedOnCompletion:NO
+                                                   functionName:kCAMediaTimingFunctionEaseIn];
     
-    NSArray * animList = @[keyframeAnim,rotationAnim,scaleAnim];
-    CAAnimationGroup * groupAnim = [CAAnimationGroup animList:animList duration:1.5 autoreverses:NO repeatCount:1];
+    NSArray * animList = @[keyframeAnim, rotationAnim, scaleAnim];
+    CAAnimationGroup * groupAnim = [CAAnimationGroup animList:animList
+                                                     duration:1.5
+                                                 autoreverses:NO
+                                                  repeatCount:1];
     groupAnim.delegate = self;
     [shipLabyer addAnimation:groupAnim forKey:@"groupAnim"];
     return groupAnim;

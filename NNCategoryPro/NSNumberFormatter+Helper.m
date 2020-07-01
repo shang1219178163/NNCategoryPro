@@ -3,20 +3,20 @@
 //  Location
 //
 //  Created by BIN on 2017/12/21.
-//  Copyright © 2017年 Location. All rights reserved.
+//  Copyright © 2017年 Shang. All rights reserved.
 //
 
 #import "NSNumberFormatter+Helper.h"
 #import <NNGloble/NNGloble.h>
 
 NSString * const kNumIdentify = @"四舍五入";// 默认
-NSString * const kNumIdentify_decimal = @"分隔符,保留3位小数";
-NSString * const kNumIdentify_percent = @"百分比";
-NSString * const kNumIdentify_currency = @"货币$";
-NSString * const kNumIdentify_scientific = @"科学计数法 1.234E8";
-NSString * const kNumIdentify_plusSign = @"加号符号";
-NSString * const kNumIdentify_minusSign = @"减号符号";
-NSString * const kNumIdentify_exponentSymbol = @"指数符号";
+NSString * const kNumIdentifyDecimal = @"分隔符,保留3位小数";
+NSString * const kNumIdentifyPercent = @"百分比";
+NSString * const kNumIdentifyCurrency = @"货币$";
+NSString * const kNumIdentifyScientific = @"科学计数法 1.234E8";
+NSString * const kNumIdentifyPlusSign = @"加号符号";
+NSString * const kNumIdentifyMinusSign = @"减号符号";
+NSString * const kNumIdentifyExponentSymbol = @"指数符号";
 
 NSString * const kNumFormat = @"#,##0.00";
 
@@ -28,10 +28,10 @@ static NSDictionary *_styleDic = nil;
     if (!_styleDic) {
         _styleDic = @{
                       kNumIdentify: @(NSNumberFormatterNoStyle),
-                      kNumIdentify_decimal: @(NSNumberFormatterDecimalStyle),
-                      kNumIdentify_percent: @(NSNumberFormatterPercentStyle),
-                      kNumIdentify_currency: @(NSNumberFormatterCurrencyStyle),
-                      kNumIdentify_scientific: @(NSNumberFormatterScientificStyle),
+                      kNumIdentifyDecimal: @(NSNumberFormatterDecimalStyle),
+                      kNumIdentifyPercent: @(NSNumberFormatterPercentStyle),
+                      kNumIdentifyCurrency: @(NSNumberFormatterCurrencyStyle),
+                      kNumIdentifyScientific: @(NSNumberFormatterScientificStyle),
                       };
     }
     return _styleDic;
@@ -65,6 +65,7 @@ static NSDictionary *_styleDic = nil;
                          min:(NSUInteger)min
                          max:(NSUInteger)max
                 roundingMode:(NSNumberFormatterRoundingMode)roundingMode{
+    
     NSNumberFormatter *formatter = [NSNumberFormatter numberIdentify:kNumIdentify];
     formatter.minimumFractionDigits = min;//最少小数点后的位数
     formatter.maximumFractionDigits = max;//最多小数点后的位数
@@ -74,33 +75,41 @@ static NSDictionary *_styleDic = nil;
 
 // 小数位数
 + (NSString *)fractionDigits:(NSNumber *)obj{
-    NSString *result = [NSNumberFormatter fractionDigits:obj min:2 max:2 roundingMode:NSNumberFormatterRoundUp];
+    NSString *result = [NSNumberFormatter fractionDigits:obj
+                                                     min:2
+                                                     max:2
+                                            roundingMode:NSNumberFormatterRoundUp];
     return result;
 }
 
 + (NSNumberFormatter *)positiveFormat:(NSString *)formatStr{
-    NSNumberFormatter *formatter = [NSNumberFormatter numberIdentify:kNumIdentify];
+    NSNumberFormatter *formatter = [NSNumberFormatter numberIdentify:kNumIdentifyDecimal];
     formatter.positiveFormat = formatStr;
     return formatter;
 }
 
-+ (NSString *)numberStyle:(NSNumberFormatterStyle)nstyle number:(id)number{
-    if ([number isKindOfClass:[NSString class]]) {
-        NSString * charSet = @"0123456789.";
-        NSCharacterSet *set = [[NSCharacterSet characterSetWithCharactersInString:charSet] invertedSet];
-        NSString *result = [[number componentsSeparatedByCharactersInSet:set] componentsJoinedByString:@""];
-        if ([result isEqualToString:number]) {
-            number = @([number floatValue]);
-            NSString *string  = [NSNumberFormatter localizedStringFromNumber:number numberStyle:nstyle];
-            return string;
-        }
-    }
-    else if ([number isKindOfClass:[NSNumber class]]) {
-        NSString *string = [NSNumberFormatter localizedStringFromNumber:number numberStyle:nstyle];
-        return string;
-        
-    }
-    return number;
++ (NSNumberFormatter *)positive:(NSString *)formatStr
+                         prefix:(NSString *)prefix
+                         suffix:(NSString *)suffix
+                        defalut:(NSString *)defalut{
+    NSNumberFormatter *formatter = [NSNumberFormatter numberIdentify:kNumIdentifyDecimal];
+    formatter.positivePrefix = prefix;
+    formatter.positiveSuffix = suffix;
+
+    formatter.usesGroupingSeparator = true; //分隔设true
+    formatter.groupingSeparator = @","; //分隔符
+    formatter.groupingSize = 3;  //分隔位数
+    return formatter;
 }
+/// number为NSNumber/String
++ (NSString *)localizedString:(NSNumberFormatterStyle)nstyle number:(NSString *)number{
+    NSString *charSet = @"0123456789.";
+    NSCharacterSet *set = [[NSCharacterSet characterSetWithCharactersInString:charSet] invertedSet];
+    NSString *result = [[number componentsSeparatedByCharactersInSet:set] componentsJoinedByString:@""];
+    NSNumber *value = @([result floatValue]);
+    NSString *string = [NSNumberFormatter localizedStringFromNumber:value numberStyle:nstyle];
+    return string;
+}
+
 
 @end

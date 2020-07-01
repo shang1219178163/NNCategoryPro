@@ -30,12 +30,10 @@
     
     UIColor *titleColor_N = UIColor.whiteColor;
     UIColor *titleColor_H = UIColor.whiteColor;
-    [UIBarButtonItem.appearance setTitleTextAttributes:@{
-                                                           NSForegroundColorAttributeName : titleColor_N,
+    [UIBarButtonItem.appearance setTitleTextAttributes:@{NSForegroundColorAttributeName : titleColor_N,
                                                            NSShadowAttributeName : clearShadow,
                                                            } forState:UIControlStateNormal];
-    [UIBarButtonItem.appearance setTitleTextAttributes:@{
-                                                           NSForegroundColorAttributeName : titleColor_H,
+    [UIBarButtonItem.appearance setTitleTextAttributes:@{NSForegroundColorAttributeName : titleColor_H,
                                                            NSShadowAttributeName : clearShadow,
                                                            } forState:UIControlStateHighlighted];
     

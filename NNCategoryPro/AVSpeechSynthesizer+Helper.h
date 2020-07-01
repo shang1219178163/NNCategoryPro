@@ -11,7 +11,13 @@
 
 @interface AVSpeechSynthesizer (Helper)
 
-AVSpeechUtterance * AVSpeechUtteranceParam(NSString *speechString, NSString *voiceLanguage, float rate, float volume, float pitchMultiplier, NSTimeInterval preUtteranceDelay, NSTimeInterval postUtteranceDelay);
+AVSpeechUtterance * AVSpeechUtteranceParam(NSString *speechString,
+                                           NSString *voiceLanguage,
+                                           float rate,
+                                           float volume,
+                                           float pitchMultiplier,
+                                           NSTimeInterval preUtteranceDelay,
+                                           NSTimeInterval postUtteranceDelay);
 
 AVSpeechUtterance * AVSpeechUtteranceDefault(NSString *speechString, NSString *voiceLanguage);
 

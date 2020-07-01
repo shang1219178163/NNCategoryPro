@@ -14,22 +14,6 @@
 @implementation UIColor (Helper)
 
 static UIColor * _themeColor = nil;
-static UIColor * _backgroudColor = nil;
-static UIColor * _lineColor = nil;
-static UIColor * _btnColor_N = nil;
-static UIColor * _btnColor_H = nil;
-static UIColor * _btnColor_D = nil;
-static UIColor * _excelColor = nil;
-static UIColor * _titleColor = nil;
-static UIColor * _titleSubColor = nil;
-
-static UIColor * _lightBlue = nil;
-static UIColor * _lightOrange = nil;
-static UIColor * _lightGreen = nil;
-
-static UIColor * _titleColor3 = nil;
-static UIColor * _titleColor6 = nil;
-static UIColor * _titleColor9 = nil;
 
 + (void)setThemeColor:(UIColor *)themeColor{
     _themeColor = themeColor;
@@ -50,101 +34,59 @@ static UIColor * _titleColor9 = nil;
 }
 
 + (UIColor *)backgroudColor{
-    if (!_backgroudColor) {
-        _backgroudColor = UIColorHexValue(0xE9E9E9);//233,233,233;
-    }
-    return _backgroudColor;
+    return UIColorHexValue(0xE9E9E9);//233,233,233;
 }
 
 + (UIColor *)lineColor{
-    if (!_lineColor) {
-        _lineColor = UIColorHexValue(0xe4e4e4);
-    }
-    return _lineColor;
+    return UIColorHexValue(0xe4e4e4);
 }
 
 + (UIColor *)btnColor_N{
-    if (!_btnColor_N) {
-        _btnColor_N = UIColorHexValue(0xfea914);
-    }
-    return _btnColor_N;
+    return UIColorHexValue(0xfea914);
 }
 
 + (UIColor *)btnColor_H{
-    if (!_btnColor_H) {
-        _btnColor_H = UIColorHexValue(0xf1a013);
-    }
-    return _btnColor_H;
+    return UIColorHexValue(0xf1a013);
 }
 
 + (UIColor *)btnColor_D{
-    if (!_btnColor_D) {
-        _btnColor_D = UIColorHexValue(0x999999);
-    }
-    return _btnColor_D;
+    return UIColorHexValue(0x999999);
 }
 
 + (UIColor *)excelColor{
-    if (!_excelColor) {
-        _excelColor = [UIColor colorWithRed:238/255.0 green:238/255.0 blue:238/255.0 alpha:1];
-    }
-    return _excelColor;
+    return [UIColor colorWithRed:238/255.0 green:238/255.0 blue:238/255.0 alpha:1];
 }
 
 + (UIColor *)titleColor{
-    if (!_titleColor) {
-        _titleColor = UIColorHexValue(0x333333);
-    }
-    return _titleColor;
+    return UIColorHexValue(0x333333);
 }
 
 + (UIColor *)titleSubColor{
-    if (!_titleSubColor) {
-        _titleSubColor = UIColorHexValue(0x999999);
-    }
-    return _titleSubColor;
+    return UIColorHexValue(0x999999);
 }
 
 + (UIColor *)lightBlue{
-    if (!_lightBlue) {
-        _lightBlue = UIColorHexValue(0x29B5FE);
-    }
-    return _lineColor;
+    return UIColorHexValue(0x29B5FE);
 }
 
 + (UIColor *)lightOrange{
-    if (!_lightOrange) {
-        _lightOrange = UIColorHexValue(0xFFBB50);
-    }
-    return _lightOrange;
+    return UIColorHexValue(0xFFBB50);
 }
 
 + (UIColor *)lightGreen{
-    if (!_lightGreen) {
-        _lightGreen = UIColorHexValue(0x1AC756);
-    }
-    return _lightGreen;
+    return UIColorHexValue(0x1AC756);
 }
 
 + (UIColor *)titleColor3{
-    if (!_titleColor) {
-        _titleColor = UIColorHexValue(0x333333);
-    }
-    return _titleColor;
+    return UIColorHexValue(0x333333);
 }
 
 + (UIColor *)titleColor6{
-    if (!_titleColor) {
-        _titleColor = UIColorHexValue(0x666666);
-    }
-    return _titleColor;
+    return UIColorHexValue(0x666666);
 }
 
 + (UIColor *)titleColor9{
-    if (!_titleColor) {
-        _titleColor = UIColorHexValue(0x999999);
-    }
-    return _titleColor;
+    return UIColorHexValue(0x999999);
 }
 
 
@@ -195,7 +137,7 @@ NSArray * RGBAFromColor(UIColor *color){
  */
 BOOL isLightColor(UIColor *color){
     NSArray *components = RGBAFromColor(color);
-    //    NSLog(@"%f %f %f", components[0], components[1], components[2]);
+//    NSLog(@"%f %f %f", components[0], components[1], components[2]);
     CGFloat sum = [[components valueForKeyPath:kArrSumFloat] floatValue];
     bool isLight = sum < 382 ? false : true;
     return isLight;

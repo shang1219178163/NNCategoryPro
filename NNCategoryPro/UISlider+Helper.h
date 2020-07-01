@@ -11,7 +11,10 @@ NS_ASSUME_NONNULL_BEGIN
 
 @interface UISlider (Helper)
 
-+ (instancetype)createRect:(CGRect)rect value:(CGFloat)value minValue:(CGFloat)minValue maxValue:(CGFloat)maxValue;
++ (instancetype)createRect:(CGRect)rect
+                     value:(CGFloat)value
+                  minValue:(CGFloat)minValue
+                  maxValue:(CGFloat)maxValue;
 
 @end
 

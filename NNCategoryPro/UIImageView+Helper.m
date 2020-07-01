@@ -49,7 +49,10 @@
             CGFloat offsetXY = CGRectGetHeight(rect)/2.0 * sin(45 * M_PI/180.0);
             CGPoint tipCenter = CGPointMake(CGRectGetHeight(rect)/2.0 + offsetXY, CGRectGetHeight(rect)/2.0 + offsetXY);
             //
-            UILabel * labelTip = [UILabel createTipWithSize:CGSizeMake(textWH, textWH) tipCenter:tipCenter text:text textColor:UIColor.themeColor];
+            UILabel * labelTip = [UILabel createTipWithSize:CGSizeMake(textWH, textWH)
+                                                  tipCenter:tipCenter
+                                                       text:text
+                                                  textColor:UIColor.themeColor];
             [view addSubview:labelTip];
             
         }
@@ -98,7 +101,12 @@
             imgView = [[UIImageView alloc] initWithImage:image];
             imgView.frame = rect;
             
-            CABasicAnimation *anim = [CABasicAnimation animKeyPath:@"transform.rotation" duration:10 fromValue:@(0) toValue:@(M_PI*2) autoreverses:NO repeatCount:10];
+            CABasicAnimation *anim = [CABasicAnimation animKeyPath:@"transform.rotation"
+                                                          duration:10
+                                                         fromValue:@(0)
+                                                           toValue:@(M_PI*2)
+                                                      autoreverses:NO
+                                                       repeatCount:10];
             [imgView.layer addAnimation:anim forKey:nil];
         }
             break;

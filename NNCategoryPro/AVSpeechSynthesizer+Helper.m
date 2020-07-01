@@ -23,8 +23,14 @@
  @param postUtteranceDelay 播放下下一句话的时候有多长时间的延迟
  @return 发音实例
  */
-AVSpeechUtterance * AVSpeechUtteranceParam(NSString *speechString, NSString *voiceLanguage, float rate, float volume, float pitchMultiplier, NSTimeInterval preUtteranceDelay, NSTimeInterval postUtteranceDelay){
-    AVSpeechUtterance * utterance = [AVSpeechUtterance speechUtteranceWithString:speechString];
+AVSpeechUtterance * AVSpeechUtteranceParam(NSString *speechString,
+                                           NSString *voiceLanguage,
+                                           float rate,
+                                           float volume,
+                                           float pitchMultiplier,
+                                           NSTimeInterval preUtteranceDelay,
+                                           NSTimeInterval postUtteranceDelay){
+    AVSpeechUtterance *utterance = [AVSpeechUtterance speechUtteranceWithString:speechString];
     voiceLanguage = voiceLanguage ? : kLanguageCN;
     utterance.voice = [AVSpeechSynthesisVoice voiceWithLanguage:voiceLanguage];
     //语速0.0f~1.0f
@@ -58,7 +64,6 @@ AVSpeechUtterance * AVSpeechUtteranceDefault(NSString *speechString, NSString *v
 //    utterance.volume = 1.0f;
 //    return utterance;
     return AVSpeechUtteranceParam(speechString, voiceLanguage, 0.4, 1.0, 0.8, 0.0, 0.0);
-
 }
 
 @end

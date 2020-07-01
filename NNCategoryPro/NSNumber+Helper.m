@@ -19,7 +19,10 @@
 
 // 转为max位小数四舍五入
 -(NSString *)toString:(NSUInteger)max{
-    NSString *result = [NSNumberFormatter fractionDigits:self min:2 max:max roundingMode:NSNumberFormatterRoundUp];
+    NSString *result = [NSNumberFormatter fractionDigits:self
+                                                     min:2
+                                                     max:max
+                                            roundingMode:NSNumberFormatterRoundUp];
     return result;
 }
 

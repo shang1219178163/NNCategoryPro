@@ -23,7 +23,11 @@ FOUNDATION_EXPORT NSString * const kHTTPMethodDELETE ;
 /**
  method
  */
-+(instancetype)requestURL:(NSString *)url method:(NSString *)method body:(NSData *_Nullable)body cachePolicy:(NSURLRequestCachePolicy)cachePolicy timeoutInterval:(NSTimeInterval)timeoutInterval;
++(instancetype)requestURL:(NSString *)url
+                   method:(NSString *)method
+                     body:(NSData *_Nullable)body
+              cachePolicy:(NSURLRequestCachePolicy)cachePolicy
+          timeoutInterval:(NSTimeInterval)timeoutInterval;
 
 /**
  *  生成单文件上传的 multipart/form-data 请求
@@ -46,7 +50,10 @@ FOUNDATION_EXPORT NSString * const kHTTPMethodDELETE ;
  *
  *  @return multipart/form-data POST 请求
  */
-+ (instancetype)requestWithURL:(NSURL *)URL fileURL:(NSURL *)fileURL fileName:(NSString *)fileName name:(NSString *)name;
++ (instancetype)requestWithURL:(NSURL *)URL
+                       fileURL:(NSURL *)fileURL
+                      fileName:(NSString *)fileName
+                          name:(NSString *)name;
 
 /**
  *  生成多文件上传的 multipart/form-data 请求
@@ -69,7 +76,10 @@ FOUNDATION_EXPORT NSString * const kHTTPMethodDELETE ;
  *
  *  @return multipart/form-data POST 请求
  */
-+ (instancetype)requestWithURL:(NSURL *)URL fileURLs:(NSArray *)fileURLs fileNames:(NSArray *)fileNames name:(NSString *)name;
++ (instancetype)requestWithURL:(NSURL *)URL
+                      fileURLs:(NSArray *)fileURLs
+                     fileNames:(NSArray *)fileNames
+                          name:(NSString *)name;
 @end
 
 NS_ASSUME_NONNULL_END

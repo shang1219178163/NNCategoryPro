@@ -3,7 +3,7 @@
 //  Location
 //
 //  Created by BIN on 2017/12/21.
-//  Copyright © 2017年 Location. All rights reserved.
+//  Copyright © 2017年 Shang. All rights reserved.
 //
 
 #import "NSDateFormatter+Helper.h"
@@ -54,14 +54,14 @@ NSString * const kFormatDateSix      = @"EEE, dd MMM yyyy HH:mm:ss 'GMT'";
  NSDate->日期字符串
  */
 + (NSString *)stringFromDate:(NSDate *)date fmt:(NSString *)format{
-    NSDateFormatter * fmt = [NSDateFormatter dateFormat:format];
+    NSDateFormatter *fmt = [NSDateFormatter dateFormat:format];
     return [fmt stringFromDate:date];
 }
 /**
  日期字符串->NSDate
  */
 + (NSDate *)dateFromString:(NSString *)dateStr fmt:(NSString *)format{
-    NSDateFormatter * fmt = [NSDateFormatter dateFormat:format];
+    NSDateFormatter *fmt = [NSDateFormatter dateFormat:format];
     return [fmt dateFromString:dateStr];
 }
 
@@ -69,7 +69,7 @@ NSString * const kFormatDateSix      = @"EEE, dd MMM yyyy HH:mm:ss 'GMT'";
  时间戳->日期字符串
  */
 + (NSString *)stringFromInterval:(NSString *)interval fmt:(NSString *)format{
-    NSDate * date = [NSDate dateWithTimeIntervalSince1970:interval.doubleValue];
+    NSDate *date = [NSDate dateWithTimeIntervalSince1970:interval.doubleValue];
     return [NSDateFormatter stringFromDate:date fmt:format];
 }
 

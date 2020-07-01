@@ -219,7 +219,9 @@ bool UIImageEquelToImage(UIImage *image0, UIImage *image1){
     
     // Now we draw the underlying CGImage into a new context, applying the transform
     // calculated above.
-    CGContextRef ctx = CGBitmapContextCreate(NULL, self.size.width, self.size.height,
+    CGContextRef ctx = CGBitmapContextCreate(NULL,
+                                             self.size.width,
+                                             self.size.height,
                                              CGImageGetBitsPerComponent(self.CGImage), 0,
                                              CGImageGetColorSpace(self.CGImage),
                                              CGImageGetBitmapInfo(self.CGImage));
@@ -254,7 +256,9 @@ bool UIImageEquelToImage(UIImage *image0, UIImage *image1){
     
     UIGraphicsBeginImageContextWithOptions(size, NO, UIScreen.mainScreen.scale);
     CGContextRef ctx = UIGraphicsGetCurrentContext();
-    UIBezierPath * path = [UIBezierPath bezierPathWithRoundedRect:rect byRoundingCorners:UIRectCornerAllCorners cornerRadii:CGSizeMake(radius, radius)];
+    UIBezierPath * path = [UIBezierPath bezierPathWithRoundedRect:rect
+                                                byRoundingCorners:UIRectCornerAllCorners
+                                                      cornerRadii:CGSizeMake(radius, radius)];
     CGContextAddPath(ctx,path.CGPath);
     CGContextClip(ctx);
     [self drawInRect:rect];
@@ -316,15 +320,22 @@ bool UIImageEquelToImage(UIImage *image0, UIImage *image1){
     outBuffer.height = CGImageGetHeight(img);
     outBuffer.rowBytes = CGImageGetBytesPerRow(img);
     
-    error = vImageBoxConvolve_ARGB8888(&inBuffer, &outBuffer, NULL, 0, 0, boxSize, boxSize, NULL, kvImageEdgeExtend);
+    error = vImageBoxConvolve_ARGB8888(&inBuffer,
+                                       &outBuffer,
+                                       NULL,
+                                       0,
+                                       0,
+                                       boxSize,
+                                       boxSize,
+                                       NULL,
+                                       kvImageEdgeExtend);
     
     if (error) {
         NSLog(@"error from convolution %ld", error);
     }
     
     CGColorSpaceRef colorSpace = CGColorSpaceCreateDeviceRGB();
-    CGContextRef ctx = CGBitmapContextCreate(
-                                             outBuffer.data,
+    CGContextRef ctx = CGBitmapContextCreate(outBuffer.data,
                                              outBuffer.width,
                                              outBuffer.height,
                                              8,
@@ -458,7 +469,7 @@ bool UIImageEquelToImage(UIImage *image0, UIImage *image1){
                                                  bitsPerComponent,
                                                  bytesPerRow,
                                                  colorSpace,
-                                                 kCGImageAlphaPremultipliedLast |     kCGBitmapByteOrder32Big);
+                                                 kCGImageAlphaPremultipliedLast | kCGBitmapByteOrder32Big);
     CGColorSpaceRelease(colorSpace);
     CGContextSetBlendMode(context, kCGBlendModeCopy);
     
@@ -587,7 +598,10 @@ bool UIImageEquelToImage(UIImage *image0, UIImage *image1){
 }
 
 #pragma mark 二分法
-- (NSData *)halfFuntion:(NSArray *)arr image:(UIImage *)image sourceData:(NSData *)finallImageData maxSize:(NSInteger)maxSize {
+- (NSData *)halfFuntion:(NSArray *)arr
+                  image:(UIImage *)image
+             sourceData:(NSData *)finallImageData
+                maxSize:(NSInteger)maxSize {
     NSData *tempData = [NSData data];
     NSUInteger start = 0;
     NSUInteger end = arr.count - 1;

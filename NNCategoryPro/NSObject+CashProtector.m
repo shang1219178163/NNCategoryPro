@@ -48,7 +48,6 @@ static NNForwardingTarget *_target = nil;
 
         if (isOpenCashProtector) {
             //NSClassFromString(@"__NSDictionaryM"),objc_getClass("__NSDictionaryM")
-            
             SwizzleMethodInstance(NSClassFromString(@"__NSDictionaryM"), @selector(setObject:forKey:), NSSelectorFromString(@"safe_setObject:forKey:"));
             
             SwizzleMethodInstance(NSClassFromString(@"__NSArrayI"), @selector(objectAtIndex:), NSSelectorFromString(@"safe_objectAtIndex:"));

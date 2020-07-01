@@ -3,7 +3,7 @@
 //  Location
 //
 //  Created by BIN on 2017/12/23.
-//  Copyright © 2017年 Location. All rights reserved.
+//  Copyright © 2017年 Shang. All rights reserved.
 //
 
 #import <Foundation/Foundation.h>

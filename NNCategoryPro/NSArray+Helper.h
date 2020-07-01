@@ -55,7 +55,7 @@ NS_ASSUME_NONNULL_BEGIN
 - (NSArray *)contactArray:(NSArray *)array;
 
 ///重复元素
-+ (NSArray *)repeateValue:(id)value count:(NSInteger)count;
++ (NSArray *)repeating:(id)repeatedValue count:(NSInteger)count;
 
 /// 快速生成一个数组(step代表步长)
 + (NSArray<NSNumber *> *)range:(NSInteger)start end:(NSInteger)end step:(NSInteger)step;
@@ -70,14 +70,17 @@ NS_ASSUME_NONNULL_BEGIN
  @param type @0字符串数组 ,@1:UIImage数组,
  @return 数组
  */
-+ (NSArray *)arrayItemPrefix:(NSString *)prefix startIndex:(NSInteger)startIndex count:(NSInteger)count type:(NSNumber *)type;
++ (NSArray *)arrayItemPrefix:(NSString *)prefix
+                  startIndex:(NSInteger)startIndex
+                       count:(NSInteger)count
+                        type:(NSNumber *)type;
 
 /**
  推荐
  */
-- (NSMutableArray *)BNfilterByPropertyList:(NSArray *)propertyList isNumValue:(BOOL)isNumValue;
+- (NSMutableArray *)filterByPropertyList:(NSArray *)propertyList isNumValue:(BOOL)isNumValue;
 
-- (NSMutableArray *)BNfilterByPropertyList:(NSArray *)propertyList prefix:(NSString *)prefix isNumValue:(BOOL)isNumValue;
+- (NSMutableArray *)filterByPropertyList:(NSArray *)propertyList prefix:(NSString *)prefix isNumValue:(BOOL)isNumValue;
 
 - (NSArray *)arrayWithObjRange:(NSRange)objRange;
 

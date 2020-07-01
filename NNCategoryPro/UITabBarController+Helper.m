@@ -48,8 +48,7 @@ NSArray<UITabBarItem *> * UITabBarItemsFromList(NSArray<NSArray *> * list){
 }
 
 NSArray<__kindof UIViewController *> * UICtlrListFromList(NSArray<NSArray *> *list, BOOL isNavController){
-    
-    NSArray * tabItems = UITabBarItemsFromList(list);
+    NSArray *tabItems = UITabBarItemsFromList(list);
     
     __block NSMutableArray * marr = [NSMutableArray array];
     [list enumerateObjectsUsingBlock:^(id  _Nonnull obj, NSUInteger idx, BOOL * _Nonnull stop) {
@@ -59,7 +58,7 @@ NSArray<__kindof UIViewController *> * UICtlrListFromList(NSArray<NSArray *> *li
             
         }
         else if([obj isKindOfClass:[NSArray class]]) {
-            NSArray * itemList = (NSArray *)obj;//类名,title,img_N,img_H,badgeValue
+            NSArray *itemList = (NSArray *)obj;//类名,title,img_N,img_H,badgeValue
             
             UIViewController * controller = UICtrFromString(itemList.firstObject);
             controller.title = itemList[1];
@@ -84,19 +83,9 @@ NSArray<UINavigationController *> * UINavListFromList(NSArray<NSArray *> *list){
 UITabBarController * UITarBarCtrFromList(NSArray<NSArray *> *list){
     UITabBarController * tabBarVC = [[UITabBarController alloc]init];
     tabBarVC.viewControllers = UINavListFromList(list);
-    //    tabBarVC.tabBar.barTintColor = UIColor.themeColor;
-    //    tabBarVC.tabBar.tintColor = UIColor.themeColor;
+//    tabBarVC.tabBar.barTintColor = UIColor.themeColor;
+//    tabBarVC.tabBar.tintColor = UIColor.themeColor;
     return tabBarVC;
-}
-
-- (NSArray *)getSubviewsForName:(NSString *)name{
-    NSMutableArray * marr = [NSMutableArray array];
-    for (UIView *view in self.tabBar.subviews){
-        if ([view isKindOfClass:NSClassFromString(name)]){
-            [marr addObject:view];
-        }
-    }
-    return marr.copy;
 }
 
 /**
@@ -105,10 +94,10 @@ UITabBarController * UITarBarCtrFromList(NSArray<NSArray *> *list){
  */
 - (void)reloadTabarItems:(NSArray *)list{
     [self.viewControllers enumerateObjectsUsingBlock:^(__kindof UIViewController * _Nonnull obj, NSUInteger idx, BOOL * _Nonnull stop) {
-        NSArray * itemlist = list[idx];
-        NSString * title = itemlist[itemlist.count - 4];
-        UIImage * img = [UIImage imageNamed:itemlist[itemlist.count - 3]];
-        UIImage * imgH = [UIImage imageNamed:itemlist[itemlist.count - 2]];
+        NSArray *itemlist = list[idx];
+        NSString *title = itemlist[itemlist.count - 4];
+        UIImage *img = [UIImage imageNamed:itemlist[itemlist.count - 3]];
+        UIImage *imgH = [UIImage imageNamed:itemlist[itemlist.count - 2]];
 
         obj.tabBarItem = [[UITabBarItem alloc]initWithTitle:title image:img selectedImage:imgH];;
     }];

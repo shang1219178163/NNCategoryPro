@@ -16,20 +16,34 @@ NS_ASSUME_NONNULL_BEGIN
 
 +(NNAnimationObject *)animation;
 
-- (void)pushController:(id)controller title:(NSString *)title item:(UIView *)item type:(NSNumber *)type;
+- (void)pushController:(id)controller
+                 title:(NSString *)title
+                  item:(UIView *)item
+                  type:(NSNumber *)type;
 
 /**
 
  @param type 过度动画类型
  */
-- (void)pushController:(id)controller title:(NSString *)title rect:(CGRect)rect type:(NSNumber *)type;
+- (void)pushController:(id)controller
+                 title:(NSString *)title
+                  rect:(CGRect)rect
+                  type:(NSNumber *)type;
 
-- (void)presentController:(id)controller title:(NSString *)title item:(UIView *)item type:(NSNumber *)type completion:(void (^ _Nullable)(void))completion;
+- (void)presentController:(id)controller
+                    title:(NSString *)title
+                     item:(UIView *)item
+                     type:(NSNumber *)type
+               completion:(void (^ _Nullable)(void))completion;
 
 /**
  @param type 过度动画类型
  */
-- (void)presentController:(id)controller title:(NSString *)title rect:(CGRect)rect type:(NSNumber *)type completion:(void (^ _Nullable)(void))completion;
+- (void)presentController:(id)controller
+                    title:(NSString *)title
+                     rect:(CGRect)rect
+                     type:(NSNumber *)type
+               completion:(void (^ _Nullable)(void))completion;
 
 @end
 

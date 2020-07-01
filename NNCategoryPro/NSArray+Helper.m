@@ -110,17 +110,17 @@
     return marr.copy;
 }
 
-+ (NSArray *)repeateValue:(id)value count:(NSInteger)count {
++ (NSArray *)repeating:(id)repeatedValue count:(NSInteger)count {
     NSMutableArray *marr = [NSMutableArray array];
     for (NSInteger i = 0; i < count; i++) {
-        [marr addObject:value];
+        [marr addObject:repeatedValue];
     }
     return marr.copy;
 }
 
 + (NSArray<NSNumber *> *)range:(NSInteger)start end:(NSInteger)end step:(NSInteger)step{
     assert(start < end);
-    NSMutableArray * list = [NSMutableArray array];
+    NSMutableArray *list = [NSMutableArray array];
     
     NSInteger count = end - start + 1;
     NSInteger k = 0;
@@ -134,7 +134,7 @@
 }
 
 + (NSArray *)arrayRandomFrom:(NSInteger)from to:(NSInteger)to count:(NSInteger)count{
-    NSMutableArray * marr = [NSMutableArray arrayWithCapacity:0];
+    NSMutableArray *marr = [NSMutableArray arrayWithCapacity:0];
     for (NSInteger i = 0; i < count; i++) {
         NSInteger inter = (from + (arc4random() % (to - from + 1)));
         [marr addObject:@(inter)];
@@ -142,7 +142,10 @@
     return marr.copy;
 }
 
-+ (NSArray *)arrayItemPrefix:(NSString *)prefix startIndex:(NSInteger)startIndex count:(NSInteger)count type:(NSNumber *)type{
++ (NSArray *)arrayItemPrefix:(NSString *)prefix
+                  startIndex:(NSInteger)startIndex
+                       count:(NSInteger)count
+                        type:(NSNumber *)type{
     NSMutableArray *marr = [NSMutableArray array];
     for (NSInteger i = startIndex; i <= startIndex + count; i++) {
         NSString *title = [NSString stringWithFormat:@"%@%@",prefix,@(i)];
@@ -162,10 +165,10 @@
     return marr.copy;
 }
 
-- (NSMutableArray *)BNfilterByPropertyList:(NSArray *)propertyList isNumValue:(BOOL)isNumValue {
-    __block NSMutableArray * listArr = [NSMutableArray array];
+- (NSMutableArray *)filterByPropertyList:(NSArray *)propertyList isNumValue:(BOOL)isNumValue {
+    __block NSMutableArray *listArr = [NSMutableArray array];
     [self enumerateObjectsUsingBlock:^(id _Nonnull obj, NSUInteger idx, BOOL * _Nonnull stop) {
-        NSMutableArray * marr = [NSMutableArray array];
+        NSMutableArray *marr = [NSMutableArray array];
         for (NSString * key in propertyList) {
             id value = [obj valueForKey:key];
             value = isNumValue == NO ? value : [value numberValue];
@@ -176,18 +179,18 @@
     return listArr;
 }
 
-- (NSMutableArray *)BNfilterByPropertyList:(NSArray *)propertyList prefix:(NSString *)prefix isNumValue:(BOOL)isNumValue {
-    NSMutableArray * marr = [NSMutableArray array];
+- (NSMutableArray *)filterByPropertyList:(NSArray *)propertyList prefix:(NSString *)prefix isNumValue:(BOOL)isNumValue {
+    NSMutableArray *marr = [NSMutableArray array];
     [propertyList enumerateObjectsUsingBlock:^(id  _Nonnull obj, NSUInteger idx, BOOL * _Nonnull stop) {
         [marr addSafeObjct:[prefix stringByAppendingString:obj]];
         
     }];
-    NSMutableArray * list = [self BNfilterByPropertyList:marr isNumValue:isNumValue];
+    NSMutableArray *list = [self filterByPropertyList:marr isNumValue:isNumValue];
     return list;
 }
 
-- (NSArray *)BNfilterListByQueryContain:(NSString *)query{
-    NSMutableArray * marr = [NSMutableArray arrayWithCapacity:0];
+- (NSArray *)filterListByQueryContain:(NSString *)query{
+    NSMutableArray *marr = [NSMutableArray arrayWithCapacity:0];
     [self enumerateObjectsUsingBlock:^(id  _Nonnull obj, NSUInteger idx, BOOL * _Nonnull stop) {
         if ([query containsString:obj]) {
             [marr addObject:obj];
@@ -197,7 +200,7 @@
 }
 
 - (NSArray *)arrayWithObjOffset:(NSInteger)offSet{
-    __block NSMutableArray * marr = [NSMutableArray arrayWithCapacity:0];
+    __block NSMutableArray *marr = [NSMutableArray arrayWithCapacity:0];
     for (NSInteger i = 0; i < self.count; i++) {
         id obj = self[i];
         if ([obj isEqualToString:@""]) continue;

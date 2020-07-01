@@ -41,18 +41,23 @@ NS_ASSUME_NONNULL_BEGIN
  iOS10添加本地通知
  */
 + (void)addLocalNoti:(NSString *)title
-                                      body:(NSString *)body
-                                  userInfo:(NSDictionary *)userInfo
-                                identifier:(NSString *)identifier
-                                   handler:(void(^)(UNUserNotificationCenter* center, UNNotificationRequest *request, NSError * _Nullable error))handler API_AVAILABLE(ios(10.0));
-+ (UILocalNotification *)addLocalNoti:(NSString *)title body:(NSString *)body userInfo:(NSDictionary *)userInfo fireDate:(NSDate *)fireDate repeatInterval:(NSCalendarUnit)repeatInterval region:(CLRegion *)region;
+                body:(NSString *)body
+            userInfo:(NSDictionary *)userInfo
+          identifier:(NSString *)identifier
+             handler:(void(^)(UNUserNotificationCenter* center, UNNotificationRequest *request, NSError * _Nullable error))handler API_AVAILABLE(ios(10.0));
+
++ (UILocalNotification *)addLocalNoti:(NSString *)title
+                                 body:(NSString *)body
+                             userInfo:(NSDictionary *)userInfo
+                             fireDate:(NSDate *)fireDate
+                       repeatInterval:(NSCalendarUnit)repeatInterval
+                               region:(CLRegion *)region;
 
 //+ (void)registerShareSDK;
 //+ (void)handleMsgShareDataModel:(NNShareModel *)dataModel type:(NSNumber *)type;
 //+ (void)registerUMengSDKAppKey:(NSString *_Nonnull)appKey channel:(NSString *_Nonnull)channel;
 
 + (BOOL)checkVersion:(NSString *_Nonnull)appStoreID;
-
 
 @end
 

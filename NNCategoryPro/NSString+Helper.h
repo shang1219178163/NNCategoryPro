@@ -39,6 +39,16 @@ FOUNDATION_EXPORT NSString * NSStringFromInt(NSInteger obj);
 /// CGFloat->字符串
 FOUNDATION_EXPORT NSString * NSStringFromFloat(CGFloat obj);
 
++ (NSString *)repeating:(NSString *)repeatedValue count:(NSInteger)count;
+///过滤字符串中的字符
+- (NSString *)stringByTrimmingCharactersInString:(NSString *)string;
+///取代字符串中某个索引字符
+- (NSString *)stringByReplacingCharacterIdx:(NSUInteger)index withString:(NSString *)string;
+///星号取代字符
+- (NSString *)stringByReplacingAsteriskRange:(NSRange)range;
+///获取起止字符串之间的部分
+- (NSString *)subStringFrom:(NSString *)startString to:(NSString *)endString;
+
 /// 判断是否时间戳字符串
 - (BOOL)isTimeStamp;
 /// 整形判断
@@ -59,13 +69,10 @@ FOUNDATION_EXPORT NSString * NSStringFromFloat(CGFloat obj);
 
 - (BOOL)isContainsCharacterSet:(NSCharacterSet *)set;
 
-- (NSString *)subStringFrom:(NSString *)startString to:(NSString *)endString;
-
 - (NSString *)stringBylimitLength:(NSInteger)limitLength;
 
 - (NSString *)makeUnicodeToString;
     
-
 + (NSString *)stringFromNumber:(NSNumber *)number;
 
 + (NSString *)stringFromInter:(NSInteger)inter;
@@ -103,26 +110,8 @@ FOUNDATION_EXPORT NSString * NSStringFromFloat(CGFloat obj);
  */
 - (id)filterString:(NSString *)filterString;
 
-- (NSString *)stringByReplacingList:(NSArray *)list withString:(NSString *)replacement;
-
 - (NSString *)deleteWhiteSpaceBeginEnd;
 
-- (NSString *)stringByTitle;
-
-/**
- 星号取代字符
- */
-- (NSString *)stringByReplacingAsteriskRange:(NSRange)range;
-
-/**
- 根据range.length生成相应长度星号字符串
- */
-- (NSString *)getAsteriskStringByRange:(NSRange)range;
-
-/**
- 取代字符串中某个索引字符
- */
-- (NSString *)stringByReplacingCharacterIndex:(NSUInteger)index withString:(NSString *)string;
 
 /**
  获取随机子字符串
@@ -146,12 +135,6 @@ FOUNDATION_EXPORT NSString * NSStringFromFloat(CGFloat obj);
 -(NSString *)divideAnothor:(NSString *)anothor;
 
 -(NSString *)addAnothor:(id)anothor;
-/**
- 获取未知的目标字符串
- @param front 目标字段之前的特征字符串
- @param back 目标字段之后的特征字符串
- */
--(NSString *)stringWithFront:(NSString *)front back:(NSString *)back;
 
 - (NSAttributedString *)toAsterisk;
 
@@ -165,8 +148,6 @@ FOUNDATION_EXPORT NSString * NSStringFromFloat(CGFloat obj);
 - (void)copyToPasteboard;
 
 - (BOOL)openThisURL;
-
-- (BOOL)callPhone;
 
 @end
 

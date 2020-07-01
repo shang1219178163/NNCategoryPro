@@ -12,7 +12,7 @@
 @implementation UIView (ScreenEdgePan)
 
 -(UIView *)showView{
-    UIView * view = objc_getAssociatedObject(self, _cmd);
+    UIView *view = objc_getAssociatedObject(self, _cmd);
     if (!view) {
         UIView * view = [[UIView alloc]initWithFrame:UIScreen.mainScreen.bounds];
         view.backgroundColor = UIColor.redColor;
@@ -21,7 +21,7 @@
         CGRect frame = view.frame;
         frame.origin.x = -CGRectGetWidth(UIScreen.mainScreen.bounds);// 将x值改成负的屏幕宽度,默认就在屏幕的左边
         view.frame = frame;
-        //            // 因为该view是盖在所有的view身上,所以应该添加到window上
+            // 因为该view是盖在所有的view身上,所以应该添加到window上
         [UIApplication.sharedApplication.keyWindow addSubview:view];
         
         // 添加轻扫手势  -- 滑回

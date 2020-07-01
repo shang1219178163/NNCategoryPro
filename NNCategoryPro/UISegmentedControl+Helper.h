@@ -12,14 +12,19 @@ NS_ASSUME_NONNULL_BEGIN
 
 @interface UISegmentedControl (Helper)
 
-@property (nonatomic, strong) NSArray *itemList;
+@property (nonatomic, strong) NSArray<NSString *> *items;
 
 /**
  [源]UISegmentedControl创建方法
  */
-+ (instancetype)createRect:(CGRect)rect items:(NSArray *)items selectedIndex:(NSInteger)selectedIndex type:(NSNumber *)type;
++ (instancetype)createRect:(CGRect)rect
+                     items:(NSArray *)items
+             selectedIndex:(NSInteger)selectedIndex
+                      type:(NSNumber *)type;
 
 - (void)ensureiOS12Style;
+
+- (void)updateItems:(NSArray<NSString *> *)titles;
 
 @end
 

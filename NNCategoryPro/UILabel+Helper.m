@@ -81,7 +81,10 @@
 /**
  UILabel小标志专用,例如左侧头像上的"企"
  */
-+ (instancetype)createTipWithSize:(CGSize)size tipCenter:(CGPoint)tipCenter text:(NSString *)text textColor:(UIColor *)textColor{
++ (instancetype)createTipWithSize:(CGSize)size
+                        tipCenter:(CGPoint)tipCenter
+                             text:(NSString *)text
+                        textColor:(UIColor *)textColor{
     UILabel * label = [self createRect:CGRectMake(0, 0, size.width, size.height) type:@1];
     label.center = tipCenter;
     label.textColor = textColor;

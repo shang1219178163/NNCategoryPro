@@ -3,7 +3,7 @@
 //  Location
 //
 //  Created by BIN on 2017/12/21.
-//  Copyright © 2017年 Location. All rights reserved.
+//  Copyright © 2017年 Shang. All rights reserved.
 //
 
 #import <Foundation/Foundation.h>
@@ -26,19 +26,9 @@ NS_ASSUME_NONNULL_BEGIN
 
 - (NSString *)timeByAddingDays:(id)days;
 
-- (NSString *)timeIntervalDescription;//距离当前的时间间隔描述
-
-- (NSString *)minuteDescription;/*精确到分钟的日期描述*/
-
-- (NSString *)formattedTime;
-
-- (NSString *)formattedDateDescription;//格式化日期描述
-
 - (double)timeIntervalSince1970InMilliSecond;
 
 + (NSDate *)dateWithTimeIntervalInMilliSecondSince1970:(double)timeIntervalInMilliSecond;
-
-+ (NSString *)formattedTimeFromTimeInterval:(long long)time;
 
 // Relative dates from the current date
 + (NSDateComponents *)compareCalendar:(NSDate *)date;
@@ -114,7 +104,10 @@ NS_ASSUME_NONNULL_BEGIN
 - (BOOL)isTypicallyWeekend;
 
 // Adjusting dates
-- (NSDate *)addingDay:(NSInteger)day hour:(NSInteger)hour minute:(NSInteger)minute second:(NSInteger)second;
+- (NSDate *)addingDay:(NSInteger)day
+                 hour:(NSInteger)hour
+               minute:(NSInteger)minute
+               second:(NSInteger)second;
 
 - (NSDate *)dateByAddDays:(NSInteger ) dDays;
 

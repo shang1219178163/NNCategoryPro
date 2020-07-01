@@ -149,18 +149,30 @@ UINavigationController *UINavCtrFromObj(id obj){
 /**
  [弃用]可隐藏的导航按钮
  */
-- (UIButton *)createBarItemTitle:(NSString *)title imgName:(NSString *)imgName isLeft:(BOOL)isLeft isHidden:(BOOL)isHidden handler:(void(^)(id obj, UIButton * item, NSInteger idx))handler{
+- (UIButton *)createBarItemTitle:(NSString *)title
+                         imgName:(NSString *)imgName
+                          isLeft:(BOOL)isLeft
+                        isHidden:(BOOL)isHidden
+                         handler:(void(^)(id obj, UIButton * item, NSInteger idx))handler{
     UIButton * btn = nil;
     if (imgName) {
         NSParameterAssert([UIImage imageNamed:imgName]);
-        btn = [UIButton buttonWithSize:CGSizeMake(32, 32) image_N:imgName image_H:nil imageEdgeInsets:UIEdgeInsetsZero];
+        btn = [UIButton buttonWithSize:CGSizeMake(32, 32)
+                               image_N:imgName
+                               image_H:nil
+                       imageEdgeInsets:UIEdgeInsetsZero];
         
     }
     else{
-        btn = [UIButton buttonWithSize:CGSizeMake(40, 40) title:title font:15 titleColor_N:nil titleColor_H:nil titleEdgeInsets:UIEdgeInsetsZero];
+        btn = [UIButton buttonWithSize:CGSizeMake(40, 40)
+                                 title:title
+                                  font:15
+                          titleColor_N:nil
+                          titleColor_H:nil
+                       titleEdgeInsets:UIEdgeInsetsZero];
         btn.titleLabel.textColor = UINavigationBar.appearance.tintColor;
-
     }
+    
     btn.tag = isLeft  ? kTAG_BTN_BackItem : kTAG_BTN_RightItem;
     btn.hidden = isHidden;
     //
@@ -240,12 +252,21 @@ UINavigationController *UINavCtrFromObj(id obj){
     return [navController findController:class];
 }
 
-- (void)pushVC:(NSString *)vcName title:(NSString *)title animated:(BOOL)animated block:(void(^)(__kindof UIViewController *vc))block{
+- (void)pushVC:(NSString *)vcName
+         title:(NSString *)title
+      animated:(BOOL)animated
+         block:(void(^)(__kindof UIViewController *vc))block{
     UIViewController *controller = [[NSClassFromString(vcName) alloc]init];
-    return [self pushVC:controller.class title:title animated:animated block:block];
+    return [self pushVC:controller.class
+                  title:title
+               animated:animated
+                  block:block];
 }
 
-- (void)pushVCType:(Class)classVC title:(NSString *)title animated:(BOOL)animated block:(void(^)(__kindof UIViewController *vc))block{
+- (void)pushVCType:(Class)classVC
+             title:(NSString *)title
+          animated:(BOOL)animated
+             block:(void(^)(__kindof UIViewController *vc))block{
     UIViewController *controller = [[classVC alloc]init];
     controller.title = [title stringByReplacingOccurrencesOfString:@" " withString:@""];
     if (block) {
@@ -254,12 +275,21 @@ UINavigationController *UINavCtrFromObj(id obj){
     [self.navigationController pushViewController:controller animated:animated];
 }
 
-- (void)presentVC:(NSString *)vcName title:(NSString *)title animated:(BOOL)animated block:(void(^)(__kindof UIViewController *vc))block{
+- (void)presentVC:(NSString *)vcName
+            title:(NSString *)title
+         animated:(BOOL)animated
+            block:(void(^)(__kindof UIViewController *vc))block{
     UIViewController *controller = [[NSClassFromString(vcName) alloc]init];
-    return [self presentVC:controller.class title:title animated:animated block:block];
+    return [self presentVC:controller.class
+                     title:title
+                  animated:animated
+                     block:block];
 }
 
-- (void)presentVCType:(Class)classVC title:(NSString *)title animated:(BOOL)animated block:(void(^)(__kindof UIViewController *vc))block{
+- (void)presentVCType:(Class)classVC
+                title:(NSString *)title
+             animated:(BOOL)animated
+                block:(void(^)(__kindof UIViewController *vc))block{
     UIViewController *controller = [[classVC alloc]init];
     controller.title = [title stringByReplacingOccurrencesOfString:@" " withString:@""];
     UINavigationController *navController = [[UINavigationController alloc] initWithRootViewController:controller];
@@ -351,27 +381,6 @@ UINavigationController *UINavCtrFromObj(id obj){
      isAppearing 设置为 false : 触发 viewWillDisappear:;
      endAppearanceTransition方法会基于我们传入的isAppearing来调用viewDidAppear:以及viewDidDisappear:方法
      */
-}
-
-#pragma mark --callPhone
-
-- (void)callPhone:(NSString *)phoneNumber{
-    NSArray *titles = @[@"取消",@"呼叫"];
-    [UIAlertController showAlertTitle:nil msg:phoneNumber actionTitles:titles handler:^(UIAlertController * _Nonnull alertController, UIAlertAction * _Nullable action) {
-        if ([action.title isEqualToString: titles.firstObject]) {
-            return;
-        }
-        dispatch_async(dispatch_get_global_queue(0, 0), ^{
-            NSString * phoneStr = [NSString stringWithFormat:@"tel:%@",phoneNumber];
-            if (iOSVer(10)) {
-                [UIApplication.sharedApplication openURL:[NSURL URLWithString:phoneStr] options:@{} completionHandler:nil];
-                
-            } else {
-                [UIApplication.sharedApplication openURL:[NSURL URLWithString:phoneStr]];
-                
-            }
-        });
-    }];
 }
 
 /**

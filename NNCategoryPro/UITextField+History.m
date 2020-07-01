@@ -17,9 +17,7 @@
 
 NSString * const kDeafult_textFieldHistory = @"kDeafult_textFieldHistory" ;
 
-@interface UITextField()<UITableViewDataSource,UITableViewDelegate>
-
-//@property (strong, nonatomic) UITableView *historyTableView;
+@interface UITextField()<UITableViewDataSource, UITableViewDelegate>
 
 @end
 
@@ -43,15 +41,12 @@ NSString * const kDeafult_textFieldHistory = @"kDeafult_textFieldHistory" ;
     
     //没有高亮选择的字，则对已输入的文字进行字数统计和限制
     //在iOS7下,position对象总是不为nil
-    if ( (!position ||!selectedRange) && (self.maxLength > 0 && toBeString.length > self.maxLength))
-    {
+    if ((!position ||!selectedRange) && (self.maxLength > 0 && toBeString.length > self.maxLength)){
         NSRange rangeIndex = [toBeString rangeOfComposedCharacterSequenceAtIndex:self.maxLength];
-        if (rangeIndex.length == 1)
-        {
+        if (rangeIndex.length == 1){
             self.text = [toBeString substringToIndex:self.maxLength];
         }
-        else
-        {
+        else{
             NSRange rangeRange = [toBeString rangeOfComposedCharacterSequencesForRange:NSMakeRange(0, self.maxLength)];
             NSInteger tmpLength;
             if (rangeRange.length > self.maxLength) {

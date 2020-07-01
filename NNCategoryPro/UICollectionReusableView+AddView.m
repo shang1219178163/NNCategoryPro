@@ -15,7 +15,6 @@
 @implementation UICollectionReusableView (AddView)
 
 + (instancetype)viewWithCollectionView:(UICollectionView *)collectionView indexPath:(NSIndexPath *)indexPath kind:(NSString *)kind{
-    
     NSString *kindSuf = [kind componentsSeparatedByString:@"KindSection"].lastObject;
     NSString *identifier = [NSStringFromClass(self.class) stringByAppendingString:kindSuf];
     UICollectionReusableView *view = [collectionView dequeueReusableSupplementaryViewOfKind:kind withReuseIdentifier:identifier forIndexPath:indexPath];
@@ -30,8 +29,8 @@
 //    NSString * identifier = [UICollectionView viewIdentifierByClassName:NSStringFromClass(self.class) kind:kind];
 //    UICollectionReusableView *view = [collectionView dequeueReusableSupplementaryViewOfKind:kind withReuseIdentifier:identifier forIndexPath:indexPath];
 //
-//    NSString * titleHeader = [NSString stringWithFormat:@"HeaderView_%@",@(indexPath.section)];
-//    NSString * titleFooter = [NSString stringWithFormat:@"FooterView_%@",@(indexPath.section)];
+//    NSString *titleHeader = [NSString stringWithFormat:@"HeaderView_%@",@(indexPath.section)];
+//    NSString *titleFooter = [NSString stringWithFormat:@"FooterView_%@",@(indexPath.section)];
 //    view.label.text = [kind isEqualToString:UICollectionElementKindSectionHeader]  ? titleHeader: titleFooter;
 //    view.backgroundColor = [kind isEqualToString:UICollectionElementKindSectionHeader] ? UIColor.greenColor : UIColor.yellowColor;
 //    view.backgroundColor = UIColor.whiteColor;

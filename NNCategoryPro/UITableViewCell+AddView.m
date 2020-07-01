@@ -30,7 +30,6 @@
 //    cell.selectionStyle = UITableViewCellSelectionStyleNone;
 //    cell.separatorInset = UIEdgeInsetsZero;
 //    cell.layoutMargins = UIEdgeInsetsZero;
-    
     return cell;
 }
 
@@ -206,7 +205,10 @@
             view.contentMode = UIViewContentModeScaleAspectFit;
             view.userInteractionEnabled = YES;
             
-            view.frame = CGRectMake(self.contentView.maxX - kX_GAP - kSizeArrow.width, (self.contentView.maxY - kSizeArrow.height)/2.0, kSizeArrow.width, kSizeArrow.height);
+            view.frame = CGRectMake(self.contentView.maxX - kX_GAP - kSizeArrow.width,
+                                    (self.contentView.maxY - kSizeArrow.height)/2.0,
+                                    kSizeArrow.width,
+                                    kSizeArrow.height);
             view.image = [UIImage imageNamed:kIMG_arrowRight];
             
             view.hidden = YES;

@@ -25,8 +25,6 @@ FOUNDATION_EXPORT NSArray<UINavigationController *> * UINavListFromList(NSArray<
 /// 数组->UITabBarController(子数组示例:@[@"标题",@"图片",@"图片高亮",@"badgeValue",])
 FOUNDATION_EXPORT UITabBarController * UITarBarCtrFromList(NSArray<NSArray *> *list);
 
-- (NSArray *)getSubviewsForName:(NSString *)name;
-
 - (void)reloadTabarItems:(NSArray *)list;
 
 @end

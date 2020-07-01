@@ -25,7 +25,6 @@ static WKWebViewConfiguration *_confiDefault = nil;
             confi.preferences = [[WKPreferences alloc] init];
             confi.preferences.javaScriptCanOpenWindowsAutomatically = false;
             confi.preferences.javaScriptEnabled = true;
-//            confi.preferences.minimumFontSize = 17;
             confi;
         });
     }
@@ -43,7 +42,9 @@ static WKWebViewConfiguration *_confiDefault = nil;
  */
 - (void)addUserScript:(NSString *)source{
     NSParameterAssert(self.configuration.userContentController != nil);
-    WKUserScript *userScript = [[WKUserScript alloc] initWithSource:source injectionTime:WKUserScriptInjectionTimeAtDocumentStart forMainFrameOnly:false];
+    WKUserScript *userScript = [[WKUserScript alloc] initWithSource:source
+                                                      injectionTime:WKUserScriptInjectionTimeAtDocumentStart
+                                                   forMainFrameOnly:false];
     [self.configuration.userContentController addUserScript:userScript];
 
 }

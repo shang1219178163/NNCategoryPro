@@ -18,8 +18,6 @@ NS_ASSUME_NONNULL_BEGIN
 
 -(void)replaceObjectAtIndex:(NSUInteger)index withSafeObject:(id)anObject;
 
-//- (void)moveObjectIndex:(NSUInteger)index toIndex:(NSUInteger)toIndex;
-
 
 @end
 

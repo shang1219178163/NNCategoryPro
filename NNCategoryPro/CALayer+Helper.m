@@ -36,7 +36,6 @@
 
 
 + (CALayer *)createRect:(CGRect)rect image:(id)image{
-    
     NSParameterAssert([image isKindOfClass:[NSString class]] || [image isKindOfClass:[UIImage class]]);
     if ([image isKindOfClass:[NSString class]]) {
         image = [UIImage imageNamed:image];
@@ -163,7 +162,13 @@
         case 1:
         {
             //move
-            CABasicAnimation *animation = [CABasicAnimation animKeyPath:kTransformPosition duration:2.5 fromValue:fromValue toValue:toValue autoreverses:NO repeatCount:2];
+            CABasicAnimation *animation = [CABasicAnimation
+                                           animKeyPath:kTransformPosition
+                                           duration:2.5
+                                           fromValue:fromValue
+                                           toValue:toValue
+                                           autoreverses:NO
+                                           repeatCount:2];
             [self addAnimation:animation forKey:@"move"];
 
         }
@@ -171,7 +176,13 @@
         case 2:
         {
             //rotation
-            CABasicAnimation *animation = [CABasicAnimation animKeyPath:kTransformRotationZ duration:2.5 fromValue:@(0.0) toValue:@(2 * M_PI) autoreverses:NO repeatCount:2];
+            CABasicAnimation *animation = [CABasicAnimation
+                                           animKeyPath:kTransformRotationZ
+                                           duration:2.5
+                                           fromValue:@(0.0)
+                                           toValue:@(2 * M_PI)
+                                           autoreverses:NO
+                                           repeatCount:2];
             [self addAnimation:animation forKey:@"rotation"];
             
         }
@@ -179,7 +190,13 @@
         case 3:
         {
             //zoom
-            CABasicAnimation *animation = [CABasicAnimation animKeyPath:kTransformScale duration:2.5 fromValue:@(1.0) toValue:@(1.5) autoreverses:NO repeatCount:2];
+            CABasicAnimation *animation = [CABasicAnimation
+                                           animKeyPath:kTransformScale
+                                           duration:2.5
+                                           fromValue:@(1.0)
+                                           toValue:@(1.5)
+                                           autoreverses:NO
+                                           repeatCount:2];
             [self addAnimation:animation forKey:@"scale"];
             
         }
@@ -213,28 +230,27 @@
             break;
         case 6:
         {
-           
             //永久闪烁
-            CABasicAnimation *animation = [CABasicAnimation animKeyPath:kTransformOpacity duration:2.5 fromValue:@(1.0) toValue:@(0.0) autoreverses:NO repeatCount:MAXFLOAT];
+            CABasicAnimation *animation = [CABasicAnimation
+                                           animKeyPath:kTransformOpacity
+                                           duration:2.5
+                                           fromValue:@(1.0)
+                                           toValue:@(0.0)
+                                           autoreverses:NO
+                                           repeatCount:MAXFLOAT];
             animation.timingFunction = [CAMediaTimingFunction functionWithName:kCAMediaTimingFunctionEaseIn];///没有的话是均匀的动画。
             [self addAnimation:animation forKey:@"opacity"];
-            
-            
         }
             break;
         case 7:
         {
             //旋转
-            CABasicAnimation *animation = [self rotation:2 degree:CGDegreesFromRadian(90) direction:1 repeatCount:CGFLOAT_MAX];
+            CABasicAnimation *animation = [self rotation:2
+                                                  degree:CGDegreesFromRadian(90)
+                                               direction:1
+                                             repeatCount:CGFLOAT_MAX];
             [self addAnimation:animation forKey:nil];
 
-        }
-            break;
-        case 8:
-        {
-            
-            
-            
         }
             break;
         default:
@@ -278,7 +294,10 @@
 
 
 #pragma mark ====旋转动画======
-- (CABasicAnimation *)rotation:(float)dur degree:(float)degree direction:(int)direction repeatCount:(int)repeatCount{
+- (CABasicAnimation *)rotation:(float)dur
+                        degree:(float)degree
+                     direction:(int)direction
+                   repeatCount:(int)repeatCount{
     CATransform3D rotationTransform = CATransform3DMakeRotation(degree, 0, 0, direction);
     CABasicAnimation *animation = [CABasicAnimation animationWithKeyPath:@"transform"];
     animation.toValue = [NSValue valueWithCATransform3D:rotationTransform];
@@ -343,12 +362,21 @@
 - (CAShapeLayer *)addAnimMask:(NSString *)animKey{
     CALayer *sender = self;
     CGPathRef path = [UIBezierPath bezierPathWithRect:CGRectMake(CGRectGetWidth(sender.bounds) / 2, 0, 1, CGRectGetHeight(sender.bounds))].CGPath;//不初始化则无动画效果
-    CAShapeLayer *shapeLayer = [CAShapeLayer layerWithSender:sender path:path fillColor:UIColor.whiteColor strokeColor:UIColor.whiteColor opacity:0.3];
+    CAShapeLayer *shapeLayer = [CAShapeLayer layerWithSender:sender
+                                                        path:path
+                                                   fillColor:UIColor.whiteColor
+                                                 strokeColor:UIColor.whiteColor
+                                                     opacity:0.3];
     [sender addSublayer:shapeLayer];
     
     
     CGPathRef toValue = [UIBezierPath bezierPathWithRect:sender.bounds].CGPath;
-    CABasicAnimation *anim = [CABasicAnimation animKeyPath:kTransformPath duration:0.5 fromValue:nil toValue:(__bridge id)toValue autoreverses:NO repeatCount:1];
+    CABasicAnimation *anim = [CABasicAnimation animKeyPath:kTransformPath
+                                                  duration:0.5
+                                                 fromValue:nil
+                                                   toValue:(__bridge id)toValue
+                                              autoreverses:NO
+                                               repeatCount:1];
     [shapeLayer addAnimation:anim forKey:animKey];
     
     return shapeLayer;
@@ -365,9 +393,17 @@
     CGPoint point = CGPointMake(CGRectGetWidth(sender.bounds) / 2, CGRectGetHeight(sender.bounds) / 2);
     CGPathRef fromValue = [UIBezierPath bezierPathWithArcCenter:point radius:CGRectGetWidth(sender.bounds) / 2 startAngle:0 endAngle:M_PI * 2 clockwise:YES].CGPath;
     CGPathRef toValue = [UIBezierPath bezierPathWithArcCenter:point radius:1 startAngle:0 endAngle:M_PI * 2 clockwise:YES].CGPath;
-    CABasicAnimation *pathAnim = [CABasicAnimation animKeyPath:kTransformPath duration:0.3 fromValue:(__bridge id)(fromValue) toValue:(__bridge id)(toValue) autoreverses:NO repeatCount:1];
+    CABasicAnimation *pathAnim = [CABasicAnimation animKeyPath:kTransformPath
+                                                      duration:0.3
+                                                     fromValue:(__bridge id)(fromValue)
+                                                       toValue:(__bridge id)(toValue)
+                                                  autoreverses:NO
+                                                   repeatCount:1];
     
-    CAAnimationGroup *groupAnim = [CAAnimationGroup animList:@[pathAnim] duration:0.3 autoreverses:NO repeatCount:1];
+    CAAnimationGroup *groupAnim = [CAAnimationGroup animList:@[pathAnim]
+                                                    duration:0.3
+                                                autoreverses:NO
+                                                 repeatCount:1];
     [maskLayer addAnimation:groupAnim forKey:animKey];
     
     return maskLayer;
@@ -395,12 +431,25 @@
     [sender addSublayer:shapeLayer];
     
     //旋转动画
-    CABasicAnimation *rotateAnim = [CABasicAnimation animKeyPath:kTransformRotationZ duration:1 fromValue:nil toValue:@(M_PI * 2) autoreverses:NO repeatCount:CGFLOAT_MAX];
+    CABasicAnimation *rotateAnim = [CABasicAnimation animKeyPath:kTransformRotationZ
+                                                        duration:1
+                                                       fromValue:nil
+                                                         toValue:@(M_PI * 2)
+                                                    autoreverses:NO
+                                                     repeatCount:CGFLOAT_MAX];
     
     //stroke动画
-    CABasicAnimation *storkeAnim = [CABasicAnimation animKeyPath:kTransformStrokeEnd duration:2.0 fromValue:nil toValue:@1 autoreverses:NO repeatCount:CGFLOAT_MAX];
+    CABasicAnimation *storkeAnim = [CABasicAnimation animKeyPath:kTransformStrokeEnd
+                                                        duration:2.0
+                                                       fromValue:nil
+                                                         toValue:@1
+                                                    autoreverses:NO
+                                                     repeatCount:CGFLOAT_MAX];
     
-    CAAnimationGroup *groupAnim = [CAAnimationGroup animList:@[rotateAnim, storkeAnim] duration:duration autoreverses:NO repeatCount:CGFLOAT_MAX];
+    CAAnimationGroup *groupAnim = [CAAnimationGroup animList:@[rotateAnim, storkeAnim]
+                                                    duration:duration
+                                                autoreverses:NO
+                                                 repeatCount:CGFLOAT_MAX];
     [shapeLayer addAnimation:groupAnim forKey:animKey];
     
     return shapeLayer;

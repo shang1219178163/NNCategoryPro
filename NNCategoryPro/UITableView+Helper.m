@@ -39,12 +39,10 @@
     if (@available(iOS 11.0, *)) {
         NSLog(@"safeAreaInsets:%@",NSStringFromUIEdgeInsets(self.safeAreaInsets));
         NSLog(@"adjustedContentInset:%@",NSStringFromUIEdgeInsets(self.adjustedContentInset));
-        
     }
 }
 
 -(void)reloadRowList:(NSArray *)rowList section:(NSInteger)section rowAnimation:(UITableViewRowAnimation)rowAnimation{
-
     NSParameterAssert(section <= self.numberOfSections);
     
     NSInteger rowMax = [[rowList valueForKeyPath:kArrMaxInter] integerValue];
@@ -53,7 +51,6 @@
     NSMutableArray * marr = [NSMutableArray array];
     for (NSNumber *row in rowList) {
         [marr addObject:[NSIndexPath indexPathForRow:row.integerValue inSection:section]];
-        
     }
     
     if (!rowAnimation) rowAnimation = UITableViewRowAnimationNone;
@@ -63,11 +60,9 @@
 }
 
 -(void)insertRowList:(NSArray *)rowList section:(NSInteger)section rowAnimation:(UITableViewRowAnimation)rowAnimation{
-    
-    NSMutableArray * marr = [NSMutableArray array];
+    NSMutableArray *marr = [NSMutableArray array];
     for (NSNumber *row in rowList) {
         [marr addObject:[NSIndexPath indexPathForRow:row.integerValue inSection:section]];
-        
     }
     
     if (!rowAnimation) rowAnimation = UITableViewRowAnimationNone;
@@ -77,7 +72,6 @@
 }
 
 -(void)deleteRowList:(NSArray *)rowList section:(NSInteger)section rowAnimation:(UITableViewRowAnimation)rowAnimation{
-    
     NSParameterAssert(section <= self.numberOfSections);
     
     NSInteger rowMax = [[rowList valueForKeyPath:kArrMaxInter] integerValue];
@@ -91,11 +85,9 @@
         
     }
     else{
-        
         NSMutableArray * marr = [NSMutableArray array];
         for (NSNumber *row in rowList) {
             [marr addObject:[NSIndexPath indexPathForRow:row.integerValue inSection:section]];
-            
         }
         
         if (!rowAnimation) rowAnimation = UITableViewRowAnimationNone;
@@ -115,8 +107,8 @@
         BOOL addLine = NO;
         if (indexPath.row == 0 && indexPath.row == [self numberOfRowsInSection:indexPath.section]-1) {
             CGPathAddRoundedRect(pathRef, nil, bounds, cornerRadius, cornerRadius);
-        } else if (indexPath.row == 0) {
             
+        } else if (indexPath.row == 0) {
             CGPathMoveToPoint(pathRef, nil, CGRectGetMinX(bounds), CGRectGetMaxY(bounds));
             CGPathAddArcToPoint(pathRef, nil, CGRectGetMinX(bounds), CGRectGetMinY(bounds), CGRectGetMidX(bounds), CGRectGetMinY(bounds), cornerRadius);
             CGPathAddArcToPoint(pathRef, nil, CGRectGetMaxX(bounds), CGRectGetMinY(bounds), CGRectGetMaxX(bounds), CGRectGetMidY(bounds), cornerRadius);
@@ -128,6 +120,7 @@
             CGPathAddArcToPoint(pathRef, nil, CGRectGetMinX(bounds), CGRectGetMaxY(bounds), CGRectGetMidX(bounds), CGRectGetMaxY(bounds), cornerRadius);
             CGPathAddArcToPoint(pathRef, nil, CGRectGetMaxX(bounds), CGRectGetMaxY(bounds), CGRectGetMaxX(bounds), CGRectGetMidY(bounds), cornerRadius);
             CGPathAddLineToPoint(pathRef, nil, CGRectGetMaxX(bounds), CGRectGetMinY(bounds));
+            
         } else {
             CGPathAddRect(pathRef, nil, bounds);
             addLine = YES;
@@ -139,11 +132,13 @@
         layer.strokeColor = UIColor.blackColor.CGColor;
         layer.strokeColor = UIColor.clearColor.CGColor;
         
-        
         if (addLine) {
             CALayer *lineLayer = [[CALayer alloc] init];
             CGFloat lineHeight = (1.f / UIScreen.mainScreen.scale);
-            lineLayer.frame = CGRectMake(CGRectGetMinX(bounds)+10, bounds.size.height-lineHeight, bounds.size.width-10, lineHeight);
+            lineLayer.frame = CGRectMake(CGRectGetMinX(bounds) + 10,
+                                         bounds.size.height - lineHeight,
+                                         bounds.size.width - 10,
+                                         lineHeight);
             lineLayer.backgroundColor = self.separatorColor.CGColor;
             [layer addSublayer:lineLayer];
         }

@@ -20,10 +20,11 @@
 
 @implementation UITableViewHeaderFooterView (AddView)
 
-@dynamic imgViewLeft,imgViewRight,viewIndicator,labelLeft,labelLeftSub,labelLeftMark,labelLeftSubMark,btn;
+@dynamic imgViewLeft, imgViewRight, indicatorView, labelLeft,
+labelLeftSub, labelLeftMark, labelLeftSubMark, btn;
 
 +(instancetype)viewWithTableView:(UITableView *)tableView identifier:(NSString *)identifier{
-    UITableViewHeaderFooterView * view = [tableView dequeueReusableHeaderFooterViewWithIdentifier:identifier];
+    UITableViewHeaderFooterView *view = [tableView dequeueReusableHeaderFooterViewWithIdentifier:identifier];
     if (!view) {
         view = [[self alloc] initWithReuseIdentifier:identifier];
 
@@ -69,7 +70,7 @@
 }
 
 -(UILabel *)labelLeftMark{
-    UILabel * view = objc_getAssociatedObject(self, _cmd);
+    UILabel *view = objc_getAssociatedObject(self, _cmd);
     if (!view) {
         view = [UILabel createRect:CGRectZero type:@2];
         view.textAlignment = NSTextAlignmentLeft;
@@ -97,7 +98,7 @@
 }
 
 -(UILabel *)labelLeftSub{
-    UILabel * view = objc_getAssociatedObject(self, _cmd);
+    UILabel *view = objc_getAssociatedObject(self, _cmd);
     if (!view) {
         view = [UILabel createRect:CGRectZero type:@2];
         view.textAlignment = NSTextAlignmentLeft;
@@ -125,7 +126,7 @@
 }
 
 -(UILabel *)labelLeftSubMark{
-    UILabel * view = objc_getAssociatedObject(self, _cmd);
+    UILabel *view = objc_getAssociatedObject(self, _cmd);
     if (!view) {
         view = [UILabel createRect:CGRectZero type:@2];
         view.textAlignment = NSTextAlignmentLeft;
@@ -152,8 +153,8 @@
     objc_setAssociatedObject(self, @selector(labelLeftSubMark), labelLeftSubMark, OBJC_ASSOCIATION_RETAIN_NONATOMIC);
 }
 
--(UIImageView *)viewIndicator{
-    UIImageView * imgV = objc_getAssociatedObject(self, _cmd);
+-(UIImageView *)indicatorView{
+    UIImageView *imgV = objc_getAssociatedObject(self, _cmd);
     if (!imgV) {
         imgV = ({
             UIImageView *view = [[UIImageView alloc] initWithFrame:CGRectZero];
@@ -169,12 +170,12 @@
     return imgV;
 }
 
-- (void)setViewIndicator:(UIImageView *)viewIndicator{
-    objc_setAssociatedObject(self, @selector(viewIndicator), viewIndicator, OBJC_ASSOCIATION_RETAIN_NONATOMIC);
+- (void)setIndicatorView:(UIImageView *)viewIndicator{
+    objc_setAssociatedObject(self, @selector(indicatorView), viewIndicator, OBJC_ASSOCIATION_RETAIN_NONATOMIC);
 }
 
 -(UIImageView *)imgViewLeft{
-    UIImageView * view = objc_getAssociatedObject(self, _cmd);
+    UIImageView *view = objc_getAssociatedObject(self, _cmd);
     if (!view) {
         view = ({
             UIImageView *view = [[UIImageView alloc] initWithFrame:CGRectZero];
@@ -195,7 +196,7 @@
 }
 
 -(UIImageView *)imgViewRight{
-    UIImageView * imgV = objc_getAssociatedObject(self, _cmd);
+    UIImageView *imgV = objc_getAssociatedObject(self, _cmd);
     if (!imgV) {
         imgV = ({
             UIImageView *view = [[UIImageView alloc] initWithFrame:CGRectZero];
@@ -221,7 +222,7 @@
 }
 
 -(UIButton *)btn{
-    UIButton * view = objc_getAssociatedObject(self, _cmd);
+    UIButton *view = objc_getAssociatedObject(self, _cmd);
     if (!view) {
         view = [UIButton createRect:CGRectZero title:@"按钮" image:nil type:@7];
 //        view = ({
@@ -237,7 +238,7 @@
         objc_setAssociatedObject(self, _cmd, view, OBJC_ASSOCIATION_RETAIN_NONATOMIC);
     }
     return view;
-}
+} 
 
 - (void)setBtn:(UIButton *)btn{
     objc_setAssociatedObject(self, @selector(btn), btn, OBJC_ASSOCIATION_RETAIN_NONATOMIC);
@@ -307,7 +308,6 @@
 -(NSMutableArray *)dataList{
     if (!_dataList) {
         _dataList = [NSMutableArray arrayWithCapacity:0];
-        
     }
     return _dataList;
 }

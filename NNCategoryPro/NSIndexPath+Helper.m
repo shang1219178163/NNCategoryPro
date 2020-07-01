@@ -48,15 +48,10 @@ NSIndexPath *NSIndexPathFromString(NSString *string) {
     return [NSIndexPath indexPathForRow:[list.firstObject integerValue] inSection:[list.lastObject integerValue]];
 }
  
-NSIndexPath *NSIndexPathFromIndex(NSInteger section, NSInteger row) {
-    return [NSIndexPath indexPathForRow:row inSection:section];
-}
-
-NSArray *NSIndexPathsFromIdxInfo(NSInteger section, NSArray *rowList) {
+NSArray *NSIndexPathsFromRows(NSInteger section, NSArray *rows) {
     NSMutableArray *marr = [NSMutableArray array];
-    for (NSNumber *row in rowList) {
+    for (NSNumber *row in rows) {
         [marr addObject:[NSIndexPath indexPathForRow:row.integerValue inSection:section]];
-        
     }
     return marr.copy;
 }

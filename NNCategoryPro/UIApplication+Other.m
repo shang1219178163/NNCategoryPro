@@ -240,13 +240,12 @@
   list 包含 0,actionid;1,title;2,UNNotificationActionOptions
  */
 + (NSArray *)actionsBylist:(NSArray *)list API_AVAILABLE(ios(10.0)){
-    NSMutableArray * marr = [NSMutableArray array];
+    NSMutableArray *marr = [NSMutableArray array];
     
     for (NSArray * array in list) {
-        //        array包含 0,actionid;1,title;2,UNNotificationActionOptions
+//        array包含 0,actionid;1,title;2,UNNotificationActionOptions
         UNNotificationAction *action = [UNNotificationAction actionWithIdentifier:[array firstObject] title:array[1] options:[array[2] integerValue]];
         [marr addObject:action];
-        
     }
     return marr;
 }
@@ -255,10 +254,10 @@
  iOS10添加本地通知
  */
 + (void)addLocalNoti:(NSString *)title
-                                      body:(NSString *)body
-                                  userInfo:(NSDictionary *)userInfo
-                                identifier:(NSString *)identifier
-                                   handler:(void(^)(UNUserNotificationCenter* center, UNNotificationRequest *request, NSError * _Nullable error))handler API_AVAILABLE(ios(10.0)){
+                body:(NSString *)body
+            userInfo:(NSDictionary *)userInfo
+          identifier:(NSString *)identifier
+             handler:(void(^)(UNUserNotificationCenter* center, UNNotificationRequest *request, NSError * _Nullable error))handler API_AVAILABLE(ios(10.0)){
     if (UIApplication.sharedApplication.currentUserNotificationSettings.types == UIUserNotificationTypeNone) {
 #ifdef DEBUG
         NSLog(@"请在[设置]-[通知]中打开推送功能");
@@ -293,7 +292,12 @@
 /**
  iOS8-9添加本地通知
  */
-+ (UILocalNotification *)addLocalNoti:(NSString *)title body:(NSString *)body userInfo:(NSDictionary *)userInfo fireDate:(NSDate *)fireDate repeatInterval:(NSCalendarUnit)repeatInterval region:(CLRegion *)region{
++ (UILocalNotification *)addLocalNoti:(NSString *)title
+                                 body:(NSString *)body
+                             userInfo:(NSDictionary *)userInfo
+                             fireDate:(NSDate *)fireDate
+                       repeatInterval:(NSCalendarUnit)repeatInterval
+                               region:(CLRegion *)region{
     if (UIApplication.sharedApplication.currentUserNotificationSettings.types == UIUserNotificationTypeNone) {
 #ifdef DEBUG
         NSLog(@"请在[设置]-[通知]中打开推送功能");
@@ -513,7 +517,6 @@
 }
 
 + (BOOL)checkVersion:(NSString *)appStoreID {
-
     __block BOOL isUpdate = NO;
     
     NSString *path = [UIApplication appDetailUrlWithID:appStoreID];
@@ -532,84 +535,45 @@
 //            NSString *trackViewUrl = dataModel.trackViewUrl;// appStore 跳转版本链接
                 
                 isUpdate = [appStoreVer compare:UIApplication.appVer options:NSNumericSearch] == NSOrderedDescending;
-                if (isUpdate == true) {
-                    dispatch_async(dispatch_get_main_queue(), ^{
-                        NSString * versionInfo = [NSString stringWithFormat:@"新版本V%@!",appStoreVer];
-                        // AppStore版本号大于当前版本号，强制更新
-                        // 弹窗 更新
-                        UIAlertController *alertController = [UIAlertController showAlertTitle:versionInfo msg:releaseNotes placeholders:nil actionTitles:@[kTitleCall,kTitleUpdate] handler:^(UIAlertController * _Nonnull alertVC, UIAlertAction * _Nonnull action) {
-                            if ([action.title isEqualToString:kTitleUpdate]) {
-                                // 升级去
-                                [UIApplication openURLStr: [UIApplication appUrlWithID:appStoreID] prefix:@"http://"];
-                                
-                            }
-                        }];
-                
-                        // 富文本效果
-                        NSMutableParagraphStyle * style = [[NSMutableParagraphStyle alloc]init];
-                        style.lineBreakMode = NSLineBreakByCharWrapping;
-                        style.alignment = NSTextAlignmentLeft;
-                        style.lineSpacing = 5;
-                        
-                        [alertController setTitleColor: UIColor.themeColor];
-                        [alertController setMessageParaStyle:style];
-                    });
+                if (isUpdate == false) {
+                    return;
                 }
+
+                dispatch_async(dispatch_get_main_queue(), ^{
+                    NSString *versionInfo = [NSString stringWithFormat:@"新版本V%@!",appStoreVer];
+                    // AppStore版本号大于当前版本号，强制更新
+                    // 弹窗 更新
+                    UIAlertController *alertVC = [UIAlertController showAlertTitle:versionInfo
+                                                                               msg:releaseNotes
+                                                                      placeholders:nil actionTitles:@[kTitleCall,kTitleUpdate]
+                                                                           handler:^(UIAlertController * _Nonnull alertVC, UIAlertAction * _Nonnull action) {
+                        if ([action.title isEqualToString:kTitleUpdate]) {
+                            // 升级去
+                            NSString *urlStr = [UIApplication appUrlWithID:appStoreID];
+                            [UIApplication openURLString:urlStr prefix:@"http://" completion:^(BOOL success) {
+//                                if (!success) {
+//                                    NSString *tips = [urlStr stringByAppendingString:@"打开失败"];
+//                                    [UIAlertController showAlertTitle:tips msg:nil actionTitles:nil handler:nil];
+//                                }
+                            }];
+                        }
+                    }];
+            
+                    // 富文本效果
+                    NSMutableParagraphStyle * style = [[NSMutableParagraphStyle alloc]init];
+                    style.lineBreakMode = NSLineBreakByCharWrapping;
+                    style.alignment = NSTextAlignmentLeft;
+                    style.lineSpacing = 5;
+                    
+                    [alertVC setTitleColor: UIColor.themeColor];
+                    [alertVC setMessageParaStyle:style];
+                });
             }
         }
     }];
     [dataTask resume];
     return isUpdate;
 }
-
-//- (BOOL)updateVersion {
-//    __block BOOL isUpdate = NO;
-//
-//    // 获取本地版本号
-//    NSString *currentVersion = NSBundle.mainBundle.infoDictionary[@"CFBundleShortVersionString"]; // 就是在info.plist里面的 version
-//    // 取得AppStore信息
-//    NSString *url = [NSString stringWithFormat:@"http://itunes.apple.com/cn/lookup?id=%@", kID_AppStoreConnect];
-//
-//
-//    AFHTTPSessionManager *manager = AFHTTPSessionManager.manager;
-//    manager.requestSerializer = AFJSONRequestSerializer.serializer;
-//    manager.responseSerializer = AFJSONResponseSerializer.serializer;
-//    [manager GET:url parameters:nil progress:nil success:^(NSURLSessionDataTask * _Nonnull task, id  _Nullable responseObject) {
-////        NSLog(@"responseObject --- %@", responseObject);
-////        NSString * json = [responseObject jsonString];
-//
-//        dispatch_async(dispatch_get_global_queue(0, 0), ^{
-//
-//            NNRootAppInfoModel * rootModel = [NNRootAppInfoModel yy_modelWithJSON:responseObject];
-//            NNResultsAppInfoModel * dataModel = rootModel.results.firstObject;
-//
-//            NSString * appStoreVersion = dataModel.version;// appStore 最新版本号
-//            NSString *releaseNotes = dataModel.releaseNotes;// 取更新日志信息
-////            NSString *trackViewUrl = dataModel.trackViewUrl;// appStore 跳转版本链接
-//
-//            dispatch_async(dispatch_get_main_queue(), ^{
-//                NSString * versionInfo = [NSString stringWithFormat:@"新版本V%@!",appStoreVersion];
-//                // AppStore版本号大于当前版本号，强制更新
-//                if ([appStoreVersion compare:currentVersion options:NSNumericSearch] == NSOrderedDescending) {
-//                    // 弹窗 更新
-//                    [UIApplication.rootController createAlertTitle:versionInfo msg:releaseNotes actionTitleList:@[kTitleCall,kTitleUpdate] handler:^(UIAlertController * _Nonnull alertVC, UIAlertAction * _Nullable action) {
-//                        isUpdate = [action.title isEqualToString:kTitleUpdate]  ? YES : NO;
-//                        if (isUpdate) {
-//                            // 升级去
-//
-//                        }
-//                    }];
-//                }
-//            });
-//        });
-//
-//    } failure:^(NSURLSessionDataTask * _Nullable task, NSError * _Nonnull error) {
-//        // 网络异常时，正常进入程序
-//
-//    }];
-//    return isUpdate;
-//
-//}
 
 @end
 

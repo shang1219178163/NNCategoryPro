@@ -24,7 +24,10 @@ NS_ASSUME_NONNULL_BEGIN
 
 -(void)holderView:(NSString *)title image:(NSString *_Nullable)image;
 
-- (void)addLineDashLayerColor:(UIColor *)color width:(CGFloat)width dashPattern:(NSArray <NSNumber *>*_Nullable)dashPattern cornerRadius:(CGFloat)cornerRadius;
+- (void)addLineDashLayerColor:(UIColor *)color
+                        width:(CGFloat)width
+                  dashPattern:(NSArray <NSNumber *>*_Nullable)dashPattern
+                 cornerRadius:(CGFloat)cornerRadius;
 
 -(void)addLineRect:(CGRect)rect isDash:(BOOL)isDash inView:(UIView *)inView;
 
@@ -32,7 +35,10 @@ NS_ASSUME_NONNULL_BEGIN
 
 -(CALayer *)createLayerType:(NSNumber *)type;
 
--(CALayer *)createLayerType:(NSNumber *)type color:(UIColor *)color width:(CGFloat)width paddingScale:(CGFloat)paddingScale;
+-(CALayer *)createLayerType:(NSNumber *)type
+                      color:(UIColor *)color
+                      width:(CGFloat)width
+               paddingScale:(CGFloat)paddingScale;
 
 -(UIView *)createViewType:(NSNumber *)type;
 
@@ -48,7 +54,12 @@ NS_ASSUME_NONNULL_BEGIN
 + (__kindof UIView *)createViewRect:(CGRect)rect;
 
 
-+ (UIView *)createBtnViewRect:(CGRect)rect imgName:(NSString *)imgName imgHeight:(CGFloat)imgHeight title:(NSString *)title titleColor:(UIColor *)titleColor type:(NSNumber *)type;
++ (UIView *)createBtnViewRect:(CGRect)rect
+                      imgName:(NSString *)imgName
+                    imgHeight:(CGFloat)imgHeight
+                        title:(NSString *)title
+                   titleColor:(UIColor *)titleColor
+                         type:(NSNumber *)type;
 
 
 @end

@@ -20,7 +20,10 @@ NS_ASSUME_NONNULL_BEGIN
 /**
  UILabel小标志专用,例如左侧头像上的"企"
  */
-+ (instancetype)createTipWithSize:(CGSize)size tipCenter:(CGPoint)tipCenter text:(NSString *)text textColor:(UIColor *)textColor;
++ (instancetype)createTipWithSize:(CGSize)size
+                        tipCenter:(CGPoint)tipCenter
+                             text:(NSString *)text
+                        textColor:(UIColor *)textColor;
 /**
 UILabel富文本设置
 */

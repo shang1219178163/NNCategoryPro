@@ -22,12 +22,22 @@
     return ani;
 }
 
-- (void)pushController:(id)controller title:(NSString *)title item:(UIView *)item type:(NSNumber *)type{
+- (void)pushController:(id)controller
+                 title:(NSString *)title
+                  item:(UIView *)item
+                  type:(NSNumber *)type{
     CGRect rect = [item convertRect:item.bounds toView:nil];
-    [self pushController:controller title:title rect:rect type:type];
+    [self pushController:controller
+                   title:title
+                    rect:rect
+                    type:type];
 }
 
-- (void)pushController:(id)controller title:(NSString *)title rect:(CGRect)rect type:(NSNumber *)type{
+- (void)pushController:(id)controller
+                 title:(NSString *)title
+                  rect:(CGRect)rect
+                  type:(NSNumber *)type{
+    
     if ([controller isKindOfClass:[NSString class]]) {
         controller = [NSClassFromString(controller) new];
     }
@@ -41,12 +51,26 @@
     [self.navigationController pushViewController:controller animated:YES];
 }
 
-- (void)presentController:(id)controller title:(NSString *)title item:(UIView *)item type:(NSNumber *)type completion:(void (^ __nullable)(void))completion{
+- (void)presentController:(id)controller
+                    title:(NSString *)title
+                     item:(UIView *)item
+                     type:(NSNumber *)type
+               completion:(void (^ __nullable)(void))completion{
+    
     CGRect rect = [item convertRect:item.bounds toView:nil];
-    [self presentController:controller title:title rect:rect type:type completion:completion];
+    [self presentController:controller
+                      title:title
+                       rect:rect
+                       type:type
+                 completion:completion];
 }
 
-- (void)presentController:(id)controller title:(NSString *)title rect:(CGRect)rect type:(NSNumber *)type completion:(void (^ __nullable)(void))completion{
+- (void)presentController:(id)controller
+                    title:(NSString *)title
+                     rect:(CGRect)rect
+                     type:(NSNumber *)type
+               completion:(void (^ __nullable)(void))completion{
+    
     if ([controller isKindOfClass:[NSString class]]) {
         controller = [NSClassFromString(controller) new];
     }

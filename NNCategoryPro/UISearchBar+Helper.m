@@ -34,9 +34,6 @@
  [源]UISearchBar创建方法
  */
 + (instancetype)createRect:(CGRect)rect{
-//    UISearchBar *searchBar = [[UISearchBar alloc] initWithFrame:CGRectMake(0, 0, kScreenWidth - 100, 30)];
-//    searchBar.layer.cornerRadius = 15;
-
     UISearchBar *searchBar = [[self alloc] initWithFrame:rect];
     searchBar.layer.cornerRadius = CGRectGetHeight(rect)*0.5;
     searchBar.layer.masksToBounds = true;

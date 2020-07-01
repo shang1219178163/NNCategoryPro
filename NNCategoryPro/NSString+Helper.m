@@ -117,6 +117,42 @@ NSString * NSStringFromFloat(CGFloat obj){
     return [@(obj) stringValue];
 }
 
++ (NSString *)repeating:(NSString *)repeatedValue count:(NSInteger)count{
+    NSString *string = @"";
+    for (NSInteger i = 0; i < count; i++) {
+        string = [string stringByAppendingString:repeatedValue];
+    }
+    return string;
+}
+
+- (NSString *)stringByTrimmingCharactersInString:(NSString *)string{
+    if (self.length <= 0) {
+        return string;
+    }
+    NSCharacterSet *set = [NSCharacterSet characterSetWithCharactersInString:string];
+    NSString *result = [string stringByTrimmingCharactersInSet:set];
+    return result;
+}
+
+- (NSString *)stringByReplacingCharacterIdx:(NSUInteger)index withString:(NSString *)string{
+    NSAssert(index < self.length, @"index非法!!!");
+    return [self stringByReplacingCharactersInRange:NSMakeRange(index, 1) withString:string];
+}
+
+- (NSString *)subStringFrom:(NSString *)startString to:(NSString *)endString{
+    NSRange startRange = [self rangeOfString:startString];
+    NSRange endRange = [self rangeOfString:endString];
+    NSRange range = NSMakeRange(startRange.location + startRange.length, endRange.location - startRange.location - startRange.length);
+    return [self substringWithRange:range];
+}
+
+- (NSString *)stringByReplacingAsteriskRange:(NSRange)range{
+    NSAssert([self substringWithRange:range], @"星号代替字符失败,请检查字符串和range");
+    NSString *result = [self stringByReplacingCharactersInRange:range withString:[NSString repeating:@"*" count:range.length]];
+    return result;
+}
+
+
 /// 判断是否时间戳字符串
 - (BOOL)isTimeStamp{
     if ([self containsString:@" "] || [self containsString:@"-"] || [self containsString:@":"]) {
@@ -197,12 +233,7 @@ NSString * NSStringFromFloat(CGFloat obj){
     return [returnStr stringByReplacingOccurrencesOfString:@"\\r\\n"withString:@"\n"];
 }
 
-- (NSString *)subStringFrom:(NSString *)startString to:(NSString *)endString{
-    NSRange startRange = [self rangeOfString:startString];
-    NSRange endRange = [self rangeOfString:endString];
-    NSRange range = NSMakeRange(startRange.location + startRange.length, endRange.location - startRange.location - startRange.length);
-    return [self substringWithRange:range];
-}
+
 
 - (NSString *)stringBylimitLength:(NSInteger)limitLength{
     NSString * string = self;
@@ -326,63 +357,19 @@ NSString * NSStringFromFloat(CGFloat obj){
 }
 
 - (id)filterString:(NSString *)filterString{
-    NSString * string = self;
-    if (self.length > 0) {
-//        NSCharacterSet *charset = [[NSCharacterSet characterSetWithCharactersInString:@"!*'();:@&=+$,/?%#[]"] invertedSet];
-        NSCharacterSet *charset = [[NSCharacterSet characterSetWithCharactersInString:filterString] invertedSet];
-        string = [string stringByAddingPercentEncodingWithAllowedCharacters:charset];
-        
+    if (self.length <= 0) {
+        return self;
     }
-    return string;
-}
-
-- (NSString *)stringByReplacingList:(NSArray *)list withString:(NSString *)replacement{
-    __block NSString * string = self;
-    
-    [list enumerateObjectsUsingBlock:^(NSString * _Nonnull obj, NSUInteger idx, BOOL * _Nonnull stop) {
-        string = [string stringByReplacingOccurrencesOfString:obj  withString:replacement];
-        
-    }];
+//    NSCharacterSet *charset = [[NSCharacterSet characterSetWithCharactersInString:@"!*'();:@&=+$,/?%#[]"] invertedSet];
+    NSCharacterSet *charset = [[NSCharacterSet characterSetWithCharactersInString:filterString] invertedSet];
+    NSString *string = [self stringByAddingPercentEncodingWithAllowedCharacters:charset];
     return string;
 }
 
 - (NSString *)deleteWhiteSpaceBeginEnd{
-    NSCharacterSet  *set = [NSCharacterSet whitespaceAndNewlineCharacterSet];
-    NSString * string = [self stringByTrimmingCharactersInSet:set];
+    NSCharacterSet *set = [NSCharacterSet whitespaceAndNewlineCharacterSet];
+    NSString *string = [self stringByTrimmingCharactersInSet:set];
     return string;
-}
-
-- (NSString *)stringByTitle{
-    NSString * string = self;
-    string = [string stringByReplacingOccurrencesOfString:@" " withString:@""];
-    string = [string stringByReplacingOccurrencesOfString:@":" withString:@""];
-    return string;
-}
-
-- (NSString *)stringByReplacingAsteriskRange:(NSRange)range{
-    NSString *replaceStr = self;
-    if ([replaceStr substringWithRange:range]) {
-        replaceStr = [replaceStr stringByReplacingCharactersInRange:range withString:[self getAsteriskStringByRange:range]];
-
-    }
-    else{
-        NSAssert([replaceStr substringWithRange:range], @"星号代替字符失败,请检查字符串和range");
-        
-    }
-    return replaceStr;
-}
-
-- (NSString *)getAsteriskStringByRange:(NSRange)range{
-    NSString * string = @"";
-    for (NSInteger i = 0; i < range.length; i++) {
-        string = [string stringByAppendingString:@"*"];
-    }
-    return string;
-}
-
-- (NSString *)stringByReplacingCharacterIndex:(NSUInteger)index withString:(NSString *)string{
-    NSAssert(index < self.length, @"index非法!!!");
-    return [self stringByReplacingCharactersInRange:NSMakeRange(index, 1) withString:string];
 }
 
 - (NSString *)randomStringLength:(NSInteger)length{
@@ -390,10 +377,8 @@ NSString * NSStringFromFloat(CGFloat obj){
 
     NSMutableString *mStr = [NSMutableString stringWithCapacity:0];
     for (NSInteger i = 0; i < length; i++) {
-        //        [mStr appendFormat: @"%C", [fromString characterAtIndex:arc4random_uniform((u_int32_t)fromString.length)]];
         NSUInteger randomIndex = arc4random()%length;
         [mStr appendFormat: @"%C", [fromString characterAtIndex:randomIndex]];
-        
     }
     return mStr;
 }
@@ -457,17 +442,6 @@ NSString * NSStringFromFloat(CGFloat obj){
     CGFloat result = [self integerValue] + [anothor integerValue];
     return [@(result) stringValue];
 }
-
-- (NSString *)stringWithFront:(NSString *)front back:(NSString *)back{
-    NSParameterAssert([self containsString:front] && [self containsString:back]);
-    NSRange rangeStart = [self rangeOfString:front];
-    NSRange rangeEnd = [self rangeOfString:back];
-    
-    NSRange range = NSMakeRange(rangeStart.location + rangeStart.length, rangeEnd.location - rangeStart.location - rangeStart.length);
-    NSString * result = [self substringWithRange:range];
-    return result;
-}
-
 /**
  当标题包含*显示红色*,不包含*则显示透明色*
  */
@@ -537,7 +511,6 @@ NSString * NSStringFromFloat(CGFloat obj){
     UIApplication *application = UIApplication.sharedApplication;
     NSURL *URL = [NSURL URLWithString:urlString];
     
-    
     __block BOOL isSuccess = NO;
     if (iOSVer(10)) {
         [application openURL:URL options:@{UIApplicationOpenURLOptionUniversalLinksOnly : @YES} completionHandler:^(BOOL success) {
@@ -549,26 +522,6 @@ NSString * NSStringFromFloat(CGFloat obj){
         isSuccess = success;
         
     }
-    return isSuccess;
-}
-
-- (BOOL)callPhone{
-    NSString * phoneNum = self;
-    if (phoneNum) {
-        phoneNum = [phoneNum stringByReplacingOccurrencesOfString:@" " withString:@""];
-        phoneNum = [phoneNum stringByReplacingOccurrencesOfString:@"-" withString:@""];
-        phoneNum = [phoneNum stringByReplacingOccurrencesOfString:@"转" withString:@""];
-    }
-    
-    NSMutableString *str = [[NSMutableString alloc]initWithFormat:@"tel:%@",phoneNum];
-    
-    __block  BOOL isSuccess = NO;
-    [UIAlertController showAlertTitle:nil msg:phoneNum actionTitles:@[kTitleCancell, kTitleCall] handler:^(UIAlertController * _Nonnull alertVC, UIAlertAction * _Nullable action) {
-        if ([action.title isEqualToString:kTitleCall]) {
-            isSuccess = [UIApplication.sharedApplication openURL:[NSURL URLWithString:str]];
-            
-        }
-    }];
     return isSuccess;
 }
 

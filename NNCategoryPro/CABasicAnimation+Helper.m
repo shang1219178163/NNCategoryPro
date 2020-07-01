@@ -36,8 +36,7 @@ static NSArray *_functionNames = nil;
 
 + (NSArray *)functionNames{
     if (!_functionNames) {
-        _functionNames = @[
-                           kCAMediaTimingFunctionLinear,//匀速
+        _functionNames = @[kCAMediaTimingFunctionLinear,//匀速
                            kCAMediaTimingFunctionEaseIn,//先慢
                            kCAMediaTimingFunctionEaseOut,//后慢
                            kCAMediaTimingFunctionEaseInEaseOut,//先慢 后慢 中间快
@@ -47,7 +46,13 @@ static NSArray *_functionNames = nil;
     return _functionNames;
 }
 
-+(CABasicAnimation *)animKeyPath:(NSString *)keyPath duration:(CFTimeInterval)duration autoreverses:(BOOL)autoreverses repeatCount:(float)repeatCount fillMode:(NSString *)fillMode removedOnCompletion:(BOOL)removedOnCompletion functionName:(CAMediaTimingFunctionName)functionName{
++(CABasicAnimation *)animKeyPath:(NSString *)keyPath
+                        duration:(CFTimeInterval)duration
+                    autoreverses:(BOOL)autoreverses
+                     repeatCount:(float)repeatCount
+                        fillMode:(NSString *)fillMode
+             removedOnCompletion:(BOOL)removedOnCompletion
+                    functionName:(CAMediaTimingFunctionName)functionName{
     
     CABasicAnimation *anim = [CABasicAnimation animationWithKeyPath:keyPath];
     //默认是顺时针效果，若将fromValue和toValue的值互换，则为逆时针效果
@@ -65,9 +70,24 @@ static NSArray *_functionNames = nil;
     return anim;
 }
 
-+(CABasicAnimation *)animKeyPath:(NSString *)keyPath duration:(CFTimeInterval)duration fromValue:(id)fromValue toValue:(id)toValue autoreverses:(BOOL)autoreverses repeatCount:(float)repeatCount fillMode:(NSString *)fillMode removedOnCompletion:(BOOL)removedOnCompletion functionName:(CAMediaTimingFunctionName)functionName{
++(CABasicAnimation *)animKeyPath:(NSString *)keyPath
+                        duration:(CFTimeInterval)duration
+                       fromValue:(id)fromValue
+                         toValue:(id)toValue
+                    autoreverses:(BOOL)autoreverses
+                     repeatCount:(float)repeatCount
+                        fillMode:(NSString *)fillMode
+             removedOnCompletion:(BOOL)removedOnCompletion
+                    functionName:(CAMediaTimingFunctionName)functionName{
     
-    CABasicAnimation *anim = [CABasicAnimation animKeyPath:keyPath duration:duration autoreverses:autoreverses repeatCount:repeatCount fillMode:fillMode removedOnCompletion:removedOnCompletion functionName:functionName];
+    CABasicAnimation *anim = [CABasicAnimation
+                              animKeyPath:keyPath
+                              duration:duration
+                              autoreverses:autoreverses
+                              repeatCount:repeatCount
+                              fillMode:fillMode
+                              removedOnCompletion:removedOnCompletion
+                              functionName:functionName];
     //默认是顺时针效果，若将fromValue和toValue的值互换，则为逆时针效果
     anim.fromValue = fromValue;
     anim.toValue = toValue;
@@ -75,22 +95,43 @@ static NSArray *_functionNames = nil;
     return anim;
 }
 
-+(CABasicAnimation *)animKeyPath:(NSString *)keyPath duration:(CFTimeInterval)duration fromValue:(id)fromValue toValue:(id)toValue autoreverses:(BOOL)autoreverses repeatCount:(float)repeatCount{
++(CABasicAnimation *)animKeyPath:(NSString *)keyPath
+                        duration:(CFTimeInterval)duration
+                       fromValue:(id)fromValue
+                         toValue:(id)toValue
+                    autoreverses:(BOOL)autoreverses
+                     repeatCount:(float)repeatCount{
     
-    CABasicAnimation *anim = [CABasicAnimation animKeyPath:keyPath duration:duration autoreverses:autoreverses repeatCount:repeatCount fillMode:kCAFillModeForwards removedOnCompletion:false functionName:CABasicAnimation.functionNames.firstObject];
+    CABasicAnimation *anim = [CABasicAnimation
+                              animKeyPath:keyPath
+                              duration:duration
+                              autoreverses:autoreverses
+                              repeatCount:repeatCount
+                              fillMode:kCAFillModeForwards
+                              removedOnCompletion:false
+                              functionName:CABasicAnimation.functionNames.firstObject];
     //默认是顺时针效果，若将fromValue和toValue的值互换，则为逆时针效果
     anim.fromValue = fromValue;
     anim.toValue = toValue;
     return anim;
 }
 
-
 /**
  一次性动画
  */
-+(CABasicAnimation *)animKeyPath:(NSString *)keyPath duration:(CFTimeInterval)duration fromValue:(id)fromValue toValue:(id)toValue{
++(CABasicAnimation *)animKeyPath:(NSString *)keyPath
+                        duration:(CFTimeInterval)duration
+                       fromValue:(id)fromValue
+                         toValue:(id)toValue{
     
-    CABasicAnimation *anim = [CABasicAnimation animKeyPath:keyPath duration:duration autoreverses:false repeatCount:1 fillMode:kCAFillModeForwards removedOnCompletion:false functionName:CABasicAnimation.functionNames.firstObject];
+    CABasicAnimation *anim = [CABasicAnimation
+                              animKeyPath:keyPath
+                              duration:duration
+                              autoreverses:false
+                              repeatCount:1
+                              fillMode:kCAFillModeForwards
+                              removedOnCompletion:false
+                              functionName:CABasicAnimation.functionNames.firstObject];
     //默认是顺时针效果，若将fromValue和toValue的值互换，则为逆时针效果
     anim.fromValue = fromValue;
     anim.toValue = toValue;

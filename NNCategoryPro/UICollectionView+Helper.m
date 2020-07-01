@@ -45,7 +45,7 @@ NSString * const UICollectionElementKindSectionItem = @"UICollectionElementKindS
 - (void)setListClass:(NSArray *)listClass{
     objc_setAssociatedObject(self, @selector(listClass), listClass, OBJC_ASSOCIATION_COPY_NONATOMIC);
     
-    [self BNregisterListClass:listClass];
+    [self registerListClass:listClass];
 }
 
 - (NSDictionary *)dictClass{
@@ -57,11 +57,9 @@ NSString * const UICollectionElementKindSectionItem = @"UICollectionElementKindS
 
     for (NSString * key in dictClass.allKeys) {
         if ([key isEqualToString:UICollectionElementKindSectionItem]) {
-            [self BNregisterListClass:dictClass[key]];
-            
+            [self registerListClass:dictClass[key]];
         } else {
-            [self BNregisterListClassReusable:dictClass[key] kind:key];
-
+            [self registerListClassReusable:dictClass[key] kind:key];
         }
     }
 }
@@ -85,22 +83,19 @@ NSString * const UICollectionElementKindSectionItem = @"UICollectionElementKindS
 }
 
 + (NSString *)viewIdentifierByClassName:(NSString *)className kind:(NSString *)kind{
-    
-    NSString * extra = [kind isEqualToString:UICollectionElementKindSectionHeader] ? @"Header" : @"Footer";
-    NSString * identifier = [className stringByAppendingString:extra];
+    NSString *extra = [kind isEqualToString:UICollectionElementKindSectionHeader] ? @"Header" : @"Footer";
+    NSString *identifier = [className stringByAppendingString:extra];
     
     return identifier;
 }
 
-
-- (void)BNregisterListClass:(NSArray *)listClass{
+- (void)registerListClass:(NSArray *)listClass{
     for (NSString * className in listClass) {
         [self registerClass:NSClassFromString(className) forCellWithReuseIdentifier:className];
-
     }
 }
 
-- (void)BNregisterListClassReusable:(NSArray *)listClass kind:(NSString *)kind{
+- (void)registerListClassReusable:(NSArray *)listClass kind:(NSString *)kind{
     for (NSString * className in listClass) {
         NSString * identifier = [self.class viewIdentifierByClassName:className kind:kind];
         [self registerClass:NSClassFromString(className) forSupplementaryViewOfKind:kind withReuseIdentifier:identifier];
@@ -113,13 +108,19 @@ NSString * const UICollectionElementKindSectionItem = @"UICollectionElementKindS
 /**
  默认布局配置(自上而下,自左而右)
  */
-- (UICollectionViewFlowLayout *)createItemHeight:(CGFloat)itemHeight spacing:(CGFloat)spacing headerHeight:(CGFloat)headerHeight footerHeight:(CGFloat)footerHeight{
+- (UICollectionViewFlowLayout *)createItemHeight:(CGFloat)itemHeight
+                                         spacing:(CGFloat)spacing
+                                    headerHeight:(CGFloat)headerHeight
+                                    footerHeight:(CGFloat)footerHeight{
     
     CGFloat width = CGRectGetWidth(self.bounds);
     CGSize itemSize = CGSizeMake((width - 5*spacing)/4.0, itemHeight);
     CGSize headerSize = CGSizeMake(width, headerHeight);
     CGSize footerSize = CGSizeMake(width, footerHeight);
-    UICollectionViewFlowLayout *layout = [UICollectionViewLayout createItemSize:itemSize spacing:spacing headerSize:headerSize footerSize:footerSize];
+    UICollectionViewFlowLayout *layout = [UICollectionViewLayout createItemSize:itemSize
+                                                                        spacing:spacing
+                                                                     headerSize:headerSize
+                                                                     footerSize:footerSize];
     return layout;
 }
 

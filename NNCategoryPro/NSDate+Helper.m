@@ -3,7 +3,7 @@
 //  Location
 //
 //  Created by BIN on 2017/12/21.
-//  Copyright © 2017年 Location. All rights reserved.
+//  Copyright © 2017年 Shang. All rights reserved.
 //
 
 #import "NSDate+Helper.h"
@@ -74,157 +74,6 @@ static NSArray * _weekList = nil;
     return dateStr;
 }
 
-/*距离当前的时间间隔描述*/
-- (NSString *)timeIntervalDescription{
-    NSTimeInterval timeInterval = -self.timeIntervalSinceNow;
-    if(timeInterval < 60) {
-        return NSLocalizedString(@"NSDateCategory.text1",@"");
-        
-    } else if (timeInterval < 3600) {
-        return [NSString stringWithFormat:NSLocalizedString(@"NSDateCategory.text2",@""), timeInterval /60];
-        
-    } else if (timeInterval < 86400) {
-        return [NSString stringWithFormat:NSLocalizedString(@"NSDateCategory.text3",@""), timeInterval /3600];
-        
-    } else if (timeInterval < 2592000) {//30天内
-        return [NSString stringWithFormat:NSLocalizedString(@"NSDateCategory.text4",@""), timeInterval /86400];
-        
-    } else if (timeInterval < 31536000) {//30天至1年内
-        NSDateFormatter *dateFormatter = [NSDateFormatter dateFormat:NSLocalizedString(@"NSDateCategory.text5",@"")];
-        return [dateFormatter stringFromDate:  self ];
-        
-    } else {
-        return [NSString stringWithFormat:NSLocalizedString(@"NSDateCategory.text6",@""), timeInterval /31536000];
-    }
-}
-
-/*精确到分钟的日期描述*/
-
-- (NSString *)minuteDescription{
-    NSDateFormatter  *dateFormatter = [NSDateFormatter  dateFormat:kFormatDate];
-    NSString *theDay = [dateFormatter stringFromDate:self];//日期的年月日
-    NSString *currentDay = [dateFormatter stringFromDate:[NSDate date]];//当前年月日
-    
-    if([theDay isEqualToString:currentDay]) {//当天
-        [dateFormatter setDateFormat :@"ah:mm"];
-        return [dateFormatter stringFromDate:self ];
-        
-    }
-    else if ([[dateFormatter  dateFromString:currentDay]timeIntervalSinceDate:[dateFormatter dateFromString:theDay]] ==86400) {//昨天
-        [dateFormatter setDateFormat :@"ah:mm"];
-        return [NSString  stringWithFormat:NSLocalizedString(@"NSDateCategory.text7", @'"'), [dateFormatter stringFromDate:  self ]];
-        
-    }
-    else if ([[dateFormatter dateFromString:currentDay]timeIntervalSinceDate:[dateFormatter dateFromString:theDay]] <86400*7) {//间隔一周内
-        [dateFormatter  setDateFormat :@"EEEE ah:mm"];
-        return [dateFormatter stringFromDate:self ];
-        
-    }
-    else{//以前
-        [dateFormatter setDateFormat :@"yyyy-MM-dd ah:mm"];
-        return [dateFormatter stringFromDate:  self ];
-        
-    }
-}
-
-/*标准时间日期描述*/
-
--(NSString *)formattedTime{
-    NSDateFormatter  * formatter = [NSDateFormatter dateFormat:@"YYYY-MM-dd"];
-    
-    NSString* dateNow = [formatter stringFromDate:NSDate.date];
-    
-    NSDateComponents *components = [[NSDateComponents alloc]init];
-    
-    [components setDay:[[dateNow substringWithRange:NSMakeRange(8,2)]intValue]];
-    [components setMonth:[[dateNow substringWithRange:NSMakeRange(5,2)]intValue]];
-    [components setYear:[[dateNow substringWithRange:NSMakeRange(0,4)]intValue]];
-    
-    NSCalendar *calendar = NSDate.calendar;
-    NSDate *date = [calendar dateFromComponents:components];//今天0点时间
-    
-    NSInteger hour = [self hoursAfterDate:date];
-    NSDateFormatter *dateFormatter =nil;
-    NSString *ret =@"";
-    
-    //hasAMPM==TURE为12小时制，否则为24小时制
-    
-    NSString*formatStringForHours = [NSDateFormatter dateFormatFromTemplate:@"j"options:0 locale:[NSLocale currentLocale]];
-    NSRange containsA = [formatStringForHours rangeOfString:@"a"];
-    BOOL hasAMPM = containsA.location!=NSNotFound;
-    
-    if(!hasAMPM) {//24小时制
-        if(hour <=24&& hour >=0) {
-            dateFormatter = [NSDateFormatter dateFormat:@"HH:mm"];
-            
-        } else if (hour <0&& hour >= -24) {
-            dateFormatter = [NSDateFormatter dateFormat:NSLocalizedString(@"NSDateCategory.text8",@"")];
-            
-        } else {
-            dateFormatter = [NSDateFormatter dateFormat:@"yyyy-MM-dd"];
-            
-        }
-        
-    } else {
-        
-        if(hour >=0&& hour <=6) {
-            dateFormatter = [NSDateFormatter dateFormat:NSLocalizedString(@"NSDateCategory.text9",@"")];
-            
-        } else if (hour >6&& hour <=11) {
-            dateFormatter = [NSDateFormatter dateFormat:NSLocalizedString(@"NSDateCategory.text10",@"")];
-            
-        } else if (hour >11&& hour <=17) {
-            dateFormatter = [NSDateFormatter dateFormat:NSLocalizedString(@"NSDateCategory.text11",@"")];
-            
-        } else if (hour >17&& hour <=24) {
-            dateFormatter = [NSDateFormatter dateFormat:NSLocalizedString(@"NSDateCategory.text12",@"")];
-            
-        } else if (hour <0&& hour >= -24){
-            dateFormatter = [NSDateFormatter dateFormat:NSLocalizedString(@"NSDateCategory.text13",@"")];
-            
-        } else {
-            dateFormatter = [NSDateFormatter dateFormat:@"yyyy-MM-dd"];
-            
-        }
-    }
-    
-    ret = [dateFormatter stringFromDate:  self ];
-    return ret;
-}
-
-/*格式化日期描述*/
-
-- (NSString *)formattedDateDescription{
-    NSDateFormatter *dateFormatter = [NSDateFormatter dateFormat:@"yyyy-MM-dd"];
-    
-    NSString *theDay = [dateFormatter stringFromDate:self];//日期的年月日
-    NSString *currentDay = [dateFormatter stringFromDate: NSDate.date];//当前年月日
-    NSInteger timeInterval = -self.timeIntervalSinceNow;
-    
-    if(timeInterval < 60) {
-        return [NSString stringWithFormat:@"%@秒之前", @(timeInterval)];
-
-    } else if (timeInterval <3600) {//1小时内
-        return [NSString stringWithFormat:@"%@分钟之前", @(timeInterval/60)];
-
-    } else if (timeInterval <21600) {//6小时内
-        return [NSString stringWithFormat:@"%@小时之前", @(timeInterval/3600)];
-
-    } else if ([theDay isEqualToString:currentDay]) {//当天
-        dateFormatter.dateFormat = @"HH:mm";
-        return [NSString stringWithFormat:NSLocalizedString(@"NSDateCategory.text14",@""), [dateFormatter stringFromDate:self ]];
-        
-    } else if ([[dateFormatter dateFromString:currentDay]timeIntervalSinceDate:[dateFormatter dateFromString:theDay]] == 86400) {//昨天
-        dateFormatter.dateFormat = @"HH:mm";
-        return [NSString  stringWithFormat:NSLocalizedString(@"NSDateCategory.text7",@""), [dateFormatter stringFromDate:self]];
-        
-    } else {//以前
-        dateFormatter.dateFormat = @"yyyy-MM-dd HH:mm";
-        return [dateFormatter stringFromDate:self];
-        
-    }
-}
-
 - (double)timeIntervalSince1970InMilliSecond {
     double ret = self.timeIntervalSince1970 *1000;
     return ret;
@@ -239,10 +88,6 @@ static NSArray * _weekList = nil;
     }
     ret = [NSDate dateWithTimeIntervalSince1970:timeInterval];
     return ret;
-}
-
-+ (NSString *)formattedTimeFromTimeInterval:(long long)time{
-    return [[NSDate dateWithTimeIntervalInMilliSecondSince1970:time]formattedTime];
 }
 
 #pragma mark Relative Dates
@@ -260,8 +105,8 @@ static NSArray * _weekList = nil;
     // 这个返回的是相差多久
     // 比如差12个小时, 无论在不在同一天 day都是0
     // NSDateComponents *components = [calendar components:unit fromDate:date toDate:currtentDate options:0];
-    NSDateComponents *currentCalendar =[calendar components:unit fromDate:currtentDate];
-    NSDateComponents *targetCalendar =[calendar components:unit fromDate:date];
+    NSDateComponents *currentCalendar = [calendar components:unit fromDate:currtentDate];
+    NSDateComponents *targetCalendar = [calendar components:unit fromDate:date];
     
     BOOL isYear = currentCalendar.year == targetCalendar.year;
     BOOL isMonth = currentCalendar.month == targetCalendar.month;
@@ -669,7 +514,10 @@ static NSArray * _weekList = nil;
 
 #pragma mark Adjusting Dates
 
-- (NSDate *)addingDay:(NSInteger)day hour:(NSInteger)hour minute:(NSInteger)minute second:(NSInteger)second{
+- (NSDate *)addingDay:(NSInteger)day
+                 hour:(NSInteger)hour
+                 minute:(NSInteger)minute
+                 second:(NSInteger)second{
     NSTimeInterval aTimeInterval = self.timeIntervalSince1970 + kDateDay*day + kDateHour*hour + kDateMinute*minute + second;
     NSDate *date = [NSDate dateWithTimeIntervalSince1970:aTimeInterval];
     return date;
@@ -704,7 +552,7 @@ static NSArray * _weekList = nil;
 }
 
 - (NSDateComponents *)componentsWithOffsetFromDate:(NSDate *)aDate{
-    NSDateComponents  *dTime = [NSDate.calendar components:kDateComponents fromDate:aDate toDate:self options:0];
+    NSDateComponents *dTime = [NSDate.calendar components:kDateComponents fromDate:aDate toDate:self options:0];
     return dTime;
 }
 

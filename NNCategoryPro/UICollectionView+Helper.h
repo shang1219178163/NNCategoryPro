@@ -12,7 +12,7 @@ NS_ASSUME_NONNULL_BEGIN
 
 /// UICollectionElementKindSectionItem
 FOUNDATION_EXPORT NSString * const UICollectionElementKindSectionItem ;
-
+ 
 @interface UICollectionView (Helper)
 
 @property (nonatomic, strong, class) UICollectionViewLayout * layoutDefault;
@@ -22,19 +22,16 @@ FOUNDATION_EXPORT NSString * const UICollectionElementKindSectionItem ;
 /**
  注意字典格式,如下
  collectionView.dictClass = @{
-                                 UICollectionElementKindSectionItem:     @[
-                                                                         @"UICollectionViewCell",
+                                 UICollectionElementKindSectionItem:    @[@"UICollectionViewCell",
                                                                          ],
-                                 UICollectionElementKindSectionHeader:   @[
-                                                                        @"UICollectionReusableOneView",
+                                 UICollectionElementKindSectionHeader:  @[@"UICollectionReusableOneView",
                                                                         ],
-                                 UICollectionElementKindSectionFooter:   @[
-                                                                         @"UICollectionReusableOneView",
+                                 UICollectionElementKindSectionFooter:  @[@"UICollectionReusableOneView",
                                                                          ],
  
  };
  */
-@property (nonatomic, strong) NSDictionary * dictClass;
+@property (nonatomic, strong) NSDictionary *dictClass;
 
 /**
  [源]UICollectionView创建方法
@@ -44,10 +41,13 @@ FOUNDATION_EXPORT NSString * const UICollectionElementKindSectionItem ;
 + (NSString *)cellIdentifierByClassName:(NSString *)className;
 + (NSString *)viewIdentifierByClassName:(NSString *)className kind:(NSString *)kind;
 
-- (void)BNregisterListClass:(NSArray *)listClass;
-- (void)BNregisterListClassReusable:(NSArray *)listClass kind:(NSString *)kind;
+- (void)registerListClass:(NSArray *)listClass;
+- (void)registerListClassReusable:(NSArray *)listClass kind:(NSString *)kind;
 
-- (UICollectionViewFlowLayout *)createItemHeight:(CGFloat)itemHeight spacing:(CGFloat)spacing headerHeight:(CGFloat)headerHeight footerHeight:(CGFloat)footerHeight;
+- (UICollectionViewFlowLayout *)createItemHeight:(CGFloat)itemHeight
+                                         spacing:(CGFloat)spacing
+                                    headerHeight:(CGFloat)headerHeight
+                                    footerHeight:(CGFloat)footerHeight;
 
 - (void)scrollItemToCenterAtIndexPath:(NSIndexPath *)indexPath animated:(BOOL)animated;
 

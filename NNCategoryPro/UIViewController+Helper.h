@@ -40,7 +40,11 @@ FOUNDATION_EXPORT UINavigationController * _Nullable UINavCtrFromObj(id obj);
 /**
   导航栏按钮
  */
-- (UIButton *)createBarItemTitle:(NSString *)title imgName:(NSString *_Nullable)imageName isLeft:(BOOL)isLeft isHidden:(BOOL)isHidden handler:(void(^)(id obj, UIButton * item, NSInteger idx))handler;
+- (UIButton *)createBarItemTitle:(NSString *)title
+                         imgName:(NSString *_Nullable)imageName
+                          isLeft:(BOOL)isLeft
+                        isHidden:(BOOL)isHidden
+                         handler:(void(^)(id obj, UIButton * item, NSInteger idx))handler;
 
 - (UIView *)createBarItem:(NSString *)obj isLeft:(BOOL)isLeft handler:(void(^)(id obj, UIView *item, NSInteger idx))handler;
  
@@ -49,13 +53,27 @@ FOUNDATION_EXPORT UINavigationController * _Nullable UINavCtrFromObj(id obj);
  */
 - (__kindof UIViewController * _Nullable)findController:(NSString *)contollerName navController:(UINavigationController *)navController;
 
-- (__kindof UIViewController * _Nullable)frontViewController:(UINavigationController *_Nonnull)navContoller;
+- (__kindof UIViewController * _Nullable)frontViewController:(UINavigationController *)navContoller;
 
-- (void)pushVC:(NSString *)vcName title:(NSString *)title animated:(BOOL)animated block:(void(^)(__kindof UIViewController *vc))block;
-- (void)pushVCType:(Class)classVC title:(NSString *)title animated:(BOOL)animated block:(void(^)(__kindof UIViewController *vc))block;
+- (void)pushVC:(NSString *)vcName
+         title:(NSString *)title
+      animated:(BOOL)animated
+         block:(void(^ _Nullable)(__kindof UIViewController *vc))block;
 
-- (void)presentVC:(NSString *)vcName title:(NSString *)title animated:(BOOL)animated block:(void(^)(__kindof UIViewController *vc))block;
-- (void)presentVCType:(Class)classVC title:(NSString *)title animated:(BOOL)animated block:(void(^)(__kindof UIViewController *vc))block;
+- (void)pushVCType:(Class)classVC
+             title:(NSString *)title
+          animated:(BOOL)animated
+             block:(void(^ _Nullable)(__kindof UIViewController *vc))block;
+
+- (void)presentVC:(NSString *)vcName
+            title:(NSString *)title
+         animated:(BOOL)animated
+            block:(void(^ _Nullable)(__kindof UIViewController *vc))block;
+
+- (void)presentVCType:(Class)classVC
+                title:(NSString *)title
+             animated:(BOOL)animated
+                block:(void(^ _Nullable)(__kindof UIViewController *vc))block;
 
 - (UIViewController *)addControllerName:(NSString *)className;
 /// 添加子控制器(对应方法 removeControllerVC)
@@ -83,10 +101,7 @@ FOUNDATION_EXPORT UINavigationController * _Nullable UINavCtrFromObj(id obj);
 //app星际评价,自定义app链接
 - (void)dispalyAppEvalutionStarLevelAppID:(NSString *)appID;
 
-- (void)callPhone:(NSString *)phoneNumber;
-
 - (void)setupNavigationBarBackgroundImage:(UIImage *)image;
-
 
 @end
 

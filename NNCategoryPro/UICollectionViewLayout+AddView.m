@@ -67,7 +67,10 @@
 /**
  默认布局配置(自上而下,自左而右)
  */
-+ (UICollectionViewFlowLayout *)createItemSize:(CGSize)itemSize spacing:(CGFloat)spacing headerSize:(CGSize)headerSize footerSize:(CGSize)footerSize{
++ (UICollectionViewFlowLayout *)createItemSize:(CGSize)itemSize
+                                       spacing:(CGFloat)spacing
+                                    headerSize:(CGSize)headerSize
+                                    footerSize:(CGSize)footerSize{
 //    CGFloat spacing = 5.0;
     
     UICollectionViewFlowLayout *layout = [[UICollectionViewFlowLayout alloc] init];

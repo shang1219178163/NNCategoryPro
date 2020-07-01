@@ -50,18 +50,12 @@ NS_ASSUME_NONNULL_BEGIN
          titleEdgeInsets:(UIEdgeInsets)titleEdgeInsets;
 
 
-/**
- 验证码倒计时默认60s
- */
-- (void)startCountdown60s;
-
+///验证码倒计时
 - (void)startCountdown:(NSTimeInterval)count;
-
-- (void)startTime:(NSInteger)timeout title:(NSString *)tittle waitTittle:(NSString *)waitTittle;
+///验证码倒计时
+- (void)startTime:(NSInteger)timeout title:(NSString *)title;
 
 - (void)startDisplayLink;
-
-- (CGSize)btnSizeByHeight:(CGFloat)height;
 
 - (void)showImageType:(NSNumber *)type image:(id)image;
 

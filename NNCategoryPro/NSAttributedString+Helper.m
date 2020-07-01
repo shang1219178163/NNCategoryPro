@@ -29,8 +29,7 @@
  */
 + (NSDictionary *)attrDictWithFont:(CGFloat)font textColor:(UIColor *)textColor{
     // 创建文字属性
-    NSDictionary * dict = @{
-                            NSFontAttributeName:            [UIFont fontWithName:@"PingFangSC-Light" size:font],
+    NSDictionary * dict = @{NSFontAttributeName:            [UIFont fontWithName:@"PingFangSC-Light" size:font],
                             NSForegroundColorAttributeName: textColor,
                             NSBackgroundColorAttributeName: UIColor.clearColor
                             };
@@ -41,7 +40,6 @@
  富文本整体设置
  */
 + (NSDictionary *)paraDictWithFont:(CGFloat)font textColor:(UIColor *)textColor alignment:(NSTextAlignment)alignment{
-    
     NSMutableParagraphStyle *paraStyle = [[NSMutableParagraphStyle alloc] init];
     paraStyle.lineBreakMode = NSLineBreakByCharWrapping;
     paraStyle.alignment = alignment;
@@ -62,14 +60,20 @@
  @param tapColor 特殊部分颜色
  @return 富文本字符串
  */
-+ (NSAttributedString *)getAttString:(NSString *)text textTaps:(NSArray<NSString *> *_Nullable)textTaps font:(CGFloat)font tapFont:(CGFloat)tapFont color:(UIColor *)color tapColor:(UIColor *)tapColor alignment:(NSTextAlignment)alignment{
++ (NSAttributedString *)getAttString:(NSString *)text
+                            textTaps:(NSArray<NSString *> *_Nullable)textTaps
+                                font:(CGFloat)font
+                             tapFont:(CGFloat)tapFont
+                               color:(UIColor *)color
+                            tapColor:(UIColor *)tapColor
+                           alignment:(NSTextAlignment)alignment{
     
     // 设置段落
     NSDictionary *paraDict = [NSAttributedString paraDictWithFont:font textColor:color alignment:alignment];
     NSMutableAttributedString *attString = [[NSMutableAttributedString alloc] initWithString:text attributes:paraDict];
     
     for (NSString *textTap in textTaps) {
-        //        NSAssert([text containsString:textTap],@"textTaps中有不被字符串包含的元素");
+//        NSAssert([text containsString:textTap],@"textTaps中有不被字符串包含的元素");
         
         NSRange range = [text rangeOfString:textTap];
         // 创建文字属性
@@ -80,16 +84,34 @@
     return (NSAttributedString *)attString;
 }
 
-+ (NSAttributedString *)getAttString:(NSString *)string textTaps:(NSArray<NSString *> *)textTaps tapColor:(UIColor *)tapColor alignment:(NSTextAlignment)alignment{
-    NSAttributedString *attString = [NSAttributedString getAttString:string textTaps:textTaps font:16 tapFont:16 color:UIColor.blackColor tapColor:tapColor alignment:alignment];
++ (NSAttributedString *)getAttString:(NSString *)string
+                            textTaps:(NSArray<NSString *> *)textTaps
+                            tapColor:(UIColor *)tapColor
+                           alignment:(NSTextAlignment)alignment{
+    NSAttributedString *attString = [NSAttributedString getAttString:string
+                                                            textTaps:textTaps
+                                                                font:16
+                                                             tapFont:16
+                                                               color:UIColor.blackColor
+                                                            tapColor:tapColor
+                                                           alignment:alignment];
     return attString;
 }
 
 /**
  富文本段落设置(无特殊文本)
  */
-+ (NSAttributedString *)getAttString:(NSString *)string font:(CGFloat)font color:(UIColor *)color alignment:(NSTextAlignment)alignment{
-    NSAttributedString *attString = [NSAttributedString getAttString:string textTaps:nil font:font tapFont:font color:color tapColor:color alignment:alignment];
++ (NSAttributedString *)getAttString:(NSString *)string
+                                font:(CGFloat)font
+                               color:(UIColor *)color
+                           alignment:(NSTextAlignment)alignment{
+    NSAttributedString *attString = [NSAttributedString getAttString:string
+                                                            textTaps:nil
+                                                                font:font
+                                                             tapFont:font
+                                                               color:color
+                                                            tapColor:color
+                                                           alignment:alignment];
     return attString;
 }
 
@@ -97,7 +119,6 @@
  富文本产生
  */
 + (NSMutableAttributedString *)getAttString:(NSString *)string textTaps:(NSArray<NSString *> *)textTaps{
-    
     NSMutableAttributedString *attString = [[NSMutableAttributedString alloc]initWithString:string];
     [attString addAttribute:NSFontAttributeName value:[UIFont systemFontOfSize:16] range:NSMakeRange(0, string.length)];
     
@@ -125,7 +146,13 @@
         UIColor *colorMust = [mustList containsObject:title] ? UIColor.redColor : UIColor.clearColor;
         
         NSArray *textTaps = @[prefix];
-        NSAttributedString *attString = [NSAttributedString getAttString:title textTaps:textTaps font:15 tapFont:15 color:UIColor.blackColor tapColor:colorMust alignment:NSTextAlignmentCenter];
+        NSAttributedString *attString = [NSAttributedString getAttString:title
+                                                                textTaps:textTaps
+                                                                    font:15
+                                                                 tapFont:15
+                                                                   color:UIColor.blackColor
+                                                                tapColor:colorMust
+                                                               alignment:NSTextAlignmentCenter];
 
         if (![marr containsObject:attString]) {
             NSUInteger index = [marr indexOfObject:title];
@@ -146,15 +173,22 @@
     UIColor *colorMust = isMust ? UIColor.redColor : UIColor.clearColor;
     
     NSArray *textTaps = @[prefix];
-    NSAttributedString *attString = [NSAttributedString getAttString:content textTaps:textTaps font:15 tapFont:15 color:UIColor.blackColor tapColor:colorMust alignment:NSTextAlignmentCenter];
+    NSAttributedString *attString = [NSAttributedString getAttString:content
+                                                            textTaps:textTaps
+                                                                font:15
+                                                             tapFont:15
+                                                               color:UIColor.blackColor
+                                                            tapColor:colorMust
+                                                           alignment:NSTextAlignmentCenter];
 
     return attString;
 }
 
 + (NSAttributedString *)attrString:(NSString *)string{
-    return [NSAttributedString getAttString:string font:14 color:UIColor.blackColor alignment:NSTextAlignmentLeft];
-//    NSDictionary *attributes = [NSAttributedString paraDictWithFont:14 textColor:UIColor.blackColor alignment:NSTextAlignmentLeft];
-//    return [[self alloc]initWithString:string attributes:attributes];
+    return [NSAttributedString getAttString:string
+                                       font:14
+                                      color:UIColor.blackColor
+                                  alignment:NSTextAlignmentLeft];
 }
 
 + (NSAttributedString *)hyperlinkFromString:(NSString *)string withURL:(NSURL *)aURL font:(UIFont *)font{
@@ -163,15 +197,13 @@
     NSRange range = NSMakeRange(0, attrString.length);
     
 //    NSMutableParagraphStyle *paraStyle = [[NSMutableParagraphStyle alloc]init];
-    NSDictionary * dic = @{
-                           NSFontAttributeName: font,
+    NSDictionary * dic = @{NSFontAttributeName: font,
                            NSForegroundColorAttributeName: UIColor.blueColor,
                            NSLinkAttributeName: aURL.absoluteString,
                            NSUnderlineStyleAttributeName: @(NSUnderlineStyleSingle),
 //                           NSParagraphStyleAttributeName: paraStyle,
 //                           NSBaselineOffsetAttributeName: @15,
                            };
-    
     
     [attrString beginEditing];
     [attrString addAttributes:dic range:range];

@@ -70,9 +70,6 @@
 
 + (void)synchronize{
     [self synchronizeAndCloudSync:NO];
-    
-//    NSString *path = NSHomeDirectory();
-    //    DDLog(@"\n%@",path);
 }
 
 + (void)setArcObject:(id)value forKey:(NSString *)key{
