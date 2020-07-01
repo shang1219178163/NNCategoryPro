@@ -147,8 +147,6 @@ FOUNDATION_EXPORT NSString * NSStringFromFloat(CGFloat obj);
 
 - (void)copyToPasteboard;
 
-- (BOOL)openThisURL;
-
 @end
 
 NS_ASSUME_NONNULL_END

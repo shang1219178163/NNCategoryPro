@@ -176,7 +176,7 @@ NSString * const kAlertActionColor = @"titleTextColor";
         }
         dispatch_async(dispatch_get_global_queue(0, 0), ^{
             NSString * phoneStr = [NSString stringWithFormat:@"tel:%@",phoneNumber];
-            if (iOSVer(10)) {
+            if (@available(iOS 10.0, *)) {
                 [UIApplication.sharedApplication openURL:[NSURL URLWithString:phoneStr] options:@{} completionHandler:nil];
             } else {
                 [UIApplication.sharedApplication openURL:[NSURL URLWithString:phoneStr]];

@@ -17,8 +17,8 @@
 FOUNDATION_EXPORT NSString *NNSwiftClassName(NSString *name);
 /// 关联对象的唯一无符号常量值
 FOUNDATION_EXPORT NSString *RuntimeKeyFromParams(NSObject *obj, NSString *funcAbount);
-// 系统版本判断
-FOUNDATION_EXPORT BOOL iOSVer(CGFloat version);
+//// 系统版本判断
+//FOUNDATION_EXPORT BOOL iOSVer(CGFloat version);
 /// 由角度转换弧度
 FOUNDATION_EXPORT CGFloat CGRadianFromDegrees(CGFloat x);
 /// 弧度转换角度

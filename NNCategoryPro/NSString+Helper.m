@@ -496,34 +496,4 @@ NSString * NSStringFromFloat(CGFloat obj){
     [self copyToPasteboard:YES];
 }
 
-- (BOOL)openThisURL{
-    NSAssert([self isKindOfClass:[NSAttributedString class]] || [self isKindOfClass:[NSString class]], @"只支持字符串,请检查格式!");
-    
-    NSString * urlString = nil;
-    if ([self isKindOfClass:[NSAttributedString class]]) {
-        urlString = [(NSAttributedString *)self string];
-        
-    }
-    if ([self isKindOfClass:[NSString class]]) {
-        urlString = (NSString *)self;
-        
-    }
-    UIApplication *application = UIApplication.sharedApplication;
-    NSURL *URL = [NSURL URLWithString:urlString];
-    
-    __block BOOL isSuccess = NO;
-    if (iOSVer(10)) {
-        [application openURL:URL options:@{UIApplicationOpenURLOptionUniversalLinksOnly : @YES} completionHandler:^(BOOL success) {
-            isSuccess = success;
-        }];
-    }
-    else{
-        BOOL success = [application openURL:URL];
-        isSuccess = success;
-        
-    }
-    return isSuccess;
-}
-
-
 @end

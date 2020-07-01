@@ -34,9 +34,9 @@ NSString *RuntimeKeyFromParams(NSObject *obj, NSString *funcAbount){
     return unique;
 }
 
-BOOL iOSVer(CGFloat version){
-    return (UIDevice.currentDevice.systemVersion.floatValue >= version) ? YES : NO;
-}
+//BOOL iOSVer(CGFloat version){
+//    return (UIDevice.currentDevice.systemVersion.floatValue >= version) ? YES : NO;
+//}
 
 CGFloat CGRadianFromDegrees(CGFloat x){
     return (M_PI * (x) / 180.0);
