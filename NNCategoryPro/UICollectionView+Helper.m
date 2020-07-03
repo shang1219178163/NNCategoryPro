@@ -96,8 +96,8 @@ NSString * const UICollectionElementKindSectionItem = @"UICollectionElementKindS
 }
 
 - (void)registerListClassReusable:(NSArray *)listClass kind:(NSString *)kind{
-    for (NSString * className in listClass) {
-        NSString * identifier = [self.class viewIdentifierByClassName:className kind:kind];
+    for (NSString *className in listClass) {
+        NSString *identifier = [self.class viewIdentifierByClassName:className kind:kind];
         [self registerClass:NSClassFromString(className) forSupplementaryViewOfKind:kind withReuseIdentifier:identifier];
 //        NSLog(@"%@,%@,%@",NSClassFromString(className),kind,identifier);
     }

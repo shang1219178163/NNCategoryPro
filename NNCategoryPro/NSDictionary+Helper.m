@@ -42,27 +42,45 @@
     return mdic.copy;
 }
 
-NSDictionary *NSDictionaryFromObj(id obj){
-    if (!obj) return nil;
-    assert([obj isKindOfClass: NSDictionary.class] || [obj isKindOfClass: NSString.class] || [obj isKindOfClass: NSData.class]);
-    
-    NSDictionary *dic = nil;
-    NSData *jsonData = nil;
-    if ([obj isKindOfClass:[NSDictionary class]]) {
-        dic = obj;
-    } else if ([obj isKindOfClass:[NSString class]]) {
-        jsonData = [(NSString *)obj dataUsingEncoding: NSUTF8StringEncoding];
-    } else if ([obj isKindOfClass:[NSData class]]) {
-        jsonData = obj;
-    }
-    if (jsonData) {
-        dic = [NSJSONSerialization JSONObjectWithData:jsonData options:kNilOptions error:NULL];
-        if (![dic isKindOfClass:[NSDictionary class]]) dic = nil;
-    }
-    return dic;
+#pragma mark -高阶函数
+- (NSDictionary *)map:(NSDictionary *(NS_NOESCAPE ^)(id key, id obj))block{
+    __block NSMutableDictionary *mdic = [NSMutableDictionary dictionary];
+    [self enumerateKeysAndObjectsUsingBlock:^(id  _Nonnull key, id  _Nonnull obj, BOOL * _Nonnull stop) {
+        if (block) {
+            NSDictionary *blockResult = block(key, obj);
+            if (blockResult) {
+                [mdic addEntriesFromDictionary:blockResult];
+            }
+        }
+    }];
+    return mdic.copy;
 }
 
-NSDictionary<NSAttributedStringKey, id> * AttributeDict(NSNumber * type){
+- (NSDictionary *)filter:(BOOL (NS_NOESCAPE ^)(id key, id obj))block{
+    __block NSMutableDictionary *mdic = [NSMutableDictionary dictionary];
+     [self enumerateKeysAndObjectsUsingBlock:^(id  _Nonnull key, id  _Nonnull obj, BOOL * _Nonnull stop) {
+         if (block && block(key, obj) == true) {
+             [mdic setObject:obj forKey:key];
+         }
+     }];
+    return mdic.copy;
+}
+
+- (NSDictionary *)compactMapValues:(id (NS_NOESCAPE ^)(id obj))block{
+    __block NSMutableDictionary *mdic = [NSMutableDictionary dictionary];
+    [self enumerateKeysAndObjectsUsingBlock:^(id  _Nonnull key, id  _Nonnull obj, BOOL * _Nonnull stop) {
+        if (block) {
+            id blockResult = block(obj);
+            if (blockResult) {
+                mdic[key] = blockResult;
+            }
+        }
+    }];
+    return mdic.copy;
+}
+
+#pragma mark -其他方法
+NSDictionary<NSAttributedStringKey, id> * AttributeDict(NSNumber *type){
     NSDictionary *dic = @{NSForegroundColorAttributeName: UIColor.blackColor,
                           NSBackgroundColorAttributeName: UIColor.whiteColor,
                           };
@@ -72,9 +90,7 @@ NSDictionary<NSAttributedStringKey, id> * AttributeDict(NSNumber * type){
         {
             dic = @{NSUnderlineStyleAttributeName: @(NSUnderlineStyleSingle),
                     NSUnderlineColorAttributeName: UIColor.redColor,
-                    
                     };
-            
         }
             break;
         case 2://贯穿县
@@ -87,7 +103,6 @@ NSDictionary<NSAttributedStringKey, id> * AttributeDict(NSNumber * type){
         case 3://设置字形倾斜度取值为 NSNumber （float）,正值右倾，负值左倾
         {
             dic = @{NSObliquenessAttributeName: @(0.8),
-                    
                     };
         }
             break;
@@ -95,7 +110,6 @@ NSDictionary<NSAttributedStringKey, id> * AttributeDict(NSNumber * type){
         {
             //正值横向拉伸文本，负值横向压缩文本
             dic = @{NSExpansionAttributeName: @(0.3),
-                    
                     };
         }
             break;
@@ -104,7 +118,6 @@ NSDictionary<NSAttributedStringKey, id> * AttributeDict(NSNumber * type){
             dic = @{NSWritingDirectionAttributeName: @[@(3)],
 //                    NSWritingDirectionAttributeName: @[@(NSWritingDirectionRightToLeft | NSWritingDirectionOverride)],
                     };
-            
 //            0 -> LRE -> NSWritingDirectionLeftToRight | NSWritingDirectionEmbedding
 //            1 -> RLE -> NSWritingDirectionRightToLeft | NSWritingDirectionEmbedding
 //            2 -> LRO -> NSWritingDirectionLeftToRight | NSWritingDirectionOverride
@@ -117,19 +130,19 @@ NSDictionary<NSAttributedStringKey, id> * AttributeDict(NSNumber * type){
     return dic;
 }
 
-NSMutableDictionary *DicFromPlist(NSString *plistName){
++ (NSDictionary *)dictionaryFromPlist:(NSString *)plistName {
     if ([plistName containsString:@".plist"]) {
         NSArray * list = [plistName componentsSeparatedByString:@"."];
         NSString *plistPath = [NSBundle.mainBundle pathForResource:list.firstObject ofType:list.lastObject];
         NSMutableDictionary *dic = [NSMutableDictionary dictionaryWithContentsOfFile:plistPath];
-        return dic;
+        return dic.copy;
     }
     
     NSString *plistPath = [NSBundle.mainBundle pathForResource:plistName ofType:@"plist"];
     NSMutableDictionary *dic = [NSMutableDictionary dictionaryWithContentsOfFile:plistPath];
     //    NSLog(@"plistPath_%@",plistPath);
     //    NSLog(@"dic_%@",dic);
-    return dic;
+    return dic.copy;
 }
 
 /**
@@ -146,17 +159,6 @@ NSMutableDictionary *DicFromPlist(NSString *plistName){
     return valueArray.copy;
 }
 
-- (NSMutableDictionary *)filterDictByContainQuery:(NSString *)query isNumValue:(BOOL)isNumValue{
-    NSMutableDictionary * dic = [NSMutableDictionary dictionary];
-    [self.allKeys enumerateObjectsUsingBlock:^(id  _Nonnull obj, NSUInteger idx, BOOL * _Nonnull stop) {
-        if ([obj containsString:query]) {
-            id value = self[query];
-            value = isNumValue == NO ? value : [value numberValue];
-            [dic setObject:value forKey:obj];
-        }
-    }];
-    return dic;
-}
 
 /**
  *  @brief  将NSDictionary转换成url 参数字符串
@@ -227,7 +229,7 @@ NSMutableDictionary *DicFromPlist(NSString *plistName){
 }
 
 - (NSString *)plistString{
-    NSString *result = [[NSString alloc] initWithData:[self plistData]  encoding:NSUTF8StringEncoding];
+    NSString *result = [[NSString alloc] initWithData:[self plistData] encoding:NSUTF8StringEncoding];
     return result;
 }
 

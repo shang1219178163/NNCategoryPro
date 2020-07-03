@@ -16,10 +16,10 @@
  */
 - (NSDictionary *)paramDic{
     NSMutableDictionary *dic = [NSMutableDictionary dictionary];
-    NSArray * queryComponents = [self.query componentsSeparatedByString:@"&"];
-    for (NSString * queryComponent in queryComponents) {
-        NSString * key = [queryComponent componentsSeparatedByString:@"="].firstObject;
-        NSString * value = [queryComponent substringFromIndex:(key.length + 1)];
+    NSArray *queryComponents = [self.query componentsSeparatedByString:@"&"];
+    for (NSString *queryComponent in queryComponents) {
+        NSString *key = [queryComponent componentsSeparatedByString:@"="].firstObject;
+        NSString *value = [queryComponent substringFromIndex:(key.length + 1)];
         [dic setObject:value forKey:key];
     }
     return dic;

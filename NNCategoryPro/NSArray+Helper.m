@@ -50,11 +50,12 @@
     return data;
 }
 
-- (NSArray *)map:(id (^)(id obj, NSUInteger idx))handler{
+#pragma mark -高阶函数
+- (NSArray *)map:(id (NS_NOESCAPE ^)(id obj, NSUInteger idx))block{
     __block NSMutableArray *marr = [NSMutableArray array];
     [self enumerateObjectsUsingBlock:^(id _Nonnull obj, NSUInteger idx, BOOL * _Nonnull stop) {
-        if (handler) {
-            id blockResult = handler(obj, idx) ? : obj;
+        if (block) {
+            id blockResult = block(obj, idx) ? : obj;
             [marr addObject:blockResult];
         }
     }];
@@ -62,30 +63,47 @@
     return marr.copy;
 }
 
-- (NSArray *)filter:(BOOL(^)(id obj, NSUInteger idx))handler{
+- (NSArray *)compactMap:(id (NS_NOESCAPE ^)(id obj, NSUInteger idx))block{
     __block NSMutableArray *marr = [NSMutableArray array];
     [self enumerateObjectsUsingBlock:^(id _Nonnull obj, NSUInteger idx, BOOL * _Nonnull stop) {
-        if (handler && handler(obj, idx) == true) {
+        if (block) {
+            id blockResult = block(obj, idx) ? : obj;
+            if ([blockResult isKindOfClass:NSArray.class]) {
+                [marr addObjectsFromArray:blockResult];
+            } else {
+                [marr addObject:blockResult];
+            }
+        }
+    }];
+//    DDLog(@"%@->%@", self, marr.copy);
+    return marr.copy;
+}
+
+- (NSArray *)filter:(BOOL(NS_NOESCAPE ^)(id obj, NSUInteger idx))block{
+    __block NSMutableArray *marr = [NSMutableArray array];
+    [self enumerateObjectsUsingBlock:^(id _Nonnull obj, NSUInteger idx, BOOL * _Nonnull stop) {
+        if (block && block(obj, idx) == true) {
             [marr addObject:obj];
         }
     }];
     return marr.copy;
 }
 
-- (NSNumber *)reduce:(NSNumber *(^)(NSNumber *num1, NSNumber *num2))handler{
+- (NSNumber *)reduce:(NSNumber *(NS_NOESCAPE ^)(NSNumber *num1, NSNumber *num2))block{
     __block CGFloat result = 0.0;
     [self enumerateObjectsUsingBlock:^(NSNumber *_Nonnull obj, NSUInteger idx, BOOL * _Nonnull stop) {
         if (idx < self.count - 1) {
             NSNumber *num1 = idx == 0 ? obj : @(result);
             NSNumber *num2 = self[idx+1];
-            if (handler) {
-                result = handler(num1, num2).floatValue;
+            if (block) {
+                result = block(num1, num2).floatValue;
 //                DDLog(@"handler_%@_%@_%@_%@",num1, num2, handler(num1, num2), @(result));
             }
         }
     }];
     return @(result);
 }
+#pragma mark -其他方法
 
 - (NSArray *)sorted{
     return [self sortedArrayUsingSelector:@selector(compare:)];

@@ -22,7 +22,6 @@
 
 /**
  *  @brief  响应者链
- *
  *  @return  响应者链
  */
 - (NSString *)responderChainDescription{

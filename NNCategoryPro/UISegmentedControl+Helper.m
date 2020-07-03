@@ -60,10 +60,8 @@
             view.layer.borderWidth = 1;
             view.layer.borderColor = UIColor.whiteColor.CGColor;
             
-            NSDictionary * dict = @{
-                                    NSForegroundColorAttributeName: UIColor.blackColor,
+            NSDictionary * dict = @{NSForegroundColorAttributeName: UIColor.blackColor,
                                     NSFontAttributeName:            [UIFont systemFontOfSize:15],
-                                    
                                     };
             
             [view setTitleTextAttributes:dict forState:UIControlStateNormal];
@@ -76,13 +74,11 @@
             view.tintColor = UIColor.whiteColor;
             view.backgroundColor = UIColor.whiteColor;
             
-            NSDictionary *attDic_N = @{
-                                       NSFontAttributeName:             [UIFont boldSystemFontOfSize:15],
+            NSDictionary *attDic_N = @{NSFontAttributeName:             [UIFont boldSystemFontOfSize:15],
                                        NSForegroundColorAttributeName:  UIColor.blackColor,
                                        };
             
-            NSDictionary *attDic_H = @{
-                                       NSFontAttributeName:             [UIFont boldSystemFontOfSize:18],
+            NSDictionary *attDic_H = @{NSFontAttributeName:             [UIFont boldSystemFontOfSize:18],
                                        NSForegroundColorAttributeName:  UIColor.themeColor,
                                        };
             
@@ -99,17 +95,13 @@
             view.backgroundColor = UIColor.lineColor;
             
             // 正常状态下
-            NSDictionary * attDic_N = @{
-                                        NSForegroundColorAttributeName: UIColor.blackColor,
+            NSDictionary * attDic_N = @{NSForegroundColorAttributeName: UIColor.blackColor,
                                         NSFontAttributeName:            [UIFont systemFontOfSize:15.0f],
-                                        
                                         };
             
             // 选中状态下
-            NSDictionary * attDic_H = @{
-                                        NSForegroundColorAttributeName: UIColor.themeColor,
+            NSDictionary * attDic_H = @{NSForegroundColorAttributeName: UIColor.themeColor,
                                         NSFontAttributeName:            [UIFont boldSystemFontOfSize:18.0f],
-                                        
                                         };
             [view setTitleTextAttributes:attDic_N forState:UIControlStateNormal];
             [view setTitleTextAttributes:attDic_H forState:UIControlStateSelected];
@@ -120,9 +112,7 @@
             view.tintColor = UIColor.themeColor;
             view.backgroundColor = UIColor.whiteColor;
             
-            NSDictionary * dict = @{
-                                    NSFontAttributeName:    [UIFont systemFontOfSize:15],
-                                    
+            NSDictionary * dict = @{NSFontAttributeName: [UIFont systemFontOfSize:15],
                                     };
             
             [view setTitleTextAttributes:dict forState:UIControlStateNormal];

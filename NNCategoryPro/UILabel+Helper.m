@@ -71,7 +71,6 @@
 
 //    label.backgroundColor = UIColor.greenColor;
 //    label.backgroundColor = UIColor.whiteColor;
-    
 //    label.layer.borderWidth = kW_LayerBorder;
 //    label.layer.borderColor = UIColor.blueColor.CGColor;
 

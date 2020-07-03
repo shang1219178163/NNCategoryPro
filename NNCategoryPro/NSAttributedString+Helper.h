@@ -15,7 +15,10 @@ NS_ASSUME_NONNULL_BEGIN
 ///判断 self是否有效
 @property (nonatomic, assign, readonly) BOOL isValid;
 
-#pragma mark- - 富文本
+#pragma mark- -富文本
+/// 富文本配置字典
+FOUNDATION_EXPORT NSDictionary<NSAttributedStringKey, id> * AttributeDict(NSNumber *type);
+
 /**
  富文本特殊部分设置
  */

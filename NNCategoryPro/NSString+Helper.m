@@ -321,19 +321,19 @@ NSString * NSStringFromFloat(CGFloat obj){
     return [NSDateFormatter intervalFromDateStr:dateStr fmt:kFormatDate];
 }
 
-- (NSString *)toTimestampShort{
-    NSString * dateStr = (NSString *)self;
+- (NSString *)toTimestampBegin{
+    NSString *dateStr = (NSString *)self;
     
-    NSString * tmp = @" 00:00:00";//后台接口时间戳不要时分秒
+    NSString *tmp = @" 00:00:00";//后台接口时间戳不要时分秒
     if (dateStr.length == 10) dateStr = [dateStr stringByAppendingString:tmp];
     dateStr = [dateStr stringByReplacingCharactersInRange:NSMakeRange(dateStr.length - tmp.length, tmp.length) withString:tmp];
     return [NSDateFormatter intervalFromDateStr:dateStr fmt:kFormatDate];
 }
 
-- (NSString *)toTimestampFull{
-    NSString * dateStr = (NSString *)self;
+- (NSString *)toTimestampEnd{
+    NSString *dateStr = (NSString *)self;
     
-    NSString * tmp = @" 23:59:59";//后台接口时间戳不要时分秒
+    NSString *tmp = @" 23:59:59";//后台接口时间戳不要时分秒
     if (dateStr.length == 10) dateStr = [dateStr stringByAppendingString:tmp];
     dateStr = [dateStr stringByReplacingCharactersInRange:NSMakeRange(dateStr.length - tmp.length, tmp.length) withString:tmp];
     return [NSDateFormatter intervalFromDateStr:dateStr fmt:kFormatDate];
@@ -373,12 +373,10 @@ NSString * NSStringFromFloat(CGFloat obj){
 }
 
 - (NSString *)randomStringLength:(NSInteger)length{
-    NSString *fromString = self;
-
     NSMutableString *mStr = [NSMutableString stringWithCapacity:0];
     for (NSInteger i = 0; i < length; i++) {
         NSUInteger randomIndex = arc4random()%length;
-        [mStr appendFormat: @"%C", [fromString characterAtIndex:randomIndex]];
+        [mStr appendFormat: @"%C", [self characterAtIndex:randomIndex]];
     }
     return mStr;
 }
@@ -388,28 +386,26 @@ NSString * NSStringFromFloat(CGFloat obj){
  @return 包含所有元素
  */
 - (BOOL)containArray:(NSArray *)array{
-    for (NSString * obj in array) {
+    for (NSString *obj in array) {
         if (![self containsString:obj]) return NO;
     }
     return YES;
 }
 
 - (NSString *)getPlaceholder{
-    NSString * placeHolder = [NSString stringWithFormat:@"请输入%@",self];
+    NSString *placeHolder = [NSString stringWithFormat:@"请输入%@", self];
     placeHolder = [placeHolder stringByReplacingOccurrencesOfString:@" " withString:@""];
     placeHolder = [placeHolder stringByReplacingOccurrencesOfString:@":" withString:@""];
     return placeHolder;
 }
 
 + (NSString *)ramdomText{
-    
-    NSArray * array = @[@"测试数据,",@"test_",@"AAAAA-",@"BBBBB>",@"秦时明月",@"犯我大汉天威者,虽远必诛",];
+    NSArray *array = @[@"测试数据,",@"test_",@"AAAAA-",@"BBBBB>",@"秦时明月",@"犯我大汉天威者,虽远必诛",];
     CGFloat length = arc4random()%15 + 5;
-    NSMutableString * mstr = [NSMutableString stringWithCapacity:0];
+    NSMutableString *mstr = [NSMutableString stringWithCapacity:0];
     for (NSUInteger i = 0; i < length; i++) {
-        
         NSInteger random = (NSInteger)(arc4random() % array.count);
-        NSString * text = array[random];
+        NSString *text = array[random];
         [mstr appendString:text];
     }
     return mstr;
@@ -417,21 +413,21 @@ NSString * NSStringFromFloat(CGFloat obj){
 
 -(NSString *)multiplyAnothor:(NSString *)anothor{
     NSAssert([self isPureInteger] || [self isPureFloat], @"支持持纯数字字符串");
-    if (!anothor || [self floatValue] == 0.0  || [anothor floatValue] == 0.0) {
+    if (!anothor || self.floatValue == 0.0 || anothor.floatValue == 0.0) {
         return @"0";
     }
     
-    CGFloat result = [self floatValue] * [anothor floatValue];
+    CGFloat result = self.floatValue * anothor.floatValue;
     return [@(result) stringValue];
 }
 
 -(NSString *)divideAnothor:(NSString *)anothor{
     NSAssert([self isPureInteger] || [self isPureFloat], @"支持持纯数字字符串");
-    if (!anothor || [self floatValue] == 0.0  || [anothor floatValue] == 0.0) {
+    if (!anothor || self.floatValue == 0.0 || anothor.floatValue == 0.0) {
         return @"0";
     }
     
-    CGFloat result = [self floatValue] / [anothor floatValue];
+    CGFloat result = self.floatValue / anothor.floatValue;
     return [@(result) stringValue];
 }
 
@@ -439,7 +435,7 @@ NSString * NSStringFromFloat(CGFloat obj){
     NSAssert([self isPureInteger] || [self isPureFloat], @"支持持纯数字字符串");
     NSParameterAssert([anothor isKindOfClass:[NSString class]] || [anothor isKindOfClass:[NSNumber class]]);
     
-    CGFloat result = [self integerValue] + [anothor integerValue];
+    CGFloat result = self.integerValue + [anothor integerValue];
     return [@(result) stringValue];
 }
 /**

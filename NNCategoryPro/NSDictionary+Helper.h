@@ -10,28 +10,35 @@
 
 NS_ASSUME_NONNULL_BEGIN
 
-@interface NSDictionary (Helper)
+@interface NSDictionary<KeyType, ObjectType> (Helper)
 
 ///->NSData
 @property (nonatomic, strong, readonly) NSData *jsonData;
 ///->NSString
 @property (nonatomic, strong, readonly) NSString *jsonString;
-
+///键值翻转
 - (NSDictionary *)invert;
 
-/// id类型转字典
-FOUNDATION_EXPORT NSDictionary *NSDictionaryFromObj(id obj);
-/// 富文本配置字典
-FOUNDATION_EXPORT NSDictionary<NSAttributedStringKey, id> * AttributeDict(NSNumber * type);
+/**
+ map 高阶函数
+ */
+- (NSArray *)map:(NSDictionary* (NS_NOESCAPE ^)(KeyType key, ObjectType obj))block;
+/**
+filter 高阶函数
+*/
+- (NSDictionary *)filter:(BOOL (NS_NOESCAPE ^)(KeyType key, ObjectType obj))block;
+/**
+compactMapValues 高阶函数
+*/
+- (NSDictionary *)compactMapValues:(id (NS_NOESCAPE ^)(ObjectType obj))block;
+
 /// 读取项目Plist文件(在TARGETS里的CopyBundleResources中必须存在)
-FOUNDATION_EXPORT NSMutableDictionary *DicFromPlist(NSString *plistName);
++ (NSDictionary *)dictionaryFromPlist:(NSString *)plistName;
 
 /**
  根据key对字典values排序,区分大小写(按照ASCII排序)
  */
 - (NSArray *)sortedValuesByKey;
-
-- (NSMutableDictionary *)filterDictByContainQuery:(NSString *)query isNumValue:(BOOL)isNumValue;
 
 /**
  *  @brief  将NSDictionary转换成url 参数字符串

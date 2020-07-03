@@ -30,7 +30,7 @@ NSString *NNSwiftClassName(NSString *name){
  @return 根据对象+方法+实参生成的唯一常量值(确保每个对象调用同一方法不同参数的时候,返回的值都是唯一的)
  */
 NSString *RuntimeKeyFromParams(NSObject *obj, NSString *funcAbount){
-    NSString * unique = [[@(obj.hash) stringValue] stringByAppendingFormat:@",%@",funcAbount];
+    NSString *unique = [[@(obj.hash) stringValue] stringByAppendingFormat:@",%@",funcAbount];
     return unique;
 }
 

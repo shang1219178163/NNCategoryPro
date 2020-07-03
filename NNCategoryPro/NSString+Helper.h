@@ -95,9 +95,9 @@ FOUNDATION_EXPORT NSString * NSStringFromFloat(CGFloat obj);
 
 - (NSString *)toTimestampMonth;
 
-- (NSString *)toTimestampShort;
+- (NSString *)toTimestampBegin;
 
-- (NSString *)toTimestampFull;
+- (NSString *)toTimestampEnd;
 
 - (NSString *)toDateShort;
 
@@ -129,7 +129,7 @@ FOUNDATION_EXPORT NSString * NSStringFromFloat(CGFloat obj);
 
 + (NSString *)ramdomText;
 
-#pragma mark - - 加减乘除
+#pragma mark - -加减乘除
 -(NSString *)multiplyAnothor:(NSString *)anothor;
 
 -(NSString *)divideAnothor:(NSString *)anothor;

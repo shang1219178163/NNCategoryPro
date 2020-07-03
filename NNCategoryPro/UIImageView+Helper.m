@@ -29,8 +29,6 @@
     view.autoresizingMask = UIViewAutoresizingFlexibleWidth|UIViewAutoresizingFlexibleHeight;
     view.contentMode = UIViewContentModeScaleAspectFit;
     view.userInteractionEnabled = YES;
-
-//    [view loadImage:image defaultImg:kIMG_defaultFailed_S];
     
     switch (type.integerValue) {
         case 1://圆形

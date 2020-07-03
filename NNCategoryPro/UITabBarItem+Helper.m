@@ -15,7 +15,9 @@
 + (instancetype)createTabBarItem:(NSString *_Nullable)title image:(NSString *_Nullable)image selectedImage:(NSString *_Nullable)selectedImage{
     assert([UIImage imageNamed:image] && [UIImage imageNamed:selectedImage]);
 
-    UITabBarItem *tabBarItem = [[self alloc]initWithTitle:title image:[UIImage imageNamed:image] selectedImage:[UIImage imageNamed:selectedImage]];
+    UITabBarItem *tabBarItem = [[self alloc]initWithTitle:title
+                                                    image:[UIImage imageNamed:image]
+                                            selectedImage:[UIImage imageNamed:selectedImage]];
     return tabBarItem;
 }
 

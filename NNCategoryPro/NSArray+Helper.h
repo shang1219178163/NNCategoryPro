@@ -20,7 +20,7 @@ NSLog(@"/n%@",[@[temp1, temp2] valueForKeyPath:@"@unionOfArrays.self"]);
 
 NS_ASSUME_NONNULL_BEGIN
 
-@interface NSArray (Helper)
+@interface NSArray<ObjectType> (Helper)
 
 ///->NSData
 @property (nonatomic, strong, readonly) NSData *jsonData;
@@ -28,19 +28,24 @@ NS_ASSUME_NONNULL_BEGIN
 @property (nonatomic, strong, readonly) NSString *jsonString;
 
 /**
- map 高阶函数(使用时需要将obj强转为数组元素类型)
+ map 高阶函数
  */
-- (NSArray *)map:(id (^)(id obj, NSUInteger idx))handler;
+- (NSArray *)map:(id (NS_NOESCAPE ^)(ObjectType obj, NSUInteger idx))block;
 
 /**
- filter 高阶函数(使用时需要将obj强转为数组元素类型)
+compactMap 高阶降维函数
+*/
+- (NSArray *)compactMap:(id (NS_NOESCAPE ^)(ObjectType obj, NSUInteger idx))block;
+
+/**
+ filter 高阶函数
  */
-- (NSArray *)filter:(BOOL(^)(id obj, NSUInteger idx))handler;
+- (NSArray *)filter:(BOOL(NS_NOESCAPE ^)(ObjectType obj, NSUInteger idx))block;
 
 /**
  reduce 高阶函数(求和,累加等)
  */
-- (NSNumber *)reduce:(NSNumber *(^)(NSNumber *num1, NSNumber *num2))handler;
+- (NSNumber *)reduce:(NSNumber *(NS_NOESCAPE ^)(NSNumber *num1, NSNumber *num2))block;
 
 ///数组排序
 - (NSArray *)sorted;

@@ -11,7 +11,10 @@
 @implementation UIImageView (Animation)
 
 - (void)addFlipAnimtion:(UIImage *)image backImage:(UIImage *)backImage{
-    [UIView transitionWithView:self duration:1.5f options:UIViewAnimationOptionTransitionFlipFromLeft animations:^{
+    [UIView transitionWithView:self
+                      duration:1.5f
+                       options:UIViewAnimationOptionTransitionFlipFromLeft
+                    animations:^{
         self.tag++;
         NSString * imgName = self.tag % 2 == 0 ? image : backImage;
         self.image = [UIImage imageNamed:imgName];

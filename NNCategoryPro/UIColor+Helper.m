@@ -92,7 +92,7 @@ static UIColor * _themeColor = nil;
 
 UIColor * UIColorDim(CGFloat White,CGFloat a){
     return [UIColor colorWithWhite:White alpha:a];////white 0-1为黑到白,alpha透明度
-    //    return [UIColor colorWithWhite:0.2f alpha: 0.5];////white 0-1为黑到白,alpha透明度
+//    return [UIColor colorWithWhite:0.2f alpha: 0.5];////white 0-1为黑到白,alpha透明度
 }
 #pragma mark- -十六进制颜色
 UIColor * UIColorRGBA(CGFloat r, CGFloat g, CGFloat b, CGFloat a){
