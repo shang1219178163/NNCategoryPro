@@ -66,8 +66,7 @@ static NNForwardingTarget *_target = nil;
     if (isInternal) {
         return NO;
     }
-    BOOL isNull = [classString isEqualToString:NSStringFromClass([NSNull class])];
-    
+    BOOL isNull = [classString isEqualToString:NSStringFromClass(NSNull.class)];
 //    BOOL isMyClass  = [classString ...];//前缀处理
 //    return isNull || isMyClass;
     return isNull;
@@ -78,14 +77,11 @@ static NNForwardingTarget *_target = nil;
     if (result) {
         return result;
     }
-    BOOL isWhiteListClass = [[self class] isWhiteListClass:[self class]];
+    BOOL isWhiteListClass = [self.class isWhiteListClass: self.class];
     if (!isWhiteListClass) {
         return nil;
     }
-    
-    if (!result) {
-        result = _target;
-    }
+    result = _target;
     return result;
 }
 
