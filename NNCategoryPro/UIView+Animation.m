@@ -198,14 +198,11 @@
 }
 
 - (UIColor *)noClearColor{
-    UIView *view = self;
-    
-    UIView * supView = view.superview;
+    UIView *supView = self.superview;
     while (CGColorEqualToColor(supView.backgroundColor.CGColor, UIColor.clearColor.CGColor)) {
         supView = supView.superview;
-        
     }
-    UIColor * color = supView.backgroundColor;
+    UIColor *color = supView.backgroundColor;
     return color;
 }
 

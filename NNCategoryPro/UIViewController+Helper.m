@@ -154,7 +154,7 @@ UINavigationController *UINavCtrFromObj(id obj){
                           isLeft:(BOOL)isLeft
                         isHidden:(BOOL)isHidden
                          handler:(void(^)(id obj, UIButton * item, NSInteger idx))handler{
-    UIButton * btn = nil;
+    UIButton *btn = nil;
     if (imgName) {
         NSParameterAssert([UIImage imageNamed:imgName]);
         btn = [UIButton buttonWithSize:CGSizeMake(32, 32)
@@ -242,14 +242,6 @@ UINavigationController *UINavCtrFromObj(id obj){
         self.navigationItem.rightBarButtonItem = barItem;
     }
     return view;
-}
-
-- (__kindof UIViewController * _Nullable)findController:(NSString *)contollerName navController:(UINavigationController *)navController{
-    if (!navController) {
-        navController = self.currentVC.navigationController;
-    }
-    Class class = NSClassFromString(contollerName);
-    return [navController findController:class];
 }
 
 - (void)pushVC:(NSString *)vcName
@@ -408,5 +400,11 @@ UINavigationController *UINavCtrFromObj(id obj){
     }];
     return controller;
 }
+
+- (__kindof UIViewController * _Nullable)findControllerName:(NSString *)vcName{
+    Class class = NSClassFromString(vcName);
+    return [self findController:class];
+}
+
 
 @end

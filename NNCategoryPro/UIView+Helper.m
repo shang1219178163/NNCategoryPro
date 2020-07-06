@@ -109,14 +109,6 @@
     return CGRectGetMaxY(self.frame);
 }
 
-- (BlockView)blockView{
-    return objc_getAssociatedObject(self, _cmd);
-}
-
-- (void)setBlockView:(BlockView)blockView{
-    objc_setAssociatedObject(self, @selector(blockView), blockView, OBJC_ASSOCIATION_COPY_NONATOMIC);
-}
-
 - (BOOL)selected{
     return [objc_getAssociatedObject(self, _cmd) boolValue];
 }
@@ -154,7 +146,6 @@
     maskLayer.borderWidth = width;
     maskLayer.borderColor = color.CGColor;
     self.layer.mask = maskLayer;
-    
     return self;
 }
 
@@ -244,7 +235,6 @@
         
         recognizer.runtimeKey = runtimeKey;
         objc_setAssociatedObject(self, CFBridgingRetain(runtimeKey), block, OBJC_ASSOCIATION_COPY_NONATOMIC);
-
     }
     return recognizer;
 }
@@ -265,7 +255,6 @@
         [self addGestureRecognizer:recognizer];
         recognizer.runtimeKey = runtimeKey;
         objc_setAssociatedObject(self, CFBridgingRetain(runtimeKey), block, OBJC_ASSOCIATION_COPY_NONATOMIC);
-
     }
     return recognizer;
 }
@@ -287,7 +276,6 @@
         [self addGestureRecognizer:recognizer];
         recognizer.runtimeKey = runtimeKey;
         objc_setAssociatedObject(self, CFBridgingRetain(runtimeKey), block, OBJC_ASSOCIATION_COPY_NONATOMIC);
-
     }
     return recognizer;
 }
@@ -328,7 +316,6 @@
         [self addGestureRecognizer:recognizer];
         recognizer.runtimeKey = runtimeKey;
         objc_setAssociatedObject(self, CFBridgingRetain(runtimeKey), block, OBJC_ASSOCIATION_COPY_NONATOMIC);
-        
     }
     return recognizer;
 }
@@ -349,7 +336,6 @@
         [self addGestureRecognizer:recognizer];
         recognizer.runtimeKey = runtimeKey;
         objc_setAssociatedObject(self, CFBridgingRetain(runtimeKey), block, OBJC_ASSOCIATION_COPY_NONATOMIC);
-
     }
     return recognizer;
 }
@@ -369,7 +355,6 @@
         [self addGestureRecognizer:recognizer];
         recognizer.runtimeKey = runtimeKey;
         objc_setAssociatedObject(self, CFBridgingRetain(runtimeKey), block, OBJC_ASSOCIATION_COPY_NONATOMIC);
-
     }
     return recognizer;
 }
@@ -663,7 +648,7 @@
     view.userInteractionEnabled = true;
     view.lineBreakMode = NSLineBreakByTruncatingTail;
     view.adjustsFontSizeToFitWidth = YES;
-    //        label.backgroundColor = UIColor.greenColor;
+//        label.backgroundColor = UIColor.greenColor;
     view.text = text;
     view.textAlignment = textAlignment;
 
@@ -672,9 +657,12 @@
 }
 
 
-+ (UIImageView *)createCardViewRect:(CGRect)rect title:(NSString *)title target:(id)target aSelector:(SEL)aSelector{
++ (UIImageView *)createCardViewRect:(CGRect)rect
+                              title:(NSString *)title
+                             target:(id)target
+                          aSelector:(SEL)aSelector{
     
-    UIImageView * containView = [UIImageView createRect:rect type:@0];
+    UIImageView *containView = [UIImageView createRect:rect type:@0];
     CGSize imgViewSize = CGSizeMake(kH_LABEL_SMALL, kH_LABEL_SMALL);
     CGFloat YGap = (CGRectGetHeight(rect) - imgViewSize.height*2)/2.0;
     CGFloat XGapImgView = (CGRectGetWidth(rect) - imgViewSize.width)/2.0;
@@ -1056,8 +1044,7 @@
     //    NSArray * unitList = @[@"元",@"公斤"];
     NSParameterAssert([self isKindOfClass:[UITextField class]]);
     NSParameterAssert(unitString != nil && ![unitString isEqualToString:@""]);
-    
-    if ([unitString containsString:@"img_"]) {
+    if ([UIImage imageNamed:unitString]) {
         CGSize size = CGSizeMake(20, 20);
         UIImageView * imgView = [UIImageView createRect:CGRectMake(0, 0, size.width, size.height) type:@0];
         imgView.image = [UIImage imageNamed:unitString];

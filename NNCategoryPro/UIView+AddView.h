@@ -44,23 +44,6 @@ NS_ASSUME_NONNULL_BEGIN
 
 -(UIView *)createViewType:(NSNumber *)type color:(UIColor *)color width:(CGFloat)width paddingScale:(CGFloat)paddingScale;
 
-/**
- 右指箭头
- */
-+ (UIView *)createArrowRect:(CGRect)rect;
-
-#pragma mark - - 类方法
-
-+ (__kindof UIView *)createViewRect:(CGRect)rect;
-
-
-+ (UIView *)createBtnViewRect:(CGRect)rect
-                      imgName:(NSString *)imgName
-                    imgHeight:(CGFloat)imgHeight
-                        title:(NSString *)title
-                   titleColor:(UIColor *)titleColor
-                         type:(NSNumber *)type;
-
 
 @end
 

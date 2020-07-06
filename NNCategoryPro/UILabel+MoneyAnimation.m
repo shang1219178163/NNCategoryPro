@@ -61,7 +61,6 @@ double RangeNumber(double endNumber, double duration){
     
     //变量初始化
 //    self.animatedNumber = @(0);
-
     NSDictionary *dic = @{kNumberBeginKey:@(1),
                           kNumberEndKey:number,
                           kNumberRangeKey:@(RangeNumber(number.doubleValue, duration)),
@@ -74,7 +73,6 @@ double RangeNumber(double endNumber, double duration){
 }
 
 - (void)changeAnimation:(NSTimer *)timer{
-
     NSDictionary *info = timer.userInfo;
     double begin = [info[kNumberBeginKey] doubleValue];
     double end = [info[kNumberEndKey] doubleValue];

@@ -112,7 +112,6 @@ FOUNDATION_EXPORT NSString * NSStringFromFloat(CGFloat obj);
 
 - (NSString *)deleteWhiteSpaceBeginEnd;
 
-
 /**
  获取随机子字符串
  e.g.:0123456789ABCDEFGHIJKLMNOPQRSTUVWXYZ

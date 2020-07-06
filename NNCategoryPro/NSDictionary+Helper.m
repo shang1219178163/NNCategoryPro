@@ -80,55 +80,6 @@
 }
 
 #pragma mark -其他方法
-NSDictionary<NSAttributedStringKey, id> * AttributeDict(NSNumber *type){
-    NSDictionary *dic = @{NSForegroundColorAttributeName: UIColor.blackColor,
-                          NSBackgroundColorAttributeName: UIColor.whiteColor,
-                          };
-    
-    switch (type.integerValue) {
-        case 1://下划线
-        {
-            dic = @{NSUnderlineStyleAttributeName: @(NSUnderlineStyleSingle),
-                    NSUnderlineColorAttributeName: UIColor.redColor,
-                    };
-        }
-            break;
-        case 2://贯穿县
-        {
-            dic = @{NSStrikethroughStyleAttributeName: @(NSUnderlineStyleSingle),
-                    NSStrikethroughColorAttributeName: UIColor.redColor,
-                    };
-        }
-            break;
-        case 3://设置字形倾斜度取值为 NSNumber （float）,正值右倾，负值左倾
-        {
-            dic = @{NSObliquenessAttributeName: @(0.8),
-                    };
-        }
-            break;
-        case 4://拉伸文本
-        {
-            //正值横向拉伸文本，负值横向压缩文本
-            dic = @{NSExpansionAttributeName: @(0.3),
-                    };
-        }
-            break;
-        case 5://书写方向(RightToLeft)
-        {
-            dic = @{NSWritingDirectionAttributeName: @[@(3)],
-//                    NSWritingDirectionAttributeName: @[@(NSWritingDirectionRightToLeft | NSWritingDirectionOverride)],
-                    };
-//            0 -> LRE -> NSWritingDirectionLeftToRight | NSWritingDirectionEmbedding
-//            1 -> RLE -> NSWritingDirectionRightToLeft | NSWritingDirectionEmbedding
-//            2 -> LRO -> NSWritingDirectionLeftToRight | NSWritingDirectionOverride
-//            3 -> RLO -> NSWritingDirectionRightToLeft | NSWritingDirectionOverride
-        }
-            break;
-        default:
-            break;
-    }
-    return dic;
-}
 
 + (NSDictionary *)dictionaryFromPlist:(NSString *)plistName {
     if ([plistName containsString:@".plist"]) {

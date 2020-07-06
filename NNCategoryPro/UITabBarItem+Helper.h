@@ -11,7 +11,7 @@ NS_ASSUME_NONNULL_BEGIN
 
 @interface UITabBarItem (Helper)
 
-+ (instancetype)createItem:(NSString *_Nullable)title image:(NSString *_Nullable)image selectedImage:(NSString *_Nullable)selectedImage;
++ (instancetype)createItem:(NSString *)title image:(NSString *)image selectedImage:(NSString *_Nullable)selectedImage;
 
 @end
 

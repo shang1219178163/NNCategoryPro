@@ -9,10 +9,10 @@
 
 NS_ASSUME_NONNULL_BEGIN
 
-FOUNDATION_EXPORT NSString * const kHTTPMethodGET ;
-FOUNDATION_EXPORT NSString * const kHTTPMethodPOST ;
-FOUNDATION_EXPORT NSString * const kHTTPMethodPUT ;
-FOUNDATION_EXPORT NSString * const kHTTPMethodDELETE ;
+FOUNDATION_EXPORT NSString * const kHttpMethodGET ;
+FOUNDATION_EXPORT NSString * const kHttpMethodPOST ;
+FOUNDATION_EXPORT NSString * const kHttpMethodPUT ;
+FOUNDATION_EXPORT NSString * const kHttpMethodDELETE ;
 
 @interface NSURLRequest (Helper)
 

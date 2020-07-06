@@ -18,8 +18,7 @@
     UINavigationBar.appearance.shadowImage = [[UIImage alloc] init];
     UINavigationBar.appearance.backIndicatorImage = [UIImage imageNamed:@"nav_bar_back_icon_white"];
     UINavigationBar.appearance.backIndicatorTransitionMaskImage = [UIImage imageNamed:@"nav_bar_back_icon_white"];
-    UINavigationBar.appearance.titleTextAttributes = @{
-                                                         NSForegroundColorAttributeName : UIColor.whiteColor
+    UINavigationBar.appearance.titleTextAttributes = @{NSForegroundColorAttributeName : UIColor.whiteColor
                                                          
                                                          };
    
@@ -31,10 +30,12 @@
     UIColor *titleColor_N = UIColor.whiteColor;
     UIColor *titleColor_H = UIColor.whiteColor;
     [UIBarButtonItem.appearance setTitleTextAttributes:@{NSForegroundColorAttributeName : titleColor_N,
-                                                           NSShadowAttributeName : clearShadow,
+                                                         NSShadowAttributeName : clearShadow,
+                                                         
                                                            } forState:UIControlStateNormal];
     [UIBarButtonItem.appearance setTitleTextAttributes:@{NSForegroundColorAttributeName : titleColor_H,
-                                                           NSShadowAttributeName : clearShadow,
+                                                        NSShadowAttributeName : clearShadow,
+                                                         
                                                            } forState:UIControlStateHighlighted];
     
     // hide title of back button

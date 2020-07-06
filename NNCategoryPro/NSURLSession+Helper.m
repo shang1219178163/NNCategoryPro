@@ -50,7 +50,7 @@
     return dataTask;
 }
 
-+ (NSURLSessionUploadTask *)sendSynUploadRequest:(nonnull NSURLRequest *)request fromFile:(id)fromFile handler:(void (^)(NSData * _Nullable data, NSURLResponse * _Nullable response, NSError * _Nullable error))handler{
++ (NSURLSessionUploadTask *)sendSynUploadRequest:(NSURLRequest *)request fromFile:(id)fromFile handler:(void (^)(NSData * _Nullable data, NSURLResponse * _Nullable response, NSError * _Nullable error))handler{
     dispatch_semaphore_t semaphore = dispatch_semaphore_create(0);
     
     NSURLSessionUploadTask *dataTask = nil;
@@ -75,7 +75,7 @@
     return dataTask;
 }
 
-+ (NSURLSessionUploadTask *)sendAsyUploadRequest:(nonnull NSURLRequest *)request fromData:(id)fromFile handler:(void (^)(NSData * _Nullable data, NSURLResponse * _Nullable response, NSError * _Nullable error))handler{
++ (NSURLSessionUploadTask *)sendAsyUploadRequest:(NSURLRequest *)request fromData:(id)fromFile handler:(void (^)(NSData * _Nullable data, NSURLResponse * _Nullable response, NSError * _Nullable error))handler{
     NSURLSessionUploadTask *dataTask = nil;
     if ([fromFile isKindOfClass:[NSURL class]]) {
         dataTask = [NSURLSession.sharedSession uploadTaskWithRequest:request fromFile:fromFile completionHandler:handler];

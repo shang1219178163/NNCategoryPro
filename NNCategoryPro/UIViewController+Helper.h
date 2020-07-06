@@ -48,11 +48,6 @@ FOUNDATION_EXPORT UINavigationController * _Nullable UINavCtrFromObj(id obj);
 
 - (UIView *)createBarItem:(NSString *)obj isLeft:(BOOL)isLeft handler:(void(^)(id obj, UIView *item, NSInteger idx))handler;
  
-/**
- 找导航控制器栈中控制器
- */
-- (__kindof UIViewController * _Nullable)findController:(NSString *)contollerName navController:(UINavigationController *)navController;
-
 - (__kindof UIViewController * _Nullable)frontViewController:(UINavigationController *)navContoller;
 
 - (void)pushVC:(NSString *)vcName
@@ -109,6 +104,8 @@ FOUNDATION_EXPORT UINavigationController * _Nullable UINavCtrFromObj(id obj);
 @interface UINavigationController (Helper)
 
 - (__kindof UIViewController * _Nullable)findController:(Class)classVC;
+
+- (__kindof UIViewController * _Nullable)findControllerName:(NSString *)vcName;
 
 @end
 

@@ -41,8 +41,7 @@ NS_ASSUME_NONNULL_BEGIN
 @property (nonatomic, assign, readonly) CGFloat midY;
 @property (nonatomic, assign, readonly) CGFloat maxY;
 
-@property (nonatomic, copy)BlockView blockView;
-
+///辅助属性
 @property (nonatomic, assign) BOOL selected;
 
 @property (nonatomic, strong, readonly) UIViewController *parController;
@@ -56,7 +55,7 @@ NS_ASSUME_NONNULL_BEGIN
              cornerRadii:(CGFloat)radius
              borderWidth:(CGFloat)borderWidth
              borderColor:(UIColor *)borderColor
-                 bgColor:(UIColor*)bgColor;
+                 bgColor:(UIColor *)bgColor;
     
 - (UIView *)addCorners:(UIRectCorner)corners cornerRadii:(CGSize)cornerRadii;
 
@@ -164,7 +163,7 @@ NS_ASSUME_NONNULL_BEGIN
 /**
  圆角
  */
-+ (void)setCutCirculayWithView:(UIImageView *)view cornerRadius:(CGFloat )cornerRadius type:(NSNumber *)type;
++ (void)setCutCirculayWithView:(UIImageView *)view cornerRadius:(CGFloat)cornerRadius type:(NSNumber *)type;
 
 /**
  毛玻璃背景

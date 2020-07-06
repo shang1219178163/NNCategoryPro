@@ -30,8 +30,6 @@ NS_ASSUME_NONNULL_BEGIN
 
 -(void)setHyperlinkDic:(NSDictionary *)dic;
 
-
-
 @end
 
 NS_ASSUME_NONNULL_END

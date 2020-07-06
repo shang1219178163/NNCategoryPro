@@ -53,8 +53,8 @@
 
 - (void)hook_presentViewController:(UIViewController *)viewControllerToPresent animated:(BOOL)flag completion:(void (^)(void))completion {
      if ([viewControllerToPresent isKindOfClass:UIAlertController.class]) {
-//        NSLog(@"title : %@",((UIAlertController *)viewControllerToPresent).title);
-//        NSLog(@"message : %@",((UIAlertController *)viewControllerToPresent).message);
+//        NSLog(@"title: %@",((UIAlertController *)viewControllerToPresent).title);
+//        NSLog(@"message: %@",((UIAlertController *)viewControllerToPresent).message);
         
         UIAlertController *alertController = (UIAlertController *)viewControllerToPresent;
         if (alertController.title == nil && alertController.message == nil) {

@@ -32,8 +32,8 @@ static WKWebViewConfiguration *_confiDefault = nil;
 }
 
 + (NSString *)changTextFontRatio:(CGFloat)fontRatio{
-    NSString * textSize = [NSString stringWithFormat:@"%@%@",@(fontRatio),@"%"];;
-    NSString * str = [NSString stringWithFormat:@"document.getElementsByTagName('body')[0].style.webkitTextSizeAdjust= '%@'",textSize];
+    NSString *textSize = [NSString stringWithFormat:@"%@%@",@(fontRatio),@"%"];;
+    NSString *str = [NSString stringWithFormat:@"document.getElementsByTagName('body')[0].style.webkitTextSizeAdjust= '%@'",textSize];
     return str;
 }
 

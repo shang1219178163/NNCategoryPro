@@ -22,7 +22,6 @@ NS_ASSUME_NONNULL_BEGIN
                   type:(NSNumber *)type;
 
 /**
-
  @param type 过度动画类型
  */
 - (void)pushController:(id)controller

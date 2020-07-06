@@ -21,19 +21,18 @@
     if (subviews.count == 0) return;
     for (CALayer *subview in subviews) {
         subview.borderWidth = 0.5;
+        #if DEBUG
         subview.borderColor = UIColor.blueColor.CGColor;
-        //        subview.borderColor = UIColor.clearColor.CGColor;
-        
+        #else
+        subview.borderColor = UIColor.clearColor.CGColor;
+        #endif
         [subview getLayer];
-        
     }
 }
 
 - (void)removeAllSubLayers{
     self.sublayers = nil;//sublayers不是可变数组
-  
 }
-
 
 + (CALayer *)createRect:(CGRect)rect image:(id)image{
     NSParameterAssert([image isKindOfClass:[NSString class]] || [image isKindOfClass:[UIImage class]]);
@@ -291,7 +290,6 @@
     // 添加动画
     return group;
 }
-
 
 #pragma mark ====旋转动画======
 - (CABasicAnimation *)rotation:(float)dur

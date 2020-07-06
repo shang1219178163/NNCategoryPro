@@ -29,9 +29,9 @@
     return view;
 }
 
-- (void)setTbView:(UITableView *)tbView{
-    objc_setAssociatedObject(self, @selector(tbView), tbView, OBJC_ASSOCIATION_RETAIN_NONATOMIC);
-}
+//- (void)setTbView:(UITableView *)tbView{
+//    objc_setAssociatedObject(self, @selector(tbView), tbView, OBJC_ASSOCIATION_RETAIN_NONATOMIC);
+//}
 
 - (UITableView *)tbViewGrouped{
     UITableView *view = objc_getAssociatedObject(self, _cmd);
@@ -44,9 +44,9 @@
     return view;
 }
 
-- (void)setTbViewGrouped:(UITableView *)tbViewGrouped{
-    objc_setAssociatedObject(self, @selector(tbViewGrouped), tbViewGrouped, OBJC_ASSOCIATION_RETAIN_NONATOMIC);
-}
+//- (void)setTbViewGrouped:(UITableView *)tbViewGrouped{
+//    objc_setAssociatedObject(self, @selector(tbViewGrouped), tbViewGrouped, OBJC_ASSOCIATION_RETAIN_NONATOMIC);
+//}
 
 - (UICollectionView *)ctView{
     UICollectionView *view = objc_getAssociatedObject(self, _cmd);
@@ -68,12 +68,12 @@
     return view;
 }
 
-- (void)setCtView:(UICollectionView *)ctView{
-    objc_setAssociatedObject(self, @selector(ctView), ctView, OBJC_ASSOCIATION_RETAIN_NONATOMIC);
-}
+//- (void)setCtView:(UICollectionView *)ctView{
+//    objc_setAssociatedObject(self, @selector(ctView), ctView, OBJC_ASSOCIATION_RETAIN_NONATOMIC);
+//}
 
 - (UILabel *)tipLabel{
-    UILabel * view = objc_getAssociatedObject(self, _cmd);
+    UILabel *view = objc_getAssociatedObject(self, _cmd);
     if (!view) {
         view = [UILabel createRect:CGRectZero type:@2];
         view.textAlignment = NSTextAlignmentLeft;
@@ -82,42 +82,8 @@
     return view;
 }
 
-- (void)setTipLabel:(UILabel *)tipLabel{
-    objc_setAssociatedObject(self, @selector(tipLabel), tipLabel, OBJC_ASSOCIATION_RETAIN_NONATOMIC);
-}
-
--(NSInteger)pageIndex{
-    return [objc_getAssociatedObject(self, _cmd) integerValue];
-}
-
--(void)setPageIndex:(NSInteger)pageIndex{
-    objc_setAssociatedObject(self, @selector(pageIndex), @(pageIndex), OBJC_ASSOCIATION_ASSIGN);
-}
-
--(NSMutableArray *)dataList{
-    NSMutableArray * list = objc_getAssociatedObject(self, _cmd);
-    if (!list) {
-        list = [NSMutableArray array];
-        objc_setAssociatedObject(self, _cmd, list, OBJC_ASSOCIATION_RETAIN_NONATOMIC);
-    }
-    return list;
-}
-
--(void)setDataList:(NSMutableArray *)dataList{
-    objc_setAssociatedObject(self, @selector(dataList), dataList, OBJC_ASSOCIATION_RETAIN_NONATOMIC);
-}
-
-//-(NSMutableDictionary *)heightMdict{
-//    NSMutableDictionary * dic = objc_getAssociatedObject(self, _cmd);
-//    if (!dic) {
-//        dic = [NSMutableDictionary dictionary];
-//        objc_setAssociatedObject(self, _cmd, dic, OBJC_ASSOCIATION_RETAIN_NONATOMIC);
-//    }
-//    return dic;
-//}
-//
-//-(void)setHeightMdic:(NSMutableDictionary *)heightMdic{
-//    objc_setAssociatedObject(self, @selector(heightMdic), heightMdic, OBJC_ASSOCIATION_RETAIN_NONATOMIC);
+//- (void)setTipLabel:(UILabel *)tipLabel{
+//    objc_setAssociatedObject(self, @selector(tipLabel), tipLabel, OBJC_ASSOCIATION_RETAIN_NONATOMIC);
 //}
 
 @end

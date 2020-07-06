@@ -7,16 +7,16 @@
 
 #import "NSURLRequest+Helper.h"
 
-NSString * const kHTTPMethodGET = @"GET";
-NSString * const kHTTPMethodPOST = @"POST";
-NSString * const kHTTPMethodPUT = @"PUT";
-NSString * const kHTTPMethodDELETE = @"DELETE";
+NSString * const kHttpMethodGET = @"GET";
+NSString * const kHttpMethodPOST = @"POST";
+NSString * const kHttpMethodPUT = @"PUT";
+NSString * const kHttpMethodDELETE = @"DELETE";
 
 @implementation NSURLRequest (Helper)
 
 +(instancetype)requestGetURL:(NSString *)url{
     NSMutableURLRequest *request = [NSMutableURLRequest requestURL:url
-                                                            method:kHTTPMethodGET
+                                                            method:kHttpMethodGET
                                                               body:nil
                                                        cachePolicy:NSURLRequestReloadIgnoringCacheData
                                                    timeoutInterval:6];
@@ -25,7 +25,7 @@ NSString * const kHTTPMethodDELETE = @"DELETE";
 
 +(instancetype)requestPostURL:(NSString *)url body:(NSData *_Nullable)body{
     NSMutableURLRequest *request = [NSMutableURLRequest requestURL:url
-                                                            method:kHTTPMethodPOST
+                                                            method:kHttpMethodPOST
                                                               body:body
                                                        cachePolicy:NSURLRequestReloadIgnoringCacheData
                                                    timeoutInterval:6];
