@@ -45,7 +45,7 @@ compactMap 高阶降维函数
 /**
  reduce 高阶函数(求和,累加等)
  */
-- (NSNumber *)reduce:(NSNumber *(NS_NOESCAPE ^)(NSNumber *num1, NSNumber *num2))block;
+- (NSNumber *)reduce:(NSNumber *)initial block:(NSNumber *(NS_NOESCAPE ^)(NSNumber *result, NSNumber *obj))block;
 
 ///数组排序
 - (NSArray *)sorted;

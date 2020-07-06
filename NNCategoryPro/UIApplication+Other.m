@@ -160,22 +160,21 @@
     }
     else if ([trigger isKindOfClass: NSDateComponents.class]){
         // 创建日期组建
-        //        NSDateComponents *components = [[NSDateComponents alloc] init];
-        //        components.weekday = 4;
-        //        components.hour = 10;
-        //        components.minute = 12;
+//        NSDateComponents *comp = [[NSDateComponents alloc] init];
+//        comp.weekday = 4;
+//        comp.hour = 10;
+//        comp.minute = 12;
         UNCalendarNotificationTrigger *calendarTrigger = [UNCalendarNotificationTrigger triggerWithDateMatchingComponents:trigger repeats:repeats];
         notiTrigger = calendarTrigger;
         
     }
     else if ([trigger isKindOfClass: CLCircularRegion.class]){
-        //        CLLocationCoordinate2D center = CLLocationCoordinate2DMake(39.788857, 116.5559392);
-        //        CLCircularRegion *region = [[CLCircularRegion alloc] initWithCenter:center1 radius:500 identifier:@"经海五路"];
-        //        region.notifyOnEntry = YES;
-        //        region.notifyOnExit = YES
+//        CLLocationCoordinate2D center = CLLocationCoordinate2DMake(39.788857, 116.5559392);
+//        CLCircularRegion *region = [[CLCircularRegion alloc] initWithCenter:center1 radius:500 identifier:@"经海五路"];
+//        region.notifyOnEntry = YES;
+//        region.notifyOnExit = YES
         UNLocationNotificationTrigger *locationTrigger = [UNLocationNotificationTrigger triggerWithRegion:trigger repeats:repeats];
         notiTrigger = locationTrigger;
-        
     }
     
     // 创建通知请求 UNNotificationRequest 将触发条件和通知内容添加到请求中
@@ -214,13 +213,18 @@
     NSParameterAssert([obj isKindOfClass: UNTextInputNotificationAction.class] || [obj isKindOfClass: NSArray.class]);
     UNNotificationCategory *notiCategory = nil;
     if ([obj isKindOfClass: UNTextInputNotificationAction.class]) {
-        notiCategory = [UNNotificationCategory categoryWithIdentifier:identifier actions:@[obj] intentIdentifiers:@[] options:UNNotificationCategoryOptionCustomDismissAction];
+        notiCategory = [UNNotificationCategory categoryWithIdentifier:identifier
+                                                              actions:@[obj]
+                                                    intentIdentifiers:@[]
+                                                              options:UNNotificationCategoryOptionCustomDismissAction];
         
     }
     else{
         if ([obj isKindOfClass: NSArray.class]) {
-            NSArray * actions = [UIApplication actionsBylist:obj];
-            notiCategory = [UNNotificationCategory categoryWithIdentifier:identifier actions:actions intentIdentifiers:@[] options:UNNotificationCategoryOptionCustomDismissAction];
+            NSArray *actions = [UIApplication actionsBylist:obj];
+            notiCategory = [UNNotificationCategory categoryWithIdentifier:identifier
+                                                                  actions:actions intentIdentifiers:@[]
+                                                                  options:UNNotificationCategoryOptionCustomDismissAction];
             
         }
     }
@@ -242,9 +246,11 @@
 + (NSArray *)actionsBylist:(NSArray *)list API_AVAILABLE(ios(10.0)){
     NSMutableArray *marr = [NSMutableArray array];
     
-    for (NSArray * array in list) {
+    for (NSArray *array in list) {
 //        array包含 0,actionid;1,title;2,UNNotificationActionOptions
-        UNNotificationAction *action = [UNNotificationAction actionWithIdentifier:[array firstObject] title:array[1] options:[array[2] integerValue]];
+        UNNotificationAction *action = [UNNotificationAction actionWithIdentifier:array.firstObject
+                                                                            title:array[1]
+                                                                          options:[array[2] integerValue]];
         [marr addObject:action];
     }
     return marr;
@@ -257,7 +263,7 @@
                 body:(NSString *)body
             userInfo:(NSDictionary *)userInfo
           identifier:(NSString *)identifier
-             handler:(void(^)(UNUserNotificationCenter* center, UNNotificationRequest *request, NSError * _Nullable error))handler API_AVAILABLE(ios(10.0)){
+             handler:(void(^)(UNUserNotificationCenter *center, UNNotificationRequest *request, NSError * _Nullable error))handler API_AVAILABLE(ios(10.0)){
     if (UIApplication.sharedApplication.currentUserNotificationSettings.types == UIUserNotificationTypeNone) {
 #ifdef DEBUG
         NSLog(@"请在[设置]-[通知]中打开推送功能");
@@ -287,6 +293,39 @@
         UIApplication.sharedApplication.applicationIconBadgeNumber += 1;
         NSLog(@"成功添加推送");
     }];
+}
+
+
++ (NSArray<UNNotification *> *)getNotifications:(BOOL)isDelivered titles:(NSArray * __nullable)titles API_AVAILABLE(ios(10.0)){
+    __block NSArray *dataList = @[];
+    UNUserNotificationCenter *center = UNUserNotificationCenter.currentNotificationCenter;
+    NSSortDescriptor *sort = [NSSortDescriptor sortDescriptorWithKey:@"identifier" ascending:YES];
+
+    if (isDelivered == YES) {
+        //获取设备已收到的消息推送
+        [center getDeliveredNotificationsWithCompletionHandler:^(NSArray<UNNotification *> * notifications) {
+            DDLog(@"Delivered %ld", notifications.count);
+            if (titles == nil || titles.count == 0) {
+                dataList = [notifications sortedArrayUsingDescriptors:@[sort]];
+
+            } else {
+                NSMutableArray *marr = [NSMutableArray array];
+                [notifications enumerateObjectsUsingBlock:^(UNNotification * obj, NSUInteger idx, BOOL * stop) {
+                    if ([titles containsObject:obj.request.content.title]) {
+                        [marr addObject:obj.request];
+                    }
+                }];
+                dataList = [marr.copy sortedArrayUsingDescriptors:@[sort]];
+            }
+        }];
+    }
+    else{
+        [center getPendingNotificationRequestsWithCompletionHandler:^(NSArray<UNNotificationRequest *> * requests) {
+            DDLog(@"Pending %ld", requests.count);
+            dataList = [requests.copy sortedArrayUsingDescriptors:@[sort]];
+        }];
+    }
+    return dataList;
 }
 
 /**

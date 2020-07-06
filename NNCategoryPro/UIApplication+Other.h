@@ -15,7 +15,7 @@ NS_ASSUME_NONNULL_BEGIN
 
 @interface UIApplication (Other)
 
-@property (class, nonatomic, readonly) NSDictionary * dictPrivacy;
+@property (class, nonatomic, readonly) NSDictionary *dictPrivacy;
 
 + (BOOL)hasRightOfPhotosLibrary;
 
@@ -34,7 +34,9 @@ NS_ASSUME_NONNULL_BEGIN
                      identifier:(NSString *)identifier
                  notiCategories:(id)notiCategories
                         repeats:(BOOL)repeats
-                        handler:(void(^)(UNUserNotificationCenter* center, UNNotificationRequest *request, NSError * _Nullable error))handler API_AVAILABLE(ios(10.0));
+                        handler:(void(^)(UNUserNotificationCenter *center, UNNotificationRequest *request, NSError * _Nullable error))handler API_AVAILABLE(ios(10.0));
+///获取已过期或者未过期的本地通知
++ (NSArray<UNNotification *> *)getNotifications:(BOOL)isDelivered titles:(NSArray * __nullable)titles API_AVAILABLE(ios(10.0));
 
 + (void)addLocalNotification;
 /**
