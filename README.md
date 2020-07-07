@@ -288,6 +288,9 @@ compactMapValues 高阶函数
 //使用方法:
 [self.view  getViewLayer];
 ```
+
+四. 现金金额处理
+
 NSNumber类型处理, 支持四舍五入
 ```
 //
