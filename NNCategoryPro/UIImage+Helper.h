@@ -23,6 +23,10 @@ FOUNDATION_EXPORT UIImage * UIImageNamed(NSString * obj);
 FOUNDATION_EXPORT UIImage * UIImageFromName(NSString *obj, UIImageRenderingMode renderingMode);
 
 FOUNDATION_EXPORT UIImage * UIImageObj(id obj);
+
+///保存到相册
+- (void)saveImageToPhotosAlbum:(void(^)(NSError *error))block;
+
 /// UIImage是否相等
 FOUNDATION_EXPORT bool UIImageEquelToImage(UIImage *image0, UIImage *image1);
 /// 获取第三方库bundle中图像资源

@@ -15,6 +15,9 @@ NS_ASSUME_NONNULL_BEGIN
 
 - (NSString *)valueForParamKey:(NSString *)paramKey;
 
+///保存视频到相册
+- (void)saveVideoToPhotosAlbum:(void(^)(NSError *error))block;
+
 @end
 
 NS_ASSUME_NONNULL_END

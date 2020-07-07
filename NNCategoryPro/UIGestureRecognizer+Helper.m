@@ -19,15 +19,17 @@
     objc_setAssociatedObject(self, @selector(funcName), actionName, OBJC_ASSOCIATION_RETAIN_NONATOMIC);
 }
 
-- (void)addActionBlock:(void(^)(UIGestureRecognizer *reco))actionBlock {
-    if (actionBlock) {
-        objc_setAssociatedObject(self, @selector(actionBlock), actionBlock, OBJC_ASSOCIATION_COPY_NONATOMIC);
-        [self addTarget:self action:@selector(p_invoke:)];
+- (void)addActionBlock:(void(^)(UIGestureRecognizer *reco))block {
+    if (!block) {
+        return;
     }
+
+    objc_setAssociatedObject(self, _cmd, block, OBJC_ASSOCIATION_COPY_NONATOMIC);
+    [self addTarget:self action:@selector(p_invoke:)];
 }
 
-- (void)p_invoke:(id)sender {
-    void(^block)(UIGestureRecognizer *reco) = objc_getAssociatedObject(self, @selector(actionBlock));
+- (void)p_invoke:(UIGestureRecognizer *)sender {
+    void(^block)(UIGestureRecognizer *reco) = objc_getAssociatedObject(self, @selector(addActionBlock:));
     if (block) {
         block(sender);
     }
@@ -37,7 +39,7 @@
  手势点返回的矩形
  */
 - (CGRect)cirlceRectBigCircle:(BOOL)bigCircle{
-    UIGestureRecognizer * recognizer = self;
+    UIGestureRecognizer *recognizer = self;
     CGPoint point = [recognizer locationInView:recognizer.view];
     CGRect circleRect = CGRectMake(point.x, point.y, 1.0, 1.0);
     if (bigCircle == false) {

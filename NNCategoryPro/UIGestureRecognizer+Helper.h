@@ -14,7 +14,7 @@ NS_ASSUME_NONNULL_BEGIN
 @property (nonatomic, strong) NSString *funcName;
 
 /// 动作回调
-- (void)addActionBlock:(void(^)(UIGestureRecognizer *reco))actionBlock;
+- (void)addActionBlock:(void(^)(UIGestureRecognizer *reco))block;
 
 - (CGRect)cirlceRectBigCircle:(BOOL)bigCircle;
 

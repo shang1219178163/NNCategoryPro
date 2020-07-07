@@ -548,29 +548,6 @@
     return supView;
 }
 
-/**
- 保存图像到相册
- */
-- (void)imageToSavedPhotosAlbum:(void(^)(NSError *error))block{
-    NSString *funcAbount = NSStringFromSelector(_cmd);
-    NSString *runtimeKey = RuntimeKeyFromParams(self, funcAbount);
-    
-    UIGraphicsBeginImageContextWithOptions(self.bounds.size, NO, 0);
-    CGContextRef ctx =  UIGraphicsGetCurrentContext();
-    [self.layer renderInContext:ctx];
-    UIImage *image = UIGraphicsGetImageFromCurrentImageContext();
-    if ([self isKindOfClass: UIImageView.class]) {
-        image = ((UIImageView *)self).image;
-    }
-    UIImageWriteToSavedPhotosAlbum(image,self,@selector(image:didFinishSavingWithError:contextInfo:),nil);
-    image.runtimeKey = runtimeKey;
-    
-    id obj = objc_getAssociatedObject(self, CFBridgingRetain(image.runtimeKey));
-    if (!obj) {
-        objc_setAssociatedObject(self, CFBridgingRetain(runtimeKey), block, OBJC_ASSOCIATION_COPY_NONATOMIC);
-    }
-}
-
 - (NSArray<__kindof UIView *> *)updateItems:(NSInteger)count aClassName:(NSString *)aClassName handler:(void(^)(__kindof UIView *obj))handler {
     if (count == 0) {
         return @[];
@@ -623,13 +600,6 @@
             handler(obj);
         }
     }];
-}
-
-- (void)image:(UIImage *)image didFinishSavingWithError:(NSError *)error contextInfo:(void *)contextInfo{
-    void(^block)(NSError *error) = objc_getAssociatedObject(self, CFBridgingRetain(image.runtimeKey));
-    if (block) {
-        block(error);
-    }
 }
 
 + (UIView *)createSectionView:(UITableView *)tableView

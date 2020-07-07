@@ -30,28 +30,30 @@
                                                         action:action];
         return barItem;
     }
-    UIBarButtonItem *barItem = [[UIBarButtonItem alloc] initWithTitle:obj
-                                                                style:style
-                                                               target:target
-                                                               action:action];
+    UIBarButtonItem *barItem = [[self alloc] initWithTitle:obj
+                                                     style:style
+                                                    target:target
+                                                    action:action];
     return barItem;
 }
 
-- (void)addActionBlock:(void (^)(UIBarButtonItem *item))actionBlock{
-    if (actionBlock) {
-        [self willChangeValueForKey:@"actionBlock"];
-        objc_setAssociatedObject(self, @selector(actionBlock), actionBlock, OBJC_ASSOCIATION_COPY);
-        // Sets up the action.
-        self.target = self;
-        self.action = @selector(p_invoke);
-        [self didChangeValueForKey:@"actionBlock"];
+- (void)addActionBlock:(void (^)(UIBarButtonItem *item))block{
+    if (!block) {
+        return;
     }
+    
+    [self willChangeValueForKey:@"block"];
+    objc_setAssociatedObject(self, _cmd, block, OBJC_ASSOCIATION_COPY_NONATOMIC);
+    // Sets up the action.
+    self.target = self;
+    self.action = @selector(p_invoke:);
+    [self didChangeValueForKey:@"block"];
 }
 
-- (void)p_invoke {
-    void(^block)(UIBarButtonItem *item) = objc_getAssociatedObject(self, @selector(actionBlock));
+- (void)p_invoke:(UIBarButtonItem *)sender {
+    void(^block)(UIBarButtonItem *item) = objc_getAssociatedObject(self, @selector(addActionBlock:));
     if (block) {
-        block(self);
+        block(sender);
     }
 }
 

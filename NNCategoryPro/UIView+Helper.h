@@ -89,8 +89,6 @@ NS_ASSUME_NONNULL_BEGIN
 
 - (__kindof UIView *)findSuperView:(NSString *)name;
 
-- (void)imageToSavedPhotosAlbum:(void(^)(NSError *error))block;
-
 - (NSArray<__kindof UIView *> *)updateItems:(NSInteger)count aClassName:(NSString *)aClassName handler:(void(^)(__kindof UIView *obj))handler;
 
 - (NSArray<__kindof UIButton *> *)updateButtonItems:(NSInteger)count aClassName:(NSString *)aClassName handler:(void(^)(__kindof UIButton *obj))handler;

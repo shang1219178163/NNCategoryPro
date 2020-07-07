@@ -29,4 +29,21 @@
     return [self.paramDic objectForKey:paramKey];
 }
 
+- (void)saveVideoToPhotosAlbum:(void(^)(NSError *error))block{
+    if (!self.path || [self.path isEqualToString:@""]) {
+        NSParameterAssert(!self.path || [self.path isEqualToString:@""]);
+        return;
+    }
+    
+    void *context = CFBridgingRetain([block copy]);
+    UISaveVideoAtPathToSavedPhotosAlbum(self.path, UIImage.class, @selector(videoAtPath:didFinishSavingWithError:contextInfo:), context);
+}
+
+- (void)video:(NSString *)videoPath didFinishSavingWithError:(NSError *)error contextInfo:(void *)contextInfo{
+    void(^block)(NSError *) = CFBridgingRelease(contextInfo);
+    if (block) {
+        block(error);
+    }
+}
+
 @end

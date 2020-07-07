@@ -62,6 +62,20 @@ UIImage * UIImageObj(id obj){
     return nil;
 }
 
+- (void)saveImageToPhotosAlbum:(void(^)(NSError *error))block{
+    NSString *funcAbount = NSStringFromSelector(_cmd);
+    
+    void *context = CFBridgingRetain([block copy]);
+    UIImageWriteToSavedPhotosAlbum(self, UIImage.class, @selector(image:didFinishSavingWithError:contextInfo:), context);
+}
+
+- (void)image:(UIImage *)image didFinishSavingWithError:(NSError *)error contextInfo:(void *)contextInfo{
+    void(^block)(NSError *) = CFBridgingRelease(contextInfo);
+    if (block) {
+        block(error);
+    }
+}
+
 bool UIImageEquelToImage(UIImage *image0, UIImage *image1){
     NSData *data0 = UIImagePNGRepresentation(image0);
     NSData *data1 = UIImagePNGRepresentation(image1);
