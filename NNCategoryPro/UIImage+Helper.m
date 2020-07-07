@@ -62,9 +62,7 @@ UIImage * UIImageObj(id obj){
     return nil;
 }
 
-- (void)saveImageToPhotosAlbum:(void(^)(NSError *error))block{
-    NSString *funcAbount = NSStringFromSelector(_cmd);
-    
+- (void)saveImageToPhotosAlbum:(void(^)(NSError *error))block{    
     void *context = CFBridgingRetain([block copy]);
     UIImageWriteToSavedPhotosAlbum(self, UIImage.class, @selector(image:didFinishSavingWithError:contextInfo:), context);
 }
