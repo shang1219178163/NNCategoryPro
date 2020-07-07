@@ -44,36 +44,47 @@
 
 #pragma mark -高阶函数
 - (NSDictionary *)map:(NSDictionary *(NS_NOESCAPE ^)(id key, id obj))block{
+    if (!block) {
+        NSParameterAssert(block != nil);
+        return self;
+    }
+    
     __block NSMutableDictionary *mdic = [NSMutableDictionary dictionary];
     [self enumerateKeysAndObjectsUsingBlock:^(id  _Nonnull key, id  _Nonnull obj, BOOL * _Nonnull stop) {
-        if (block) {
-            NSDictionary *blockResult = block(key, obj);
-            if (blockResult) {
-                [mdic addEntriesFromDictionary:blockResult];
-            }
+        NSDictionary *value = block(key, obj);
+        if (value) {
+            [mdic addEntriesFromDictionary:value];
         }
     }];
     return mdic.copy;
 }
 
 - (NSDictionary *)filter:(BOOL (NS_NOESCAPE ^)(id key, id obj))block{
+    if (!block) {
+        NSParameterAssert(block != nil);
+        return self;
+    }
+    
     __block NSMutableDictionary *mdic = [NSMutableDictionary dictionary];
      [self enumerateKeysAndObjectsUsingBlock:^(id  _Nonnull key, id  _Nonnull obj, BOOL * _Nonnull stop) {
-         if (block && block(key, obj) == true) {
-             [mdic setObject:obj forKey:key];
+         if (block(key, obj) == true) {
+             mdic[key] = obj;
          }
      }];
     return mdic.copy;
 }
 
 - (NSDictionary *)compactMapValues:(id (NS_NOESCAPE ^)(id obj))block{
+    if (!block) {
+        NSParameterAssert(block != nil);
+        return self;
+    }
+    
     __block NSMutableDictionary *mdic = [NSMutableDictionary dictionary];
     [self enumerateKeysAndObjectsUsingBlock:^(id  _Nonnull key, id  _Nonnull obj, BOOL * _Nonnull stop) {
-        if (block) {
-            id blockResult = block(obj);
-            if (blockResult) {
-                mdic[key] = blockResult;
-            }
+        id value = block(obj);
+        if (value) {
+            mdic[key] = value;
         }
     }];
     return mdic.copy;
