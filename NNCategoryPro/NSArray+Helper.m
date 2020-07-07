@@ -52,7 +52,10 @@
 
 #pragma mark -高阶函数
 - (NSArray *)map:(id (NS_NOESCAPE ^)(id obj, NSUInteger idx))block{
-    NSParameterAssert(block != nil);
+    if (!block) {
+        NSParameterAssert(block != nil);
+        return self;
+    }
     
     __block NSMutableArray *marr = [NSMutableArray array];
     [self enumerateObjectsUsingBlock:^(id _Nonnull obj, NSUInteger idx, BOOL * _Nonnull stop) {
@@ -66,8 +69,11 @@
 }
 
 - (NSArray *)compactMap:(id (NS_NOESCAPE ^)(id obj, NSUInteger idx))block{
-    NSParameterAssert(block != nil);
-
+    if (!block) {
+        NSParameterAssert(block != nil);
+        return self;
+    }
+    
     __block NSMutableArray *marr = [NSMutableArray array];
     [self enumerateObjectsUsingBlock:^(id _Nonnull obj, NSUInteger idx, BOOL * _Nonnull stop) {
         id value = block(obj, idx) ? : obj;
@@ -82,7 +88,10 @@
 }
 
 - (NSArray *)filter:(BOOL(NS_NOESCAPE ^)(id obj, NSUInteger idx))block{
-    NSParameterAssert(block != nil);
+    if (!block) {
+        NSParameterAssert(block != nil);
+        return self;
+    }
 
     __block NSMutableArray *marr = [NSMutableArray array];
     [self enumerateObjectsUsingBlock:^(id _Nonnull obj, NSUInteger idx, BOOL * _Nonnull stop) {
@@ -94,7 +103,10 @@
 }
 
 - (NSNumber *)reduce:(NSNumber *)initial block:(NSNumber *(NS_NOESCAPE ^)(NSNumber *result, NSNumber *obj))block{
-    NSParameterAssert(block != nil);
+    if (!block) {
+        NSParameterAssert(block != nil);
+        return initial;
+    }
 
     __block NSNumber *value = initial;
     [self enumerateObjectsUsingBlock:^(NSNumber *_Nonnull obj, NSUInteger idx, BOOL * _Nonnull stop) {
