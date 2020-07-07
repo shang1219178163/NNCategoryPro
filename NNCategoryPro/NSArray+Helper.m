@@ -76,7 +76,7 @@
     
     __block NSMutableArray *marr = [NSMutableArray array];
     [self enumerateObjectsUsingBlock:^(id _Nonnull obj, NSUInteger idx, BOOL * _Nonnull stop) {
-        id value = block(obj, idx) ? : obj;
+        id value = block(obj, idx);
         if ([value isKindOfClass:NSArray.class]) {
             [marr addObjectsFromArray:value];
         } else {
