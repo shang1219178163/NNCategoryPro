@@ -47,15 +47,32 @@ static NNForwardingTarget *_target = nil;
         _target = [NNForwardingTarget new];;
 
         if (isOpenCashProtector) { 
+            swizzleInstanceMethod(NSClassFromString(@"__NSArrayI"),
+                                  @selector(objectAtIndex:), NSSelectorFromString(@"safe_objectAtIndex:"));
+            swizzleInstanceMethod(NSClassFromString(@"__NSArrayI"),
+                                  @selector(objectAtIndexedSubscript:), @selector(safe_objectAtIndexedSubscript:));
+            
+            swizzleInstanceMethod(NSClassFromString(@"__NSArrayM"),
+                                  @selector(objectAtIndex:), NSSelectorFromString(@"safe_objectAtIndex:"));
+            swizzleInstanceMethod(NSClassFromString(@"__NSArrayM"),
+                                  @selector(objectAtIndexedSubscript:), NSSelectorFromString(@"safe_objectAtIndexedSubscript:"));
+            swizzleInstanceMethod(NSClassFromString(@"__NSArrayM"),
+                                  @selector(addObject:), NSSelectorFromString(@"safe_addObject:"));
+            swizzleInstanceMethod(NSClassFromString(@"__NSArrayM"),
+                                  @selector(insertObject:atIndex:), NSSelectorFromString(@"safe_insertObject:atIndex:"));
+            
+            
             //NSClassFromString(@"__NSDictionaryM"),objc_getClass("__NSDictionaryM")
-            swizzleInstanceMethod(NSClassFromString(@"__NSDictionaryM"), @selector(setObject:forKey:), NSSelectorFromString(@"safe_setObject:forKey:"));
+            swizzleInstanceMethod(NSClassFromString(@"__NSDictionaryM"),
+                                  @selector(setObject:forKey:), NSSelectorFromString(@"safe_setObject:forKey:"));
+            swizzleInstanceMethod(NSClassFromString(@"__NSDictionaryM"),
+                                  @selector(setObject:forKeyedSubscript:), @selector(safe_setObject:forKeyedSubscript:));
+            swizzleInstanceMethod(NSClassFromString(@"__NSDictionaryM"),
+                                  @selector(removeObjectForKey:), @selector(safe_removeObjectForKey:));
             
-            swizzleInstanceMethod(NSClassFromString(@"__NSArrayI"), @selector(objectAtIndex:), NSSelectorFromString(@"safe_objectAtIndex:"));
-            swizzleInstanceMethod(NSClassFromString(@"__NSArrayM"), @selector(objectAtIndex:), NSSelectorFromString(@"safe_objectAtIndex:"));
-            swizzleInstanceMethod(NSClassFromString(@"__NSArrayM"), @selector(addObject:), NSSelectorFromString(@"safe_addObject:"));
-            swizzleInstanceMethod(NSClassFromString(@"__NSArrayM"), @selector(insertObject:atIndex:), NSSelectorFromString(@"safe_insertObject:atIndex:"));
             
-            swizzleInstanceMethod(self.class, @selector(forwardingTargetForSelector:), @selector(swz_forwardingTargetForSelector:));
+            swizzleInstanceMethod(self.class,
+                                  @selector(forwardingTargetForSelector:), @selector(swz_forwardingTargetForSelector:));
         }
     });
 }
@@ -88,28 +105,51 @@ static NNForwardingTarget *_target = nil;
 
 @end
 
+
 @implementation NSMutableDictionary (CashProtector)
 
-- (void)safe_setObject:(nullable id)anObject forKey:(nullable id <NSCopying>)aKey{
-    if (!anObject || !aKey) {
-//        DDLog(@"anObject和aKey不能为nil");
-        if (isOpenAssert) NSAssert(anObject && aKey, @"anObject和aKey不能为nil");
-        return;
+- (void)safe_setObject:(id)anObject forKey:(id <NSCopying>)aKey{
+    if (isOpenAssert) NSAssert(anObject && aKey, @"anObject和aKey不能为nil");
+    if (anObject && aKey) {
+        [self safe_setObject:anObject forKey:aKey];
     }
-    [self safe_setObject:anObject forKey:aKey];
+}
+
+
+- (void)safe_setObject:(id)anObject forKeyedSubscript:(id <NSCopying>)aKey {
+    if (isOpenAssert) NSAssert(anObject && aKey, @"anObject和aKey不能为nil");
+    if (anObject && aKey) {
+        [self safe_setObject:anObject forKeyedSubscript:aKey];
+    }
+}
+
+- (void)safe_removeObjectForKey:(id <NSCopying>)aKey {
+    if (isOpenAssert) NSAssert(aKey, @"aKey不能为nil");
+    if (aKey) {
+        [self safe_removeObjectForKey:aKey];
+    }
 }
 
 @end
+
 
 @implementation NSArray (CashProtector)
 
 - (id)safe_objectAtIndex:(NSUInteger)index{
     if (index >= self.count) {
-//        DDLog(@"index越界");
         if (isOpenAssert) NSAssert(index < self.count, @"index越界");
         return nil;
     }
     return [self safe_objectAtIndex:index];
+}
+
+- (id)safe_objectAtIndexedSubscript:(NSUInteger)index {
+    NSUInteger count = self.count;
+    if (count == 0 || index >= count) {
+        if (isOpenAssert) NSAssert(index < self.count, @"index越界");
+        return nil;
+    }
+    return [self safe_objectAtIndexedSubscript:index];
 }
 
 @end
@@ -117,24 +157,6 @@ static NNForwardingTarget *_target = nil;
 
 @implementation NSMutableArray (CashProtector)
 
-- (void)safe_addObject:(id)anObject{
-    if(nil == anObject){
-//        DDLog(@"anObject不能为nil");
-        if (isOpenAssert) NSAssert(anObject, @"anObject不能为nil");
-        return ;
-    }
-    [self safe_addObject:anObject];
-}
-
-- (void)safe_insertObject:(id)anObject atIndex:(NSUInteger)index{
-    if(nil == anObject){
-//        DDLog(@"anObject不能为nil");
-        if (isOpenAssert) NSAssert(anObject, @"anObject不能为nil");
-        return ;
-    }
-    [self safe_insertObject:anObject atIndex:index];
-}
-
 - (id)safe_objectAtIndex:(NSUInteger)index{
     if (index >= self.count) {
 //        DDLog(@"index越界");
@@ -143,6 +165,31 @@ static NNForwardingTarget *_target = nil;
     }
     return [self safe_objectAtIndex:index];
 }
+
+- (id)safe_objectAtIndexedSubscript:(NSUInteger)index {
+    NSUInteger count = self.count;
+    if (count == 0 || index >= count) {
+        return nil;
+    }
+    return [self safe_objectAtIndexedSubscript:index];
+}
+
+- (void)safe_addObject:(id)anObject{
+    if(!anObject){
+        if (isOpenAssert) NSAssert(anObject, @"anObject不能为nil");
+        return ;
+    }
+    [self safe_addObject:anObject];
+}
+
+- (void)safe_insertObject:(id)anObject atIndex:(NSUInteger)index{
+    if(!anObject){
+        if (isOpenAssert) NSAssert(anObject, @"anObject不能为nil");
+        return ;
+    }
+    [self safe_insertObject:anObject atIndex:index];
+}
+
 
 @end
 
