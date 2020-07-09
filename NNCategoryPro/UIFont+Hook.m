@@ -17,11 +17,11 @@ NSString * const kPingFangRegular    = @"PingFangSC-Regular";
 NSString * const kPingFangThin       = @"PingFangSC-Thin";
 
 @implementation UIFont (Hook)
-
+ 
 + (void)load{
     static dispatch_once_t onceToken;
     dispatch_once(&onceToken, ^{
-        SwizzleMethodInstance(self.class, NSSelectorFromString(@"systemFont:"), NSSelectorFromString(@"hook_systemFont:"));
+        swizzleInstanceMethod(self.class, NSSelectorFromString(@"systemFont:"), NSSelectorFromString(@"hook_systemFont:"));
         
     });
 }

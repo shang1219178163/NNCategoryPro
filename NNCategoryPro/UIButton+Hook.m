@@ -9,13 +9,13 @@
 #import "NSObject+Hook.h"
 
 @implementation UIButton (Hook)
-
+ 
 + (void)load{
     static dispatch_once_t onceToken;
     dispatch_once(&onceToken, ^{
-        SwizzleMethodInstance(self.class, @selector(sendAction:to:forEvent:), @selector(hook_sendAction:to:forEvent:));
-        SwizzleMethodInstance(self.class, @selector(setImage:forState:), @selector(hook_setImage:forState:));
-        SwizzleMethodInstance(self.class, @selector(hook_setBackgroundImage:forState:), @selector(hook_setBackgroundImage:forState:));
+        swizzleInstanceMethod(self.class, @selector(sendAction:to:forEvent:), @selector(hook_sendAction:to:forEvent:));
+        swizzleInstanceMethod(self.class, @selector(setImage:forState:), @selector(hook_setImage:forState:));
+        swizzleInstanceMethod(self.class, @selector(hook_setBackgroundImage:forState:), @selector(hook_setBackgroundImage:forState:));
     });
 }
 

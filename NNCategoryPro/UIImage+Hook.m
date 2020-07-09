@@ -15,7 +15,7 @@
 + (void)load{
     static dispatch_once_t onceToken;
     dispatch_once(&onceToken, ^{
-        SwizzleMethodClass(self.class, @selector(imageNamed:), @selector(hook_imageNamed:));
+        swizzleClassMethod(self.class, @selector(imageNamed:), @selector(hook_imageNamed:));
 
     });
 }

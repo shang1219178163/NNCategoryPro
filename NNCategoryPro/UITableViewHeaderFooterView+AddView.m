@@ -170,8 +170,8 @@ labelLeftSub, labelLeftMark, labelLeftSubMark, btn;
     return imgV;
 }
 
-- (void)setIndicatorView:(UIImageView *)viewIndicator{
-    objc_setAssociatedObject(self, @selector(indicatorView), viewIndicator, OBJC_ASSOCIATION_RETAIN_NONATOMIC);
+- (void)setIndicatorView:(UIImageView *)indicatorView{
+    objc_setAssociatedObject(self, @selector(indicatorView), indicatorView, OBJC_ASSOCIATION_RETAIN_NONATOMIC);
 }
 
 -(UIImageView *)imgViewLeft{

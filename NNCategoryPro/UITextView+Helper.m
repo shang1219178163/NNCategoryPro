@@ -12,15 +12,13 @@
 #import "NSAttributedString+Helper.h"
 
 @implementation UITextView (Helper)
+ 
++ (void)load{
+    static dispatch_once_t onceToken;
+    dispatch_once(&onceToken, ^{
+        swizzleInstanceMethod(self.class,  NSSelectorFromString(@"dealloc"), @selector(swz_Dealloc));
 
-+(void)initialize{
-    if (self == self.class) {
-        static dispatch_once_t onceToken;
-        dispatch_once(&onceToken, ^{
-            SwizzleMethodInstance(self.class,  NSSelectorFromString(@"dealloc"), @selector(swz_Dealloc));
-
-        });
-    }
+    });
 }
 
 - (void)swz_Dealloc {

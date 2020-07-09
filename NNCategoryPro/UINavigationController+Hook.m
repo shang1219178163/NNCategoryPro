@@ -11,11 +11,11 @@
 #import "UIViewController+Helper.h"
 
 @implementation UINavigationController (Hook)
-
+ 
 + (void)load{
     static dispatch_once_t onceToken;
     dispatch_once(&onceToken, ^{
-        SwizzleMethodInstance(self.class, @selector(pushViewController:animated:), @selector(hook_PushViewController:animated:));
+        swizzleInstanceMethod(self.class, @selector(pushViewController:animated:), @selector(hook_PushViewController:animated:));
         
     });
 }

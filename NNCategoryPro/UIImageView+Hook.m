@@ -9,11 +9,11 @@
 #import "NSObject+Hook.h"
 
 @implementation UIImageView (Hook)
-
+ 
 + (void)load{
     static dispatch_once_t onceToken;
     dispatch_once(&onceToken, ^{
-        SwizzleMethodInstance(self.class, NSSelectorFromString(@"setTintColor:"), NSSelectorFromString(@"hook_setTintColor:"));
+        swizzleInstanceMethod(self.class, NSSelectorFromString(@"setTintColor:"), NSSelectorFromString(@"hook_setTintColor:"));
 
     });
     

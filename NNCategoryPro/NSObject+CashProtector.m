@@ -46,16 +46,16 @@ static NNForwardingTarget *_target = nil;
     dispatch_once(&onceToken, ^{
         _target = [NNForwardingTarget new];;
 
-        if (isOpenCashProtector) {
+        if (isOpenCashProtector) { 
             //NSClassFromString(@"__NSDictionaryM"),objc_getClass("__NSDictionaryM")
-            SwizzleMethodInstance(NSClassFromString(@"__NSDictionaryM"), @selector(setObject:forKey:), NSSelectorFromString(@"safe_setObject:forKey:"));
+            swizzleInstanceMethod(NSClassFromString(@"__NSDictionaryM"), @selector(setObject:forKey:), NSSelectorFromString(@"safe_setObject:forKey:"));
             
-            SwizzleMethodInstance(NSClassFromString(@"__NSArrayI"), @selector(objectAtIndex:), NSSelectorFromString(@"safe_objectAtIndex:"));
-            SwizzleMethodInstance(NSClassFromString(@"__NSArrayM"), @selector(objectAtIndex:), NSSelectorFromString(@"safe_objectAtIndex:"));
-            SwizzleMethodInstance(NSClassFromString(@"__NSArrayM"), @selector(addObject:), NSSelectorFromString(@"safe_addObject:"));
-            SwizzleMethodInstance(NSClassFromString(@"__NSArrayM"), @selector(insertObject:atIndex:), NSSelectorFromString(@"safe_insertObject:atIndex:"));
+            swizzleInstanceMethod(NSClassFromString(@"__NSArrayI"), @selector(objectAtIndex:), NSSelectorFromString(@"safe_objectAtIndex:"));
+            swizzleInstanceMethod(NSClassFromString(@"__NSArrayM"), @selector(objectAtIndex:), NSSelectorFromString(@"safe_objectAtIndex:"));
+            swizzleInstanceMethod(NSClassFromString(@"__NSArrayM"), @selector(addObject:), NSSelectorFromString(@"safe_addObject:"));
+            swizzleInstanceMethod(NSClassFromString(@"__NSArrayM"), @selector(insertObject:atIndex:), NSSelectorFromString(@"safe_insertObject:atIndex:"));
             
-            SwizzleMethodInstance(self.class, @selector(forwardingTargetForSelector:), @selector(swz_forwardingTargetForSelector:));
+            swizzleInstanceMethod(self.class, @selector(forwardingTargetForSelector:), @selector(swz_forwardingTargetForSelector:));
         }
     });
 }

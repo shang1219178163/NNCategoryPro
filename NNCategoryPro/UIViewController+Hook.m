@@ -9,15 +9,15 @@
 #import "NSObject+Hook.h"
 
 @implementation UIViewController (Hook)
-
+ 
 + (void)load{
     static dispatch_once_t onceToken;
     dispatch_once(&onceToken, ^{
-        SwizzleMethodInstance(self.class, @selector(viewDidLoad), @selector(hook_viewDidLoad));
-        SwizzleMethodInstance(self.class, @selector(viewWillAppear:), @selector(hook_viewWillAppear:));
-        SwizzleMethodInstance(self.class, @selector(viewDidDisappear:), @selector(hook_viewDidDisappear:));
+        swizzleInstanceMethod(self.class, @selector(viewDidLoad), @selector(hook_viewDidLoad));
+        swizzleInstanceMethod(self.class, @selector(viewWillAppear:), @selector(hook_viewWillAppear:));
+        swizzleInstanceMethod(self.class, @selector(viewDidDisappear:), @selector(hook_viewDidDisappear:));
         
-        SwizzleMethodInstance(self.class, @selector(presentViewController:animated:completion:), @selector(hook_presentViewController:animated:completion:));
+        swizzleInstanceMethod(self.class, @selector(presentViewController:animated:completion:), @selector(hook_presentViewController:animated:completion:));
 
     });
 }

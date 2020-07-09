@@ -10,7 +10,7 @@
 
 @implementation NSObject (Hook)
 
-BOOL SwizzleMethodInstance(Class clz, SEL origSelector, SEL replSelector){
+BOOL swizzleInstanceMethod(Class clz, SEL origSelector, SEL replSelector){
     //    NSLog(@"%@,%@,%@",self,self.class,object_getClass(self));
     if (!clz || !origSelector || !replSelector) {
         NSLog(@"Nil Parameter(s) found when swizzling.");
@@ -35,7 +35,7 @@ BOOL SwizzleMethodInstance(Class clz, SEL origSelector, SEL replSelector){
     return YES;
 }
 
-BOOL SwizzleMethodClass(Class clz, SEL origSelector, SEL replSelector){
+BOOL swizzleClassMethod(Class clz, SEL origSelector, SEL replSelector){
     //    NSLog(@"%@,%@,%@",self,self.class,object_getClass(self));
     if (!clz || !origSelector || !replSelector) {
         NSLog(@"Nil Parameter(s) found when swizzling.");
@@ -59,12 +59,12 @@ BOOL SwizzleMethodClass(Class clz, SEL origSelector, SEL replSelector){
     return YES;
 }
 
-+ (BOOL)swizzleMethodInstanceOrigSel:(SEL)origSelector replSel:(SEL)replSelector{
-    return SwizzleMethodInstance(self.class, origSelector, replSelector);
++ (BOOL)swizzleInstanceMethodOrigSel:(SEL)origSelector replSel:(SEL)replSelector{
+    return swizzleInstanceMethod(self.class, origSelector, replSelector);
 }
 
-+ (BOOL)swizzleMethodClassOrigSel:(SEL)origSelector replSel:(SEL)replSelector{
-    return SwizzleMethodInstance(self.class, origSelector, replSelector);
++ (BOOL)swizzleClassMethodOrigSel:(SEL)origSelector replSel:(SEL)replSelector{
+    return swizzleInstanceMethod(self.class, origSelector, replSelector);
 }
 
 - (BOOL)isMethodOverride:(Class)clz selector:(SEL)sel {
