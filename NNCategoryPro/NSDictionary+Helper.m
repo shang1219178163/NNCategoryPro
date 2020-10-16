@@ -66,11 +66,11 @@
     }
     
     __block NSMutableDictionary *mdic = [NSMutableDictionary dictionary];
-     [self enumerateKeysAndObjectsUsingBlock:^(id  _Nonnull key, id  _Nonnull obj, BOOL * _Nonnull stop) {
-         if (block(key, obj) == true) {
-             mdic[key] = obj;
-         }
-     }];
+    [self enumerateKeysAndObjectsUsingBlock:^(id  _Nonnull key, id  _Nonnull obj, BOOL * _Nonnull stop) {
+        if (block(key, obj) == true) {
+            mdic[key] = obj;
+        }
+    }];
     return mdic.copy;
 }
 
@@ -91,6 +91,18 @@
 }
 
 #pragma mark -其他方法
+
+- (NSDictionary *)replaceNullWithValue:(id)replaceValue{
+    __block NSMutableDictionary *mdic = [NSMutableDictionary dictionary];
+    [self enumerateKeysAndObjectsUsingBlock:^(id  _Nonnull key, id  _Nonnull obj, BOOL * _Nonnull stop) {
+        id value = obj;
+        if ([obj isEqual: NSNull.null]) {
+            value = replaceValue;
+        }
+        [mdic setObject:value forKey:key];
+    }];
+    return mdic;
+}
 
 + (NSDictionary *)dictionaryFromPlist:(NSString *)plistName {
     if ([plistName containsString:@".plist"]) {

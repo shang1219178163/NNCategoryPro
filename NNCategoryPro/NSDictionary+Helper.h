@@ -31,6 +31,8 @@ filter 高阶函数
 compactMapValues 高阶函数
 */
 - (NSDictionary *)compactMapValues:(id (NS_NOESCAPE ^)(ObjectType obj))block;
+/// 取代空值(使用NSUserDaults保存本地时，如果其中一个字段的value为NULL值，就会出现崩溃。)
+- (NSDictionary *)replaceNullWithValue:(id)replaceValue;
 
 /// 读取项目Plist文件(在TARGETS里的CopyBundleResources中必须存在)
 + (NSDictionary *)dictionaryFromPlist:(NSString *)plistName;
