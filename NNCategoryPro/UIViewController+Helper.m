@@ -116,6 +116,13 @@ UINavigationController *UINavCtrFromObj(id obj){
     }
 }
 
+- (void)present:(BOOL)animated completion:(void (^ __nullable)(void))completion{
+    UIWindow *keyWindow = UIApplication.sharedApplication.delegate.window;
+    dispatch_async(dispatch_get_main_queue(), ^{
+        [keyWindow.rootViewController presentViewController:self animated:animated completion:completion];
+    });
+}
+
 - (UISearchController *)createSearchVC:(UIViewController *)resultsController {
     self.definesPresentationContext = true;
     
@@ -249,10 +256,10 @@ UINavigationController *UINavCtrFromObj(id obj){
       animated:(BOOL)animated
          block:(void(^)(__kindof UIViewController *vc))block{
     UIViewController *controller = [[NSClassFromString(vcName) alloc]init];
-    return [self pushVC:controller.class
-                  title:title
-               animated:animated
-                  block:block];
+    return [self pushVCType:controller.class
+                      title:title
+                   animated:animated
+                      block:block];
 }
 
 - (void)pushVCType:(Class)classVC

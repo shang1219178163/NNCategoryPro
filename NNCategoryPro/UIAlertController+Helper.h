@@ -53,6 +53,16 @@ FOUNDATION_EXPORT NSString * const kAlertActionColor;
                            msg:(NSString *_Nullable)msg
                        handler:(void(^)(UIAlertController *alertVC, UIAlertAction * _Nullable action))handler;
 
+- (instancetype)addActionTitle:(NSString *)title style:(UIAlertActionStyle)style handler:(void(^)(UIAlertAction *action))handler;
+
+- (instancetype)addActionTitles:(NSArray<NSString *> *)titles handler:(void(^)(UIAlertAction *action))handler;
+
+- (instancetype)addTextFieldPlaceholder:(NSString *)placeholder handler:(void(^)(UITextField *textField))handler;
+
+- (instancetype)addTextFieldPlaceholders:(NSArray<NSString *> *)placeholders handler:(void(^)(UITextField *textField))handler;
+
+- (void)showAlert:(BOOL)animated completion:(void (^ __nullable)(void))completion;
+    
 + (void)callPhone:(NSString *)phoneNumber;
 
 /// 设置标题颜色

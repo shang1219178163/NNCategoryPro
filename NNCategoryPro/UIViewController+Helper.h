@@ -34,6 +34,8 @@ FOUNDATION_EXPORT UINavigationController * _Nullable UINavCtrFromObj(id obj);
 
 - (void)setupContentInsetAdjustmentBehavior:(BOOL)isAutomatic;
 
+- (void)present:(BOOL)animated completion:(void (^ __nullable)(void))completion;
+
 /// [源]创建UISearchController(设置IQKeyboardManager.shared.enable = false;//避免searchbar下移)
 - (UISearchController *)createSearchVC:(UIViewController *)resultsController;
 

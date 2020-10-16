@@ -162,6 +162,55 @@ NSString * const kAlertActionColor = @"titleTextColor";
                                      handler:handler];
 }
 
+- (instancetype)addActionTitle:(NSString *)title style:(UIAlertActionStyle)style handler:(void(^)(UIAlertAction *action))handler {
+    [self addAction:[UIAlertAction actionWithTitle:title style:style handler:handler]];
+    return self;
+}
+
+- (instancetype)addActionTitles:(NSArray<NSString *> *)titles handler:(void(^)(UIAlertAction *action))handler {
+    [titles enumerateObjectsUsingBlock:^(NSString * _Nonnull title, NSUInteger idx, BOOL * _Nonnull stop) {
+        UIAlertActionStyle style = [title isEqualToString:@"取消"] ? UIAlertActionStyleCancel : UIAlertActionStyleDefault;
+        [self addAction:[UIAlertAction actionWithTitle:title style:style handler:handler]];
+    }];
+    return self;
+}
+
+- (instancetype)addTextFieldPlaceholder:(NSString *)placeholder handler:(nonnull void (^)(UITextField * _Nonnull))handler {
+    [self addTextFieldWithConfigurationHandler:^(UITextField * _Nonnull textField) {
+        textField.placeholder = placeholder;
+        if (handler) {
+            handler(textField);
+        }
+    }];
+    return self;
+}
+
+- (instancetype)addTextFieldPlaceholders:(NSArray<NSString *> *)placeholders handler:(void(^)(UITextField *textField))handler {
+    [placeholders enumerateObjectsUsingBlock:^(NSString * _Nonnull placeholder, NSUInteger idx, BOOL * _Nonnull stop) {
+        [self addTextFieldWithConfigurationHandler:^(UITextField * _Nonnull textField) {
+            textField.placeholder = placeholder;
+            if (handler) {
+                handler(textField);
+            }
+        }];
+    }];
+    return self;
+}
+
+- (void)showAlert:(BOOL)animated completion:(void (^ __nullable)(void))completion{
+    UIWindow *keyWindow = UIApplication.sharedApplication.delegate.window;
+    if (self.actions.count == 0) {
+        [keyWindow.rootViewController presentViewController:self animated:animated completion:^{
+            dispatch_async(dispatch_get_main_queue(), ^{
+                [self dismissViewControllerAnimated:animated completion:completion];
+            });
+        }];
+    } else {
+        [keyWindow.rootViewController presentViewController:self animated:animated completion:completion];
+    }
+}
+
+
 + (void)callPhone:(NSString *)phoneNumber{
     NSCharacterSet *set = [NSCharacterSet characterSetWithCharactersInString:@" _转"];
     phoneNumber = [phoneNumber stringByTrimmingCharactersInSet:set];
