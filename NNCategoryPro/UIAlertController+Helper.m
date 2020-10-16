@@ -19,6 +19,49 @@ NSString * const kAlertActionColor = @"titleTextColor";
 
 @implementation UIAlertController (Helper)
 
+- (UIAlertController * _Nonnull (^)(NSArray<NSString *> * _Nonnull, void (^ _Nonnull)(UIAlertAction * _Nonnull)))nn_addAction{
+    return ^(NSArray<NSString *> *titles, void(^handler)(UIAlertAction *action)){
+        [titles enumerateObjectsUsingBlock:^(NSString * _Nonnull title, NSUInteger idx, BOOL * _Nonnull stop) {
+            UIAlertActionStyle style = [title isEqualToString:@"取消"] ? UIAlertActionStyleCancel : UIAlertActionStyleDefault;
+            [self addAction:[UIAlertAction actionWithTitle:title style:style handler:handler]];
+        }];
+        return self;
+    };
+}
+
+- (UIAlertController * _Nonnull (^)(NSArray<NSString *> * _Nonnull, void (^ _Nonnull)(UITextField * _Nonnull)))nn_addTextField{
+    return ^(NSArray<NSString *> *placeholders, void(^handler)(UITextField *action)){
+        [placeholders enumerateObjectsUsingBlock:^(NSString * _Nonnull placeholder, NSUInteger idx, BOOL * _Nonnull stop) {
+            [self addTextFieldWithConfigurationHandler:^(UITextField * _Nonnull textField) {
+                textField.placeholder = placeholder;
+                if (handler) {
+                    handler(textField);
+                }
+            }];
+        }];
+        return self;
+    };
+}
+
+- (UIAlertController * _Nonnull (^)(BOOL, void (^ _Nullable)(void)))nn_present{
+    return ^(BOOL animated, void(^completion)(void)){
+        UIWindow *keyWindow = UIApplication.sharedApplication.delegate.window;
+
+        dispatch_async(dispatch_get_main_queue(), ^{
+            if (self.actions.count == 0) {
+                [keyWindow.rootViewController presentViewController:self animated:animated completion:^{
+                    dispatch_after(dispatch_time(DISPATCH_TIME_NOW, (int64_t)(kDurationToast * NSEC_PER_SEC)), dispatch_get_main_queue(), ^{
+                        [self dismissViewControllerAnimated:animated completion:completion];
+                    });
+                }];
+            } else {
+                [keyWindow.rootViewController presentViewController:self animated:animated completion:completion];
+            }
+        });
+        return self;
+    };
+}
+
 + (instancetype)createAlertTitle:(NSString * _Nullable)title
                              msg:(NSString *_Nullable)msg
                     placeholders:(NSArray *_Nullable)placeholders
@@ -162,40 +205,6 @@ NSString * const kAlertActionColor = @"titleTextColor";
                                      handler:handler];
 }
 
-- (instancetype)addActionTitle:(NSString *)title style:(UIAlertActionStyle)style handler:(void(^)(UIAlertAction *action))handler {
-    [self addAction:[UIAlertAction actionWithTitle:title style:style handler:handler]];
-    return self;
-}
-
-- (instancetype)addActionTitles:(NSArray<NSString *> *)titles handler:(void(^)(UIAlertAction *action))handler {
-    [titles enumerateObjectsUsingBlock:^(NSString * _Nonnull title, NSUInteger idx, BOOL * _Nonnull stop) {
-        UIAlertActionStyle style = [title isEqualToString:@"取消"] ? UIAlertActionStyleCancel : UIAlertActionStyleDefault;
-        [self addAction:[UIAlertAction actionWithTitle:title style:style handler:handler]];
-    }];
-    return self;
-}
-
-- (instancetype)addTextFieldPlaceholder:(NSString *)placeholder handler:(nonnull void (^)(UITextField * _Nonnull))handler {
-    [self addTextFieldWithConfigurationHandler:^(UITextField * _Nonnull textField) {
-        textField.placeholder = placeholder;
-        if (handler) {
-            handler(textField);
-        }
-    }];
-    return self;
-}
-
-- (instancetype)addTextFieldPlaceholders:(NSArray<NSString *> *)placeholders handler:(void(^)(UITextField *textField))handler {
-    [placeholders enumerateObjectsUsingBlock:^(NSString * _Nonnull placeholder, NSUInteger idx, BOOL * _Nonnull stop) {
-        [self addTextFieldWithConfigurationHandler:^(UITextField * _Nonnull textField) {
-            textField.placeholder = placeholder;
-            if (handler) {
-                handler(textField);
-            }
-        }];
-    }];
-    return self;
-}
 
 - (void)showAlert:(BOOL)animated completion:(void (^ __nullable)(void))completion{
     UIWindow *keyWindow = UIApplication.sharedApplication.delegate.window;
@@ -209,6 +218,7 @@ NSString * const kAlertActionColor = @"titleTextColor";
         [keyWindow.rootViewController presentViewController:self animated:animated completion:completion];
     }
 }
+
 
 
 + (void)callPhone:(NSString *)phoneNumber{

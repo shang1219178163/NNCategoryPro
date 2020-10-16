@@ -18,6 +18,12 @@ FOUNDATION_EXPORT NSString * const kAlertVCMessage;
 FOUNDATION_EXPORT NSString * const kAlertActionColor;
 
 @interface UIAlertController (Helper)
+
+@property(nonatomic, strong, readonly) UIAlertController *(^nn_addAction)(NSArray<NSString *> *titles, void(^handler)(UIAlertAction *action));
+@property(nonatomic, strong, readonly) UIAlertController *(^nn_addTextField)(NSArray<NSString *> *placeholders, void(^handler)(UITextField *textField));
+@property(nonatomic, strong, readonly) UIAlertController *(^nn_present)(BOOL animated, void(^ __nullable completion)(void));
+
+
 /// [源]Alert弹窗创建
 + (instancetype)createAlertTitle:(NSString *_Nullable)title
                              msg:(NSString *_Nullable)msg
@@ -53,16 +59,10 @@ FOUNDATION_EXPORT NSString * const kAlertActionColor;
                            msg:(NSString *_Nullable)msg
                        handler:(void(^)(UIAlertController *alertVC, UIAlertAction * _Nullable action))handler;
 
-- (instancetype)addActionTitle:(NSString *)title style:(UIAlertActionStyle)style handler:(void(^)(UIAlertAction *action))handler;
-
-- (instancetype)addActionTitles:(NSArray<NSString *> *)titles handler:(void(^)(UIAlertAction *action))handler;
-
-- (instancetype)addTextFieldPlaceholder:(NSString *)placeholder handler:(void(^)(UITextField *textField))handler;
-
-- (instancetype)addTextFieldPlaceholders:(NSArray<NSString *> *)placeholders handler:(void(^)(UITextField *textField))handler;
-
 - (void)showAlert:(BOOL)animated completion:(void (^ __nullable)(void))completion;
     
+
+
 + (void)callPhone:(NSString *)phoneNumber;
 
 /// 设置标题颜色
