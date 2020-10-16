@@ -567,7 +567,9 @@
     }
     
     for (UIView *view in self.subviews) {
-        [view removeFromSuperview];
+        if ([view isMemberOfClass:cls]) {
+            [view removeFromSuperview];
+        }
     }
     NSMutableArray *marr = [NSMutableArray array];
     for (NSInteger i = 0; i < count; i++) {

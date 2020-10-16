@@ -72,7 +72,7 @@ static NNForwardingTarget *_target = nil;
             
             
             swizzleInstanceMethod(self.class,
-                                  @selector(forwardingTargetForSelector:), @selector(swz_forwardingTargetForSelector:));
+                                  @selector(forwardingTargetForSelector:), @selector(safe_forwardingTargetForSelector:));
         }
     });
 }
@@ -89,8 +89,8 @@ static NNForwardingTarget *_target = nil;
     return isNull;
 }
 
-- (id)swz_forwardingTargetForSelector:(SEL)aSelector {
-    id result = [self swz_forwardingTargetForSelector:aSelector];
+- (id)safe_forwardingTargetForSelector:(SEL)aSelector {
+    id result = [self safe_forwardingTargetForSelector:aSelector];
     if (result) {
         return result;
     }
@@ -105,32 +105,6 @@ static NNForwardingTarget *_target = nil;
 
 @end
 
-
-@implementation NSMutableDictionary (CashProtector)
-
-- (void)safe_setObject:(id)anObject forKey:(id <NSCopying>)aKey{
-    if (isOpenAssert) NSAssert(anObject && aKey, @"anObject和aKey不能为nil");
-    if (anObject && aKey) {
-        [self safe_setObject:anObject forKey:aKey];
-    }
-}
-
-
-- (void)safe_setObject:(id)anObject forKeyedSubscript:(id <NSCopying>)aKey {
-    if (isOpenAssert) NSAssert(anObject && aKey, @"anObject和aKey不能为nil");
-    if (anObject && aKey) {
-        [self safe_setObject:anObject forKeyedSubscript:aKey];
-    }
-}
-
-- (void)safe_removeObjectForKey:(id <NSCopying>)aKey {
-    if (isOpenAssert) NSAssert(aKey, @"aKey不能为nil");
-    if (aKey) {
-        [self safe_removeObjectForKey:aKey];
-    }
-}
-
-@end
 
 
 @implementation NSArray (CashProtector)
@@ -194,5 +168,29 @@ static NNForwardingTarget *_target = nil;
 @end
 
 
+@implementation NSMutableDictionary (CashProtector)
 
+- (void)safe_setObject:(id)anObject forKey:(id <NSCopying>)aKey{
+    if (isOpenAssert) NSAssert(anObject && aKey, @"anObject和aKey不能为nil");
+    if (anObject && aKey) {
+        [self safe_setObject:anObject forKey:aKey];
+    }
+}
+
+
+- (void)safe_setObject:(id)anObject forKeyedSubscript:(id <NSCopying>)aKey {
+//    if (isOpenAssert) NSAssert(anObject && aKey, @"anObject和aKey不能为nil");
+    if (anObject && aKey) {
+        [self safe_setObject:anObject forKeyedSubscript:aKey];
+    }
+}
+
+- (void)safe_removeObjectForKey:(id <NSCopying>)aKey {
+    if (isOpenAssert) NSAssert(aKey, @"aKey不能为nil");
+    if (aKey) {
+        [self safe_removeObjectForKey:aKey];
+    }
+}
+
+@end
 

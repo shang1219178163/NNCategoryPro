@@ -23,7 +23,7 @@
 - (void)hook_PushViewController:(UIViewController *)viewController animated:(BOOL)animated{
     if ([self.viewControllers containsObject:viewController]) return;
 //    viewController.navigationItem.backBarButtonItem = [[UIBarButtonItem alloc] initWithTitle:@"" style:UIBarButtonItemStyleDone target:nil action:nil];
-    viewController.view.backgroundColor = UIColor.whiteColor;
+//    viewController.view.backgroundColor = UIColor.whiteColor;
     if (self.viewControllers.count > 0) {
         viewController.hidesBottomBarWhenPushed = YES;
         viewController.navigationItem.leftBarButtonItem = [[UIBarButtonItem alloc]initWithCustomView:viewController.backBtn];;

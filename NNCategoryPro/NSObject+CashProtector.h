@@ -22,18 +22,19 @@
 @end
 
 
-@interface NSMutableDictionary (CashProtector)
-
-
-@end
-
-
 @interface NSArray (CashProtector)
 
 @end
 
 
 @interface NSMutableArray (CashProtector)
+
+
+@end
+
+
+
+@interface NSMutableDictionary (CashProtector)
 
 
 @end
