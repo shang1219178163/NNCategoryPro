@@ -32,7 +32,9 @@
     [PHPhotoLibrary requestAuthorization:^(PHAuthorizationStatus status) {
         if(status == PHAuthorizationStatusAuthorized || status == PHAuthorizationStatusDenied){
             NSString * msg = [NSString stringWithFormat:@"请去-> [设置 - 隐私 - %@ - %@] 打开访问开关", @"相册" , UIApplication.appName];
-            [UIAlertController showAlertTitle:@"提示" msg:msg actionTitles:@[kTitleKnow] handler:nil];
+            [UIAlertController alertControllerWithTitle:@"" message:msg preferredStyle:UIAlertControllerStyleAlert]
+            .nn_addAction(@[kTitleKnow], nil)
+            .nn_present(true, nil);
             isRight = false;
         }
     }];
@@ -45,8 +47,10 @@
     //相机权限
     AVAuthorizationStatus status = [AVCaptureDevice authorizationStatusForMediaType:AVMediaTypeAudio];//读取设备授权状态
     if(status == AVAuthorizationStatusRestricted || status == AVAuthorizationStatusDenied){
-        NSString * msg = [NSString stringWithFormat:@"请去-> [设置 - 隐私 - %@ - %@] 打开访问开关", @"相机" , UIApplication.appName];
-        [UIAlertController showAlertTitle:@"提示" msg:msg actionTitles:@[kTitleKnow] handler:nil];
+        NSString *msg = [NSString stringWithFormat:@"请去-> [设置 - 隐私 - %@ - %@] 打开访问开关", @"相机" , UIApplication.appName];
+        [UIAlertController alertControllerWithTitle:@"" message:msg preferredStyle:UIAlertControllerStyleAlert]
+        .nn_addAction(@[kTitleKnow], nil)
+        .nn_present(true, nil);
         return false;
     }
     return true;
@@ -81,8 +85,10 @@
         case AVAuthorizationStatusDenied:
         case AVAuthorizationStatusRestricted:
         {
-            NSString * msg = [NSString stringWithFormat:@"请去-> [设置 - 隐私 - 相机 - %@] 打开访问开关",UIApplication.appName];
-            [UIAlertController showAlertTitle:@"提示" msg:msg actionTitles:@[kTitleKnow] handler:nil];
+            NSString *msg = [NSString stringWithFormat:@"请去-> [设置 - 隐私 - 相机 - %@] 打开访问开关",UIApplication.appName];
+            [UIAlertController alertControllerWithTitle:@"" message:msg preferredStyle:UIAlertControllerStyleAlert]
+            .nn_addAction(@[kTitleKnow], nil)
+            .nn_present(true, nil);
             break;
         }
         default:
@@ -582,22 +588,21 @@
                     NSString *versionInfo = [NSString stringWithFormat:@"新版本V%@!",appStoreVer];
                     // AppStore版本号大于当前版本号，强制更新
                     // 弹窗 更新
-                    UIAlertController *alertVC = [UIAlertController showAlertTitle:versionInfo
-                                                                               msg:releaseNotes
-                                                                      placeholders:nil actionTitles:@[kTitleCall,kTitleUpdate]
-                                                                           handler:^(UIAlertController * _Nonnull alertVC, UIAlertAction * _Nonnull action) {
+                    UIAlertController *alertVC = [UIAlertController alertControllerWithTitle:versionInfo message:releaseNotes preferredStyle:UIAlertControllerStyleAlert];
+                    alertVC.nn_addAction(@[kTitleCall,kTitleUpdate], ^(UIAlertAction * _Nonnull action) {
                         if ([action.title isEqualToString:kTitleUpdate]) {
                             // 升级去
                             NSString *urlStr = [UIApplication appUrlWithID:appStoreID];
                             [UIApplication openURLString:urlStr prefix:@"http://" completion:^(BOOL success) {
 //                                if (!success) {
 //                                    NSString *tips = [urlStr stringByAppendingString:@"打开失败"];
-//                                    [UIAlertController showAlertTitle:tips msg:nil actionTitles:nil handler:nil];
+//                                    [UIAlertController showAlertTitle:tips message:nil actionTitles:nil handler:nil];
 //                                }
                             }];
                         }
-                    }];
-            
+                    })
+                    .nn_present(true, nil);
+                       
                     // 富文本效果
                     NSMutableParagraphStyle * style = [[NSMutableParagraphStyle alloc]init];
                     style.lineBreakMode = NSLineBreakByCharWrapping;

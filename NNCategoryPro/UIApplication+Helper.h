@@ -36,7 +36,6 @@ FOUNDATION_EXPORT NSString * const kJPush_extras;
 @property (class, readonly, nullable) NSString *phoneLocalizedModel;
 @property (class, readonly, nullable) NSString *phoneType;
 
-+ (void)setupRootController:(id _Nonnull)controller;
 + (void)setupRootController:(id _Nonnull)controller isAdjust:(BOOL)isAdjust;
 
 + (void)setupAppearanceDefault:(BOOL)isDefault;
@@ -46,8 +45,6 @@ FOUNDATION_EXPORT NSString * const kJPush_extras;
 + (void)setupAppearanceOthers;
 
 + (void)setupAppearanceNavigationBar:(UIColor *)barTintColor;
-
-+ (void)setupAppearanceNavigationBar;
 
 + (void)setupAppearanceSearchbarCancellButton;
 

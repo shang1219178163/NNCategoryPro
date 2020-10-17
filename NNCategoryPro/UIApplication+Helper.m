@@ -200,16 +200,10 @@ static NSDictionary *_infoDic = nil;
     if ([controller isKindOfClass:[UINavigationController class]] || [controller isKindOfClass:[UITabBarController class]]) {
         UIApplication.rootController = controller;
         
-    }
-    else{
+    } else {
         UINavigationController * navController = [[UINavigationController alloc] initWithRootViewController:controller];
         UIApplication.rootController = navController;
-        
     }
-}
-
-+ (void)setupRootController:(id)controller{
-    [UIApplication setupRootController:controller isAdjust:YES];
 }
 
 /**

@@ -119,7 +119,20 @@ UINavigationController *UINavCtrFromObj(id obj){
 - (void)present:(BOOL)animated completion:(void (^ __nullable)(void))completion{
     UIWindow *keyWindow = UIApplication.sharedApplication.delegate.window;
     dispatch_async(dispatch_get_main_queue(), ^{
-        [keyWindow.rootViewController presentViewController:self animated:animated completion:completion];
+        if ([self isKindOfClass:UIAlertController.class]) {
+            UIAlertController *alertVC = self;
+            if (alertVC.actions.count == 0) {
+                [keyWindow.rootViewController presentViewController:alertVC animated:animated completion:^{
+                    dispatch_after(dispatch_time(DISPATCH_TIME_NOW, (int64_t)(kDurationToast * NSEC_PER_SEC)), dispatch_get_main_queue(), ^{
+                        [alertVC dismissViewControllerAnimated:animated completion:completion];
+                    });
+                }];
+            } else {
+                [keyWindow.rootViewController presentViewController:self animated:animated completion:completion];
+            }
+        } else {
+            [keyWindow.rootViewController presentViewController:self animated:animated completion:completion];
+        }
     });
 }
 
@@ -256,22 +269,15 @@ UINavigationController *UINavCtrFromObj(id obj){
       animated:(BOOL)animated
          block:(void(^)(__kindof UIViewController *vc))block{
     UIViewController *controller = [[NSClassFromString(vcName) alloc]init];
-    return [self pushVCType:controller.class
-                      title:title
-                   animated:animated
-                      block:block];
-}
-
-- (void)pushVCType:(Class)classVC
-             title:(NSString *)title
-          animated:(BOOL)animated
-             block:(void(^)(__kindof UIViewController *vc))block{
-    UIViewController *controller = [[classVC alloc]init];
     controller.title = [title stringByReplacingOccurrencesOfString:@" " withString:@""];
     if (block) {
         block(controller);
     }
-    [self.navigationController pushViewController:controller animated:animated];
+    if ([self isKindOfClass:UINavigationController.class]) {
+        [(UINavigationController *)self pushViewController:controller animated:animated];
+    } else {
+        [self.navigationController pushViewController:controller animated:animated];
+    }
 }
 
 - (void)presentVC:(NSString *)vcName
@@ -279,25 +285,12 @@ UINavigationController *UINavCtrFromObj(id obj){
          animated:(BOOL)animated
             block:(void(^)(__kindof UIViewController *vc))block{
     UIViewController *controller = [[NSClassFromString(vcName) alloc]init];
-    return [self presentVC:controller.class
-                     title:title
-                  animated:animated
-                     block:block];
-}
-
-- (void)presentVCType:(Class)classVC
-                title:(NSString *)title
-             animated:(BOOL)animated
-                block:(void(^)(__kindof UIViewController *vc))block{
-    UIViewController *controller = [[classVC alloc]init];
     controller.title = [title stringByReplacingOccurrencesOfString:@" " withString:@""];
     UINavigationController *navController = [[UINavigationController alloc] initWithRootViewController:controller];
     if (block) {
         block(controller);
     }
-    [self presentViewController:navController animated:animated completion:^{
-        
-    }];
+    [navController present:animated completion:nil];
 }
 
 -(NSString *)controllerName{

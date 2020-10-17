@@ -57,20 +57,10 @@ FOUNDATION_EXPORT UINavigationController * _Nullable UINavCtrFromObj(id obj);
       animated:(BOOL)animated
          block:(void(^ _Nullable)(__kindof UIViewController *vc))block;
 
-- (void)pushVCType:(Class)classVC
-             title:(NSString *)title
-          animated:(BOOL)animated
-             block:(void(^ _Nullable)(__kindof UIViewController *vc))block;
-
 - (void)presentVC:(NSString *)vcName
             title:(NSString *)title
          animated:(BOOL)animated
             block:(void(^ _Nullable)(__kindof UIViewController *vc))block;
-
-- (void)presentVCType:(Class)classVC
-                title:(NSString *)title
-             animated:(BOOL)animated
-                block:(void(^ _Nullable)(__kindof UIViewController *vc))block;
 
 - (UIViewController *)addControllerName:(NSString *)className;
 /// 添加子控制器(对应方法 removeControllerVC)
@@ -79,21 +69,6 @@ FOUNDATION_EXPORT UINavigationController * _Nullable UINavCtrFromObj(id obj);
 - (void)removeFromSuperVC;
 /// 显示controller(手动调用viewWillAppear和viewDidAppear,viewWillDisappear)
 - (void)transitionToVC:(UIViewController *)controller;
-
-/**
-// 系统弹窗__无按钮 toast
-// */
-//- (void)showAlertTitle:(NSString *_Nullable)title msg:(NSString *_Nullable)msg;
-//
-///**
-// 系统弹窗__按钮默认(取消,确认)
-// */
-//- (void)showAlertTitle:(NSString *_Nullable)title msg:(NSString *_Nullable)msg handler:(void(^)(UIAlertController *alertVC, UIAlertAction * _Nullable action))handler;
-//
-///**
-// 系统弹窗__按钮自定义(actionTitleList传入按钮标题)
-// */
-//- (void)showAlertTitle:(NSString *_Nullable)title msg:(NSString *_Nullable)msg actionTitles:(NSArray *_Nullable)actionTitles handler:(void(^_Nullable)(UIAlertController *alertVC, UIAlertAction *_Nullable action))handler;
 
 //app星际评价,自定义app链接
 - (void)dispalyAppEvalutionStarLevelAppID:(NSString *)appID;
