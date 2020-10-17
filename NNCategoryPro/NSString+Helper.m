@@ -483,8 +483,8 @@ NSString * NSStringFromFloat(CGFloat obj){
     
     if (hiddenTips == NO) {
         NSString * tips = [NSString stringWithFormat:@"'%@'已复制!",pasteboard.string];
-//        [(UIView *)UIApplication.keyWindow makeToast:tips duration:1 position:CSToastPositionCenter];
-        [UIAlertController showAlertTitle:@"" msg:tips actionTitles:nil handler:nil];
+        [UIAlertController alertControllerWithTitle:@"" message:tips preferredStyle:UIAlertControllerStyleAlert]
+        .nn_present(true, nil);
     }
 }
 

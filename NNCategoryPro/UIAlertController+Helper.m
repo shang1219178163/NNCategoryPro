@@ -8,6 +8,7 @@
 
 #import "UIAlertController+Helper.h"
 #import <NNGloble/NNGloble.h>
+#import "UIViewController+Helper.h"
 
 /// UIAlertController标题富文本key
 NSString * const kAlertVCTitle = @"attributedTitle";
@@ -22,7 +23,7 @@ NSString * const kAlertActionColor = @"titleTextColor";
 - (UIAlertController * _Nonnull (^)(NSArray<NSString *> * _Nonnull, void (^ _Nonnull)(UIAlertAction * _Nonnull)))nn_addAction{
     return ^(NSArray<NSString *> *titles, void(^handler)(UIAlertAction *action)){
         [titles enumerateObjectsUsingBlock:^(NSString * _Nonnull title, NSUInteger idx, BOOL * _Nonnull stop) {
-            UIAlertActionStyle style = [title isEqualToString:@"取消"] ? UIAlertActionStyleCancel : UIAlertActionStyleDefault;
+            UIAlertActionStyle style = [title isEqualToString:@"取消"] ? UIAlertActionStyleDestructive : UIAlertActionStyleDefault;
             [self addAction:[UIAlertAction actionWithTitle:title style:style handler:handler]];
         }];
         return self;
@@ -30,6 +31,13 @@ NSString * const kAlertActionColor = @"titleTextColor";
 }
 
 - (UIAlertController * _Nonnull (^)(NSArray<NSString *> * _Nonnull, void (^ _Nonnull)(UITextField * _Nonnull)))nn_addTextField{
+    NSParameterAssert(self.preferredStyle == UIAlertControllerStyleAlert);
+    if (self.preferredStyle != UIAlertControllerStyleAlert) {
+        return ^(NSArray<NSString *> *placeholders, void(^handler)(UITextField *action)){
+            return self;
+        };
+    }
+    
     return ^(NSArray<NSString *> *placeholders, void(^handler)(UITextField *action)){
         [placeholders enumerateObjectsUsingBlock:^(NSString * _Nonnull placeholder, NSUInteger idx, BOOL * _Nonnull stop) {
             [self addTextFieldWithConfigurationHandler:^(UITextField * _Nonnull textField) {
@@ -62,192 +70,83 @@ NSString * const kAlertActionColor = @"titleTextColor";
     };
 }
 
+- (instancetype)addActionTitles:(NSArray<NSString *> *)titles handler:(void(^)(UIAlertAction *action))handler {
+    [titles enumerateObjectsUsingBlock:^(NSString * _Nonnull title, NSUInteger idx, BOOL * _Nonnull stop) {
+        UIAlertActionStyle style = [title isEqualToString:@"取消"] ? UIAlertActionStyleDestructive : UIAlertActionStyleDefault;
+        [self addAction:[UIAlertAction actionWithTitle:title style:style handler:handler]];
+    }];
+    return self;
+}
+
+- (instancetype)addTextFieldPlaceholders:(NSArray<NSString *> *)placeholders handler:(void(^)(UITextField *textField))handler {
+    NSParameterAssert(self.preferredStyle == UIAlertControllerStyleAlert);
+    if (self.preferredStyle != UIAlertControllerStyleAlert) {
+        return self;
+    }
+
+    [placeholders enumerateObjectsUsingBlock:^(NSString * _Nonnull placeholder, NSUInteger idx, BOOL * _Nonnull stop) {
+        [self addTextFieldWithConfigurationHandler:^(UITextField * _Nonnull textField) {
+            textField.placeholder = placeholder;
+            if (handler) {
+                handler(textField);
+            }
+        }];
+    }];
+    return self;
+}
+
 + (instancetype)createAlertTitle:(NSString * _Nullable)title
-                             msg:(NSString *_Nullable)msg
-                    placeholders:(NSArray *_Nullable)placeholders
+                         message:(NSString *_Nullable)message
                     actionTitles:(NSArray *_Nullable)actionTitles
-                         handler:(void(^_Nullable)(UIAlertController *alertVC, UIAlertAction *action))handler{
+                         handler:(void(^_Nullable)(UIAlertAction *action))handler{
     
     UIAlertController *alertVC = [UIAlertController alertControllerWithTitle:title
-                                                                     message:msg
+                                                                     message:message
                                                               preferredStyle:UIAlertControllerStyleAlert];
-    for (NSString * placeholder in placeholders) {
-        [alertVC addTextFieldWithConfigurationHandler:^(UITextField * _Nonnull textField) {
-            textField.placeholder = placeholder;
-            textField.textAlignment = NSTextAlignmentCenter;
-            
-        }];
-    }
-        
-    for (NSString *title in actionTitles) {
-        UIAlertActionStyle style = [title isEqualToString:kTitleCancell] == true? UIAlertActionStyleDestructive : UIAlertActionStyleDefault;
-        [alertVC addAction:[UIAlertAction actionWithTitle:title style:style handler:^(UIAlertAction * _Nonnull action) {
-            if (handler) handler(alertVC, action);
-            
-        }]];
-    }
-    
-    if (![actionTitles containsObject:kTitleCancell]) {
-        [alertVC addAction:[UIAlertAction actionWithTitle:kTitleCancell style:UIAlertActionStyleDestructive handler:^(UIAlertAction * _Nonnull action) {
-            if (handler) handler(alertVC, action);
-            
-        }]];
-    }
-    
-//    UIWindow *keyWindow = UIApplication.sharedApplication.delegate.window;
-//    [keyWindow.rootViewController presentViewController:alertController animated:YES completion:nil];
+    [alertVC addActionTitles:actionTitles handler:handler];
     return alertVC;
 }
 
 + (instancetype)showAlertTitle:(NSString * _Nullable)title
-                           msg:(NSString *_Nullable)msg
-                  placeholders:(NSArray *_Nullable)placeholders
+                       message:(NSString *_Nullable)message
                   actionTitles:(NSArray *_Nullable)actionTitles
-                       handler:(void(^_Nullable)(UIAlertController *alertVC, UIAlertAction *action))handler{
-    UIWindow *keyWindow = UIApplication.sharedApplication.delegate.window;
-
+                       handler:(void(^_Nullable)(UIAlertAction *action))handler{
     UIAlertController *alertVC = [UIAlertController createAlertTitle:title
-                                                                 msg:msg
-                                                        placeholders:placeholders
+                                                             message:message
                                                         actionTitles:actionTitles
                                                              handler:handler];
-    if (alertVC.actions.count == 0) {
-        [keyWindow.rootViewController presentViewController:alertVC animated:YES completion:^{
-            dispatch_after(dispatch_time(DISPATCH_TIME_NOW, (int64_t)(kDurationToast * NSEC_PER_SEC)), dispatch_get_main_queue(), ^{
-                [alertVC dismissViewControllerAnimated:true completion:nil];
-            });
-            
-        }];
-    } else {
-        [keyWindow.rootViewController presentViewController:alertVC animated:YES completion:nil];
-        
-    }
+    [alertVC present:true completion:nil];
     return alertVC;
 }
 
 + (instancetype)createSheetTitle:(NSString *_Nullable)title
-                             msg:(NSString *_Nullable)msg
+                             message:(NSString *_Nullable)message
                     actionTitles:(NSArray *_Nullable)actionTitles
-                         handler:(void(^_Nullable)(UIAlertController *alertVC, UIAlertAction *action))handler{
+                         handler:(void(^_Nullable)(UIAlertAction *action))handler{
     
     UIAlertController *alertVC = [UIAlertController alertControllerWithTitle:title
-                                                                              message:msg
-                                                                       preferredStyle:UIAlertControllerStyleActionSheet];
-    
-    for (NSString *title in actionTitles) {
-        UIAlertActionStyle style = [title isEqualToString:kTitleCancell] == true? UIAlertActionStyleCancel : UIAlertActionStyleDefault;
-        [alertVC addAction:[UIAlertAction actionWithTitle:title style:style handler:^(UIAlertAction * _Nonnull action) {
-            if (handler) handler(alertVC, action);
-            
-        }]];
-    }
-    
-    if (![actionTitles containsObject:kTitleCancell]) {
-        [alertVC addAction:[UIAlertAction actionWithTitle:kTitleCancell style:UIAlertActionStyleCancel handler:^(UIAlertAction * _Nonnull action) {
-            if (handler) handler(alertVC, action);
-            
-        }]];
-    }
+                                                                     message:message
+                                                              preferredStyle:UIAlertControllerStyleActionSheet];
+    [alertVC addActionTitles:actionTitles handler:handler];
     return alertVC;
 }
 
 + (instancetype)showSheetTitle:(NSString *_Nullable)title
-                           msg:(NSString *_Nullable)msg
+                       message:(NSString *_Nullable)message
                   actionTitles:(NSArray *_Nullable)actionTitles
-                       handler:(void(^_Nullable)(UIAlertController *alertVC, UIAlertAction *action))handler{
+                       handler:(void(^_Nullable)(UIAlertAction *action))handler{
     UIAlertController *alertVC = [UIAlertController createSheetTitle:title
-                                                                 msg:msg
+                                                                 message:message
                                                         actionTitles:actionTitles
                                                              handler:handler];
-    
-    UIWindow *keyWindow = UIApplication.sharedApplication.delegate.window;
-    [keyWindow.rootViewController presentViewController:alertVC animated:YES completion:nil];//懒加载会崩溃
+    [alertVC present:true completion:nil];
     return alertVC;
 }
 
-/**
- 展示alert,然后执行异步block代码,然后主线程dismiss
- */
-//+ (instancetype)showAletTitle:(NSString *_Nullable)title msg:(NSString *_Nullable)msg handler:(void(^ _Nullable)(void))handler{
-//    UIWindow *keyWindow = UIApplication.sharedApplication.delegate.window;
-//    UIAlertController * alertController = [UIAlertController alertControllerWithTitle:title message:msg preferredStyle:UIAlertControllerStyleAlert];
-//    [keyWindow.rootViewController presentViewController:alertController animated:false completion:nil];
-//
-//    dispatch_async(dispatch_get_global_queue(0, 0), ^{
-//        if (handler) {
-//            handler();
-//        }
-//        dispatch_after(dispatch_time(DISPATCH_TIME_NOW, (int64_t)(2 * NSEC_PER_SEC)), dispatch_get_main_queue(), ^{
-//            [alertController dismissViewControllerAnimated:true completion:nil];
-//        });
-//    });
-//    return alertController;
-//}
 
-+ (instancetype)showAlertTitle:(NSString * _Nullable)title
-                           msg:(NSString *_Nullable)msg
-                  actionTitles:(NSArray *_Nullable)actionTitles
-                       handler:(void(^_Nullable)(UIAlertController *alertVC, UIAlertAction *action))handler{
-    return [UIAlertController showAlertTitle:title
-                                         msg:msg
-                                placeholders:nil
-                                actionTitles:actionTitles
-                                     handler:handler];
-}
-
-+ (instancetype)showAlertTitle:(NSString *_Nullable)title
-                           msg:(NSString *_Nullable)msg
-                       handler:(void(^)(UIAlertController * _Nonnull alertVC, UIAlertAction * _Nullable action))handler{
-    return [UIAlertController showAlertTitle:title
-                                         msg:msg
-                                placeholders:nil
-                                actionTitles:@[kTitleCancell, kTitleSure]
-                                     handler:handler];
-}
-
-
-- (void)showAlert:(BOOL)animated completion:(void (^ __nullable)(void))completion{
-    UIWindow *keyWindow = UIApplication.sharedApplication.delegate.window;
-    if (self.actions.count == 0) {
-        [keyWindow.rootViewController presentViewController:self animated:animated completion:^{
-            dispatch_async(dispatch_get_main_queue(), ^{
-                [self dismissViewControllerAnimated:animated completion:completion];
-            });
-        }];
-    } else {
-        [keyWindow.rootViewController presentViewController:self animated:animated completion:completion];
-    }
-}
-
-
-
-+ (void)callPhone:(NSString *)phoneNumber{
-    NSCharacterSet *set = [NSCharacterSet characterSetWithCharactersInString:@" _转"];
-    phoneNumber = [phoneNumber stringByTrimmingCharactersInSet:set];
-    
-    NSArray *titles = @[@"取消",@"呼叫"];
-    [UIAlertController showAlertTitle:nil
-                                  msg:phoneNumber
-                         actionTitles:titles
-                              handler:^(UIAlertController * _Nonnull alertController, UIAlertAction * _Nullable action) {
-        if ([action.title isEqualToString: titles.firstObject]) {
-            return;
-        }
-        dispatch_async(dispatch_get_global_queue(0, 0), ^{
-            NSString * phoneStr = [NSString stringWithFormat:@"tel:%@",phoneNumber];
-            if (@available(iOS 10.0, *)) {
-                [UIApplication.sharedApplication openURL:[NSURL URLWithString:phoneStr] options:@{} completionHandler:nil];
-            } else {
-                [UIApplication.sharedApplication openURL:[NSURL URLWithString:phoneStr]];
-            }
-        });
-    }];
-}
-
-
-- (void)setTitleColor:(UIColor *)color{
+- (instancetype)setTitleColor:(UIColor *)color{
     if (self.title == nil || [self.title isEqualToString:@""]) {
-        return;
+        return self;
     }
 
     NSMutableAttributedString *attr = [[NSMutableAttributedString alloc]init];
@@ -255,11 +154,12 @@ NSString * const kAlertActionColor = @"titleTextColor";
                            }
                   range:NSMakeRange(0, self.title.length)];
     [self setValue:attr forKey:kAlertVCTitle];
+    return self;
 }
 
-- (void)setMessageParaStyle:(NSMutableParagraphStyle *)style{
+- (instancetype)setMessageParaStyle:(NSMutableParagraphStyle *)style{
     if (self.message == nil || [self.message isEqualToString:@""]) {
-        return;
+        return self;
     }
     
     NSMutableAttributedString *attr = [[NSMutableAttributedString alloc]init];
@@ -267,6 +167,30 @@ NSString * const kAlertActionColor = @"titleTextColor";
                            }
                   range:NSMakeRange(0, self.message.length)];
     [self setValue:attr forKey:kAlertVCMessage];
+    return self;
+}
+
++ (void)callPhone:(NSString *)phoneNumber{
+    NSCharacterSet *set = [NSCharacterSet characterSetWithCharactersInString:@" _转"];
+    phoneNumber = [phoneNumber stringByTrimmingCharactersInSet:set];
+    
+    NSArray *titles = @[@"取消",@"呼叫"];
+    [UIAlertController showAlertTitle:nil
+                              message:phoneNumber
+                         actionTitles:titles
+                              handler:^(UIAlertAction * _Nullable action) {
+        if ([action.title isEqualToString: titles.firstObject]) {
+            return;
+        }
+        dispatch_async(dispatch_get_global_queue(0, 0), ^{
+            NSString *phoneStr = [NSString stringWithFormat:@"tel:%@",phoneNumber];
+            if (@available(iOS 10.0, *)) {
+                [UIApplication.sharedApplication openURL:[NSURL URLWithString:phoneStr] options:@{} completionHandler:nil];
+            } else {
+                [UIApplication.sharedApplication openURL:[NSURL URLWithString:phoneStr]];
+            }
+        });
+    }];
 }
 
 @end
