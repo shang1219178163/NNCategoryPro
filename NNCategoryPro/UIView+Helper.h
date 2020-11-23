@@ -59,10 +59,6 @@ NS_ASSUME_NONNULL_BEGIN
     
 - (UIView *)addCorners:(UIRectCorner)corners cornerRadii:(CGSize)cornerRadii;
 
-- (UIView *)addCorners:(UIRectCorner)corners width:(CGFloat)width color:(UIColor *)color;
-
-- (UIView *)addCornersAll;
-
 - (UITapGestureRecognizer *)addGestureTap:(void(^)(UIGestureRecognizer *reco))block;
 
 - (UILongPressGestureRecognizer *)addGestureLongPress:(void(^)(UIGestureRecognizer *reco))block forDuration:(NSTimeInterval)minimumPressDuration;
@@ -77,6 +73,7 @@ NS_ASSUME_NONNULL_BEGIN
 
 - (UIRotationGestureRecognizer *)addGestureRotation:(void(^)(UIGestureRecognizer *reco))block;
 
+///弃用建议使用 addGestureTap/addActionHandler:forControlEvents:代替
 - (void)addActionHandler:(void(^)(id obj, id item, NSInteger idx))handler;
 
 + (void)getSub:(UIView *)view andLevel:(NSInteger)level;
@@ -85,7 +82,7 @@ NS_ASSUME_NONNULL_BEGIN
 
 - (__kindof UIView *)findSubview:(NSString *)name resursion:(BOOL)resursion;
 
-- (NSArray<__kindof UIView *> *)findSubviews:(NSString *)name;
+- (NSArray<__kindof UIView *> *)findSubview:(NSString *)name;
 
 - (__kindof UIView *)findSuperView:(NSString *)name;
 

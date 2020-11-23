@@ -120,7 +120,7 @@ NSString * const kAlertActionColor = @"titleTextColor";
 }
 
 + (instancetype)createSheetTitle:(NSString *_Nullable)title
-                             message:(NSString *_Nullable)message
+                         message:(NSString *_Nullable)message
                     actionTitles:(NSArray *_Nullable)actionTitles
                          handler:(void(^_Nullable)(UIAlertAction *action))handler{
     

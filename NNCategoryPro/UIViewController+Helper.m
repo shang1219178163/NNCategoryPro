@@ -20,6 +20,7 @@
 #import "UIButton+Helper.h"
 #import "UIControl+Helper.h"
 #import "UIImageView+Helper.h"
+#import "UIImage+Helper.h"
 #import "UILabel+Helper.h"
 #import "UIScreen+Helper.h"
 
@@ -42,21 +43,6 @@ UINavigationController *UINavCtrFromObj(id obj){
     return nil;
 }
 
-#pragma make - -给控制器添加额外属性
-
--(UIViewController *)frontVC{
-    UIViewController *viewController = nil;
-
-    NSUInteger count = self.navigationController.viewControllers.count;
-    if (count == 0) {
-        return nil;
-    }
-    
-    if (count == 1) {
-        return self.navigationController.viewControllers.lastObject;
-    }
-    return self.navigationController.viewControllers[count - 2];
-}
 
 - (BOOL)isCurrentVisibleVC{
     return (self.isViewLoaded && self.view.window);
@@ -100,7 +86,7 @@ UINavigationController *UINavCtrFromObj(id obj){
 - (void)setupExtendedLayout{
     self.edgesForExtendedLayout = UIRectEdgeNone;
     self.view.backgroundColor = UIColor.whiteColor;
-    self.title = self.controllerName;
+    self.title = self.vcName;
     
     if (@available(iOS 11.0, *)) {
         UIScrollView.appearance.contentInsetAdjustmentBehavior = UIScrollViewContentInsetAdjustmentNever;
@@ -134,6 +120,17 @@ UINavigationController *UINavCtrFromObj(id obj){
             [keyWindow.rootViewController presentViewController:self animated:animated completion:completion];
         }
     });
+}
+
+- (BOOL)pushFromVC:(Class)cls{    
+    NSArray *viewControllers = self.navigationController.viewControllers;
+    if (viewControllers.count <= 1) {
+        return false;
+    }
+    
+    NSInteger index = [viewControllers indexOfObject:self];
+    BOOL result = [viewControllers[index - 1] isKindOfClass:cls];
+    return result;
 }
 
 - (UISearchController *)createSearchVC:(UIViewController *)resultsController {
@@ -182,8 +179,7 @@ UINavigationController *UINavCtrFromObj(id obj){
                                image_H:nil
                        imageEdgeInsets:UIEdgeInsetsZero];
         
-    }
-    else{
+    } else {
         btn = [UIButton buttonWithSize:CGSizeMake(40, 40)
                                  title:title
                                   font:15
@@ -217,8 +213,7 @@ UINavigationController *UINavCtrFromObj(id obj){
     UIBarButtonItem *item = [[UIBarButtonItem alloc]initWithCustomView:view];
     if (isLeft) {
         self.navigationItem.leftBarButtonItem = item;
-    }
-    else{
+    } else {
         self.navigationItem.rightBarButtonItem = item;
     }
     return btn;
@@ -232,8 +227,7 @@ UINavigationController *UINavCtrFromObj(id obj){
     if ([UIImage imageNamed:obj]) {
         item = [UIImageView createRect:CGRectMake(0, 0, 32, 32) type:@0];
         ((UIImageView *)item).image = [UIImage imageNamed:obj];
-    }
-    else{
+    } else {
         item = [UILabel createRect:CGRectMake(0, 0, 72, 20) type:@1];
         ((UILabel *)item).text = obj;
         ((UILabel *)item).font = [UIFont systemFontOfSize:kFontSize16];
@@ -257,8 +251,7 @@ UINavigationController *UINavCtrFromObj(id obj){
     UIBarButtonItem *barItem = [[UIBarButtonItem alloc]initWithCustomView:view];
     if (isLeft) {
         self.navigationItem.leftBarButtonItem = barItem;
-    }
-    else{
+    } else {
         self.navigationItem.rightBarButtonItem = barItem;
     }
     return view;
@@ -293,7 +286,7 @@ UINavigationController *UINavCtrFromObj(id obj){
     [navController present:animated completion:nil];
 }
 
--(NSString *)controllerName{
+-(NSString *)vcName{
     NSString *className = NSStringFromClass(self.class);
     if ([className containsString:@"Controller"]) {
         NSRange range = NSMakeRange(0, 0);
@@ -352,6 +345,7 @@ UINavigationController *UINavCtrFromObj(id obj){
     [self addChildViewController:controller];
     [self.view addSubview:controller.view];
     controller.view.frame = self.view.bounds;
+    controller.view.autoresizingMask = UIViewAutoresizingFlexibleWidth | UIViewAutoresizingFlexibleHeight;
     [controller didMoveToParentViewController:self];
 }
 
@@ -375,15 +369,14 @@ UINavigationController *UINavCtrFromObj(id obj){
      */
 }
 
-/**
- 设置导航栏背景色
- 透明色与self.edgesForExtendedLayout = UIRectEdgeAll;搭配使用
- */
-- (void)setupNavigationBarBackgroundImage:(UIImage *)image{
+- (void)setNavigationBarBackgroundColor:(UIColor *)color{
+    UIImage *image = UIImageColor(color);
+    if (CGColorEqualToColor(UIColor.clearColor.CGColor, color.CGColor)) {
+        image = [UIImage new];
+    }
     [self.navigationController.navigationBar setBackgroundImage:image forBarMetrics:UIBarMetricsDefault];
     [self.navigationController.navigationBar setShadowImage:image];
 }
-
 
 @end
 

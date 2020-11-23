@@ -34,7 +34,7 @@
         case 1://圆形
         {
             view.contentMode = UIViewContentModeScaleToFill;
-            [view addCornersAll];
+            view.layer.cornerRadius = CGRectGetHeight(rect)*0.5;
         }
             break;
         case 2://带右下角icon

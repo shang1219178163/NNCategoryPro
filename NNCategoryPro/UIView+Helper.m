@@ -204,15 +204,6 @@
     return [self addCorners:corners cornerRadii:cornerRadii width:1.0 color:UIColor.whiteColor];
 }
 
-- (UIView *)addCorners:(UIRectCorner)corners width:(CGFloat)width color:(UIColor *)color{
-    CGSize cornerRadii = CGSizeMake(CGRectGetWidth(self.bounds)*0.5, CGRectGetWidth(self.bounds)*0.5);
-    return [self addCorners:UIRectCornerAllCorners cornerRadii:cornerRadii width:width color:color];
-}
-
-- (UIView *)addCornersAll{
-    CGSize cornerRadii = CGSizeMake(CGRectGetWidth(self.bounds)*0.5, CGRectGetWidth(self.bounds)*0.5);
-    return [self addCorners:UIRectCornerAllCorners cornerRadii:cornerRadii width:1.0 color:UIColor.whiteColor];
-}
 
 #pragma mak - -Recognizer
 /**
@@ -526,7 +517,7 @@
     return nil;
 }
 
-- (NSArray<__kindof UIView *> *)findSubviews:(NSString *)name{
+- (NSArray<__kindof UIView *> *)findSubview:(NSString *)name{
     Class class = NSClassFromString(name);
     
     NSMutableArray *marr = [NSMutableArray array];

@@ -19,8 +19,7 @@ FOUNDATION_EXPORT UIViewController * _Nullable UICtrFromString(NSString *obj);
 /// 字符串->UINavigationController
 FOUNDATION_EXPORT UINavigationController * _Nullable UINavCtrFromObj(id obj);
 
-@property (nonatomic, strong, readonly) NSString * _Nullable controllerName;
-@property (nonatomic, strong, readonly) UIViewController * _Nullable frontVC;
+@property (nonatomic, strong, readonly) NSString * _Nullable vcName;
 @property (nonatomic, strong, readonly) UIViewController * _Nullable currentVC;
 
 /// 返回按钮
@@ -35,6 +34,9 @@ FOUNDATION_EXPORT UINavigationController * _Nullable UINavCtrFromObj(id obj);
 - (void)setupContentInsetAdjustmentBehavior:(BOOL)isAutomatic;
 
 - (void)present:(BOOL)animated completion:(void (^ __nullable)(void))completion;
+
+///判断上一页是哪个页面
+- (BOOL)pushFromVC:(Class)cls;
 
 /// [源]创建UISearchController(设置IQKeyboardManager.shared.enable = false;//避免searchbar下移)
 - (UISearchController *)createSearchVC:(UIViewController *)resultsController;
@@ -73,7 +75,7 @@ FOUNDATION_EXPORT UINavigationController * _Nullable UINavCtrFromObj(id obj);
 //app星际评价,自定义app链接
 - (void)dispalyAppEvalutionStarLevelAppID:(NSString *)appID;
 
-- (void)setupNavigationBarBackgroundImage:(UIImage *)image;
+- (void)setNavigationBarBackgroundColor:(UIColor *)color;
 
 @end
 
