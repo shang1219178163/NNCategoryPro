@@ -853,5 +853,40 @@ BOOL SwizzleMethodClass(Class clz, SEL origSelector, SEL replSelector){
 @end
 
 ```
+#### UIViewConroller
+```
+///避免多个呈现造成的 app 崩溃
+- (void)present:(BOOL)animated completion:(void (^ __nullable)(void))completion{
+    UIWindow *keyWindow = UIApplication.sharedApplication.delegate.window;
+    dispatch_async(dispatch_get_main_queue(), ^{
+        if ([self isKindOfClass:UIAlertController.class]) {
+            UIAlertController *alertVC = self;
+            if (alertVC.actions.count == 0) {
+                [keyWindow.rootViewController presentViewController:alertVC animated:animated completion:^{
+                    dispatch_after(dispatch_time(DISPATCH_TIME_NOW, (int64_t)(kDurationToast * NSEC_PER_SEC)), dispatch_get_main_queue(), ^{
+                        [alertVC dismissViewControllerAnimated:animated completion:completion];
+                    });
+                }];
+            } else {
+                [keyWindow.rootViewController presentViewController:self animated:animated completion:completion];
+            }
+        } else {
+            [keyWindow.rootViewController presentViewController:self animated:animated completion:completion];
+        }
+    });
+}
+
+///判断是否从 cls 页面 push 过来
+- (BOOL)pushFromVC:(Class)cls{    
+    NSArray *viewControllers = self.navigationController.viewControllers;
+    if (viewControllers.count <= 1) {
+        return false;
+    }
+    
+    NSInteger index = [viewControllers indexOfObject:self];
+    BOOL result = [viewControllers[index - 1] isKindOfClass:cls];
+    return result;
+}
+```
 ......
 
