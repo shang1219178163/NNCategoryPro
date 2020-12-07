@@ -32,7 +32,7 @@ FOUNDATION_EXPORT UINavigationController * _Nullable UINavCtrFromObj(id obj);
 - (void)setupExtendedLayout;
 
 - (void)setupContentInsetAdjustmentBehavior:(BOOL)isAutomatic;
-
+///避免多个呈现造成的 app 崩溃
 - (void)present:(BOOL)animated completion:(void (^ __nullable)(void))completion;
 
 ///判断上一页是哪个页面

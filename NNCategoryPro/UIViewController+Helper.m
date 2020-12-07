@@ -107,15 +107,32 @@ UINavigationController *UINavCtrFromObj(id obj){
     dispatch_async(dispatch_get_main_queue(), ^{
         if ([self isKindOfClass:UIAlertController.class]) {
             UIAlertController *alertVC = self;
-            if (alertVC.actions.count == 0) {
-                [keyWindow.rootViewController presentViewController:alertVC animated:animated completion:^{
-                    dispatch_after(dispatch_time(DISPATCH_TIME_NOW, (int64_t)(kDurationToast * NSEC_PER_SEC)), dispatch_get_main_queue(), ^{
-                        [alertVC dismissViewControllerAnimated:animated completion:completion];
-                    });
-                }];
+            if (alertVC.preferredStyle == UIAlertControllerStyleAlert) {
+                if (alertVC.actions.count == 0) {
+                    [keyWindow.rootViewController presentViewController:alertVC animated:animated completion:^{
+                        dispatch_after(dispatch_time(DISPATCH_TIME_NOW, (int64_t)(kDurationToast * NSEC_PER_SEC)), dispatch_get_main_queue(), ^{
+                            [alertVC dismissViewControllerAnimated:animated completion:completion];
+                        });
+                    }];
+                } else {
+                    [keyWindow.rootViewController presentViewController:alertVC animated:animated completion:completion];
+                }
             } else {
-                [keyWindow.rootViewController presentViewController:self animated:animated completion:completion];
+                //防止 ipad 下 sheet 会崩溃的问题
+                if (UIDevice.currentDevice.userInterfaceIdiom == UIUserInterfaceIdiomPad) {
+                    UIPopoverPresentationController *popoverPresentationController = alertVC.popoverPresentationController;
+                    if (popoverPresentationController) {
+                        popoverPresentationController.permittedArrowDirections = UIPopoverArrowDirectionAny;
+                        popoverPresentationController.sourceView = keyWindow;
+                        CGRect sourceRect = popoverPresentationController.sourceRect;
+                        if (CGRectIsEmpty(sourceRect) || CGRectEqualToRect(sourceRect, CGRectZero)) {
+                            popoverPresentationController.sourceRect = CGRectMake(CGRectGetMidX(keyWindow.bounds), 64, 1, 1);
+                        }
+                    }
+                }
+                [keyWindow.rootViewController presentViewController:alertVC animated:animated completion:completion];
             }
+
         } else {
             [keyWindow.rootViewController presentViewController:self animated:animated completion:completion];
         }
