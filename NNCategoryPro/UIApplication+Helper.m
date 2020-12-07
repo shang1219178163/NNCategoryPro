@@ -21,31 +21,31 @@ NSString * const kJPush_extras = @"extras";
 
 static NSDictionary *_phoneTypeDic = nil;
 
-+ (UIWindow *)keyWindow{
++ (UIWindow *)mainWindow{
     UIWindow *window = UIApplication.sharedApplication.delegate.window;
     if (!window) {
         window = [[UIWindow alloc]initWithFrame:UIScreen.mainScreen.bounds];
         window.backgroundColor = UIColor.whiteColor;
         [window makeKeyAndVisible];
         UIApplication.sharedApplication.delegate.window = window;
-        
     }
     return window;
 }
 
-+(void)setKeyWindow:(UIWindow *)keyWindow{
++(void)setMainWindow:(UIWindow *)keyWindow{
     if (!keyWindow) return;
+    [keyWindow makeKeyAndVisible];
     UIApplication.sharedApplication.delegate.window = keyWindow;
 }
 
 + (UIViewController *)rootController{
-    UIViewController *rootVC = UIApplication.keyWindow.rootViewController;
+    UIViewController *rootVC = UIApplication.mainWindow.rootViewController;
     return rootVC;
 }
 
 +(void)setRootController:(UIViewController *)rootVC{
     if (!rootVC) return;
-    UIApplication.keyWindow.rootViewController = rootVC;
+    UIApplication.mainWindow.rootViewController = rootVC;
 }
 
 + (UITabBarController *)tabBarController{
@@ -54,6 +54,32 @@ static NSDictionary *_phoneTypeDic = nil;
     }
     return nil;
 }
+
++ (UINavigationController *)navController{
+    if ([UIApplication.rootController isKindOfClass:UINavigationController.class]) {
+        return UIApplication.rootController;
+    }
+    
+    if ([UIApplication.rootController isKindOfClass:[UITabBarController class]]) {
+        UIViewController *selectedViewController = [(UITabBarController *)UIApplication.rootController selectedViewController];
+        if ([selectedViewController isKindOfClass:UINavigationController.class]) {
+            return selectedViewController;
+        }
+        return nil;
+    }
+    return nil;
+}
+
+//- (UIWindow *)currentKeyWindow{
+//    if (@available(iOS 13.0, *)) {
+//        NSArray *list = [UIApplication.sharedApplication.windows filter:^BOOL(__kindof UIWindow * _Nonnull obj, NSUInteger idx) {
+//            obj.isKeyWindow == true;
+//        }];
+//        return list[0];
+//    }
+//    return UIApplication.sharedApplication.keyWindow;
+//}
+
 
 static NSDictionary *_infoDic = nil;
 + (NSDictionary *)infoDic{

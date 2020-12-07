@@ -19,9 +19,12 @@ FOUNDATION_EXPORT NSString * const kJPush_extras;
 
 @interface UIApplication (Helper)
 
-@property (class, nonnull) UIWindow *keyWindow;
-@property (class, nonnull) UIViewController *rootController;
+@property (class, strong) UIWindow *mainWindow;
+@property (class, strong) UIViewController *rootController;
 @property (class, readonly, nullable) UITabBarController *tabBarController;
+@property (class, readonly, nullable) UINavigationController *navController;
+
+//@property (nullable, readonly) UIWindow *currentKeyWindow;
 
 @property (class, readonly) NSDictionary *infoDic;
 @property (class, readonly, nullable) NSString *appName;
