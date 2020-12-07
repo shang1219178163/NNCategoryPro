@@ -24,12 +24,8 @@
 }
 
 -(NSString *)jsonString{
-    NSError *error;
-    NSData *data = [[NSString alloc]initWithData:self.jsonData encoding:NSUTF8StringEncoding];
-    if (error) {
-        return nil;
-    }
-    return data;
+    NSString *result = [[NSString alloc]initWithData:self.jsonData encoding:NSUTF8StringEncoding];
+    return result;
 }
 
 - (NSDictionary *)invert{

@@ -13,9 +13,9 @@ NS_ASSUME_NONNULL_BEGIN
 @interface NSDictionary<KeyType, ObjectType> (Helper)
 
 ///->NSData
-@property (nonatomic, strong, readonly) NSData *jsonData;
+@property (nonatomic, strong, readonly, nullable) NSData *jsonData;
 ///->NSString
-@property (nonatomic, strong, readonly) NSString *jsonString;
+@property (nonatomic, strong, readonly, nullable) NSString *jsonString;
 ///键值翻转
 - (NSDictionary *)invert;
 

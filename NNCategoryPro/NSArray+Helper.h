@@ -23,9 +23,9 @@ NS_ASSUME_NONNULL_BEGIN
 @interface NSArray<ObjectType> (Helper)
 
 ///->NSData
-@property (nonatomic, strong, readonly) NSData *jsonData;
+@property (nonatomic, strong, readonly, nullable) NSData *jsonData;
 ///->NSString
-@property (nonatomic, strong, readonly) NSString *jsonString;
+@property (nonatomic, strong, readonly, nullable) NSString *jsonString;
 
 /**
  map 高阶函数
