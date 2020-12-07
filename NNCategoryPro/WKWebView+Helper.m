@@ -49,5 +49,26 @@ static WKWebViewConfiguration *_confiDefault = nil;
 
 }
 
+- (void)loadUrl:(NSString *)urlString additionalHttpHeaders:(NSDictionary<NSString *, NSString *> *)additionalHttpHeaders{
+    //应用于 ajax 请求的 cookie 设置
+    WKUserContentController *userContentController = WKUserContentController.new;
+    NSString *cookieSource = [NSString stringWithFormat:@"document.cookie = 'user=%@';", @"userValue"];
+
+    WKUserScript *cookieScript = [[WKUserScript alloc] initWithSource:cookieSource injectionTime:WKUserScriptInjectionTimeAtDocumentStart forMainFrameOnly:NO];
+    [userContentController addUserScript:cookieScript];
+
+    WKWebViewConfiguration *config = [[WKWebViewConfiguration alloc] init];
+    config.userContentController = userContentController;
+    NSMutableURLRequest *request = [[NSMutableURLRequest alloc] initWithURL:[NSURL URLWithString:@"http://momo.domain.com"]];
+        
+    // 应用于 request 的 cookie 设置
+    NSDictionary *headFields = request.allHTTPHeaderFields;
+    NSString *cookie = headFields[@"user"];
+    if (!cookie) {
+        [request addValue:[NSString stringWithFormat:@"user=%@", @"userValue"] forHTTPHeaderField:@"Cookie"];
+    }
+    [self loadRequest:request];
+}
+
 
 @end
