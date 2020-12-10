@@ -339,8 +339,9 @@ UINavigationController *UINavCtrFromObj(id obj){
 }
 
 - (UIViewController *)addControllerName:(NSString *)vcName{
-    UIViewController *controller = [NSClassFromString(vcName) new];
-    [self addControllerVC:controller];
+    UIViewController *vc = [NSClassFromString(vcName) new];
+    [self addControllerVC:vc];
+    return vc;
 }
 
 /// 添加子控制器(对应方法 removeControllerVC)
