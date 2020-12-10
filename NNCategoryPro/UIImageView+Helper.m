@@ -58,7 +58,7 @@
         case 3://圆角矩形
         {
             view.contentMode = UIViewContentModeScaleToFill;
-            [view addCorners:UIRectCornerAllCorners cornerRadii:CGSizeMake(5, 5)];
+//            [view addCorners:UIRectCornerAllCorners cornerRadii:CGSizeMake(5, 5)];
 
         }
             break;
