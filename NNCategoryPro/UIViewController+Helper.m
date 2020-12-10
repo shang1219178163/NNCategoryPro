@@ -20,7 +20,6 @@
 #import "UIButton+Helper.h"
 #import "UIControl+Helper.h"
 #import "UIImageView+Helper.h"
-#import "UIImage+Helper.h"
 #import "UILabel+Helper.h"
 #import "UIScreen+Helper.h"
 
@@ -99,6 +98,9 @@ UINavigationController *UINavCtrFromObj(id obj){
 - (void)setupContentInsetAdjustmentBehavior:(BOOL)isAutomatic{
     if (@available(iOS 11.0, *)) {
         UIScrollView.appearance.contentInsetAdjustmentBehavior = isAutomatic ? UIScrollViewContentInsetAdjustmentAutomatic : UIScrollViewContentInsetAdjustmentNever;
+    } else {
+        UIScrollView *scrollView = [self.view findSubviewType:UIScrollView.class].firstObject;
+        scrollView.contentInsetAdjustmentBehavior = UIScrollViewContentInsetAdjustmentNever;
     }
 }
 
@@ -146,22 +148,8 @@ UINavigationController *UINavCtrFromObj(id obj){
     }
     
     NSInteger index = [viewControllers indexOfObject:self];
-    BOOL result = [viewControllers[index - 1] isKindOfClass:cls];
+    BOOL result = [viewControllers[index - 1] isMemberOfClass:cls];
     return result;
-}
-
-- (void)pushVC:(NSString *)vcName
-      animated:(BOOL)animated
-         block:(void(^)(__kindof UIViewController *vc))block{
-    UIViewController *controller = [[NSClassFromString(vcName) alloc]init];
-    if (block) {
-        block(controller);
-    }
-    if ([self isKindOfClass:UINavigationController.class]) {
-        [(UINavigationController *)self pushViewController:controller animated:animated];
-    } else {
-        [self.navigationController pushViewController:controller animated:animated];
-    }
 }
 
 - (UISearchController *)createSearchVC:(UIViewController *)resultsController {
@@ -197,22 +185,19 @@ UINavigationController *UINavCtrFromObj(id obj){
 /**
  [弃用]可隐藏的导航按钮
  */
-- (UIButton *)createBarItemTitle:(NSString *)title
-                         imgName:(NSString *)imgName
+- (UIButton *)createBarItemTitle:(NSString *)obj
                           isLeft:(BOOL)isLeft
-                        isHidden:(BOOL)isHidden
                          handler:(void(^)(id obj, UIButton * item, NSInteger idx))handler{
     UIButton *btn = nil;
-    if (imgName) {
-        NSParameterAssert([UIImage imageNamed:imgName]);
+    if ([UIImage imageNamed:obj]) {
         btn = [UIButton buttonWithSize:CGSizeMake(32, 32)
-                               image_N:imgName
+                               image_N:obj
                                image_H:nil
                        imageEdgeInsets:UIEdgeInsetsZero];
         
     } else {
         btn = [UIButton buttonWithSize:CGSizeMake(40, 40)
-                                 title:title
+                                 title:obj
                                   font:15
                           titleColor_N:nil
                           titleColor_H:nil
@@ -221,21 +206,19 @@ UINavigationController *UINavCtrFromObj(id obj){
     }
     
     btn.tag = isLeft  ? kTAG_BTN_BackItem : kTAG_BTN_RightItem;
-    btn.hidden = isHidden;
     //
     UIView * view = [[UIView alloc]initWithFrame:CGRectMake(0, 0, 44, 44)];
-    view.hidden = isHidden;
     btn.center = view.center;
     [view addSubview:btn];
     
     //父视图调用子视图方法参数    
     [view addGestureTap:^(UIGestureRecognizer * _Nonnull reco) {
-        if (btn.isHidden == 1) return ;
+        if (btn.isHidden == 1) return;
         handler(reco, btn, btn.tag);
     }];
     
     [btn addActionHandler:^(id obj, id item, NSInteger idx) {
-        if (btn.isHidden == 1) return ;
+        if (btn.isHidden == 1) return;
 
         if (handler) {
             handler(obj, item, ((UIButton *)item).tag);
@@ -254,7 +237,7 @@ UINavigationController *UINavCtrFromObj(id obj){
  可隐藏的导航栏按钮
  */
 - (UIView *)createBarItem:(NSString *)obj isLeft:(BOOL)isLeft handler:(void(^)(id obj, UIView *item, NSInteger idx))handler{
-    UIView * item = nil;
+    UIView *item = nil;
     if ([UIImage imageNamed:obj]) {
         item = [UIImageView createRect:CGRectMake(0, 0, 32, 32) type:@0];
         ((UIImageView *)item).image = [UIImage imageNamed:obj];
@@ -288,19 +271,13 @@ UINavigationController *UINavCtrFromObj(id obj){
     return view;
 }
 
-
-
 -(NSString *)vcName{
     NSString *className = NSStringFromClass(self.class);
-    if ([className containsString:@"Controller"]) {
-        NSRange range = NSMakeRange(0, 0);
-        if ([className rangeOfString:@"ViewController"].location != NSNotFound) {
-            range = [className rangeOfString:@"ViewController"];
-        }
-        else if ([className rangeOfString:@"Controller"].location != NSNotFound){
-            range = [className rangeOfString:@"Controller"];
-        }
-        className = [className substringToIndex:range.location];
+    if (![className hasSuffix:@"Controller"]) {
+        return className;
+    }
+    if ([className hasSuffix:@"ViewController"]) {
+        return [className stringByReplacingOccurrencesOfString:@"ViewController" withString:@""];
     }
     return className;
 }
@@ -374,25 +351,23 @@ UINavigationController *UINavCtrFromObj(id obj){
 }
 
 - (void)setNavigationBarBackgroundColor:(UIColor *)color{
-    if (!color) {
-        [self.navigationController.navigationBar setBackgroundImage:nil forBarMetrics:UIBarMetricsDefault];
-        [self.navigationController.navigationBar setShadowImage:nil];
-        [self.navigationController.navigationBar setBarTintColor:nil];
-        return;
-    }
-    
-    UIImage *image = UIImageColor(color);
-    if (CGColorEqualToColor(UIColor.clearColor.CGColor, color.CGColor)) {
-        image = [UIImage new];
-    }
-    [self.navigationController.navigationBar setBackgroundImage:image forBarMetrics:UIBarMetricsDefault];
-    [self.navigationController.navigationBar setShadowImage:image];
+    [self.navigationController.navigationBar setBackgroundColor:color];
 }
 
 @end
 
 
 @implementation UINavigationController (Helper)
+
+- (void)pushVC:(NSString *)vcName
+      animated:(BOOL)animated
+         block:(void(^)(__kindof UIViewController *vc))block{
+    UIViewController *controller = [[NSClassFromString(vcName) alloc]init];
+    if (block) {
+        block(controller);
+    }
+    [self pushViewController:controller animated:animated];
+}
 
 - (__kindof UIViewController * _Nullable)findController:(Class)classVC{
     __block UIViewController *controller = nil;

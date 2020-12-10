@@ -38,20 +38,14 @@ FOUNDATION_EXPORT UINavigationController * _Nullable UINavCtrFromObj(id obj);
 ///判断上一页是哪个页面
 - (BOOL)pushFromVC:(Class)cls;
 
-- (void)pushVC:(NSString *)vcName
-      animated:(BOOL)animated
-         block:(void(^ _Nullable)(__kindof UIViewController *vc))block;
-
 /// [源]创建UISearchController(设置IQKeyboardManager.shared.enable = false;//避免searchbar下移)
 - (UISearchController *)createSearchVC:(UIViewController *)resultsController;
 
 /**
   导航栏按钮
  */
-- (UIButton *)createBarItemTitle:(NSString *)title
-                         imgName:(NSString *_Nullable)imageName
+- (UIButton *)createBarItemTitle:(NSString *)obj
                           isLeft:(BOOL)isLeft
-                        isHidden:(BOOL)isHidden
                          handler:(void(^)(id obj, UIButton * item, NSInteger idx))handler;
 
 - (UIView *)createBarItem:(NSString *)obj isLeft:(BOOL)isLeft handler:(void(^)(id obj, UIView *item, NSInteger idx))handler;
@@ -73,6 +67,10 @@ FOUNDATION_EXPORT UINavigationController * _Nullable UINavCtrFromObj(id obj);
 
 
 @interface UINavigationController (Helper)
+
+- (void)pushVC:(NSString *)vcName
+      animated:(BOOL)animated
+         block:(void(^)(__kindof UIViewController *vc))block;
 
 - (__kindof UIViewController * _Nullable)findController:(Class)classVC;
 
