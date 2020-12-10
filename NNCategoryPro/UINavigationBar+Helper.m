@@ -9,6 +9,7 @@
 #import "UINavigationBar+Helper.h"
 
 #import "UIColor+Helper.h"
+#import "UIImage+Helper.h"
 
 @implementation UINavigationBar (Helper)
 
@@ -41,6 +42,23 @@
     // hide title of back button
     [UIBarButtonItem.appearance setBackButtonTitlePositionAdjustment:UIOffsetMake(0, -60)
                                                          forBarMetrics:UIBarMetricsDefault];
+}
+
+
+- (void)setBackgroundColor:(UIColor *)color{
+    if (!color) {
+        [self setBackgroundImage:nil forBarMetrics:UIBarMetricsDefault];
+        [self setShadowImage:nil];
+        [self setBarTintColor:nil];
+        return;
+    }
+    
+    UIImage *image = UIImageColor(color);
+    if (CGColorEqualToColor(UIColor.clearColor.CGColor, color.CGColor)) {
+        image = [UIImage new];
+    }
+    [self setBackgroundImage:image forBarMetrics:UIBarMetricsDefault];
+    [self setShadowImage:image];
 }
 
 @end

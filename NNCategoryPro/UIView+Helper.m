@@ -517,27 +517,35 @@
     return nil;
 }
 
-- (NSArray<__kindof UIView *> *)findSubview:(NSString *)name{
-    Class class = NSClassFromString(name);
-    
+
+- (NSArray<__kindof UIView *> *)findSubviewType:(Class)cls{
     NSMutableArray *marr = [NSMutableArray array];
     for (UIView *view in self.subviews){
-        if ([view isKindOfClass: class]){
+        if ([view isKindOfClass: cls]){
             [marr addObject:view];
         }
     }
     return marr.copy;
 }
 
-- (__kindof UIView *)findSuperView:(NSString *)name{
+- (NSArray<__kindof UIView *> *)findSubview:(NSString *)name{
     Class class = NSClassFromString(name);
+    return [self findSubview:class];
+}
 
+- (__kindof UIView *)findSuperViewType:(Class)cls{
     UIView *supView = self.superview;
-    while (![supView isKindOfClass: class]) {
+    while (![supView isKindOfClass: cls]) {
         supView = supView.superview;
     }
     return supView;
 }
+
+- (__kindof UIView *)findSuperView:(NSString *)name{
+    Class class = NSClassFromString(name);
+    return [self findSuperView:class];
+}
+
 
 - (NSArray<__kindof UIView *> *)updateItems:(NSInteger)count aClassName:(NSString *)aClassName handler:(void(^)(__kindof UIView *obj))handler {
     if (count == 0) {

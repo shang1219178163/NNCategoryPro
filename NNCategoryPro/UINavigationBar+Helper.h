@@ -15,6 +15,8 @@ NS_ASSUME_NONNULL_BEGIN
 /// UINavigationBar默认外观配置
 + (void)configureAppeare;
 
+- (void)setBackgroundColor:(UIColor *)color;
+
 @end
 
 NS_ASSUME_NONNULL_END

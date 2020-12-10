@@ -82,7 +82,11 @@ NS_ASSUME_NONNULL_BEGIN
 
 - (__kindof UIView *)findSubview:(NSString *)name resursion:(BOOL)resursion;
 
+- (NSArray<__kindof UIView *> *)findSubviewType:(Class)cls;
+
 - (NSArray<__kindof UIView *> *)findSubview:(NSString *)name;
+
+- (__kindof UIView *)findSuperViewType:(Class)cls;
 
 - (__kindof UIView *)findSuperView:(NSString *)name;
 
