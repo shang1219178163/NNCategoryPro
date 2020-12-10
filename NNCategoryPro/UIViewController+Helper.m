@@ -150,6 +150,20 @@ UINavigationController *UINavCtrFromObj(id obj){
     return result;
 }
 
+- (void)pushVC:(NSString *)vcName
+      animated:(BOOL)animated
+         block:(void(^)(__kindof UIViewController *vc))block{
+    UIViewController *controller = [[NSClassFromString(vcName) alloc]init];
+    if (block) {
+        block(controller);
+    }
+    if ([self isKindOfClass:UINavigationController.class]) {
+        [(UINavigationController *)self pushViewController:controller animated:animated];
+    } else {
+        [self.navigationController pushViewController:controller animated:animated];
+    }
+}
+
 - (UISearchController *)createSearchVC:(UIViewController *)resultsController {
     self.definesPresentationContext = true;
     
@@ -274,34 +288,7 @@ UINavigationController *UINavCtrFromObj(id obj){
     return view;
 }
 
-- (void)pushVC:(NSString *)vcName
-         title:(NSString *)title
-      animated:(BOOL)animated
-         block:(void(^)(__kindof UIViewController *vc))block{
-    UIViewController *controller = [[NSClassFromString(vcName) alloc]init];
-    controller.title = [title stringByReplacingOccurrencesOfString:@" " withString:@""];
-    if (block) {
-        block(controller);
-    }
-    if ([self isKindOfClass:UINavigationController.class]) {
-        [(UINavigationController *)self pushViewController:controller animated:animated];
-    } else {
-        [self.navigationController pushViewController:controller animated:animated];
-    }
-}
 
-- (void)presentVC:(NSString *)vcName
-            title:(NSString *)title
-         animated:(BOOL)animated
-            block:(void(^)(__kindof UIViewController *vc))block{
-    UIViewController *controller = [[NSClassFromString(vcName) alloc]init];
-    controller.title = [title stringByReplacingOccurrencesOfString:@" " withString:@""];
-    UINavigationController *navController = [[UINavigationController alloc] initWithRootViewController:controller];
-    if (block) {
-        block(controller);
-    }
-    [navController present:animated completion:nil];
-}
 
 -(NSString *)vcName{
     NSString *className = NSStringFromClass(self.class);
@@ -351,19 +338,18 @@ UINavigationController *UINavCtrFromObj(id obj){
     return currentVC;
 }
 
-- (UIViewController *)addControllerName:(NSString *)className{
-    UIViewController *controller = [NSClassFromString(className) new];
+- (UIViewController *)addControllerName:(NSString *)vcName{
+    UIViewController *controller = [NSClassFromString(vcName) new];
     [self addControllerVC:controller];
-    return controller;
 }
 
 /// 添加子控制器(对应方法 removeControllerVC)
-- (void)addControllerVC:(UIViewController *)controller{
-    [self addChildViewController:controller];
-    [self.view addSubview:controller.view];
-    controller.view.frame = self.view.bounds;
-    controller.view.autoresizingMask = UIViewAutoresizingFlexibleWidth | UIViewAutoresizingFlexibleHeight;
-    [controller didMoveToParentViewController:self];
+- (void)addControllerVC:(UIViewController *)vc{
+    [self addChildViewController:vc];
+    [self.view addSubview:vc.view];
+    vc.view.frame = self.view.bounds;
+    vc.view.autoresizingMask = UIViewAutoresizingFlexibleWidth | UIViewAutoresizingFlexibleHeight;
+    [vc didMoveToParentViewController:self];
 }
 
 /// 移除添加的子控制器(对应方法 addControllerVC)
@@ -387,6 +373,13 @@ UINavigationController *UINavCtrFromObj(id obj){
 }
 
 - (void)setNavigationBarBackgroundColor:(UIColor *)color{
+    if (!color) {
+        [self.navigationController.navigationBar setBackgroundImage:nil forBarMetrics:UIBarMetricsDefault];
+        [self.navigationController.navigationBar setShadowImage:nil];
+        [self.navigationController.navigationBar setBarTintColor:nil];
+        return;
+    }
+    
     UIImage *image = UIImageColor(color);
     if (CGColorEqualToColor(UIColor.clearColor.CGColor, color.CGColor)) {
         image = [UIImage new];

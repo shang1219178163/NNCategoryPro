@@ -38,6 +38,10 @@ FOUNDATION_EXPORT UINavigationController * _Nullable UINavCtrFromObj(id obj);
 ///判断上一页是哪个页面
 - (BOOL)pushFromVC:(Class)cls;
 
+- (void)pushVC:(NSString *)vcName
+      animated:(BOOL)animated
+         block:(void(^ _Nullable)(__kindof UIViewController *vc))block;
+
 /// [源]创建UISearchController(设置IQKeyboardManager.shared.enable = false;//避免searchbar下移)
 - (UISearchController *)createSearchVC:(UIViewController *)resultsController;
 
@@ -52,21 +56,9 @@ FOUNDATION_EXPORT UINavigationController * _Nullable UINavCtrFromObj(id obj);
 
 - (UIView *)createBarItem:(NSString *)obj isLeft:(BOOL)isLeft handler:(void(^)(id obj, UIView *item, NSInteger idx))handler;
  
-- (__kindof UIViewController * _Nullable)frontViewController:(UINavigationController *)navContoller;
-
-- (void)pushVC:(NSString *)vcName
-         title:(NSString *)title
-      animated:(BOOL)animated
-         block:(void(^ _Nullable)(__kindof UIViewController *vc))block;
-
-- (void)presentVC:(NSString *)vcName
-            title:(NSString *)title
-         animated:(BOOL)animated
-            block:(void(^ _Nullable)(__kindof UIViewController *vc))block;
-
-- (UIViewController *)addControllerName:(NSString *)className;
+- (UIViewController *)addControllerName:(NSString *)vcName;
 /// 添加子控制器(对应方法 removeControllerVC)
-- (void)addControllerVC:(UIViewController *)controller;
+- (void)addControllerVC:(UIViewController *)vc;
 
 - (void)removeFromSuperVC;
 /// 显示controller(手动调用viewWillAppear和viewDidAppear,viewWillDisappear)
