@@ -11,9 +11,12 @@ NS_ASSUME_NONNULL_BEGIN
 
 @interface NSURL (Helper)
 
-@property (nonatomic, strong, readonly) NSDictionary *paramDic;
-
-- (NSString *)valueForParamKey:(NSString *)paramKey;
+///获取参数键值对
+@property (nonatomic, strong, readonly) NSDictionary<NSString *, id> *queryParameters;
+///追加参数键值对
+- (nullable NSURL *)appendingQueryParameters:(NSDictionary<NSString *, NSString *> *)parameters;
+///查询特定参数值
+- (nullable NSString *)queryValue:(NSString *)key;
 
 ///保存视频到相册
 - (void)saveVideoToPhotosAlbum:(void(^)(NSError *error))block;

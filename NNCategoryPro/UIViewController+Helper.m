@@ -183,57 +183,6 @@ UINavigationController *UINavCtrFromObj(id obj){
 }
 
 /**
- [弃用]可隐藏的导航按钮
- */
-- (UIButton *)createBarItemTitle:(NSString *)obj
-                          isLeft:(BOOL)isLeft
-                         handler:(void(^)(id obj, UIButton * item, NSInteger idx))handler{
-    UIButton *btn = nil;
-    if ([UIImage imageNamed:obj]) {
-        btn = [UIButton buttonWithSize:CGSizeMake(32, 32)
-                               image_N:obj
-                               image_H:nil
-                       imageEdgeInsets:UIEdgeInsetsZero];
-        
-    } else {
-        btn = [UIButton buttonWithSize:CGSizeMake(40, 40)
-                                 title:obj
-                                  font:15
-                          titleColor_N:nil
-                          titleColor_H:nil
-                       titleEdgeInsets:UIEdgeInsetsZero];
-        btn.titleLabel.textColor = UINavigationBar.appearance.tintColor;
-    }
-    
-    btn.tag = isLeft  ? kTAG_BTN_BackItem : kTAG_BTN_RightItem;
-    //
-    UIView * view = [[UIView alloc]initWithFrame:CGRectMake(0, 0, 44, 44)];
-    btn.center = view.center;
-    [view addSubview:btn];
-    
-    //父视图调用子视图方法参数    
-    [view addGestureTap:^(UIGestureRecognizer * _Nonnull reco) {
-        if (btn.isHidden == 1) return;
-        handler(reco, btn, btn.tag);
-    }];
-    
-    [btn addActionHandler:^(id obj, id item, NSInteger idx) {
-        if (btn.isHidden == 1) return;
-
-        if (handler) {
-            handler(obj, item, ((UIButton *)item).tag);
-        }
-    }];
-    UIBarButtonItem *item = [[UIBarButtonItem alloc]initWithCustomView:view];
-    if (isLeft) {
-        self.navigationItem.leftBarButtonItem = item;
-    } else {
-        self.navigationItem.rightBarButtonItem = item;
-    }
-    return btn;
-}
-
-/**
  可隐藏的导航栏按钮
  */
 - (UIView *)createBarItem:(NSString *)obj isLeft:(BOOL)isLeft handler:(void(^)(id obj, UIView *item, NSInteger idx))handler{

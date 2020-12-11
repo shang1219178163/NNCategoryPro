@@ -47,19 +47,12 @@
             CGFloat offsetXY = CGRectGetHeight(rect)/2.0 * sin(45 * M_PI/180.0);
             CGPoint tipCenter = CGPointMake(CGRectGetHeight(rect)/2.0 + offsetXY, CGRectGetHeight(rect)/2.0 + offsetXY);
             //
-            UILabel * labelTip = [UILabel createTipWithSize:CGSizeMake(textWH, textWH)
+            UILabel *labelTip = [UILabel createTipWithSize:CGSizeMake(textWH, textWH)
                                                   tipCenter:tipCenter
                                                        text:text
                                                   textColor:UIColor.themeColor];
             [view addSubview:labelTip];
             
-        }
-            break;
-        case 3://圆角矩形
-        {
-            view.contentMode = UIViewContentModeScaleToFill;
-//            [view addCorners:UIRectCornerAllCorners cornerRadii:CGSizeMake(5, 5)];
-
         }
             break;
         default:

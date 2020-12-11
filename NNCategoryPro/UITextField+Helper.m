@@ -7,10 +7,12 @@
 //
 
 #import "UITextField+Helper.h"
+#import <NNGloble/NNGloble.h>
 #import "UIView+Helper.h"
 #import "UIGestureRecognizer+Helper.h"
+#import "NSObject+Helper.h"
 
-@interface UITextField()<UITableViewDataSource, UITableViewDelegate>
+@interface UITextField()
 
 @end
 
@@ -86,6 +88,33 @@
         imgView;
     });
     return textField;
+}
+
+- (id)asoryView:(NSString *)unitString{
+    //    NSArray * unitList = @[@"元",@"公斤"];
+    NSParameterAssert([self isKindOfClass:[UITextField class]]);
+    NSParameterAssert(unitString != nil && ![unitString isEqualToString:@""]);
+    if ([UIImage imageNamed:unitString]) {
+        CGSize size = CGSizeMake(20, 20);
+        UIImageView *imgView = [[UIImageView alloc]init];
+        imgView.frame = CGRectMake(0, 0, size.width, size.height);
+        imgView.autoresizingMask = UIViewAutoresizingFlexibleWidth|UIViewAutoresizingFlexibleHeight;
+        imgView.contentMode = UIViewContentModeScaleAspectFit;
+        imgView.userInteractionEnabled = YES;
+        imgView.image = [UIImage imageNamed:unitString];
+        return imgView;
+    }
+    
+    CGSize size = [self sizeWithText:unitString font:@(14) width:kScreenWidth];
+    UILabel *label = [[UILabel alloc]init];
+    label.frame = CGRectMake(0, 0, size.width+2, 25);
+    label.numberOfLines = 1;
+    label.lineBreakMode = NSLineBreakByTruncatingTail;
+    label.adjustsFontSizeToFitWidth = YES;
+    label.text = unitString;
+    label.textColor = UIColor.titleColor;
+    label.textAlignment = NSTextAlignmentCenter;
+    return label;
 }
 
 @end

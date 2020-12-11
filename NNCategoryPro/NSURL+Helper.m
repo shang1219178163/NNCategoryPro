@@ -9,24 +9,49 @@
 
 @implementation NSURL (Helper)
 
-/**
- *  @brief  url参数转字典
- *
- *  @return 参数转字典结果
- */
-- (NSDictionary *)paramDic{
-    NSMutableDictionary *dic = [NSMutableDictionary dictionary];
-    NSArray *queryComponents = [self.query componentsSeparatedByString:@"&"];
-    for (NSString *queryComponent in queryComponents) {
-        NSString *key = [queryComponent componentsSeparatedByString:@"="].firstObject;
-        NSString *value = [queryComponent substringFromIndex:(key.length + 1)];
-        [dic setObject:value forKey:key];
+
+- (NSDictionary *)queryParameters{
+    NSURLComponents *urlComponents = [[NSURLComponents alloc]initWithURL:self resolvingAgainstBaseURL:false];
+    if (!urlComponents || !urlComponents.queryItems) {
+        return @{};
     }
-    return dic;
+    
+    __block NSMutableDictionary *mdic = [NSMutableDictionary dictionary];
+    [urlComponents.queryItems enumerateObjectsUsingBlock:^(NSURLQueryItem * _Nonnull obj, NSUInteger idx, BOOL * _Nonnull stop) {
+        mdic[obj.name] = obj.value;
+    }];
+    return mdic;
 }
 
-- (NSString *)valueForParamKey:(NSString *)paramKey{
-    return [self.paramDic objectForKey:paramKey];
+- (nullable NSURL *)appendingQueryParameters:(NSDictionary<NSString *, NSString *> *)parameters {
+    NSURLComponents *urlComponents = [[NSURLComponents alloc]initWithURL:self resolvingAgainstBaseURL:false];
+    if (!urlComponents) {
+        return nil;
+    }
+    
+    __block NSMutableArray *marr = [NSMutableArray arrayWithArray:urlComponents.queryItems];
+    [parameters enumerateKeysAndObjectsUsingBlock:^(NSString * _Nonnull key, NSString * _Nonnull obj, BOOL * _Nonnull stop) {
+        NSURLQueryItem *item = [[NSURLQueryItem alloc]initWithName:key value:obj];
+        [marr addObject:item];
+    }];
+    urlComponents.queryItems = marr.copy;
+    return urlComponents.URL;
+}
+
+- (nullable NSString *)queryValue:(NSString *)key {
+    NSURLComponents *urlComponents = [[NSURLComponents alloc]initWithURL:self resolvingAgainstBaseURL:false];
+    if (!urlComponents) {
+        return nil;
+    }
+    
+    __block NSString *result;
+    [urlComponents.queryItems enumerateObjectsUsingBlock:^(NSURLQueryItem * _Nonnull obj, NSUInteger idx, BOOL * _Nonnull stop) {
+        if ([obj.name isEqualToString:key]) {
+            result = obj.value;
+            *stop = true;
+        }
+    }];
+    return result;
 }
 
 - (void)saveVideoToPhotosAlbum:(void(^)(NSError *error))block{

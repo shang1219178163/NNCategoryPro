@@ -14,7 +14,7 @@
 @implementation UICollectionViewCell (AddView)
 
 + (instancetype)viewWithCollectionView:(UICollectionView *)collectionView indexPath:(NSIndexPath *)indexPath{
-    NSString * identifier = NSStringFromClass(self.class);
+    NSString *identifier = NSStringFromClass(self.class);
     UICollectionViewCell *view = [collectionView dequeueReusableCellWithReuseIdentifier:identifier forIndexPath:indexPath];
     
     return view;
@@ -26,7 +26,7 @@
 }
 
 -(UIImageView *)imgView{
-    UIImageView * view = objc_getAssociatedObject(self, _cmd);
+    UIImageView *view = objc_getAssociatedObject(self, _cmd);
     if (!view) {
         view = ({
             UIImageView *view = [[UIImageView alloc] initWithFrame:CGRectZero];
@@ -46,7 +46,7 @@
 }
 
 -(UILabel *)label{
-    UILabel * view = objc_getAssociatedObject(self, _cmd);
+    UILabel *view = objc_getAssociatedObject(self, _cmd);
     if (!view) {
         view = ({
             UILabel * view = [[UILabel alloc] initWithFrame:CGRectZero];
@@ -72,7 +72,7 @@
     UILabel * view = objc_getAssociatedObject(self, _cmd);
     if (!view) {
         view = ({
-            UILabel * view = [[UILabel alloc] initWithFrame:CGRectZero];
+            UILabel *view = [[UILabel alloc] initWithFrame:CGRectZero];
             view.autoresizingMask = UIViewAutoresizingFlexibleWidth|UIViewAutoresizingFlexibleHeight;
             view.font = [UIFont systemFontOfSize:17];
             view.textAlignment = NSTextAlignmentLeft;

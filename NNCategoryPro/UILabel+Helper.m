@@ -93,7 +93,7 @@
 ///UILabel富文本设置
 - (NSMutableAttributedString *)setContent:(NSString *)content attDic:(NSDictionary *)attDic{
     NSAssert([self.text containsString:content], @"包含子标题");
-    NSString * text = self.text;
+    NSString *text = self.text;
     NSMutableAttributedString *attString = [[NSMutableAttributedString alloc]initWithString:text];
     NSRange range = [text rangeOfString:content];
     [attString addAttributes:attDic range:range];

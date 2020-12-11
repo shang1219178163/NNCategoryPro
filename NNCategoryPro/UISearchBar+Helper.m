@@ -13,6 +13,10 @@
 @implementation UISearchBar (Helper)
 
 - (UITextField *)textField{
+    if (@available(iOS 13.0, *)) {
+        return self.searchTextField;
+    }
+    
     UITextField *obj = objc_getAssociatedObject(self, _cmd);
     if (!obj) {
         obj = (UITextField *)[self findSubview:@"UITextField" resursion:YES];

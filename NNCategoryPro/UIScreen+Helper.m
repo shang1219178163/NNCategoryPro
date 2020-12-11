@@ -10,12 +10,16 @@
 
 @implementation UIScreen (Helper)
 
++ (bool)isIPhoneX{
+    return UIScreen.mainScreen.bounds.size.height >= 812;
+}
+
 +(CGFloat)statusBarHeight{
-    return 20.0;
+    return self.isIPhoneX ? 44 : 20;
 }
 
 + (CGFloat)navBarHeight{
-    return 44.0;
+    return self.isIPhoneX ? 88 : 64;
 }
 
 + (CGFloat)barHeight{
@@ -23,7 +27,7 @@
 }
 
 + (CGFloat)tabBarHeight{
-    return 49.0;
+    return self.isIPhoneX ? (49.0 + 34.0) : 49;
 }
 
 + (CGRect)bounds{

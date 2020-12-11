@@ -29,25 +29,6 @@
     return view;
 }
 
-//- (void)setTbView:(UITableView *)tbView{
-//    objc_setAssociatedObject(self, @selector(tbView), tbView, OBJC_ASSOCIATION_RETAIN_NONATOMIC);
-//}
-
-- (UITableView *)tbViewGrouped{
-    UITableView *view = objc_getAssociatedObject(self, _cmd);
-    if (!view) {
-        view = [UITableView createRect:self.view.bounds style:UITableViewStyleGrouped];
-        if ([self conformsToProtocol:@protocol(UITableViewDataSource)]) view.dataSource = self;
-        if ([self conformsToProtocol:@protocol(UITableViewDelegate)]) view.delegate = self;
-        objc_setAssociatedObject(self, _cmd, view, OBJC_ASSOCIATION_RETAIN_NONATOMIC);
-    }
-    return view;
-}
-
-//- (void)setTbViewGrouped:(UITableView *)tbViewGrouped{
-//    objc_setAssociatedObject(self, @selector(tbViewGrouped), tbViewGrouped, OBJC_ASSOCIATION_RETAIN_NONATOMIC);
-//}
-
 - (UICollectionView *)ctView{
     UICollectionView *view = objc_getAssociatedObject(self, _cmd);
     if (!view) {

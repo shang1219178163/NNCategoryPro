@@ -67,7 +67,6 @@
     return result;
 }
 
-
 -(NSString *)localized{
     return NSLocalizedString(self, self);
 }
@@ -75,6 +74,51 @@
 -(NSDecimalNumber *)decNumer{
     return [NSDecimalNumber decimalNumberWithString:self];
 }
+
+- (NSString *)trimmed{
+    return [self stringByTrimmingCharactersInSet:NSCharacterSet.whitespaceAndNewlineCharacterSet];
+}
+
+- (NSString *)urlDecoded{
+    return [self stringByRemovingPercentEncoding];;
+}
+
+- (NSString *)urlEncoded{
+    return [self stringByAddingPercentEncodingWithAllowedCharacters:NSCharacterSet.URLUserAllowedCharacterSet];;;
+}
+
+- (BOOL)isValidUrl{
+    return ([[NSURL alloc]initWithString:self] != nil);
+}
+
+- (BOOL)isValidHttpUrl{
+    NSURL *url = [[NSURL alloc]initWithString:self];
+    return [url.scheme isEqualToString:@"http"];
+}
+
+- (BOOL)isValidFileUrl{
+    NSURL *url = [[NSURL alloc]initWithString:self];
+    return url.isFileURL;
+}
+
+- (BOOL)isValidPhone{
+    if (self.length == 0) {
+        return false;
+    }
+    NSString *pattern = @"^1[0-9]{10}$";
+    NSPredicate *pre = [NSPredicate predicateWithFormat:@"SELF MATCHES %@", pattern];
+    return [pre evaluateWithObject:self];;
+}
+
+- (BOOL)isValidEmail{
+    if (self.length == 0) {
+        return false;
+    }
+    NSString *pattern = @"[A-Z0-9a-z._%+-]+@[A-Za-z0-9.-]+\\.[A-Za-z]{2,4}";
+    NSPredicate *pre = [NSPredicate predicateWithFormat:@"SELF MATCHES %@", pattern];
+    return [pre evaluateWithObject:self];;
+}
+
 
 NSString * NSStringFromIndexPath(NSIndexPath *indexPath) {
     return [NSString stringWithFormat:@"{%@,%@}",@(indexPath.section),@(indexPath.row)];
@@ -89,19 +133,6 @@ NSString * NSStringFromHTML(NSString *html) {
         [scanner scanUpToString:@">" intoString:&text];
         html = [html stringByReplacingOccurrencesOfString:[NSString stringWithFormat:@"%@>",text] withString:@""];
     }
-    //  过滤html中的\n\r\t换行空格等特殊符号
-    //    NSMutableString *str1 = [NSMutableString stringWithString:html];
-    //    for (NSInteger i = 0; i < str1.length; i++) {
-    //        unichar c = [str1 characterAtIndex:i];
-    //        NSRange range = NSMakeRange(i, 1);
-    //
-    //        //  在这里添加要过滤的特殊符号
-    //        if ( c == '\r' || c == '\n' || c == '\t') {
-    //            [str1 deleteCharactersInRange:range];
-    //            --i;
-    //        }
-    //    }
-    //    html  = [NSString stringWithString:str1];
     return html;
 }
 
@@ -233,8 +264,6 @@ NSString * NSStringFromFloat(CGFloat obj){
     return [returnStr stringByReplacingOccurrencesOfString:@"\\r\\n"withString:@"\n"];
 }
 
-
-
 - (NSString *)stringBylimitLength:(NSInteger)limitLength{
     NSString * string = self;
     if (string.length > limitLength) {
@@ -351,11 +380,6 @@ NSString * NSStringFromFloat(CGFloat obj){
     return dateStr;
 }
 
-+ (NSString *)stringFromData:(NSData *)data{
-    NSString *string = [[NSString alloc] initWithData:data encoding:NSUTF8StringEncoding];
-    return string;
-}
-
 - (id)filterString:(NSString *)filterString{
     if (self.length <= 0) {
         return self;
@@ -385,19 +409,19 @@ NSString * NSStringFromFloat(CGFloat obj){
  @param array 字符串数组
  @return 包含所有元素
  */
-- (BOOL)containArray:(NSArray *)array{
-    for (NSString *obj in array) {
-        if (![self containsString:obj]) return NO;
-    }
-    return YES;
-}
-
-- (NSString *)getPlaceholder{
-    NSString *placeHolder = [NSString stringWithFormat:@"请输入%@", self];
-    placeHolder = [placeHolder stringByReplacingOccurrencesOfString:@" " withString:@""];
-    placeHolder = [placeHolder stringByReplacingOccurrencesOfString:@":" withString:@""];
-    return placeHolder;
-}
+//- (BOOL)containArray:(NSArray *)array{
+//    for (NSString *obj in array) {
+//        if (![self containsString:obj]) return NO;
+//    }
+//    return YES;
+//}
+//
+//- (NSString *)getPlaceholder{
+//    NSString *placeHolder = [NSString stringWithFormat:@"请输入%@", self];
+//    placeHolder = [placeHolder stringByReplacingOccurrencesOfString:@" " withString:@""];
+//    placeHolder = [placeHolder stringByReplacingOccurrencesOfString:@":" withString:@""];
+//    return placeHolder;
+//}
 
 + (NSString *)ramdomText{
     NSArray *array = @[@"测试数据,",@"test_",@"AAAAA-",@"BBBBB>",@"秦时明月",@"犯我大汉天威者,虽远必诛",];
@@ -486,10 +510,6 @@ NSString * NSStringFromFloat(CGFloat obj){
         [UIAlertController alertControllerWithTitle:@"" message:tips preferredStyle:UIAlertControllerStyleAlert]
         .nn_present(true, nil);
     }
-}
-
-- (void)copyToPasteboard{
-    [self copyToPasteboard:YES];
 }
 
 @end

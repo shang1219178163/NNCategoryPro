@@ -22,6 +22,8 @@ NS_ASSUME_NONNULL_BEGIN
  */
 + (instancetype)createPwdRect:(CGRect)rect image:(UIImage *)image imageSelected:(UIImage *)imageSelected;
 
+- (id)asoryView:(NSString *)unitString;
+
 @end
 
 NS_ASSUME_NONNULL_END

@@ -30,6 +30,7 @@
 //    cell.selectionStyle = UITableViewCellSelectionStyleNone;
 //    cell.separatorInset = UIEdgeInsetsZero;
 //    cell.layoutMargins = UIEdgeInsetsZero;
+    cell.backgroundColor = UIColor.whiteColor;
     return cell;
 }
 

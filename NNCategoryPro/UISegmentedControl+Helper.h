@@ -19,10 +19,9 @@ NS_ASSUME_NONNULL_BEGIN
  */
 + (instancetype)createRect:(CGRect)rect
                      items:(NSArray *)items
-             selectedIndex:(NSInteger)selectedIndex
                       type:(NSNumber *)type;
 
-- (void)ensureiOS12Style;
+- (void)ensureiOS13Style API_AVAILABLE(ios(13.0));
 
 - (void)updateItems:(NSArray<NSString *> *)titles;
 

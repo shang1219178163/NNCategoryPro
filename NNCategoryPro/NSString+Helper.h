@@ -28,6 +28,16 @@ NS_ASSUME_NONNULL_BEGIN
 @property (nonatomic, strong, readonly) NSString *localized;
 @property (nonatomic, strong, readonly) NSDecimalNumber *decNumer;
 
+
+@property (nonatomic, strong, readonly) NSString *trimmed;
+@property (nonatomic, strong, readonly) NSString *urlDecoded;
+@property (nonatomic, strong, readonly) NSString *urlEncoded;
+@property (nonatomic, assign, readonly) BOOL isValidUrl;
+@property (nonatomic, assign, readonly) BOOL isValidHttpUrl;
+@property (nonatomic, assign, readonly) BOOL isValidFileUrl;
+@property (nonatomic, assign, readonly) BOOL isValidPhone;
+@property (nonatomic, assign, readonly) BOOL isValidEmail;
+
 /// NSIndexPath->字符串
 FOUNDATION_EXPORT NSString * NSStringFromIndexPath(NSIndexPath *indexPath);
 /// html->字符串
@@ -103,8 +113,6 @@ FOUNDATION_EXPORT NSString * NSStringFromFloat(CGFloat obj);
 
 - (NSString *)toDateMonthDay;
 
-+ (NSString *)stringFromData:(NSData *)data;
-
 /**
  过滤特殊字符集
  */
@@ -122,9 +130,9 @@ FOUNDATION_EXPORT NSString * NSStringFromFloat(CGFloat obj);
  @param array 字符串数组
  @return 包含所有元素
  */
-- (BOOL)containArray:(NSArray *)array;
-
-- (NSString *)getPlaceholder;
+//- (BOOL)containArray:(NSArray *)array;
+//
+//- (NSString *)getPlaceholder;
 
 + (NSString *)ramdomText;
 
@@ -143,9 +151,6 @@ FOUNDATION_EXPORT NSString * NSStringFromFloat(CGFloat obj);
 - (BOOL)isCompare:(NSString *)string;
 
 - (void)copyToPasteboard:(BOOL)hiddenTips;
-
-- (void)copyToPasteboard;
-
 @end
 
 NS_ASSUME_NONNULL_END

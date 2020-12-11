@@ -50,7 +50,7 @@ NSArray<UITabBarItem *> * UITabBarItemsFromList(NSArray<NSArray *> * list){
 NSArray<__kindof UIViewController *> * UICtlrListFromList(NSArray<NSArray *> *list, BOOL isNavController){
     NSArray *tabItems = UITabBarItemsFromList(list);
     
-    __block NSMutableArray * marr = [NSMutableArray array];
+    __block NSMutableArray *marr = [NSMutableArray array];
     [list enumerateObjectsUsingBlock:^(id  _Nonnull obj, NSUInteger idx, BOOL * _Nonnull stop) {
         if ([obj isKindOfClass:[NSString class]]) {
             UINavigationController *navController = UINavCtrFromObj(obj);
@@ -66,7 +66,6 @@ NSArray<__kindof UIViewController *> * UICtlrListFromList(NSArray<NSArray *> *li
             //时候是导航控制器
             controller = isNavController ? UINavCtrFromObj(controller) : controller;
             [marr addObject:controller];
-            
         }
         else{
             assert([obj isKindOfClass:[NSString class]] || [obj isKindOfClass:[NSArray class]]);

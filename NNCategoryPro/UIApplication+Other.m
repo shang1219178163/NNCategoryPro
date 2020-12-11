@@ -561,7 +561,8 @@
     return urlString;
 }
 
-+ (BOOL)checkVersion:(NSString *)appStoreID {
+
++ (void)updateVersion:(NSString *)appStoreID handler:(void(^)(NSDictionary *dic, NSString *appStoreVer, NSString *releaseNotes, bool isUpdate))handler {
     __block BOOL isUpdate = NO;
     
     NSString *path = [UIApplication appDetailUrlWithID:appStoreID];
@@ -569,54 +570,64 @@
     request.HTTPMethod = @"POST";
     
     NSURLSessionDataTask *dataTask = [NSURLSession.sharedSession dataTaskWithRequest:request completionHandler:^(NSData * _Nullable data, NSURLResponse * _Nullable response, NSError * _Nullable error) {
-        if (data) {
-            NSDictionary *dic = [NSJSONSerialization JSONObjectWithData:data options:NSJSONReadingMutableLeaves error:nil];
-            if ([dic[@"resultCount"] isEqualToNumber:@1]) {
-                
-                NSDictionary *dicInfo = [dic[@"results"] firstObject];
-                
-                NSString *appStoreVer = dicInfo[@"version"];
-                NSString *releaseNotes = dicInfo[@"releaseNotes"];
-//            NSString *trackViewUrl = dataModel.trackViewUrl;// appStore 跳转版本链接
-                
-                isUpdate = [appStoreVer compare:UIApplication.appVer options:NSNumericSearch] == NSOrderedDescending;
-                if (isUpdate == false) {
-                    return;
-                }
+        if (!data) {
+            return;
+        }
+        NSDictionary *dic = [NSJSONSerialization JSONObjectWithData:data options:NSJSONReadingMutableLeaves error:nil];
+        if (!dic || ![dic[@"resultCount"] isEqualToNumber:@1]) {
+            return;
+        }
+                        
+        NSDictionary *dicInfo = [dic[@"results"] firstObject];
+        
+        NSString *appStoreVer = dicInfo[@"version"];
+        NSString *releaseNotes = dicInfo[@"releaseNotes"];
+//       NSString *trackViewUrl = dicInfo[@"trackViewUrl"];// appStore 跳转版本链接
+        
+        BOOL isUpdate = [appStoreVer compare:UIApplication.appVer options:NSNumericSearch] == NSOrderedDescending;
+        if (handler) {
+            handler(dicInfo, appStoreVer, releaseNotes, isUpdate);
+        }
+    }];
+    [dataTask resume];
+}
 
-                dispatch_async(dispatch_get_main_queue(), ^{
-                    NSString *versionInfo = [NSString stringWithFormat:@"新版本V%@!",appStoreVer];
-                    // AppStore版本号大于当前版本号，强制更新
-                    // 弹窗 更新
-                    UIAlertController *alertVC = [UIAlertController alertControllerWithTitle:versionInfo message:releaseNotes preferredStyle:UIAlertControllerStyleAlert];
-                    alertVC.nn_addAction(@[kTitleCall,kTitleUpdate], ^(UIAlertAction * _Nonnull action) {
-                        if ([action.title isEqualToString:kTitleUpdate]) {
-                            // 升级去
-                            NSString *urlStr = [UIApplication appUrlWithID:appStoreID];
-                            [UIApplication openURLString:urlStr prefix:@"http://" completion:^(BOOL success) {
+
++ (void)checkVersion:(NSString *)appStoreID {
+    [UIApplication updateVersion:appStoreID handler:^(NSDictionary *dic, NSString *appStoreVer, NSString *releaseNotes, bool isUpdate) {
+        if (isUpdate == false) {
+            return;
+        }
+
+        dispatch_async(dispatch_get_main_queue(), ^{
+            NSString *versionInfo = [NSString stringWithFormat:@"新版本V%@!",appStoreVer];
+            // AppStore版本号大于当前版本号，强制更新
+            // 弹窗 更新
+            UIAlertController *alertVC = [UIAlertController alertControllerWithTitle:versionInfo message:releaseNotes preferredStyle:UIAlertControllerStyleAlert];
+            alertVC.nn_addAction(@[kTitleCall,kTitleUpdate], ^(UIAlertAction * _Nonnull action) {
+                if ([action.title isEqualToString:kTitleUpdate]) {
+                    // 升级去
+                    NSString *urlStr = [UIApplication appUrlWithID:appStoreID];
+                    [UIApplication openURLString:urlStr prefix:@"http://" completion:^(BOOL success) {
 //                                if (!success) {
 //                                    NSString *tips = [urlStr stringByAppendingString:@"打开失败"];
 //                                    [UIAlertController showAlertTitle:tips message:nil actionTitles:nil handler:nil];
 //                                }
-                            }];
-                        }
-                    })
-                    .nn_present(true, nil);
-                       
-                    // 富文本效果
-                    NSMutableParagraphStyle * style = [[NSMutableParagraphStyle alloc]init];
-                    style.lineBreakMode = NSLineBreakByCharWrapping;
-                    style.alignment = NSTextAlignmentLeft;
-                    style.lineSpacing = 5;
-                    
-                    [alertVC setTitleColor: UIColor.themeColor];
-                    [alertVC setMessageParaStyle:style];
-                });
-            }
-        }
+                    }];
+                }
+            })
+            .nn_present(true, nil);
+               
+            // 富文本效果
+            NSMutableParagraphStyle * style = [[NSMutableParagraphStyle alloc]init];
+            style.lineBreakMode = NSLineBreakByCharWrapping;
+            style.alignment = NSTextAlignmentLeft;
+            style.lineSpacing = 5;
+            
+            [alertVC setTitleColor: UIColor.themeColor];
+            [alertVC setMessageParaStyle:style];
+        });
     }];
-    [dataTask resume];
-    return isUpdate;
 }
 
 @end

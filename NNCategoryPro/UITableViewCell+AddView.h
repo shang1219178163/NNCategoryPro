@@ -22,8 +22,6 @@ NS_ASSUME_NONNULL_BEGIN
 
 +(instancetype)cellWithTableView:(UITableView *)tableView;
 
-//@property (nonatomic, strong, class, readonly) NSString *identifier;
-
 @property (nonatomic, assign) CGSize imgViewLeftSize;
 
 @property (nonatomic, strong) UILabel *labelRight;

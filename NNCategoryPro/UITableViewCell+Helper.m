@@ -13,16 +13,6 @@
 
 @implementation UITableViewCell (Helper)
 
-CGFloat CellHeightFromParams(NSMutableDictionary *dic, NSIndexPath *indexPath, CGFloat height){
-    NSString *cachKey = [NSString stringWithFormat:@"%@,%@",@(indexPath.section),@(indexPath.row)];
-    if (dic[cachKey]) {
-        return [dic[cachKey] floatValue];
-        
-    } else {
-        [dic setObject:@(height) forKey:cachKey];
-    }
-    return height;
-}
 
 
 @end

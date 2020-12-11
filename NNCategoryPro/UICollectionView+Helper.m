@@ -21,31 +21,29 @@ NSString * const UICollectionElementKindSectionItem = @"UICollectionElementKindS
     if (!obj) {
         obj = ({
             CGFloat width = UIScreen.mainScreen.bounds.size.width;
-            CGFloat spacing = 5.0;
-            CGSize itemSize = CGSizeMake((width - 5*spacing)/4.0, (width - 5*spacing)/4.0);
+            CGFloat spacing = 8.0;
+            NSInteger numOfRow = 4;
+            CGFloat itemWidth = (width - (numOfRow+1)*spacing)/numOfRow;
+            CGSize itemSize = CGSizeMake(itemWidth, itemWidth);
             CGSize headerSize = CGSizeMake(width, 40);
             CGSize footerSize = CGSizeMake(width, 20);
-            UICollectionViewFlowLayout *layout = [UICollectionViewLayout createItemSize:itemSize spacing:spacing headerSize:headerSize footerSize:footerSize];
+            
+            UICollectionViewFlowLayout *layout = [UICollectionViewFlowLayout createItemSize:itemSize
+                                                                                spacing:spacing
+                                                                             headerSize:headerSize
+                                                                             footerSize:footerSize];
+            
+            
+            
             layout;
         });
         objc_setAssociatedObject(self, @selector(layoutDefault), obj, OBJC_ASSOCIATION_RETAIN_NONATOMIC);
-        
     }
     return obj;
 }
 
 -(void)setLayoutDefault:(UICollectionViewLayout *)layoutDefault{
     objc_setAssociatedObject(self, @selector(layoutDefault), layoutDefault, OBJC_ASSOCIATION_RETAIN_NONATOMIC);
-}
-
-- (NSArray *)listClass{
-    return objc_getAssociatedObject(self, _cmd);
-}
-
-- (void)setListClass:(NSArray *)listClass{
-    objc_setAssociatedObject(self, @selector(listClass), listClass, OBJC_ASSOCIATION_COPY_NONATOMIC);
-    
-    [self registerListClass:listClass];
 }
 
 - (NSDictionary *)dictClass{
@@ -57,9 +55,9 @@ NSString * const UICollectionElementKindSectionItem = @"UICollectionElementKindS
 
     for (NSString * key in dictClass.allKeys) {
         if ([key isEqualToString:UICollectionElementKindSectionItem]) {
-            [self registerListClass:dictClass[key]];
+            [self registerCTVCell:dictClass[key]];
         } else {
-            [self registerListClassReusable:dictClass[key] kind:key];
+            [self registerCTVReusable:dictClass[key] kind:key];
         }
     }
 }
@@ -78,9 +76,6 @@ NSString * const UICollectionElementKindSectionItem = @"UICollectionElementKindS
     return view;
 }
 
-+ (NSString *)cellIdentifierByClassName:(NSString *)className{
-    return className;
-}
 
 + (NSString *)viewIdentifierByClassName:(NSString *)className kind:(NSString *)kind{
     NSString *extra = [kind isEqualToString:UICollectionElementKindSectionHeader] ? @"Header" : @"Footer";
@@ -89,13 +84,13 @@ NSString * const UICollectionElementKindSectionItem = @"UICollectionElementKindS
     return identifier;
 }
 
-- (void)registerListClass:(NSArray *)listClass{
+- (void)registerCTVCell:(NSArray *)listClass{
     for (NSString * className in listClass) {
         [self registerClass:NSClassFromString(className) forCellWithReuseIdentifier:className];
     }
 }
 
-- (void)registerListClassReusable:(NSArray *)listClass kind:(NSString *)kind{
+- (void)registerCTVReusable:(NSArray *)listClass kind:(NSString *)kind{
     for (NSString *className in listClass) {
         NSString *identifier = [self.class viewIdentifierByClassName:className kind:kind];
         [self registerClass:NSClassFromString(className) forSupplementaryViewOfKind:kind withReuseIdentifier:identifier];
@@ -105,19 +100,23 @@ NSString * const UICollectionElementKindSectionItem = @"UICollectionElementKindS
 
 #pragma mark - -funtions
 
+
+
 /**
  默认布局配置(自上而下,自左而右)
  */
-- (UICollectionViewFlowLayout *)createItemHeight:(CGFloat)itemHeight
-                                         spacing:(CGFloat)spacing
-                                    headerHeight:(CGFloat)headerHeight
-                                    footerHeight:(CGFloat)footerHeight{
-    
+- (UICollectionViewLayout *)createLayout:(NSInteger)numOfRow
+                              itemHeight:(CGFloat)itemHeight
+                                 spacing:(CGFloat)spacing
+                            headerHeight:(CGFloat)headerHeight
+                            footerHeight:(CGFloat)footerHeight {
     CGFloat width = CGRectGetWidth(self.bounds);
-    CGSize itemSize = CGSizeMake((width - 5*spacing)/4.0, itemHeight);
+    CGFloat itemWidth = (width - (numOfRow+1)*spacing)/numOfRow;
+
+    CGSize itemSize = CGSizeMake(itemWidth, itemHeight);
     CGSize headerSize = CGSizeMake(width, headerHeight);
     CGSize footerSize = CGSizeMake(width, footerHeight);
-    UICollectionViewFlowLayout *layout = [UICollectionViewLayout createItemSize:itemSize
+    UICollectionViewFlowLayout *layout = [UICollectionViewFlowLayout createItemSize:itemSize
                                                                         spacing:spacing
                                                                      headerSize:headerSize
                                                                      footerSize:footerSize];

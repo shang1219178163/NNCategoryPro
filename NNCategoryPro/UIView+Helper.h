@@ -19,12 +19,6 @@ NS_ASSUME_NONNULL_BEGIN
 
 @interface UIView (Helper)
 
-//与自动布局类库属性重名冲突,废弃
-//@property (nonatomic, assign) CGFloat x;
-//@property (nonatomic, assign) CGFloat y;
-//@property (nonatomic, assign) CGFloat width;
-//@property (nonatomic, assign) CGFloat height;
-
 @property (nonatomic, assign) CGFloat originX;
 @property (nonatomic, assign) CGFloat originY;
 @property (nonatomic, assign) CGFloat sizeWidth;
@@ -177,9 +171,7 @@ NS_ASSUME_NONNULL_BEGIN
 
 - (void)removeAllSubViews;
 
-- (NSIndexPath *)getCellIndexPath:(UITableView *)tableView;
-
-- (id)asoryView:(NSString *)unitString;
+//- (NSIndexPath *)getCellIndexPath:(UITableView *)tableView;
 
 //信任值展示,无点击手势
 //+ (id)getStarViewRect:(CGRect)rect rateStyle:(NSString *)rateStyle currentScore:(CGFloat)currentScore;

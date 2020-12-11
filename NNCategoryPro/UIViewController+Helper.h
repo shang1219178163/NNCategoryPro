@@ -42,12 +42,8 @@ FOUNDATION_EXPORT UINavigationController * _Nullable UINavCtrFromObj(id obj);
 - (UISearchController *)createSearchVC:(UIViewController *)resultsController;
 
 /**
-  导航栏按钮
+ 可隐藏的导航栏按钮
  */
-- (UIButton *)createBarItemTitle:(NSString *)obj
-                          isLeft:(BOOL)isLeft
-                         handler:(void(^)(id obj, UIButton * item, NSInteger idx))handler;
-
 - (UIView *)createBarItem:(NSString *)obj isLeft:(BOOL)isLeft handler:(void(^)(id obj, UIView *item, NSInteger idx))handler;
  
 - (UIViewController *)addControllerName:(NSString *)vcName;

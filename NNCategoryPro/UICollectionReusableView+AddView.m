@@ -25,20 +25,8 @@
     return view;
 }
 
-//+ (instancetype)viewWithCollectionView:(UICollectionView *)collectionView indexPath:(NSIndexPath *)indexPath kind:(NSString *)kind{
-//    NSString * identifier = [UICollectionView viewIdentifierByClassName:NSStringFromClass(self.class) kind:kind];
-//    UICollectionReusableView *view = [collectionView dequeueReusableSupplementaryViewOfKind:kind withReuseIdentifier:identifier forIndexPath:indexPath];
-//
-//    NSString *titleHeader = [NSString stringWithFormat:@"HeaderView_%@",@(indexPath.section)];
-//    NSString *titleFooter = [NSString stringWithFormat:@"FooterView_%@",@(indexPath.section)];
-//    view.label.text = [kind isEqualToString:UICollectionElementKindSectionHeader]  ? titleHeader: titleFooter;
-//    view.backgroundColor = [kind isEqualToString:UICollectionElementKindSectionHeader] ? UIColor.greenColor : UIColor.yellowColor;
-//    view.backgroundColor = UIColor.whiteColor;
-//    return view;
-//}
-
 -(UIImageView *)imgView{
-    UIImageView * view = objc_getAssociatedObject(self, _cmd);
+    UIImageView *view = objc_getAssociatedObject(self, _cmd);
     if (!view) {
         view = ({
             UIImageView *view = [[UIImageView alloc] initWithFrame:CGRectZero];
@@ -62,7 +50,7 @@
     UILabel * view = objc_getAssociatedObject(self, _cmd);
     if (!view) {
         view = ({
-            UILabel * view = [[UILabel alloc] initWithFrame:CGRectZero];
+            UILabel *view = [[UILabel alloc] initWithFrame:CGRectZero];
             view.autoresizingMask = UIViewAutoresizingFlexibleWidth|UIViewAutoresizingFlexibleHeight;
             
             view.font = [UIFont systemFontOfSize:15];
@@ -88,7 +76,7 @@
     UILabel * view = objc_getAssociatedObject(self, _cmd);
     if (!view) {
         view = ({
-            UILabel * view = [[UILabel alloc] initWithFrame:CGRectZero];
+            UILabel *view = [[UILabel alloc] initWithFrame:CGRectZero];
             view.autoresizingMask = UIViewAutoresizingFlexibleWidth|UIViewAutoresizingFlexibleHeight;
             
             view.font = [UIFont systemFontOfSize:15];

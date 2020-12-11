@@ -1004,32 +1004,12 @@
     }];
 }
 
-- (NSIndexPath *)getCellIndexPath:(UITableView *)tableView{
-    UITableViewCell *cell = [self findSuperView: @"UITableViewCell"];
-    NSIndexPath *indexPath = [tableView indexPathForRowAtPoint:cell.center];
-//    DDLog(@"%@",indexPath);
-    return indexPath;
-}
-
-- (id)asoryView:(NSString *)unitString{
-    //    NSArray * unitList = @[@"元",@"公斤"];
-    NSParameterAssert([self isKindOfClass:[UITextField class]]);
-    NSParameterAssert(unitString != nil && ![unitString isEqualToString:@""]);
-    if ([UIImage imageNamed:unitString]) {
-        CGSize size = CGSizeMake(20, 20);
-        UIImageView * imgView = [UIImageView createRect:CGRectMake(0, 0, size.width, size.height) type:@0];
-        imgView.image = [UIImage imageNamed:unitString];
-        return imgView;
-    }
-    
-    CGSize size = [self sizeWithText:unitString font:@(kFontSize14) width:kScreenWidth];
-    UILabel * label = [UILabel createRect:CGRectMake(0, 0, size.width+2, 25) type:@2];
-    label.text = unitString;
-    label.tag = kTAG_LABEL;
-    label.textColor = UIColor.titleColor;
-    label.textAlignment = NSTextAlignmentCenter;
-    return label;
-}
+//- (NSIndexPath *)getCellIndexPath:(UITableView *)tableView{
+//    UITableViewCell *cell = [self findSuperView: @"UITableViewCell"];
+//    NSIndexPath *indexPath = [tableView indexPathForRowAtPoint:cell.center];
+////    DDLog(@"%@",indexPath);
+//    return indexPath;
+//}
 
 ////信任值展示,无点击手势
 //+ (id)getStarViewRect:(CGRect)rect rateStyle:(NSString *)rateStyle currentScore:(CGFloat)currentScore{

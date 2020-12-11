@@ -12,6 +12,8 @@ NS_ASSUME_NONNULL_BEGIN
 
 @interface UIScreen (Helper)
 
+@property (class, nonatomic, assign, readonly) bool isIPhoneX;
+
 @property (class, nonatomic, assign, readonly) CGFloat statusBarHeight;
 @property (class, nonatomic, assign, readonly) CGFloat navBarHeight;
 @property (class, nonatomic, assign, readonly) CGFloat barHeight;

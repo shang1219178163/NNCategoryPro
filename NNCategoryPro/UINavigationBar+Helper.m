@@ -20,9 +20,7 @@
     UINavigationBar.appearance.backIndicatorImage = [UIImage imageNamed:@"nav_bar_back_icon_white"];
     UINavigationBar.appearance.backIndicatorTransitionMaskImage = [UIImage imageNamed:@"nav_bar_back_icon_white"];
     UINavigationBar.appearance.titleTextAttributes = @{NSForegroundColorAttributeName : UIColor.whiteColor
-                                                         
                                                          };
-   
     
     NSShadow *clearShadow = [[NSShadow alloc] init];
     clearShadow.shadowColor = UIColor.clearColor;
@@ -35,7 +33,7 @@
                                                          
                                                            } forState:UIControlStateNormal];
     [UIBarButtonItem.appearance setTitleTextAttributes:@{NSForegroundColorAttributeName : titleColor_H,
-                                                        NSShadowAttributeName : clearShadow,
+                                                         NSShadowAttributeName : clearShadow,
                                                          
                                                            } forState:UIControlStateHighlighted];
     

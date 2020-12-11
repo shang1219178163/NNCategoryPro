@@ -59,7 +59,9 @@ NS_ASSUME_NONNULL_BEGIN
 //+ (void)handleMsgShareDataModel:(NNShareModel *)dataModel type:(NSNumber *)type;
 //+ (void)registerUMengSDKAppKey:(NSString *_Nonnull)appKey channel:(NSString *_Nonnull)channel;
 
-+ (BOOL)checkVersion:(NSString *_Nonnull)appStoreID;
++ (void)updateVersion:(NSString *)appStoreID handler:(void(^)(NSDictionary *dic, NSString *appStoreVer, NSString *releaseNotes, bool isUpdate))handler;
+
++ (void)checkVersion:(NSString *_Nonnull)appStoreID;
 
 @end
 

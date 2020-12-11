@@ -34,11 +34,11 @@
 }
 
 -(void)logTableViewContentInset{
-    NSLog(@"frame:%@",NSStringFromCGRect(self.frame));
-    NSLog(@"contentInset:%@",NSStringFromUIEdgeInsets(self.contentInset));
+    NSLog(@"frame:%@", NSStringFromCGRect(self.frame));
+    NSLog(@"contentInset:%@", NSStringFromUIEdgeInsets(self.contentInset));
     if (@available(iOS 11.0, *)) {
-        NSLog(@"safeAreaInsets:%@",NSStringFromUIEdgeInsets(self.safeAreaInsets));
-        NSLog(@"adjustedContentInset:%@",NSStringFromUIEdgeInsets(self.adjustedContentInset));
+        NSLog(@"safeAreaInsets:%@", NSStringFromUIEdgeInsets(self.safeAreaInsets));
+        NSLog(@"adjustedContentInset:%@", NSStringFromUIEdgeInsets(self.adjustedContentInset));
     }
 }
 
