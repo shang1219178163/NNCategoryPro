@@ -6,6 +6,7 @@
 //
 
 #import "NSURL+Helper.h"
+#import "NSURLComponents+Helper.h"
 
 @implementation NSURL (Helper)
 
