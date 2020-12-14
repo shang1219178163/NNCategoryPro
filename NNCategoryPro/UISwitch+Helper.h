@@ -14,7 +14,7 @@ NS_ASSUME_NONNULL_BEGIN
 /**
  [源]UISwitch创建方法
  */
-+ (instancetype)createRect:(CGRect)rect isOn:(BOOL)isOn;
++ (instancetype)createRect:(CGRect)rect;
 
 //
 @end
