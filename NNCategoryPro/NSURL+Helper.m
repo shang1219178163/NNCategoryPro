@@ -9,18 +9,13 @@
 
 @implementation NSURL (Helper)
 
-
 - (NSDictionary *)queryParameters{
     NSURLComponents *urlComponents = [[NSURLComponents alloc]initWithURL:self resolvingAgainstBaseURL:false];
     if (!urlComponents || !urlComponents.queryItems) {
         return @{};
     }
     
-    __block NSMutableDictionary *mdic = [NSMutableDictionary dictionary];
-    [urlComponents.queryItems enumerateObjectsUsingBlock:^(NSURLQueryItem * _Nonnull obj, NSUInteger idx, BOOL * _Nonnull stop) {
-        mdic[obj.name] = obj.value;
-    }];
-    return mdic;
+    return urlComponents.queryParameters;
 }
 
 - (nullable NSURL *)appendingQueryParameters:(NSDictionary<NSString *, NSString *> *)parameters {
@@ -29,13 +24,7 @@
         return nil;
     }
     
-    __block NSMutableArray *marr = [NSMutableArray arrayWithArray:urlComponents.queryItems];
-    [parameters enumerateKeysAndObjectsUsingBlock:^(NSString * _Nonnull key, NSString * _Nonnull obj, BOOL * _Nonnull stop) {
-        NSURLQueryItem *item = [[NSURLQueryItem alloc]initWithName:key value:obj];
-        [marr addObject:item];
-    }];
-    urlComponents.queryItems = marr.copy;
-    return urlComponents.URL;
+    return [urlComponents appendingQueryParameters:parameters];
 }
 
 - (nullable NSString *)queryValue:(NSString *)key {
@@ -43,15 +32,7 @@
     if (!urlComponents) {
         return nil;
     }
-    
-    __block NSString *result;
-    [urlComponents.queryItems enumerateObjectsUsingBlock:^(NSURLQueryItem * _Nonnull obj, NSUInteger idx, BOOL * _Nonnull stop) {
-        if ([obj.name isEqualToString:key]) {
-            result = obj.value;
-            *stop = true;
-        }
-    }];
-    return result;
+    return [urlComponents queryValue:key];
 }
 
 - (void)saveVideoToPhotosAlbum:(void(^)(NSError *error))block{
@@ -70,5 +51,40 @@
         block(error);
     }
 }
+
+@end
+
+
+//@implementation NSURLComponents (Helper)
+//
+//- (NSDictionary *)queryParameters{
+//    __block NSMutableDictionary *mdic = [NSMutableDictionary dictionary];
+//    [self.queryItems enumerateObjectsUsingBlock:^(NSURLQueryItem * _Nonnull obj, NSUInteger idx, BOOL * _Nonnull stop) {
+//        mdic[obj.name] = obj.value;
+//    }];
+//    return mdic;
+//}
+//
+//- (NSURL *)appendingQueryParameters:(NSDictionary<NSString *, NSString *> *)parameters {
+//    __block NSMutableArray *marr = [NSMutableArray arrayWithArray:self.queryItems];
+//    [parameters enumerateKeysAndObjectsUsingBlock:^(NSString * _Nonnull key, NSString * _Nonnull obj, BOOL * _Nonnull stop) {
+//        NSURLQueryItem *item = [[NSURLQueryItem alloc]initWithName:key value:obj];
+//        [marr addObject:item];
+//    }];
+//    self.queryItems = marr.copy;
+//    return self.URL;
+//}
+//
+//- (nullable NSString *)queryValue:(NSString *)key {
+//    __block NSString *result;
+//    [self.queryItems enumerateObjectsUsingBlock:^(NSURLQueryItem * _Nonnull obj, NSUInteger idx, BOOL * _Nonnull stop) {
+//        if ([obj.name isEqualToString:key]) {
+//            result = obj.value;
+//            *stop = true;
+//        }
+//    }];
+//    return result;
+//}
+
 
 @end
