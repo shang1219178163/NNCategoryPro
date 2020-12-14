@@ -53,6 +53,7 @@
 #import "NSString+Other.h"
 #import "NSTimer+Helper.h"
 #import "NSURL+Helper.h"
+#import "NSURLComponents+Helper.h"
 #import "NSURLSession+Helper.h"
 #import "NSURLRequest+Helper.h"
 #import "NSUserDefaults+Helper.h"
