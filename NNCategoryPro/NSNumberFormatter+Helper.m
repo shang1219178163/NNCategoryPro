@@ -26,8 +26,7 @@ static NSDictionary *_styleDic = nil;
 
 + (NSDictionary *)styleDic{
     if (!_styleDic) {
-        _styleDic = @{
-                      kNumIdentify: @(NSNumberFormatterNoStyle),
+        _styleDic = @{kNumIdentify: @(NSNumberFormatterNoStyle),
                       kNumIdentifyDecimal: @(NSNumberFormatterDecimalStyle),
                       kNumIdentifyPercent: @(NSNumberFormatterPercentStyle),
                       kNumIdentifyCurrency: @(NSNumberFormatterCurrencyStyle),

@@ -242,7 +242,7 @@ void GCDApplyGlobal(id obj ,void(^block)(size_t index)){
     }
 }
 
-#pragma mark - -validObject
+#pragma mark - -
 
 + (NSString *)identify{
     return NSStringFromClass(self.class);

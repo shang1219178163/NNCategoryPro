@@ -12,14 +12,6 @@
 
 NSBundle *NSBundleFromParams(Class aClass, NSString *bundleName){
     return NSBundleFromName(bundleName, bundleName);
-//    NSString *path = [NSBundle bundleForClass:aClass].resourcePath;
-//    NSString *key = [[path componentsSeparatedByString:@"/"].lastObject componentsSeparatedByString:@"."].firstObject;
-//
-//    path = [path stringByReplacingOccurrencesOfString:key withString:bundleName];
-//    NSString *bundlePath = [path stringByAppendingPathComponent:[NSString stringWithFormat:@"/%@.bundle",bundleName]];
-//    NSLog(@"NSBundleFromParams\n%@",bundlePath);
-//    NSBundle *resource_bundle = [NSBundle bundleWithPath:bundlePath];
-//    return resource_bundle;
 }
 
 NSBundle *NSBundleFromPodName(NSString *podName){

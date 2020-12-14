@@ -11,9 +11,6 @@
 
 @implementation NSTimer (Helper)
 
-/**
- 分类方法
- */
 + (NSTimer *)scheduledTimer:(NSTimeInterval)interval
                       block:(void(^)(NSTimer *timer))block
                     repeats:(BOOL)repeats{
@@ -29,22 +26,6 @@
     if(block) {
         block(timer);
     }
-}
-
-+ (void)stopTimer:(NSTimer *)timer{
-    [timer invalidate];
-    timer = nil;
-    
-//    DDLog(@"timer stop!!!");
-}
-
-/**
- 定时器暂停/继续
- */
-+ (void)pauseTimer:(NSTimer *)timer isPause:(BOOL)isPause{
-//    暂停：触发时间设置在未来，既很久之后，这样定时器自动进入等待触发的状态.
-//    继续：触发时间设置在现在/获取，这样定时器自动进入马上进入工作状态.
-    timer.fireDate = isPause == false ? NSDate.distantFuture : NSDate.distantPast;
 }
 
 + (dispatch_source_t)createGCDTimer:(NSTimeInterval)interval
@@ -69,5 +50,20 @@
         dispatch_source_cancel(timer);
     }
 }
+
+- (void)activate{
+    self.fireDate = NSDate.distantPast;
+//    self.fireDate = NSDate.date;
+}
+
+- (void)pause{
+    self.fireDate = NSDate.distantFuture;
+}
+
+- (void)destroy{
+    [self invalidate];
+    self == nil;
+}
+
 
 @end

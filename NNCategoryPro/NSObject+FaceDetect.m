@@ -11,11 +11,11 @@
 @implementation NSObject (FaceDetect)
 
 - (NSArray *)faceDetectImage:(UIImage *)image {
-    NSDictionary *imageOptions = @{CIDetectorImageOrientation : @(5),
+    NSDictionary *imageOptions = @{CIDetectorImageOrientation: @(5),
                                    };
     
     CIImage *cImage = [CIImage imageWithCGImage: image.CGImage];
-    NSDictionary *options = @{CIDetectorAccuracy : CIDetectorAccuracyHigh,
+    NSDictionary *options = @{CIDetectorAccuracy: CIDetectorAccuracyHigh,
                             };
     
     CIDetector *detector = [CIDetector detectorOfType:CIDetectorTypeFace context:nil options:options];

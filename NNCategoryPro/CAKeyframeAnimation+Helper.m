@@ -28,7 +28,7 @@
     anim.fillMode = fillMode;
     anim.removedOnCompletion = removedOnCompletion;
     
-    NSString * name = [CABasicAnimation.functionNames containsObject: functionName] ? functionName : CABasicAnimation.functionNames.firstObject;
+    NSString *name = [CABasicAnimation.functionNames containsObject: functionName] ? functionName : CABasicAnimation.functionNames.firstObject;
     anim.timingFunction = [CAMediaTimingFunction functionWithName:name];
     return anim;
 }

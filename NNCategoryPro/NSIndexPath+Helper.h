@@ -11,12 +11,12 @@ NS_ASSUME_NONNULL_BEGIN
 
 @interface NSIndexPath (Helper)
 
-@property (nonatomic, strong, readonly) NSIndexPath * previousRow;
-@property (nonatomic, strong, readonly) NSIndexPath * nextRow;
-@property (nonatomic, strong, readonly) NSIndexPath * previousItem;
-@property (nonatomic, strong, readonly) NSIndexPath * nextItem;
-@property (nonatomic, strong, readonly) NSIndexPath * nextSection;
-@property (nonatomic, strong, readonly) NSIndexPath * previousSection;
+@property (nonatomic, strong, readonly) NSIndexPath *previousRow;
+@property (nonatomic, strong, readonly) NSIndexPath *nextRow;
+@property (nonatomic, strong, readonly) NSIndexPath *previousItem;
+@property (nonatomic, strong, readonly) NSIndexPath *nextItem;
+@property (nonatomic, strong, readonly) NSIndexPath *nextSection;
+@property (nonatomic, strong, readonly) NSIndexPath *previousSection;
 
 /// 字符串->NSIndexPath(string 两部分数字必须用逗号隔开)
 FOUNDATION_EXPORT NSIndexPath *NSIndexPathFromString(NSString *string);

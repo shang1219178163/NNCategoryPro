@@ -14,11 +14,7 @@ NS_ASSUME_NONNULL_BEGIN
 @interface CATextLayer (Helper)
 
 
-+(CATextLayer *)createRect:(CGRect)rect
-                    string:(NSString *)string
-                      font:(UIFont *)font
-                 textColor:(UIColor *)textColor
-             alignmentMode:(NSString *)alignmentMode;
++(CATextLayer *)createRect:(CGRect)rect;
 
 @end
 

@@ -16,18 +16,19 @@ NS_ASSUME_NONNULL_BEGIN
                       block:(void(^)(NSTimer *timer))block
                     repeats:(BOOL)repeats;
 
-+ (void)stopTimer:(NSTimer *)timer;
-
-+ (void)pauseTimer:(NSTimer *)timer isPause:(BOOL)isPause;
-
-/**
- GCD定时器(秒)
- */
+///GCD定时器(秒)
 + (dispatch_source_t)createGCDTimer:(NSTimeInterval)interval
                             repeats:(BOOL)repeats
                               block:(void (^)(void))block;
 
-+(void)destoryTimer:(dispatch_source_t)timer;
++(void)destoryGCDTimer:(dispatch_source_t)timer;
+
+///激活/启动
+- (void)activate;
+///暂停
+- (void)pause;
+//销毁
+- (void)destroy;
 
 @end
 
