@@ -24,7 +24,7 @@ FOUNDATION_EXPORT NSString * const kAlertActionColor;
 @property(nonatomic, strong, readonly) UIAlertController *(^nn_addTextField)(NSArray<NSString *> *placeholders, void(^handler)(UITextField *textField));
 @property(nonatomic, strong, readonly) UIAlertController *(^nn_present)(BOOL animated, void(^ __nullable completion)(void));
 
-- (instancetype)addActionTitles:(NSArray<NSString *> *)titles handler:(void(^)(UIAlertAction *action))handler;
+- (instancetype)addActionTitles:(NSArray<NSString *> *)titles handler:(void(^)(UIAlertController *alertVC, UIAlertAction *action))handler;
 /// 仅 UIAlertControllerStyleAlert 可用
 - (instancetype)addTextFieldPlaceholders:(NSArray<NSString *> *)placeholders handler:(void(^)(UITextField *textField))handler;
 
@@ -33,23 +33,23 @@ FOUNDATION_EXPORT NSString * const kAlertActionColor;
 + (instancetype)createAlertTitle:(NSString * _Nullable)title
                          message:(NSString *_Nullable)message
                     actionTitles:(NSArray *_Nullable)actionTitles
-                         handler:(void(^_Nullable)(UIAlertAction *action))handler;
+                         handler:(void(^_Nullable)(UIAlertController *alertVC, UIAlertAction *action))handler;
 /// [源]Alert弹窗展示
 + (instancetype)showAlertTitle:(NSString * _Nullable)title
                        message:(NSString *_Nullable)message
                   actionTitles:(NSArray *_Nullable)actionTitles
-                       handler:(void(^_Nullable)(UIAlertAction *action))handler;
+                       handler:(void(^_Nullable)(UIAlertController *alertVC, UIAlertAction *action))handler;
 
 /// [源]Sheet弹窗创建
 + (instancetype)createSheetTitle:(NSString *_Nullable)title
                          message:(NSString *_Nullable)message
                     actionTitles:(NSArray *_Nullable)actionTitles
-                         handler:(void(^_Nullable)(UIAlertAction *action))handler;
+                         handler:(void(^_Nullable)(UIAlertController *alertVC, UIAlertAction *action))handler;
 /// [源]Sheet弹窗展示
 + (instancetype)showSheetTitle:(NSString *_Nullable)title
                        message:(NSString *_Nullable)message
                   actionTitles:(NSArray *_Nullable)actionTitles
-                       handler:(void(^_Nullable)(UIAlertAction *action))handler;
+                       handler:(void(^_Nullable)(UIAlertController *alertVC, UIAlertAction *action))handler;
 
 /// 设置标题颜色
 - (instancetype)setTitleColor:(UIColor *)color;
