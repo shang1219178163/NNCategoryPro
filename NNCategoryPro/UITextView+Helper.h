@@ -16,7 +16,7 @@ NS_ASSUME_NONNULL_BEGIN
 /**
  带提示的textView
  */
-+ (instancetype)createwRect:(CGRect)rect;
++ (instancetype)createRect:(CGRect)rect;
 
 /**
  [简]带提示的textView
@@ -26,7 +26,7 @@ NS_ASSUME_NONNULL_BEGIN
 /**
  展示性质的textView,不提供编辑
  */
-+ (instancetype)createShowRect:(CGRect)rect;
++ (instancetype)createTextShowRect:(CGRect)rect;
 
 -(void)setHyperlinkDic:(NSDictionary *)dic;
 

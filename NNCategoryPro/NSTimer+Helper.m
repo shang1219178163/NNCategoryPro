@@ -62,7 +62,7 @@
 
 - (void)destroy{
     [self invalidate];
-    self == nil;
+//    self == nil;
 }
 
 

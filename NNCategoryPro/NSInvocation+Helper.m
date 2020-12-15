@@ -463,10 +463,12 @@ static const char *__BlockSignature__(id blockObj){
         returnVal.x = [enumerator.nextObject doubleValue];
         returnVal.y = [enumerator.nextObject doubleValue];
         result = [NSValue valueWithCGPoint:returnVal];
-    } else if ([type isEqualToString:[NSInvocation encodeType:@encode(CGAffineTransform)]]){
-        CGAffineTransform returnVal;
-        result = [NSValue valueWithCGAffineTransform:returnVal];
-    } else if ([type isEqualToString:[NSInvocation encodeType:@encode(CLLocationCoordinate2D)]]){
+    }
+//    else if ([type isEqualToString:[NSInvocation encodeType:@encode(CGAffineTransform)]]){
+//        CGAffineTransform returnVal;
+//        result = [NSValue valueWithCGAffineTransform:returnVal];
+//    }
+    else if ([type isEqualToString:[NSInvocation encodeType:@encode(CLLocationCoordinate2D)]]){
         CLLocationCoordinate2D returnVal;
         returnVal.latitude = [enumerator.nextObject doubleValue];
         returnVal.longitude = [enumerator.nextObject doubleValue];
@@ -476,10 +478,12 @@ static const char *__BlockSignature__(id blockObj){
         returnVal.latitudeDelta = [enumerator.nextObject doubleValue];
         returnVal.longitudeDelta = [enumerator.nextObject doubleValue];
         result = [NSValue valueWithMKCoordinateSpan:returnVal];
-    } else if ([type isEqualToString:[NSInvocation encodeType:@encode(CATransform3D)]]){
-        CATransform3D returnVal;
-        result = [NSValue valueWithCATransform3D:returnVal];
-    } else if ([type isEqualToString:[NSInvocation encodeType:@encode(NSRange)]]){
+    }
+//    else if ([type isEqualToString:[NSInvocation encodeType:@encode(CATransform3D)]]){
+//        CATransform3D returnVal;
+//        result = [NSValue valueWithCATransform3D:returnVal];
+//    }
+    else if ([type isEqualToString:[NSInvocation encodeType:@encode(NSRange)]]){
         NSRange returnVal;
         returnVal.location = [enumerator.nextObject unsignedIntegerValue];
         returnVal.length = [enumerator.nextObject unsignedIntegerValue];

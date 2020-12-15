@@ -87,10 +87,6 @@ compactMap 高阶降维函数
 
 - (NSMutableArray *)filterByPropertyList:(NSArray *)propertyList prefix:(NSString *)prefix isNumValue:(BOOL)isNumValue;
 
-- (NSArray *)arrayWithObjRange:(NSRange)objRange;
-
-- (NSArray *)arrayWithObjOffset:(NSInteger)offSet;
-
 @end
 
 NS_ASSUME_NONNULL_END

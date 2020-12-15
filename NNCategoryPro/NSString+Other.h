@@ -24,8 +24,6 @@ NS_ASSUME_NONNULL_BEGIN
 
 - (BOOL)isValidMacAddress;
 
-- (BOOL)isValidUrl;
-
 - (BOOL)isValidChinese;;
 
 - (BOOL)isValidPostalcode;

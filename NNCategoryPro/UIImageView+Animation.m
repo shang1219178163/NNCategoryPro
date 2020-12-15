@@ -16,8 +16,8 @@
                        options:UIViewAnimationOptionTransitionFlipFromLeft
                     animations:^{
         self.tag++;
-        NSString * imgName = self.tag % 2 == 0 ? image : backImage;
-        self.image = [UIImage imageNamed:imgName];
+        UIImage *tmp = self.tag % 2 == 0 ? image : backImage;
+        self.image = tmp;
         
     } completion:^(BOOL finished) {
         if (finished) {

@@ -129,7 +129,6 @@
     return valueArray.copy;
 }
 
-
 /**
  *  @brief  将NSDictionary转换成url 参数字符串
  *  @return url 参数字符串
@@ -140,11 +139,8 @@
         if ([string length]) {
             [string appendString:@"&"];
         }
-        CFStringRef escaped = CFURLCreateStringByAddingPercentEscapes(NULL,(CFStringRef)[[self objectForKey:key] description],
-                                                                      NULL,(CFStringRef)@"!*'();:@&=+$,/?%#[]",
-                                                                      kCFStringEncodingUTF8);
-        [string appendFormat:@"%@=%@", key, escaped];
-        CFRelease(escaped);
+        NSString *tmp = [[self objectForKey:key] stringByAddingPercentEncodingWithAllowedCharacters:NSCharacterSet.URLQueryAllowedCharacterSet];
+        [string appendFormat:@"%@=%@", key, tmp];
     }
     return string;
 }

@@ -13,6 +13,8 @@
 #import "UIScreen+Helper.h"
 #import "UIColor+Helper.h"
 
+NS_ASSUME_NONNULL_BEGIN
+
 /// 获取swift类文件名称
 FOUNDATION_EXPORT NSString *NNSwiftClassName(NSString *name);
 /// 关联对象的唯一无符号常量值
@@ -25,11 +27,6 @@ FOUNDATION_EXPORT CGFloat CGRadianFromDegrees(CGFloat x);
 FOUNDATION_EXPORT CGFloat CGDegreesFromRadian(CGFloat x);
 /// 获取随机数
 FOUNDATION_EXPORT NSInteger RandomInteger(NSInteger from, NSInteger to);
-
-FOUNDATION_EXPORT NSInteger StringFromBool(BOOL value);
-
-FOUNDATION_EXPORT BOOL BoolFromString(NSString *value);
-    
 /// 四舍五入
 FOUNDATION_EXPORT CGFloat RoundFloat(CGFloat value, NSInteger num);
 /// swift类需要加命名空间
@@ -37,7 +34,6 @@ FOUNDATION_EXPORT NSString *SwiftClassName(NSString *className);
 /// 地址字符串(hostname + port)
 FOUNDATION_EXPORT NSString *UrlAddress(NSString *hostname, NSString *port);
 
-NS_ASSUME_NONNULL_BEGIN
 
 @interface NSObject (Helper)<NSCoding>
 ///遍历成员变量列表

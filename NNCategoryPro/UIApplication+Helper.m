@@ -48,22 +48,22 @@ static NSDictionary *_phoneTypeDic = nil;
     UIApplication.mainWindow.rootViewController = rootVC;
 }
 
-+ (UITabBarController *)tabBarController{
++ (nullable UITabBarController *)tabBarController{
     if ([UIApplication.rootController isKindOfClass:[UITabBarController class]]) {
         return (UITabBarController *)UIApplication.rootController;
     }
     return nil;
 }
 
-+ (UINavigationController *)navController{
++ (nullable UINavigationController *)navController{
     if ([UIApplication.rootController isKindOfClass:UINavigationController.class]) {
-        return UIApplication.rootController;
+        return (UINavigationController *)UIApplication.rootController;
     }
     
     if ([UIApplication.rootController isKindOfClass:[UITabBarController class]]) {
         UIViewController *selectedViewController = [(UITabBarController *)UIApplication.rootController selectedViewController];
         if ([selectedViewController isKindOfClass:UINavigationController.class]) {
-            return selectedViewController;
+            return (UINavigationController *)selectedViewController;
         }
         return nil;
     }

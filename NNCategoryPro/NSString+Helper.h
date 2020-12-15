@@ -25,6 +25,8 @@ NS_ASSUME_NONNULL_BEGIN
 ///->NSArray
 @property (nonatomic, strong, readonly) NSArray *arrayValue;
 
+@property (nonatomic, assign, readonly) BOOL boolValue;
+
 @property (nonatomic, strong, readonly) NSString *localized;
 @property (nonatomic, strong, readonly) NSDecimalNumber *decNumer;
 

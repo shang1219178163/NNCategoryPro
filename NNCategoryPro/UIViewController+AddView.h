@@ -10,12 +10,11 @@
 
 NS_ASSUME_NONNULL_BEGIN
 
-@interface UIViewController (AddView)<UITableViewDataSource,UITableViewDelegate>
+@interface UIViewController (AddView)
 
 @property (nonatomic, strong, readonly) UITableView *tbView;
-@property (nonatomic, strong, readonly) UITableView *tbViewGrouped;
 
-@property (nonatomic, strong, readonly) UICollectionView *ctView;
+//@property (nonatomic, strong, readonly) UICollectionView *ctView;
 @property (nonatomic, strong, readonly) UILabel *tipLabel;
 
 @end

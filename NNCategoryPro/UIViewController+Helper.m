@@ -87,20 +87,16 @@ UINavigationController *UINavCtrFromObj(id obj){
     self.view.backgroundColor = UIColor.whiteColor;
     self.title = self.vcName;
     
-    if (@available(iOS 11.0, *)) {
-        UIScrollView.appearance.contentInsetAdjustmentBehavior = UIScrollViewContentInsetAdjustmentNever;
-    } else {
-        // Fallback on earlier versions
-        self.automaticallyAdjustsScrollViewInsets = false;
-    }
+    [self setupContentInsetAdjustmentBehavior:false];
 }
 
 - (void)setupContentInsetAdjustmentBehavior:(BOOL)isAutomatic{
     if (@available(iOS 11.0, *)) {
-        UIScrollView.appearance.contentInsetAdjustmentBehavior = isAutomatic ? UIScrollViewContentInsetAdjustmentAutomatic : UIScrollViewContentInsetAdjustmentNever;
-    } else {
+//        UIScrollView.appearance.contentInsetAdjustmentBehavior = isAutomatic ? UIScrollViewContentInsetAdjustmentAutomatic : UIScrollViewContentInsetAdjustmentNever;
         UIScrollView *scrollView = [self.view findSubviewType:UIScrollView.class].firstObject;
         scrollView.contentInsetAdjustmentBehavior = UIScrollViewContentInsetAdjustmentNever;
+    } else {
+        self.automaticallyAdjustsScrollViewInsets = false;
     }
 }
 
@@ -108,7 +104,7 @@ UINavigationController *UINavCtrFromObj(id obj){
     UIWindow *keyWindow = UIApplication.sharedApplication.delegate.window;
     dispatch_async(dispatch_get_main_queue(), ^{
         if ([self isKindOfClass:UIAlertController.class]) {
-            UIAlertController *alertVC = self;
+            UIAlertController *alertVC = (UIAlertController *)self;
             if (alertVC.preferredStyle == UIAlertControllerStyleAlert) {
                 if (alertVC.actions.count == 0) {
                     [keyWindow.rootViewController presentViewController:alertVC animated:animated completion:^{

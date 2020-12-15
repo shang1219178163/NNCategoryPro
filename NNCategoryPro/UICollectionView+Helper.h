@@ -35,7 +35,6 @@ FOUNDATION_EXPORT NSString * const UICollectionElementKindSectionItem ;
  */
 + (instancetype)createRect:(CGRect)rect layout:(UICollectionViewLayout *)layout;
 
-+ (NSString *)cellIdentifierByClassName:(NSString *)className;
 + (NSString *)viewIdentifierByClassName:(NSString *)className kind:(NSString *)kind;
 
 - (void)registerCTVCell:(NSArray *)listClass;

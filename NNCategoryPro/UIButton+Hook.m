@@ -43,11 +43,11 @@
 
 /// 日志收集/埋点
 - (void)logGatherWithSendAction:(SEL)action to:(id)target forEvent:(UIEvent *)event {
-    if (event.allTouches.anyObject.phase == UITouchPhaseEnded) {
+//    if (event.allTouches.anyObject.phase == UITouchPhaseEnded) {
 //        NSString *actionStr = NSStringFromSelector(action);
 //        NSString *targetName = NSStringFromClass([target class]);
 //        NSString *identifer = [NSString stringWithFormat:@"%@ %@", targetName, actionStr];
-    }
+//    }
 }
 
 @end

@@ -50,15 +50,6 @@ NSInteger RandomInteger(NSInteger from, NSInteger to){
     return (NSInteger)(from + (arc4random() % (to - from + 1)));
 }
 
-NSInteger StringFromBool(BOOL value){
-    return value == true ? @"1" : @"0";
-}
-
-BOOL BoolFromString(NSString *value){
-    assert(value == @"0" || value == @"1");
-    return [value integerValue] >= 1;
-}
-
 CGFloat RoundFloat(CGFloat value, NSInteger num){
     NSInteger tem = pow(10, num);
     CGFloat x = value*tem + 0.5;

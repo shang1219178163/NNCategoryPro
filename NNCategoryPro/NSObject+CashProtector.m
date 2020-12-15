@@ -48,31 +48,45 @@ static NNForwardingTarget *_target = nil;
 
         if (isOpenCashProtector) { 
             swizzleInstanceMethod(NSClassFromString(@"__NSArrayI"),
-                                  @selector(objectAtIndex:), NSSelectorFromString(@"safe_objectAtIndex:"));
+                                  @selector(objectAtIndex:),
+                                  NSSelectorFromString(@"p_objectAtIndex:"));
+            
             swizzleInstanceMethod(NSClassFromString(@"__NSArrayI"),
-                                  @selector(objectAtIndexedSubscript:), @selector(safe_objectAtIndexedSubscript:));
+                                  @selector(objectAtIndexedSubscript:),
+                                  NSSelectorFromString(@"p_objectAtIndexedSubscript:"));
             
             swizzleInstanceMethod(NSClassFromString(@"__NSArrayM"),
-                                  @selector(objectAtIndex:), NSSelectorFromString(@"safe_objectAtIndex:"));
-            swizzleInstanceMethod(NSClassFromString(@"__NSArrayM"),
-                                  @selector(objectAtIndexedSubscript:), NSSelectorFromString(@"safe_objectAtIndexedSubscript:"));
-            swizzleInstanceMethod(NSClassFromString(@"__NSArrayM"),
-                                  @selector(addObject:), NSSelectorFromString(@"safe_addObject:"));
-            swizzleInstanceMethod(NSClassFromString(@"__NSArrayM"),
-                                  @selector(insertObject:atIndex:), NSSelectorFromString(@"safe_insertObject:atIndex:"));
+                                  @selector(objectAtIndex:),
+                                  NSSelectorFromString(@"p_objectAtIndex:"));
             
+            swizzleInstanceMethod(NSClassFromString(@"__NSArrayM"),
+                                  @selector(objectAtIndexedSubscript:),
+                                  NSSelectorFromString(@"p_objectAtIndexedSubscript:"));
+            
+            swizzleInstanceMethod(NSClassFromString(@"__NSArrayM"),
+                                  @selector(addObject:),
+                                  NSSelectorFromString(@"p_addObject:"));
+            
+            swizzleInstanceMethod(NSClassFromString(@"__NSArrayM"),
+                                  @selector(insertObject:atIndex:),
+                                  NSSelectorFromString(@"p_insertObject:atIndex:"));
             
             //NSClassFromString(@"__NSDictionaryM"),objc_getClass("__NSDictionaryM")
             swizzleInstanceMethod(NSClassFromString(@"__NSDictionaryM"),
-                                  @selector(setObject:forKey:), NSSelectorFromString(@"safe_setObject:forKey:"));
-            swizzleInstanceMethod(NSClassFromString(@"__NSDictionaryM"),
-                                  @selector(setObject:forKeyedSubscript:), @selector(safe_setObject:forKeyedSubscript:));
-            swizzleInstanceMethod(NSClassFromString(@"__NSDictionaryM"),
-                                  @selector(removeObjectForKey:), @selector(safe_removeObjectForKey:));
+                                  @selector(setObject:forKey:),
+                                  NSSelectorFromString(@"p_setObject:forKey:"));
             
+            swizzleInstanceMethod(NSClassFromString(@"__NSDictionaryM"),
+                                  @selector(setObject:forKeyedSubscript:),
+                                  NSSelectorFromString(@"p_setObject:forKeyedSubscript:"));
+            
+            swizzleInstanceMethod(NSClassFromString(@"__NSDictionaryM"),
+                                  @selector(removeObjectForKey:),
+                                  NSSelectorFromString(@"p_removeObjectForKey:"));
             
             swizzleInstanceMethod(self.class,
-                                  @selector(forwardingTargetForSelector:), @selector(safe_forwardingTargetForSelector:));
+                                  @selector(forwardingTargetForSelector:),
+                                  NSSelectorFromString(@"p_forwardingTargetForSelector:"));
         }
     });
 }
@@ -89,8 +103,8 @@ static NNForwardingTarget *_target = nil;
     return isNull;
 }
 
-- (id)safe_forwardingTargetForSelector:(SEL)aSelector {
-    id result = [self safe_forwardingTargetForSelector:aSelector];
+- (id)p_forwardingTargetForSelector:(SEL)aSelector {
+    id result = [self p_forwardingTargetForSelector:aSelector];
     if (result) {
         return result;
     }
@@ -109,21 +123,21 @@ static NNForwardingTarget *_target = nil;
 
 @implementation NSArray (CashProtector)
 
-- (id)safe_objectAtIndex:(NSUInteger)index{
+- (id)p_objectAtIndex:(NSUInteger)index{
     if (index >= self.count) {
         if (isOpenAssert) NSAssert(index < self.count, @"index越界");
         return nil;
     }
-    return [self safe_objectAtIndex:index];
+    return [self p_objectAtIndex:index];
 }
 
-- (id)safe_objectAtIndexedSubscript:(NSUInteger)index {
+- (id)p_objectAtIndexedSubscript:(NSUInteger)index {
     NSUInteger count = self.count;
     if (count == 0 || index >= count) {
         if (isOpenAssert) NSAssert(index < self.count, @"index越界");
         return nil;
     }
-    return [self safe_objectAtIndexedSubscript:index];
+    return [self p_objectAtIndexedSubscript:index];
 }
 
 @end
@@ -131,37 +145,37 @@ static NNForwardingTarget *_target = nil;
 
 @implementation NSMutableArray (CashProtector)
 
-- (id)safe_objectAtIndex:(NSUInteger)index{
+- (id)p_objectAtIndex:(NSUInteger)index{
     if (index >= self.count) {
 //        DDLog(@"index越界");
         if (isOpenAssert) NSAssert(index < self.count, @"index越界");
         return nil;
     }
-    return [self safe_objectAtIndex:index];
+    return [self p_objectAtIndex:index];
 }
 
-- (id)safe_objectAtIndexedSubscript:(NSUInteger)index {
+- (id)p_objectAtIndexedSubscript:(NSUInteger)index {
     NSUInteger count = self.count;
     if (count == 0 || index >= count) {
         return nil;
     }
-    return [self safe_objectAtIndexedSubscript:index];
+    return [self p_objectAtIndexedSubscript:index];
 }
 
-- (void)safe_addObject:(id)anObject{
+- (void)p_addObject:(id)anObject{
     if(!anObject){
         if (isOpenAssert) NSAssert(anObject, @"anObject不能为nil");
         return ;
     }
-    [self safe_addObject:anObject];
+    [self p_addObject:anObject];
 }
 
-- (void)safe_insertObject:(id)anObject atIndex:(NSUInteger)index{
+- (void)p_insertObject:(id)anObject atIndex:(NSUInteger)index{
     if(!anObject){
         if (isOpenAssert) NSAssert(anObject, @"anObject不能为nil");
         return ;
     }
-    [self safe_insertObject:anObject atIndex:index];
+    [self p_insertObject:anObject atIndex:index];
 }
 
 
@@ -170,25 +184,25 @@ static NNForwardingTarget *_target = nil;
 
 @implementation NSMutableDictionary (CashProtector)
 
-- (void)safe_setObject:(id)anObject forKey:(id <NSCopying>)aKey{
+- (void)p_setObject:(id)anObject forKey:(id <NSCopying>)aKey{
     if (isOpenAssert) NSAssert(anObject && aKey, @"anObject和aKey不能为nil");
     if (anObject && aKey) {
-        [self safe_setObject:anObject forKey:aKey];
+        [self p_setObject:anObject forKey:aKey];
     }
 }
 
 
-- (void)safe_setObject:(id)anObject forKeyedSubscript:(id <NSCopying>)aKey {
+- (void)p_setObject:(id)anObject forKeyedSubscript:(id <NSCopying>)aKey {
 //    if (isOpenAssert) NSAssert(anObject && aKey, @"anObject和aKey不能为nil");
     if (anObject && aKey) {
-        [self safe_setObject:anObject forKeyedSubscript:aKey];
+        [self p_setObject:anObject forKeyedSubscript:aKey];
     }
 }
 
-- (void)safe_removeObjectForKey:(id <NSCopying>)aKey {
+- (void)p_removeObjectForKey:(id <NSCopying>)aKey {
     if (isOpenAssert) NSAssert(aKey, @"aKey不能为nil");
     if (aKey) {
-        [self safe_removeObjectForKey:aKey];
+        [self p_removeObjectForKey:aKey];
     }
 }
 

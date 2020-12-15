@@ -63,7 +63,7 @@
         UIImageView *imgView = [[UIImageView alloc]initWithFrame: imgViewRect];
         imgView.userInteractionEnabled = true;
         imgView.contentMode = UIViewContentModeCenter;
-        //        imgView.backgroundColor = UIColor.redColor;
+//        imgView.backgroundColor = UIColor.redColor;
         imgView.image = image;
         
         UITapGestureRecognizer *tap = [[UITapGestureRecognizer alloc] init];
@@ -72,7 +72,7 @@
         //    tapGesture.cancelsTouchesInView = NO;
         //    tapGesture.delaysTouchesEnded = NO;
         [tap addActionBlock:^(UIGestureRecognizer * _Nonnull reco) {
-            //            DDLog(@"%@", reco)
+//            DDLog(@"%@", reco)
             UIImageView * sender = (UIImageView *)reco.view;
             sender.selected = !sender.selected;
             sender.image = sender.selected == false ? image : imageSelected;

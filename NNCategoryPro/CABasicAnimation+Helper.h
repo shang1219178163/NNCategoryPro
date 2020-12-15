@@ -64,8 +64,8 @@ FOUNDATION_EXPORT NSString * const kTransformStrokeEnd ;
 
 +(CABasicAnimation *)animKeyPath:(NSString *)keyPath
                         duration:(CFTimeInterval)duration
-                       fromValue:(id)fromValue
-                         toValue:(id)toValue
+                       fromValue:(nullable id)fromValue
+                         toValue:(nullable id)toValue
                     autoreverses:(BOOL)autoreverses
                      repeatCount:(float)repeatCount
                         fillMode:(NSString *)fillMode
@@ -74,14 +74,15 @@ FOUNDATION_EXPORT NSString * const kTransformStrokeEnd ;
 
 +(CABasicAnimation *)animKeyPath:(NSString *)keyPath
                         duration:(CFTimeInterval)duration
-                       fromValue:(id)fromValue
-                         toValue:(id)toValue
+                       fromValue:(nullable id)fromValue
+                         toValue:(nullable id)toValue
                     autoreverses:(BOOL)autoreverses
                      repeatCount:(float)repeatCount;
 
 +(CABasicAnimation *)animKeyPath:(NSString *)keyPath
                         duration:(CFTimeInterval)duration
-                       fromValue:(id)fromValue toValue:(id)toValue;
+                       fromValue:(nullable id)fromValue
+                         toValue:(nullable id)toValue;
 
 @end
 

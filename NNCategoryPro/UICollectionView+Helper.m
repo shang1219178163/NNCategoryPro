@@ -33,8 +33,6 @@ NSString * const UICollectionElementKindSectionItem = @"UICollectionElementKindS
                                                                              headerSize:headerSize
                                                                              footerSize:footerSize];
             
-            
-            
             layout;
         });
         objc_setAssociatedObject(self, @selector(layoutDefault), obj, OBJC_ASSOCIATION_RETAIN_NONATOMIC);
@@ -42,7 +40,7 @@ NSString * const UICollectionElementKindSectionItem = @"UICollectionElementKindS
     return obj;
 }
 
--(void)setLayoutDefault:(UICollectionViewLayout *)layoutDefault{
++ (void)setLayoutDefault:(UICollectionViewLayout *)layoutDefault{
     objc_setAssociatedObject(self, @selector(layoutDefault), layoutDefault, OBJC_ASSOCIATION_RETAIN_NONATOMIC);
 }
 

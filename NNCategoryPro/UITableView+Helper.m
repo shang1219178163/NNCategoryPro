@@ -42,13 +42,13 @@
     }
 }
 
--(void)reloadRowList:(NSArray *)rowList section:(NSInteger)section rowAnimation:(UITableViewRowAnimation)rowAnimation{
-    NSParameterAssert(section <= self.numberOfSections);
-    
+-(void)reloadRowList:(NSArray *)rowList section:(NSInteger)section rowAnimation:(UITableViewRowAnimation)rowAnimation{    
     NSInteger rowMax = [[rowList valueForKeyPath:kArrMaxInter] integerValue];
-    NSParameterAssert(rowMax < [self numberOfRowsInSection:section]);
-
-    NSMutableArray * marr = [NSMutableArray array];
+    if (section > self.numberOfSections || rowMax >= [self numberOfRowsInSection:section]) {
+        return;
+    }
+    
+    NSMutableArray *marr = [NSMutableArray array];
     for (NSNumber *row in rowList) {
         [marr addObject:[NSIndexPath indexPathForRow:row.integerValue inSection:section]];
     }
@@ -72,10 +72,10 @@
 }
 
 -(void)deleteRowList:(NSArray *)rowList section:(NSInteger)section rowAnimation:(UITableViewRowAnimation)rowAnimation{
-    NSParameterAssert(section <= self.numberOfSections);
-    
     NSInteger rowMax = [[rowList valueForKeyPath:kArrMaxInter] integerValue];
-    NSParameterAssert(rowMax < [self numberOfRowsInSection:section]);
+    if (section > self.numberOfSections || rowMax >= [self numberOfRowsInSection:section]) {
+        return;
+    }
     
     if (!rowAnimation) rowAnimation = UITableViewRowAnimationNone;
     if (rowList.count == [self numberOfRowsInSection:section] && self.numberOfSections != 1) {
@@ -83,8 +83,7 @@
         [self deleteSections:[NSIndexSet indexSetWithIndex:section] withRowAnimation:UITableViewRowAnimationNone];
         [self endUpdates];
         
-    }
-    else{
+    } else {
         NSMutableArray * marr = [NSMutableArray array];
         for (NSNumber *row in rowList) {
             [marr addObject:[NSIndexPath indexPathForRow:row.integerValue inSection:section]];

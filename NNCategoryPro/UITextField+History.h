@@ -9,7 +9,7 @@
 
 NS_ASSUME_NONNULL_BEGIN
 
-FOUNDATION_EXPORT NSString * const kDeafult_textFieldHistory ;
+FOUNDATION_EXPORT NSString * const kTextFieldHistory;
 
 @interface UITextField (History)
 

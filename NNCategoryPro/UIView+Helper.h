@@ -13,7 +13,7 @@
 
 @class NNTextField;
 
-typedef void(^BlockView)(UIView *view,id item, id obj);
+//typedef void(^BlockView)(UIView *view,id item, id obj);
 
 NS_ASSUME_NONNULL_BEGIN
 
@@ -98,8 +98,6 @@ NS_ASSUME_NONNULL_BEGIN
  */
 + (UIImageView *)createCardViewRect:(CGRect)rect
                               title:(NSString *)title
-                              image:(id)image
-                                tag:(NSInteger)tag
                              target:(id)target
                           aSelector:(SEL)aSelector;
 

@@ -19,9 +19,9 @@ FOUNDATION_EXPORT NSString * const kAlertActionColor;
 
 @interface UIAlertController (Helper)
 
-@property(nonatomic, strong, readonly) UIAlertController *(^nn_addAction)(NSArray<NSString *> *titles, void(^handler)(UIAlertAction *action));
+@property(nonatomic, strong, readonly) UIAlertController *(^nn_addAction)(NSArray<NSString *> *titles, void(^_Nullable handler)(UIAlertAction * action));
 /// 仅 UIAlertControllerStyleAlert 可用
-@property(nonatomic, strong, readonly) UIAlertController *(^nn_addTextField)(NSArray<NSString *> *placeholders, void(^handler)(UITextField *textField));
+@property(nonatomic, strong, readonly) UIAlertController *(^nn_addTextField)(NSArray<NSString *> *placeholders, void(^_Nullable handler)(UITextField *textField));
 @property(nonatomic, strong, readonly) UIAlertController *(^nn_present)(BOOL animated, void(^ __nullable completion)(void));
 
 - (instancetype)addActionTitles:(NSArray<NSString *> *)titles handler:(void(^)(UIAlertController *alertVC, UIAlertAction *action))handler;

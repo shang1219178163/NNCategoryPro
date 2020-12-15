@@ -15,8 +15,6 @@ NS_ASSUME_NONNULL_BEGIN
 
 @interface UIApplication (Other)
 
-@property (class, nonatomic, readonly) NSDictionary *dictPrivacy;
-
 + (BOOL)hasRightOfPhotosLibrary;
 
 + (BOOL)hasRightOfCameraUsage;

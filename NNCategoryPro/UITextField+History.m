@@ -15,7 +15,7 @@
 #import "UIScreen+Helper.h"
 #import "UIColor+Helper.h"
 
-NSString * const kDeafult_textFieldHistory = @"kDeafult_textFieldHistory" ;
+NSString * const kTextFieldHistory = @"kTextFieldHistory" ;
 
 @interface UITextField()<UITableViewDataSource, UITableViewDelegate>
 
@@ -86,7 +86,7 @@ NSString * const kDeafult_textFieldHistory = @"kDeafult_textFieldHistory" ;
     return YES;
 }
 
-#pragma makr- - history
+#pragma makr- -history
 - (NSString *)identify{
     return objc_getAssociatedObject(self, _cmd);
 }
@@ -100,8 +100,9 @@ NSString * const kDeafult_textFieldHistory = @"kDeafult_textFieldHistory" ;
     if (!table) {
         table = [[UITableView alloc] initWithFrame:CGRectZero style:UITableViewStylePlain];
         [table registerClass:[UITableViewCell class] forCellReuseIdentifier:@"UITextFieldHistoryCell"];
+        table.rowHeight = 45;
         table.layer.borderColor = UIColor.grayColor.CGColor;
-        table.layer.borderWidth = 1;
+        table.layer.borderWidth = 0.5;
         table.delegate = self;
         table.dataSource = self;
         objc_setAssociatedObject(self, @selector(historyTableView), table, OBJC_ASSOCIATION_RETAIN);
@@ -111,13 +112,12 @@ NSString * const kDeafult_textFieldHistory = @"kDeafult_textFieldHistory" ;
 
 - (void)setHistoryTableView:(UITableView *)historyTableView{
     objc_setAssociatedObject(self, @selector(historyTableView), historyTableView, OBJC_ASSOCIATION_RETAIN);
-
 }
 
-- (NSArray*)loadHistroy {
+- (NSArray *)loadHistroy {
     if (!self.identify) return nil;
     NSUserDefaults* def = NSUserDefaults.standardUserDefaults;
-    NSDictionary* dic = [def objectForKey:kDeafult_textFieldHistory];
+    NSDictionary* dic = [def objectForKey:kTextFieldHistory];
     
     id data = [dic objectForKey:self.identify];
     if ([data isKindOfClass:[NSArray class]]) {
@@ -135,7 +135,7 @@ NSString * const kDeafult_textFieldHistory = @"kDeafult_textFieldHistory" ;
     }
     
     NSUserDefaults* def = NSUserDefaults.standardUserDefaults;
-    NSDictionary* dic = [def objectForKey:kDeafult_textFieldHistory];
+    NSDictionary* dic = [def objectForKey:kTextFieldHistory];
     NSArray* history = [dic objectForKey:self.identify];
     
     NSMutableArray* newHistory = [NSMutableArray arrayWithArray:history];
@@ -159,13 +159,12 @@ NSString * const kDeafult_textFieldHistory = @"kDeafult_textFieldHistory" ;
     NSMutableDictionary* dic2 = [NSMutableDictionary dictionaryWithDictionary:dic];
     [dic2 setObject:newHistory forKey:self.identify];
     
-    [def setObject:dic2 forKey:kDeafult_textFieldHistory];
-    
+    [def setObject:dic2 forKey:kTextFieldHistory];
     [def synchronize];
 }
 
 - (void)showHistory{
-    NSArray* history = [self loadHistroy];
+    NSArray *history = [self loadHistroy];
     
     if (self.historyTableView.superview || !history || history.count == 0) {
         return;
@@ -175,8 +174,9 @@ NSString * const kDeafult_textFieldHistory = @"kDeafult_textFieldHistory" ;
     [self.superview addSubview:self.historyTableView];
     
     CGRect rect = self.historyTableView.frame;
-    rect.size.height = self.maxY*(history.count + 1);
-    
+//    rect.size.height = self.maxY*(history.count + 1);
+    rect.size.height = self.historyTableView.rowHeight*(history.count + 1);
+
     [UIView animateWithDuration:kDurationDrop animations:^{
         self.historyTableView.frame = rect;
     }];
@@ -205,7 +205,7 @@ NSString * const kDeafult_textFieldHistory = @"kDeafult_textFieldHistory" ;
 - (void)clearHistory{
     NSUserDefaults* def = NSUserDefaults.standardUserDefaults;
     
-    [def setObject:nil forKey:kDeafult_textFieldHistory];
+    [def setObject:nil forKey:kTextFieldHistory];
     [def synchronize];
 }
 
@@ -220,7 +220,7 @@ NSString * const kDeafult_textFieldHistory = @"kDeafult_textFieldHistory" ;
 }
 
 - (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath{
-    UITableViewCell* cell = [tableView dequeueReusableCellWithIdentifier:@"UITextFieldHistoryCell"];
+    UITableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:@"UITextFieldHistoryCell"];
     if (!cell) {
         cell = [[UITableViewCell alloc] initWithStyle:UITableViewCellStyleDefault reuseIdentifier:@"UITextFieldHistoryCell"];
     }
@@ -236,7 +236,7 @@ NSString * const kDeafult_textFieldHistory = @"kDeafult_textFieldHistory" ;
 }
 
 - (UIView *)tableView:(UITableView *)tableView viewForFooterInSection:(NSInteger)section{
-    UIButton* clearButton = [UIButton buttonWithType:UIButtonTypeRoundedRect];
+    UIButton *clearButton = [UIButton buttonWithType:UIButtonTypeRoundedRect];
     [clearButton setTitle:@"全部清除" forState:UIControlStateNormal];
     [clearButton addTarget:self action:@selector(clearHistoryButtonClick:) forControlEvents:UIControlEventTouchUpInside];
     
@@ -244,11 +244,11 @@ NSString * const kDeafult_textFieldHistory = @"kDeafult_textFieldHistory" ;
 }
 
 - (CGFloat)tableView:(UITableView *)tableView heightForRowAtIndexPath:(NSIndexPath *)indexPath{
-    return self.maxY;
+    return tableView.rowHeight;
 }
 
 - (CGFloat)tableView:(UITableView *)tableView heightForFooterInSection:(NSInteger)section{
-    return self.maxY;
+    return tableView.rowHeight;
 }
 
 - (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath{

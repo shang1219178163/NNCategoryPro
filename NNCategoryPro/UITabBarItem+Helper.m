@@ -12,7 +12,7 @@
 /**
  [源]UITabBarItem创建方法
  */
-+ (instancetype)createTabBarItem:(NSString *)title image:(NSString *)image selectedImage:(NSString *_Nullable)selectedImage{
++ (instancetype)createItem:(NSString *)title image:(NSString *)image selectedImage:(NSString *_Nullable)selectedImage{
     assert([UIImage imageNamed:image]);
 
     UITabBarItem *tabBarItem = [[self alloc]initWithTitle:title

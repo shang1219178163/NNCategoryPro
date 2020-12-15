@@ -67,6 +67,12 @@
     return result;
 }
 
+- (BOOL)boolValue{
+    NSString *tmp = [[self stringByTrimmingCharactersInSet:NSCharacterSet.whitespaceAndNewlineCharacterSet] lowercaseString];
+    BOOL isContain = [@[@"true", @"yes", @"1"] containsObject:tmp];
+    return isContain;
+}
+
 -(NSString *)localized{
     return NSLocalizedString(self, self);
 }
@@ -201,14 +207,14 @@ NSString * NSStringFromFloat(CGFloat obj){
     NSString * string = self;
     NSScanner * scan = [NSScanner scannerWithString:string];
     NSInteger val = 0;
-    return [scan scanInteger:&val] && [scan isAtEnd];
+    return ([scan scanInteger:&val] && [scan isAtEnd]);
 }
 /// 浮点形判断
 - (BOOL)isPureFloat{
     NSString * string = self;
     NSScanner * scan = [NSScanner scannerWithString:string];
-    CGFloat val = 0.0;
-    return [scan scanDouble:&val] && [scan isAtEnd];
+    double val = 0.0;
+    return ([scan scanDouble:&val] && [scan isAtEnd]);
 }
 
 - (id)numberValue{

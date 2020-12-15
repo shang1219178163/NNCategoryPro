@@ -114,11 +114,6 @@ static char base64EncodingTable[64] = {
     return  [self isValidateByRegex:macAddRegex];
 }
 
-- (BOOL)isValidUrl{
-    NSString *regex = @"^((http)|(https))+:[^\\s]+\\.[^\\s]*$";
-    return [self isValidateByRegex:regex];
-}
-
 - (BOOL)isValidChinese;{
     NSString *chineseRegex = @"^[\u4e00-\u9fa5]+$";
     return [self isValidateByRegex:chineseRegex];
@@ -480,10 +475,8 @@ static char base64EncodingTable[64] = {
 }
 
 
-+ (NSString *)AES128Encrypt:(NSString *)content key:(NSString *)key
-{
-    
-    if( ![self validKey:key] ){
++ (NSString *)AES128Encrypt:(NSString *)content key:(NSString *)key{
+    if(![self validKey:key] ){
         return nil;
     }
     
@@ -541,9 +534,7 @@ static char base64EncodingTable[64] = {
 }
 
 
-
 + (NSString *)AES128Decrypt:(NSString *)content key:(NSString *)key{
-    
     if(![self validKey:key]){
         return nil;
     }
@@ -706,8 +697,7 @@ static char base64EncodingTable[64] = {
  @return 普通字符串
  */
 - (NSString *)AES128DecryptKey:(NSString *)key encodeType:(NSString *)encodeType{
-    
-    NSAssert( self != nil && key != nil, @"内容和key不能为nil");
+    NSAssert(self != nil && key != nil, @"内容和key不能为nil");
     
     NSData * data = nil;
     switch ([encodeType integerValue]) {

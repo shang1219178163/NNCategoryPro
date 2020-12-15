@@ -224,16 +224,6 @@
     return marr.copy;
 }
 
-- (NSArray *)arrayWithObjOffset:(NSInteger)offSet{
-    __block NSMutableArray *marr = [NSMutableArray arrayWithCapacity:0];
-    for (NSInteger i = 0; i < self.count; i++) {
-        id obj = self[i];
-        if ([obj isEqualToString:@""]) continue;
-        id value = [obj isKindOfClass:[NSNumber class]] ? @([obj integerValue] + offSet) : [@([obj integerValue] + offSet) stringValue];
-        [marr addSafeObjct:value];
-    }
-    return marr.copy;
-}
 
 @end
 

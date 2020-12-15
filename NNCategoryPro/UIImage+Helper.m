@@ -62,9 +62,11 @@ UIImage * UIImageObj(id obj){
     return nil;
 }
 
-- (void)saveImageToPhotosAlbum:(void(^)(NSError *error))block{    
-    void *context = CFBridgingRetain([block copy]);
-    UIImageWriteToSavedPhotosAlbum(self, UIImage.class, @selector(image:didFinishSavingWithError:contextInfo:), context);
+- (void)saveImageToPhotosAlbum:(void(^)(NSError *error))block{
+    UIImageWriteToSavedPhotosAlbum(self,
+                                   UIImage.class,
+                                   @selector(image:didFinishSavingWithError:contextInfo:),
+                                   (__bridge_retained void *)[block copy]);
 }
 
 - (void)image:(UIImage *)image didFinishSavingWithError:(NSError *)error contextInfo:(void *)contextInfo{

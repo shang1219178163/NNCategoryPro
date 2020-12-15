@@ -530,7 +530,7 @@
 
 - (NSArray<__kindof UIView *> *)findSubview:(NSString *)name{
     Class class = NSClassFromString(name);
-    return [self findSubview:class];
+    return [self findSubviewType:class];
 }
 
 - (__kindof UIView *)findSuperViewType:(Class)cls{
@@ -543,7 +543,7 @@
 
 - (__kindof UIView *)findSuperView:(NSString *)name{
     Class class = NSClassFromString(name);
-    return [self findSuperView:class];
+    return [self findSuperViewType:class];
 }
 
 

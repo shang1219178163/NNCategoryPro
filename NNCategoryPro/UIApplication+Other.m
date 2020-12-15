@@ -563,8 +563,6 @@
 
 
 + (void)updateVersion:(NSString *)appStoreID handler:(void(^)(NSDictionary *dic, NSString *appStoreVer, NSString *releaseNotes, bool isUpdate))handler {
-    __block BOOL isUpdate = NO;
-    
     NSString *path = [UIApplication appDetailUrlWithID:appStoreID];
     NSMutableURLRequest *request = [NSMutableURLRequest requestWithURL:[NSURL URLWithString:path] cachePolicy:NSURLRequestReloadIgnoringCacheData timeoutInterval:6];
     request.HTTPMethod = @"POST";

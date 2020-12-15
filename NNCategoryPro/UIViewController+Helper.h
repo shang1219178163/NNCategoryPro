@@ -54,9 +54,6 @@ FOUNDATION_EXPORT UINavigationController * _Nullable UINavCtrFromObj(id obj);
 /// 显示controller(手动调用viewWillAppear和viewDidAppear,viewWillDisappear)
 - (void)transitionToVC:(UIViewController *)controller;
 
-//app星际评价,自定义app链接
-- (void)dispalyAppEvalutionStarLevelAppID:(NSString *)appID;
-
 - (void)setNavigationBarBackgroundColor:(UIColor *)color;
 
 @end

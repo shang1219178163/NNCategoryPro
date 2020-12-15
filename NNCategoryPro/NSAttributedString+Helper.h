@@ -12,9 +12,6 @@ NS_ASSUME_NONNULL_BEGIN
 
 @interface NSAttributedString (Helper)
 
-///判断 self是否有效
-@property (nonatomic, assign, readonly) BOOL isValid;
-
 #pragma mark- -富文本
 /// 富文本配置字典
 FOUNDATION_EXPORT NSDictionary<NSAttributedStringKey, id> * AttributeDict(NSNumber *type);
@@ -75,8 +72,6 @@ FOUNDATION_EXPORT NSDictionary<NSAttributedStringKey, id> * AttributeDict(NSNumb
  (推荐)单个标题前加*
  */
 + (NSAttributedString *)getAttringByPrefix:(NSString *)prefix content:(NSString *)content isMust:(BOOL)isMust;
-
-+ (__kindof NSAttributedString *)attrString:(NSString *)string font:(CGFloat)font alignment:(NSTextAlignment)alignment;
 
 + (NSAttributedString *)attrString:(NSString *)string;
 
