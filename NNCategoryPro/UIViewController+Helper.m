@@ -74,7 +74,7 @@ UINavigationController *UINavCtrFromObj(id obj){
     [btn setImage:[image imageWithRenderingMode:UIImageRenderingModeAlwaysTemplate] forState:UIControlStateNormal];
     btn.imageView.tintColor = tintColor;
     btn.highlighted = false;
-    [btn addActionHandler:^(UIControl * _Nonnull control) {
+    [btn addActionHandler:^(UIButton * _Nonnull sender) {
         [self.navigationController popViewControllerAnimated:true];
 
     } forControlEvents:UIControlEventTouchUpInside];

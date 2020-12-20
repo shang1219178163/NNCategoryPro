@@ -14,6 +14,8 @@ NS_ASSUME_NONNULL_BEGIN
 
 @property (nonatomic, strong) NSArray<NSString *> *items;
 
+- (void)addActionHandler:(void(^)(UISegmentedControl *sender))handler forControlEvents:(UIControlEvents)controlEvents;
+
 /**
  [源]UISegmentedControl创建方法
  */

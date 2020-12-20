@@ -11,6 +11,8 @@ NS_ASSUME_NONNULL_BEGIN
 
 @interface UISlider (Helper)
 
+- (void)addActionHandler:(void(^)(UISlider *sender))handler forControlEvents:(UIControlEvents)controlEvents;
+
 + (instancetype)createRect:(CGRect)rect
                   minValue:(CGFloat)minValue
                   maxValue:(CGFloat)maxValue;

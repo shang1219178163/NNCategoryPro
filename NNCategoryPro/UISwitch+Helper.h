@@ -11,6 +11,9 @@
 NS_ASSUME_NONNULL_BEGIN
 
 @interface UISwitch (Helper)
+
+- (void)addActionHandler:(void(^)(UISwitch *sender))handler forControlEvents:(UIControlEvents)controlEvents;
+
 /**
  [源]UISwitch创建方法
  */

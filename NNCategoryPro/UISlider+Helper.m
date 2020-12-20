@@ -6,10 +6,22 @@
 //
 
 #import "UISlider+Helper.h"
+#import <objc/runtime.h>
 #import "UIColor+Helper.h"
 
 @implementation UISlider (Helper)
 
+- (void)addActionHandler:(void(^)(UISlider *sender))handler forControlEvents:(UIControlEvents)controlEvents{
+    [self addTarget:self action:@selector(p_handleActionSlider:) forControlEvents:controlEvents];
+    objc_setAssociatedObject(self, _cmd, handler, OBJC_ASSOCIATION_COPY_NONATOMIC);
+}
+
+- (void)p_handleActionSlider:(UISlider *)sender{
+    void(^block)(UISlider *control) = objc_getAssociatedObject(self, @selector(addActionHandler:forControlEvents:));
+    if (block) {
+        block(sender);
+    }
+}
 /**
  [源]UISlider创建方法
  */

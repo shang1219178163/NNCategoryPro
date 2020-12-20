@@ -21,6 +21,18 @@
 
 @implementation UIButton (Helper)
 
+- (void)addActionHandler:(void(^)(UIButton *sender))handler forControlEvents:(UIControlEvents)controlEvents{
+    [self addTarget:self action:@selector(p_handleActionBtn:) forControlEvents:controlEvents];
+    objc_setAssociatedObject(self, _cmd, handler, OBJC_ASSOCIATION_COPY_NONATOMIC);
+}
+
+- (void)p_handleActionBtn:(UIButton *)sender{
+    void(^block)(UIButton *control) = objc_getAssociatedObject(self, @selector(addActionHandler:forControlEvents:));
+    if (block) {
+        block(sender);
+    }
+}
+
 - (void)setBackgroundColor:(nullable UIColor *)color forState:(UIControlState)state{
     if (color == nil) {
         return;

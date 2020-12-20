@@ -33,6 +33,19 @@
     self.selectedSegmentIndex = 0;
 }
 
+
+- (void)addActionHandler:(void(^)(UISegmentedControl *sender))handler forControlEvents:(UIControlEvents)controlEvents{
+    [self addTarget:self action:@selector(p_handleActionSegement:) forControlEvents:controlEvents];
+    objc_setAssociatedObject(self, _cmd, handler, OBJC_ASSOCIATION_COPY_NONATOMIC);
+}
+
+- (void)p_handleActionSegement:(UISegmentedControl *)sender{
+    void(^block)(UISegmentedControl *control) = objc_getAssociatedObject(self, @selector(addActionHandler:forControlEvents:));
+    if (block) {
+        block(sender);
+    }
+}
+
 /**
  [源]UISegmentedControl创建方法
  */

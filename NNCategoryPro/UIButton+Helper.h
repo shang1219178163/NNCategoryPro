@@ -12,6 +12,8 @@ NS_ASSUME_NONNULL_BEGIN
 
 @interface UIButton (Helper)
 
+- (void)addActionHandler:(void(^)(UIButton *sender))handler forControlEvents:(UIControlEvents)controlEvents;
+
 - (void)setBackgroundColor:(nullable UIColor *)color forState:(UIControlState)state;
 
 /*
