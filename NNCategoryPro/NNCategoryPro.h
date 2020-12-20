@@ -28,6 +28,7 @@
 #import "NNRootAppInfoModel.h"
 #import "NSArray+Helper.h"
 #import "NSAttributedString+Helper.h"
+#import "NSMutableAttributedString+Chain.h"
 #import "NSBundle+Helper.h"
 #import "NSData+Helper.h"
 #import "NSDate+Helper.h"
