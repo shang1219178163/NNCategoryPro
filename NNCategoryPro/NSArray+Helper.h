@@ -86,6 +86,14 @@ compactMap 高阶降维函数
 
 @end
 
+
+@interface NSMutableArray (Ext)
+
+@property(nonatomic, strong, readonly) NSMutableArray *(^append)(NSArray *);
+
+@end
+
+
 @interface NSString (Ext)
 ///componentsSeparatedByString
 @property(nonatomic, strong, readonly) NSArray<NSString *> *(^separatedBy)(NSString *);

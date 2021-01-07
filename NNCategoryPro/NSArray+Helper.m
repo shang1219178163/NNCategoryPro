@@ -204,6 +204,18 @@
 @end
 
 
+@implementation NSMutableArray (Ext)
+
+- (NSMutableArray * _Nonnull (^)(NSArray * _Nonnull))append{
+    return ^(NSArray *value) {
+        [self addObjectsFromArray:value];
+        return self;
+    };
+}
+
+@end
+
+
 @implementation NSString (Ext)
 
 - (NSArray<NSString *> *(^)(NSString *))separatedBy{

@@ -20,17 +20,17 @@ NSString * const kAlertActionColor = @"titleTextColor";
 
 @implementation UIAlertController (Helper)
 
-- (UIAlertController * _Nonnull (^)(NSArray<NSString *> * _Nonnull, void (^)(UIAlertAction * action)))nn_addAction{
+- (UIAlertController * _Nonnull (^)(NSArray<NSString *> * _Nonnull, void (^)(UIAlertAction *action)))nn_addAction{
     return ^(NSArray<NSString *> *titles, void(^handler)(UIAlertAction *action)){
         [titles enumerateObjectsUsingBlock:^(NSString * _Nonnull title, NSUInteger idx, BOOL * _Nonnull stop) {
-            UIAlertActionStyle style = [title isEqualToString:@"取消"] ? UIAlertActionStyleDestructive : UIAlertActionStyleDefault;
+            UIAlertActionStyle style = [title isEqualToString:@"取消"] ? UIAlertActionStyleCancel : UIAlertActionStyleDefault;
             [self addAction:[UIAlertAction actionWithTitle:title style:style handler:handler]];
         }];
         return self;
     };
 }
 
-- (UIAlertController * _Nonnull (^)(NSArray<NSString *> * _Nonnull, void (^ _Nonnull)(UITextField * textField)))nn_addTextField{
+- (UIAlertController * _Nonnull (^)(NSArray<NSString *> * _Nonnull, void (^ _Nonnull)(UITextField *textField)))nn_addTextField{
     NSParameterAssert(self.preferredStyle == UIAlertControllerStyleAlert);
     if (self.preferredStyle != UIAlertControllerStyleAlert) {
         return ^(NSArray<NSString *> *placeholders, void(^handler)(UITextField *action)){
@@ -58,9 +58,9 @@ NSString * const kAlertActionColor = @"titleTextColor";
     };
 }
 
-- (instancetype)addActionTitles:(NSArray<NSString *> *)titles handler:(void(^)(UIAlertController *alertVC, UIAlertAction *action))handler {
+- (instancetype)addActionTitles:(NSArray<NSString *> *)titles handler:(void(^)(UIAlertController *vc, UIAlertAction *action))handler {
     [titles enumerateObjectsUsingBlock:^(NSString * _Nonnull title, NSUInteger idx, BOOL * _Nonnull stop) {
-        UIAlertActionStyle style = [title isEqualToString:@"取消"] ? UIAlertActionStyleDestructive : UIAlertActionStyleDefault;
+        UIAlertActionStyle style = [title isEqualToString:@"取消"] ? UIAlertActionStyleCancel : UIAlertActionStyleDefault;
         [self addAction:[UIAlertAction actionWithTitle:title style:style handler:^(UIAlertAction * _Nonnull action) {
             handler(self, action);
         }]];
@@ -88,7 +88,7 @@ NSString * const kAlertActionColor = @"titleTextColor";
 + (instancetype)createAlertTitle:(NSString * _Nullable)title
                          message:(NSString *_Nullable)message
                     actionTitles:(NSArray *_Nullable)actionTitles
-                         handler:(void(^_Nullable)(UIAlertController *alertVC, UIAlertAction *action))handler{
+                         handler:(void(^_Nullable)(UIAlertController *vc, UIAlertAction *action))handler{
     
     UIAlertController *alertVC = [UIAlertController alertControllerWithTitle:title
                                                                      message:message
@@ -100,7 +100,7 @@ NSString * const kAlertActionColor = @"titleTextColor";
 + (instancetype)showAlertTitle:(NSString * _Nullable)title
                        message:(NSString *_Nullable)message
                   actionTitles:(NSArray *_Nullable)actionTitles
-                       handler:(void(^_Nullable)(UIAlertController *alertVC, UIAlertAction *action))handler{
+                       handler:(void(^_Nullable)(UIAlertController *vc, UIAlertAction *action))handler{
     UIAlertController *alertVC = [UIAlertController createAlertTitle:title
                                                              message:message
                                                         actionTitles:actionTitles
@@ -112,11 +112,16 @@ NSString * const kAlertActionColor = @"titleTextColor";
 + (instancetype)createSheetTitle:(NSString *_Nullable)title
                          message:(NSString *_Nullable)message
                     actionTitles:(NSArray *_Nullable)actionTitles
-                         handler:(void(^_Nullable)(UIAlertController *alertVC, UIAlertAction *action))handler{
+                         handler:(void(^_Nullable)(UIAlertController *vc, UIAlertAction *action))handler{
     
     UIAlertController *alertVC = [UIAlertController alertControllerWithTitle:title
                                                                      message:message
                                                               preferredStyle:UIAlertControllerStyleActionSheet];
+    if (![actionTitles containsObject:kTitleCancell]) {
+        NSMutableArray *marr = [NSMutableArray arrayWithArray:actionTitles];
+        [marr addObject:kTitleCancell];
+        actionTitles = marr.copy;
+    }
     [alertVC addActionTitles:actionTitles handler:handler];
     return alertVC;
 }
@@ -124,9 +129,9 @@ NSString * const kAlertActionColor = @"titleTextColor";
 + (instancetype)showSheetTitle:(NSString *_Nullable)title
                        message:(NSString *_Nullable)message
                   actionTitles:(NSArray *_Nullable)actionTitles
-                       handler:(void(^_Nullable)(UIAlertController *alertVC, UIAlertAction *action))handler{
+                       handler:(void(^_Nullable)(UIAlertController *vc, UIAlertAction *action))handler{
     UIAlertController *alertVC = [UIAlertController createSheetTitle:title
-                                                                 message:message
+                                                             message:message
                                                         actionTitles:actionTitles
                                                              handler:handler];
     [alertVC present:true completion:nil];
@@ -135,7 +140,7 @@ NSString * const kAlertActionColor = @"titleTextColor";
 
 
 - (instancetype)setTitleColor:(UIColor *)color{
-    if (self.title == nil || [self.title isEqualToString:@""]) {
+    if (!self.title || [self.title isEqualToString:@""]) {
         return self;
     }
 
@@ -148,7 +153,7 @@ NSString * const kAlertActionColor = @"titleTextColor";
 }
 
 - (instancetype)setMessageParaStyle:(NSMutableParagraphStyle *)style{
-    if (self.message == nil || [self.message isEqualToString:@""]) {
+    if (!self.message || [self.message isEqualToString:@""]) {
         return self;
     }
     
@@ -164,11 +169,11 @@ NSString * const kAlertActionColor = @"titleTextColor";
     NSCharacterSet *set = [NSCharacterSet characterSetWithCharactersInString:@" _转"];
     phoneNumber = [phoneNumber stringByTrimmingCharactersInSet:set];
     
-    NSArray *titles = @[@"取消",@"呼叫"];
+    NSArray *titles = @[@"取消", @"呼叫"];
     [UIAlertController showAlertTitle:nil
                               message:phoneNumber
                          actionTitles:titles
-                              handler:^(UIAlertController *alertVC, UIAlertAction * action) {
+                              handler:^(UIAlertController *vc, UIAlertAction *action) {
         if ([action.title isEqualToString: titles.firstObject]) {
             return;
         }
