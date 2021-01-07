@@ -175,16 +175,17 @@
 - (CGSize)sizeWithFont:(UIFont *)font width:(CGFloat)width mode:(NSLineBreakMode)lineBreakMode {
     if (!font) font = [UIFont systemFontOfSize:15];
 
-    NSMutableDictionary *attr = [NSMutableDictionary new];
+    NSMutableDictionary *attr = [NSMutableDictionary dictionary];
     attr[NSFontAttributeName] = font;
     if (lineBreakMode != NSLineBreakByWordWrapping) {
-        NSMutableParagraphStyle *paragraphStyle = [NSMutableParagraphStyle new];
-        paragraphStyle.lineBreakMode = lineBreakMode;
-        attr[NSParagraphStyleAttributeName] = paragraphStyle;
+        NSMutableParagraphStyle *style = [NSMutableParagraphStyle new];
+        style.lineBreakMode = lineBreakMode;
+        attr[NSParagraphStyleAttributeName] = style;
     }
     CGRect rect = [self boundingRectWithSize:CGSizeMake(width, CGFLOAT_MAX)
                                      options:NSStringDrawingUsesLineFragmentOrigin | NSStringDrawingUsesFontLeading
-                                  attributes:attr context:nil];
+                                  attributes:attr
+                                     context:nil];
     CGSize result = rect.size;
     return result;
 }

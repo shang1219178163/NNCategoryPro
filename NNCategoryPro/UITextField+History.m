@@ -96,7 +96,7 @@ NSString * const kTextFieldHistory = @"kTextFieldHistory" ;
 }
 
 - (UITableView *)historyTableView {
-    UITableView* table = objc_getAssociatedObject(self, _cmd);
+    UITableView *table = objc_getAssociatedObject(self, _cmd);
     if (!table) {
         table = [[UITableView alloc] initWithFrame:CGRectZero style:UITableViewStylePlain];
         [table registerClass:[UITableViewCell class] forCellReuseIdentifier:@"UITextFieldHistoryCell"];
