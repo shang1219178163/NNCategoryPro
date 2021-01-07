@@ -13,6 +13,7 @@
 #import "UIViewController+Helper.h"
 
 #import "NSAttributedString+Helper.h"
+#import "NSMutableAttributedString+Chain.h"
 #import "NSDate+Helper.h"
 #import "NSDateFormatter+Helper.h"
 
@@ -24,16 +25,11 @@
 
 @implementation NSString (Helper)
 
--(BOOL)isValid{
-    NSString *tmp = self;
-    tmp = [tmp stringByReplacingOccurrencesOfString:@" " withString:@""];
-            
-    NSArray *array = @[@"",@"nil",@"null"];
-    if ([array containsObject:tmp] || [tmp containsString:@"null"]) {
-//         NSLog(@"无效字符->(%@)",string);
-        return false;
-    }
-    return true;
+- (BOOL)isEmpty{
+//    return (self.length == 0);
+    NSString *tmp = [self stringByTrimmingCharactersInSet:NSCharacterSet.whitespaceAndNewlineCharacterSet];
+    bool result = [@[@"", @"nil", @"null"] containsObject: tmp.lowercaseString];
+    return result;
 }
 
 -(NSData *)jsonData{
@@ -85,6 +81,57 @@
     return [self stringByTrimmingCharactersInSet:NSCharacterSet.whitespaceAndNewlineCharacterSet];
 }
 
+- (NSString *(^)(NSString *))trimmedBy{
+    return ^(NSString *value) {
+        NSCharacterSet *set = [NSCharacterSet characterSetWithCharactersInString:value];
+        NSString *result = [self stringByTrimmingCharactersInSet:set];
+        return result;
+    };
+}
+
+- (NSString * _Nonnull (^)(NSUInteger, NSUInteger))subStringBy{
+    return ^(NSUInteger loc, NSUInteger len) {
+        if (loc + len > self.length) {
+            return self;
+        }
+        NSString *result = [self substringWithRange:NSMakeRange(loc, len)];
+        return result;
+    };
+}
+
+- (NSString *(^)(NSString * _Nonnull))append{
+    return ^(NSString *value){
+        return [self stringByAppendingString:value];
+    };
+}
+
+- (NSString * _Nonnull (^)(NSString * _Nonnull, ...))appendFormat{
+    return ^(NSString *format, ...){
+        va_list list;
+        va_start(list, format);
+        NSString *string = [[NSString alloc] initWithFormat:format arguments:list];
+        va_end(list);
+        NSString *result = [self stringByAppendingString:string];
+        return result;
+    };
+}
+
+- (NSString * _Nonnull (^)(NSString * _Nonnull, NSString * _Nonnull))replace{
+    return ^(NSString *target, NSString *replacement){
+        return [self stringByReplacingOccurrencesOfString:target withString:replacement];
+    };
+}
+
+//- (NSString * _Nonnull (^)(NSString * _Nonnull))filterBy{
+//    return ^(NSString *value) {
+//        //@"!*'();:@&=+$,/?%#[]"
+//        NSCharacterSet *set = [[NSCharacterSet characterSetWithCharactersInString:value] invertedSet];
+//        NSString *result = [self stringByAddingPercentEncodingWithAllowedCharacters:set];
+//        NSString *result = [value stringByAddingPercentEscapesUsingEncoding:NSUTF8StringEncoding];
+//        return result;
+//    };
+//}
+
 - (NSString *)urlDecoded{
     return [self stringByRemovingPercentEncoding];;
 }
@@ -125,6 +172,22 @@
     return [pre evaluateWithObject:self];;
 }
 
+- (CGSize)sizeWithFont:(UIFont *)font width:(CGFloat)width mode:(NSLineBreakMode)lineBreakMode {
+    if (!font) font = [UIFont systemFontOfSize:15];
+
+    NSMutableDictionary *attr = [NSMutableDictionary new];
+    attr[NSFontAttributeName] = font;
+    if (lineBreakMode != NSLineBreakByWordWrapping) {
+        NSMutableParagraphStyle *paragraphStyle = [NSMutableParagraphStyle new];
+        paragraphStyle.lineBreakMode = lineBreakMode;
+        attr[NSParagraphStyleAttributeName] = paragraphStyle;
+    }
+    CGRect rect = [self boundingRectWithSize:CGSizeMake(width, CGFLOAT_MAX)
+                                     options:NSStringDrawingUsesLineFragmentOrigin | NSStringDrawingUsesFontLeading
+                                  attributes:attr context:nil];
+    CGSize result = rect.size;
+    return result;
+}
 
 NSString * NSStringFromIndexPath(NSIndexPath *indexPath) {
     return [NSString stringWithFormat:@"{%@,%@}",@(indexPath.section),@(indexPath.row)];
@@ -142,18 +205,6 @@ NSString * NSStringFromHTML(NSString *html) {
     return html;
 }
 
-NSString * NSStringFromLet(id obj) {
-    return [NSString stringWithFormat:@"%@", obj];
-}
-
-NSString * NSStringFromInt(NSInteger obj){
-    return [@(obj) stringValue];
-}
-
-NSString * NSStringFromFloat(CGFloat obj){
-    return [@(obj) stringValue];
-}
-
 + (NSString *)repeating:(NSString *)repeatedValue count:(NSInteger)count{
     NSString *string = @"";
     for (NSInteger i = 0; i < count; i++) {
@@ -162,12 +213,17 @@ NSString * NSStringFromFloat(CGFloat obj){
     return string;
 }
 
-- (NSString *)stringByTrimmingCharactersInString:(NSString *)string{
-    if (self.length <= 0) {
-        return string;
+- (NSString *)repeating:(NSInteger)count{
+    NSString *string = @"";
+    for (NSInteger i = 0; i < count; i++) {
+        string = [string stringByAppendingString:self];
     }
+    return string;
+}
+
+- (NSString *)stringByTrimmingCharactersInString:(NSString *)string{
     NSCharacterSet *set = [NSCharacterSet characterSetWithCharactersInString:string];
-    NSString *result = [string stringByTrimmingCharactersInSet:set];
+    NSString *result = [self stringByTrimmingCharactersInSet:set];
     return result;
 }
 
@@ -189,19 +245,6 @@ NSString * NSStringFromFloat(CGFloat obj){
     return result;
 }
 
-
-/// 判断是否时间戳字符串
-- (BOOL)isTimeStamp{
-    if ([self containsString:@" "] || [self containsString:@"-"] || [self containsString:@":"]) {
-        return false;
-    }
-    
-    if (![self isPureInteger] || self.doubleValue < NSDate.date.timeIntervalSince1970) {
-        return false;
-    }
-    return true;
-}
-
 /// 整形判断
 - (BOOL)isPureInteger{
     NSString * string = self;
@@ -217,17 +260,6 @@ NSString * NSStringFromFloat(CGFloat obj){
     return ([scan scanDouble:&val] && [scan isAtEnd]);
 }
 
-- (id)numberValue{
-    if ([self isPureInteger]) {
-        return @([self integerValue]);
-    }
-    
-    if ([self isPureFloat]) {
-        return @([self floatValue]);
-    }
-    return self;
-}
-
 - (BOOL)isPureByCharSet:(NSString *)charSet{
     NSCharacterSet *set = [[NSCharacterSet characterSetWithCharactersInString:charSet] invertedSet];
     NSString *result = [[self componentsSeparatedByCharactersInSet:set] componentsJoinedByString:@""];
@@ -235,22 +267,13 @@ NSString * NSStringFromFloat(CGFloat obj){
 }
 
 - (NSString *)toFileString{
-    NSArray * fileNameList = [self componentsSeparatedByString:@"."];
-    NSString * path = [NSBundle.mainBundle pathForResource:fileNameList.firstObject ofType:fileNameList.lastObject];
-    NSData * data = [NSData dataWithContentsOfFile:path];
+    NSArray *fileNameList = [self componentsSeparatedByString:@"."];
+    NSString *path = [NSBundle.mainBundle pathForResource:fileNameList.firstObject ofType:fileNameList.lastObject];
+    NSData *data = [NSData dataWithContentsOfFile:path];
     
     NSString *jsonString = [[NSString alloc] initWithData:data encoding:NSUTF8StringEncoding];
     jsonString = [jsonString stringByReplacingOccurrencesOfString:@"\\" withString:@""];
     return jsonString;
-}
-
-/**
- *  @brief  是否包含空格
- *  @return 是否包含空格
- */
-- (BOOL)isContainBlank{
-    NSRange range = [self rangeOfString:@" "];
-    return (range.location != NSNotFound);
 }
 
 - (BOOL)isContainsCharacterSet:(NSCharacterSet *)set{
@@ -268,35 +291,6 @@ NSString * NSStringFromFloat(CGFloat obj){
     
     NSString *returnStr = [NSPropertyListSerialization propertyListWithData:tempData options:NSPropertyListMutableContainersAndLeaves format:NULL error:NULL];
     return [returnStr stringByReplacingOccurrencesOfString:@"\\r\\n"withString:@"\n"];
-}
-
-- (NSString *)stringBylimitLength:(NSInteger)limitLength{
-    NSString * string = self;
-    if (string.length > limitLength) {
-        string = [string substringToIndex:limitLength];
-        string = [string stringByAppendingString:@"..."];
-    }
-    return string;
-}
-
-+ (NSString *)stringFromNumber:(NSNumber *)number{
-    NSString * sting = [number stringValue];
-    return sting;
-}
-
-+ (NSString *)stringFromInter:(NSInteger)inter{
-    NSString * sting = [@(inter) stringValue];
-    return sting;
-}
-
-+ (NSString *)stringFromFloat:(CGFloat )inter{
-    NSString * sting = [@(inter) stringValue];
-    return sting;
-}
-
-+ (NSString *)stringFromDouble:(double)inter{
-    NSString * sting = [@(inter) stringValue];
-    return sting;
 }
 
 /**
@@ -347,11 +341,10 @@ NSString * NSStringFromFloat(CGFloat obj){
 }
 
 #pragma mark - -时间戳
-
 - (NSString *)toTimestampMonth{
-    NSString * dateStr = (NSString *)self;
+    NSString *dateStr = (NSString *)self;
     
-    NSString * tmp = @"01 00:00:00";//后台接口时间戳不要时分秒
+    NSString *tmp = @"01 00:00:00";//后台接口时间戳不要时分秒
     dateStr = [dateStr stringByReplacingCharactersInRange:NSMakeRange(dateStr.length - tmp.length, tmp.length) withString:tmp];
     return [NSDateFormatter intervalFromDateStr:dateStr fmt:kFormatDate];
 }
@@ -375,31 +368,19 @@ NSString * NSStringFromFloat(CGFloat obj){
 }
 
 - (NSString *)toDateShort{
-    if (self.isTimeStamp) return self;
+    if (self.length < 10) {
+        return @"";
+    }
     NSString *dateStr = [self substringToIndex:10];
     return dateStr;
 }
 
 - (NSString *)toDateMonthDay{
-    if (self.isTimeStamp) return self;
+    if (self.length < 10) {
+        return @"";
+    }
     NSString *dateStr = [self substringWithRange:NSMakeRange(5, 5)];
     return dateStr;
-}
-
-- (id)filterString:(NSString *)filterString{
-    if (self.length <= 0) {
-        return self;
-    }
-//    NSCharacterSet *charset = [[NSCharacterSet characterSetWithCharactersInString:@"!*'();:@&=+$,/?%#[]"] invertedSet];
-    NSCharacterSet *charset = [[NSCharacterSet characterSetWithCharactersInString:filterString] invertedSet];
-    NSString *string = [self stringByAddingPercentEncodingWithAllowedCharacters:charset];
-    return string;
-}
-
-- (NSString *)deleteWhiteSpaceBeginEnd{
-    NSCharacterSet *set = [NSCharacterSet whitespaceAndNewlineCharacterSet];
-    NSString *string = [self stringByTrimmingCharactersInSet:set];
-    return string;
 }
 
 - (NSString *)randomStringLength:(NSInteger)length{
@@ -410,24 +391,6 @@ NSString * NSStringFromFloat(CGFloat obj){
     }
     return mStr;
 }
-
-/**
- @param array 字符串数组
- @return 包含所有元素
- */
-//- (BOOL)containArray:(NSArray *)array{
-//    for (NSString *obj in array) {
-//        if (![self containsString:obj]) return NO;
-//    }
-//    return YES;
-//}
-//
-//- (NSString *)getPlaceholder{
-//    NSString *placeHolder = [NSString stringWithFormat:@"请输入%@", self];
-//    placeHolder = [placeHolder stringByReplacingOccurrencesOfString:@" " withString:@""];
-//    placeHolder = [placeHolder stringByReplacingOccurrencesOfString:@":" withString:@""];
-//    return placeHolder;
-//}
 
 + (NSString *)ramdomText{
     NSArray *array = @[@"测试数据,",@"test_",@"AAAAA-",@"BBBBB>",@"秦时明月",@"犯我大汉天威者,虽远必诛",];
@@ -441,61 +404,13 @@ NSString * NSStringFromFloat(CGFloat obj){
     return mstr;
 }
 
--(NSString *)multiplyAnothor:(NSString *)anothor{
-    NSAssert([self isPureInteger] || [self isPureFloat], @"支持持纯数字字符串");
-    if (!anothor || self.floatValue == 0.0 || anothor.floatValue == 0.0) {
-        return @"0";
-    }
-    
-    CGFloat result = self.floatValue * anothor.floatValue;
-    return [@(result) stringValue];
-}
-
--(NSString *)divideAnothor:(NSString *)anothor{
-    NSAssert([self isPureInteger] || [self isPureFloat], @"支持持纯数字字符串");
-    if (!anothor || self.floatValue == 0.0 || anothor.floatValue == 0.0) {
-        return @"0";
-    }
-    
-    CGFloat result = self.floatValue / anothor.floatValue;
-    return [@(result) stringValue];
-}
-
--(NSString *)addAnothor:(id)anothor{
-    NSAssert([self isPureInteger] || [self isPureFloat], @"支持持纯数字字符串");
-    NSParameterAssert([anothor isKindOfClass:[NSString class]] || [anothor isKindOfClass:[NSNumber class]]);
-    
-    CGFloat result = self.integerValue + [anothor integerValue];
-    return [@(result) stringValue];
-}
 /**
  当标题包含*显示红色*,不包含*则显示透明色*
  */
 - (NSAttributedString *)toAsterisk{
     BOOL isMust = [self containsString:kAsterisk] ? YES : NO;
-    NSAttributedString *titleAtt = [NSAttributedString getAttringByPrefix:kAsterisk content:self isMust:isMust];
-    
-    return titleAtt;
-}
-
-- (BOOL)isBeyondWithLow:(NSString *)low high:(NSString *)high{
-    if ([self floatValue] < [low floatValue] || [self floatValue] > [high floatValue]) return YES;
-    return  NO;
-}
-
-/**
- 字符串比大小
- */
-- (BOOL)isCompare:(NSString *)string{
-    if ([self isEqualToString:@""]) {
-        return false;
-    }
-    
-    NSString * str = self;
-    if ([self containsString:@"."]) {
-        str = [str stringByReplacingOccurrencesOfString:@"." withString:@""];
-    }
-    return str.integerValue > string.integerValue;
+    NSAttributedString *attr = [NSAttributedString getAttringByPrefix:kAsterisk content:self isMust:isMust];
+    return attr;
 }
 
 - (void)copyToPasteboard:(BOOL)hiddenTips{
@@ -508,7 +423,6 @@ NSString * NSStringFromFloat(CGFloat obj){
     }
     if ([self isKindOfClass:[NSString class]]) {
         pasteboard.string = (NSString *)self;
-        
     }
     
     if (hiddenTips == NO) {
