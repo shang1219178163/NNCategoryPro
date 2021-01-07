@@ -38,37 +38,19 @@ NS_ASSUME_NONNULL_BEGIN
 ///辅助属性
 @property (nonatomic, assign) BOOL selected;
 
-@property (nonatomic, strong, readonly) UIViewController *parController;
+- (UITapGestureRecognizer *)addGestureTap:(void(^)(UITapGestureRecognizer *reco))block;
 
-- (UIView *)addCorners:(UIRectCorner)corners
-           cornerRadii:(CGSize)cornerRadii
-                 width:(CGFloat)width
-                 color:(UIColor *)color;
+- (UILongPressGestureRecognizer *)addGestureLongPress:(void(^)(UILongPressGestureRecognizer *reco))block forDuration:(NSTimeInterval)minimumPressDuration;
 
-- (UIImage *)drawCorners:(UIRectCorner)corners
-             cornerRadii:(CGFloat)radius
-             borderWidth:(CGFloat)borderWidth
-             borderColor:(UIColor *)borderColor
-                 bgColor:(UIColor *)bgColor;
-    
-- (UIView *)addCorners:(UIRectCorner)corners cornerRadii:(CGSize)cornerRadii;
+- (UIPanGestureRecognizer *)addGesturePan:(void(^)(UIPanGestureRecognizer *reco))block;
 
-- (UITapGestureRecognizer *)addGestureTap:(void(^)(UIGestureRecognizer *reco))block;
+- (UIScreenEdgePanGestureRecognizer *)addGestureEdgPan:(void(^)(UIScreenEdgePanGestureRecognizer *reco))block forEdges:(UIRectEdge)edges;
 
-- (UILongPressGestureRecognizer *)addGestureLongPress:(void(^)(UIGestureRecognizer *reco))block forDuration:(NSTimeInterval)minimumPressDuration;
+- (UISwipeGestureRecognizer *)addGestureSwipe:(void(^)(UISwipeGestureRecognizer *reco))block forDirection:(UISwipeGestureRecognizerDirection)direction;
 
-- (UIPanGestureRecognizer *)addGesturePan:(void(^)(UIGestureRecognizer *reco))block;
+- (UIPinchGestureRecognizer *)addGesturePinch:(void(^)(UIPinchGestureRecognizer *reco))block;
 
-- (UIScreenEdgePanGestureRecognizer *)addGestureEdgPan:(void(^)(UIGestureRecognizer *reco))block forEdges:(UIRectEdge)edges;
-
-- (UISwipeGestureRecognizer *)addGestureSwipe:(void(^)(UIGestureRecognizer *reco))block forDirection:(UISwipeGestureRecognizerDirection)direction;
-
-- (UIPinchGestureRecognizer *)addGesturePinch:(void(^)(UIGestureRecognizer *reco))block;
-
-- (UIRotationGestureRecognizer *)addGestureRotation:(void(^)(UIGestureRecognizer *reco))block;
-
-///弃用建议使用 addGestureTap/addActionHandler:forControlEvents:代替
-- (void)addActionHandler:(void(^)(id obj, id item, NSInteger idx))handler;
+- (UIRotationGestureRecognizer *)addGestureRotation:(void(^)(UIRotationGestureRecognizer *reco))block;
 
 + (void)getSub:(UIView *)view andLevel:(NSInteger)level;
 
@@ -84,10 +66,14 @@ NS_ASSUME_NONNULL_BEGIN
 
 - (__kindof UIView *)findSuperView:(NSString *)name;
 
+- (void)removeAllSubViews;
+
 - (NSArray<__kindof UIView *> *)updateItems:(NSInteger)count aClassName:(NSString *)aClassName handler:(void(^)(__kindof UIView *obj))handler;
 
 - (NSArray<__kindof UIButton *> *)updateButtonItems:(NSInteger)count aClassName:(NSString *)aClassName handler:(void(^)(__kindof UIButton *obj))handler;
 
+- (void)animationCycle:(void(^)(CGAffineTransform))transform animated:(BOOL)animated completion:(void (^ __nullable)(BOOL finished))completion;
+    
 + (UIView *)createSectionView:(UITableView *)tableView
                          text:(NSString *)text
                 textAlignment:(NSTextAlignment)textAlignment
@@ -101,29 +87,7 @@ NS_ASSUME_NONNULL_BEGIN
                              target:(id)target
                           aSelector:(SEL)aSelector;
 
-/**
- 搜索框
- */
-+ (NNTextField *)createRect:(CGRect)rect
-                placeholder:(NSString *)placeholder
-                   leftView:(UIView *)leftView
-                leftPadding:(CGFloat)leftPadding
-                  rightView:(UIView *)rightView
-               rightPadding:(CGFloat)rightPadding;
-
-/**
- [简]搜索框
- */
-+ (NNTextField *)createRect:(CGRect)rect
-                placeholder:(NSString *)placeholder
-                   leftView:(UIView *)leftView
-                  rightView:(UIView *)rightView;
 ///密集子元素尺寸
-- (CGSize)itemSizeWithCount:(NSInteger)count
-                numberOfRow:(NSInteger)numberOfRow
-                    spacing:(CGFloat)spacing
-                      inset:(UIEdgeInsets)inset;
-    
 + (UIView *)createViewRect:(CGRect)rect
                   elements:(NSArray *)elements
                numberOfRow:(NSInteger)numberOfRow
@@ -135,17 +99,8 @@ NS_ASSUME_NONNULL_BEGIN
                numberOfRow:(NSInteger)numberOfRow
                 itemHeight:(CGFloat)itemHeight
                    padding:(CGFloat)padding
-                      type:(NSNumber *)type
-                   handler:(void(^)(id obj, id item, NSInteger idx))handler;
+                   handler:(void(^)(UIButton *sender))handler;
 
-/// classtype 只能为 UIButton/UIImageView/UILabel及其子类
-+ (UIView *)createViewRect:(CGRect)rect
-                     items:(NSArray *)items
-               numberOfRow:(NSInteger)numberOfRow
-                   padding:(CGFloat)padding
-                     inset:(UIEdgeInsets)inset
-                 classtype:(Class)classtype
-                   handler:(void(^)(__kindof UIView *))handler;
 /**
  向屏幕倾斜
  */
@@ -166,8 +121,6 @@ NS_ASSUME_NONNULL_BEGIN
 + (UIVisualEffectView *)createBlurViewEffect:(UIBlurEffectStyle)effect subView:(UIView *)view;
 
 - (void)addCircleLayerColor:(UIColor *)layColor layerWidth:(CGFloat)layerWidth;
-
-- (void)removeAllSubViews;
 
 //- (NSIndexPath *)getCellIndexPath:(UITableView *)tableView;
 

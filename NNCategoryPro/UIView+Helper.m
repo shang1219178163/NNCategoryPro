@@ -117,350 +117,110 @@
     objc_setAssociatedObject(self, @selector(selected), @(selected), OBJC_ASSOCIATION_ASSIGN);
 }
 
--(UIViewController *)parController{
-    id responder = self;
-    while (responder){
-        if ([responder isKindOfClass:[UIViewController class]]){
-            return responder;
-        }
-        responder = [responder nextResponder];
-    }
-    return nil;
-}
-
-#pragma mak -绘制
-
-#pragma mark -设置部分圆角
-
-- (UIView *)addCorners:(UIRectCorner)corners
-           cornerRadii:(CGSize)cornerRadii
-                 width:(CGFloat)width
-                 color:(UIColor *)color{
-    UIBezierPath *maskPath = [UIBezierPath bezierPathWithRoundedRect:self.bounds
-                                                   byRoundingCorners:corners
-                                                         cornerRadii:cornerRadii];
-    // 创建遮罩层
-    CAShapeLayer *maskLayer = CAShapeLayer.layer;
-    maskLayer.frame = self.bounds;
-    maskLayer.path = maskPath.CGPath;   // 轨迹
-    maskLayer.borderWidth = width;
-    maskLayer.borderColor = color.CGColor;
-    self.layer.mask = maskLayer;
-    return self;
-}
-
-/**
- 上下文绘制圆角矩形
- */
-- (UIImage *)drawCorners:(UIRectCorner)corners
-            cornerRadii:(CGFloat)radius
-            borderWidth:(CGFloat)borderWidth
-            borderColor:(UIColor *)borderColor
-                 bgColor:(UIColor*)bgColor{
-    CGSize size = self.bounds.size;
-    UIGraphicsBeginImageContextWithOptions(size, NO, [UIScreen mainScreen].scale);
-    CGContextRef contextRef =  UIGraphicsGetCurrentContext();
-    
-    CGContextSetLineWidth(contextRef, borderWidth);
-    CGContextSetStrokeColorWithColor(contextRef, borderColor.CGColor);
-    CGContextSetFillColorWithColor(contextRef, bgColor.CGColor);
-    
-    CGFloat halfBorderWidth = borderWidth / 2.0;
-    CGFloat width = size.width;
-    CGFloat height = size.height;
-    
-    CGContextMoveToPoint(contextRef,
-                         width - halfBorderWidth,
-                         radius + halfBorderWidth);
-    CGContextAddArcToPoint(contextRef,
-                           width - halfBorderWidth,
-                           height - halfBorderWidth,
-                           width - radius - halfBorderWidth,
-                           height - halfBorderWidth, radius);  // 右下角角度
-    CGContextAddArcToPoint(contextRef,
-                           halfBorderWidth,
-                           height - halfBorderWidth,
-                           halfBorderWidth,
-                           height - radius - halfBorderWidth, radius); // 左下角角度
-    CGContextAddArcToPoint(contextRef,
-                           halfBorderWidth,
-                           halfBorderWidth,
-                           width - halfBorderWidth,
-                           halfBorderWidth,
-                           radius); // 左上角
-    CGContextAddArcToPoint(contextRef,
-                           width - halfBorderWidth,
-                           halfBorderWidth,
-                           width - halfBorderWidth,
-                           radius + halfBorderWidth,
-                           radius); // 右上角
-    CGContextDrawPath(contextRef, kCGPathFillStroke);
-    UIImage *image = UIGraphicsGetImageFromCurrentImageContext();
-    UIGraphicsEndImageContext();
-    return image;
-}
-
-- (UIView *)addCorners:(UIRectCorner)corners cornerRadii:(CGSize)cornerRadii{
-    return [self addCorners:corners cornerRadii:cornerRadii width:1.0 color:UIColor.whiteColor];
-}
-
 
 #pragma mak - -Recognizer
 /**
  手势 - 单指点击
  */
-- (UITapGestureRecognizer *)addGestureTap:(void(^)(UIGestureRecognizer *reco))block{
-    NSString *funcAbount = NSStringFromSelector(_cmd);
-    NSString *runtimeKey = RuntimeKeyFromParams(self, funcAbount);
-    
-    UITapGestureRecognizer *recognizer = objc_getAssociatedObject(self, CFBridgingRetain(runtimeKey));
-    if (!recognizer){
-        recognizer = [[UITapGestureRecognizer alloc] initWithTarget:self action:@selector(handleActionGesture:)];
-        recognizer.numberOfTapsRequired = 1;
-        recognizer.numberOfTouchesRequired = 1;
+- (UITapGestureRecognizer *)addGestureTap:(void(^)(UITapGestureRecognizer *reco))block{
+    UITapGestureRecognizer *recognizer = [[UITapGestureRecognizer alloc] initWithTarget:nil action:nil];
+    recognizer.numberOfTapsRequired = 1;
+    recognizer.numberOfTouchesRequired = 1;
 //        recognizer.cancelsTouchesInView = false;
 //        recognizer.delaysTouchesEnded = false;
-        self.userInteractionEnabled = true;
-        self.multipleTouchEnabled = true;
-        [self addGestureRecognizer:recognizer];
-        
-        recognizer.runtimeKey = runtimeKey;
-        objc_setAssociatedObject(self, CFBridgingRetain(runtimeKey), block, OBJC_ASSOCIATION_COPY_NONATOMIC);
-    }
+    self.userInteractionEnabled = true;
+    self.multipleTouchEnabled = true;
+    [self addGestureRecognizer:recognizer];
+
+    [recognizer addActionBlock:block];
     return recognizer;
 }
 
 /**
  手势 - 长按
  */
-- (UILongPressGestureRecognizer *)addGestureLongPress:(void(^)(UIGestureRecognizer *reco))block forDuration:(NSTimeInterval)minimumPressDuration{
-    NSString *funcAbount = [NSStringFromSelector(_cmd) stringByAppendingFormat:@",%@",@(minimumPressDuration)];
-    NSString *runtimeKey = RuntimeKeyFromParams(self, funcAbount);
-
-    UILongPressGestureRecognizer *recognizer = objc_getAssociatedObject(self, CFBridgingRetain(runtimeKey));
-    if (!recognizer){
-        recognizer = [[UILongPressGestureRecognizer alloc] initWithTarget:self action:@selector(handleActionGesture:)];
-        recognizer.minimumPressDuration = minimumPressDuration;
-        self.userInteractionEnabled = true;
-        self.multipleTouchEnabled = true;
-        [self addGestureRecognizer:recognizer];
-        recognizer.runtimeKey = runtimeKey;
-        objc_setAssociatedObject(self, CFBridgingRetain(runtimeKey), block, OBJC_ASSOCIATION_COPY_NONATOMIC);
-    }
+- (UILongPressGestureRecognizer *)addGestureLongPress:(void(^)(UILongPressGestureRecognizer *reco))block forDuration:(NSTimeInterval)minimumPressDuration{
+    UILongPressGestureRecognizer *recognizer = [[UILongPressGestureRecognizer alloc] initWithTarget:nil action:nil];
+    recognizer.minimumPressDuration = minimumPressDuration;
+    self.userInteractionEnabled = true;
+    self.multipleTouchEnabled = true;
+    [self addGestureRecognizer:recognizer];
+    
+    [recognizer addActionBlock:block];
     return recognizer;
 }
 
 /**
  手势 - 拖动
  */
-- (UIPanGestureRecognizer *)addGesturePan:(void(^)(UIGestureRecognizer *reco))block{
-    NSString *funcAbount = NSStringFromSelector(_cmd);
-    NSString *runtimeKey = RuntimeKeyFromParams(self, funcAbount);
+- (UIPanGestureRecognizer *)addGesturePan:(void(^)(UIPanGestureRecognizer *reco))block{
+    UIPanGestureRecognizer *recognizer = [[UIPanGestureRecognizer alloc] initWithTarget:nil action:nil];
+    recognizer.minimumNumberOfTouches = 1;
+    recognizer.maximumNumberOfTouches = 3;
+    self.userInteractionEnabled = true;
+    self.multipleTouchEnabled = true;
+    [self addGestureRecognizer:recognizer];
 
-    UIPanGestureRecognizer *recognizer = objc_getAssociatedObject(self, CFBridgingRetain(runtimeKey));
-    if (!recognizer){
-        recognizer = [[UIPanGestureRecognizer alloc] initWithTarget:self action:@selector(handleActionGesture:)];
-        recognizer.minimumNumberOfTouches = 1;
-        recognizer.maximumNumberOfTouches = 3;
-        self.userInteractionEnabled = true;
-        self.multipleTouchEnabled = true;
-        [self addGestureRecognizer:recognizer];
-        recognizer.runtimeKey = runtimeKey;
-        objc_setAssociatedObject(self, CFBridgingRetain(runtimeKey), block, OBJC_ASSOCIATION_COPY_NONATOMIC);
-    }
+    [recognizer addActionBlock:block];
     return recognizer;
 }
 
 /**
  手势 - 边缘拖动
  */
-- (UIScreenEdgePanGestureRecognizer *)addGestureEdgPan:(void(^)(UIGestureRecognizer *reco))block forEdges:(UIRectEdge)edges{
-    NSString *funcAbount = [NSStringFromSelector(_cmd) stringByAppendingFormat:@",%@",@(edges)];
-    NSString *runtimeKey = RuntimeKeyFromParams(self, funcAbount);
-
-    UIScreenEdgePanGestureRecognizer *recognizer = objc_getAssociatedObject(self, CFBridgingRetain(runtimeKey));
-    if (!recognizer){
-        recognizer = [[UIScreenEdgePanGestureRecognizer alloc] initWithTarget:self action:@selector(handleActionGesture:)];
-        recognizer.edges = edges;
-        self.userInteractionEnabled = true;
-        self.multipleTouchEnabled = true;
-        [self addGestureRecognizer:recognizer];
-        recognizer.runtimeKey = runtimeKey;
-        objc_setAssociatedObject(self, CFBridgingRetain(runtimeKey), block, OBJC_ASSOCIATION_COPY_NONATOMIC);
-    }
+- (UIScreenEdgePanGestureRecognizer *)addGestureEdgPan:(void(^)(UIScreenEdgePanGestureRecognizer *reco))block forEdges:(UIRectEdge)edges{
+    UIScreenEdgePanGestureRecognizer *recognizer = [[UIScreenEdgePanGestureRecognizer alloc] initWithTarget:nil action:nil];
+    recognizer.edges = edges;
+    self.userInteractionEnabled = true;
+    self.multipleTouchEnabled = true;
+    [self addGestureRecognizer:recognizer];
+    
+    [recognizer addActionBlock:block];
     return recognizer;
 }
 
 /**
  手势 - 轻扫
  */
-- (UISwipeGestureRecognizer *)addGestureSwipe:(void(^)(UIGestureRecognizer *reco))block forDirection:(UISwipeGestureRecognizerDirection)direction{
-    NSString *funcAbount = [NSStringFromSelector(_cmd) stringByAppendingFormat:@",%@",@(direction)];
-    NSString *runtimeKey = RuntimeKeyFromParams(self, funcAbount);
+- (UISwipeGestureRecognizer *)addGestureSwipe:(void(^)(UISwipeGestureRecognizer *reco))block forDirection:(UISwipeGestureRecognizerDirection)direction{
+    UISwipeGestureRecognizer *recognizer = [[UISwipeGestureRecognizer alloc] initWithTarget:nil action:nil];
+    recognizer.direction = direction;
+    self.userInteractionEnabled = true;
+    self.multipleTouchEnabled = true;
+    [self addGestureRecognizer:recognizer];
 
-    UISwipeGestureRecognizer *recognizer = objc_getAssociatedObject(self, CFBridgingRetain(runtimeKey));
-    if (!recognizer) {
-        recognizer = [[UISwipeGestureRecognizer alloc] initWithTarget:self action:@selector(handleActionGesture:)];
-        recognizer.direction = direction;
-        self.userInteractionEnabled = true;
-        self.multipleTouchEnabled = true;
-        [self addGestureRecognizer:recognizer];
-        recognizer.runtimeKey = runtimeKey;
-        objc_setAssociatedObject(self, CFBridgingRetain(runtimeKey), block, OBJC_ASSOCIATION_COPY_NONATOMIC);
-    }
+    [recognizer addActionBlock:block];
     return recognizer;
 }
 
 /**
  手势 - 捏合
  */
-- (UIPinchGestureRecognizer *)addGesturePinch:(void(^)(UIGestureRecognizer *reco))block{
-    NSString *funcAbount = NSStringFromSelector(_cmd);
-    NSString *runtimeKey = RuntimeKeyFromParams(self, funcAbount);
-
-    UIPinchGestureRecognizer *recognizer = objc_getAssociatedObject(self, CFBridgingRetain(runtimeKey));
-    if (!recognizer){
-        recognizer = [[UIPinchGestureRecognizer alloc] initWithTarget:self action:@selector(handleActionGesture:)];
+- (UIPinchGestureRecognizer *)addGesturePinch:(void(^)(UIPinchGestureRecognizer *reco))block{
+    UIPinchGestureRecognizer *recognizer = [[UIPinchGestureRecognizer alloc] initWithTarget:nil action:nil];
 //        recognizer.scale = 1.0;
-        self.userInteractionEnabled = true;
-        self.multipleTouchEnabled = true;
-        [self addGestureRecognizer:recognizer];
-        recognizer.runtimeKey = runtimeKey;
-        objc_setAssociatedObject(self, CFBridgingRetain(runtimeKey), block, OBJC_ASSOCIATION_COPY_NONATOMIC);
-    }
+    self.userInteractionEnabled = true;
+    self.multipleTouchEnabled = true;
+    [self addGestureRecognizer:recognizer];
+
+    [recognizer addActionBlock:block];
     return recognizer;
 }
 
 /**
  手势 - 旋转
  */
-- (UIRotationGestureRecognizer *)addGestureRotation:(void(^)(UIGestureRecognizer *reco))block{
-    NSString *funcAbount = NSStringFromSelector(_cmd);
-    NSString *runtimeKey = RuntimeKeyFromParams(self, funcAbount);
+- (UIRotationGestureRecognizer *)addGestureRotation:(void(^)(UIRotationGestureRecognizer *reco))block{
+    UIRotationGestureRecognizer *recognizer = [[UIRotationGestureRecognizer alloc] initWithTarget:nil action:nil];
+    self.userInteractionEnabled = true;
+    self.multipleTouchEnabled = true;
+    [self addGestureRecognizer:recognizer];
 
-    UIRotationGestureRecognizer *recognizer = objc_getAssociatedObject(self, CFBridgingRetain(runtimeKey));
-    if (!recognizer){
-        recognizer = [[UIRotationGestureRecognizer alloc] initWithTarget:self action:@selector(handleActionGesture:)];
-        self.userInteractionEnabled = true;
-        self.multipleTouchEnabled = true;
-        [self addGestureRecognizer:recognizer];
-        recognizer.runtimeKey = runtimeKey;
-        objc_setAssociatedObject(self, CFBridgingRetain(runtimeKey), block, OBJC_ASSOCIATION_COPY_NONATOMIC);
-    }
+    [recognizer addActionBlock:block];
     return recognizer;
 }
 
-/**
- 手势响应事件
- */
-- (void)handleActionGesture:(UIGestureRecognizer *)recognizer{
-    void(^block)(id sender) = objc_getAssociatedObject(self, CFBridgingRetain(recognizer.runtimeKey));
-
-    if ([recognizer isKindOfClass:UISwipeGestureRecognizer.class]) {
-        if (block)block(recognizer);
-//        DDLog(@"_%@_%@_",recognizer.runtimeKey,block);
-        
-    }
-    else if ([recognizer isKindOfClass:UIScreenEdgePanGestureRecognizer.class]) {
-        //UIScreenEdgePanGestureRecognizer继承于UIPanGestureRecognizer,必须在其前边判断
-        if (block) block(recognizer);
-        
-    }
-    else if ([recognizer isKindOfClass:UITapGestureRecognizer.class]) {
-        if (block) block(recognizer);
-
-    }
-    else if ([recognizer isKindOfClass:UILongPressGestureRecognizer.class]) {
-        if (recognizer.state == UIGestureRecognizerStateBegan) {
-            if (block) block(recognizer);
-        }
-    }
-    else if ([recognizer isKindOfClass:UIPanGestureRecognizer.class]) {
-        UIPanGestureRecognizer *sender = (UIPanGestureRecognizer *)recognizer;
-        CGPoint translate = [sender translationInView:recognizer.view.superview];
-        sender.view.center = CGPointMake(sender.view.center.x + translate.x, sender.view.center.y +translate.y);
-        [sender setTranslation:CGPointZero inView:recognizer.view.superview];
-        
-        if (block) block(recognizer);
-        
-    }
-    else if ([recognizer isKindOfClass:UIPinchGestureRecognizer.class]) {
-        UIPinchGestureRecognizer *sender = (UIPinchGestureRecognizer *)recognizer;
-        //捏合时保持图片位置不变
-        CGPoint location = [recognizer locationInView:recognizer.view.superview];
-        sender.view.center = location;
-        //通过手势的缩放比例改变图片的仿射变换矩阵
-        sender.view.transform = CGAffineTransformScale(sender.view.transform, sender.scale, sender.scale);
-        //重置手势缩放比例
-        sender.scale = 1.0;
-        
-        if (block) block(recognizer);
-        
-    }
-    else if ([recognizer isKindOfClass:UIRotationGestureRecognizer.class]) {
-        UIRotationGestureRecognizer *sender = (UIRotationGestureRecognizer *)recognizer;
-        //改变手势view的仿射变换矩阵
-        sender.view.transform = CGAffineTransformRotate(sender.view.transform, sender.rotation);
-        //重置弧度
-        sender.rotation = 0;
-        if (block) block(recognizer);
-
-    }
-}
-
-/**
- (弃用)给view关联点击事件(支持UIView和UIButton可继续扩展其他支持)
- */
-- (void)addActionHandler:(void(^)(id obj, id item, NSInteger idx))handler{
-    UIControlEvents controlEvents = [self isKindOfClass:UIButton.class] ? UIControlEventTouchUpInside : UIControlEventValueChanged;
-    if ([self isKindOfClass:UIControl.class]) {
-        [(UIControl *)self addTarget:self action:@selector(handleActionBtn:) forControlEvents:controlEvents];
-        
-    }
-    else{
-        UITapGestureRecognizer *tapGesture = objc_getAssociatedObject(self, _cmd);
-        if (!tapGesture){
-            tapGesture = [[UITapGestureRecognizer alloc] initWithTarget:self action:@selector(handleActionTapGesture:)];
-            tapGesture.numberOfTapsRequired = 1;
-            tapGesture.numberOfTouchesRequired = 1;
-//            tapGesture.cancelsTouchesInView = NO;
-//            tapGesture.delaysTouchesEnded = NO;
-            
-            self.userInteractionEnabled = true;
-            self.multipleTouchEnabled = true;
-            [self addGestureRecognizer:tapGesture];
-        }
-    }
-    objc_setAssociatedObject(self, _cmd, handler, OBJC_ASSOCIATION_COPY_NONATOMIC);
-}
-
-/**
- 关联方法待改进
- */
-- (void)handleActionBtn:(id)sender{
-    void(^block)(id obj, id item, NSInteger idx) = objc_getAssociatedObject(self, @selector(addActionHandler:));
-    if ([sender isKindOfClass:UIButton.class]) {
-        if (block) block(sender, sender, ((UIButton *)sender).tag);
-
-    } else if ([sender isKindOfClass:UISegmentedControl.class]) {
-        UISegmentedControl *segmentCtl = sender;
-        if (block) block(sender, sender, segmentCtl.selectedSegmentIndex);
-    }
-    else{
-        if (block) block(sender, sender, ((UIControl *)sender).tag);
-
-    }
-}
-
-/**
- 关联方法待改进
- */
-- (void)handleActionTapGesture:(UITapGestureRecognizer *)tapGesture{
-    void(^block)(id obj, id item, NSInteger idx) = objc_getAssociatedObject(self, @selector(addActionHandler:));
-    if (block){
-        block(tapGesture, tapGesture.view, tapGesture.view.tag);
-    }
-}
+#pragma mak -funtions
 
 /**
  获取所有子视图(需要注意的是，我的level设置是从1开始的，这与方法中加空格时变量 i 起始的值是相呼应的，要改就要都改。)
@@ -546,6 +306,14 @@
     return [self findSuperViewType:class];
 }
 
+/**
+ 移除所有子视图
+ */
+- (void)removeAllSubViews{
+    [self.subviews enumerateObjectsUsingBlock:^(__kindof UIView * _Nonnull obj, NSUInteger idx, BOOL * _Nonnull stop) {
+        [obj removeFromSuperview];
+    }];
+}
 
 - (NSArray<__kindof UIView *> *)updateItems:(NSInteger)count aClassName:(NSString *)aClassName handler:(void(^)(__kindof UIView *obj))handler {
     if (count == 0) {
@@ -553,7 +321,7 @@
     }
     Class cls = NSClassFromString(aClassName);
     NSArray *list = [self.subviews filter:^BOOL(UIView * obj, NSUInteger idx) {
-        return [obj isKindOfClass:cls.class];
+        return [obj isMemberOfClass:cls.class];
     }];
     
     if (list.count == count) {
@@ -603,12 +371,24 @@
     }];
 }
 
+/// [源] 往返旋转图像
+- (void)animationCycle:(void(^)(CGAffineTransform))transform animated:(BOOL)animated completion:(void (^ __nullable)(BOOL finished))completion{
+    CGFloat duration = animated ? 0.3 : 0;
+    [UIView animateWithDuration:duration animations:^{
+        if (CGAffineTransformIsIdentity(self.transform) == true) {
+            transform(self.transform);
+        } else {
+            self.transform = CGAffineTransformIdentity;
+        }
+    } completion:completion];
+}
+
 + (UIView *)createSectionView:(UITableView *)tableView
                          text:(NSString *)text
                 textAlignment:(NSTextAlignment)textAlignment
                        height:(CGFloat)height{
-    UIView * sectionView = [[UIView alloc]init];
-    if (text == nil) {
+    UIView *sectionView = [[UIView alloc]init];
+    if (!text) {
         return sectionView;
     }
     
@@ -652,65 +432,12 @@
     lab.text = title;
     lab.tag = kTAG_LABEL;
     
-    lab.textColor = UIColor.titleSubColor;
+    lab.textColor = UIColor.titleColor9;
     lab.font = [UIFont systemFontOfSize:kFontSize14];
     lab.textAlignment = NSTextAlignmentCenter;
     [containView addSubview:lab];
     
     return containView;
-}
-
-
-+ (NNTextField *)createRect:(CGRect)rect
-                placeholder:(NSString *)placeholder
-                   leftView:(UIView *)leftView
-                leftPadding:(CGFloat)leftPadding
-                  rightView:(UIView *)rightView
-               rightPadding:(CGFloat)rightPadding{
-    NNTextField * textField = [NNTextField createRect:rect];
-//    textField.text = text;
-    textField.textAlignment = NSTextAlignmentLeft;
-    textField.placeholder = placeholder;
-
-//    UIImageView *imgView = [[UIImageView alloc]initWithImage:[UIImage imageNamed:@"img_cardAdd.png"]];
-//    imgView.frame = CGRectMake(0, 0, 21, 21);
-//    textField.leftViewPadding = 5;
-    textField.leftView = leftView;
-    textField.leftViewMode = UITextFieldViewModeAlways;
-    textField.leftViewPadding = leftPadding;
-
-//    UIButton * btn = [UIButton createRect:CGRectMake(0, 0, 40, textFieldHeight) title:@"搜 索" image:nil type:@2 target:self aSelector:@selector(goSearch)];
-//    textField.rightViewPadding = 5;
-    textField.rightViewMode = UITextFieldViewModeAlways;
-    textField.rightViewPadding = rightPadding;
-    textField.rightView = rightView;
-
-    textField.backgroundColor = [UIColor whiteColor];
-//    textField.backgroundColor = UIColor.greenColor;
-    return textField;
-}
-
-+ (NNTextField *)createRect:(CGRect)rect
-                placeholder:(NSString *)placeholder
-                   leftView:(UIView *)leftView
-                  rightView:(UIView *)rightView{
-    return [NNTextField createRect:CGRectZero
-                       placeholder:placeholder
-                          leftView:leftView
-                       leftPadding:kPadding
-                         rightView:rightView
-                      rightPadding:kPadding];
-}
-
-- (CGSize)itemSizeWithCount:(NSInteger)count
-                numberOfRow:(NSInteger)numberOfRow
-                    spacing:(CGFloat)spacing
-                      inset:(UIEdgeInsets)inset{
-    NSInteger rowCount = count % numberOfRow == 0 ? count/numberOfRow : count/numberOfRow + 1;
-    CGFloat itemWidth = (CGRectGetWidth(self.bounds) - (numberOfRow-1)*spacing - inset.left - inset.right)/numberOfRow;
-    CGFloat itemHeight = (CGRectGetHeight(self.bounds) - (rowCount-1)*spacing - inset.top - inset.bottom)/rowCount;
-    CGSize size = CGSizeMake(itemWidth, itemHeight);
-    return size;
 }
 
 + (UIView *)createViewRect:(CGRect)rect
@@ -749,93 +476,18 @@
                numberOfRow:(NSInteger)numberOfRow
                 itemHeight:(CGFloat)itemHeight
                    padding:(CGFloat)padding
-                      type:(NSNumber *)type
-                   handler:(void(^)(id obj, id item, NSInteger idx))handler{
+                   handler:(void(^)(UIButton *sender))handler{
     
     NSInteger rowCount = items.count % numberOfRow == 0 ? items.count/numberOfRow : items.count/numberOfRow + 1;
     CGFloat itemWidth = (CGRectGetWidth(rect) - (numberOfRow-1)*padding)/numberOfRow;
     itemHeight = itemHeight == 0.0 ? itemWidth : itemHeight;;
-    
+    CGFloat height = rowCount * itemHeight + (rowCount - 1) * padding;
     //
-    UIView * backgroudView = [[UIView alloc]initWithFrame:CGRectMake(CGRectGetMinX(rect),
+    UIView *backgroudView = [[UIView alloc]initWithFrame:CGRectMake(CGRectGetMinX(rect),
                                                                      CGRectGetMinY(rect),
                                                                      CGRectGetWidth(rect),
-                                                                     rowCount * itemHeight + (rowCount - 1) * padding)];
+                                                                     height)];
     backgroudView.backgroundColor = UIColor.greenColor;
-    
-    for (NSInteger i = 0; i< items.count; i++) {
-        
-        CGFloat w = itemWidth;
-        CGFloat h = itemHeight;
-        CGFloat x = (i % numberOfRow) * (w + padding);
-        CGFloat y = (i / numberOfRow) * (h + padding);
-        
-        NSString * title = items[i];
-        CGRect itemRect = CGRectMake(x, y, w, h);
-        
-        UIView * view = nil;
-        switch (type.integerValue) {
-            case 0://uibutton
-            {
-                view = ({
-                    UIButton * view = [UIButton createRect:itemRect title:title image:nil type:@5];
-                    view.tag = i;
-                    view.titleLabel.font = [UIFont systemFontOfSize:15];
-                    view;
-                });
-            }
-                break;
-            case 1://UIImageVIew
-            {
-                view = ({
-                    UIImageView *view = [UIImageView createRect:itemRect type:@0];
-                    view.image = [UIImage imageNamed:title];
-                    view.tag = i;
-                    view;
-                });
-                
-            }
-                break;
-            case 2://UILabel
-            {
-                view = ({
-                    UILabel * view = [UILabel createRect:itemRect type:@0];
-                    view.text = title;
-                    view.tag = i;
-                    view.font = [UIFont systemFontOfSize:15];
-                    view.textAlignment = NSTextAlignmentCenter;
-                    view;
-                });
-            }
-                break;
-            default:
-                break;
-        }
-        [backgroudView addSubview:view];
-        [view addActionHandler:^(id obj, id item, NSInteger idx) {
-            handler(obj, item, idx);
-            
-        }];
-        
-    }
-    return backgroudView;
-}
-
-/// classtype 只能为 UIView及其子类
-+ (UIView *)createViewRect:(CGRect)rect
-                     items:(NSArray *)items
-               numberOfRow:(NSInteger)numberOfRow
-                   padding:(CGFloat)padding
-                     inset:(UIEdgeInsets)inset
-                 classtype:(Class)classtype
-                   handler:(void(^)(__kindof UIView *))handler{
-
-    NSInteger rowCount = items.count % numberOfRow == 0 ? items.count/numberOfRow : items.count/numberOfRow + 1;
-    CGFloat itemWidth = (CGRectGetWidth(rect) - (numberOfRow-1)*padding - inset.left - inset.right)/numberOfRow;
-    CGFloat itemHeight = (CGRectGetHeight(rect) - (rowCount-1)*padding - inset.top - inset.bottom)/rowCount;
-    //
-    UIView *backgroudView = [[UIView alloc]initWithFrame:rect];
-    backgroudView.backgroundColor = UIColor.systemBlueColor;
     
     for (NSInteger i = 0; i< items.count; i++) {
         CGFloat w = itemWidth;
@@ -844,45 +496,20 @@
         CGFloat y = (i / numberOfRow) * (h + padding);
         
         NSString *title = items[i];
-        CGRect itemRect = CGRectMake(x, y, itemWidth, itemHeight);
+        CGRect itemRect = CGRectMake(x, y, w, h);
         
-        UIView *view = nil;
-        if ([classtype isKindOfClass: UIButton.class]) {
-            view = ({
-                UIButton *view = [UIButton createRect:itemRect
-                                                title:title
-                                                image:nil
-                                                 type:@5];
-                view.tag = i;
-                view.titleLabel.font = [UIFont systemFontOfSize:15];
-                view;
-            });
-        } else if ([classtype isKindOfClass: UIImageView.class]) {
-            view = ({
-                 UIImageView *view = [UIImageView createRect:itemRect type:@0];
-                 view.image = [UIImage imageNamed:title];
-                 view.tag = i;
-                 view;
-             });
-        } else if ([classtype isKindOfClass: UILabel.class]) {
-            view = ({
-                UILabel *view = [UILabel createRect:itemRect type:@0];
-                view.text = title;
-                view.tag = i;
-                view.font = [UIFont systemFontOfSize:15];
-                view.textAlignment = NSTextAlignmentCenter;
-                view;
-            });
-        }
-        [backgroudView addSubview:view];
-        
-        if (handler) {
-            handler(view);
-        }
+        UIButton *sender = ({
+            UIButton *sender = [UIButton buttonWithType:UIButtonTypeCustom];
+            [sender setTitleColor:UIColor.themeColor forState:UIControlStateNormal];
+            sender.titleLabel.font = [UIFont systemFontOfSize:15];
+            sender.tag = i;
+            sender;
+        });
+        [sender addActionHandler:handler forControlEvents:UIControlEventTouchUpInside];
+        [backgroudView addSubview:sender];
     }
     return backgroudView;
 }
-
 
 //向屏幕倾斜
 + (void)transformStateEventWithView:(UIView *)view {
@@ -993,15 +620,6 @@
     layer.path = path.CGPath;
     layer.strokeEnd = 1;
     [self.superview.layer addSublayer:layer];
-}
-
-/**
- 移除所有子视图
- */
-- (void)removeAllSubViews{
-    [self.subviews enumerateObjectsUsingBlock:^(__kindof UIView * _Nonnull obj, NSUInteger idx, BOOL * _Nonnull stop) {
-        [obj removeFromSuperview];
-    }];
 }
 
 //- (NSIndexPath *)getCellIndexPath:(UITableView *)tableView{
