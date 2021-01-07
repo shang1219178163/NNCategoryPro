@@ -23,41 +23,44 @@ NS_ASSUME_NONNULL_BEGIN
 @interface NSArray<ObjectType> (Helper)
 
 ///->NSData
-@property (nonatomic, strong, readonly, nullable) NSData *jsonData;
+@property(nonatomic, strong, readonly, nullable) NSData *jsonData;
 ///->NSString
-@property (nonatomic, strong, readonly, nullable) NSString *jsonString;
+@property(nonatomic, strong, readonly, nullable) NSString *jsonString;
+///倒叙
+@property(nonatomic, strong, readonly, nullable) NSArray *reversed;
+
+///componentsJoinedByString
+@property(nonatomic, strong, readonly) NSString *(^joinedBy)(NSString *);
+
+@property(nonatomic, strong, readonly) NSArray *(^sorted)(SEL);
+
+@property(nonatomic, strong, readonly) NSArray *(^append)(NSArray *);
 
 /**
  map 高阶函数
  */
-- (NSArray *)map:(id (NS_NOESCAPE ^)(ObjectType obj, NSUInteger idx))block;
+- (NSArray *)map:(id (NS_NOESCAPE ^)(ObjectType obj, NSUInteger idx))transform;
 
 /**
 compactMap 高阶降维函数
 */
-- (NSArray *)compactMap:(id (NS_NOESCAPE ^)(ObjectType obj, NSUInteger idx))block;
+- (NSArray *)compactMap:(id (NS_NOESCAPE ^)(ObjectType obj, NSUInteger idx))transform;
 
 /**
  filter 高阶函数
  */
-- (NSArray *)filter:(BOOL(NS_NOESCAPE ^)(ObjectType obj, NSUInteger idx))block;
+- (NSArray *)filter:(BOOL(NS_NOESCAPE ^)(ObjectType obj, NSUInteger idx))transform;
 
 /**
  reduce 高阶函数(求和,累加等)
  */
-- (NSNumber *)reduce:(NSNumber *)initial block:(NSNumber *(NS_NOESCAPE ^)(NSNumber *result, NSNumber *obj))block;
+- (NSNumber *)reduce:(NSNumber *)initial transform:(NSNumber *(NS_NOESCAPE ^)(NSNumber *result, NSNumber *obj))transform;
 
-///数组排序
-- (NSArray *)sorted;
-///数组倒序
-- (NSArray *)reversed;
 /**
  排序器排序
  @param dic key为排序键;value是升序yes/降序false
  */
 - (NSArray *)sorteDescriptorAscending:(NSDictionary<NSString*, NSNumber*> *)dic;
-/// 合并数组
-- (NSArray *)contactArray:(NSArray *)array;
 
 ///重复元素
 + (NSArray *)repeating:(id)repeatedValue count:(NSInteger)count;
@@ -80,23 +83,19 @@ compactMap 高阶降维函数
                        count:(NSInteger)count
                         type:(NSNumber *)type;
 
-/**
- 推荐
- */
-- (NSMutableArray *)filterByPropertyList:(NSArray *)propertyList isNumValue:(BOOL)isNumValue;
 
-- (NSMutableArray *)filterByPropertyList:(NSArray *)propertyList prefix:(NSString *)prefix isNumValue:(BOOL)isNumValue;
+@end
+
+@interface NSString (Ext)
+///componentsSeparatedByString
+@property(nonatomic, strong, readonly) NSArray<NSString *> *(^separatedBy)(NSString *);
+
+///separator 分割后的子元素进行转换
+- (NSString *)mapBySeparator:(NSString *)separator transform:(NSString * (NS_NOESCAPE ^)(NSString *obj))transform;
 
 @end
 
 NS_ASSUME_NONNULL_END
 
 
-@interface NSString (Ext)
 
-///当子元素都是NSString,给每个元素添加相同哦值
-- (NSString *_Nonnull)mapOffsetFloat:(CGFloat)value;
-///当子元素都是NSString,给每个元素添加相同哦值
-- (NSString *_Nonnull)mapOffsetInter:(NSInteger)value;
-
-@end

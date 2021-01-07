@@ -39,15 +39,15 @@
 }
 
 #pragma mark -高阶函数
-- (NSDictionary *)map:(NSDictionary *(NS_NOESCAPE ^)(id key, id obj))block{
-    if (!block) {
-        NSParameterAssert(block != nil);
+- (NSDictionary *)map:(NSDictionary *(NS_NOESCAPE ^)(id key, id obj))transform{
+    if (!transform) {
+        NSParameterAssert(transform != nil);
         return self;
     }
     
     __block NSMutableDictionary *mdic = [NSMutableDictionary dictionary];
     [self enumerateKeysAndObjectsUsingBlock:^(id  _Nonnull key, id  _Nonnull obj, BOOL * _Nonnull stop) {
-        NSDictionary *value = block(key, obj);
+        NSDictionary *value = transform(key, obj);
         if (value) {
             [mdic addEntriesFromDictionary:value];
         }
@@ -55,30 +55,30 @@
     return mdic.copy;
 }
 
-- (NSDictionary *)filter:(BOOL (NS_NOESCAPE ^)(id key, id obj))block{
-    if (!block) {
-        NSParameterAssert(block != nil);
+- (NSDictionary *)filter:(BOOL (NS_NOESCAPE ^)(id key, id obj))transform{
+    if (!transform) {
+        NSParameterAssert(transform != nil);
         return self;
     }
     
     __block NSMutableDictionary *mdic = [NSMutableDictionary dictionary];
     [self enumerateKeysAndObjectsUsingBlock:^(id  _Nonnull key, id  _Nonnull obj, BOOL * _Nonnull stop) {
-        if (block(key, obj) == true) {
+        if (transform(key, obj) == true) {
             mdic[key] = obj;
         }
     }];
     return mdic.copy;
 }
 
-- (NSDictionary *)compactMapValues:(id (NS_NOESCAPE ^)(id obj))block{
-    if (!block) {
-        NSParameterAssert(block != nil);
+- (NSDictionary *)compactMapValues:(id (NS_NOESCAPE ^)(id obj))transform{
+    if (!transform) {
+        NSParameterAssert(transform != nil);
         return self;
     }
     
     __block NSMutableDictionary *mdic = [NSMutableDictionary dictionary];
     [self enumerateKeysAndObjectsUsingBlock:^(id  _Nonnull key, id  _Nonnull obj, BOOL * _Nonnull stop) {
-        id value = block(obj);
+        id value = transform(obj);
         if (value) {
             mdic[key] = value;
         }
@@ -88,21 +88,9 @@
 
 #pragma mark -其他方法
 
-- (NSDictionary *)replaceNullWithValue:(id)replaceValue{
-    __block NSMutableDictionary *mdic = [NSMutableDictionary dictionary];
-    [self enumerateKeysAndObjectsUsingBlock:^(id  _Nonnull key, id  _Nonnull obj, BOOL * _Nonnull stop) {
-        id value = obj;
-        if ([obj isEqual: NSNull.null]) {
-            value = replaceValue;
-        }
-        [mdic setObject:value forKey:key];
-    }];
-    return mdic;
-}
-
 + (NSDictionary *)dictionaryFromPlist:(NSString *)plistName {
     if ([plistName containsString:@".plist"]) {
-        NSArray * list = [plistName componentsSeparatedByString:@"."];
+        NSArray *list = [plistName componentsSeparatedByString:@"."];
         NSString *plistPath = [NSBundle.mainBundle pathForResource:list.firstObject ofType:list.lastObject];
         NSMutableDictionary *dic = [NSMutableDictionary dictionaryWithContentsOfFile:plistPath];
         return dic.copy;

@@ -32,7 +32,7 @@
 
 @implementation NSArray (Helper)
 
--(NSData *)jsonData{
+- (NSData *)jsonData{
     NSError *error;
     NSData *data = [NSJSONSerialization dataWithJSONObject:self options:kNilOptions error:&error];
     if (error) {
@@ -41,21 +41,45 @@
     return data;
 }
 
--(NSString *)jsonString{
+- (NSString *)jsonString{
     NSString *result = [[NSString alloc]initWithData:self.jsonData encoding:NSUTF8StringEncoding];
     return result;
 }
 
+- (NSArray *)reversed{
+    return self.reverseObjectEnumerator.allObjects;
+}
+
+- (NSArray * (^)(SEL))sorted{
+    return ^(SEL aSEL) {
+        return [self sortedArrayUsingSelector:aSEL];
+    };
+}
+
+- (NSString *(^)(NSString *))joinedBy{
+    return ^(NSString *value) {
+        return [self componentsJoinedByString: value];
+    };
+}
+
+- (NSArray * _Nonnull (^)(NSArray * _Nonnull))append{
+    return ^(NSArray *value) {
+        NSMutableArray *marr = [NSMutableArray arrayWithArray:self];
+        [marr addObjectsFromArray:value];
+        return marr.copy;
+    };
+}
+
 #pragma mark -高阶函数
-- (NSArray *)map:(id (NS_NOESCAPE ^)(id obj, NSUInteger idx))block{
-    if (!block) {
-        NSParameterAssert(block != nil);
+- (NSArray *)map:(id (NS_NOESCAPE ^)(id obj, NSUInteger idx))transform{
+    if (!transform) {
+        NSParameterAssert(transform != nil);
         return self;
     }
     
     __block NSMutableArray *marr = [NSMutableArray array];
     [self enumerateObjectsUsingBlock:^(id _Nonnull obj, NSUInteger idx, BOOL * _Nonnull stop) {
-        id value = block(obj, idx);
+        id value = transform(obj, idx);
         if (value) {
             [marr addObject:value];
         }
@@ -64,16 +88,16 @@
     return marr.copy;
 }
 
-- (NSArray *)compactMap:(id (NS_NOESCAPE ^)(id obj, NSUInteger idx))block{
-    if (!block) {
-        NSParameterAssert(block != nil);
+- (NSArray *)compactMap:(id (NS_NOESCAPE ^)(id obj, NSUInteger idx))transform{
+    if (!transform) {
+        NSParameterAssert(transform != nil);
         return self;
     }
     
     __block NSMutableArray *marr = [NSMutableArray array];
     [self enumerateObjectsUsingBlock:^(id _Nonnull obj, NSUInteger idx, BOOL * _Nonnull stop) {
-        id value = block(obj, idx);
-        if ([value isKindOfClass:NSArray.class]) {
+        id value = transform(obj, idx);
+        if ([value isKindOfClass: [NSArray class]]) {
             [marr addObjectsFromArray:value];
         } else {
             [marr addObject:value];
@@ -83,42 +107,34 @@
     return marr.copy;
 }
 
-- (NSArray *)filter:(BOOL(NS_NOESCAPE ^)(id obj, NSUInteger idx))block{
-    if (!block) {
-        NSParameterAssert(block != nil);
+- (NSArray *)filter:(BOOL(NS_NOESCAPE ^)(id obj, NSUInteger idx))transform{
+    if (!transform) {
+        NSParameterAssert(transform != nil);
         return self;
     }
 
     __block NSMutableArray *marr = [NSMutableArray array];
     [self enumerateObjectsUsingBlock:^(id _Nonnull obj, NSUInteger idx, BOOL * _Nonnull stop) {
-        if (block(obj, idx) == true) {
+        if (transform(obj, idx) == true) {
             [marr addObject:obj];
         }
     }];
     return marr.copy;
 }
 
-- (NSNumber *)reduce:(NSNumber *)initial block:(NSNumber *(NS_NOESCAPE ^)(NSNumber *result, NSNumber *obj))block{
-    if (!block) {
-        NSParameterAssert(block != nil);
+- (NSNumber *)reduce:(NSNumber *)initial transform:(NSNumber *(NS_NOESCAPE ^)(NSNumber *result, NSNumber *obj))transform{
+    if (!transform) {
+        NSParameterAssert(transform != nil);
         return initial;
     }
 
     __block NSNumber *value = initial;
     [self enumerateObjectsUsingBlock:^(NSNumber *_Nonnull obj, NSUInteger idx, BOOL * _Nonnull stop) {
-        value = block(value, obj);
+        value = transform(value, obj);
     }];
     return value;
 }
 #pragma mark -其他方法
-
-- (NSArray *)sorted{
-    return [self sortedArrayUsingSelector:@selector(compare:)];
-}
-
-- (NSArray *)reversed{
-    return self.reverseObjectEnumerator.allObjects;
-}
 
 - (NSArray *)sorteDescriptorAscending:(NSDictionary<NSString*, NSNumber*> *)dic{
     __block NSMutableArray *marr = [NSMutableArray array];
@@ -127,12 +143,6 @@
         [marr addObject:sort];
     }];
     return [self sortedArrayUsingDescriptors:marr.copy];
-}
-
-- (NSArray *)contactArray:(NSArray *)array{
-    NSMutableArray *marr = [NSMutableArray arrayWithArray:self];
-    [marr addObjectsFromArray:array];
-    return marr.copy;
 }
 
 + (NSArray *)repeating:(id)repeatedValue count:(NSInteger)count {
@@ -190,63 +200,27 @@
     return marr.copy;
 }
 
-- (NSMutableArray *)filterByPropertyList:(NSArray *)propertyList isNumValue:(BOOL)isNumValue {
-    __block NSMutableArray *listArr = [NSMutableArray array];
-    [self enumerateObjectsUsingBlock:^(id _Nonnull obj, NSUInteger idx, BOOL * _Nonnull stop) {
-        NSMutableArray *marr = [NSMutableArray array];
-        for (NSString * key in propertyList) {
-            id value = [obj valueForKey:key];
-            value = isNumValue == NO ? value : [value numberValue];
-            [marr addSafeObjct:value];
-        }
-        [listArr addSafeObjct:marr];
-    }];
-    return listArr;
-}
-
-- (NSMutableArray *)filterByPropertyList:(NSArray *)propertyList prefix:(NSString *)prefix isNumValue:(BOOL)isNumValue {
-    NSMutableArray *marr = [NSMutableArray array];
-    [propertyList enumerateObjectsUsingBlock:^(id  _Nonnull obj, NSUInteger idx, BOOL * _Nonnull stop) {
-        [marr addSafeObjct:[prefix stringByAppendingString:obj]];
-        
-    }];
-    NSMutableArray *list = [self filterByPropertyList:marr isNumValue:isNumValue];
-    return list;
-}
-
-- (NSArray *)filterListByQueryContain:(NSString *)query{
-    NSMutableArray *marr = [NSMutableArray arrayWithCapacity:0];
-    [self enumerateObjectsUsingBlock:^(id  _Nonnull obj, NSUInteger idx, BOOL * _Nonnull stop) {
-        if ([query containsString:obj]) {
-            [marr addObject:obj];
-        }
-    }];
-    return marr.copy;
-}
-
 
 @end
 
 
 @implementation NSString (Ext)
 
-- (NSString *)mapOffsetFloat:(CGFloat)value{
-    NSString *result = [[[self componentsSeparatedByString:@","] map:^id _Nonnull(NSString *obj, NSUInteger idx) {
-        obj = ![obj isEqualToString:@""] ? obj : @"0.0";
-        NSNumber *num = @([obj floatValue] + value);
-        return [num stringValue];
-        
-    }] componentsJoinedByString:@","];
-    return result;
+- (NSArray<NSString *> *(^)(NSString *))separatedBy{
+    return ^(NSString *value) {
+        return [self componentsSeparatedByString: value];
+    };
 }
 
-- (NSString *)mapOffsetInter:(NSInteger)value{
-    NSString *result = [[[self componentsSeparatedByString:@","] map:^id _Nonnull(NSString *obj, NSUInteger idx) {
-        obj = ![obj isEqualToString:@""] ? obj : @"0";
-        NSNumber *num = @([obj integerValue] + value);
-        return [num stringValue];
-        
-    }] componentsJoinedByString:@","];
+#pragma mark -高阶函数
+- (NSString *)mapBySeparator:(NSString *)separator transform:(NSString * (NS_NOESCAPE ^)(NSString *obj))transform{
+    if (!transform) {
+        NSParameterAssert(transform != nil);
+        return self;
+    }
+    NSString *result = [self.separatedBy(separator) map:^id _Nonnull(NSString * _Nonnull obj, NSUInteger idx) {
+        return transform(obj);
+    }].joinedBy(separator);
     return result;
 }
 
