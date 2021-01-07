@@ -24,4 +24,55 @@ NS_ASSUME_NONNULL_BEGIN
 
 @end
 
+//
+@interface UITapGestureRecognizer (Helper)
+
+- (void)addActionBlock:(void(^)(UITapGestureRecognizer *reco))block;
+
+@end
+
+
+@interface UILongPressGestureRecognizer (Helper)
+
+- (void)addActionBlock:(void(^)(UILongPressGestureRecognizer *reco))block;
+
+@end
+
+
+@interface UIPanGestureRecognizer (Helper)
+
+- (void)addActionBlock:(void(^)(UIPanGestureRecognizer *reco))block;
+
+@end
+
+
+
+@interface UIScreenEdgePanGestureRecognizer (Helper)
+
+- (void)addActionBlock:(void(^)(UIScreenEdgePanGestureRecognizer *reco))block ;
+
+@end
+
+
+@interface UISwipeGestureRecognizer (Helper)
+
+- (void)addActionBlock:(void(^)(UISwipeGestureRecognizer *reco))block;
+
+@end
+
+
+@interface UIPinchGestureRecognizer (Helper)
+
+- (void)addActionBlock:(void(^)(UIPinchGestureRecognizer *reco))block;
+
+@end
+
+
+@interface UIRotationGestureRecognizer (Helper)
+
+- (void)addActionBlock:(void(^)(UIRotationGestureRecognizer *reco))block;
+
+@end
+
+
 NS_ASSUME_NONNULL_END
