@@ -19,6 +19,78 @@
 
 @implementation UICollectionViewFlowLayout (AddView)
 
+- (UICollectionViewFlowLayout * _Nonnull (^)(CGFloat))minimumLineSpacing{
+    return ^(CGFloat value) {
+        self.minimumLineSpacing = value;
+        return self;
+    };
+}
+
+- (UICollectionViewFlowLayout * _Nonnull (^)(CGFloat))minimumInteritemSpacing{
+    return ^(CGFloat value) {
+        self.minimumInteritemSpacing = value;
+        return self;
+    };
+}
+
+
+- (UICollectionViewFlowLayout * _Nonnull (^)(CGSize))itemSize{
+    return ^(CGSize value) {
+        self.itemSize = value;
+        return self;
+    };
+}
+
+- (UICollectionViewFlowLayout * _Nonnull (^)(CGSize))estimatedItemSize{
+    return ^(CGSize value) {
+        self.estimatedItemSize = value;
+        return self;
+    };
+}
+
+- (UICollectionViewFlowLayout * _Nonnull (^)(CGSize))headerReferenceSize{
+    return ^(CGSize value) {
+        self.headerReferenceSize = value;
+        return self;
+    };
+}
+
+
+- (UICollectionViewFlowLayout * _Nonnull (^)(CGSize))footerReferenceSize{
+    return ^(CGSize value) {
+        self.footerReferenceSize = value;
+        return self;
+    };
+}
+
+- (UICollectionViewFlowLayout * _Nonnull (^)(UICollectionViewScrollDirection))scrollDirection{
+    return ^(UICollectionViewScrollDirection value) {
+        self.scrollDirection = value;
+        return self;
+    };
+}
+
+- (UICollectionViewFlowLayout * _Nonnull (^)(UICollectionViewFlowLayoutSectionInsetReference))sectionInsetReference{
+    return ^(UICollectionViewFlowLayoutSectionInsetReference value) {
+        self.sectionInsetReference = value;
+        return self;
+    };
+}
+
+- (UICollectionViewFlowLayout * _Nonnull (^)(BOOL))sectionHeadersPinToVisibleBounds{
+    return ^(BOOL value) {
+        self.sectionHeadersPinToVisibleBounds = value;
+        return self;
+    };
+}
+
+- (UICollectionViewFlowLayout * _Nonnull (^)(BOOL))sectionFootersPinToVisibleBounds{
+    return ^(BOOL value) {
+        self.sectionFootersPinToVisibleBounds = value;
+        return self;
+    };
+}
+
 #pragma mark - -funtions
 
 /**

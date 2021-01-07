@@ -18,6 +18,21 @@ NS_ASSUME_NONNULL_BEGIN
 
 @interface UICollectionViewFlowLayout (AddView)
 
+@property(nonatomic, strong, readonly) UICollectionViewFlowLayout *(^minimumLineSpacing)(CGFloat);
+@property(nonatomic, strong, readonly) UICollectionViewFlowLayout *(^minimumInteritemSpacing)(CGFloat);
+@property(nonatomic, strong, readonly) UICollectionViewFlowLayout *(^itemSize)(CGSize);
+@property(nonatomic, strong, readonly) UICollectionViewFlowLayout *(^headerReferenceSize)(CGSize);
+@property(nonatomic, strong, readonly) UICollectionViewFlowLayout *(^footerReferenceSize)(CGSize);
+
+@property(nonatomic, strong, readonly) UICollectionViewFlowLayout *(^estimatedItemSize)(CGSize);
+@property(nonatomic, strong, readonly) UICollectionViewFlowLayout *(^scrollDirection)(UICollectionViewScrollDirection);
+
+@property(nonatomic, strong, readonly) UICollectionViewFlowLayout *(^sectionInset)(UIEdgeInsets);
+@property(nonatomic, strong, readonly) UICollectionViewFlowLayout *(^sectionInsetReference)(UICollectionViewFlowLayoutSectionInsetReference);
+@property(nonatomic, strong, readonly) UICollectionViewFlowLayout *(^sectionFootersPinToVisibleBounds)(BOOL);
+@property(nonatomic, strong, readonly) UICollectionViewFlowLayout *(^sectionHeadersPinToVisibleBounds)(BOOL);
+
+
 @property(class, nonatomic, strong) UICollectionViewFlowLayout *layoutDefault;
 
 + (instancetype)createItemSize:(CGSize)itemSize
