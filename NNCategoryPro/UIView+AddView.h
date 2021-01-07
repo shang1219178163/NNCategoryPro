@@ -44,7 +44,18 @@ NS_ASSUME_NONNULL_BEGIN
 
 -(UIView *)createViewType:(NSNumber *)type color:(UIColor *)color width:(CGFloat)width paddingScale:(CGFloat)paddingScale;
 
+- (UIView *)addCorners:(UIRectCorner)corners
+           cornerRadii:(CGSize)cornerRadii
+                 width:(CGFloat)width
+                 color:(UIColor *)color;
 
+- (UIImage *)drawCorners:(UIRectCorner)corners
+             cornerRadii:(CGFloat)radius
+             borderWidth:(CGFloat)borderWidth
+             borderColor:(UIColor *)borderColor
+                 bgColor:(UIColor *)bgColor;
+    
+- (UIView *)addCorners:(UIRectCorner)corners cornerRadii:(CGSize)cornerRadii;
 @end
 
 NS_ASSUME_NONNULL_END
