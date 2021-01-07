@@ -26,11 +26,6 @@ NS_ASSUME_NONNULL_BEGIN
                         tipCenter:(CGPoint)tipCenter
                              text:(NSString *)text
                         textColor:(UIColor *)textColor;
-/**
-UILabel富文本设置
-*/
-- (NSMutableAttributedString *)setText:(NSString *)content attDic:(NSDictionary *)attDic;
-
 
 @end
 

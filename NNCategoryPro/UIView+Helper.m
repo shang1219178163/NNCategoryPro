@@ -505,6 +505,8 @@
             sender.tag = i;
             sender;
         });
+        [sender setTitle:title forState:UIControlStateNormal];
+        sender.frame = itemRect;
         [sender addActionHandler:handler forControlEvents:UIControlEventTouchUpInside];
         [backgroudView addSubview:sender];
     }

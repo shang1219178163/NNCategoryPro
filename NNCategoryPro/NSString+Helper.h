@@ -84,8 +84,6 @@ FOUNDATION_EXPORT NSString * NSStringFromHTML(NSString *html);
 
 - (NSString *)toFileString;
 
-- (BOOL)isContainBlank;
-
 - (BOOL)isContainsCharacterSet:(NSCharacterSet *)set;
 
 - (NSString *)makeUnicodeToString;

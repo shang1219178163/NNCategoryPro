@@ -121,7 +121,7 @@
  UIButton不同状态下设置富文本标题
  */
 - (NSMutableAttributedString *)setContent:(NSString *)content attDic:(NSDictionary *)attDic forState:(UIControlState)state{
-    NSMutableAttributedString *attString = [self.titleLabel setText:content attDic:attDic];
+    NSMutableAttributedString *attString = [[NSMutableAttributedString alloc] initWithString:self.titleLabel.text attributes:attDic];    
     [self setAttributedTitle:attString forState:state];
     return attString;
 }

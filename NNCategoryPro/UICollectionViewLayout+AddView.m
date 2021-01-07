@@ -120,7 +120,6 @@
 
 
 static UICollectionViewFlowLayout *_layoutDefault;
-
 + (void)setLayoutDefault:(UICollectionViewFlowLayout *)layoutDefault{
     _layoutDefault = layoutDefault;
 }

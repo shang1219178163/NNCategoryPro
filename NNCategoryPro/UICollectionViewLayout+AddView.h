@@ -28,7 +28,7 @@ NS_ASSUME_NONNULL_BEGIN
 @property(nonatomic, strong, readonly) UICollectionViewFlowLayout *(^scrollDirection)(UICollectionViewScrollDirection);
 
 @property(nonatomic, strong, readonly) UICollectionViewFlowLayout *(^sectionInset)(UIEdgeInsets);
-@property(nonatomic, strong, readonly) UICollectionViewFlowLayout *(^sectionInsetReference)(UICollectionViewFlowLayoutSectionInsetReference);
+@property(nonatomic, strong, readonly) UICollectionViewFlowLayout *(^sectionInsetReference)(UICollectionViewFlowLayoutSectionInsetReference) API_AVAILABLE(ios(11.0), tvos(11.0)) API_UNAVAILABLE(watchos);
 @property(nonatomic, strong, readonly) UICollectionViewFlowLayout *(^sectionFootersPinToVisibleBounds)(BOOL);
 @property(nonatomic, strong, readonly) UICollectionViewFlowLayout *(^sectionHeadersPinToVisibleBounds)(BOOL);
 
