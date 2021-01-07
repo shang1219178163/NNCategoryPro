@@ -22,8 +22,6 @@ NS_ASSUME_NONNULL_BEGIN
 FOUNDATION_EXPORT NSIndexPath *NSIndexPathFromString(NSString *string);
 /// NSIndexPath快速生成
 FOUNDATION_EXPORT NSIndexPath *NSIndexPathFromIndex(NSInteger section, NSInteger row);
-/// 返回NSIndexPath索引数组
-FOUNDATION_EXPORT NSArray* NSIndexPathsFromRows(NSInteger section, NSArray *rows);
 
 @end
 

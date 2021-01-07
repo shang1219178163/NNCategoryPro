@@ -12,7 +12,7 @@ NS_ASSUME_NONNULL_BEGIN
 
 @interface CLCircularRegion (Helper)
 
-+ (CLCircularRegion *)regionWithCenter:(CLLocationCoordinate2D)center
++ (instancetype)regionWithCenter:(CLLocationCoordinate2D)center
                                 radius:(CLLocationDistance)radius
                             identifier:(NSString *)identifier;
 @end

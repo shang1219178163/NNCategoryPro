@@ -109,10 +109,11 @@
         
         NSError *fileCoordinatorError = nil;
         
-        [[[NSFileCoordinator alloc] initWithFilePresenter:nil] coordinateWritingItemAtURL:document.fileURL
-                                                                                  options:NSFileCoordinatorWritingForDeleting
-                                                                                    error:&fileCoordinatorError
-                                                                               byAccessor:^(NSURL *newURL) {
+        NSFileCoordinator *fileCoordinator = [[NSFileCoordinator alloc] initWithFilePresenter:nil];
+        [fileCoordinator coordinateWritingItemAtURL:document.fileURL
+                                            options:NSFileCoordinatorWritingForDeleting
+                                              error:&fileCoordinatorError
+                                         byAccessor:^(NSURL *newURL) {
             
             // extra check to ensure coordinator is not running on main thread
             NSAssert(![NSThread isMainThread], @"Must be not be on main thread");

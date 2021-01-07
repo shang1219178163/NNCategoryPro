@@ -41,28 +41,20 @@ static UIColor * _themeColor = nil;
     return UIColorHexValue(0xe4e4e4);
 }
 
-+ (UIColor *)btnColor_N{
++ (UIColor *)btnColorN{
     return UIColorHexValue(0xfea914);
 }
 
-+ (UIColor *)btnColor_H{
++ (UIColor *)btnColorH{
     return UIColorHexValue(0xf1a013);
 }
 
-+ (UIColor *)btnColor_D{
++ (UIColor *)btnColorD{
     return UIColorHexValue(0x999999);
 }
 
 + (UIColor *)excelColor{
     return [UIColor colorWithRed:238/255.0 green:238/255.0 blue:238/255.0 alpha:1];
-}
-
-+ (UIColor *)titleColor{
-    return UIColorHexValue(0x333333);
-}
-
-+ (UIColor *)titleSubColor{
-    return UIColorHexValue(0x999999);
 }
 
 + (UIColor *)lightBlue{

@@ -15,7 +15,6 @@
     if (!urlComponents || !urlComponents.queryItems) {
         return @{};
     }
-    
     return urlComponents.queryParameters;
 }
 
@@ -24,7 +23,6 @@
     if (!urlComponents) {
         return nil;
     }
-    
     return [urlComponents appendingQueryParameters:parameters];
 }
 

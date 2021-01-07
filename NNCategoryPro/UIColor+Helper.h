@@ -16,13 +16,10 @@ NS_ASSUME_NONNULL_BEGIN
 @property (class, nonatomic, readonly) UIColor *randomColor;
 @property (class, nonatomic, readonly) UIColor *backgroudColor;
 @property (class, nonatomic, readonly) UIColor *lineColor;
-@property (class, nonatomic, readonly) UIColor *btnColor_N;
-@property (class, nonatomic, readonly) UIColor *btnColor_H;
-@property (class, nonatomic, readonly) UIColor *btnColor_D;
+@property (class, nonatomic, readonly) UIColor *btnColorN;
+@property (class, nonatomic, readonly) UIColor *btnColorH;
+@property (class, nonatomic, readonly) UIColor *btnColorD;
 @property (class, nonatomic, readonly) UIColor *excelColor;
- 
-@property (class, nonatomic, readonly) UIColor *titleColor;
-@property (class, nonatomic, readonly) UIColor *titleSubColor;
 
 @property (class, nonatomic, readonly) UIColor *lightBlue;
 @property (class, nonatomic, readonly) UIColor *lightOrange;
@@ -31,6 +28,7 @@ NS_ASSUME_NONNULL_BEGIN
 @property (class, nonatomic, readonly) UIColor *titleColor3;
 @property (class, nonatomic, readonly) UIColor *titleColor6;
 @property (class, nonatomic, readonly) UIColor *titleColor9;
+
 /// 背景灰色半透明,子视图不透明
 FOUNDATION_EXPORT UIColor * UIColorDim(CGFloat White, CGFloat a);
 FOUNDATION_EXPORT UIColor * UIColorRGBA(CGFloat r, CGFloat g, CGFloat b, CGFloat a);

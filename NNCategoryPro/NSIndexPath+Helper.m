@@ -44,16 +44,8 @@
 NSIndexPath *NSIndexPathFromString(NSString *string) {
     if ([string containsString:@"{"]) string = [string stringByReplacingOccurrencesOfString:@"{" withString:@""];
     if ([string containsString:@"}"]) string = [string stringByReplacingOccurrencesOfString:@"}" withString:@""];
-    NSArray * list = [string componentsSeparatedByString:@","];
+    NSArray *list = [string componentsSeparatedByString:@","];
     return [NSIndexPath indexPathForRow:[list.firstObject integerValue] inSection:[list.lastObject integerValue]];
 }
  
-NSArray *NSIndexPathsFromRows(NSInteger section, NSArray *rows) {
-    NSMutableArray *marr = [NSMutableArray array];
-    for (NSNumber *row in rows) {
-        [marr addObject:[NSIndexPath indexPathForRow:row.integerValue inSection:section]];
-    }
-    return marr.copy;
-}
-
 @end

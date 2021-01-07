@@ -10,17 +10,17 @@
 
 @implementation CATextLayer (Helper)
 
-+(CATextLayer *)createRect:(CGRect)rect{
-    
-    CATextLayer *titleLayer = CATextLayer.layer;
-    titleLayer.frame = rect;
+//+(CATextLayer *)createRect:(CGRect)rect{
+//
+//    CATextLayer *titleLayer = CATextLayer.layer;
+//    titleLayer.frame = rect;
 //    titleLayer.string = string;
 //    titleLayer.foregroundColor = textColor.CGColor;
 //    titleLayer.font = CFBridgingRetain(font.fontName);
 //    titleLayer.fontSize = font.pointSize;
 //    titleLayer.alignmentMode = alignmentMode;
-    titleLayer.contentsScale = UIScreen.mainScreen.scale;
-    return titleLayer;
-}
+//    titleLayer.contentsScale = UIScreen.mainScreen.scale;
+//    return titleLayer;
+//}
 
 @end

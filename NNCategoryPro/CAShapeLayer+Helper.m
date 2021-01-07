@@ -73,8 +73,8 @@
     return layer;
 }
 
-+(CAShapeLayer *)layerPath:(UIBezierPath *)path{
-    CAShapeLayer *layer = CAShapeLayer.layer;
++(CAShapeLayer *)layerWithPath:(UIBezierPath *)path{
+    CAShapeLayer *layer = [CAShapeLayer layer];
     layer.path = path.CGPath;
     return layer;
 }

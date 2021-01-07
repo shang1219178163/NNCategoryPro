@@ -235,7 +235,7 @@ void GCDApplyGlobal(id obj ,void(^block)(size_t index)){
 
 #pragma mark - -
 
-+ (NSString *)identify{
++ (NSString *)identifier{
     return NSStringFromClass(self.class);
 }
 
@@ -262,7 +262,9 @@ void GCDApplyGlobal(id obj ,void(^block)(size_t index)){
     
     CGSize size = CGSizeZero;
     if ([text isKindOfClass:[NSString class]]) {
-        NSDictionary *attrDict = [NSAttributedString paraDictWithFont:((UIFont *)font).pointSize textColor:UIColor.blackColor alignment:NSTextAlignmentLeft];
+        NSDictionary *attrDict = [NSAttributedString paraDictWithFont:((UIFont *)font).pointSize
+                                                            textColor:UIColor.blackColor
+                                                            alignment:NSTextAlignmentLeft];
         size = [text boundingRectWithSize:CGSizeMake(width, MAXFLOAT)
                                   options:NSStringDrawingUsesLineFragmentOrigin|NSStringDrawingUsesFontLeading
                                attributes:attrDict

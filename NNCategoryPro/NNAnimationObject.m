@@ -28,7 +28,6 @@
 
     if (CGRectEqualToRect(CGRectZero, _circleCenterRect)) {
         _circleCenterRect = CGRectMake(width/2.0, height/2.0, 1, 1);
-        
     }
     
     //圆圈1--小圆

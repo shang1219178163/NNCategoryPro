@@ -14,11 +14,11 @@
 
 @implementation CATransaction (Helper)
 
-+(void)animDuration:(CGFloat)duration animations:(void(^)(void))animations completion:(void (^_Nullable)(void))completion{
++(void)animDuration:(CGFloat)duration animation:(void(^)(void))animation completion:(void (^_Nullable)(void))completion{
     
     [CATransaction begin];
     [CATransaction setAnimationDuration:duration];
-    animations();
+    animation();
     [CATransaction setCompletionBlock:completion];
     [CATransaction commit];
 }

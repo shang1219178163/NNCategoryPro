@@ -94,7 +94,7 @@
 + (instancetype)createRect:(CGRect)rect placeholder:(NSString *)placeholder{
     UITextView *textView = [self createRect:rect];
     textView.placeHolderTextView.text = placeholder;
-    textView.placeHolderTextView.textColor = UIColor.titleSubColor;
+    textView.placeHolderTextView.textColor = UIColor.titleColor9;
     return textView;
 }
 

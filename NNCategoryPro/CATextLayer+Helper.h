@@ -14,7 +14,7 @@ NS_ASSUME_NONNULL_BEGIN
 @interface CATextLayer (Helper)
 
 
-+(CATextLayer *)createRect:(CGRect)rect;
+//+(CATextLayer *)createRect:(CGRect)rect;
 
 @end
 

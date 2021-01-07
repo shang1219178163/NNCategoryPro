@@ -59,22 +59,22 @@ NS_ASSUME_NONNULL_BEGIN
 
 + (void)updateVersion:(NSString *)appStoreID handler:(void(^)(NSDictionary *dic, NSString *appStoreVer, NSString *releaseNotes, bool isUpdate))handler;
 
-+ (void)checkVersion:(NSString *_Nonnull)appStoreID;
++ (void)checkVersion:(NSString *)appStoreID;
 
 @end
 
-NS_ASSUME_NONNULL_END
 
 @interface NNShareModel : NSObject
 
-@property (nonatomic, copy) NSString * _Nonnull shareTitle;
-@property (nonatomic, copy) NSString * _Nonnull shareDate;
+@property (nonatomic, copy) NSString * shareTitle;
+@property (nonatomic, copy) NSString * shareDate;
 @property (nonatomic, copy) NSString * _Nullable shareDesc;
 @property (nonatomic, copy) NSString * _Nullable shareContent;
 @property (nonatomic, copy) NSString * _Nullable shareFrom;
 @property (nonatomic, copy) NSArray * _Nullable shareImages;
 
-@property (nonatomic, copy) NSString * _Nonnull shareUrl;
+@property (nonatomic, copy) NSString * shareUrl;
 
 @end
 
+NS_ASSUME_NONNULL_END

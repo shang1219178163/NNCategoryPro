@@ -107,7 +107,6 @@ NSString * const kFormatDateSix      = @"EEE, dd MMM yyyy HH:mm:ss 'GMT'";
 }
 
 //+ (NSString *)currentGMT {
-//
 //    NSDate *date = NSDate.date;
 //    NSTimeZone.defaultTimeZone = [NSTimeZone timeZoneWithName:@"GMT"];;
 //

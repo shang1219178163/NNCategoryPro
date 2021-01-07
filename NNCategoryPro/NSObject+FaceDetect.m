@@ -11,18 +11,15 @@
 @implementation NSObject (FaceDetect)
 
 - (NSArray *)faceDetectImage:(UIImage *)image {
-    NSDictionary *imageOptions = @{CIDetectorImageOrientation: @(5),
-                                   };
-    
-    CIImage *cImage = [CIImage imageWithCGImage: image.CGImage];
     NSDictionary *options = @{CIDetectorAccuracy: CIDetectorAccuracyHigh,
                             };
+    CIImage *cImage = [CIImage imageWithCGImage: image.CGImage];
     
+    NSDictionary *imageOptions = @{CIDetectorImageOrientation: @(5),
+                                   };
     CIDetector *detector = [CIDetector detectorOfType:CIDetectorTypeFace context:nil options:options];
     NSArray *features = [detector featuresInImage:cImage options:imageOptions];
     return features;
 }
-
-
 
 @end

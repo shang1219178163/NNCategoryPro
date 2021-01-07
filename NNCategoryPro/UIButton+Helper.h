@@ -37,8 +37,8 @@ NS_ASSUME_NONNULL_BEGIN
  导航栏按钮
  */
 +(UIButton *)buttonWithSize:(CGSize)size
-                 image_N:(id)image_N
-                 image_H:(id)image_H
+                 imageN:(id)imageN
+                 imageH:(id)imageH
          imageEdgeInsets:(UIEdgeInsets)imageEdgeInsets;
 
 /**
@@ -47,8 +47,8 @@ NS_ASSUME_NONNULL_BEGIN
 +(UIButton *)buttonWithSize:(CGSize)size
                    title:(NSString *)title
                     font:(NSUInteger)font
-            titleColor_N:(UIColor *)titleColor_N
-            titleColor_H:(UIColor *)titleColor_H
+             titleColorN:(UIColor *)titleColorN
+             titleColorH:(UIColor *)titleColorH
          titleEdgeInsets:(UIEdgeInsets)titleEdgeInsets;
 
 

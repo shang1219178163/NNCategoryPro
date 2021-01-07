@@ -112,7 +112,7 @@
     label.lineBreakMode = NSLineBreakByTruncatingTail;
     label.adjustsFontSizeToFitWidth = YES;
     label.text = unitString;
-    label.textColor = UIColor.titleColor;
+    label.textColor = UIColor.titleColor3;
     label.textAlignment = NSTextAlignmentCenter;
     return label;
 }

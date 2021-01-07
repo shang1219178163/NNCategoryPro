@@ -90,9 +90,11 @@
 
 -(BOOL)gestureRecognizerShouldBegin:(UIGestureRecognizer *)gestureRecognizer{
     // 手势
-    if(gestureRecognizer == ((UINavigationController *)self).interactivePopGestureRecognizer){
-        if(((UINavigationController *)self).viewControllers.count < 2){
-            return false;
+    if ([self isKindOfClass:[UINavigationController class]]) {
+        if(gestureRecognizer == ((UINavigationController *)self).interactivePopGestureRecognizer){
+            if(((UINavigationController *)self).viewControllers.count < 2){
+                return false;
+            }
         }
     }
     return true;

@@ -17,17 +17,15 @@
 @implementation CALayer (Helper)
 
 - (void)getLayer{
+#if DEBUG
     NSArray *subviews = self.sublayers;
     if (subviews.count == 0) return;
     for (CALayer *subview in subviews) {
         subview.borderWidth = 0.5;
-        #if DEBUG
         subview.borderColor = UIColor.blueColor.CGColor;
-        #else
-        subview.borderColor = UIColor.clearColor.CGColor;
-        #endif
         [subview getLayer];
     }
+#endif
 }
 
 - (void)removeAllSubLayers{

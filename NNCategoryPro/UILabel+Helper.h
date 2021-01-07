@@ -12,6 +12,8 @@ NS_ASSUME_NONNULL_BEGIN
 
 @interface UILabel (Helper)
 
+@property(nonatomic, strong, readonly) NSMutableAttributedString *matt;
+
 /**
  [源]UILabel创建
  */
@@ -27,9 +29,8 @@ NS_ASSUME_NONNULL_BEGIN
 /**
 UILabel富文本设置
 */
-- (NSMutableAttributedString *)setContent:(NSString *)content attDic:(NSDictionary *)attDic;
+- (NSMutableAttributedString *)setText:(NSString *)content attDic:(NSDictionary *)attDic;
 
-- (CGSize)sizeWithAttributedText:(BOOL)isAttributedText font:(UIFont *)font width:(CGFloat)width;
 
 @end
 

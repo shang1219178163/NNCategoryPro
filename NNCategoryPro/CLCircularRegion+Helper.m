@@ -11,11 +11,13 @@
 
 @implementation CLCircularRegion (Helper)
 
-+ (CLCircularRegion *)regionWithCenter:(CLLocationCoordinate2D)center
++ (instancetype)regionWithCenter:(CLLocationCoordinate2D)center
                                 radius:(CLLocationDistance)radius
                             identifier:(NSString *)identifier{
 //    CLLocationCoordinate2D center = CLLocationCoordinate2DMake(39.788857, 116.5559392);
-    CLCircularRegion *region = [[CLCircularRegion alloc] initWithCenter:center radius:radius identifier:identifier];
+    CLCircularRegion *region = [[CLCircularRegion alloc] initWithCenter:center 
+                                                                 radius:radius 
+                                                             identifier:identifier];
     region.notifyOnEntry = YES;
     region.notifyOnExit = YES;
     return region;

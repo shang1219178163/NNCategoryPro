@@ -63,7 +63,7 @@
             break;
         case 2://白色背景灰色字体无边框
         {
-            [btn setTitleColor:UIColor.titleSubColor forState:UIControlStateNormal];
+            [btn setTitleColor:UIColor.titleColor9 forState:UIControlStateNormal];
         }
             break;
         case 3://地图定位按钮一类
@@ -121,22 +121,22 @@
  UIButton不同状态下设置富文本标题
  */
 - (NSMutableAttributedString *)setContent:(NSString *)content attDic:(NSDictionary *)attDic forState:(UIControlState)state{
-    NSMutableAttributedString *attString = [self.titleLabel setContent:content attDic:attDic];
+    NSMutableAttributedString *attString = [self.titleLabel setText:content attDic:attDic];
     [self setAttributedTitle:attString forState:state];
     return attString;
 }
 
 +(UIButton *)buttonWithSize:(CGSize)size
-                    image_N:(id)image_N
-                    image_H:(id)image_H
+                    imageN:(id)imageN
+                    imageH:(id)imageH
             imageEdgeInsets:(UIEdgeInsets)imageEdgeInsets{
     
-    if ([image_N isKindOfClass:[NSString class]]) image_N = [UIImage imageNamed:image_N];
-    if ([image_H isKindOfClass:[NSString class]]) image_H = [UIImage imageNamed:image_H];
+    if ([imageN isKindOfClass:[NSString class]]) imageN = [UIImage imageNamed:imageN];
+    if ([imageH isKindOfClass:[NSString class]]) imageH = [UIImage imageNamed:imageH];
     
     UIButton *btn = [UIButton buttonWithType:UIButtonTypeCustom];
-    if (image_N) [btn setImage:[image_N imageWithRenderingMode:UIImageRenderingModeAlwaysOriginal] forState:UIControlStateNormal];
-    if (image_H) [btn setImage:image_H forState:UIControlStateHighlighted];
+    if (imageN) [btn setImage:[imageN imageWithRenderingMode:UIImageRenderingModeAlwaysOriginal] forState:UIControlStateNormal];
+    if (imageH) [btn setImage:imageH forState:UIControlStateHighlighted];
     
     [btn sizeToFit];
         
@@ -151,16 +151,16 @@
 +(UIButton *)buttonWithSize:(CGSize)size
                       title:(NSString *)title
                        font:(NSUInteger)font
-               titleColor_N:(UIColor *)titleColor_N
-               titleColor_H:(UIColor *)titleColor_H
+               titleColorN:(UIColor *)titleColorN
+               titleColorH:(UIColor *)titleColorH
             titleEdgeInsets:(UIEdgeInsets)titleEdgeInsets {
     
     UIButton *btn = [UIButton buttonWithType:UIButtonTypeCustom];
     
     [btn setTitle:title forState:UIControlStateNormal];
     btn.titleLabel.font = [UIFont systemFontOfSize:font];
-    if (titleColor_N) [btn setTitleColor:titleColor_N forState:UIControlStateNormal];
-    if (titleColor_H) [btn setTitleColor:titleColor_H forState:UIControlStateHighlighted];
+    if (titleColorN) [btn setTitleColor:titleColorN forState:UIControlStateNormal];
+    if (titleColorH) [btn setTitleColor:titleColorH forState:UIControlStateHighlighted];
     
     [btn sizeToFit];
     

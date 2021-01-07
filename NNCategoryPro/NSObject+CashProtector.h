@@ -29,12 +29,9 @@
 
 @interface NSMutableArray (CashProtector)
 
-
 @end
 
 
-
 @interface NSMutableDictionary (CashProtector)
-
 
 @end

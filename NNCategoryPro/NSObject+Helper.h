@@ -54,7 +54,7 @@ void GCDMainBlock(void(^block)(void));
 void GCDAfterMain(double delay ,void(^block)(void));
 void GCDApplyGlobal(id obj ,void(^block)(size_t index));
 
-@property(class, nonatomic, strong, readonly) NSString *identify;
+@property(class, nonatomic, strong, readonly) NSString *identifier;
 @property(nonatomic, copy, nonnull) NSString *runtimeKey;
 
 ///(通用)富文本只有和一般文字同字体大小才能计算高度

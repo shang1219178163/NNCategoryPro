@@ -31,7 +31,7 @@ NS_ASSUME_NONNULL_BEGIN
                                lineWidth:(CGFloat)lineWidth
                          lineDashPattern:(NSArray<NSNumber *> *)lineDashPattern;
 
-+(CAShapeLayer *)layerPath:(UIBezierPath *)path;
++(CAShapeLayer *)layerWithPath:(UIBezierPath *)path;
 
 @end
 
