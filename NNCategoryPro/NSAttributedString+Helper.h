@@ -6,15 +6,15 @@
 //  Copyright © 2019 Bin Shang. All rights reserved.
 //
 
+//推荐使用 NSMutableAttributedString+Chain.h 链式编程
+
 #import <Foundation/Foundation.h>
 
 NS_ASSUME_NONNULL_BEGIN
 
 @interface NSAttributedString (Helper)
 
-#pragma mark- -富文本
-/// 富文本配置字典
-FOUNDATION_EXPORT NSDictionary<NSAttributedStringKey, id> * AttributeDict(NSNumber *type);
+- (CGSize)sizeWithWidth:(CGFloat)width;
 
 /**
  富文本特殊部分设置
@@ -73,7 +73,6 @@ FOUNDATION_EXPORT NSDictionary<NSAttributedStringKey, id> * AttributeDict(NSNumb
  */
 + (NSAttributedString *)getAttringByPrefix:(NSString *)prefix content:(NSString *)content isMust:(BOOL)isMust;
 
-+ (NSAttributedString *)attrString:(NSString *)string;
 
 + (NSAttributedString *)hyperlinkFromString:(NSString *)string withURL:(NSURL *)aURL font:(UIFont *)font;
 
