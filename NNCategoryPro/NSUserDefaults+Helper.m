@@ -7,10 +7,13 @@
 //
 
 #import "NSUserDefaults+Helper.h"
-
 //#import <objc/runtime.h>
 
 @implementation NSUserDefaults (Helper)
+
++ (NSUserDefaults *)defaults {
+    return [NSUserDefaults standardUserDefaults];
+}
 
 + (BOOL)isSupport:(nullable id)value{
     //@[@"NSData", @"NSString", @"NSNumber", @"NSDate", @"NSArray", @"NSDictionary"];
@@ -21,7 +24,6 @@
     BOOL isNumber = [value isKindOfClass: NSNumber.class];
     BOOL isArray = [value isKindOfClass: NSArray.class];
     BOOL isDictionary = [value isKindOfClass: NSDictionary.class];
-
     if (isData || isDate || isString || isNumber || isArray || isDictionary) {
         return true;
     }
@@ -69,7 +71,7 @@
 }
 
 + (void)synchronize{
-    [self synchronizeAndCloudSync:NO];
+    [self.standardUserDefaults synchronize];
 }
 
 + (void)setArcObject:(id)value forKey:(NSString *)key{
@@ -87,5 +89,20 @@
     }
     return [NSKeyedUnarchiver unarchiveObjectWithData:value];
 }
+
+@end
+
+
+@implementation NSUbiquitousKeyValueStore (Helper)
+
++ (void)setObject:(id)value forKey:(NSString *)key{
+    [self.defaultStore setObject:value forKey:key];
+}
+
++ (id)objectForKey:(NSString *)key{
+    id obj = [self.defaultStore objectForKey:key];
+    return obj;
+}
+
 
 @end

@@ -12,6 +12,8 @@ NS_ASSUME_NONNULL_BEGIN
 
 @interface NSUserDefaults (Helper)
 
++ (NSUserDefaults *)defaults;
+
 + (void)setObject:(id)value forKey:(NSString *)key iCloudSync:(BOOL)sync;
 
 + (void)setObject:(id)value forKey:(NSString *)key;
@@ -29,6 +31,15 @@ NS_ASSUME_NONNULL_BEGIN
 /// 读取自定义对象
 + (id)arcObjectForKey:(NSString *)key;
     
+@end
+
+
+@interface NSUbiquitousKeyValueStore (Helper)
+
++ (void)setObject:(id)value forKey:(NSString *)key;
+
++ (id)objectForKey:(NSString *)key;
+
 @end
 
 NS_ASSUME_NONNULL_END
