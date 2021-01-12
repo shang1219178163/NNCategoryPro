@@ -89,19 +89,10 @@ compactMap 高阶降维函数
 
 @interface NSMutableArray (Ext)
 
-@property(nonatomic, strong, readonly) NSMutableArray *(^append)(NSArray *);
+@property(nonatomic, strong, readonly) NSMutableArray *(^addObjects)(NSArray *);
 
 @end
 
-
-@interface NSString (Ext)
-///componentsSeparatedByString
-@property(nonatomic, strong, readonly) NSArray<NSString *> *(^separatedBy)(NSString *);
-
-///separator 分割后的子元素进行转换
-- (NSString *)mapBySeparator:(NSString *)separator transform:(NSString * (NS_NOESCAPE ^)(NSString *obj))transform;
-
-@end
 
 NS_ASSUME_NONNULL_END
 

@@ -206,7 +206,7 @@
 
 @implementation NSMutableArray (Ext)
 
-- (NSMutableArray * _Nonnull (^)(NSArray * _Nonnull))append{
+- (NSMutableArray * _Nonnull (^)(NSArray * _Nonnull))addObjects{
     return ^(NSArray *value) {
         [self addObjectsFromArray:value];
         return self;
@@ -215,25 +215,3 @@
 
 @end
 
-
-@implementation NSString (Ext)
-
-- (NSArray<NSString *> *(^)(NSString *))separatedBy{
-    return ^(NSString *value) {
-        return [self componentsSeparatedByString: value];
-    };
-}
-
-#pragma mark -高阶函数
-- (NSString *)mapBySeparator:(NSString *)separator transform:(NSString * (NS_NOESCAPE ^)(NSString *obj))transform{
-    if (!transform) {
-        NSParameterAssert(transform != nil);
-        return self;
-    }
-    NSString *result = [self.separatedBy(separator) map:^id _Nonnull(NSString * _Nonnull obj, NSUInteger idx) {
-        return transform(obj);
-    }].joinedBy(separator);
-    return result;
-}
-
-@end
