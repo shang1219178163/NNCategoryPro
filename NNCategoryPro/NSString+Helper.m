@@ -137,7 +137,6 @@
     };
 }
 
-
 - (NSString * _Nonnull (^)(NSRange, NSString * _Nonnull))replacingCharacters{
     return ^(NSRange range, NSString *replacement){
         return [self stringByReplacingCharactersInRange:range withString:replacement];
@@ -489,20 +488,34 @@ NSString * NSStringFromHTML(NSString *html) {
 
 @implementation NSMutableString (Ext)
 
-- (NSMutableString * _Nonnull (^)(NSString * _Nonnull))append{
+- (NSMutableString * _Nonnull (^)(NSString * _Nonnull))appending{
     return ^(NSString *value) {
         [self appendString:value];
         return self;
     };
 }
 
-- (NSMutableString * _Nonnull (^)(NSString * _Nonnull, ...))appendFormat{
+- (NSMutableString * _Nonnull (^)(NSString * _Nonnull, ...))appendingFormat{
     return ^(NSString *format, ...){
-        va_list list;
-        va_start(list, format);
-        NSString *string = [[NSString alloc] initWithFormat:format arguments:list];
-        va_end(list);
+        va_list args;
+        va_start(args, format);
+        NSString *string = [[NSString alloc] initWithFormat:format arguments:args];
+        va_end(args);
         [self appendString:string];
+        return self;
+    };
+}
+
+- (NSMutableString * _Nonnull (^)(NSRange, NSString * _Nonnull))replacingCharacters{
+    return ^(NSRange range, NSString *value) {
+        [self replaceCharactersInRange:range withString:value];
+        return self;
+    };
+}
+                                                                                                    
+- (NSMutableString * _Nonnull (^)(NSString * _Nonnull, NSString * _Nonnull, NSStringCompareOptions))replacingOccurrences{
+    return ^(NSString *target, NSString *replacement, NSStringCompareOptions options) {
+        [self replaceOccurrencesOfString:target withString:replacement options:options range:NSMakeRange(0, self.length)];
         return self;
     };
 }
@@ -517,20 +530,6 @@ NSString * NSStringFromHTML(NSString *html) {
 - (NSMutableString * _Nonnull (^)(NSRange))deleteCharacters{
     return ^(NSRange range) {
         [self deleteCharactersInRange:range];
-        return self;
-    };
-}
-
-- (NSMutableString * _Nonnull (^)(NSRange, NSString * _Nonnull))replaceCharacters{
-    return ^(NSRange range, NSString *value) {
-        [self replaceCharactersInRange:range withString:value];
-        return self;
-    };
-}
-
-- (NSMutableString * _Nonnull (^)(NSString * _Nonnull, NSString * _Nonnull, NSStringCompareOptions, NSRange))replaceOccurrences{
-    return ^(NSString *target, NSString *replacement, NSStringCompareOptions options, NSRange searchRange) {
-        [self replaceOccurrencesOfString:target withString:replacement options:options range:searchRange];
         return self;
     };
 }

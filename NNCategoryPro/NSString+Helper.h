@@ -132,19 +132,23 @@ FOUNDATION_EXPORT NSString * NSStringFromHTML(NSString *html);
 
 @interface NSMutableString (Ext)
 
-///- (void)appendString:(NSString *)aString;
-- (NSMutableString * (^)(NSString *))append;
+//- (void)appendString:(NSString *)aString;
+@property(nonatomic, copy, readonly) NSMutableString * (^appending)(NSString *);
+
 ///- (void)appendFormat:(NSString *)format, ... NS_FORMAT_FUNCTION(1,2);
-- (NSMutableString * (^)(NSString *format, ...))appendFormat;
-///- (void)insertString:(NSString *)aString atIndex:(NSUInteger)loc;
-- (NSMutableString * (^)(NSString *, NSUInteger))insertAtIndex;
-///- (void)deleteCharactersInRange:(NSRange)range;
-- (NSMutableString * (^)(NSRange))deleteCharacters;
+@property(nonatomic, copy, readonly) NSMutableString * (^appendingFormat)(NSString *format, ...);
+
 ///- (void)replaceCharactersInRange:(NSRange)range withString:(NSString *)aString;
-- (NSMutableString * (^)(NSRange, NSString *))replaceCharacters;
+@property(nonatomic, copy, readonly) NSMutableString * (^replacingCharacters)(NSRange, NSString *);
 
 ///- (NSUInteger)replaceOccurrencesOfString:(NSString *)target withString:(NSString *)replacement options:(NSStringCompareOptions)options range:(NSRange)searchRange;
-- (NSMutableString * (^)(NSString *, NSString *, NSStringCompareOptions, NSRange))replaceOccurrences;
+@property(nonatomic, copy, readonly) NSMutableString * (^replacingOccurrences)(NSString *, NSString *, NSStringCompareOptions);
+
+///- (void)insertString:(NSString *)aString atIndex:(NSUInteger)loc;
+@property(nonatomic, copy, readonly) NSMutableString * (^insertAtIndex)(NSString *, NSUInteger);
+
+///- (void)deleteCharactersInRange:(NSRange)range;
+@property(nonatomic, copy, readonly) NSMutableString * (^deleteCharacters)(NSRange);
 
 @end
 
