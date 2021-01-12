@@ -40,6 +40,15 @@
     return (CGFloat)size;
 }
 
++ (NSString *)fileContentWithName:(NSString *)fileName type:(NSString *)ext{
+    NSString *path = [NSBundle.mainBundle pathForResource:fileName ofType:ext];
+    NSData *data = [NSData dataWithContentsOfFile:path];
+    
+    NSString *jsonString = [[NSString alloc] initWithData:data encoding:NSUTF8StringEncoding];
+    jsonString = [jsonString stringByReplacingOccurrencesOfString:@"\\" withString:@""];
+    return jsonString;
+}
+
 + (BOOL)fileExistAtPath:(NSString *)path{
     return [self.defaultManager fileExistsAtPath:path];;
 }

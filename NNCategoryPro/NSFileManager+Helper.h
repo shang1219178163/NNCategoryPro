@@ -20,6 +20,8 @@ NS_ASSUME_NONNULL_BEGIN
 @property (class, readonly, nullable) NSString *cachesPath;
 @property (class, readonly, assign) CGFloat availableDiskSpace;
 
++ (NSString *)fileContentWithName:(NSString *)fileName type:(NSString *)ext;
+
 + (BOOL)fileExistAtPath:(NSString *)path;
 + (BOOL)createDirectoryAtPath:(NSString *)path;
 
