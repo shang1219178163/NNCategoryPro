@@ -36,7 +36,7 @@
     return [self dataUsingEncoding:NSUTF8StringEncoding];
 }
 
--(id)objValue{
+- (id)objValue{
     NSError *error;
     id obj = [NSJSONSerialization JSONObjectWithData:self.jsonData options:kNilOptions error:&error];
     if (error) {
@@ -46,21 +46,17 @@
 }
 
 -(NSDictionary *)dictValue{
-    NSError *error;
-    NSDictionary *result = [NSJSONSerialization JSONObjectWithData:self.jsonData options:kNilOptions error:&error];
-    if (error) {
-        return [NSDictionary dictionary];
+    if (!self.objValue || ![self.objValue isKindOfClass:[NSDictionary class]]) {
+        return nil;
     }
-    return result;
+    return self.objValue;
 }
 
 -(NSArray *)arrayValue{
-    NSError *error;
-    NSArray *result = [NSJSONSerialization JSONObjectWithData:self.jsonData options:kNilOptions error:&error];
-    if (error) {
-        return [NSArray array];
+    if (!self.objValue || ![self.objValue isKindOfClass:[NSArray class]]) {
+        return nil;
     }
-    return result;
+    return self.objValue;
 }
 
 - (BOOL)boolValue{
@@ -89,6 +85,12 @@
     };
 }
 
+- (NSString * _Nonnull (^)(NSCharacterSet * _Nonnull))trimmedBySet{
+    return ^(NSCharacterSet *value) {
+        return [self stringByTrimmingCharactersInSet:value];
+    };
+}
+
 - (NSString * _Nonnull (^)(NSUInteger, NSUInteger))subStringBy{
     return ^(NSUInteger loc, NSUInteger len) {
         if (loc + len > self.length) {
@@ -99,13 +101,26 @@
     };
 }
 
-- (NSString *(^)(NSString * _Nonnull))append{
+- (NSString * _Nonnull (^)(NSUInteger))subStringFrom{
+    return ^(NSUInteger value) {
+        return [self substringFromIndex:value];;
+    };
+}
+
+- (NSString * _Nonnull (^)(NSUInteger))subStringTo{
+    return ^(NSUInteger value) {
+        return [self substringFromIndex:value];;
+    };
+}
+
+
+- (NSString *(^)(NSString * _Nonnull))appending{
     return ^(NSString *value){
         return [self stringByAppendingString:value];
     };
 }
 
-- (NSString * _Nonnull (^)(NSString * _Nonnull, ...))appendFormat{
+- (NSString * _Nonnull (^)(NSString * _Nonnull, ...))appendingFormat{
     return ^(NSString *format, ...){
         va_list list;
         va_start(list, format);
@@ -116,9 +131,70 @@
     };
 }
 
-- (NSString * _Nonnull (^)(NSString * _Nonnull, NSString * _Nonnull))replace{
-    return ^(NSString *target, NSString *replacement){
-        return [self stringByReplacingOccurrencesOfString:target withString:replacement];
+- (NSString * _Nonnull (^)(NSString * _Nonnull, NSString * _Nonnull, NSStringCompareOptions))replacingOccurrences{
+    return ^(NSString *target, NSString *replacement, NSStringCompareOptions options){
+        return [self stringByReplacingOccurrencesOfString:target withString:replacement options:options range:NSMakeRange(0, self.length)];
+    };
+}
+
+
+- (NSString * _Nonnull (^)(NSRange, NSString * _Nonnull))replacingCharacters{
+    return ^(NSRange range, NSString *replacement){
+        return [self stringByReplacingCharactersInRange:range withString:replacement];
+    };
+}
+
+- (NSComparisonResult (^)(NSString * _Nonnull, NSStringCompareOptions))compareBy{
+    return ^(NSString *value, NSStringCompareOptions options){
+        return [self compare:value options:options];
+    };
+}
+
+- (BOOL (^)(NSString * _Nonnull))equalTo{
+    return ^(NSString *value){
+        return [self isEqualToString:value];
+    };
+}
+
+- (BOOL (^)(NSString * _Nonnull))hasPrefix{
+    return ^(NSString *value){
+        return [self hasPrefix:value];
+    };
+}
+
+- (BOOL (^)(NSString * _Nonnull))hasSuffix{
+    return ^(NSString *value){
+        return [self hasSuffix:value];
+    };
+}
+
+- (BOOL (^)(NSString * _Nonnull))contains{
+    return ^(NSString *value){
+        return [self containsString:value];
+    };
+}
+
+- (NSRange (^)(NSString * _Nonnull, NSStringCompareOptions))rangeBy{
+    return ^(NSString *value, NSStringCompareOptions options){
+        return [self rangeOfString:value options:options];
+    };
+}
+
+- (NSData * _Nonnull (^)(NSStringEncoding))encoding{
+    return ^(NSStringEncoding value){
+        return [self dataUsingEncoding:value];
+    };
+}
+
+- (NSArray<NSString *> *(^)(NSString *))separatedBy{
+    return ^(NSString *value) {
+        return [self componentsSeparatedByString: value];
+    };
+}
+
+- (NSArray<NSString *> * _Nonnull (^)(NSCharacterSet * _Nonnull))separatedBySet{
+    return ^(NSCharacterSet *value) {
+        return [self componentsSeparatedByCharactersInSet:value];
     };
 }
 
@@ -172,6 +248,28 @@
     return [pre evaluateWithObject:self];;
 }
 
+#pragma mark -高阶函数
+- (NSString *)mapBySeparator:(NSString *)separator transform:(NSString * (NS_NOESCAPE ^)(NSString *obj))transform{
+    if (!transform) {
+        NSParameterAssert(transform != nil);
+        return self;
+    }
+    NSArray<NSString *> *list = [self componentsSeparatedByString:separator];
+    
+    __block NSMutableArray *marr = [NSMutableArray array];
+    [list enumerateObjectsUsingBlock:^(NSString * _Nonnull obj, NSUInteger idx, BOOL * _Nonnull stop) {
+        NSString *value = transform(obj);
+        if (value) {
+            [marr addObject:value];
+        }
+    }];
+    
+    NSString *result = [marr componentsJoinedByString:separator];
+    return result;
+}
+
+#pragma mark -funtions
+
 - (CGSize)sizeWithFont:(UIFont *)font width:(CGFloat)width mode:(NSLineBreakMode)lineBreakMode {
     if (!font) font = [UIFont systemFontOfSize:15];
 
@@ -191,17 +289,17 @@
 }
 
 NSString * NSStringFromIndexPath(NSIndexPath *indexPath) {
-    return [NSString stringWithFormat:@"{%@,%@}",@(indexPath.section),@(indexPath.row)];
+    return [NSString stringWithFormat:@"{%@,%@}", @(indexPath.section), @(indexPath.row)];
 }
 
 NSString * NSStringFromHTML(NSString *html) {
-    NSScanner * scanner = [NSScanner scannerWithString:html];
-    NSString * text = nil;
+    NSScanner *scanner = [NSScanner scannerWithString:html];
+    NSString *text = nil;
     while(scanner.isAtEnd == NO)
     {
         [scanner scanUpToString:@"<" intoString:nil];
         [scanner scanUpToString:@">" intoString:&text];
-        html = [html stringByReplacingOccurrencesOfString:[NSString stringWithFormat:@"%@>",text] withString:@""];
+        html = [html stringByReplacingOccurrencesOfString:[NSString stringWithFormat:@"%@>", text] withString:@""];
     }
     return html;
 }
@@ -248,15 +346,13 @@ NSString * NSStringFromHTML(NSString *html) {
 
 /// 整形判断
 - (BOOL)isPureInteger{
-    NSString * string = self;
-    NSScanner * scan = [NSScanner scannerWithString:string];
+    NSScanner *scan = [NSScanner scannerWithString:self];
     NSInteger val = 0;
     return ([scan scanInteger:&val] && [scan isAtEnd]);
 }
 /// 浮点形判断
 - (BOOL)isPureFloat{
-    NSString * string = self;
-    NSScanner * scan = [NSScanner scannerWithString:string];
+    NSScanner *scan = [NSScanner scannerWithString:self];
     double val = 0.0;
     return ([scan scanDouble:&val] && [scan isAtEnd]);
 }
@@ -267,17 +363,7 @@ NSString * NSStringFromHTML(NSString *html) {
     return [result isEqualToString:self];
 }
 
-- (NSString *)toFileString{
-    NSArray *fileNameList = [self componentsSeparatedByString:@"."];
-    NSString *path = [NSBundle.mainBundle pathForResource:fileNameList.firstObject ofType:fileNameList.lastObject];
-    NSData *data = [NSData dataWithContentsOfFile:path];
-    
-    NSString *jsonString = [[NSString alloc] initWithData:data encoding:NSUTF8StringEncoding];
-    jsonString = [jsonString stringByReplacingOccurrencesOfString:@"\\" withString:@""];
-    return jsonString;
-}
-
-- (BOOL)isContainsCharacterSet:(NSCharacterSet *)set{
+- (BOOL)isContainsSet:(NSCharacterSet *)set{
     NSRange rang = [self rangeOfCharacterFromSet:set];
     return (rang.location != NSNotFound);
 }
@@ -312,31 +398,15 @@ NSString * NSStringFromHTML(NSString *html) {
 }
 
 + (NSString *)randomStringLength:(NSInteger)length{
-    NSArray * alphabetArray = @[@"A",@"B",@"C",@"D",@"E",@"F",@"G",
-                                @"H",@"I",@"J",@"K",@"L",@"M",@"N",
-                                @"O",@"P",@"Q",@"R",@"S",@"T",@"U",
-                                @"V",@"W",@"X",@"Y",@"Z"];
+    NSArray *array = @[@"A",@"B",@"C",@"D",@"E",@"F",@"G",
+                       @"H",@"I",@"J",@"K",@"L",@"M",@"N",
+                       @"O",@"P",@"Q",@"R",@"S",@"T",@"U",
+                       @"V",@"W",@"X",@"Y",@"Z"];
     
     NSString *randomString = @"";
     for (NSInteger i = 0; i < length; i++) {
         int x = arc4random() % 25;
-        randomString = [NSString stringWithFormat:@"%@%@",randomString,alphabetArray[x]];
-    }
-    return randomString;
-}
-
-- (NSString *)randomStringPartLength:(NSInteger)length{
-    NSAssert(self.length >= length, @"length应该小于字符串长度");
-    
-    unichar ch[self.length];
-    for (NSInteger i = 0; i < self.length; i++) {
-        ch[i] = [self characterAtIndex:i];
-    }
-    
-    NSString *randomString = @"";
-    for (NSInteger j = 0; j < length; j++) {
-        int x = arc4random() % (self.length - 1);
-        randomString = [NSString stringWithFormat:@"%@%C",randomString,ch[x]];
+        randomString = [NSString stringWithFormat:@"%@%@", randomString, array[x]];
     }
     return randomString;
 }
@@ -384,26 +454,6 @@ NSString * NSStringFromHTML(NSString *html) {
     return dateStr;
 }
 
-- (NSString *)randomStringLength:(NSInteger)length{
-    NSMutableString *mStr = [NSMutableString stringWithCapacity:0];
-    for (NSInteger i = 0; i < length; i++) {
-        NSUInteger randomIndex = arc4random()%length;
-        [mStr appendFormat: @"%C", [self characterAtIndex:randomIndex]];
-    }
-    return mStr;
-}
-
-+ (NSString *)ramdomText{
-    NSArray *array = @[@"测试数据,",@"test_",@"AAAAA-",@"BBBBB>",@"秦时明月",@"犯我大汉天威者,虽远必诛",];
-    CGFloat length = arc4random()%15 + 5;
-    NSMutableString *mstr = [NSMutableString stringWithCapacity:0];
-    for (NSUInteger i = 0; i < length; i++) {
-        NSInteger random = (NSInteger)(arc4random() % array.count);
-        NSString *text = array[random];
-        [mstr appendString:text];
-    }
-    return mstr;
-}
 
 /**
  当标题包含*显示红色*,不包含*则显示透明色*
@@ -432,5 +482,58 @@ NSString * NSStringFromHTML(NSString *html) {
         .nn_present(true, nil);
     }
 }
+
+@end
+
+
+
+@implementation NSMutableString (Ext)
+
+- (NSMutableString * _Nonnull (^)(NSString * _Nonnull))append{
+    return ^(NSString *value) {
+        [self appendString:value];
+        return self;
+    };
+}
+
+- (NSMutableString * _Nonnull (^)(NSString * _Nonnull, ...))appendFormat{
+    return ^(NSString *format, ...){
+        va_list list;
+        va_start(list, format);
+        NSString *string = [[NSString alloc] initWithFormat:format arguments:list];
+        va_end(list);
+        [self appendString:string];
+        return self;
+    };
+}
+
+- (NSMutableString * _Nonnull (^)(NSString * _Nonnull, NSUInteger))insertAtIndex{
+    return ^(NSString *value, NSUInteger index) {
+        [self insertString:value atIndex:index];
+        return self;
+    };
+}
+
+- (NSMutableString * _Nonnull (^)(NSRange))deleteCharacters{
+    return ^(NSRange range) {
+        [self deleteCharactersInRange:range];
+        return self;
+    };
+}
+
+- (NSMutableString * _Nonnull (^)(NSRange, NSString * _Nonnull))replaceCharacters{
+    return ^(NSRange range, NSString *value) {
+        [self replaceCharactersInRange:range withString:value];
+        return self;
+    };
+}
+
+- (NSMutableString * _Nonnull (^)(NSString * _Nonnull, NSString * _Nonnull, NSStringCompareOptions, NSRange))replaceOccurrences{
+    return ^(NSString *target, NSString *replacement, NSStringCompareOptions options, NSRange searchRange) {
+        [self replaceOccurrencesOfString:target withString:replacement options:options range:searchRange];
+        return self;
+    };
+}
+
 
 @end

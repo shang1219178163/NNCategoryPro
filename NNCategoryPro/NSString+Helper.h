@@ -20,11 +20,11 @@ NS_ASSUME_NONNULL_BEGIN
 ///->NSData
 @property (nonatomic, strong, readonly) NSData *jsonData;
 ///->id
-@property (nonatomic, strong, readonly) id objValue;
+@property (nonatomic, strong, readonly, nullable) id objValue;
 ///->NSDictionary
-@property (nonatomic, strong, readonly) NSDictionary *dictValue;
+@property (nonatomic, strong, readonly, nullable) NSDictionary *dictValue;
 ///->NSArray
-@property (nonatomic, strong, readonly) NSArray *arrayValue;
+@property (nonatomic, strong, readonly, nullable) NSArray *arrayValue;
 
 @property (nonatomic, assign, readonly) BOOL boolValue;
 
@@ -35,17 +35,34 @@ NS_ASSUME_NONNULL_BEGIN
 ///过滤前后空格
 @property (nonatomic, strong, readonly) NSString *trimmed;
 /// 过滤字符集
-@property(nonatomic, strong, readonly) NSString *(^trimmedBy)(NSString *);
+@property(nonatomic, copy, readonly) NSString *(^trimmedBy)(NSString *);
+@property(nonatomic, copy, readonly) NSString *(^trimmedBySet)(NSCharacterSet *);
 
-@property(nonatomic, strong, readonly) NSString *(^subStringBy)(NSUInteger loc, NSUInteger len);
+@property(nonatomic, copy, readonly) NSString *(^subStringBy)(NSUInteger loc, NSUInteger len);
+@property(nonatomic, copy, readonly) NSString *(^subStringFrom)(NSUInteger from);
+@property(nonatomic, copy, readonly) NSString *(^subStringTo)(NSUInteger to);
 
+@property(nonatomic, copy, readonly) NSString *(^appending)(NSString *);
 
-@property(nonatomic, strong, readonly) NSString *(^append)(NSString *);
+@property(nonatomic, copy, readonly) NSString *(^appendingFormat)(NSString *format, ...);
 
-@property(nonatomic, strong, readonly) NSString *(^appendFormat)(NSString *format, ... );
+@property(nonatomic, copy, readonly) NSString *(^replacingOccurrences)(NSString *, NSString *, NSStringCompareOptions);
+@property(nonatomic, copy, readonly) NSString *(^replacingCharacters)(NSRange, NSString *);
 
-@property(nonatomic, strong, readonly) NSString *(^replace)(NSString *, NSString *);
+@property(nonatomic, copy, readonly) NSComparisonResult (^compareBy)(NSString *, NSStringCompareOptions);
 
+@property(nonatomic, copy, readonly) BOOL (^equalTo)(NSString *);
+
+@property(nonatomic, copy, readonly) BOOL (^hasPrefix)(NSString *);
+@property(nonatomic, copy, readonly) BOOL (^hasSuffix)(NSString *);
+@property(nonatomic, copy, readonly) BOOL (^contains)(NSString *);
+@property(nonatomic, copy, readonly) NSRange (^rangeBy)(NSString *, NSStringCompareOptions);
+@property(nonatomic, copy, readonly, nullable) NSData *(^encoding)(NSStringEncoding);
+
+///componentsSeparatedByString
+@property(nonatomic, strong, readonly) NSArray<NSString *> *(^separatedBy)(NSString *);
+///componentsSeparatedByString
+@property(nonatomic, strong, readonly) NSArray<NSString *> *(^separatedBySet)(NSCharacterSet *);
 
 @property (nonatomic, strong, readonly) NSString *urlDecoded;
 @property (nonatomic, strong, readonly) NSString *urlEncoded;
@@ -54,6 +71,9 @@ NS_ASSUME_NONNULL_BEGIN
 @property (nonatomic, assign, readonly) BOOL isValidFileUrl;
 @property (nonatomic, assign, readonly) BOOL isValidPhone;
 @property (nonatomic, assign, readonly) BOOL isValidEmail;
+
+///separator 分割后的子元素进行转换
+- (NSString *)mapBySeparator:(NSString *)separator transform:(NSString * (NS_NOESCAPE ^)(NSString *obj))transform;
 
 - (CGSize)sizeWithFont:(UIFont *)font width:(CGFloat)width mode:(NSLineBreakMode)lineBreakMode;
 
@@ -82,9 +102,7 @@ FOUNDATION_EXPORT NSString * NSStringFromHTML(NSString *html);
 
 - (BOOL)isPureByCharSet:(NSString *)charSet;
 
-- (NSString *)toFileString;
-
-- (BOOL)isContainsCharacterSet:(NSCharacterSet *)set;
+- (BOOL)isContainsSet:(NSCharacterSet *)set;
 
 - (NSString *)makeUnicodeToString;
     
@@ -94,11 +112,6 @@ FOUNDATION_EXPORT NSString * NSStringFromHTML(NSString *html);
  随即字符串
  */
 + (NSString *)randomStringLength:(NSInteger)length;
-
-/**
- 随即产生字符串部分字符组合
- */
-- (NSString *)randomStringPartLength:(NSInteger)length;
 
 - (NSString *)toTimestampMonth;
 
@@ -110,17 +123,29 @@ FOUNDATION_EXPORT NSString * NSStringFromHTML(NSString *html);
 
 - (NSString *)toDateMonthDay;
 
-/**
- 获取随机子字符串
- e.g.:0123456789ABCDEFGHIJKLMNOPQRSTUVWXYZ
- */
-- (NSString *)randomStringLength:(NSInteger)length;
-
-+ (NSString *)ramdomText;
-
 - (NSAttributedString *)toAsterisk;
 
 - (void)copyToPasteboard:(BOOL)hiddenTips;
+
+@end
+
+
+@interface NSMutableString (Ext)
+
+///- (void)appendString:(NSString *)aString;
+- (NSMutableString * (^)(NSString *))append;
+///- (void)appendFormat:(NSString *)format, ... NS_FORMAT_FUNCTION(1,2);
+- (NSMutableString * (^)(NSString *format, ...))appendFormat;
+///- (void)insertString:(NSString *)aString atIndex:(NSUInteger)loc;
+- (NSMutableString * (^)(NSString *, NSUInteger))insertAtIndex;
+///- (void)deleteCharactersInRange:(NSRange)range;
+- (NSMutableString * (^)(NSRange))deleteCharacters;
+///- (void)replaceCharactersInRange:(NSRange)range withString:(NSString *)aString;
+- (NSMutableString * (^)(NSRange, NSString *))replaceCharacters;
+
+///- (NSUInteger)replaceOccurrencesOfString:(NSString *)target withString:(NSString *)replacement options:(NSStringCompareOptions)options range:(NSRange)searchRange;
+- (NSMutableString * (^)(NSString *, NSString *, NSStringCompareOptions, NSRange))replaceOccurrences;
+
 @end
 
 NS_ASSUME_NONNULL_END
