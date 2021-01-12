@@ -276,7 +276,7 @@
    
     CALayer *layer = self.keepList.firstObject;
     [layer removeAllAnimations];
-    [self.cacheList addSafeObjct:layer];
+    [self.cacheList addObject:layer];
     [layer removeFromSuperlayer];
     [self.keepList removeObject:layer];
     

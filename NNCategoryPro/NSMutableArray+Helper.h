@@ -10,13 +10,25 @@
 
 NS_ASSUME_NONNULL_BEGIN
 
-@interface NSMutableArray (Helper)
+@interface NSMutableArray<ObjectType> (Helper)
 
--(void)addSafeObjct:(id)obj;
+@property(nonatomic, copy, readonly) NSMutableArray *(^addObject)(ObjectType);
+@property(nonatomic, copy, readonly) NSMutableArray *(^addObjects)(NSArray<ObjectType> *);
 
--(id)objectSafeAtIndex:(NSUInteger)index;
+@property(nonatomic, copy, readonly) NSMutableArray *(^insertAtIndex)(ObjectType, NSUInteger);
+@property(nonatomic, copy, readonly) NSMutableArray *(^removeAtIndex)(NSUInteger);
+@property(nonatomic, copy, readonly) NSMutableArray *(^removeObjects)(NSArray<ObjectType> *);
+@property(nonatomic, copy, readonly) NSMutableArray *(^removeAll)(void);
 
--(void)replaceObjectAtIndex:(NSUInteger)index withSafeObject:(id)anObject;
+@property(nonatomic, copy, readonly) NSMutableArray *(^replaceAtIndex)(ObjectType, NSUInteger);
+
+@property(nonatomic, copy, readonly) NSMutableArray *(^sort)(SEL);
+
+//-(void)addSafeObjct:(id)obj;
+//
+//-(id)objectSafeAtIndex:(NSUInteger)index;
+//
+//-(void)replaceObjectAtIndex:(NSUInteger)index withSafeObject:(id)anObject;
 
 
 @end

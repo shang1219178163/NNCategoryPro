@@ -111,7 +111,9 @@
     //通过排列的key值获取value
     NSMutableArray *valueArray = [NSMutableArray array];
     for (NSString *key in sortKeyList) {
-        [valueArray addSafeObjct:self[key]];
+        if (self[key]) {
+            [valueArray addObject:self[key]];
+        }
     }
 //    DDLog(@"valueArray:%@",valueArray);
     return valueArray.copy;
