@@ -23,6 +23,11 @@
 
 #import <NNGloble/NNGloble.h>
 
+NSString * NSStringFromIndexPath(NSIndexPath *indexPath) {
+    return [NSString stringWithFormat:@"{%@,%@}", @(indexPath.section), @(indexPath.row)];
+}
+
+
 @implementation NSString (Helper)
 
 - (BOOL)isEmpty{
@@ -247,6 +252,38 @@
     return [pre evaluateWithObject:self];;
 }
 
+- (NSString *)dayBegin{
+    if (self.length != 19) {
+        return self;
+    }
+    NSString *replacement = @" 00:00:00";
+    NSString *result = [self stringByReplacingCharactersInRange:NSMakeRange(self.length - replacement.length, replacement.length) withString:replacement];
+    return result;
+}
+
+- (NSString *)dayEnd{
+    if (self.length != 19) {
+        return self;
+    }
+    NSString *replacement = @" 23:59:59";
+    NSString *result = [self stringByReplacingCharactersInRange:NSMakeRange(self.length - replacement.length, replacement.length) withString:replacement];
+    return result;
+}
+
+- (NSString *)filterHTML {
+    NSString *html = self;
+    
+    NSScanner *scanner = [NSScanner scannerWithString:html];
+    NSString *text = nil;
+    while(scanner.isAtEnd == NO)
+    {
+        [scanner scanUpToString:@"<" intoString:nil];
+        [scanner scanUpToString:@">" intoString:&text];
+        html = [html stringByReplacingOccurrencesOfString:[NSString stringWithFormat:@"%@>", text] withString:@""];
+    }
+    return html;
+}
+
 #pragma mark -高阶函数
 - (NSString *)mapBySeparator:(NSString *)separator transform:(NSString * (NS_NOESCAPE ^)(NSString *obj))transform{
     if (!transform) {
@@ -287,22 +324,6 @@
     return result;
 }
 
-NSString * NSStringFromIndexPath(NSIndexPath *indexPath) {
-    return [NSString stringWithFormat:@"{%@,%@}", @(indexPath.section), @(indexPath.row)];
-}
-
-NSString * NSStringFromHTML(NSString *html) {
-    NSScanner *scanner = [NSScanner scannerWithString:html];
-    NSString *text = nil;
-    while(scanner.isAtEnd == NO)
-    {
-        [scanner scanUpToString:@"<" intoString:nil];
-        [scanner scanUpToString:@">" intoString:&text];
-        html = [html stringByReplacingOccurrencesOfString:[NSString stringWithFormat:@"%@>", text] withString:@""];
-    }
-    return html;
-}
-
 + (NSString *)repeating:(NSString *)repeatedValue count:(NSInteger)count{
     NSString *string = @"";
     for (NSInteger i = 0; i < count; i++) {
@@ -339,7 +360,7 @@ NSString * NSStringFromHTML(NSString *html) {
 
 - (NSString *)stringByReplacingAsteriskRange:(NSRange)range{
     NSAssert([self substringWithRange:range], @"星号代替字符失败,请检查字符串和range");
-    NSString *result = [self stringByReplacingCharactersInRange:range withString:[NSString repeating:@"*" count:range.length]];
+    NSString *result = [self stringByReplacingCharactersInRange:range withString:[@"*" repeating:range.length]];
     return result;
 }
 
@@ -409,50 +430,6 @@ NSString * NSStringFromHTML(NSString *html) {
     }
     return randomString;
 }
-
-#pragma mark - -时间戳
-- (NSString *)toTimestampMonth{
-    NSString *dateStr = (NSString *)self;
-    
-    NSString *tmp = @"01 00:00:00";//后台接口时间戳不要时分秒
-    dateStr = [dateStr stringByReplacingCharactersInRange:NSMakeRange(dateStr.length - tmp.length, tmp.length) withString:tmp];
-    return [NSDateFormatter intervalFromDateStr:dateStr fmt:kFormatDate];
-}
-
-- (NSString *)toTimestampBegin{
-    NSString *dateStr = (NSString *)self;
-    
-    NSString *tmp = @" 00:00:00";//后台接口时间戳不要时分秒
-    if (dateStr.length == 10) dateStr = [dateStr stringByAppendingString:tmp];
-    dateStr = [dateStr stringByReplacingCharactersInRange:NSMakeRange(dateStr.length - tmp.length, tmp.length) withString:tmp];
-    return [NSDateFormatter intervalFromDateStr:dateStr fmt:kFormatDate];
-}
-
-- (NSString *)toTimestampEnd{
-    NSString *dateStr = (NSString *)self;
-    
-    NSString *tmp = @" 23:59:59";//后台接口时间戳不要时分秒
-    if (dateStr.length == 10) dateStr = [dateStr stringByAppendingString:tmp];
-    dateStr = [dateStr stringByReplacingCharactersInRange:NSMakeRange(dateStr.length - tmp.length, tmp.length) withString:tmp];
-    return [NSDateFormatter intervalFromDateStr:dateStr fmt:kFormatDate];
-}
-
-- (NSString *)toDateShort{
-    if (self.length < 10) {
-        return @"";
-    }
-    NSString *dateStr = [self substringToIndex:10];
-    return dateStr;
-}
-
-- (NSString *)toDateMonthDay{
-    if (self.length < 10) {
-        return @"";
-    }
-    NSString *dateStr = [self substringWithRange:NSMakeRange(5, 5)];
-    return dateStr;
-}
-
 
 /**
  当标题包含*显示红色*,不包含*则显示透明色*

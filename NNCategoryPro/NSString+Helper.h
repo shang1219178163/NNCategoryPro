@@ -13,6 +13,8 @@
 
 NS_ASSUME_NONNULL_BEGIN
 
+NSString * NSStringFromIndexPath(NSIndexPath *indexPath);
+
 @interface NSString (Helper)
 ///判断 self是否为空字符
 @property (nonatomic, assign, readonly) BOOL isEmpty;
@@ -72,15 +74,17 @@ NS_ASSUME_NONNULL_BEGIN
 @property (nonatomic, assign, readonly) BOOL isValidPhone;
 @property (nonatomic, assign, readonly) BOOL isValidEmail;
 
+///****-**-** 00:00:00
+@property (nonatomic, strong, readonly) NSString *dayBegin;
+///****-**-** 23:59:59
+@property (nonatomic, strong, readonly) NSString *dayEnd;
+///过滤 html 中的文字
+@property (nonatomic, strong, readonly) NSString *filterHTML;
+
 ///separator 分割后的子元素进行转换
 - (NSString *)mapBySeparator:(NSString *)separator transform:(NSString * (NS_NOESCAPE ^)(NSString *obj))transform;
 
 - (CGSize)sizeWithFont:(UIFont *)font width:(CGFloat)width mode:(NSLineBreakMode)lineBreakMode;
-
-/// NSIndexPath->字符串
-FOUNDATION_EXPORT NSString * NSStringFromIndexPath(NSIndexPath *indexPath);
-/// html->字符串
-FOUNDATION_EXPORT NSString * NSStringFromHTML(NSString *html);
 
 + (NSString *)repeating:(NSString *)repeatedValue count:(NSInteger)count;
 
@@ -112,16 +116,6 @@ FOUNDATION_EXPORT NSString * NSStringFromHTML(NSString *html);
  随即字符串
  */
 + (NSString *)randomStringLength:(NSInteger)length;
-
-- (NSString *)toTimestampMonth;
-
-- (NSString *)toTimestampBegin;
-
-- (NSString *)toTimestampEnd;
-
-- (NSString *)toDateShort;
-
-- (NSString *)toDateMonthDay;
 
 - (NSAttributedString *)toAsterisk;
 
