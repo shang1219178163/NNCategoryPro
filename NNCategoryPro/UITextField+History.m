@@ -6,227 +6,51 @@
 //
 
 #import "UITextField+History.h"
-
 #import <objc/runtime.h>
-#import <NNGloble/NNGloble.h>
 
-#import "NSObject+Helper.h"
-#import "UIView+Helper.h"
-#import "UIScreen+Helper.h"
-#import "UIColor+Helper.h"
+@interface UITextFieldHistoryTarget()<UITableViewDataSource, UITableViewDelegate>
 
-NSString * const kTextFieldHistory = @"kTextFieldHistory" ;
-
-@interface UITextField()<UITableViewDataSource, UITableViewDelegate>
+@property (nonatomic, strong) UITableView *tableView;
+@property (nonatomic, strong) UITextField *textField;
+@property (nonatomic, strong, readwrite) NSString *selectedText;
 
 @end
 
+@implementation UITextFieldHistoryTarget
 
-@implementation UITextField (History)
-
-- (NSInteger)maxLength {
-    return [objc_getAssociatedObject(self, _cmd) integerValue];
-}
-
-- (void)setMaxLength:(NSInteger)maxLength {
-    objc_setAssociatedObject(self, @selector(maxLength), @(maxLength), OBJC_ASSOCIATION_ASSIGN);
-    [self addTarget:self action:@selector(textFieldTextDidChange) forControlEvents:UIControlEventEditingChanged];
-}
-
-- (void)textFieldTextDidChange {
-    NSString *toBeString = self.text;
-    //获取高亮部分
-    UITextRange *selectedRange = [self markedTextRange];
-    UITextPosition *position = [self positionFromPosition:selectedRange.start offset:0];
-    
-    //没有高亮选择的字，则对已输入的文字进行字数统计和限制
-    //在iOS7下,position对象总是不为nil
-    if ((!position ||!selectedRange) && (self.maxLength > 0 && toBeString.length > self.maxLength)){
-        NSRange rangeIndex = [toBeString rangeOfComposedCharacterSequenceAtIndex:self.maxLength];
-        if (rangeIndex.length == 1){
-            self.text = [toBeString substringToIndex:self.maxLength];
-        }
-        else{
-            NSRange rangeRange = [toBeString rangeOfComposedCharacterSequencesForRange:NSMakeRange(0, self.maxLength)];
-            NSInteger tmpLength;
-            if (rangeRange.length > self.maxLength) {
-                tmpLength = rangeRange.length - rangeIndex.length;
-            } else {
-                tmpLength = rangeRange.length;
-            }
-            self.text = [toBeString substringWithRange:NSMakeRange(0, tmpLength)];
-        }
-    }
-}
-
-- (BOOL)handlePhoneWithReplacementString:(NSString *)string{
-    //只有手机号需要空格,密码不需要
-    if ([string isEqualToString:@""]) { // 删除字符
-        return YES;
-    }
-    else {
-        if (self.text.length == 3 || self.text.length == 8) {//输入
-            NSString * temStr = self.text;
-            temStr = [temStr stringByAppendingString:@" "];
-            self.text = temStr;
-            
-        }
-        else if (self.text.length >= 13){
-            return NO;
-        }
-    }
-    return YES;
-}
-
-- (BOOL)backToEmptyWithReplacementString:(NSString *)string{
-    if ([string isEqualToString:@""]) { // 删除字符
-        self.text = @"";
-        return YES;
-    }
-    return YES;
-}
-
-#pragma makr- -history
-- (NSString *)identify{
+- (NSMutableArray<NSString *> *)list{
     return objc_getAssociatedObject(self, _cmd);
 }
 
-- (void)setIdentify:(NSString *)identify {
-    objc_setAssociatedObject(self, @selector(identify), identify, OBJC_ASSOCIATION_RETAIN);
-}
-
-- (UITableView *)historyTableView {
-    UITableView *table = objc_getAssociatedObject(self, _cmd);
-    if (!table) {
-        table = [[UITableView alloc] initWithFrame:CGRectZero style:UITableViewStylePlain];
-        [table registerClass:[UITableViewCell class] forCellReuseIdentifier:@"UITextFieldHistoryCell"];
-        table.rowHeight = 45;
-        table.layer.borderColor = UIColor.grayColor.CGColor;
-        table.layer.borderWidth = 0.5;
-        table.delegate = self;
-        table.dataSource = self;
-        objc_setAssociatedObject(self, @selector(historyTableView), table, OBJC_ASSOCIATION_RETAIN);
+- (void)setList:(NSMutableArray<NSString *> *)list{
+    objc_setAssociatedObject(self, @selector(list), list, OBJC_ASSOCIATION_RETAIN);
+    self.selectedText = list.firstObject;
+    [self.tableView reloadData];
+    if (self.block) {
+        self.block(self);
     }
-    return table;
-}
-
-- (void)setHistoryTableView:(UITableView *)historyTableView{
-    objc_setAssociatedObject(self, @selector(historyTableView), historyTableView, OBJC_ASSOCIATION_RETAIN);
-}
-
-- (NSArray *)loadHistroy {
-    if (!self.identify) return nil;
-    NSUserDefaults* def = NSUserDefaults.standardUserDefaults;
-    NSDictionary* dic = [def objectForKey:kTextFieldHistory];
-    
-    id data = [dic objectForKey:self.identify];
-    if ([data isKindOfClass:[NSArray class]]) {
-        return data;
-    }
-    if ([data isKindOfClass:[NSDictionary class]]) {
-        return [data allKeys];
-    }
-    return nil;
-}
-
-- (void)synchronize {
-    if (!self.identify || self.text.length == 0) {
-        return;
-    }
-    
-    NSUserDefaults* def = NSUserDefaults.standardUserDefaults;
-    NSDictionary* dic = [def objectForKey:kTextFieldHistory];
-    NSArray* history = [dic objectForKey:self.identify];
-    
-    NSMutableArray* newHistory = [NSMutableArray arrayWithArray:history];
-    
-    __block BOOL haveSameRecord = false;
-    __weak typeof(self) weakSelf = self;
-    
-    [newHistory enumerateObjectsUsingBlock:^(id obj, NSUInteger idx, BOOL *stop) {
-        if ([(NSString*)obj isEqualToString:weakSelf.text]) {
-            *stop = true;
-            haveSameRecord = true;
-        }
-    }];
-    
-    if (haveSameRecord) {
-        return;
-    }
-    
-    [newHistory addObject:self.text];
-    
-    NSMutableDictionary* dic2 = [NSMutableDictionary dictionaryWithDictionary:dic];
-    [dic2 setObject:newHistory forKey:self.identify];
-    
-    [def setObject:dic2 forKey:kTextFieldHistory];
-    [def synchronize];
-}
-
-- (void)showHistory{
-    NSArray *history = [self loadHistroy];
-    
-    if (self.historyTableView.superview || !history || history.count == 0) {
-        return;
-    }
-    
-    self.historyTableView.frame = CGRectMake(self.minX, CGRectGetMaxY(self.frame), self.sizeWidth, 1);
-    [self.superview addSubview:self.historyTableView];
-    
-    CGRect rect = self.historyTableView.frame;
-//    rect.size.height = self.maxY*(history.count + 1);
-    rect.size.height = self.historyTableView.rowHeight*(history.count + 1);
-
-    [UIView animateWithDuration:kDurationDrop animations:^{
-        self.historyTableView.frame = rect;
-    }];
-}
-
-- (void)clearHistoryButtonClick:(UIButton*) button {
-    [self clearHistory];
-    [self hideHistroy];
-}
-
-- (void)hideHistroy{
-    if (!self.historyTableView.superview) {
-        return;
-    }
-    
-    CGRect rect = self.historyTableView.frame;
-    rect.size.height = 1;
-    
-    [UIView animateWithDuration:kDurationDrop animations:^{
-        self.historyTableView.frame = rect;
-    } completion:^(BOOL finished) {
-        [self.historyTableView removeFromSuperview];
-    }];
-}
-
-- (void)clearHistory{
-    NSUserDefaults* def = NSUserDefaults.standardUserDefaults;
-    
-    [def setObject:nil forKey:kTextFieldHistory];
-    [def synchronize];
 }
 
 #pragma mark -tableview
 
-- (NSInteger)numberOfSectionsInTableView:(UITableView *)tableView{
-    return 1;
-}
-
 - (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section{
-    return [self loadHistroy].count;
+    return self.list.count;
 }
 
 - (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath{
-    UITableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:@"UITextFieldHistoryCell"];
+    if (self.blockCellForRow && self.blockCellForRow(tableView, indexPath)) {
+        return self.blockCellForRow(tableView, indexPath);
+    }
+    
+    static NSString *identifier = @"UITextFieldHistoryCell";
+    UITableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:identifier];
     if (!cell) {
-        cell = [[UITableViewCell alloc] initWithStyle:UITableViewCellStyleDefault reuseIdentifier:@"UITextFieldHistoryCell"];
+        cell = [[UITableViewCell alloc] initWithStyle:UITableViewCellStyleDefault reuseIdentifier:identifier];
     }
     cell.separatorInset = UIEdgeInsetsZero;
-    cell.textLabel.text = [self loadHistroy][indexPath.row];
-    
+    cell.textLabel.textColor = UIColor.grayColor;
+
+    cell.textLabel.text = self.list[indexPath.row];
     return cell;
 }
 
@@ -236,11 +60,13 @@ NSString * const kTextFieldHistory = @"kTextFieldHistory" ;
 }
 
 - (UIView *)tableView:(UITableView *)tableView viewForFooterInSection:(NSInteger)section{
-    UIButton *clearButton = [UIButton buttonWithType:UIButtonTypeRoundedRect];
-    [clearButton setTitle:@"全部清除" forState:UIControlStateNormal];
-    [clearButton addTarget:self action:@selector(clearHistoryButtonClick:) forControlEvents:UIControlEventTouchUpInside];
-    
-    return clearButton;
+//    if (self.list.count == 0) {
+//        return UIView();
+//    }
+    UIButton *sender = [UIButton buttonWithType:UIButtonTypeRoundedRect];
+    [sender setTitle:@"全部清除" forState:UIControlStateNormal];
+    [sender addTarget:self action:@selector(clearHistory) forControlEvents:UIControlEventTouchUpInside];
+    return sender;
 }
 
 - (CGFloat)tableView:(UITableView *)tableView heightForRowAtIndexPath:(NSIndexPath *)indexPath{
@@ -252,10 +78,140 @@ NSString * const kTextFieldHistory = @"kTextFieldHistory" ;
 }
 
 - (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath{
-    self.text = [self loadHistroy][indexPath.row];
+    self.selectedText = self.list[indexPath.row];
     [self hideHistroy];
+    
+    self.textField.text = self.selectedText;
+    if (self.block) {
+        self.block(self);
+    }
+    
+    if ([self.textField.rightView isKindOfClass:[UIButton class]]) {
+        UIButton *sender = (UIButton *)self.textField.rightView;
+        sender.selected = !sender.selected;
+    }
+}
+#pragma mark -functions
+
+- (void)showHistory{
+    if (self.tableView.superview || !self.list) {
+        return;
+    }
+    if (self.list.count == 0) {
+        NSLog(@"%s%@", __func__, @"列表为空!!!");
+        return;
+    }
+    self.tableView.frame = CGRectMake(CGRectGetMinX(self.textField.frame),
+                                      CGRectGetMaxY(self.textField.frame),
+                                      CGRectGetWidth(self.textField.frame),
+                                      1);
+    [self.textField.superview addSubview:self.tableView];
+    
+    CGRect rect = self.tableView.frame;
+    rect.size.height = self.tableView.rowHeight*(self.list.count + 1);
+
+    [UIView animateWithDuration:0.35 animations:^{
+        self.tableView.frame = rect;
+    }];
 }
 
+- (void)hideHistroy{
+    if (!self.tableView.superview) {
+        return;
+    }
+    
+    CGRect rect = self.tableView.frame;
+    rect.size.height = 1;
+    
+    [UIView animateWithDuration:0.35 animations:^{
+        self.tableView.frame = rect;
+    } completion:^(BOOL finished) {
+        [self.tableView removeFromSuperview];
+    }];
+}
+
+- (void)clearHistory{
+    [self.list removeAllObjects];
+    self.selectedText = nil;
+    [self hideHistroy];
+    if (self.block) {
+        self.block(self);
+    }
+}
+
+- (void)handleAction:(UIButton *)sender{
+    sender.selected = !sender.selected;
+//    DDLog(@"isSelected_%@", @(sender.isSelected));
+    if (sender.isSelected) {
+        [self.textField.target showHistory];
+    } else {
+        [self.textField.target hideHistroy];
+    }
+
+}
+#pragma mark -lazy
+- (UITableView *)tableView{
+    UITableView *view = objc_getAssociatedObject(self, _cmd);
+    if (view) {
+        return view;
+    }
+    
+    UITableView *table = [[UITableView alloc] initWithFrame:CGRectZero style:UITableViewStylePlain];
+    [table registerClass:[UITableViewCell class] forCellReuseIdentifier:@"UITextFieldHistoryCell"];
+    table.rowHeight = 45;
+    table.layer.borderColor = UIColor.lightGrayColor.CGColor;
+    table.layer.borderWidth = 0.5;
+    table.delegate = self;
+    table.dataSource = self;
+    objc_setAssociatedObject(self, @selector(tableView), table, OBJC_ASSOCIATION_RETAIN);
+    return table;
+}
 
 @end
+
+
+
+@implementation UITextField (History)
+
+- (UITextFieldHistoryTarget *)target{
+    UITextFieldHistoryTarget *obj = objc_getAssociatedObject(self, _cmd);
+    if (obj) {
+        return obj;
+    }
+    UITextFieldHistoryTarget *tmp = [[UITextFieldHistoryTarget alloc]init];
+    tmp.textField = self;
+    
+    tmp.textField.rightViewMode = UITextFieldViewModeAlways;
+    tmp.textField.rightView = ({
+        UIButton *sender = [UIButton buttonWithType:UIButtonTypeCustom];
+        [sender setTitle:@"展开" forState:UIControlStateNormal];
+        [sender setTitle:@"收起" forState:UIControlStateSelected];
+        [sender setTitleColor:UIColor.systemBlueColor forState:UIControlStateNormal];
+        [sender setTitleColor:UIColor.systemBlueColor forState:UIControlStateSelected];
+        sender.titleLabel.font = [UIFont systemFontOfSize:15];
+        sender.frame = CGRectMake(0, 0, 50, 30);
+        [sender addTarget:tmp action:@selector(handleAction:) forControlEvents:UIControlEventTouchUpInside];
+        sender;
+    });
+    
+    if (!tmp.textField.backgroundColor) {
+        tmp.textField.layer.borderColor = UIColor.lightGrayColor.CGColor;
+        tmp.textField.layer.borderWidth = 0.5;
+    }    
+    objc_setAssociatedObject(self, @selector(target), tmp, OBJC_ASSOCIATION_RETAIN);
+    return tmp;
+}
+
+//- (instancetype)initWithTarget:(UITextFieldHistoryTarget *)target{
+//    self = [super init];
+//    if (self) {
+//        self.target = target;
+//        target.textField = self;
+//    }
+//    return self;
+//}
+
+@end
+
+
 
