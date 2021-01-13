@@ -125,7 +125,7 @@ static NNForwardingTarget *_target = nil;
 
 - (id)p_objectAtIndex:(NSUInteger)index{
     if (index >= self.count) {
-        if (isOpenAssert) NSAssert(index < self.count, @"index越界");
+//        if (isOpenAssert) NSAssert(index < self.count, @"index越界");
         return nil;
     }
     return [self p_objectAtIndex:index];
@@ -134,7 +134,7 @@ static NNForwardingTarget *_target = nil;
 - (id)p_objectAtIndexedSubscript:(NSUInteger)index {
     NSUInteger count = self.count;
     if (count == 0 || index >= count) {
-        if (isOpenAssert) NSAssert(index < self.count, @"index越界");
+//        if (isOpenAssert) NSAssert(index < self.count, @"index越界");
         return nil;
     }
     return [self p_objectAtIndexedSubscript:index];
@@ -148,7 +148,7 @@ static NNForwardingTarget *_target = nil;
 - (id)p_objectAtIndex:(NSUInteger)index{
     if (index >= self.count) {
 //        DDLog(@"index越界");
-        if (isOpenAssert) NSAssert(index < self.count, @"index越界");
+//        if (isOpenAssert) NSAssert(index < self.count, @"index越界");
         return nil;
     }
     return [self p_objectAtIndex:index];
@@ -164,16 +164,16 @@ static NNForwardingTarget *_target = nil;
 
 - (void)p_addObject:(id)anObject{
     if(!anObject){
-        if (isOpenAssert) NSAssert(anObject, @"anObject不能为nil");
-        return ;
+//        if (isOpenAssert) NSAssert(anObject, @"anObject不能为nil");
+        return;
     }
     [self p_addObject:anObject];
 }
 
 - (void)p_insertObject:(id)anObject atIndex:(NSUInteger)index{
     if(!anObject){
-        if (isOpenAssert) NSAssert(anObject, @"anObject不能为nil");
-        return ;
+//        if (isOpenAssert) NSAssert(anObject, @"anObject不能为nil");
+        return;
     }
     [self p_insertObject:anObject atIndex:index];
 }
