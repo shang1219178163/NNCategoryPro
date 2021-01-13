@@ -57,8 +57,8 @@
     view.frame = rect;
     
     if (@available(iOS 13, *)) {
-        view.tintColor = UIColor.whiteColor;
-        [view ensureiOS13Style];
+        view.tintColor = UIColor.systemBlueColor;
+        [view ensureiOS13Style: 14];
         return view;
     }
     
@@ -134,7 +134,7 @@
     return view;
 }
 
-- (void)ensureiOS13Style {
+- (void)ensureiOS13Style:(CGFloat)fontSize {
     UIColor *tintColor = self.tintColor;
     UIImage *tintColorImage = UIImageColor(tintColor);
     // Must set the background image for normal to something (even clear) else the rest won't work
@@ -142,8 +142,14 @@
     [self setBackgroundImage:tintColorImage forState:UIControlStateSelected barMetrics:UIBarMetricsDefault];
     [self setBackgroundImage:UIImageColor([tintColor colorWithAlphaComponent:0.2]) forState:UIControlStateHighlighted barMetrics:UIBarMetricsDefault];
     [self setBackgroundImage:tintColorImage forState:UIControlStateSelected|UIControlStateSelected barMetrics:UIBarMetricsDefault];
+    
     [self setTitleTextAttributes:@{NSForegroundColorAttributeName: tintColor,
-                                   NSFontAttributeName: [UIFont systemFontOfSize:13]} forState:UIControlStateNormal];
+                                   NSFontAttributeName: [UIFont systemFontOfSize:fontSize]} forState:UIControlStateNormal];
+    [self setTitleTextAttributes:@{NSForegroundColorAttributeName: UIColor.whiteColor,
+                                   NSFontAttributeName: [UIFont systemFontOfSize:fontSize]} forState:UIControlStateSelected];
+    [self setTitleTextAttributes:@{NSForegroundColorAttributeName: UIColor.whiteColor,
+                                   NSFontAttributeName: [UIFont systemFontOfSize:fontSize]} forState:UIControlStateHighlighted];
+    
     [self setDividerImage:tintColorImage
       forLeftSegmentState:UIControlStateNormal
         rightSegmentState:UIControlStateNormal

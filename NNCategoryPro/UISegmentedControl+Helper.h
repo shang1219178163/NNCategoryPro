@@ -23,7 +23,7 @@ NS_ASSUME_NONNULL_BEGIN
                      items:(NSArray *)items
                       type:(NSNumber *)type;
 
-- (void)ensureiOS13Style API_AVAILABLE(ios(13.0));
+- (void)ensureiOS13Style:(CGFloat)fontSize API_AVAILABLE(ios(13.0));
 
 - (void)updateItems:(NSArray<NSString *> *)titles;
 
