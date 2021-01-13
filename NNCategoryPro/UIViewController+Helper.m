@@ -306,7 +306,11 @@ UINavigationController *UINavCtrFromObj(id obj){
 
 - (void)pushVC:(NSString *)vcName
       animated:(BOOL)animated
-         block:(void(^)(__kindof UIViewController *vc))block{
+         block:(void(^ __nullable)(__kindof UIViewController *vc))block{
+    if (!NSClassFromString(vcName)) {
+        return;
+    }
+    
     UIViewController *controller = [[NSClassFromString(vcName) alloc]init];
     if (block) {
         block(controller);

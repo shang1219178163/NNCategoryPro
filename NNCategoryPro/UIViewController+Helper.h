@@ -63,7 +63,7 @@ FOUNDATION_EXPORT UINavigationController * _Nullable UINavCtrFromObj(id obj);
 
 - (void)pushVC:(NSString *)vcName
       animated:(BOOL)animated
-         block:(void(^)(__kindof UIViewController *vc))block;
+         block:(void(^ __nullable)(__kindof UIViewController *vc))block;
 
 - (__kindof UIViewController * _Nullable)findController:(Class)classVC;
 
