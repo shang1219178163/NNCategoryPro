@@ -11,7 +11,7 @@
 @interface UITextFieldHistoryTarget()<UITableViewDataSource, UITableViewDelegate>
 
 @property (nonatomic, strong) UITableView *tableView;
-@property (nonatomic, strong) UITextField *textField;
+@property (nonatomic, weak) UITextField *textField;
 @property (nonatomic, strong, readwrite) NSString *selectedText;
 
 @end
@@ -38,8 +38,8 @@
 }
 
 - (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath{
-    if (self.blockCellForRow && self.blockCellForRow(tableView, indexPath)) {
-        return self.blockCellForRow(tableView, indexPath);
+    if (self.blockCellForRow && self.blockCellForRow(tableView, indexPath, self.list[indexPath.row])) {
+        return self.blockCellForRow(tableView, indexPath, self.list[indexPath.row]);
     }
     
     static NSString *identifier = @"UITextFieldHistoryCell";
@@ -201,15 +201,6 @@
     objc_setAssociatedObject(self, @selector(target), tmp, OBJC_ASSOCIATION_RETAIN);
     return tmp;
 }
-
-//- (instancetype)initWithTarget:(UITextFieldHistoryTarget *)target{
-//    self = [super init];
-//    if (self) {
-//        self.target = target;
-//        target.textField = self;
-//    }
-//    return self;
-//}
 
 @end
 

@@ -41,7 +41,7 @@ NS_ASSUME_NONNULL_BEGIN
 @property (nonatomic, strong) NSMutableArray<NSString *> *list;
 @property (nonatomic, strong, readonly, nullable) NSString *selectedText;
 
-@property (nonatomic, copy) UITableViewCell *(^blockCellForRow)(UITableView *tableView, NSIndexPath *indexPath);
+@property (nonatomic, copy) UITableViewCell *(^blockCellForRow)(UITableView *tableView, NSIndexPath *indexPath, NSString *selectedText);
 @property (nonatomic, copy) void(^block)(UITextFieldHistoryTarget *);
 
 - (void)showHistory;
