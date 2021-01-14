@@ -64,14 +64,8 @@ static char base64EncodingTable[64] = {
     NSString * PHS = @"^0(10|2[0-5789]|\\d{3})\\d{7,8}$";
     
     //    NSPredicate *regextestmobile = [NSPredicate predicateWithFormat:@"SELF MATCHES %@", MOBILE];
-    if (([self isValidateByRegex:CM]) || ([self isValidateByRegex:CU]) || ([self isValidateByRegex:CT]) || ([self isValidateByRegex:PHS]))
-    {
-        return YES;
-    }
-    else
-    {
-        return NO;
-    }
+    bool result = [self isValidateByRegex:CM] || [self isValidateByRegex:CU] || [self isValidateByRegex:CT] || [self isValidateByRegex:PHS];
+    return result;
 }
 
 //手机号有效性
@@ -86,7 +80,6 @@ static char base64EncodingTable[64] = {
     
     BOOL ret = [self isValidateByRegex:mobileNoRegex];
     BOOL ret1 = [self isValidateByRegex:phsRegex];
-    
     return (ret || ret1);
 }
 

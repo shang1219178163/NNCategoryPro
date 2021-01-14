@@ -26,17 +26,18 @@
 
 -(UIView *)lineTop{
     id obj = objc_getAssociatedObject(self, _cmd);
-    if (!obj) {
-        obj = ({
-            CGRect rect = CGRectMake(0, 0, CGRectGetWidth(self.bounds), kH_LINE_VIEW);
-            UIView *view = [[UIView alloc] initWithFrame:rect];
-            view.hidden = true;
-           
-            view;
-        });
-        objc_setAssociatedObject(self, _cmd, obj, OBJC_ASSOCIATION_RETAIN_NONATOMIC);
-        
+    if (obj) {
+        return obj;
     }
+    
+    UIView *view = ({
+        CGRect rect = CGRectMake(0, 0, CGRectGetWidth(self.bounds), kH_LINE_VIEW);
+        UIView *view = [[UIView alloc] initWithFrame:rect];
+        view.hidden = true;
+       
+        view;
+    });
+    objc_setAssociatedObject(self, _cmd, obj, OBJC_ASSOCIATION_RETAIN_NONATOMIC);
     return obj;
 }
 
@@ -46,17 +47,18 @@
 
 -(UIView *)lineBottom{
     id obj = objc_getAssociatedObject(self, _cmd);
-    if (!obj) {
-        obj = ({
-            CGRect rect = CGRectMake(0, CGRectGetHeight(self.bounds) - kH_LINE_VIEW, CGRectGetWidth(self.bounds), kH_LINE_VIEW);
-            UIView *view = [[UIView alloc] initWithFrame:rect];
-            view.hidden = true;
-           
-            view;
-        });
-        objc_setAssociatedObject(self, _cmd, obj, OBJC_ASSOCIATION_RETAIN_NONATOMIC);
-        
+    if (obj) {
+        return obj;
     }
+    
+    UIView *view = ({
+        CGRect rect = CGRectMake(0, CGRectGetHeight(self.bounds) - kH_LINE_VIEW, CGRectGetWidth(self.bounds), kH_LINE_VIEW);
+        UIView *view = [[UIView alloc] initWithFrame:rect];
+        view.hidden = true;
+       
+        view;
+    });
+    objc_setAssociatedObject(self, _cmd, obj, OBJC_ASSOCIATION_RETAIN_NONATOMIC);
     return obj;
 }
 
@@ -64,14 +66,16 @@
     objc_setAssociatedObject(self, @selector(lineBottom), lineBottom, OBJC_ASSOCIATION_RETAIN_NONATOMIC);
 }
 
--(CAGradientLayer *)gradientLayer{
+- (CAGradientLayer *)gradientLayer{
     id obj = objc_getAssociatedObject(self, _cmd);
-    if (!obj) {
-        NSArray * colors = @[[UIColor.themeColor colorWithAlphaComponent:0.5], [UIColor.themeColor colorWithAlphaComponent:0.9]];
-        obj = [CAGradientLayer layerRect:CGRectZero colors:colors start:CGPointMake(0, 0) end:CGPointMake(1.0, 0)];
-        
-        objc_setAssociatedObject(self, _cmd, obj, OBJC_ASSOCIATION_RETAIN_NONATOMIC);
+    if (obj) {
+        return obj;
     }
+    
+    NSArray *colors = @[[UIColor.themeColor colorWithAlphaComponent:0.5], [UIColor.themeColor colorWithAlphaComponent:0.9]];
+     CAGradientLayer *layer = [CAGradientLayer layerRect:CGRectZero colors:colors start:CGPointMake(0, 0) end:CGPointMake(1.0, 0)];
+    
+    objc_setAssociatedObject(self, _cmd, layer, OBJC_ASSOCIATION_RETAIN_NONATOMIC);
     return obj;
 }
 
@@ -81,33 +85,34 @@
 
 -(UIView *)holderView{
     id obj = objc_getAssociatedObject(self, _cmd);
-    if (!obj) {
-        obj = ({
-            UIView *view = [[UIView alloc] initWithFrame:self.bounds];
-            view.hidden = true;
-            
-            CGFloat height = CGRectGetHeight(self.bounds) - 25*2;
-            CGFloat YGap = height*0.2;
-            
-            UIImageView *imgView = [[UIImageView alloc] initWithFrame:CGRectMake(0, YGap, CGRectGetWidth(self.bounds), height*0.3)];
-            imgView.contentMode = UIViewContentModeScaleAspectFit;
-            imgView.userInteractionEnabled = YES;
-            imgView.tag = kTAG_IMGVIEW;
-            [view addSubview:imgView];
-            
-            UILabel * label = [[UILabel alloc]initWithFrame:CGRectMake(0, CGRectGetMaxY(imgView.frame) + 25, CGRectGetWidth(self.bounds), 25)];
-            label.textAlignment = NSTextAlignmentCenter;
-            label.text = @"暂无数据";
-            label.textColor = UIColorHexValue(0x999999);
-            label.tag = kTAG_LABEL;
-            [view addSubview:label];
-
-            view;
-        });
-        objc_setAssociatedObject(self, _cmd, obj, OBJC_ASSOCIATION_RETAIN_NONATOMIC);
-        
+    if (obj) {
+        return obj;
     }
-    return obj;
+    
+    UIView *view = ({
+        UIView *view = [[UIView alloc] initWithFrame:self.bounds];
+        view.hidden = true;
+        
+        CGFloat height = CGRectGetHeight(self.bounds) - 25*2;
+        CGFloat YGap = height*0.2;
+        
+        UIImageView *imgView = [[UIImageView alloc] initWithFrame:CGRectMake(0, YGap, CGRectGetWidth(self.bounds), height*0.3)];
+        imgView.contentMode = UIViewContentModeScaleAspectFit;
+        imgView.userInteractionEnabled = YES;
+        imgView.tag = kTAG_IMGVIEW;
+        [view addSubview:imgView];
+        
+        UILabel * label = [[UILabel alloc]initWithFrame:CGRectMake(0, CGRectGetMaxY(imgView.frame) + 25, CGRectGetWidth(self.bounds), 25)];
+        label.textAlignment = NSTextAlignmentCenter;
+        label.text = @"暂无数据";
+        label.textColor = UIColorHexValue(0x999999);
+        label.tag = kTAG_LABEL;
+        [view addSubview:label];
+
+        view;
+    });
+    objc_setAssociatedObject(self, _cmd, view, OBJC_ASSOCIATION_RETAIN_NONATOMIC);
+    return view;
 }
 
 -(void)setHolderView:(UIView *)holderView{

@@ -53,23 +53,25 @@
 }
 
 -(UILabel *)labelRight{
-    UILabel *view = objc_getAssociatedObject(self, _cmd);
-    if (!view) {
-        view = [UILabel createRect:CGRectZero type:@2];
-        view.textAlignment = NSTextAlignmentRight;
-//        view = ({
-//            UILabel * view = [[UILabel alloc] initWithFrame:CGRectZero];
-//            view.autoresizingMask = UIViewAutoresizingFlexibleWidth|UIViewAutoresizingFlexibleHeight;
-//            view.font = [UIFont systemFontOfSize:17];
-//            view.textAlignment = NSTextAlignmentLeft;
-//            view.numberOfLines = 0;
-//            view.userInteractionEnabled = true;
-//            view.backgroundColor = UIColor.greenColor;
-//            view.tag = kTAG_LABEL + 4;
-//            view;
-//        });
-        objc_setAssociatedObject(self, _cmd, view, OBJC_ASSOCIATION_RETAIN_NONATOMIC);
+    id obj = objc_getAssociatedObject(self, _cmd);
+    if (obj) {
+        return obj;
     }
+    
+    UILabel *view = [UILabel createRect:CGRectZero type:@2];
+    view.textAlignment = NSTextAlignmentRight;
+//    view = ({
+//        UILabel * view = [[UILabel alloc] initWithFrame:CGRectZero];
+//        view.autoresizingMask = UIViewAutoresizingFlexibleWidth|UIViewAutoresizingFlexibleHeight;
+//        view.font = [UIFont systemFontOfSize:17];
+//        view.textAlignment = NSTextAlignmentLeft;
+//        view.numberOfLines = 0;
+//        view.userInteractionEnabled = true;
+//        view.backgroundColor = UIColor.greenColor;
+//        view.tag = kTAG_LABEL + 4;
+//        view;
+//    });
+    objc_setAssociatedObject(self, _cmd, view, OBJC_ASSOCIATION_RETAIN_NONATOMIC);
     return view;
 }
 
@@ -78,23 +80,25 @@
 }
 
 -(UILabel *)labelLeft{
-    UILabel * view = objc_getAssociatedObject(self, _cmd);
-    if (!view) {
-        view = [UILabel createRect:CGRectZero type:@2];
-        view.textAlignment = NSTextAlignmentLeft;
-//        view = ({
-//            UILabel * view = [[UILabel alloc] initWithFrame:CGRectZero];
-//            view.autoresizingMask = UIViewAutoresizingFlexibleWidth|UIViewAutoresizingFlexibleHeight;
-//            view.font = [UIFont systemFontOfSize:17];
-//            view.textAlignment = NSTextAlignmentLeft;
-//            view.numberOfLines = 0;
-//            view.userInteractionEnabled = true;
-//            view.backgroundColor = UIColor.greenColor;
-//            view.tag = kTAG_LABEL;
-//            view;
-//        });
-        objc_setAssociatedObject(self, _cmd, view, OBJC_ASSOCIATION_RETAIN_NONATOMIC);
+    id obj = objc_getAssociatedObject(self, _cmd);
+    if (obj) {
+        return obj;
     }
+    
+    UILabel *view = [UILabel createRect:CGRectZero type:@2];
+    view.textAlignment = NSTextAlignmentLeft;
+//    view = ({
+//        UILabel * view = [[UILabel alloc] initWithFrame:CGRectZero];
+//        view.autoresizingMask = UIViewAutoresizingFlexibleWidth|UIViewAutoresizingFlexibleHeight;
+//        view.font = [UIFont systemFontOfSize:17];
+//        view.textAlignment = NSTextAlignmentLeft;
+//        view.numberOfLines = 0;
+//        view.userInteractionEnabled = true;
+//        view.backgroundColor = UIColor.greenColor;
+//        view.tag = kTAG_LABEL;
+//        view;
+//    });
+    objc_setAssociatedObject(self, _cmd, view, OBJC_ASSOCIATION_RETAIN_NONATOMIC);
     return view;
 }
 
@@ -103,23 +107,25 @@
 }
 
 -(UILabel *)labelLeftMark{
-    UILabel * view = objc_getAssociatedObject(self, _cmd);
-    if (!view) {
-        view = [UILabel createRect:CGRectZero type:@2];
-        view.textAlignment = NSTextAlignmentLeft;
-//        view = ({
-//            UILabel * view = [[UILabel alloc] initWithFrame:CGRectZero];
-//            view.autoresizingMask = UIViewAutoresizingFlexibleWidth|UIViewAutoresizingFlexibleHeight;
-//            view.font = [UIFont systemFontOfSize:17];
-//            view.textAlignment = NSTextAlignmentLeft;
-//            view.numberOfLines = 0;
-//            view.userInteractionEnabled = true;
-//            view.backgroundColor = UIColor.greenColor;
-//            view.tag = kTAG_LABEL + 1;
-//            view;
-//        });
-        objc_setAssociatedObject(self, _cmd, view, OBJC_ASSOCIATION_RETAIN_NONATOMIC);
+    id obj = objc_getAssociatedObject(self, _cmd);
+    if (obj) {
+        return obj;
     }
+    
+    UILabel *view = [UILabel createRect:CGRectZero type:@2];
+    view.textAlignment = NSTextAlignmentLeft;
+//    view = ({
+//        UILabel * view = [[UILabel alloc] initWithFrame:CGRectZero];
+//        view.autoresizingMask = UIViewAutoresizingFlexibleWidth|UIViewAutoresizingFlexibleHeight;
+//        view.font = [UIFont systemFontOfSize:17];
+//        view.textAlignment = NSTextAlignmentLeft;
+//        view.numberOfLines = 0;
+//        view.userInteractionEnabled = true;
+//        view.backgroundColor = UIColor.greenColor;
+//        view.tag = kTAG_LABEL + 1;
+//        view;
+//    });
+    objc_setAssociatedObject(self, _cmd, view, OBJC_ASSOCIATION_RETAIN_NONATOMIC);
     return view;
 }
 
@@ -128,23 +134,25 @@
 }
 
 -(UILabel *)labelLeftSub{
-    UILabel * view = objc_getAssociatedObject(self, _cmd);
-    if (!view) {
-        view = [UILabel createRect:CGRectZero type:@2];
-        view.textAlignment = NSTextAlignmentLeft;
-//        view = ({
-//            UILabel * view = [[UILabel alloc] initWithFrame:CGRectZero];
-//            view.autoresizingMask = UIViewAutoresizingFlexibleWidth|UIViewAutoresizingFlexibleHeight;
-//            view.font = [UIFont systemFontOfSize:17];
-//            view.textAlignment = NSTextAlignmentLeft;
-//            view.numberOfLines = 0;
-//            view.userInteractionEnabled = true;
-//            view.backgroundColor = UIColor.greenColor;
-//            view.tag = kTAG_LABEL+2;
-//            view;
-//        });
-        objc_setAssociatedObject(self, _cmd, view, OBJC_ASSOCIATION_RETAIN_NONATOMIC);
+    id obj = objc_getAssociatedObject(self, _cmd);
+    if (obj) {
+        return obj;
     }
+    
+    UILabel *view = [UILabel createRect:CGRectZero type:@2];
+    view.textAlignment = NSTextAlignmentLeft;
+//    view = ({
+//        UILabel * view = [[UILabel alloc] initWithFrame:CGRectZero];
+//        view.autoresizingMask = UIViewAutoresizingFlexibleWidth|UIViewAutoresizingFlexibleHeight;
+//        view.font = [UIFont systemFontOfSize:17];
+//        view.textAlignment = NSTextAlignmentLeft;
+//        view.numberOfLines = 0;
+//        view.userInteractionEnabled = true;
+//        view.backgroundColor = UIColor.greenColor;
+//        view.tag = kTAG_LABEL+2;
+//        view;
+//    });
+    objc_setAssociatedObject(self, _cmd, view, OBJC_ASSOCIATION_RETAIN_NONATOMIC);
     return view;
 }
 
@@ -153,23 +161,25 @@
 }
 
 -(UILabel *)labelLeftSubMark{
-    UILabel * view = objc_getAssociatedObject(self, _cmd);
-    if (!view) {
-        view = [UILabel createRect:CGRectZero type:@2];
-        view.textAlignment = NSTextAlignmentLeft;
-//        view = ({
-//            UILabel * view = [[UILabel alloc] initWithFrame:CGRectZero];
-//            view.autoresizingMask = UIViewAutoresizingFlexibleWidth|UIViewAutoresizingFlexibleHeight;
-//            view.font = [UIFont systemFontOfSize:17];
-//            view.textAlignment = NSTextAlignmentLeft;
-//            view.numberOfLines = 0;
-//            view.userInteractionEnabled = true;
-//            view.backgroundColor = UIColor.greenColor;
-//            view.tag = kTAG_LABEL+3;
-//            view;
-//        });
-        objc_setAssociatedObject(self, _cmd, view, OBJC_ASSOCIATION_RETAIN_NONATOMIC);
+    id obj = objc_getAssociatedObject(self, _cmd);
+    if (obj) {
+        return obj;
     }
+    
+    UILabel *view = [UILabel createRect:CGRectZero type:@2];
+    view.textAlignment = NSTextAlignmentLeft;
+//    view = ({
+//        UILabel * view = [[UILabel alloc] initWithFrame:CGRectZero];
+//        view.autoresizingMask = UIViewAutoresizingFlexibleWidth|UIViewAutoresizingFlexibleHeight;
+//        view.font = [UIFont systemFontOfSize:17];
+//        view.textAlignment = NSTextAlignmentLeft;
+//        view.numberOfLines = 0;
+//        view.userInteractionEnabled = true;
+//        view.backgroundColor = UIColor.greenColor;
+//        view.tag = kTAG_LABEL+3;
+//        view;
+//    });
+    objc_setAssociatedObject(self, _cmd, view, OBJC_ASSOCIATION_RETAIN_NONATOMIC);
     return view;
 }
 
@@ -178,18 +188,20 @@
 }
 
 -(UIImageView *)imgViewLeft{
-    UIImageView * view = objc_getAssociatedObject(self, _cmd);
-    if (!view) {
-        view = ({
-            UIImageView *view = [[UIImageView alloc] initWithFrame:CGRectZero];
-            view.autoresizingMask = UIViewAutoresizingFlexibleWidth|UIViewAutoresizingFlexibleHeight;
-            view.contentMode = UIViewContentModeScaleAspectFit;
-            view.userInteractionEnabled = YES;
-            
-            view;
-        });
-        objc_setAssociatedObject(self, _cmd, view, OBJC_ASSOCIATION_RETAIN_NONATOMIC);
+    id obj = objc_getAssociatedObject(self, _cmd);
+    if (obj) {
+        return obj;
     }
+    
+    UIImageView *view = ({
+        UIImageView *view = [[UIImageView alloc] initWithFrame:CGRectZero];
+        view.autoresizingMask = UIViewAutoresizingFlexibleWidth|UIViewAutoresizingFlexibleHeight;
+        view.contentMode = UIViewContentModeScaleAspectFit;
+        view.userInteractionEnabled = YES;
+        
+        view;
+    });
+    objc_setAssociatedObject(self, _cmd, view, OBJC_ASSOCIATION_RETAIN_NONATOMIC);
     return view;
 }
 
@@ -198,25 +210,27 @@
 }
 
 -(UIImageView *)imgViewRight{
-    UIImageView * view = objc_getAssociatedObject(self, _cmd);
-    if (!view) {
-        view = ({
-            UIImageView *view = [[UIImageView alloc] initWithFrame:CGRectZero];
-            view.autoresizingMask = UIViewAutoresizingFlexibleWidth|UIViewAutoresizingFlexibleHeight;
-            view.contentMode = UIViewContentModeScaleAspectFit;
-            view.userInteractionEnabled = YES;
-            
-            view.frame = CGRectMake(self.contentView.maxX - kX_GAP - kSizeArrow.width,
-                                    (self.contentView.maxY - kSizeArrow.height)/2.0,
-                                    kSizeArrow.width,
-                                    kSizeArrow.height);
-            view.image = [UIImage imageNamed:kIMG_arrowRight];
-            
-            view.hidden = YES;
-            view;
-        });
-        objc_setAssociatedObject(self, _cmd, view, OBJC_ASSOCIATION_RETAIN_NONATOMIC);
+    id obj = objc_getAssociatedObject(self, _cmd);
+    if (obj) {
+        return obj;
     }
+    
+    UIImageView *view = ({
+        UIImageView *view = [[UIImageView alloc] initWithFrame:CGRectZero];
+        view.autoresizingMask = UIViewAutoresizingFlexibleWidth|UIViewAutoresizingFlexibleHeight;
+        view.contentMode = UIViewContentModeScaleAspectFit;
+        view.userInteractionEnabled = YES;
+        
+        view.frame = CGRectMake(self.contentView.maxX - kX_GAP - kSizeArrow.width,
+                                (self.contentView.maxY - kSizeArrow.height)/2.0,
+                                kSizeArrow.width,
+                                kSizeArrow.height);
+        view.image = [UIImage imageNamed:kIMG_arrowRight];
+        
+        view.hidden = YES;
+        view;
+    });
+    objc_setAssociatedObject(self, _cmd, view, OBJC_ASSOCIATION_RETAIN_NONATOMIC);
     return view;
 }
 
@@ -225,20 +239,22 @@
 }
 
 -(UIButton *)btn{
-    UIButton * view = objc_getAssociatedObject(self, _cmd);
-    if (!view) {
-        view = [UIButton createRect:CGRectZero title:@"取消订单" image:nil type:@7];
-//        view = ({
-//            UIButton * view = [UIButton buttonWithType:UIButtonTypeCustom];
-//            [view setTitle:@"按钮标题" forState:UIControlStateNormal];
-//            view.titleLabel.font = [UIFont systemFontOfSize:kFontSize16];
-//            view.titleLabel.adjustsFontSizeToFitWidth = YES;
-//            view.imageView.contentMode = UIViewContentModeScaleAspectFit;
-//            view.tag = kTAG_BTN;
-//            view;
-//        });
-        objc_setAssociatedObject(self, _cmd, view, OBJC_ASSOCIATION_RETAIN_NONATOMIC);
+    id obj = objc_getAssociatedObject(self, _cmd);
+    if (obj) {
+        return obj;
     }
+    
+    UIButton *view = [UIButton createRect:CGRectZero title:@"取消订单" image:nil type:@7];
+//    view = ({
+//        UIButton * view = [UIButton buttonWithType:UIButtonTypeCustom];
+//        [view setTitle:@"按钮标题" forState:UIControlStateNormal];
+//        view.titleLabel.font = [UIFont systemFontOfSize:kFontSize16];
+//        view.titleLabel.adjustsFontSizeToFitWidth = YES;
+//        view.imageView.contentMode = UIViewContentModeScaleAspectFit;
+//        view.tag = kTAG_BTN;
+//        view;
+//    });
+    objc_setAssociatedObject(self, _cmd, view, OBJC_ASSOCIATION_RETAIN_NONATOMIC);
     return view;
 }
 
@@ -247,26 +263,28 @@
 }
 
 -(UIButton *)radioView{
-    id view =  objc_getAssociatedObject(self, _cmd);
-    if (!view) {
-        view = ({
-            UIButton * view = [UIButton buttonWithType:UIButtonTypeCustom];
-            //            [view setTitle:@"按钮标题" forState:UIControlStateNormal];
-            view.titleLabel.font = [UIFont systemFontOfSize:kFontSize16];
-            view.titleLabel.adjustsFontSizeToFitWidth = YES;
-            view.imageView.contentMode = UIViewContentModeScaleAspectFit;
-            view.tag = kTAG_BTN;
-            view;
-        });
-        
-        [view setBackgroundImage:UIImageColor(UIColor.redColor) forState:UIControlStateNormal];
-        [view setBackgroundImage:UIImageColor(UIColor.lightGrayColor) forState:UIControlStateSelected];
-        
-        [view setBackgroundImage:UIImageNamed(kIMG_selected_NO) forState:UIControlStateNormal];
-        [view setBackgroundImage:UIImageNamed(kIMG_selected_YES) forState:UIControlStateSelected];
-        
-        objc_setAssociatedObject(self, _cmd, view, OBJC_ASSOCIATION_RETAIN_NONATOMIC);
+    id obj = objc_getAssociatedObject(self, _cmd);
+    if (obj) {
+        return obj;
     }
+    
+    UIButton *view = ({
+        UIButton *sender = [UIButton buttonWithType:UIButtonTypeCustom];
+//        [sender setTitle:@"按钮标题" forState:UIControlStateNormal];
+        sender.titleLabel.font = [UIFont systemFontOfSize:kFontSize16];
+        sender.titleLabel.adjustsFontSizeToFitWidth = YES;
+        sender.imageView.contentMode = UIViewContentModeScaleAspectFit;
+        sender.tag = kTAG_BTN;
+        sender;
+    });
+    
+    [view setBackgroundImage:UIImageColor(UIColor.redColor) forState:UIControlStateNormal];
+    [view setBackgroundImage:UIImageColor(UIColor.lightGrayColor) forState:UIControlStateSelected];
+    
+    [view setBackgroundImage:UIImageNamed(kIMG_selected_NO) forState:UIControlStateNormal];
+    [view setBackgroundImage:UIImageNamed(kIMG_selected_YES) forState:UIControlStateSelected];
+    
+    objc_setAssociatedObject(self, _cmd, view, OBJC_ASSOCIATION_RETAIN_NONATOMIC);
     return view;
 }
 
@@ -275,14 +293,16 @@
 }
 
 -(NNTextField *)textField{
-    NNTextField * view = objc_getAssociatedObject(self, _cmd);
-    if (!view) {
-        view = [NNTextField createRect:CGRectZero];
-        view.font = [UIFont systemFontOfSize:kFontSize16];
-        view.tag = kTAG_TEXTFIELD;
-
-        objc_setAssociatedObject(self, _cmd, view, OBJC_ASSOCIATION_RETAIN_NONATOMIC);
+    id obj = objc_getAssociatedObject(self, _cmd);
+    if (obj) {
+        return obj;
     }
+    
+    NNTextField *view = [NNTextField createRect:CGRectZero];
+    view.font = [UIFont systemFontOfSize:kFontSize16];
+    view.tag = kTAG_TEXTFIELD;
+
+    objc_setAssociatedObject(self, _cmd, view, OBJC_ASSOCIATION_RETAIN_NONATOMIC);
     return view;
 }
 
@@ -291,28 +311,29 @@
 }
 
 -(UITextView *)textView{
-    UITextView * view = objc_getAssociatedObject(self, _cmd);
-    if (!view) {
-        view = ({
-            UITextView *view = [[UITextView alloc] initWithFrame:CGRectZero];
-            view.autoresizingMask = UIViewAutoresizingFlexibleWidth | UIViewAutoresizingFlexibleHeight;
-            view.font = [UIFont systemFontOfSize:kFontSize16];
-            view.textAlignment = NSTextAlignmentLeft;
-            
-            view.keyboardAppearance = UIKeyboardAppearanceDefault;
-            view.returnKeyType = UIReturnKeyDone;
-            
-            view.autocorrectionType = UITextAutocorrectionTypeNo;
-            view.autocapitalizationType = UITextAutocapitalizationTypeNone;
-            
-            view.layer.borderWidth = kW_LayerBorder;
-            view.layer.borderColor = UIColor.lineColor.CGColor;
-//            [view scrollRectToVisible:rect animated:YES];
-            view;
-        });
-        objc_setAssociatedObject(self, _cmd, view, OBJC_ASSOCIATION_RETAIN_NONATOMIC);
-        
+    id obj = objc_getAssociatedObject(self, _cmd);
+    if (obj) {
+        return obj;
     }
+    
+    UITextView *view = ({
+        UITextView *view = [[UITextView alloc] initWithFrame:CGRectZero];
+        view.autoresizingMask = UIViewAutoresizingFlexibleWidth | UIViewAutoresizingFlexibleHeight;
+        view.font = [UIFont systemFontOfSize:kFontSize16];
+        view.textAlignment = NSTextAlignmentLeft;
+        
+        view.keyboardAppearance = UIKeyboardAppearanceDefault;
+        view.returnKeyType = UIReturnKeyDone;
+        
+        view.autocorrectionType = UITextAutocorrectionTypeNo;
+        view.autocapitalizationType = UITextAutocapitalizationTypeNone;
+        
+        view.layer.borderWidth = kW_LayerBorder;
+        view.layer.borderColor = UIColor.lineColor.CGColor;
+//            [view scrollRectToVisible:rect animated:YES];
+        view;
+    });
+    objc_setAssociatedObject(self, _cmd, view, OBJC_ASSOCIATION_RETAIN_NONATOMIC);
     return view;
 }
 
@@ -321,27 +342,29 @@
 }
 
 //-(UITextField *)textField{
-//    UITextField * view = objc_getAssociatedObject(self, _cmd);
-//    if (!view) {
-//        view = ({
-//            UITextField * view = [[UITextField alloc]initWithFrame:CGRectZero];
-//            view.contentVerticalAlignment = UIControlContentVerticalAlignmentCenter;
-//            view.keyboardAppearance = UIKeyboardAppearanceDefault;
-//
-//            view.returnKeyType = UIReturnKeyDone;
-//            view.clearButtonMode = UITextFieldViewModeAlways;
-//
-//            view.autocapitalizationType = UITextAutocapitalizationTypeNone;
-//            view.autocorrectionType = UITextAutocorrectionTypeNo;
-//            view.clearButtonMode = UITextFieldViewModeWhileEditing;//清楚键
-//            view.layer.borderWidth = 0.5;  // 给图层添加一个有色边框
-//            view.layer.borderColor = [UtilityHelper colorWithHexString:@"d2d2d2"].CGColor;
-//            view.backgroundColor = UIColor.whiteColor;
-//
-//            view;
-//        });
-//        objc_setAssociatedObject(self, _cmd, view, OBJC_ASSOCIATION_RETAIN_NONATOMIC);
+//    UITextView *obj = objc_getAssociatedObject(self, _cmd);
+//    if (obj) {
+//        return obj;
 //    }
+//    
+//    UITextField *view = ({
+//        UITextField * view = [[UITextField alloc]initWithFrame:CGRectZero];
+//        view.contentVerticalAlignment = UIControlContentVerticalAlignmentCenter;
+//        view.keyboardAppearance = UIKeyboardAppearanceDefault;
+//
+//        view.returnKeyType = UIReturnKeyDone;
+//        view.clearButtonMode = UITextFieldViewModeAlways;
+//
+//        view.autocapitalizationType = UITextAutocapitalizationTypeNone;
+//        view.autocorrectionType = UITextAutocorrectionTypeNo;
+//        view.clearButtonMode = UITextFieldViewModeWhileEditing;//清楚键
+//        view.layer.borderWidth = 0.5;  // 给图层添加一个有色边框
+//        view.layer.borderColor = [UtilityHelper colorWithHexString:@"d2d2d2"].CGColor;
+//        view.backgroundColor = UIColor.whiteColor;
+//
+//        view;
+//    });
+//    objc_setAssociatedObject(self, _cmd, view, OBJC_ASSOCIATION_RETAIN_NONATOMIC);
 //    return view;
 //}
 

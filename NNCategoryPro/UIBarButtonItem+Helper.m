@@ -24,7 +24,8 @@
 + (instancetype)createItem:(NSString *)obj style:(UIBarButtonItemStyle)style target:(id _Nullable)target action:(SEL _Nullable)action{
     UIImage *image = [UIImage imageNamed:obj];
     if (image) {
-        UIBarButtonItem *barItem = [[self alloc] initWithImage:[image imageWithRenderingMode:UIImageRenderingModeAlwaysTemplate]
+        UIImage *img = [image imageWithRenderingMode:UIImageRenderingModeAlwaysTemplate];
+        UIBarButtonItem *barItem = [[self alloc] initWithImage:img
                                                          style:style
                                                         target:target
                                                         action:action];

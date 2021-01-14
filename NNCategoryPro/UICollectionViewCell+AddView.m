@@ -26,18 +26,20 @@
 }
 
 -(UIImageView *)imgView{
-    UIImageView *view = objc_getAssociatedObject(self, _cmd);
-    if (!view) {
-        view = ({
-            UIImageView *view = [[UIImageView alloc] initWithFrame:CGRectZero];
-            view.autoresizingMask = UIViewAutoresizingFlexibleWidth|UIViewAutoresizingFlexibleHeight;
-            view.contentMode = UIViewContentModeScaleAspectFit;
-            view.userInteractionEnabled = YES;
-            view.tag = kTAG_IMGVIEW;
-            view;
-        });
-        objc_setAssociatedObject(self, _cmd, view, OBJC_ASSOCIATION_RETAIN_NONATOMIC);
+    id obj = objc_getAssociatedObject(self, _cmd);
+    if (obj) {
+        return obj;
     }
+    
+    UIImageView *view = ({
+        UIImageView *view = [[UIImageView alloc] initWithFrame:CGRectZero];
+        view.autoresizingMask = UIViewAutoresizingFlexibleWidth|UIViewAutoresizingFlexibleHeight;
+        view.contentMode = UIViewContentModeScaleAspectFit;
+        view.userInteractionEnabled = YES;
+        view.tag = kTAG_IMGVIEW;
+        view;
+    });
+    objc_setAssociatedObject(self, _cmd, view, OBJC_ASSOCIATION_RETAIN_NONATOMIC);
     return view;
 }
 
@@ -46,21 +48,23 @@
 }
 
 -(UILabel *)label{
-    UILabel *view = objc_getAssociatedObject(self, _cmd);
-    if (!view) {
-        view = ({
-            UILabel * view = [[UILabel alloc] initWithFrame:CGRectZero];
-            view.autoresizingMask = UIViewAutoresizingFlexibleWidth|UIViewAutoresizingFlexibleHeight;
-            view.font = [UIFont systemFontOfSize:15];
-            view.textAlignment = NSTextAlignmentLeft;
-            view.numberOfLines = 0;
-            view.userInteractionEnabled = true;
-            //        label.backgroundColor = UIColor.greenColor;
-            view.tag = kTAG_LABEL;
-            view;
-        });
-        objc_setAssociatedObject(self, _cmd, view, OBJC_ASSOCIATION_RETAIN_NONATOMIC);
+    id obj = objc_getAssociatedObject(self, _cmd);
+    if (obj) {
+        return obj;
     }
+    
+    UILabel *view = ({
+        UILabel * view = [[UILabel alloc] initWithFrame:CGRectZero];
+        view.autoresizingMask = UIViewAutoresizingFlexibleWidth|UIViewAutoresizingFlexibleHeight;
+        view.font = [UIFont systemFontOfSize:15];
+        view.textAlignment = NSTextAlignmentLeft;
+        view.numberOfLines = 0;
+        view.userInteractionEnabled = true;
+        //        label.backgroundColor = UIColor.greenColor;
+        view.tag = kTAG_LABEL;
+        view;
+    });
+    objc_setAssociatedObject(self, _cmd, view, OBJC_ASSOCIATION_RETAIN_NONATOMIC);
     return view;
 }
 
@@ -69,22 +73,24 @@
 }
 
 -(UILabel *)labelSub{
-    UILabel * view = objc_getAssociatedObject(self, _cmd);
-    if (!view) {
-        view = ({
-            UILabel *view = [[UILabel alloc] initWithFrame:CGRectZero];
-            view.autoresizingMask = UIViewAutoresizingFlexibleWidth|UIViewAutoresizingFlexibleHeight;
-            view.font = [UIFont systemFontOfSize:17];
-            view.textAlignment = NSTextAlignmentLeft;
-
-            view.numberOfLines = 0;
-            view.userInteractionEnabled = YES;
-            //        label.backgroundColor = UIColor.greenColor;
-            view.tag = kTAG_LABEL + 1;
-            view;
-        });
-        objc_setAssociatedObject(self, _cmd, view, OBJC_ASSOCIATION_RETAIN_NONATOMIC);
+    id obj = objc_getAssociatedObject(self, _cmd);
+    if (obj) {
+        return obj;
     }
+    
+    UILabel *view = ({
+        UILabel *view = [[UILabel alloc] initWithFrame:CGRectZero];
+        view.autoresizingMask = UIViewAutoresizingFlexibleWidth|UIViewAutoresizingFlexibleHeight;
+        view.font = [UIFont systemFontOfSize:17];
+        view.textAlignment = NSTextAlignmentLeft;
+
+        view.numberOfLines = 0;
+        view.userInteractionEnabled = YES;
+        //        label.backgroundColor = UIColor.greenColor;
+        view.tag = kTAG_LABEL + 1;
+        view;
+    });
+    objc_setAssociatedObject(self, _cmd, view, OBJC_ASSOCIATION_RETAIN_NONATOMIC);
     return view;
 }
 

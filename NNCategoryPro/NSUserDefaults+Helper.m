@@ -15,6 +15,10 @@
     return [NSUserDefaults standardUserDefaults];
 }
 
++ (void)synchronize{
+    [self.standardUserDefaults synchronize];
+}
+
 + (BOOL)isSupport:(nullable id)value{
     //@[@"NSData", @"NSString", @"NSNumber", @"NSDate", @"NSArray", @"NSDictionary"];
 
@@ -70,9 +74,7 @@
     [self.standardUserDefaults synchronize];
 }
 
-+ (void)synchronize{
-    [self.standardUserDefaults synchronize];
-}
+
 
 + (void)setArcObject:(id)value forKey:(NSString *)key{
     if (!value) {

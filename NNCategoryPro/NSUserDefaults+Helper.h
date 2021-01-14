@@ -14,6 +14,8 @@ NS_ASSUME_NONNULL_BEGIN
 
 + (NSUserDefaults *)defaults;
 
++ (void)synchronize;
+
 + (void)setObject:(id)value forKey:(NSString *)key iCloudSync:(BOOL)sync;
 
 + (void)setObject:(id)value forKey:(NSString *)key;
@@ -23,8 +25,6 @@ NS_ASSUME_NONNULL_BEGIN
 + (id)objectForKey:(NSString *)key;
 
 + (void)synchronizeAndCloudSync:(BOOL)sync;
-
-+ (void)synchronize;
 
 /// 保存自定义对象
 + (void)setArcObject:(id)value forKey:(NSString *)key;
