@@ -37,9 +37,9 @@ NS_ASSUME_NONNULL_BEGIN
  导航栏按钮
  */
 +(UIButton *)buttonWithSize:(CGSize)size
-                 imageN:(id)imageN
-                 imageH:(id)imageH
-         imageEdgeInsets:(UIEdgeInsets)imageEdgeInsets;
+                     imageN:(UIImage *)imageN
+                     imageH:(UIImage *)imageH
+            imageEdgeInsets:(UIEdgeInsets)imageEdgeInsets;
 
 /**
  导航栏按钮
@@ -58,8 +58,6 @@ NS_ASSUME_NONNULL_BEGIN
 - (void)startTime:(NSInteger)timeout title:(NSString *)title;
 
 - (void)startDisplayLink;
-
-- (void)showImageType:(NSNumber *)type image:(id)image;
 
 /// 上 左 下 右
 - (void)layoutStyle:(NSInteger )style space:(CGFloat)space;

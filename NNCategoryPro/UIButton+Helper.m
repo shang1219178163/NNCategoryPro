@@ -127,13 +127,10 @@
 }
 
 +(UIButton *)buttonWithSize:(CGSize)size
-                    imageN:(id)imageN
-                    imageH:(id)imageH
+                     imageN:(UIImage *)imageN
+                     imageH:(UIImage *)imageH
             imageEdgeInsets:(UIEdgeInsets)imageEdgeInsets{
-    
-    if ([imageN isKindOfClass:[NSString class]]) imageN = [UIImage imageNamed:imageN];
-    if ([imageH isKindOfClass:[NSString class]]) imageH = [UIImage imageNamed:imageH];
-    
+        
     UIButton *btn = [UIButton buttonWithType:UIButtonTypeCustom];
     if (imageN) [btn setImage:[imageN imageWithRenderingMode:UIImageRenderingModeAlwaysOriginal] forState:UIControlStateNormal];
     if (imageH) [btn setImage:imageH forState:UIControlStateHighlighted];
@@ -275,24 +272,6 @@
     button.imageEdgeInsets = UIEdgeInsetsMake(5, 10, 5, 60);
 
     return button;
-}
-
-- (void)showImageType:(NSNumber *)type image:(id)image{
-    NSParameterAssert([image isKindOfClass:[NSString class]] || [image isKindOfClass:[UIImage class]]);
-    UIImage * img = [image isKindOfClass:[NSString class]] ? [UIImage imageNamed:image] : image;
-    
-    switch (type.integerValue) {
-        case 1:
-        {
-            //字+图
-            [self.titleLabel sizeToFit];
-            [self setTitleEdgeInsets:UIEdgeInsetsMake(0, -img.size.width, 0, img.size.width)];
-            [self setImageEdgeInsets:UIEdgeInsetsMake(0, self.titleLabel.bounds.size.width, 0, -self.titleLabel.bounds.size.width)];
-        }
-            break;
-        default:
-            break;
-    }
 }
 
 /// 上 左 下 右
