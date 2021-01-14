@@ -54,6 +54,7 @@
     cell.textLabel.textColor = UIColor.grayColor;
     cell.textLabel.font = self.button.titleLabel.font ? : [UIFont systemFontOfSize:15];
     cell.textLabel.textAlignment = NSTextAlignmentCenter;
+    cell.textLabel.adjustsFontSizeToFitWidth = YES;
 
     cell.textLabel.text = self.list[indexPath.row];
     return cell;

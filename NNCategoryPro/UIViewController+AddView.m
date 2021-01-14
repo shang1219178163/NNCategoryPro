@@ -22,8 +22,8 @@
     UITableView *view = objc_getAssociatedObject(self, _cmd);
     if (!view) {
         view = [UITableView createRect:self.view.bounds style:UITableViewStylePlain];
-//        if ([self conformsToProtocol:@protocol(UITableViewDataSource)]) view.dataSource = self;
-//        if ([self conformsToProtocol:@protocol(UITableViewDelegate)]) view.delegate = self;
+        if ([self conformsToProtocol:@protocol(UITableViewDataSource)]) view.dataSource = self;
+        if ([self conformsToProtocol:@protocol(UITableViewDelegate)]) view.delegate = self;
         objc_setAssociatedObject(self, _cmd, view, OBJC_ASSOCIATION_RETAIN_NONATOMIC);
     }
     return view;
