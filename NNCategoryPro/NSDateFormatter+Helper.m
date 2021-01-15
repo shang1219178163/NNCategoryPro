@@ -62,7 +62,8 @@ NSString * const kFormatDateSix      = @"EEE, dd MMM yyyy HH:mm:ss 'GMT'";
  */
 + (nullable NSDate *)dateFromString:(NSString *)dateStr fmt:(NSString *)format{
     NSDateFormatter *fmt = [NSDateFormatter dateFormat:format];
-    return [fmt dateFromString:dateStr];
+    NSString *tmp = dateStr.length <= format.length ? dateStr : [dateStr substringToIndex:format.length];
+    return [fmt dateFromString:tmp];
 }
 
 /**
@@ -118,5 +119,37 @@ NSString * const kFormatDateSix      = @"EEE, dd MMM yyyy HH:mm:ss 'GMT'";
 //    formatter.locale = [NSLocale localeWithLocaleIdentifier:kLanguageCN];
 //    return [formatter stringFromDate:date];
 //}
+
++ (NSArray *)betweenDaysWithDate:(NSDate *)fromDate toDate:(NSDate *)toDate block:(void(^)(NSDateComponents *comps, NSDate *date))block{
+    if (!fromDate || !toDate) {
+        return @[];
+    }
+    NSCalendar *calendar = [[NSCalendar alloc] initWithCalendarIdentifier: NSCalendarIdentifierGregorian];
+    NSCalendarUnit unit = NSCalendarUnitYear | NSCalendarUnitMonth | NSCalendarUnitDay |  NSCalendarUnitWeekday;
+
+    NSDate *start = fromDate;
+    NSDate *end = toDate;
+    
+    NSMutableArray *marr = [NSMutableArray array];
+    NSDateComponents *comps;
+
+    NSComparisonResult result = [start compare:end];
+    while (result != NSOrderedDescending) {
+        comps = [calendar components:unit fromDate:start];
+
+        NSString *dateStr = [NSDateFormatter stringFromDate:start fmt:@"yyyy-MM-dd"];
+        [marr addObject:dateStr];
+        
+        if (block) {
+            block(comps, start);
+        }
+        //后一天
+        comps.day += 1;
+        start = [calendar dateFromComponents:comps];
+        //对比日期大小
+        result = [start compare:end];
+    }
+    return marr.copy;
+}
 
 @end

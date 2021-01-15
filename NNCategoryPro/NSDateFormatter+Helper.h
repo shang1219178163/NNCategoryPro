@@ -71,6 +71,8 @@ FOUNDATION_EXPORT NSString * const kFormatDateSix ;
 
 /// 时间区间
 + (NSArray<NSString *> *)queryDate:(NSInteger)day;
+///获取指定时间内的所有日期
++ (NSArray *)betweenDaysWithDate:(NSDate *)fromDate toDate:(NSDate *)toDate block:(void(^)(NSDateComponents *comps, NSDate *date))block;
 
 @end
 
