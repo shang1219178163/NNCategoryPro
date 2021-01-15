@@ -37,8 +37,8 @@
        
         view;
     });
-    objc_setAssociatedObject(self, _cmd, obj, OBJC_ASSOCIATION_RETAIN_NONATOMIC);
-    return obj;
+    objc_setAssociatedObject(self, _cmd, view, OBJC_ASSOCIATION_RETAIN_NONATOMIC);
+    return view;
 }
 
 - (void)setLineTop:(UIView *)lineTop{
@@ -58,8 +58,8 @@
        
         view;
     });
-    objc_setAssociatedObject(self, _cmd, obj, OBJC_ASSOCIATION_RETAIN_NONATOMIC);
-    return obj;
+    objc_setAssociatedObject(self, _cmd, view, OBJC_ASSOCIATION_RETAIN_NONATOMIC);
+    return view;
 }
 
 - (void)setLineBottom:(UIView *)lineBottom{

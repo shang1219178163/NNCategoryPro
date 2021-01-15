@@ -253,7 +253,7 @@ NSString * NSStringFromIndexPath(NSIndexPath *indexPath) {
 }
 
 - (NSString *)dayBegin{
-    if (self.length != 19) {
+    if (self.length != 19 || ![self containsString:@":"]) {
         return self;
     }
     NSString *replacement = @" 00:00:00";
@@ -262,7 +262,7 @@ NSString * NSStringFromIndexPath(NSIndexPath *indexPath) {
 }
 
 - (NSString *)dayEnd{
-    if (self.length != 19) {
+    if (self.length != 19 || ![self containsString:@":"]) {
         return self;
     }
     NSString *replacement = @" 23:59:59";

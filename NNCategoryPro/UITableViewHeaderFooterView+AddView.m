@@ -172,7 +172,7 @@ labelLeftSub, labelLeftMark, labelLeftSubMark, btn;
         view.autoresizingMask = UIViewAutoresizingFlexibleWidth|UIViewAutoresizingFlexibleHeight;
         view.contentMode = UIViewContentModeScaleAspectFit;
         view.userInteractionEnabled = YES;
-        imgV.tag = kTAG_IMGVIEW+2;
+        view.tag = kTAG_IMGVIEW+2;
 
         view;
     });
@@ -221,7 +221,7 @@ labelLeftSub, labelLeftMark, labelLeftSubMark, btn;
         //            imgView.backgroundColor = UIColor.orangeColor;
         view.frame = CGRectMake(self.maxX - kX_GAP - kSizeArrow.width, (self.maxY - kSizeArrow.height)/2.0, kSizeArrow.width, kSizeArrow.height);
 
-        imgV.tag = kTAG_IMGVIEW + 1;
+        view.tag = kTAG_IMGVIEW + 1;
         view.image = [UIImage imageNamed:kIMG_arrowRight];
         
         view.hidden = YES;

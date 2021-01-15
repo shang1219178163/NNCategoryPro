@@ -60,7 +60,7 @@ NSString * const kFormatDateSix      = @"EEE, dd MMM yyyy HH:mm:ss 'GMT'";
 /**
  日期字符串->NSDate
  */
-+ (NSDate *)dateFromString:(NSString *)dateStr fmt:(NSString *)format{
++ (nullable NSDate *)dateFromString:(NSString *)dateStr fmt:(NSString *)format{
     NSDateFormatter *fmt = [NSDateFormatter dateFormat:format];
     return [fmt dateFromString:dateStr];
 }
@@ -77,7 +77,10 @@ NSString * const kFormatDateSix      = @"EEE, dd MMM yyyy HH:mm:ss 'GMT'";
  日期字符串->时间戳字符串
  */
 + (NSString *)intervalFromDateStr:(NSString *)dateStr fmt:(NSString *)format{
-    NSDate * date = [NSDateFormatter dateFromString:dateStr fmt:format];
+    NSDate *date = [NSDateFormatter dateFromString:dateStr fmt:format];
+    if (!date) {
+        return @"";
+    }
     NSString *intervalStr = [@(date.timeIntervalSince1970) stringValue];
     intervalStr = [intervalStr stringByReplacingOccurrencesOfString:@".00" withString:@""];
     return intervalStr;

@@ -55,7 +55,7 @@ FOUNDATION_EXPORT NSString * const kFormatDateSix ;
 + (NSString *)stringFromDate:(NSDate *)date fmt:(NSString *)format;
 
 /// String -> Date
-+ (NSDate *)dateFromString:(NSString *)dateStr fmt:(NSString *)format;
++ (nullable NSDate *)dateFromString:(NSString *)dateStr fmt:(NSString *)format;
 
 /// 时间戳字符串 -> 日期字符串
 + (NSString *)stringFromInterval:(NSString *)interval fmt:(NSString *)format;
