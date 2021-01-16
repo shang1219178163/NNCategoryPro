@@ -347,206 +347,106 @@ compactMapValues 高阶函数
 手势回调
 ```
 #pragma mak - -Recognizer
+#pragma mak - -Recognizer
 /**
  手势 - 单指点击
  */
-- (UITapGestureRecognizer *)addGestureTap:(void(^)(UIGestureRecognizer *reco))block{
-    NSString *funcAbount = NSStringFromSelector(_cmd);
-    NSString *runtimeKey = RuntimeKeyFromParams(self, funcAbount);
-    
-    UITapGestureRecognizer *recognizer = objc_getAssociatedObject(self, CFBridgingRetain(runtimeKey));
-    if (!recognizer){
-        recognizer = [[UITapGestureRecognizer alloc] initWithTarget:self action:@selector(handleActionGesture:)];
-        recognizer.numberOfTapsRequired = 1;
-        recognizer.numberOfTouchesRequired = 1;
+- (UITapGestureRecognizer *)addGestureTap:(void(^)(UITapGestureRecognizer *reco))block{
+    UITapGestureRecognizer *recognizer = [[UITapGestureRecognizer alloc] initWithTarget:nil action:nil];
+    recognizer.numberOfTapsRequired = 1;
+    recognizer.numberOfTouchesRequired = 1;
 //        recognizer.cancelsTouchesInView = false;
 //        recognizer.delaysTouchesEnded = false;
-        self.userInteractionEnabled = true;
-        self.multipleTouchEnabled = true;
-        [self addGestureRecognizer:recognizer];
-        
-        recognizer.runtimeKey = runtimeKey;
-        objc_setAssociatedObject(self, CFBridgingRetain(runtimeKey), block, OBJC_ASSOCIATION_COPY_NONATOMIC);
-    }
+    self.userInteractionEnabled = true;
+    self.multipleTouchEnabled = true;
+    [self addGestureRecognizer:recognizer];
+
+    [recognizer addActionBlock:block];
     return recognizer;
 }
 
 /**
  手势 - 长按
  */
-- (UILongPressGestureRecognizer *)addGestureLongPress:(void(^)(UIGestureRecognizer *reco))block forDuration:(NSTimeInterval)minimumPressDuration{
-    NSString *funcAbount = [NSStringFromSelector(_cmd) stringByAppendingFormat:@",%@",@(minimumPressDuration)];
-    NSString *runtimeKey = RuntimeKeyFromParams(self, funcAbount);
-
-    UILongPressGestureRecognizer *recognizer = objc_getAssociatedObject(self, CFBridgingRetain(runtimeKey));
-    if (!recognizer){
-        recognizer = [[UILongPressGestureRecognizer alloc] initWithTarget:self action:@selector(handleActionGesture:)];
-        recognizer.minimumPressDuration = minimumPressDuration;
-        self.userInteractionEnabled = true;
-        self.multipleTouchEnabled = true;
-        [self addGestureRecognizer:recognizer];
-        recognizer.runtimeKey = runtimeKey;
-        objc_setAssociatedObject(self, CFBridgingRetain(runtimeKey), block, OBJC_ASSOCIATION_COPY_NONATOMIC);
-    }
+- (UILongPressGestureRecognizer *)addGestureLongPress:(void(^)(UILongPressGestureRecognizer *reco))block forDuration:(NSTimeInterval)minimumPressDuration{
+    UILongPressGestureRecognizer *recognizer = [[UILongPressGestureRecognizer alloc] initWithTarget:nil action:nil];
+    recognizer.minimumPressDuration = minimumPressDuration;
+    self.userInteractionEnabled = true;
+    self.multipleTouchEnabled = true;
+    [self addGestureRecognizer:recognizer];
+    
+    [recognizer addActionBlock:block];
     return recognizer;
 }
 
 /**
  手势 - 拖动
  */
-- (UIPanGestureRecognizer *)addGesturePan:(void(^)(UIGestureRecognizer *reco))block{
-    NSString *funcAbount = NSStringFromSelector(_cmd);
-    NSString *runtimeKey = RuntimeKeyFromParams(self, funcAbount);
+- (UIPanGestureRecognizer *)addGesturePan:(void(^)(UIPanGestureRecognizer *reco))block{
+    UIPanGestureRecognizer *recognizer = [[UIPanGestureRecognizer alloc] initWithTarget:nil action:nil];
+    recognizer.minimumNumberOfTouches = 1;
+    recognizer.maximumNumberOfTouches = 3;
+    self.userInteractionEnabled = true;
+    self.multipleTouchEnabled = true;
+    [self addGestureRecognizer:recognizer];
 
-    UIPanGestureRecognizer *recognizer = objc_getAssociatedObject(self, CFBridgingRetain(runtimeKey));
-    if (!recognizer){
-        recognizer = [[UIPanGestureRecognizer alloc] initWithTarget:self action:@selector(handleActionGesture:)];
-        recognizer.minimumNumberOfTouches = 1;
-        recognizer.maximumNumberOfTouches = 3;
-        self.userInteractionEnabled = true;
-        self.multipleTouchEnabled = true;
-        [self addGestureRecognizer:recognizer];
-        recognizer.runtimeKey = runtimeKey;
-        objc_setAssociatedObject(self, CFBridgingRetain(runtimeKey), block, OBJC_ASSOCIATION_COPY_NONATOMIC);
-    }
+    [recognizer addActionBlock:block];
     return recognizer;
 }
 
 /**
  手势 - 边缘拖动
  */
-- (UIScreenEdgePanGestureRecognizer *)addGestureEdgPan:(void(^)(UIGestureRecognizer *reco))block forEdges:(UIRectEdge)edges{
-    NSString *funcAbount = [NSStringFromSelector(_cmd) stringByAppendingFormat:@",%@",@(edges)];
-    NSString *runtimeKey = RuntimeKeyFromParams(self, funcAbount);
-
-    UIScreenEdgePanGestureRecognizer *recognizer = objc_getAssociatedObject(self, CFBridgingRetain(runtimeKey));
-    if (!recognizer){
-        recognizer = [[UIScreenEdgePanGestureRecognizer alloc] initWithTarget:self action:@selector(handleActionGesture:)];
-        recognizer.edges = edges;
-        self.userInteractionEnabled = true;
-        self.multipleTouchEnabled = true;
-        [self addGestureRecognizer:recognizer];
-        recognizer.runtimeKey = runtimeKey;
-        objc_setAssociatedObject(self, CFBridgingRetain(runtimeKey), block, OBJC_ASSOCIATION_COPY_NONATOMIC);
-    }
+- (UIScreenEdgePanGestureRecognizer *)addGestureEdgPan:(void(^)(UIScreenEdgePanGestureRecognizer *reco))block forEdges:(UIRectEdge)edges{
+    UIScreenEdgePanGestureRecognizer *recognizer = [[UIScreenEdgePanGestureRecognizer alloc] initWithTarget:nil action:nil];
+    recognizer.edges = edges;
+    self.userInteractionEnabled = true;
+    self.multipleTouchEnabled = true;
+    [self addGestureRecognizer:recognizer];
+    
+    [recognizer addActionBlock:block];
     return recognizer;
 }
 
 /**
  手势 - 轻扫
  */
-- (UISwipeGestureRecognizer *)addGestureSwipe:(void(^)(UIGestureRecognizer *reco))block forDirection:(UISwipeGestureRecognizerDirection)direction{
-    NSString *funcAbount = [NSStringFromSelector(_cmd) stringByAppendingFormat:@",%@",@(direction)];
-    NSString *runtimeKey = RuntimeKeyFromParams(self, funcAbount);
+- (UISwipeGestureRecognizer *)addGestureSwipe:(void(^)(UISwipeGestureRecognizer *reco))block forDirection:(UISwipeGestureRecognizerDirection)direction{
+    UISwipeGestureRecognizer *recognizer = [[UISwipeGestureRecognizer alloc] initWithTarget:nil action:nil];
+    recognizer.direction = direction;
+    self.userInteractionEnabled = true;
+    self.multipleTouchEnabled = true;
+    [self addGestureRecognizer:recognizer];
 
-    UISwipeGestureRecognizer *recognizer = objc_getAssociatedObject(self, CFBridgingRetain(runtimeKey));
-    if (!recognizer) {
-        recognizer = [[UISwipeGestureRecognizer alloc] initWithTarget:self action:@selector(handleActionGesture:)];
-        recognizer.direction = direction;
-        self.userInteractionEnabled = true;
-        self.multipleTouchEnabled = true;
-        [self addGestureRecognizer:recognizer];
-        recognizer.runtimeKey = runtimeKey;
-        objc_setAssociatedObject(self, CFBridgingRetain(runtimeKey), block, OBJC_ASSOCIATION_COPY_NONATOMIC);
-    }
+    [recognizer addActionBlock:block];
     return recognizer;
 }
 
 /**
  手势 - 捏合
  */
-- (UIPinchGestureRecognizer *)addGesturePinch:(void(^)(UIGestureRecognizer *reco))block{
-    NSString *funcAbount = NSStringFromSelector(_cmd);
-    NSString *runtimeKey = RuntimeKeyFromParams(self, funcAbount);
-
-    UIPinchGestureRecognizer *recognizer = objc_getAssociatedObject(self, CFBridgingRetain(runtimeKey));
-    if (!recognizer){
-        recognizer = [[UIPinchGestureRecognizer alloc] initWithTarget:self action:@selector(handleActionGesture:)];
+- (UIPinchGestureRecognizer *)addGesturePinch:(void(^)(UIPinchGestureRecognizer *reco))block{
+    UIPinchGestureRecognizer *recognizer = [[UIPinchGestureRecognizer alloc] initWithTarget:nil action:nil];
 //        recognizer.scale = 1.0;
-        self.userInteractionEnabled = true;
-        self.multipleTouchEnabled = true;
-        [self addGestureRecognizer:recognizer];
-        recognizer.runtimeKey = runtimeKey;
-        objc_setAssociatedObject(self, CFBridgingRetain(runtimeKey), block, OBJC_ASSOCIATION_COPY_NONATOMIC);
-    }
+    self.userInteractionEnabled = true;
+    self.multipleTouchEnabled = true;
+    [self addGestureRecognizer:recognizer];
+
+    [recognizer addActionBlock:block];
     return recognizer;
 }
 
 /**
  手势 - 旋转
  */
-- (UIRotationGestureRecognizer *)addGestureRotation:(void(^)(UIGestureRecognizer *reco))block{
-    NSString *funcAbount = NSStringFromSelector(_cmd);
-    NSString *runtimeKey = RuntimeKeyFromParams(self, funcAbount);
+- (UIRotationGestureRecognizer *)addGestureRotation:(void(^)(UIRotationGestureRecognizer *reco))block{
+    UIRotationGestureRecognizer *recognizer = [[UIRotationGestureRecognizer alloc] initWithTarget:nil action:nil];
+    self.userInteractionEnabled = true;
+    self.multipleTouchEnabled = true;
+    [self addGestureRecognizer:recognizer];
 
-    UIRotationGestureRecognizer *recognizer = objc_getAssociatedObject(self, CFBridgingRetain(runtimeKey));
-    if (!recognizer){
-        recognizer = [[UIRotationGestureRecognizer alloc] initWithTarget:self action:@selector(handleActionGesture:)];
-        self.userInteractionEnabled = true;
-        self.multipleTouchEnabled = true;
-        [self addGestureRecognizer:recognizer];
-        recognizer.runtimeKey = runtimeKey;
-        objc_setAssociatedObject(self, CFBridgingRetain(runtimeKey), block, OBJC_ASSOCIATION_COPY_NONATOMIC);
-    }
+    [recognizer addActionBlock:block];
     return recognizer;
-}
-
-/**
- 手势响应事件
- */
-- (void)handleActionGesture:(UIGestureRecognizer *)recognizer{
-    void(^block)(id sender) = objc_getAssociatedObject(self, CFBridgingRetain(recognizer.runtimeKey));
-
-    if ([recognizer isKindOfClass:UISwipeGestureRecognizer.class]) {
-        if (block)block(recognizer);
-//        DDLog(@"_%@_%@_",recognizer.runtimeKey,block);
-        
-    }
-    else if ([recognizer isKindOfClass:UIScreenEdgePanGestureRecognizer.class]) {
-        //UIScreenEdgePanGestureRecognizer继承于UIPanGestureRecognizer,必须在其前边判断
-        if (block) block(recognizer);
-        
-    }
-    else if ([recognizer isKindOfClass:UITapGestureRecognizer.class]) {
-        if (block) block(recognizer);
-
-    }
-    else if ([recognizer isKindOfClass:UILongPressGestureRecognizer.class]) {
-        if (recognizer.state == UIGestureRecognizerStateBegan) {
-            if (block) block(recognizer);
-        }
-    }
-    else if ([recognizer isKindOfClass:UIPanGestureRecognizer.class]) {
-        UIPanGestureRecognizer *sender = (UIPanGestureRecognizer *)recognizer;
-        CGPoint translate = [sender translationInView:recognizer.view.superview];
-        sender.view.center = CGPointMake(sender.view.center.x + translate.x, sender.view.center.y +translate.y);
-        [sender setTranslation:CGPointZero inView:recognizer.view.superview];
-        
-        if (block) block(recognizer);
-        
-    }
-    else if ([recognizer isKindOfClass:UIPinchGestureRecognizer.class]) {
-        UIPinchGestureRecognizer *sender = (UIPinchGestureRecognizer *)recognizer;
-        //捏合时保持图片位置不变
-        CGPoint location = [recognizer locationInView:recognizer.view.superview];
-        sender.view.center = location;
-        //通过手势的缩放比例改变图片的仿射变换矩阵
-        sender.view.transform = CGAffineTransformScale(sender.view.transform, sender.scale, sender.scale);
-        //重置手势缩放比例
-        sender.scale = 1.0;
-        
-        if (block) block(recognizer);
-        
-    }
-    else if ([recognizer isKindOfClass:UIRotationGestureRecognizer.class]) {
-        UIRotationGestureRecognizer *sender = (UIRotationGestureRecognizer *)recognizer;
-        //改变手势view的仿射变换矩阵
-        sender.view.transform = CGAffineTransformRotate(sender.view.transform, sender.rotation);
-        //重置弧度
-        sender.rotation = 0;
-        if (block) block(recognizer);
-
-    }
 }
 
 ```
