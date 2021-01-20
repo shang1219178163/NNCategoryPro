@@ -12,14 +12,17 @@ NS_ASSUME_NONNULL_BEGIN
 
 @interface CAEmitterLayer (Helper)
 
-+(CAEmitterLayer *)layerWithSize:(CGSize)size positon:(CGPoint)position cells:(NSArray *)cells;
++(CAEmitterLayer *)layerWithSize:(CGSize)size positon:(CGPoint)position cells:(NSArray<CAEmitterCell *> *)cells;
 
-+(CAEmitterLayer *)layerWithSize:(CGSize)size
-                         positon:(CGPoint)position
-                         imgList:(NSArray *)imgList
-                            type:(NSNumber *)type;
++(CAEmitterLayer *)layerUpWithSize:(CGSize)size positon:(CGPoint)position images:(NSArray<NSString *> *)images;
 
-+(CAEmitterLayer *)layerRect:(CGRect)rect imgList:(NSArray *_Nullable)imgList type:(NSNumber *)type;
++(CAEmitterLayer *)layerDownWithSize:(CGSize)size positon:(CGPoint)position images:(NSArray<NSString *> *)images;
+
++(CAEmitterLayer *)layerDownWithRect:(CGRect)rect images:(NSArray<NSString *> *)images;
+
++(CAEmitterLayer *)layerSparkWithRect:(CGRect)rect images:(NSArray<NSString *> *)images;
+
++(CAEmitterLayer *)layerUpWithRect:(CGRect)rect images:(NSArray<NSString *> *)images;
 
 @end
 

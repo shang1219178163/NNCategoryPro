@@ -31,11 +31,18 @@ FOUNDATION_EXPORT NSInteger RandomInteger(NSInteger from, NSInteger to);
 FOUNDATION_EXPORT CGFloat RoundFloat(CGFloat value, NSInteger num);
 /// swift类需要加命名空间
 FOUNDATION_EXPORT NSString *SwiftClassName(NSString *className);
-/// 地址字符串(hostname + port)
-FOUNDATION_EXPORT NSString *UrlAddress(NSString *hostname, NSString *port);
 
+#pragma mark - -dispatchAsync
+void GCDBlock(void(^block)(void));
+void GCDMainBlock(void(^block)(void));
+void GCDAfterMain(double delay ,void(^block)(void));
+void GCDApplyGlobal(NSUInteger count,void(^block)(size_t index));
 
 @interface NSObject (Helper)<NSCoding>
+
+@property(class, nonatomic, strong, readonly) NSString *identifier;
+//@property(nonatomic, copy, nonnull) NSString *runtimeKey;
+
 ///遍历成员变量列表
 - (void)enumerateIvars:(void(^)(Ivar v, NSString *name, _Nullable id value))block;
 ///遍历属性列表
@@ -47,15 +54,6 @@ FOUNDATION_EXPORT NSString *UrlAddress(NSString *hostname, NSString *port);
 
 ///详情模型转字典
 - (NSDictionary *)toDictionary;
-
-#pragma mark - -dispatchAsync
-void GCDBlock(void(^block)(void));
-void GCDMainBlock(void(^block)(void));
-void GCDAfterMain(double delay ,void(^block)(void));
-void GCDApplyGlobal(id obj ,void(^block)(size_t index));
-
-@property(class, nonatomic, strong, readonly) NSString *identifier;
-@property(nonatomic, copy, nonnull) NSString *runtimeKey;
 
 ///(通用)富文本只有和一般文字同字体大小才能计算高度
 - (CGSize)sizeWithText:(id)text font:(id)font width:(CGFloat)width;

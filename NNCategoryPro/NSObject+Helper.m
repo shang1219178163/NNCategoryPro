@@ -64,18 +64,19 @@ NSString *SwiftClassName(NSString *className){
     return string;
 }
 
-NSString *UrlAddress(NSString *hostname, NSString *port){
-    NSString *webUrl = [NSString stringWithFormat:@"%@", hostname];
-    if (![hostname containsString:@"http://"]) {
-        webUrl = [@"http://" stringByAppendingString: hostname];
-    }
-    if (![port isEqualToString:@""]) {
-        webUrl = [webUrl stringByAppendingFormat:@":%@", port];
-    }
-    return webUrl;
+@implementation NSObject (Helper)
+
++ (NSString *)identifier{
+    return NSStringFromClass(self.class);
 }
 
-@implementation NSObject (Helper)
+//-(NSString *)runtimeKey{
+//    return objc_getAssociatedObject(self, _cmd);
+//}
+//
+//- (void)setRuntimeKey:(NSString *)runtimeKey{
+//    objc_setAssociatedObject(self, @selector(runtimeKey), runtimeKey, OBJC_ASSOCIATION_COPY_NONATOMIC);
+//}
 
 #pragma mark -runtime
 
@@ -223,29 +224,12 @@ void GCDAfterMain(double delay ,void(^block)(void)){
     dispatch_after(dispatch_time(DISPATCH_TIME_NOW, (int64_t)(delay * NSEC_PER_SEC)), dispatch_get_main_queue(), block);
 }
 
-void GCDApplyGlobal(id obj ,void(^block)(size_t index)){
-    NSCAssert([obj isKindOfClass:[NSArray class]] || [obj isKindOfClass:[NSDictionary class]] || [obj isKindOfClass:[NSNumber class]] || [obj isKindOfClass:[NSSet class]], @"必须是集合或者NSNumber");
-    if ([obj isKindOfClass:[NSNumber class]]) {
-        dispatch_apply([obj unsignedIntegerValue], dispatch_get_global_queue(0, 0), block);
-    }
-    else {
-        dispatch_apply([obj count], dispatch_get_global_queue(0, 0), block);
-    }
+void GCDApplyGlobal(NSUInteger count, void(^block)(size_t index)){
+    dispatch_apply(count, dispatch_get_global_queue(0, 0), block);
 }
 
 #pragma mark - -
 
-+ (NSString *)identifier{
-    return NSStringFromClass(self.class);
-}
-
--(NSString *)runtimeKey{
-    return objc_getAssociatedObject(self, _cmd);
-}
-
-- (void)setRuntimeKey:(NSString *)runtimeKey{
-    objc_setAssociatedObject(self, @selector(runtimeKey), runtimeKey, OBJC_ASSOCIATION_COPY_NONATOMIC);
-}
 
 /**
  富文本只有和一般文字同字体大小才能计算高度

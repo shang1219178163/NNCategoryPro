@@ -23,6 +23,10 @@
     return obj;
 }
 
+- (NSString *)base64EncodedString{
+    return [self base64EncodedStringWithOptions:0];
+}
+
 static char encodingTable[64] =
 {
     'A','B','C','D','E','F','G','H','I','J','K','L','M','N','O','P',
@@ -355,13 +359,13 @@ static char encodingTable[64] =
 #pragma mark -
 
 - (BOOL)hasPrefixBytes:(const void *)prefix length:(NSUInteger)length{
-    if( ! prefix || ! length || self.length < length ) return NO;
-    return ( memcmp( [self bytes], prefix, length ) == 0 );
+    if(!prefix || !length || self.length < length) return NO;
+    return ( memcmp( [self bytes], prefix, length) == 0);
 }
 
 - (BOOL)hasSuffixBytes:(const void *)suffix length:(NSUInteger)length{
-    if( ! suffix || ! length || self.length < length ) return NO;
-    return ( memcmp( ((const char *)[self bytes] + (self.length - length)), suffix, length ) == 0 );
+    if(!suffix || !length || self.length < length) return NO;
+    return ( memcmp( ((const char *)[self bytes] + (self.length - length)), suffix, length) == 0);
 }
 
 

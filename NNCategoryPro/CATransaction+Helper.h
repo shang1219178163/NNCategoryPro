@@ -18,7 +18,7 @@ NS_ASSUME_NONNULL_BEGIN
 
 @interface CATransaction (Helper)
 
-+(void)animDuration:(CGFloat)duration animation:(void(^)(void))animation completion:(void (^_Nullable)(void))completion;
++(void)animateWithDuration:(CGFloat)duration animation:(void(^)(void))animation completion:(void (^_Nullable)(void))completion;
 
 @end
 

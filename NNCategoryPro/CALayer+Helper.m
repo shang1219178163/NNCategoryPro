@@ -72,13 +72,13 @@
         [path appendPath:pathOutside];
         //        [path appendPath:pathInside];
         
-        CAShapeLayer * layer = CAShapeLayer.layer;
-        layer.frame         = view.bounds;
-        layer.path           = path.CGPath;
+        CAShapeLayer *layer = CAShapeLayer.layer;
+        layer.frame = view.bounds;
+        layer.path  = path.CGPath;
         //        layer.fillColor      = [UIColor colorWithWhite:0 alpha:0.5].CGColor;
-        layer.fillColor      = UIColor.whiteColor.CGColor;
+        layer.fillColor = UIColor.whiteColor.CGColor;
         
-        layer.fillRule       = kCAFillRuleEvenOdd;  //重点， 填充规则
+        layer.fillRule  = kCAFillRuleEvenOdd;  //重点， 填充规则
         
         layer;
     });
@@ -92,14 +92,14 @@
     CAShapeLayer *layer = ({
         
         //创建矩形圆角正方形路径
-        UIBezierPath * path   = [UIBezierPath bezierPathWithRoundedRect:view.bounds cornerRadius:0];
+        UIBezierPath *path   = [UIBezierPath bezierPathWithRoundedRect:view.bounds cornerRadius:0];
         
         //创建圆路径
-        UIBezierPath * pathOutside = [UIBezierPath bezierPathWithOvalInRect:CGRectMake(0, 0, CGRectGetHeight(view.frame) , CGRectGetHeight(view.frame))];
+        UIBezierPath *pathOutside = [UIBezierPath bezierPathWithOvalInRect:CGRectMake(0, 0, CGRectGetHeight(view.frame) , CGRectGetHeight(view.frame))];
         
         CGPoint point = CGPointMake(view.position.x - CGRectGetMinX(view.frame), view.position.y - CGRectGetMinY(view.frame));
         //内部弧路径
-        UIBezierPath * pathInside  = [UIBezierPath bezierPathWithArcCenter:point
+        UIBezierPath *pathInside  = [UIBezierPath bezierPathWithArcCenter:point
                                                                     radius:CGRectGetHeight(view.frame)*0.35
                                                                 startAngle:startAngle
                                                                   endAngle:endAngle
@@ -111,13 +111,13 @@
         [path appendPath:pathOutside];
         [path appendPath:pathInside];
         
-        CAShapeLayer * layer = CAShapeLayer.layer;
-        layer.frame         = view.bounds;
-        layer.path           = path.CGPath;
-        //        layer.fillColor      = [UIColor colorWithWhite:0 alpha:0.5].CGColor;
-        layer.fillColor      = UIColor.whiteColor.CGColor;
+        CAShapeLayer *layer = CAShapeLayer.layer;
+        layer.frame = view.bounds;
+        layer.path  = path.CGPath;
+//        layer.fillColor      = [UIColor colorWithWhite:0 alpha:0.5].CGColor;
+        layer.fillColor = UIColor.whiteColor.CGColor;
         
-        layer.fillRule       = kCAFillRuleEvenOdd;  //重点， 填充规则
+        layer.fillRule  = kCAFillRuleEvenOdd;  //重点， 填充规则
         
         layer;
     });
@@ -150,9 +150,9 @@
 
 - (void)addAnimationDefaultWithType:(NSNumber *)type{
     
-    NSValue * fromValue = [NSValue valueWithCGPoint:self.position];
+    NSValue *fromValue = [NSValue valueWithCGPoint:self.position];
     // 终止位置
-    NSValue * toValue = [NSValue valueWithCGPoint:CGPointMake(self.position.x + 100, self.position.y)];
+    NSValue *toValue = [NSValue valueWithCGPoint:CGPointMake(self.position.x + 100, self.position.y)];
     // 添加动画
     
     switch (type.integerValue) {

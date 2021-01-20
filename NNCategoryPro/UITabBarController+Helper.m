@@ -16,7 +16,7 @@ NSString * const kUITabBarSwappableImageView = @"UITabBarSwappableImageView";
 @implementation UITabBarController (Helper)
 
 NSArray<UITabBarItem *> * UITabBarItemsFromList(NSArray<NSArray *> * list){
-    //list 类名,title,img_N,img_H,badgeValue
+    //list 类名,title,imgN,imgH,badgeValue
     
     __block NSMutableArray * marr = [NSMutableArray array];
     [list enumerateObjectsUsingBlock:^(NSArray * _Nonnull obj, NSUInteger idx, BOOL * _Nonnull stop) {

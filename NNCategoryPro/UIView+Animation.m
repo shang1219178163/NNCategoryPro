@@ -10,7 +10,6 @@
 #import "UIView+Animation.h"
 
 #import <objc/runtime.h>
-#import "NSMutableArray+Helper.h"
 #import "CALayer+Helper.h"
 #import "UIImage+Helper.h"
 
@@ -66,7 +65,7 @@
 
 - (CAAnimationGroup *)addAnimationBigShapeWithColor:(UIColor *)color{
     UIColor *stroke = color ? : UIColor.redColor;
-    UIView * view = self;
+    UIView *view = self;
     CABasicAnimation *borderAnim = [CABasicAnimation animationWithKeyPath:@"borderColor"];
     borderAnim.fromValue = (id)UIColor.clearColor.CGColor;
     borderAnim.toValue = (id)UIColor.redColor.CGColor;
@@ -111,7 +110,6 @@
         // 详见UIViewAnimationCurve
         [UIView setAnimationCurve:UIViewAnimationCurveEaseInOut];
         [UIView setAnimationTransition:transition forView:self cache:YES];
-        
     }];
 }
 
@@ -129,7 +127,7 @@
             [layer1 removeFromSuperlayer];
             sender.hidden = YES;
             CALayer *layer2 = [sender.superview.layer addAnimLoading:@"loading" duration:3];
-            CAAnimation * anim2 = [layer2 animationForKey:@"loading"];
+            CAAnimation *anim2 = [layer2 animationForKey:@"loading"];
             
             dispatch_after(dispatch_time(DISPATCH_TIME_NOW, (int64_t)(anim2.duration* NSEC_PER_SEC)), dispatch_get_main_queue(), ^{
                 [layer2 removeAllAnimations];
@@ -150,7 +148,6 @@
     if (!list) {
         list = [NSMutableArray array];
         objc_setAssociatedObject(self, _cmd, list, OBJC_ASSOCIATION_RETAIN_NONATOMIC);
-        
     }
     return list;
 }
@@ -182,7 +179,6 @@
         [cacheList removeObject:shipLabyer];
     }
     else {
-        
         shipLabyer = CALayer.layer;
         shipLabyer.contentsScale = UIScreen.mainScreen.scale;
         shipLabyer.opacity = 1.0;
@@ -230,10 +226,10 @@
     //CGPathAddCurveToPoint(pathRef, nil, CGFloat cp1x, CGFloat cp1y, CGFloat cp2x, CGFloat cp2y, CGFloat x, CGFloat y)
     
     //路径动画
-    CAKeyframeAnimation *keyframeAnim = [CAKeyframeAnimation animPath:pathRef
-                                                             duration:1
-                                                         autoreverses:NO
-                                                          repeatCount:1];
+    CAKeyframeAnimation *keyframeAnim = [CAKeyframeAnimation animWithPath:pathRef
+                                                                 duration:1
+                                                             autoreverses:NO
+                                                              repeatCount:1];
     
     //旋转动画
     CABasicAnimation* rotationAnim = [CABasicAnimation animKeyPath:kTransformRotationZ
@@ -273,13 +269,11 @@
 }
 
 - (void)animationDidStop:(CAAnimation *)anim finished:(BOOL)flag{
-   
     CALayer *layer = self.keepList.firstObject;
     [layer removeAllAnimations];
     [self.cacheList addObject:layer];
     [layer removeFromSuperlayer];
     [self.keepList removeObject:layer];
-    
 }
 
 

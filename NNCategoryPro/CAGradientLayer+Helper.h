@@ -12,10 +12,10 @@ NS_ASSUME_NONNULL_BEGIN
 
 @interface CAGradientLayer (Helper)
 
-+(CAGradientLayer *)layerRect:(CGRect)rect
-                       colors:(NSArray *)colors
-                        start:(CGPoint)start
-                          end:(CGPoint)end;
++(CAGradientLayer *)layerWithRect:(CGRect)rect
+                           colors:(NSArray *)colors
+                            start:(CGPoint)start
+                              end:(CGPoint)end;
 
 @end
 

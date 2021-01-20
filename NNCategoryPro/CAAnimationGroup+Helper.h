@@ -10,11 +10,11 @@
 
 @interface CAAnimationGroup (Helper)
 
-+(CAAnimationGroup *)animDuration:(CFTimeInterval)duration
-                     autoreverses:(BOOL)autoreverses
-                      repeatCount:(float)repeatCount
-                         fillMode:(NSString *)fillMode
-              removedOnCompletion:(BOOL)removedOnCompletion;
++(CAAnimationGroup *)animateWithDuration:(CFTimeInterval)duration
+                            autoreverses:(BOOL)autoreverses
+                             repeatCount:(float)repeatCount
+                                fillMode:(NSString *)fillMode
+                     removedOnCompletion:(BOOL)removedOnCompletion;
 
 +(CAAnimationGroup *)animList:(NSArray<CAAnimation *> *)list
                      duration:(CFTimeInterval)duration

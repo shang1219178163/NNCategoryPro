@@ -40,7 +40,7 @@
         case 2://带右下角icon
         {
             //小标志
-            NSString * text = @"企";
+            NSString *text = @"企";
             CGSize textSize = [self sizeWithText:text font:@(kFontSize14) width:kScreenWidth];
             CGFloat textWH = textSize.height > textSize.width ? textSize.height :textSize.width;
             textWH += 5;
@@ -81,7 +81,6 @@
     return imgView;
 }
 
-
 +(UIImageView *)imgViewRect:(CGRect)rect imageList:(NSArray *)imageList type:(NSNumber *)type{
     UIImageView *imgView = nil;
     switch (type.integerValue) {
@@ -103,7 +102,7 @@
             break;
         default:
         {
-            UIImage * image = [UIImage imageNamed:imageList.firstObject];
+            UIImage *image = [UIImage imageNamed:imageList.firstObject];
             
             imgView = [[UIImageView alloc] initWithFrame:rect];
             imgView.image = image;
@@ -222,4 +221,20 @@
     self.image = [self.image imageWithRenderingMode:mode];
 }
 
+#pragma mark -Animtion
+- (void)addFlipAnimtion:(UIImage *)image backImage:(UIImage *)backImage{
+    [UIView transitionWithView:self
+                      duration:1.5f
+                       options:UIViewAnimationOptionTransitionFlipFromLeft
+                    animations:^{
+        self.tag++;
+        UIImage *tmp = self.tag % 2 == 0 ? image : backImage;
+        self.image = tmp;
+        
+    } completion:^(BOOL finished) {
+        if (finished) {
+            [self addFlipAnimtion:image backImage:backImage];
+        }
+    }];
+}
 @end

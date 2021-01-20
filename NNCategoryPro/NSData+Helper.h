@@ -16,6 +16,8 @@ NS_ASSUME_NONNULL_BEGIN
 ///->id
 @property (nonatomic, strong, readonly) id objValue;
 
+@property (nonatomic, strong, readonly) NSString *base64EncodedString;
+
 + (NSData *)base64DataFromString:(NSString *)string;
 
 + (NSData *)dataFromHexString:(NSString *)hexString;

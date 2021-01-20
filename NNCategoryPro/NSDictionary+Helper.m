@@ -195,3 +195,63 @@
 }
 
 @end
+
+
+@implementation NSMutableDictionary (Helper)
+
+- (NSMutableDictionary * _Nonnull (^)(NSDictionary<id<NSCopying>, id> *))addEntries{
+    return ^(NSDictionary<id<NSCopying>, id> * value) {
+        [self addEntriesFromDictionary:value];
+        return self;
+    };
+}
+
+- (NSMutableDictionary * _Nonnull (^)(id<NSCopying>, id))setObjectForKey{
+    return ^(id<NSCopying> key, id value) {
+        if (!key) {
+            return self;
+        }
+        [self setObject:value forKey:key];
+        return self;
+    };
+}
+
+- (NSMutableDictionary * _Nonnull (^)(id<NSCopying>))removeObjectForKey{
+    return ^(id<NSCopying> key) {
+        [self removeObjectForKey: key];
+        return self;
+    };
+}
+
+- (NSMutableDictionary * _Nonnull (^)(NSArray<id> *))removeObjectsForKeys{
+    return ^(NSArray<id> * value) {
+        [self removeObjectsForKeys:value];
+        return self;
+    };
+}
+
+- (NSMutableDictionary * _Nonnull (^)(void))removeAll{
+    return ^(void) {
+        [self removeAllObjects];
+        return self;
+    };
+}
+
+-(void)setSafeObjct:(id _Nullable)obj forKey:(id<NSCopying>)akey{
+    if (!obj || [obj isKindOfClass:[NSNull class]]) {
+        [self setObject:@"" forKey:akey];
+        return;
+    }
+    [self setObject:obj forKey:akey];
+}
+
+- (void)setSafeObject:(nullable id)obj forKeyedSubscript:(id <NSCopying>)key{
+    if (!obj || [obj isKindOfClass:[NSNull class]]) {
+        [self setObject:@"" forKey:key];
+        return;
+    }
+    [self setObject:obj forKeyedSubscript:key];
+}
+
+
+@end

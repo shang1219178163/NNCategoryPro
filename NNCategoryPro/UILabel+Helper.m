@@ -11,7 +11,6 @@
 #import <NNGloble/NNGloble.h>
 #import "UIColor+Helper.h"
 #import "NSAttributedString+Helper.h"
-#import "NSMutableAttributedString+Chain.h"
 
 @implementation UILabel (Helper)
 

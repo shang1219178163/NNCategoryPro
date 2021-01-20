@@ -120,10 +120,16 @@
 /**
  UIButton不同状态下设置富文本标题
  */
-- (NSMutableAttributedString *)setContent:(NSString *)content attDic:(NSDictionary *)attDic forState:(UIControlState)state{
-    NSMutableAttributedString *attString = [[NSMutableAttributedString alloc] initWithString:self.titleLabel.text attributes:attDic];    
+- (void)setContent:(NSString *)content attDic:(NSDictionary *)attDic forState:(UIControlState)state{
+    NSString *title = [self titleForState:state];
+    NSRange range = [title rangeOfString:content];
+    if (!title || range.location == NSNotFound) {
+        return ;
+    }
+    
+    NSMutableAttributedString *attString = [[NSMutableAttributedString alloc] initWithString:title];
+    [attString addAttributes:attDic range:range];
     [self setAttributedTitle:attString forState:state];
-    return attString;
 }
 
 +(UIButton *)buttonWithSize:(CGSize)size

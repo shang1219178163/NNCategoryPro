@@ -14,10 +14,10 @@ NS_ASSUME_NONNULL_BEGIN
 //弃用
 @interface NSObject (ModelHelper)
 
--(id)convertFromDict:(NSDictionary *)dict key:(NSString *)key;
-
--(void)convertBaseTypesForYYModelDict:(NSDictionary *)dict;
--(void)convertBaseTypesForYYModelDict:(NSDictionary *)dict mapperDict:(NSDictionary *)mapperDict;
+//-(id)convertFromDict:(NSDictionary *)dict key:(NSString *)key;
+//
+//-(void)convertBaseTypesForYYModelDict:(NSDictionary *)dict;
+//-(void)convertBaseTypesForYYModelDict:(NSDictionary *)dict mapperDict:(NSDictionary *)mapperDict;
 
 @end
 

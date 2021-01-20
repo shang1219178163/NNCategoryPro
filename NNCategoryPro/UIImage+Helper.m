@@ -393,7 +393,7 @@ bool UIImageEquelToImage(UIImage *image0, UIImage *image1){
 }
 
 //根据图片获取图片的主色调
--(UIColor *)mostColor{
+- (UIColor *)mostColor{
     UIImage *image = self;
     int bitmapInfo = kCGBitmapByteOrderDefault | kCGImageAlphaPremultipliedLast;
 
@@ -662,43 +662,6 @@ bool UIImageEquelToImage(UIImage *image0, UIImage *image1){
     return imageData;
 }
 
-- (id)compressToFileSize:(NSInteger)fileSize type:(NSNumber *)type{
-    id obj = [self compressToFileSize:fileSize];
-    switch (type.integerValue) {
-        case 1:
-        {
-            //图片UIImage
-            obj = [UIImage imageWithData:obj];;
-        }
-            break;
-        case 2:
-        {
-            //图片二进制数据的base64编码
-            obj = [obj base64EncodedStringWithOptions:0];
-        }
-            break;
-        default:
-            break;
-    }
-    return obj;
-}
-
-//- (UIImage *)compressToSize:(CGFloat)fileSize{
-//    UIImage *image = (UIImage *)self;
-//    NSData * orginImageData = UIImageJPEGRepresentation(image, 1.0f);
-//    CGFloat orignImageDataSize = orginImageData.length/1024;
-//    CGFloat yasuolv = fileSize/orignImageDataSize;//压缩到fileSize
-//    if (yasuolv < 0.1) yasuolv = 0.1;
-//    NSData * yasuoImageData = UIImageJPEGRepresentation(image, yasuolv);
-//    UIImage *compressImage = [UIImage imageWithData:yasuoImageData];
-//
-//    //大小
-//    NSData * oneImageData = UIImageJPEGRepresentation(compressImage, 0.1f);
-//    DDLog(@"压缩后图片大小:%luK %luK",yasuoImageData.length/1024,oneImageData.length/1024);
-//    return compressImage;
-//}
-
-
 - (UIImage *)compressImageToByte:(NSUInteger)maxLength {
     UIImage *image = (UIImage *)self;
 
@@ -741,28 +704,5 @@ bool UIImageEquelToImage(UIImage *image0, UIImage *image1){
     
     return resultImage;
 }
-
-- (id)compressToByte:(NSUInteger)maxLength type:(NSNumber *)type{
-   
-    UIImage *image = [self compressImageToByte:maxLength];
-    id obj = UIImageJPEGRepresentation(image, 1.0);
-    switch (type.integerValue) {
-        case 1:
-        {
-            obj = [UIImage imageWithData:obj];;
-
-        }
-            break;
-        case 2:
-        {
-            obj = [obj base64EncodedStringWithOptions:0];
-        }
-            break;
-        default:
-            break;
-    }
-    return obj;
-}
-
 
 @end

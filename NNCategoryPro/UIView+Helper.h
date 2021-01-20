@@ -129,4 +129,14 @@ NS_ASSUME_NONNULL_BEGIN
 
 @end
 
+
+@interface UIView (ScreenEdgePan)
+
+@property (nonatomic, strong, readonly) UIView *showView;
+
+- (void)addRecognizerEdgPan:(void(^)(UIScreenEdgePanGestureRecognizer *recognizer))block;
+
+- (void)followScreenEdgePan:(UIScreenEdgePanGestureRecognizer *)recognizer;
+
+@end
 NS_ASSUME_NONNULL_END

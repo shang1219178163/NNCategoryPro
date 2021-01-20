@@ -15,7 +15,17 @@ NS_ASSUME_NONNULL_BEGIN
 /**
  [源]关键帧动画
  */
-+(CAKeyframeAnimation *)animDuration:(CFTimeInterval)duration
++(CAKeyframeAnimation *)animateWithDuration:(CFTimeInterval)duration
+                               autoreverses:(BOOL)autoreverses
+                                repeatCount:(float)repeatCount
+                                   fillMode:(NSString *)fillMode
+                        removedOnCompletion:(BOOL)removedOnCompletion
+                               functionName:(CAMediaTimingFunctionName)functionName;
+/**
+ 关键帧动画
+ */
++(CAKeyframeAnimation *)animWithPath:(CGPathRef)pathRef
+                            duration:(CFTimeInterval)duration
                         autoreverses:(BOOL)autoreverses
                          repeatCount:(float)repeatCount
                             fillMode:(NSString *)fillMode
@@ -24,38 +34,28 @@ NS_ASSUME_NONNULL_BEGIN
 /**
  关键帧动画
  */
-+(CAKeyframeAnimation *)animPath:(CGPathRef)pathRef
-                        duration:(CFTimeInterval)duration
-                    autoreverses:(BOOL)autoreverses
-                     repeatCount:(float)repeatCount
-                        fillMode:(NSString *)fillMode
-             removedOnCompletion:(BOOL)removedOnCompletion
-                    functionName:(CAMediaTimingFunctionName)functionName;
-/**
- 关键帧动画
- */
-+(CAKeyframeAnimation *)animPath:(CGPathRef)pathRef
-                        duration:(CFTimeInterval)duration
-                    autoreverses:(BOOL)autoreverses
-                     repeatCount:(float)repeatCount;
++(CAKeyframeAnimation *)animWithPath:(CGPathRef)pathRef
+                            duration:(CFTimeInterval)duration
+                        autoreverses:(BOOL)autoreverses
+                         repeatCount:(float)repeatCount;
 
 /**
  [源]关键帧动画
  */
-+(CAKeyframeAnimation *)animValues:(NSArray<NSValue *>*)values
-                          duration:(CFTimeInterval)duration
-                      autoreverses:(BOOL)autoreverses
-                       repeatCount:(float)repeatCount
-                          fillMode:(NSString *)fillMode
-               removedOnCompletion:(BOOL)removedOnCompletion
-                      functionName:(CAMediaTimingFunctionName)functionName;
++(CAKeyframeAnimation *)animWithValues:(NSArray<NSValue *>*)values
+                              duration:(CFTimeInterval)duration
+                          autoreverses:(BOOL)autoreverses
+                           repeatCount:(float)repeatCount
+                              fillMode:(NSString *)fillMode
+                   removedOnCompletion:(BOOL)removedOnCompletion
+                          functionName:(CAMediaTimingFunctionName)functionName;
 /**
  关键帧动画
  */
-+(CAKeyframeAnimation *)animValues:(NSArray<NSValue *>*)values
-                          duration:(CFTimeInterval)duration
-                      autoreverses:(BOOL)autoreverses
-                       repeatCount:(float)repeatCount;
++(CAKeyframeAnimation *)animWithValues:(NSArray<NSValue *>*)values
+                              duration:(CFTimeInterval)duration
+                          autoreverses:(BOOL)autoreverses
+                           repeatCount:(float)repeatCount;
 
 @end
 

@@ -54,6 +54,8 @@ NS_ASSUME_NONNULL_BEGIN
  */
 -(void)renderTintColor:(UIColor *)tintColor mode:(UIImageRenderingMode)mode;
 
+///持续翻转动画
+- (void)addFlipAnimtion:(UIImage *)image backImage:(UIImage *)backImage;
 
 @end
 

@@ -10,11 +10,11 @@
 
 @implementation CAAnimationGroup (Helper)
 
-+(CAAnimationGroup *)animDuration:(CFTimeInterval)duration
-                     autoreverses:(BOOL)autoreverses
-                      repeatCount:(float)repeatCount
-                         fillMode:(NSString *)fillMode
-              removedOnCompletion:(BOOL)removedOnCompletion{
++(CAAnimationGroup *)animateWithDuration:(CFTimeInterval)duration
+                            autoreverses:(BOOL)autoreverses
+                             repeatCount:(float)repeatCount
+                                fillMode:(NSString *)fillMode
+                     removedOnCompletion:(BOOL)removedOnCompletion{
     
     CAAnimationGroup *anim = [CAAnimationGroup animation];
     anim.duration = duration;
@@ -32,12 +32,11 @@
                      fillMode:(NSString *)fillMode
           removedOnCompletion:(BOOL)removedOnCompletion{
     
-    CAAnimationGroup *anim = [CAAnimationGroup
-                              animDuration:duration
-                              autoreverses:autoreverses
-                              repeatCount:repeatCount
-                              fillMode:fillMode
-                              removedOnCompletion:removedOnCompletion];
+    CAAnimationGroup *anim = [CAAnimationGroup animateWithDuration:duration
+                                                      autoreverses:autoreverses
+                                                       repeatCount:repeatCount
+                                                          fillMode:fillMode
+                                               removedOnCompletion:removedOnCompletion];
     anim.animations = list;
     return anim;
 }
@@ -47,12 +46,11 @@
                  autoreverses:(BOOL)autoreverses
                   repeatCount:(float)repeatCount{
     
-    CAAnimationGroup *anim = [CAAnimationGroup
-                              animDuration:duration
-                              autoreverses:autoreverses
-                              repeatCount:repeatCount
-                              fillMode:kCAFillModeForwards
-                              removedOnCompletion:NO];
+    CAAnimationGroup *anim = [CAAnimationGroup animateWithDuration:duration
+                                                      autoreverses:autoreverses
+                                                       repeatCount:repeatCount
+                                                          fillMode:kCAFillModeForwards
+                                               removedOnCompletion:NO];
     anim.animations = list;
     return anim;
 }

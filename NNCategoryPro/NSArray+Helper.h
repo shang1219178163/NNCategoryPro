@@ -87,9 +87,19 @@ compactMap 高阶降维函数
 @end
 
 
-@interface NSMutableArray (Ext)
+@interface NSMutableArray<ObjectType> (Helper)
 
-@property(nonatomic, strong, readonly) NSMutableArray *(^addObjects)(NSArray *);
+@property(nonatomic, copy, readonly) NSMutableArray *(^addObject)(ObjectType);
+@property(nonatomic, copy, readonly) NSMutableArray *(^addObjects)(NSArray<ObjectType> *);
+
+@property(nonatomic, copy, readonly) NSMutableArray *(^insertAtIndex)(ObjectType, NSUInteger);
+@property(nonatomic, copy, readonly) NSMutableArray *(^removeAtIndex)(NSUInteger);
+@property(nonatomic, copy, readonly) NSMutableArray *(^removeObjects)(NSArray<ObjectType> *);
+@property(nonatomic, copy, readonly) NSMutableArray *(^removeAll)(void);
+
+@property(nonatomic, copy, readonly) NSMutableArray *(^replaceAtIndex)(ObjectType, NSUInteger);
+
+@property(nonatomic, copy, readonly) NSMutableArray *(^sort)(SEL);
 
 @end
 

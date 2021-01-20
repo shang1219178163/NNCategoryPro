@@ -8,13 +8,11 @@
 //
 
 #import "CATransaction+Helper.h"
-
 #import "CABasicAnimation+Helper.h"
-
 
 @implementation CATransaction (Helper)
 
-+(void)animDuration:(CGFloat)duration animation:(void(^)(void))animation completion:(void (^_Nullable)(void))completion{
++(void)animateWithDuration:(CGFloat)duration animation:(void(^)(void))animation completion:(void (^_Nullable)(void))completion{
     
     [CATransaction begin];
     [CATransaction setAnimationDuration:duration];

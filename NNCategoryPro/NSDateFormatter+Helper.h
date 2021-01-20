@@ -76,4 +76,29 @@ FOUNDATION_EXPORT NSString * const kFormatDateSix ;
 
 @end
 
+
+@interface NSDateComponents (Helper)
+
++ (NSDateComponents *)dateWithYear:(NSInteger)year
+                             month:(NSInteger)month
+                               day:(NSInteger)day
+                              hour:(NSInteger)hour
+                            minute:(NSInteger)minute
+                            second:(NSInteger)second;
+
+@end
+
+
+@interface NSCalendar (Helper)
+
+@property(nonatomic, readonly, class) NSArray *monthList;
+@property(nonatomic, readonly, class) NSArray *dayList;
+@property(nonatomic, readonly, class) NSArray *weekList;
+
+@property(nonatomic, strong, readonly, class) NSCalendar *shard;
+
+@property(nonatomic, assign, readonly, class) NSCalendarUnit unitFlags;
+    
+@end
+
 NS_ASSUME_NONNULL_END

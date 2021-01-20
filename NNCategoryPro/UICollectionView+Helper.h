@@ -18,12 +18,11 @@ FOUNDATION_EXPORT NSString * const UICollectionElementKindSectionItem ;
 @property (nonatomic, strong, class) UICollectionViewLayout *layoutDefault;
 /**
  注意字典格式,如下
- collectionView.dictClass = @{
-                                 UICollectionElementKindSectionItem:    @[@"UICollectionViewCell",
+ collectionView.dictClass = @{UICollectionElementKindSectionItem:    @[@"UICollectionViewCell",
                                                                          ],
-                                 UICollectionElementKindSectionHeader:  @[@"UICollectionReusableOneView",
+                              UICollectionElementKindSectionHeader:  @[@"UICollectionReusableOneView",
                                                                         ],
-                                 UICollectionElementKindSectionFooter:  @[@"UICollectionReusableOneView",
+                              UICollectionElementKindSectionFooter:  @[@"UICollectionReusableOneView",
                                                                          ],
  
  };
@@ -35,7 +34,7 @@ FOUNDATION_EXPORT NSString * const UICollectionElementKindSectionItem ;
  */
 + (instancetype)createRect:(CGRect)rect layout:(UICollectionViewLayout *)layout;
 
-+ (NSString *)viewIdentifierByClassName:(NSString *)className kind:(NSString *)kind;
+//+ (NSString *)viewIdentifierByClassName:(NSString *)className kind:(NSString *)kind;
 
 - (void)registerCTVCell:(NSArray *)listClass;
 - (void)registerCTVReusable:(NSArray *)listClass kind:(NSString *)kind;

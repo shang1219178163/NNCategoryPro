@@ -16,7 +16,7 @@ UIKIT_EXTERN NSString * const kUITabBarSwappableImageView;
 
 @interface UITabBarController (Helper)
 
-/// list 类名,title,img_N,img_H,badgeValue
+/// list 类名,title,imgN,imgH,badgeValue
 FOUNDATION_EXPORT NSArray<UITabBarItem *> * UITabBarItemsFromList(NSArray<NSArray *> *list);
 /// 数组->__kindof UIViewController (子数组示例:@[@"标题",@"图片",@"图片高亮",@"badgeValue",])
 FOUNDATION_EXPORT NSArray<__kindof UIViewController *> * UICtlrListFromList(NSArray<NSArray *> *list, BOOL isNavController);

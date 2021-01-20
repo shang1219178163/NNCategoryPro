@@ -59,7 +59,7 @@ labelLeftSub, labelLeftMark, labelLeftSubMark, btn;
 //
 //        view.numberOfLines = 0;
 //        view.userInteractionEnabled = YES;
-//        //            view.backgroundColor = UIColor.greenColor;
+//        view.backgroundColor = UIColor.greenColor;
 //        view.tag = kTAG_LABEL;
 //        view;
 //      });

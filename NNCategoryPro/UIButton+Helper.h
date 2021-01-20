@@ -31,7 +31,7 @@ NS_ASSUME_NONNULL_BEGIN
 
 + (instancetype)createRect:(CGRect)rect title:(NSString *)title image:(NSString *_Nullable)image type:(NSNumber *)type;
     
-- (NSMutableAttributedString *)setContent:(NSString *)content attDic:(NSDictionary *)attDic forState:(UIControlState)state;
+- (void)setContent:(NSString *)content attDic:(NSDictionary *)attDic forState:(UIControlState)state;
 
 /**
  导航栏按钮

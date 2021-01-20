@@ -13,6 +13,7 @@ NS_ASSUME_NONNULL_BEGIN
 @interface UIImage (Helper)
 
 @property (nonatomic, strong, readonly) NSString *contentType;
+
 /// UIColor->UIImage
 FOUNDATION_EXPORT UIImage * UIImageColor(UIColor * color);
 /// 十六进制数值->UIImage
@@ -77,12 +78,12 @@ FOUNDATION_EXPORT bool UIImageEquelToImage(UIImage *image0, UIImage *image1);
 
 + (BOOL)image:(UIImage *)image1 isEqualTo:(UIImage *)image2;
 
--(UIColor *)mostColor;
+- (UIColor *)mostColor;
 
 //获取图像某一点的颜色
 - (UIColor *)colorAtPixel:(CGPoint)point;
 
-#pragma mark - -压缩图片
+#pragma mark -压缩图片
 + (UIImage *)resizeImage:(UIImage *)image toMaxSize:(CGSize)maxSize;
 
 // 大图缩小为显示尺寸的图
@@ -99,23 +100,13 @@ FOUNDATION_EXPORT bool UIImageEquelToImage(UIImage *image0, UIImage *image1);
 
 //递归缩小压缩系数,返回压缩后imageData
 - (NSData *)compressToFileSize:(NSInteger)fileSize;
-/**
- UIImage压缩
-
- @param fileSize 最大文件尺寸
- @param type 0:NSData,1:UIImage,1:图片二进制数据的base64编码
- @return 根据type返回对应对应类型
- */
-- (id)compressToFileSize:(NSInteger)fileSize type:(NSNumber *)type;
 
 /**
  保证图片清晰度,先压缩图片质量。如果要使图片一定小于指定大小，压缩图片尺寸可以满足。对于后一种需求，还可以先压缩图片质量，如果已经小于指定大小，就可得到清晰的图片，否则再压缩图片尺寸。
-
  @param maxLength 文件大小
  @return uiimage
  */
 - (UIImage *)compressImageToByte:(NSUInteger)maxLength;
-- (id)compressToByte:(NSUInteger)maxLength type:(NSNumber *)type;
 
 @end
 

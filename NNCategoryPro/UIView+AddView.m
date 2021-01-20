@@ -73,7 +73,7 @@
     }
     
     NSArray *colors = @[[UIColor.themeColor colorWithAlphaComponent:0.5], [UIColor.themeColor colorWithAlphaComponent:0.9]];
-     CAGradientLayer *layer = [CAGradientLayer layerRect:CGRectZero colors:colors start:CGPointMake(0, 0) end:CGPointMake(1.0, 0)];
+     CAGradientLayer *layer = [CAGradientLayer layerWithRect:CGRectZero colors:colors start:CGPointMake(0, 0) end:CGPointMake(1.0, 0)];
     
     objc_setAssociatedObject(self, _cmd, layer, OBJC_ASSOCIATION_RETAIN_NONATOMIC);
     return obj;
@@ -167,7 +167,7 @@
 
 -(void)addLineRect:(CGRect)rect isDash:(BOOL)isDash inView:(UIView *)inView{
     if (!isDash) {
-        UIView * lineView = [[UIView alloc]initWithFrame:rect];
+        UIView *lineView = [[UIView alloc]initWithFrame:rect];
 //            lineView.backgroundColor = [Utilities colorWithHexString:@"#d2d2d2"];
         lineView.backgroundColor = UIColor.lineColor;
         [inView addSubview:lineView];
@@ -197,7 +197,7 @@
 
 +(UIView *)createLineRect:(CGRect)rect isDash:(BOOL)isDash hidden:(BOOL)hidden{
     if (!isDash) {
-        UIView * lineView = [[UIView alloc]initWithFrame:rect];
+        UIView *lineView = [[UIView alloc]initWithFrame:rect];
         lineView.backgroundColor = UIColor.lineColor;
         lineView.hidden = hidden;
         return lineView;
@@ -228,7 +228,7 @@
 }
 
 -(CGRect)rectWithLineType:(NSNumber *)type width:(CGFloat)width paddingScale:(CGFloat)paddingScale{
-    UIView * view = self;
+    UIView *view = self;
     CGRect rect = self.bounds;
     switch (type.integerValue) {
         case 0:
@@ -269,8 +269,8 @@
 }
 
 -(UIView *)createViewType:(NSNumber *)type{
-    UIView * view = self;
-    UIView * layer = [view createViewType:type color:UIColor.lineColor width:kW_LayerBorder paddingScale:0];
+    UIView *view = self;
+    UIView *layer = [view createViewType:type color:UIColor.lineColor width:kW_LayerBorder paddingScale:0];
     
     return layer;
 }
@@ -279,8 +279,8 @@
                     color:(UIColor *)color
                     width:(CGFloat)width
              paddingScale:(CGFloat)paddingScale{
-    UIView * view = self;
-    UIView * layer = [[UIView alloc]init];
+    UIView *view = self;
+    UIView *layer = [[UIView alloc]init];
     layer.backgroundColor = color;
     layer.frame = [view rectWithLineType:type width:width paddingScale:paddingScale];
     
@@ -288,8 +288,8 @@
 }
 
 -(CALayer *)createLayerType:(NSNumber *)type{
-    UIView * view = self;
-    CALayer * layer = [view createLayerType:type color:UIColor.lineColor width:kW_LayerBorder paddingScale:0];
+    UIView *view = self;
+    CALayer *layer = [view createLayerType:type color:UIColor.lineColor width:kW_LayerBorder paddingScale:0];
     
     return layer;
 }
@@ -298,8 +298,8 @@
                       color:(UIColor *)color
                       width:(CGFloat)width
                paddingScale:(CGFloat)paddingScale{
-    UIView * view = self;
-    CALayer * layer = CALayer.layer;
+    UIView *view = self;
+    CALayer *layer = CALayer.layer;
     layer.backgroundColor = color.CGColor;
     layer.frame = [view rectWithLineType:type width:width paddingScale:paddingScale];
     

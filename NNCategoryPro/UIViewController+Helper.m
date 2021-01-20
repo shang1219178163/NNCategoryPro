@@ -48,11 +48,13 @@ UINavigationController *UINavCtrFromObj(id obj){
 }
 
 - (UIButton *)backBtn{
-    UIButton *view = objc_getAssociatedObject(self, _cmd);
-    if (!view) {
-        view = [self createBackItem:[UIImage imageNamed:@"icon_arowLeft_black"]];
-        objc_setAssociatedObject(self, _cmd, view, OBJC_ASSOCIATION_RETAIN_NONATOMIC);
+    id obj = objc_getAssociatedObject(self, _cmd);
+    if (obj) {
+        return obj;
     }
+    UIButton *view = [self createBackItem:[UIImage imageNamed:@"icon_arowLeft_black"]];
+    
+    objc_setAssociatedObject(self, _cmd, view, OBJC_ASSOCIATION_RETAIN_NONATOMIC);
     return view;
 }
 

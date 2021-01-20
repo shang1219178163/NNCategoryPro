@@ -32,7 +32,7 @@ NS_ASSUME_NONNULL_BEGIN
 - (unsigned long long)sizeOfFolder:(NSString *)folderPath;
 - (NSString *)appFileSize;
 
-+(id)paserJsonFile:(NSString *)fileName;
++ (id)paserJsonFile:(NSString *)fileName;
 
 + (void)deleteDocument:(UIDocument *)document withCompletionBlock:(void (^)(void))completionBlock;
 

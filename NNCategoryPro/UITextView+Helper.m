@@ -16,14 +16,14 @@
 + (void)load{
     static dispatch_once_t onceToken;
     dispatch_once(&onceToken, ^{
-        swizzleInstanceMethod(self.class,  NSSelectorFromString(@"dealloc"), @selector(swz_Dealloc));
+        swizzleInstanceMethod(self.class,  NSSelectorFromString(@"dealloc"), @selector(hook_dealloc));
 
     });
 }
 
-- (void)swz_Dealloc {
+- (void)hook_dealloc {
     [NSNotificationCenter.defaultCenter removeObserver:self];
-    [self swz_Dealloc];
+    [self hook_dealloc];
 }
 
 #pragma mark - - 属性
@@ -122,7 +122,7 @@
     __block NSMutableAttributedString *mattStr = [[NSMutableAttributedString alloc]initWithString:textView.text attributes:attributes];
     [dic enumerateKeysAndObjectsUsingBlock:^(NSString * key, id  _Nonnull obj, BOOL * _Nonnull stop) {
         NSURL *url = [NSURL URLWithString:obj];
-        NSAttributedString * attStr = [NSAttributedString hyperlinkFromString:key withURL:url font:textView.font];
+        NSAttributedString *attStr = [NSAttributedString hyperlinkFromString:key withURL:url font:textView.font];
         NSRange range = [mattStr.string rangeOfString:key];
         [mattStr replaceCharactersInRange:range withAttributedString:attStr];
         

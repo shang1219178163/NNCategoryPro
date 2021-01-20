@@ -78,4 +78,18 @@ compactMapValues 高阶函数(将 value 为 nil 过滤掉)
 
 @end
 
+
+@interface NSMutableDictionary<KeyType, ObjectType> (Helper)
+
+@property(nonatomic, copy, readonly) NSMutableDictionary *(^addEntries)(NSDictionary<KeyType, ObjectType> *);
+@property(nonatomic, copy, readonly) NSMutableDictionary *(^setObjectForKey)(KeyType, ObjectType);
+
+@property(nonatomic, copy, readonly) NSMutableDictionary *(^removeObjectForKey)(KeyType);
+@property(nonatomic, copy, readonly) NSMutableDictionary *(^removeObjectsForKeys)(NSArray<ObjectType> *);
+@property(nonatomic, copy, readonly) NSMutableDictionary *(^removeAll)(void);
+
+- (void)setSafeObjct:(id _Nullable)obj forKey:(id<NSCopying>)akey;
+- (void)setSafeObject:(nullable id)obj forKeyedSubscript:(id <NSCopying>)key;
+
+@end
 NS_ASSUME_NONNULL_END

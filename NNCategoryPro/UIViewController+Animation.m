@@ -6,6 +6,7 @@
 //  Copyright © 2018年 SHANG. All rights reserved.
 //
 
+/*
 #import "UIViewController+Animation.h"
 
 #import <objc/runtime.h>
@@ -108,5 +109,5 @@
 
 
 @end
-
+ */
 

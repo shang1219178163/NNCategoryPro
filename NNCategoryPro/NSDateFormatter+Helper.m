@@ -153,3 +153,71 @@ NSString * const kFormatDateSix      = @"EEE, dd MMM yyyy HH:mm:ss 'GMT'";
 }
 
 @end
+
+
+@implementation NSDateComponents (Helper)
+
++ (NSDateComponents *)dateWithYear:(NSInteger)year
+                             month:(NSInteger)month
+                               day:(NSInteger)day
+                              hour:(NSInteger)hour
+                            minute:(NSInteger)minute
+                            second:(NSInteger)second{
+    NSDateComponents *components = [[NSDateComponents alloc] init];
+    components.year = year;
+    components.month = month;
+    components.day = day;
+    components.hour = hour;
+    components.minute = minute;
+    components.second = second;
+    return components;
+}
+
+
+@end
+
+
+@implementation NSCalendar (Helper)
+
+static NSCalendar *_shared = nil;
++ (NSCalendar *)shard{
+    if (!_shared) {
+        _shared = [[NSCalendar alloc]initWithCalendarIdentifier:NSCalendarIdentifierGregorian];
+    }
+    return _shared;
+}
+
++ (NSCalendarUnit)unitFlags{
+    return NSCalendarUnitYear | NSCalendarUnitMonth | NSCalendarUnitDay |
+    NSCalendarUnitHour | NSCalendarUnitMinute | NSCalendarUnitSecond |
+    NSCalendarUnitWeekdayOrdinal | NSCalendarUnitWeekday;
+}
+
+static NSArray *_dayList = nil;
++ (NSArray *)dayList{
+    if (!_dayList) {
+        NSString *string = @"初一, 初二, 初三, 初四, 初五, 初六, 初七, 初八, 初九, 初十,十一, 十二, 十三, 十四, 十五, 十六, 十七, 十八, 十九, 二十, 廿一, 廿二, 廿三, 廿四, 廿五, 廿六, 廿七, 廿八, 廿九, 三十, 三十一";
+        _dayList = [string componentsSeparatedByString:@","];
+    }
+    return _dayList;
+}
+
+static NSArray *_monthList = nil;
++ (NSArray *)monthList{
+    if (!_monthList) {
+        NSString *string = @"正月, 二月, 三月, 四月, 五月, 六月, 七月, 八月,九月, 十月, 冬月, 腊月";
+        _monthList = [string componentsSeparatedByString:@","];
+    }
+    return _monthList;
+}
+
+static NSArray *_weekList = nil;
++ (NSArray *)weekList{
+    if (!_weekList) {
+        NSString *string = @"星期一,星期二,星期三,星期四,星期五,星期六,星期天";
+        _weekList = [string componentsSeparatedByString:@","];
+    }
+    return _weekList;
+}
+
+@end

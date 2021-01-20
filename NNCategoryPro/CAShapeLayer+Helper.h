@@ -13,12 +13,12 @@ NS_ASSUME_NONNULL_BEGIN
 
 @interface CAShapeLayer (Helper)
 
-+(CAShapeLayer *)layerRect:(CGRect)rect
-                      path:(CGPathRef)path
-                 strokeEnd:(CGFloat)strokeEnd
-                 fillColor:(UIColor *)fillColor
-               strokeColor:(UIColor *)strokeColor
-                 lineWidth:(CGFloat)lineWidth;
++(CAShapeLayer *)layerWithRect:(CGRect)rect
+                          path:(CGPathRef)path
+                     strokeEnd:(CGFloat)strokeEnd
+                     fillColor:(UIColor *)fillColor
+                   strokeColor:(UIColor *)strokeColor
+                     lineWidth:(CGFloat)lineWidth;
 
 +(CAShapeLayer *)layerWithSender:(CALayer *)sender
                             path:(CGPathRef)path

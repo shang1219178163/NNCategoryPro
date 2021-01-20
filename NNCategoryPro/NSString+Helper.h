@@ -126,22 +126,22 @@ NSString * NSStringFromIndexPath(NSIndexPath *indexPath);
 
 @interface NSMutableString (Ext)
 
-//- (void)appendString:(NSString *)aString;
+//- (void)appendString:;
 @property(nonatomic, copy, readonly) NSMutableString * (^appending)(NSString *);
 
 ///- (void)appendFormat:(NSString *)format, ... NS_FORMAT_FUNCTION(1,2);
 @property(nonatomic, copy, readonly) NSMutableString * (^appendingFormat)(NSString *format, ...);
 
-///- (void)replaceCharactersInRange:(NSRange)range withString:(NSString *)aString;
+///- (void)replaceCharactersInRange: withString:
 @property(nonatomic, copy, readonly) NSMutableString * (^replacingCharacters)(NSRange, NSString *);
 
-///- (NSUInteger)replaceOccurrencesOfString:(NSString *)target withString:(NSString *)replacement options:(NSStringCompareOptions)options range:(NSRange)searchRange;
+///- (NSUInteger)replaceOccurrencesOfString: withString: options: range:
 @property(nonatomic, copy, readonly) NSMutableString * (^replacingOccurrences)(NSString *, NSString *, NSStringCompareOptions);
 
-///- (void)insertString:(NSString *)aString atIndex:(NSUInteger)loc;
+///- (void)insertString: atIndex:
 @property(nonatomic, copy, readonly) NSMutableString * (^insertAtIndex)(NSString *, NSUInteger);
 
-///- (void)deleteCharactersInRange:(NSRange)range;
+///- (void)deleteCharactersInRange:
 @property(nonatomic, copy, readonly) NSMutableString * (^deleteCharacters)(NSRange);
 
 @end
