@@ -22,27 +22,27 @@ NS_ASSUME_NONNULL_BEGIN
  */
 @property (nonatomic, strong) UIView *holderView;
 
--(void)holderView:(NSString *)title image:(NSString *_Nullable)image;
+- (void)holderView:(NSString *)title image:(NSString *_Nullable)image;
 
 - (void)addLineDashLayerColor:(UIColor *)color
                         width:(CGFloat)width
                   dashPattern:(NSArray <NSNumber *>*_Nullable)dashPattern
                  cornerRadius:(CGFloat)cornerRadius;
 
--(void)addLineRect:(CGRect)rect isDash:(BOOL)isDash inView:(UIView *)inView;
+- (void)addLineRect:(CGRect)rect isDash:(BOOL)isDash inView:(UIView *)inView;
 
-+(UIView *)createLineRect:(CGRect)rect isDash:(BOOL)isDash hidden:(BOOL)hidden;
++ (UIView *)createLineRect:(CGRect)rect isDash:(BOOL)isDash hidden:(BOOL)hidden;
 
--(CALayer *)createLayerType:(NSNumber *)type;
+- (CALayer *)createLayerType:(NSNumber *)type;
 
--(CALayer *)createLayerType:(NSNumber *)type
+- (CALayer *)createLayerType:(NSNumber *)type
                       color:(UIColor *)color
                       width:(CGFloat)width
                paddingScale:(CGFloat)paddingScale;
 
--(UIView *)createViewType:(NSNumber *)type;
+- (UIView *)createViewType:(NSNumber *)type;
 
--(UIView *)createViewType:(NSNumber *)type color:(UIColor *)color width:(CGFloat)width paddingScale:(CGFloat)paddingScale;
+- (UIView *)createViewType:(NSNumber *)type color:(UIColor *)color width:(CGFloat)width paddingScale:(CGFloat)paddingScale;
 
 - (UIView *)addCorners:(UIRectCorner)corners
            cornerRadii:(CGSize)cornerRadii

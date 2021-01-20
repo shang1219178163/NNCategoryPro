@@ -13,7 +13,6 @@
 #import "UIViewController+Helper.h"
 
 #import "NSAttributedString+Helper.h"
-#import "NSMutableAttributedString+Chain.h"
 #import "NSDate+Helper.h"
 #import "NSDateFormatter+Helper.h"
 

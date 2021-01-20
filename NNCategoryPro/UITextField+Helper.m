@@ -12,10 +12,6 @@
 #import "UIGestureRecognizer+Helper.h"
 #import "NSObject+Helper.h"
 
-@interface UITextField()
-
-@end
-
 @implementation UITextField (Helper)
 
 /**

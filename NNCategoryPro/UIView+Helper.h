@@ -7,16 +7,12 @@
 //
 
 #import <UIKit/UIKit.h>
-
 #import "UIColor+Helper.h"
 #import "UIView+AddView.h"
 
-@class NNTextField;
-
-//typedef void(^BlockView)(UIView *view,id item, id obj);
-
 NS_ASSUME_NONNULL_BEGIN
 
+@class NNTextField;
 @interface UIView (Helper)
 
 @property (nonatomic, assign) CGFloat originX;
@@ -121,11 +117,6 @@ NS_ASSUME_NONNULL_BEGIN
 + (UIVisualEffectView *)createBlurViewEffect:(UIBlurEffectStyle)effect subView:(UIView *)view;
 
 - (void)addCircleLayerColor:(UIColor *)layColor layerWidth:(CGFloat)layerWidth;
-
-//- (NSIndexPath *)getCellIndexPath:(UITableView *)tableView;
-
-//信任值展示,无点击手势
-//+ (id)getStarViewRect:(CGRect)rect rateStyle:(NSString *)rateStyle currentScore:(CGFloat)currentScore;
 
 @end
 

@@ -23,12 +23,9 @@
 //}
 
 #import "NSArray+Helper.h"
-
 #import "NSObject+Helper.h"
 #import "NSString+Helper.h"
 #import "NSNumber+Helper.h"
-#import "NSMutableArray+Helper.h"
-#import "NSMutableDictionary+Helper.h"
 
 @implementation NSArray (Helper)
 
