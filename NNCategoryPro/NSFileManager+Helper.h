@@ -12,12 +12,12 @@ NS_ASSUME_NONNULL_BEGIN
 
 @interface NSFileManager (Helper)
 
-@property (class, readonly, nullable) NSURL *documentsURL;
-@property (class, readonly, nullable) NSString *documentsPath;
-@property (class, readonly, nullable) NSURL *libraryURL;
-@property (class, readonly, nullable) NSString *libraryPath;
-@property (class, readonly, nullable) NSURL *cachesURL;
-@property (class, readonly, nullable) NSString *cachesPath;
+@property (class, readonly) NSURL *documentsURL;
+@property (class, readonly) NSString *documentsPath;
+@property (class, readonly) NSURL *libraryURL;
+@property (class, readonly) NSString *libraryPath;
+@property (class, readonly) NSURL *cachesURL;
+@property (class, readonly) NSString *cachesPath;
 @property (class, readonly, assign) CGFloat availableDiskSpace;
 
 + (NSString *)fileContentWithName:(NSString *)fileName type:(NSString *)ext;

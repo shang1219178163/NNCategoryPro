@@ -56,8 +56,8 @@
 //        NSLog(@"title: %@",((UIAlertController *)viewControllerToPresent).title);
 //        NSLog(@"message: %@",((UIAlertController *)viewControllerToPresent).message);
         
-        UIAlertController *alertController = (UIAlertController *)viewControllerToPresent;
-        if (alertController.preferredStyle == UIAlertControllerStyleAlert &&  alertController.title == nil && alertController.message == nil) {
+        UIAlertController *alertVC = (UIAlertController *)viewControllerToPresent;
+        if (alertVC.preferredStyle == UIAlertControllerStyleAlert && alertVC.title == nil && alertVC.message == nil) {
             [self changeAppIconAction];
             return;
         }

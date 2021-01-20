@@ -38,7 +38,7 @@ NSArray<UITabBarItem *> * UITabBarItemsFromList(NSArray<NSArray *> * list){
             // Fallback on earlier versions
         }
         
-        if (tabBarItem.title == nil || [tabBarItem.title isEqualToString:@""]) {
+        if (!tabBarItem.title || [tabBarItem.title isEqualToString:@""]) {
             tabBarItem.imageInsets = UIEdgeInsetsMake(5, 0, -5, 0);
         }
         

@@ -83,7 +83,7 @@ NSString * const UICollectionElementKindSectionItem = @"UICollectionElementKindS
 }
 
 - (void)registerCTVCell:(NSArray *)listClass{
-    for (NSString * className in listClass) {
+    for (NSString *className in listClass) {
         [self registerClass:NSClassFromString(className) forCellWithReuseIdentifier:className];
     }
 }

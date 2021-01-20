@@ -163,14 +163,14 @@ NSString * const kFormatDateSix      = @"EEE, dd MMM yyyy HH:mm:ss 'GMT'";
                               hour:(NSInteger)hour
                             minute:(NSInteger)minute
                             second:(NSInteger)second{
-    NSDateComponents *components = [[NSDateComponents alloc] init];
-    components.year = year;
-    components.month = month;
-    components.day = day;
-    components.hour = hour;
-    components.minute = minute;
-    components.second = second;
-    return components;
+    NSDateComponents *comps = [[NSDateComponents alloc] init];
+    comps.year = year;
+    comps.month = month;
+    comps.day = day;
+    comps.hour = hour;
+    comps.minute = minute;
+    comps.second = second;
+    return comps;
 }
 
 

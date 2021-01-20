@@ -154,8 +154,8 @@
                         handler:(void(^)(UNUserNotificationCenter* center, UNNotificationRequest *request, NSError * _Nullable error))handler API_AVAILABLE(ios(10.0)){
     NSParameterAssert([trigger isKindOfClass: NSDate.class] || [trigger isKindOfClass: NSDateComponents.class] || [trigger isKindOfClass: CLCircularRegion.class]);
 
-    UNNotificationTrigger * notiTrigger = nil;
-    if ([trigger isKindOfClass: NSDate.class]) {
+    UNNotificationTrigger *notiTrigger = nil;
+    if ([trigger isKindOfClass: [NSDate class]]) {
         NSTimeInterval interval = ((NSDate *)trigger).timeIntervalSince1970 - NSDate.date.timeIntervalSince1970;
         DDLog(@"_%@_",@(interval));
         interval = interval < 0 ? 1 : interval;
@@ -164,7 +164,7 @@
         notiTrigger = timeTrigger;
         
     }
-    else if ([trigger isKindOfClass: NSDateComponents.class]){
+    else if ([trigger isKindOfClass: [NSDateComponents class]]){
         // 创建日期组建
 //        NSDateComponents *comp = [[NSDateComponents alloc] init];
 //        comp.weekday = 4;
@@ -174,7 +174,7 @@
         notiTrigger = calendarTrigger;
         
     }
-    else if ([trigger isKindOfClass: CLCircularRegion.class]){
+    else if ([trigger isKindOfClass: [CLCircularRegion class]]){
 //        CLLocationCoordinate2D center = CLLocationCoordinate2DMake(39.788857, 116.5559392);
 //        CLCircularRegion *region = [[CLCircularRegion alloc] initWithCenter:center1 radius:500 identifier:@"经海五路"];
 //        region.notifyOnEntry = YES;
@@ -212,11 +212,11 @@
  UNNotificationCategory
  */
 + (NSSet *)notiCategories:(id)obj identifier:(NSString *)identifier API_AVAILABLE(ios(10.0)){
-    if (obj == nil) {
+    if (!obj) {
         return [NSSet set];
     }
     
-    NSParameterAssert([obj isKindOfClass: UNTextInputNotificationAction.class] || [obj isKindOfClass: NSArray.class]);
+    NSParameterAssert([obj isKindOfClass: [UNTextInputNotificationAction class]] || [obj isKindOfClass: [NSArray class]]);
     UNNotificationCategory *notiCategory = nil;
     if ([obj isKindOfClass: UNTextInputNotificationAction.class]) {
         notiCategory = [UNNotificationCategory categoryWithIdentifier:identifier

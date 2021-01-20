@@ -123,7 +123,7 @@
     UIImageView *imgView = [self viewWithTag:kTAG_IMGVIEW];
     UILabel *label = [self viewWithTag:kTAG_LABEL];
     label.text = title;
-    if (image == nil) {
+    if (!image) {
         label.center = CGPointMake(self.holderView.center.x, self.holderView.sizeHeight*0.35);
     } else {
         imgView.image = UIImageNamed(image);

@@ -33,6 +33,9 @@ NS_ASSUME_NONNULL_BEGIN
                         functionName:(CAMediaTimingFunctionName)functionName;
 /**
  关键帧动画
+ fillMode:kCAFillModeForwards,
+ removedOnCompletion:false
+ functionName:kCAMediaTimingFunctionDefault
  */
 +(CAKeyframeAnimation *)animWithPath:(CGPathRef)pathRef
                             duration:(CFTimeInterval)duration

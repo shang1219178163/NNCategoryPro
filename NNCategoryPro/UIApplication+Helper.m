@@ -32,10 +32,10 @@ static NSDictionary *_phoneTypeDic = nil;
     return window;
 }
 
-+(void)setMainWindow:(UIWindow *)keyWindow{
-    if (!keyWindow) return;
-    [keyWindow makeKeyAndVisible];
-    UIApplication.sharedApplication.delegate.window = keyWindow;
++ (void)setMainWindow:(UIWindow *)mainWindow{
+    if (!mainWindow) return;
+    [mainWindow makeKeyAndVisible];
+    UIApplication.sharedApplication.delegate.window = mainWindow;
 }
 
 + (UIViewController *)rootController{
@@ -216,7 +216,7 @@ static NSDictionary *_infoDic = nil;
     return _phoneTypeDic;
 }
 
-+ (void)setupRootController:(id)controller isAdjust:(BOOL)isAdjust{
++ (void)setupRootController:(UIViewController *)controller isAdjust:(BOOL)isAdjust{
     if ([controller isKindOfClass:[NSString class]]) controller = [[NSClassFromString(controller) alloc] init];
     if (!isAdjust) {
         UIApplication.rootController = controller;
@@ -260,7 +260,6 @@ static NSDictionary *_infoDic = nil;
         
         UICollectionView.appearance.contentInsetAdjustmentBehavior = UIScrollViewContentInsetAdjustmentNever;
         UIScrollView.appearance.contentInsetAdjustmentBehavior = UIScrollViewContentInsetAdjustmentNever;
-        
     }
 }
 
@@ -286,14 +285,14 @@ static NSDictionary *_infoDic = nil;
     
     UITabBarItem.appearance.titlePositionAdjustment = UIOffsetMake(0, -5.0);
 
-    //    UITabBarItem *selectedItem = UITabBar.appearance.selectedItem;
-    //    selectedItem.image = [selectedItem.image imageWithRenderingMode:UIImageRenderingModeAlwaysTemplate];
-    //
-    //    NSArray *items = UITabBar.appearance.items;
-    //    for (UITabBarItem * item in items) {
-    //        item.image = [item.image imageWithRenderingMode:UIImageRenderingModeAlwaysTemplate];
-    //    }
-    //    UITabBarItem.appearance setTitleTextAttributes:<#(nullable NSDictionary<NSAttributedStringKey,id> *)#> forState:<#(UIControlState)#>
+//    UITabBarItem *selectedItem = UITabBar.appearance.selectedItem;
+//    selectedItem.image = [selectedItem.image imageWithRenderingMode:UIImageRenderingModeAlwaysTemplate];
+//
+//    NSArray *items = UITabBar.appearance.items;
+//    for (UITabBarItem * item in items) {
+//        item.image = [item.image imageWithRenderingMode:UIImageRenderingModeAlwaysTemplate];
+//    }
+//    UITabBarItem.appearance setTitleTextAttributes:<#(nullable NSDictionary<NSAttributedStringKey,id> *)#> forState:<#(UIControlState)#>
 }
 
 /**

@@ -19,10 +19,10 @@ FOUNDATION_EXPORT NSString * const kJPush_extras;
 
 @interface UIApplication (Helper)
 
-@property (class, strong) UIWindow *mainWindow;
-@property (class, strong) UIViewController *rootController;
-@property (class, readonly, nullable) UITabBarController *tabBarController;
-@property (class, readonly, nullable) UINavigationController *navController;
+@property (class, nonatomic, strong) UIWindow *mainWindow;
+@property (class, nonatomic, strong, nullable) UIViewController *rootController;
+@property (class, nonatomic, readonly, nullable) UITabBarController *tabBarController;
+@property (class, nonatomic, readonly, nullable) UINavigationController *navController;
 
 //@property (nullable, readonly) UIWindow *currentKeyWindow;
 
@@ -38,8 +38,8 @@ FOUNDATION_EXPORT NSString * const kJPush_extras;
 @property (class, readonly, nullable) NSString *phoneModel;
 @property (class, readonly, nullable) NSString *phoneLocalizedModel;
 @property (class, readonly, nullable) NSString *phoneType;
-
-+ (void)setupRootController:(id _Nonnull)controller isAdjust:(BOOL)isAdjust;
+///设置根视图控制器 （isAdjust：是够添加 UINavigationController）
++ (void)setupRootController:(UIViewController *_Nonnull)controller isAdjust:(BOOL)isAdjust;
 
 + (void)setupAppearanceDefault:(BOOL)isDefault;
 

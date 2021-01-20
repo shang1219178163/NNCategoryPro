@@ -34,7 +34,7 @@
 }
 
 - (void)setBackgroundColor:(nullable UIColor *)color forState:(UIControlState)state{
-    if (color == nil) {
+    if (!color) {
         return;
     }
     UIImage *image = [UIImage imageWithColor:color];
