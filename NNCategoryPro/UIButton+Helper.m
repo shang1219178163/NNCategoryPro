@@ -44,8 +44,8 @@
 /**
  [源]UIButton创建
  */
-+ (instancetype)createRect:(CGRect)rect title:(NSString *)title image:(NSString *_Nullable)image type:(NSNumber *)type{
-    UIButton * btn = [self buttonWithType:UIButtonTypeCustom];
++ (instancetype)createRect:(CGRect)rect title:(NSString *)title type:(NNButtonType)type{
+    UIButton *btn = [self buttonWithType:UIButtonTypeCustom];
     btn.autoresizingMask = UIViewAutoresizingFlexibleWidth|UIViewAutoresizingFlexibleHeight;
 
     btn.frame = rect;
@@ -53,70 +53,61 @@
 //    btn.titleLabel.adjustsFontSizeToFitWidth = YES;
     btn.titleLabel.font = [UIFont systemFontOfSize:15];
     btn.imageView.contentMode = UIViewContentModeScaleAspectFit;
+    [btn setCustomType:type forState:UIControlStateNormal];
+    return btn;
+}
 
-    switch (type.integerValue) {
-        case 1://主题背景白色字体无圆角
+- (void)setCustomType:(NNButtonType)type forState:(UIControlState)state{
+    switch (type) {
+        case NNButtonTypeTitleBlack:
         {
-            [btn setTitleColor:UIColor.whiteColor forState:UIControlStateNormal];
-            [btn setBackgroundImage:UIImageColor(UIColor.themeColor) forState:UIControlStateNormal];
+            [self setTitleColor:UIColor.whiteColor forState:state];
+            [self setBackgroundImage:UIImageColor(UIColor.whiteColor) forState:state];
         }
             break;
-        case 2://白色背景灰色字体无边框
+        case NNButtonTypeTitleTheme:
         {
-            [btn setTitleColor:UIColor.titleColor9 forState:UIControlStateNormal];
+            [self setTitleColor:UIColor.themeColor forState:state];
+            [self setBackgroundImage:UIImageColor(UIColor.whiteColor) forState:state];
         }
             break;
-        case 3://地图定位按钮一类
+        case NNButtonTypeTitleThemeAndOutline:
         {
-            [btn setBackgroundImage:[UIImage imageNamed:image] forState:UIControlStateNormal];
-            [btn setBackgroundImage:UIImageColor(UIColor.lightGrayColor) forState:UIControlStateDisabled];
-            btn.adjustsImageWhenHighlighted = false;
+            [self setTitleColor:UIColor.themeColor forState:state];
+            [self setBackgroundImage:UIImageColor(UIColor.redColor) forState:state];
+            
+            self.layer.borderColor = UIColor.themeColor.CGColor;
+            self.layer.borderWidth = 1;
+            self.layer.cornerRadius = 3;
         }
             break;
-        case 4://白色背景主题色字体和边框
+        case NNButtonTypeTitleWhiteAndBackgroudTheme:
         {
-            [btn setTitleColor:UIColor.themeColor forState:UIControlStateNormal];
-            btn.layer.borderColor = UIColor.themeColor.CGColor;
-            btn.layer.borderWidth = kW_LayerBorder;
+            [self setTitleColor:UIColor.whiteColor forState:state];
+            [self setBackgroundImage:UIImageColor(UIColor.themeColor) forState:state];
         }
             break;
-        case 5://白色背景主题字体无边框
+        case NNButtonTypeTitleWhiteAndBackgroudRed:
         {
-            [btn setTitleColor:UIColor.themeColor forState:UIControlStateNormal];
+            [self setTitleColor:UIColor.whiteColor forState:state];
+            [self setBackgroundImage:UIImageColor(UIColor.redColor) forState:state];
         }
             break;
-        case 6://红色背景白色字体
+        case NNButtonTypeTitleRedAndOutline:
         {
-            [btn setBackgroundImage:UIImageColor(UIColor.redColor) forState:UIControlStateNormal];
-            [btn setTitleColor:UIColor.whiteColor forState:UIControlStateNormal];
-            btn.layer.cornerRadius = 3;
-        }
-            break;
-        case 7://灰色背景黑色字体无边框
-        {
-            [btn setTitleColor:UIColor.blackColor forState:UIControlStateNormal];
-            [btn setBackgroundImage:UIImageColor(UIColor.backgroudColor) forState:UIControlStateNormal];
-
-            [btn setTitleColor:UIColor.whiteColor forState:UIControlStateSelected];
-            [btn setBackgroundImage:UIImageColor(UIColor.themeColor) forState:UIControlStateSelected];
-        }
-            break;
-        case 8://白色背景红色字体无边框
-        {
-            [btn setTitleColor:UIColor.redColor forState:UIControlStateNormal];
+            [self setTitleColor:UIColor.redColor forState:state];
+            [self setBackgroundImage:UIImageColor(UIColor.redColor) forState:state];
+            
+            self.layer.borderColor = UIColor.redColor.CGColor;
+            self.layer.borderWidth = 1;
+            self.layer.cornerRadius = 3;
         }
             break;
         default:
-        {
-            //白色背景黑色字体灰色边框
-            [btn setTitleColor:UIColor.blackColor forState:UIControlStateNormal];
-            btn.layer.borderColor = UIColor.lineColor.CGColor;
-            btn.layer.borderWidth = 1;
-        }
             break;
     }
-    return btn;
 }
+
 /**
  UIButton不同状态下设置富文本标题
  */
@@ -132,61 +123,55 @@
     [self setAttributedTitle:attString forState:state];
 }
 
-+(UIButton *)buttonWithSize:(CGSize)size
-                     imageN:(UIImage *)imageN
-                     imageH:(UIImage *)imageH
-            imageEdgeInsets:(UIEdgeInsets)imageEdgeInsets{
-        
-    UIButton *btn = [UIButton buttonWithType:UIButtonTypeCustom];
-    if (imageN) [btn setImage:[imageN imageWithRenderingMode:UIImageRenderingModeAlwaysOriginal] forState:UIControlStateNormal];
-    if (imageH) [btn setImage:imageH forState:UIControlStateHighlighted];
-    
-    [btn sizeToFit];
-        
-    CGRect btnRect = btn.frame;
-    btnRect.size = size;
-    btn.frame = btnRect;
-
-    btn.imageEdgeInsets = imageEdgeInsets;
-    return btn;
-}
-
-+(UIButton *)buttonWithSize:(CGSize)size
-                      title:(NSString *)title
-                       font:(NSUInteger)font
-               titleColorN:(UIColor *)titleColorN
-               titleColorH:(UIColor *)titleColorH
-            titleEdgeInsets:(UIEdgeInsets)titleEdgeInsets {
-    
-    UIButton *btn = [UIButton buttonWithType:UIButtonTypeCustom];
-    
-    [btn setTitle:title forState:UIControlStateNormal];
-    btn.titleLabel.font = [UIFont systemFontOfSize:font];
-    if (titleColorN) [btn setTitleColor:titleColorN forState:UIControlStateNormal];
-    if (titleColorH) [btn setTitleColor:titleColorH forState:UIControlStateHighlighted];
-    
-    [btn sizeToFit];
-    
-    CGRect btnRect = btn.frame;
-    btnRect.size = size;
-    btn.frame = btnRect;
-    
-    btn.titleEdgeInsets = titleEdgeInsets;
-    btn.exclusiveTouch = YES;
-
-    if (title.length >= 3) {
-        CGSize titleSize = [self sizeWithText:title font:@(font) width:UIScreen.width];
-        
-        btn.frame = CGRectMake(0, 0, titleSize.width, size.height);
-        btn.titleEdgeInsets = UIEdgeInsetsMake(-10, -20, -10, -20);
-        
-        if (title.length == 4) {
-            btn.titleLabel.adjustsFontSizeToFitWidth = YES;
-            btn.titleLabel.minimumScaleFactor = 1;
-        }
-    }
-    return btn;
-}
+//+(UIButton *)buttonWithSize:(CGSize)size
+//                     imageN:(UIImage *)imageN
+//                     imageH:(UIImage *)imageH{
+//
+//    UIButton *btn = [UIButton buttonWithType:UIButtonTypeCustom];
+//    if (imageN) [btn setImage:[imageN imageWithRenderingMode:UIImageRenderingModeAlwaysOriginal] forState:UIControlStateNormal];
+//    if (imageH) [btn setImage:imageH forState:UIControlStateHighlighted];
+//
+//    [btn sizeToFit];
+//
+//    CGRect btnRect = btn.frame;
+//    btnRect.size = size;
+//    btn.frame = btnRect;
+//    return btn;
+//}
+//
+//+(UIButton *)buttonWithSize:(CGSize)size
+//                      title:(NSString *)title
+//                       font:(NSUInteger)font
+//               titleColorN:(UIColor *)titleColorN
+//               titleColorH:(UIColor *)titleColorH{
+//
+//    UIButton *btn = [UIButton buttonWithType:UIButtonTypeCustom];
+//
+//    [btn setTitle:title forState:UIControlStateNormal];
+//    btn.titleLabel.font = [UIFont systemFontOfSize:font];
+//    if (titleColorN) [btn setTitleColor:titleColorN forState:UIControlStateNormal];
+//    if (titleColorH) [btn setTitleColor:titleColorH forState:UIControlStateHighlighted];
+//
+//    [btn sizeToFit];
+//
+//    CGRect btnRect = btn.frame;
+//    btnRect.size = size;
+//    btn.frame = btnRect;
+//
+//    btn.exclusiveTouch = YES;
+//    if (title.length >= 3) {
+//        CGSize titleSize = [self sizeWithText:title font:@(font) width:UIScreen.width];
+//
+//        btn.frame = CGRectMake(0, 0, titleSize.width, size.height);
+//        btn.titleEdgeInsets = UIEdgeInsetsMake(-10, -20, -10, -20);
+//
+//        if (title.length == 4) {
+//            btn.titleLabel.adjustsFontSizeToFitWidth = YES;
+//            btn.titleLabel.minimumScaleFactor = 1;
+//        }
+//    }
+//    return btn;
+//}
 
 - (void)startCountdown:(NSTimeInterval)count{
     dispatch_queue_t queue = dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_DEFAULT, 0);
@@ -259,25 +244,6 @@
 
 - (void)handleDisplayLink:(CADisplayLink *)displayLink{
 
-}
-
-+ (UIView *)buttonRect:(CGRect)rect attDict:(NSDictionary *)dict tag:(NSInteger)tag{
-    UIButton *button = [UIButton buttonWithType:UIButtonTypeCustom];
-    button.frame = CGRectMake(20, 0, 90, 40);
-    button.backgroundColor = UIColor.themeColor;
-    [button setImage:[UIImage imageNamed:@"img_like_W"] forState:UIControlStateNormal];
-    [button setImage:[UIImage imageNamed:@"img_like_W"] forState:UIControlStateHighlighted];
-    
-    //button图片的偏移量，距上左下右分别(10, 10, 10, 60)像素点
-    [button setTitle:@"点赞" forState:UIControlStateNormal];
-    [button setTitle:@"取消" forState:UIControlStateHighlighted];
-    [button setTitleColor:UIColor.whiteColor forState:UIControlStateNormal];
-    
-    //button标题的偏移量，这个偏移量是相对于图片的
-    button.titleEdgeInsets = UIEdgeInsetsMake(0, -20, 0, 0);
-    button.imageEdgeInsets = UIEdgeInsetsMake(5, 10, 5, 60);
-
-    return button;
 }
 
 /// 上 左 下 右

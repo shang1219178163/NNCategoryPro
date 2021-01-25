@@ -176,23 +176,11 @@
 
 + (NSArray *)arrayItemPrefix:(NSString *)prefix
                   startIndex:(NSInteger)startIndex
-                       count:(NSInteger)count
-                        type:(NSNumber *)type{
+                       count:(NSInteger)count{
     NSMutableArray *marr = [NSMutableArray array];
     for (NSInteger i = startIndex; i <= startIndex + count; i++) {
         NSString *title = [NSString stringWithFormat:@"%@%@",prefix,@(i)];
-        switch (type.integerValue) {
-            case 1:
-            {
-                UIImage *image = [UIImage imageNamed:title];
-                [marr addObject:image];
-            }
-                break;
-            default:
-                [marr addObject:title];
-                
-                break;
-        }
+        [marr addObject:title];
     }
     return marr.copy;
 }

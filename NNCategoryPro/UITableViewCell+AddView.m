@@ -58,7 +58,7 @@
         return obj;
     }
     
-    UILabel *view = [UILabel createRect:CGRectZero type:@2];
+    UILabel *view = [UILabel createRect:CGRectZero type:NNLabelTypeFitWidth];
     view.textAlignment = NSTextAlignmentRight;
 //    view = ({
 //        UILabel * view = [[UILabel alloc] initWithFrame:CGRectZero];
@@ -85,7 +85,7 @@
         return obj;
     }
     
-    UILabel *view = [UILabel createRect:CGRectZero type:@2];
+    UILabel *view = [UILabel createRect:CGRectZero type:NNLabelTypeFitWidth];
     view.textAlignment = NSTextAlignmentLeft;
 //    view = ({
 //        UILabel * view = [[UILabel alloc] initWithFrame:CGRectZero];
@@ -112,7 +112,7 @@
         return obj;
     }
     
-    UILabel *view = [UILabel createRect:CGRectZero type:@2];
+    UILabel *view = [UILabel createRect:CGRectZero type:NNLabelTypeFitWidth];
     view.textAlignment = NSTextAlignmentLeft;
 //    view = ({
 //        UILabel * view = [[UILabel alloc] initWithFrame:CGRectZero];
@@ -139,7 +139,7 @@
         return obj;
     }
     
-    UILabel *view = [UILabel createRect:CGRectZero type:@2];
+    UILabel *view = [UILabel createRect:CGRectZero type:NNLabelTypeFitWidth];
     view.textAlignment = NSTextAlignmentLeft;
 //    view = ({
 //        UILabel * view = [[UILabel alloc] initWithFrame:CGRectZero];
@@ -166,7 +166,7 @@
         return obj;
     }
     
-    UILabel *view = [UILabel createRect:CGRectZero type:@2];
+    UILabel *view = [UILabel createRect:CGRectZero type:NNLabelTypeFitWidth];
     view.textAlignment = NSTextAlignmentLeft;
 //    view = ({
 //        UILabel * view = [[UILabel alloc] initWithFrame:CGRectZero];
@@ -244,7 +244,7 @@
         return obj;
     }
     
-    UIButton *view = [UIButton createRect:CGRectZero title:@"取消订单" image:nil type:@7];
+    UIButton *view = [UIButton createRect:CGRectZero title:@"取消订单" type:NNButtonTypeTitleRedAndOutline];
 //    view = ({
 //        UIButton * view = [UIButton buttonWithType:UIButtonTypeCustom];
 //        [view setTitle:@"按钮标题" forState:UIControlStateNormal];

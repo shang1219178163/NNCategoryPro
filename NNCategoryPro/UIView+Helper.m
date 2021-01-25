@@ -413,13 +413,13 @@
                              target:(id)target
                           aSelector:(SEL)aSelector{
     
-    UIImageView *containView = [UIImageView createRect:rect type:@0];
+    UIImageView *containView = [UIImageView createRect:rect];
     CGSize imgViewSize = CGSizeMake(kH_LABEL_SMALL, kH_LABEL_SMALL);
     CGFloat YGap = (CGRectGetHeight(rect) - imgViewSize.height*2)/2.0;
     CGFloat XGapImgView = (CGRectGetWidth(rect) - imgViewSize.width)/2.0;
     
     CGRect imgViewRect = CGRectMake(XGapImgView, YGap, imgViewSize.width, imgViewSize.height);
-    UIImageView * imgView = [UIImageView createRect:imgViewRect type:@0];
+    UIImageView * imgView = [UIImageView createRect:imgViewRect];
     imgView.image = [UIImage imageNamed:@"img_cardAdd.png"];
     imgView.layer.backgroundColor = UIColor.whiteColor.CGColor;
     [containView addSubview:imgView];
@@ -463,7 +463,7 @@
         
         NSString * title = elements[i];
         CGRect btnRect = CGRectMake(x, y, w, h);
-        UIButton * btn = [UIButton createRect:btnRect title:title image:nil type:@0];
+        UIButton *btn = [UIButton createRect:btnRect title:title type:NNButtonTypeTitleBlack];
         btn.tag = kTAG_BTN+i;
         btn.titleLabel.font = [UIFont systemFontOfSize:15];
         [backgroudView addSubview:btn];

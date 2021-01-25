@@ -34,6 +34,14 @@
     return [self filePathForDirectory:NSCachesDirectory];
 }
 
++ (NSURL *)fileURLForDirectory:(NSSearchPathDirectory)directory{
+    return [self.defaultManager URLsForDirectory:directory inDomains:NSUserDomainMask].lastObject;
+}
+
++ (NSString *)filePathForDirectory:(NSSearchPathDirectory)directory{
+    return NSSearchPathForDirectoriesInDomains(directory, NSUserDomainMask, YES)[0];
+}
+
 + (CGFloat)availableDiskSpace{
     NSDictionary *attributes = [self.defaultManager attributesOfFileSystemForPath:self.documentsPath error:nil];
     double size = [attributes[NSFileSystemFreeSize] unsignedLongLongValue] / (double)0x100000;
@@ -59,14 +67,6 @@
     }
     BOOL isSuccess = [self.defaultManager createDirectoryAtPath:path withIntermediateDirectories:YES attributes:nil error:nil];
     return isSuccess;
-}
-
-+ (NSURL *)fileURLForDirectory:(NSSearchPathDirectory)directory{
-    return [self.defaultManager URLsForDirectory:directory inDomains:NSUserDomainMask].lastObject;
-}
-
-+ (NSString *)filePathForDirectory:(NSSearchPathDirectory)directory{
-    return NSSearchPathForDirectoriesInDomains(directory, NSUserDomainMask, YES)[0];
 }
 
 + (BOOL)addSkipBackupAttributeToFile:(NSString *)path{

@@ -64,7 +64,7 @@
         return obj;
     }
     
-    UILabel *view = [UILabel createRect:CGRectZero type:@2];
+    UILabel *view = [UILabel createRect:CGRectZero type:NNLabelTypeFitWidth];
     view.textAlignment = NSTextAlignmentLeft;
     objc_setAssociatedObject(self, _cmd, view, OBJC_ASSOCIATION_RETAIN_NONATOMIC);
     return view;

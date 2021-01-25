@@ -61,7 +61,7 @@
 
 + (id)objectForKey:(NSString *)key{
     id value = [self.standardUserDefaults objectForKey:key];
-    if ([value isKindOfClass: NSData.class]) {
+    if ([value isKindOfClass: [NSData class]]) {
         value = [self arcObjectForKey:key];//解档自定义对象
     }
     return value;

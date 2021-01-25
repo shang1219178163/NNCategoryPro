@@ -13,6 +13,7 @@ NS_ASSUME_NONNULL_BEGIN
 @interface UIImage (Helper)
 
 @property (nonatomic, strong, readonly) NSString *contentType;
+@property (nonatomic, strong, readonly) NSArray *ciDetectorFeatures;
 
 /// UIColor->UIImage
 FOUNDATION_EXPORT UIImage * UIImageColor(UIColor * color);

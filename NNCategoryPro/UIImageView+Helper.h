@@ -15,12 +15,12 @@ NS_ASSUME_NONNULL_BEGIN
 /**
  [源]UIImageView创建
  */
-+ (instancetype)createRect:(CGRect)rect type:(NSNumber *)type;
++ (instancetype)createRect:(CGRect)rect;
 
 /**
  UIImageView(上传图片)选择图片使用
  */
-+ (instancetype)createRect:(CGRect)rect type:(NSNumber *)type hasDeleteBtn:(BOOL)hasDeleteBtn;
++ (instancetype)createRect:(CGRect)rect hasDeleteBtn:(BOOL)hasDeleteBtn;
 
 /**
  gift效果

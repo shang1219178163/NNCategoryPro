@@ -41,13 +41,13 @@
     }
     
     UISaveVideoAtPathToSavedPhotosAlbum(self.path,
-                                        nil,
-                                        @selector(p_videoAtPath:didFinishSavingWithError:contextInfo:),
+                                        self,
+                                        @selector(videoAtPath:didFinishSavingWithError:contextInfo:),
                                         (__bridge_retained void *)[block copy]);
 
 }
 
-- (void)p_videoAtPath:(NSString *)path didFinishSavingWithError:(NSError *)error contextInfo:(void *)contextInfo{
+- (void)video:(NSString *)videoPath didFinishSavingWithError:(NSError *)error contextInfo:(void *)contextInfo{
     void(^block)(NSError *) = CFBridgingRelease(contextInfo);
     if (block) {
         block(error);

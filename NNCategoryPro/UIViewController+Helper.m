@@ -33,11 +33,15 @@ UINavigationController *UINavCtrFromObj(id obj){
     if ([obj isKindOfClass:[UINavigationController class]]) {
         return obj;
     }
-    else if ([obj isKindOfClass:[NSString class]]) {
-        return [[UINavigationController alloc]initWithRootViewController:UICtrFromString(obj)];
-    }
-    else if ([obj isKindOfClass:[UIViewController class]]) {
+    
+    if ([obj isKindOfClass:[UIViewController class]]) {
         return [[UINavigationController alloc]initWithRootViewController:obj];
+    }
+    
+    if ([obj isKindOfClass:[NSString class]]) {
+        if ([UICtrFromString(obj) isKindOfClass:[UIViewController class]]) {
+            return [[UINavigationController alloc]initWithRootViewController:UICtrFromString(obj)];
+        }
     }
     return nil;
 }
@@ -150,10 +154,10 @@ UINavigationController *UINavCtrFromObj(id obj){
     return result;
 }
 
-- (UISearchController *)createSearchVC:(UIViewController *)resultsController {
+- (UISearchController *)createSearchVC:(UIViewController *)resultsVC {
     self.definesPresentationContext = true;
     
-    UISearchController *searchVC = [[UISearchController alloc]initWithSearchResultsController:resultsController];
+    UISearchController *searchVC = [[UISearchController alloc]initWithSearchResultsController:resultsVC];
 //    searchVC.view.backgroundColor = [UIColor.whiteColor colorWithAlphaComponent:1];
     
     //是否添加半透明覆盖层
@@ -186,10 +190,10 @@ UINavigationController *UINavCtrFromObj(id obj){
 - (UIView *)createBarItem:(NSString *)obj isLeft:(BOOL)isLeft handler:(void(^)(id obj, UIView *item, NSInteger idx))handler{
     UIView *item = nil;
     if ([UIImage imageNamed:obj]) {
-        item = [UIImageView createRect:CGRectMake(0, 0, 32, 32) type:@0];
+        item = [UIImageView createRect:CGRectMake(0, 0, 32, 32)];
         ((UIImageView *)item).image = [UIImage imageNamed:obj];
     } else {
-        item = [UILabel createRect:CGRectMake(0, 0, 72, 20) type:@1];
+        item = [UILabel createRect:CGRectMake(0, 0, 72, 20) type:NNLabelTypeNumberOfLines0];
         ((UILabel *)item).text = obj;
         ((UILabel *)item).font = [UIFont systemFontOfSize:kFontSize16];
         ((UILabel *)item).textAlignment = NSTextAlignmentCenter;

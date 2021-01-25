@@ -47,7 +47,7 @@ labelLeftSub, labelLeftMark, labelLeftSubMark, btn;
         return obj;
     }
     
-    UILabel *view = [UILabel createRect:CGRectZero type:@2];
+    UILabel *view = [UILabel createRect:CGRectZero type:NNLabelTypeFitWidth];
     view.textAlignment = NSTextAlignmentRight;
 //    view = ({
 //        UILabel * view = [[UILabel alloc] initWithFrame:CGRectZero];
@@ -77,7 +77,7 @@ labelLeftSub, labelLeftMark, labelLeftSubMark, btn;
         return obj;
     }
     
-    UILabel *view = [UILabel createRect:CGRectZero type:@2];
+    UILabel *view = [UILabel createRect:CGRectZero type:NNLabelTypeFitWidth];
     view.textAlignment = NSTextAlignmentLeft;
 //    view = ({
 //        UILabel * view = [[UILabel alloc] initWithFrame:CGRectZero];
@@ -107,7 +107,7 @@ labelLeftSub, labelLeftMark, labelLeftSubMark, btn;
         return obj;
     }
     
-    UILabel *view = [UILabel createRect:CGRectZero type:@2];
+    UILabel *view = [UILabel createRect:CGRectZero type:NNLabelTypeFitWidth];
     view.textAlignment = NSTextAlignmentLeft;
 //    view = ({
 //        UILabel * view = [[UILabel alloc] initWithFrame:CGRectZero];
@@ -137,7 +137,7 @@ labelLeftSub, labelLeftMark, labelLeftSubMark, btn;
         return obj;
     }
     
-    UILabel *view = [UILabel createRect:CGRectZero type:@2];
+    UILabel *view = [UILabel createRect:CGRectZero type:NNLabelTypeFitWidth];
     view.textAlignment = NSTextAlignmentLeft;
 //    view = ({
 //        UILabel * view = [[UILabel alloc] initWithFrame:CGRectZero];
@@ -241,7 +241,7 @@ labelLeftSub, labelLeftMark, labelLeftSubMark, btn;
         return obj;
     }
     
-    UIButton *view = [UIButton createRect:CGRectZero title:@"按钮" image:nil type:@7];
+    UIButton *view = [UIButton createRect:CGRectZero title:@"按钮" type:NNButtonTypeTitleRedAndOutline];
 //    view = ({
 //        UIButton * view = [UIButton buttonWithType:UIButtonTypeCustom];
 //        [view setTitle:@"btn" forState:UIControlStateNormal];

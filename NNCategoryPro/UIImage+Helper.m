@@ -21,6 +21,18 @@
     return [UIImage contentTypeForImageData:imgData];
 }
 
+- (NSArray *)ciDetectorFeatures{
+    NSDictionary *options = @{CIDetectorAccuracy: CIDetectorAccuracyHigh,
+                            };
+    CIImage *cImage = [CIImage imageWithCGImage: self.CGImage];
+    
+    NSDictionary *imageOptions = @{CIDetectorImageOrientation: @(5),
+                                   };
+    CIDetector *detector = [CIDetector detectorOfType:CIDetectorTypeFace context:nil options:options];
+    NSArray *features = [detector featuresInImage:cImage options:imageOptions];
+    return features;
+}
+
 UIImage * UIImageColor(UIColor * color){
     return [UIImage imageWithColor:color];
 }
@@ -64,7 +76,7 @@ UIImage * UIImageObj(id obj){
 
 - (void)saveImageToPhotosAlbum:(void(^)(NSError *error))block{
     UIImageWriteToSavedPhotosAlbum(self,
-                                   UIImage.class,
+                                   self,
                                    @selector(image:didFinishSavingWithError:contextInfo:),
                                    (__bridge_retained void *)[block copy]);
 }

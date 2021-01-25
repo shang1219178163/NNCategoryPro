@@ -23,7 +23,6 @@ NSString * const kNumFormat = @"#,##0.00";
 @implementation NSNumberFormatter (Helper)
 
 static NSDictionary *_styleDic = nil;
-
 + (NSDictionary *)styleDic{
     if (!_styleDic) {
         _styleDic = @{kNumIdentify: @(NSNumberFormatterNoStyle),

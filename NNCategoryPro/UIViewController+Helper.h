@@ -39,7 +39,7 @@ FOUNDATION_EXPORT UINavigationController * _Nullable UINavCtrFromObj(id obj);
 - (BOOL)pushFromVC:(Class)cls;
 
 /// [源]创建UISearchController(设置IQKeyboardManager.shared.enable = false;//避免searchbar下移)
-- (UISearchController *)createSearchVC:(UIViewController *)resultsController;
+- (UISearchController *)createSearchVC:(UIViewController *)resultsVC;
 
 /**
  可隐藏的导航栏按钮
