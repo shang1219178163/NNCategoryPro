@@ -7,12 +7,8 @@
 //
 
 #import "CALayer+Helper.h"
-
 #import "NSObject+Helper.h"
 #import "CABasicAnimation+Helper.h"
-
-#import "CAShapeLayer+Helper.h"
-#import "CAAnimationGroup+Helper.h"
 
 @implementation CALayer (Helper)
 
@@ -159,13 +155,12 @@
         case 1:
         {
             //move
-            CABasicAnimation *animation = [CABasicAnimation
-                                           animKeyPath:kTransformPosition
-                                           duration:2.5
-                                           fromValue:fromValue
-                                           toValue:toValue
-                                           autoreverses:NO
-                                           repeatCount:2];
+            CABasicAnimation *animation = [CABasicAnimation animKeyPath:kTransformPosition
+                                                               duration:2.5
+                                                              fromValue:fromValue
+                                                                toValue:toValue
+                                                           autoreverses:NO
+                                                            repeatCount:2];
             [self addAnimation:animation forKey:@"move"];
 
         }
@@ -173,13 +168,12 @@
         case 2:
         {
             //rotation
-            CABasicAnimation *animation = [CABasicAnimation
-                                           animKeyPath:kTransformRotationZ
-                                           duration:2.5
-                                           fromValue:@(0.0)
-                                           toValue:@(2 * M_PI)
-                                           autoreverses:NO
-                                           repeatCount:2];
+            CABasicAnimation *animation = [CABasicAnimation animKeyPath:kTransformRotationZ
+                                                               duration:2.5
+                                                              fromValue:@(0.0)
+                                                                toValue:@(2 * M_PI)
+                                                           autoreverses:NO
+                                                            repeatCount:2];
             [self addAnimation:animation forKey:@"rotation"];
             
         }
@@ -187,13 +181,12 @@
         case 3:
         {
             //zoom
-            CABasicAnimation *animation = [CABasicAnimation
-                                           animKeyPath:kTransformScale
-                                           duration:2.5
-                                           fromValue:@(1.0)
-                                           toValue:@(1.5)
-                                           autoreverses:NO
-                                           repeatCount:2];
+            CABasicAnimation *animation = [CABasicAnimation animKeyPath:kTransformScale
+                                                               duration:2.5
+                                                              fromValue:@(1.0)
+                                                                toValue:@(1.5)
+                                                           autoreverses:NO
+                                                            repeatCount:2];
             [self addAnimation:animation forKey:@"scale"];
             
         }
@@ -449,6 +442,125 @@
     [shapeLayer addAnimation:groupAnim forKey:animKey];
     
     return shapeLayer;
+}
+
+@end
+
+
+@implementation CAShapeLayer (Helper)
+
++(CAShapeLayer *)layerWithRect:(CGRect)rect
+                          path:(CGPathRef)path
+                     strokeEnd:(CGFloat)strokeEnd
+                     fillColor:(UIColor *)fillColor
+                   strokeColor:(UIColor *)strokeColor
+                     lineWidth:(CGFloat)lineWidth{
+    
+    //初始化一个实例对象
+    CAShapeLayer *layer = CAShapeLayer.layer;
+    
+    layer.frame        = rect;  //设置大小
+    //        layer.position      = self.view.center;            //设置中心位置
+    layer.path          = [UIBezierPath bezierPathWithOvalInRect:layer.bounds].CGPath; //设置绘制路径
+    layer.strokeEnd     = strokeEnd;        //设置轮廓结束位置
+    layer.fillColor     = fillColor.CGColor;   //设置填充颜色
+    layer.strokeColor   = strokeColor.CGColor;      //设置划线颜色
+    layer.lineWidth     = lineWidth;          //设置线宽
+    layer.lineCap       = @"round";    //设置线头形状
+    return layer;
+}
+
++(CAShapeLayer *)layerWithSender:(CALayer *)sender
+                            path:(CGPathRef)path
+                       fillColor:(UIColor *)fillColor
+                     strokeColor:(UIColor *)strokeColor
+                         opacity:(CGFloat)opacity{
+    
+    //初始化一个实例对象
+    CAShapeLayer *layer = CAShapeLayer.layer;
+    layer.frame        = sender.bounds;;  //设置大小
+    //        layer.position      = self.view.center;            //设置中心位置
+    layer.fillColor     = fillColor.CGColor;   //设置填充颜色
+    layer.strokeColor   = strokeColor.CGColor;      //设置划线颜色
+    layer.backgroundColor = UIColor.clearColor.CGColor;
+    
+    layer.opacity = opacity;
+    layer.path = path;
+    
+    return layer;
+}
+
+/**
+ 虚线边框
+ */
++(CAShapeLayer *)layerLineDashWithSender:(CALayer *)sender
+                             strokeColor:(UIColor *)strokeColor
+                               lineWidth:(CGFloat)lineWidth
+                         lineDashPattern:(NSArray<NSNumber *> *)lineDashPattern{
+
+    CAShapeLayer *layer = CAShapeLayer.layer;
+    layer.strokeColor = strokeColor.CGColor;
+    layer.fillColor = nil;
+    
+    layer.path = [UIBezierPath bezierPathWithRect:sender.bounds].CGPath;
+    layer.frame = sender.bounds;
+    
+    layer.lineCap = @"square";
+    layer.lineWidth = lineWidth > 0.0 ? lineWidth : 1.0;
+    layer.lineDashPattern = lineDashPattern ? : @[@4, @2];
+    [sender addSublayer:layer];
+    return layer;
+}
+
++(CAShapeLayer *)layerWithPath:(UIBezierPath *)path{
+    CAShapeLayer *layer = [CAShapeLayer layer];
+    layer.path = path.CGPath;
+    return layer;
+}
+
+@end
+
+
+@interface CAShapeLayer (Helper)
+
++(CAShapeLayer *)layerWithRect:(CGRect)rect
+                          path:(CGPathRef)path
+                     strokeEnd:(CGFloat)strokeEnd
+                     fillColor:(UIColor *)fillColor
+                   strokeColor:(UIColor *)strokeColor
+                     lineWidth:(CGFloat)lineWidth;
+
++(CAShapeLayer *)layerWithSender:(CALayer *)sender
+                            path:(CGPathRef)path
+                       fillColor:(UIColor *)fillColor
+                     strokeColor:(UIColor *)strokeColor
+                         opacity:(CGFloat)opacity;
+
++(CAShapeLayer *)layerLineDashWithSender:(CALayer *)sender
+                             strokeColor:(UIColor *)strokeColor
+                               lineWidth:(CGFloat)lineWidth
+                         lineDashPattern:(NSArray<NSNumber *> *)lineDashPattern;
+
++(CAShapeLayer *)layerWithPath:(UIBezierPath *)path;
+
+@end
+
+
+@implementation CAGradientLayer (Helper)
+
++(CAGradientLayer *)layerWithRect:(CGRect)rect
+                           colors:(NSArray *)colors
+                            start:(CGPoint)start
+                              end:(CGPoint)end{
+    
+    CAGradientLayer *layer = CAGradientLayer.layer;
+    layer.frame = rect;
+    layer.colors = colors;
+    //45度变色(由lightColor－>white)
+    layer.startPoint = start;
+    layer.endPoint = end;
+
+    return layer;
 }
 
 @end

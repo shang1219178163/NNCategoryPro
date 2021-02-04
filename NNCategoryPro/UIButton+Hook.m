@@ -13,9 +13,9 @@
 + (void)load{
     static dispatch_once_t onceToken;
     dispatch_once(&onceToken, ^{
-        swizzleInstanceMethod(self.class, @selector(sendAction:to:forEvent:), @selector(hook_sendAction:to:forEvent:));
-        swizzleInstanceMethod(self.class, @selector(setImage:forState:), @selector(hook_setImage:forState:));
-        swizzleInstanceMethod(self.class, @selector(hook_setBackgroundImage:forState:), @selector(hook_setBackgroundImage:forState:));
+        hookInstanceMethod(self.class, @selector(sendAction:to:forEvent:), @selector(hook_sendAction:to:forEvent:));
+        hookInstanceMethod(self.class, @selector(setImage:forState:), @selector(hook_setImage:forState:));
+        hookInstanceMethod(self.class, @selector(hook_setBackgroundImage:forState:), @selector(hook_setBackgroundImage:forState:));
     });
 }
 

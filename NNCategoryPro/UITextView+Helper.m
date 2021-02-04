@@ -13,20 +13,20 @@
 
 @implementation UITextView (Helper)
  
-+ (void)load{
-    static dispatch_once_t onceToken;
-    dispatch_once(&onceToken, ^{
-        swizzleInstanceMethod(self.class,  NSSelectorFromString(@"dealloc"), @selector(hook_dealloc));
+//+ (void)load{
+//    static dispatch_once_t onceToken;
+//    dispatch_once(&onceToken, ^{
+//        hookInstanceMethod(self.class,  NSSelectorFromString(@"dealloc"), @selector(hook_dealloc));
+//
+//    });
+//}
+//
+//- (void)hook_dealloc {
+//    [NSNotificationCenter.defaultCenter removeObserver:self];
+//    [self hook_dealloc];
+//}
 
-    });
-}
-
-- (void)hook_dealloc {
-    [NSNotificationCenter.defaultCenter removeObserver:self];
-    [self hook_dealloc];
-}
-
-#pragma mark - - 属性
+#pragma mark - -属性
 
 - (UITextView *)placeHolderTextView {
     UITextView *textView = objc_getAssociatedObject(self, _cmd);

@@ -12,7 +12,6 @@
 
 NS_ASSUME_NONNULL_BEGIN
 
-@class NNTextField;
 @interface UIView (Helper)
 
 @property (nonatomic, assign) CGFloat originX;
@@ -20,8 +19,8 @@ NS_ASSUME_NONNULL_BEGIN
 @property (nonatomic, assign) CGFloat sizeWidth;
 @property (nonatomic, assign) CGFloat sizeHeight;
 
-@property (nonatomic, assign) CGPoint origin;
-@property (nonatomic, assign) CGSize size;
+//@property (nonatomic, assign) CGPoint origin;
+//@property (nonatomic, assign) CGSize size;
 
 @property (nonatomic, assign, readonly) CGFloat minX;
 @property (nonatomic, assign, readonly) CGFloat midX;

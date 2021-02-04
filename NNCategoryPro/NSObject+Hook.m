@@ -10,7 +10,8 @@
 
 @implementation NSObject (Hook)
 
-BOOL swizzleInstanceMethod(Class clz, SEL origSelector, SEL replSelector){
+BOOL hookInstanceMethod(Class clz, SEL origSelector, SEL replSelector){
+//    return NO;
     //    NSLog(@"%@,%@,%@",self,self.class,object_getClass(self));
     if (!clz || !origSelector || !replSelector) {
         NSLog(@"Nil Parameter(s) found when swizzling.");
@@ -59,12 +60,12 @@ BOOL swizzleClassMethod(Class clz, SEL origSelector, SEL replSelector){
     return YES;
 }
 
-+ (BOOL)swizzleInstanceMethodOrigSel:(SEL)origSelector replSel:(SEL)replSelector{
-    return swizzleInstanceMethod(self.class, origSelector, replSelector);
++ (BOOL)hookInstanceMethodOrigSel:(SEL)origSelector replSel:(SEL)replSelector{
+    return hookInstanceMethod(self.class, origSelector, replSelector);
 }
 
-+ (BOOL)swizzleClassMethodOrigSel:(SEL)origSelector replSel:(SEL)replSelector{
-    return swizzleInstanceMethod(self.class, origSelector, replSelector);
++ (BOOL)hookClassMethodOrigSel:(SEL)origSelector replSel:(SEL)replSelector{
+    return hookInstanceMethod(self.class, origSelector, replSelector);
 }
 
 - (BOOL)isMethodOverride:(Class)clz selector:(SEL)sel {

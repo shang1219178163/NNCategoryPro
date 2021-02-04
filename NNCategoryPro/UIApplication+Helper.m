@@ -217,7 +217,6 @@ static NSDictionary *_infoDic = nil;
 }
 
 + (void)setupRootController:(UIViewController *)controller isAdjust:(BOOL)isAdjust{
-    if ([controller isKindOfClass:[NSString class]]) controller = [[NSClassFromString(controller) alloc] init];
     if (!isAdjust) {
         UIApplication.rootController = controller;
         return;
@@ -227,7 +226,7 @@ static NSDictionary *_infoDic = nil;
         UIApplication.rootController = controller;
         
     } else {
-        UINavigationController * navController = [[UINavigationController alloc] initWithRootViewController:controller];
+        UINavigationController *navController = [[UINavigationController alloc] initWithRootViewController:controller];
         UIApplication.rootController = navController;
     }
 }

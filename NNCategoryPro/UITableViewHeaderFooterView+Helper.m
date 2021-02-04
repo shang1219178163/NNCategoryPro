@@ -1,13 +1,13 @@
 
 //
-//  UITableViewHeaderFooterView+AddView.m
+//  UITableViewHeaderFooterView+Helper.m
 //  
 //
 //  Created by BIN on 2018/8/24.
 //  Copyright © 2018年 SHANG. All rights reserved.
 //
 
-#import "UITableViewHeaderFooterView+AddView.h"
+#import "UITableViewHeaderFooterView+Helper.h"
 #import <objc/runtime.h>
 
 #import <NNGloble/NNGloble.h>
@@ -18,10 +18,8 @@
 #import "UIScreen+Helper.h"
 #import "UIColor+Helper.h"
 
-@implementation UITableViewHeaderFooterView (AddView)
 
-@dynamic imgViewLeft, imgViewRight, indicatorView, labelLeft,
-labelLeftSub, labelLeftMark, labelLeftSubMark, btn;
+@implementation UITableViewHeaderFooterView (Helper)
 
 +(instancetype)viewWithTableView:(UITableView *)tableView identifier:(NSString *)identifier{
     UITableViewHeaderFooterView *view = [tableView dequeueReusableHeaderFooterViewWithIdentifier:identifier];
@@ -39,7 +37,15 @@ labelLeftSub, labelLeftMark, labelLeftSubMark, btn;
     return [self viewWithTableView:tableView identifier:identifier];
 }
 
-#pragma mark -- layz
+@end
+
+
+@implementation UITableViewHeaderFooterView (AddView)
+
+@dynamic imgViewLeft, imgViewRight, indicatorView, labelLeft,
+labelLeftSub, labelLeftMark, labelLeftSubMark, btn;
+
+#pragma mark --layz
 
 -(UILabel *)labelLeft{
     id obj = objc_getAssociatedObject(self, _cmd);

@@ -67,6 +67,12 @@
     };
 }
 
+- (NSArray * _Nonnull (^)(NSUInteger))subarray{
+    return ^(NSUInteger value) {
+        return [self subarrayWithRange:NSMakeRange(0, MIN(value, self.count))];
+    };
+}
+
 #pragma mark -高阶函数
 - (NSArray *)map:(id (NS_NOESCAPE ^)(id obj, NSUInteger idx))transform{
     if (!transform) {
@@ -83,6 +89,15 @@
     }];
 //    DDLog(@"%@->%@", self, marr.copy);
     return marr.copy;
+}
+
+- (void)forEach:(id (NS_NOESCAPE ^)(id obj, NSUInteger idx))block options:(NSEnumerationOptions)options{
+    if (!block) {
+        return;
+    }
+    [self enumerateObjectsWithOptions:options usingBlock:^(id obj, NSUInteger idx, BOOL *stop) {
+        block(obj, idx);
+    }];
 }
 
 - (NSArray *)compactMap:(id (NS_NOESCAPE ^)(id obj, NSUInteger idx))transform{
@@ -131,6 +146,8 @@
     }];
     return value;
 }
+
+
 #pragma mark -其他方法
 
 - (NSArray *)sorteDescriptorAscending:(NSDictionary<NSString*, NSNumber*> *)dic{
@@ -148,6 +165,38 @@
         [marr addObject:repeatedValue];
     }
     return marr.copy;
+}
+
+- (NSArray<id> *)filteredArrayUsingPredicateFormat:(NSString *)format, ... NS_FORMAT_FUNCTION(1,2){
+    va_list args;
+    va_start(args, format);
+    NSString *string = [[NSString alloc] initWithFormat:format arguments:args];
+    va_end(args);
+    NSPredicate *predicate = [NSPredicate predicateWithFormat:@"%@", string];
+    return [self filteredArrayUsingPredicate:predicate];
+}
+
+#pragma mark - Set operations
+///交集
+- (NSArray *)intersectionWithArray:(NSArray *)array {
+    NSPredicate *predicate = [NSPredicate predicateWithFormat:@"SELF IN %@", array];
+    return [self filteredArrayUsingPredicate:predicate];
+}
+///补集
+- (NSArray *)relativeComplementWithArray:(NSArray *)array {
+    NSPredicate *predicate = [NSPredicate predicateWithFormat:@"NOT SELF IN %@", array];
+    return [self filteredArrayUsingPredicate:predicate];
+}
+///并集
+- (NSArray *)unionWithArray:(NSArray *)array {
+    NSArray *complement = [self relativeComplementWithArray:array];
+    return [complement arrayByAddingObjectsFromArray:array];
+}
+///差集
+- (NSArray *)differenceWithArray:(NSArray *)array {
+    NSArray *aSubtractB = [self relativeComplementWithArray:array];
+    NSArray *bSubtractA = [array relativeComplementWithArray:self];
+    return [aSubtractB unionWithArray:bSubtractA];
 }
 
 + (NSArray<NSNumber *> *)range:(NSInteger)start end:(NSInteger)end step:(NSInteger)step{

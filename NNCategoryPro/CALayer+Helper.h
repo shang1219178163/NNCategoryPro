@@ -41,4 +41,38 @@ NS_ASSUME_NONNULL_BEGIN
 
 @end
 
+
+@interface CAShapeLayer (Helper)
+
++(CAShapeLayer *)layerWithRect:(CGRect)rect
+                          path:(CGPathRef)path
+                     strokeEnd:(CGFloat)strokeEnd
+                     fillColor:(UIColor *)fillColor
+                   strokeColor:(UIColor *)strokeColor
+                     lineWidth:(CGFloat)lineWidth;
+
++(CAShapeLayer *)layerWithSender:(CALayer *)sender
+                            path:(CGPathRef)path
+                       fillColor:(UIColor *)fillColor
+                     strokeColor:(UIColor *)strokeColor
+                         opacity:(CGFloat)opacity;
+
++(CAShapeLayer *)layerLineDashWithSender:(CALayer *)sender
+                             strokeColor:(UIColor *)strokeColor
+                               lineWidth:(CGFloat)lineWidth
+                         lineDashPattern:(NSArray<NSNumber *> *)lineDashPattern;
+
++(CAShapeLayer *)layerWithPath:(UIBezierPath *)path;
+
+@end
+
+
+@interface CAGradientLayer (Helper)
+
++(CAGradientLayer *)layerWithRect:(CGRect)rect
+                           colors:(NSArray *)colors
+                            start:(CGPoint)start
+                              end:(CGPoint)end;
+
+@end
 NS_ASSUME_NONNULL_END

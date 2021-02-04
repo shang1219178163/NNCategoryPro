@@ -54,6 +54,15 @@
     return mdic.copy;
 }
 
+- (void)forEach:(NSDictionary *(NS_NOESCAPE ^)(id key, id obj))block options:(NSEnumerationOptions)options{
+    if (!block) {
+        return;
+    }
+    [self enumerateKeysAndObjectsWithOptions:options usingBlock:^(id  _Nonnull key, id  _Nonnull obj, BOOL * _Nonnull stop) {
+        block(key, obj);
+    }];
+}
+
 - (NSDictionary *)filter:(BOOL (NS_NOESCAPE ^)(id key, id obj))transform{
     if (!transform) {
         NSParameterAssert(transform != nil);
@@ -85,21 +94,48 @@
     return mdic.copy;
 }
 
-#pragma mark -其他方法
-
-+ (NSDictionary *)dictionaryFromPlist:(NSString *)plistName {
-    if ([plistName containsString:@".plist"]) {
-        NSArray *list = [plistName componentsSeparatedByString:@"."];
-        NSString *plistPath = [NSBundle.mainBundle pathForResource:list.firstObject ofType:list.lastObject];
-        NSMutableDictionary *dic = [NSMutableDictionary dictionaryWithContentsOfFile:plistPath];
-        return dic.copy;
+- (NSDictionary *)merge:(NSDictionary *)dictionary block:(id(^)(id key, id oldVal, id newVal))block {
+    NSMutableDictionary *mdic = [NSMutableDictionary dictionary];
+    if (!block) {
+        [mdic addEntriesFromDictionary:self];
+        [mdic addEntriesFromDictionary:dictionary];
+        return mdic.copy;
     }
     
-    NSString *plistPath = [NSBundle.mainBundle pathForResource:plistName ofType:@"plist"];
-    NSMutableDictionary *dic = [NSMutableDictionary dictionaryWithContentsOfFile:plistPath];
-    //    NSLog(@"plistPath_%@",plistPath);
-    //    NSLog(@"dic_%@",dic);
-    return dic.copy;
+    [mdic addEntriesFromDictionary:self];
+    [dictionary enumerateKeysAndObjectsUsingBlock:^(id  _Nonnull key, id  _Nonnull obj, BOOL * _Nonnull stop) {
+        id oldVal = [self.allKeys containsObject:key] ? self[key] : nil;
+        id value = block(key, oldVal, obj);
+        if (value) {
+            [mdic setObject:value forKey:key];
+        }
+    }];
+    return mdic.copy;
+}
+
+#pragma mark -其他方法
+
++ (nullable NSDictionary *)dictionaryForResource:(nullable NSString *)name ofType:(nullable NSString *)ext{
+    NSString *path = [NSBundle.mainBundle pathForResource:name ofType:ext];
+    if (!path) {
+        return nil;
+    }
+    NSURL *url = [NSURL URLWithString:path];
+    if (!url) {
+        return nil;
+    }
+    
+    NSDictionary *dic;
+    if (@available(iOS 11.0, *)) {
+        NSError *error;
+        dic = [NSDictionary dictionaryWithContentsOfURL:url error:&error];
+        if (error) {
+            return nil;
+        }
+    } else {
+        dic = [NSDictionary dictionaryWithContentsOfURL:url];
+    }
+    return dic;
 }
 
 /**
@@ -198,7 +234,7 @@
 
 @implementation NSMutableDictionary (Helper)
 
-- (NSMutableDictionary * _Nonnull (^)(NSDictionary<id<NSCopying>, id> *))addEntries{
+- (NSMutableDictionary * _Nonnull (^)(NSDictionary<id, id> * _Nonnull))addEntries{
     return ^(NSDictionary<id<NSCopying>, id> * value) {
         [self addEntriesFromDictionary:value];
         return self;
@@ -215,7 +251,7 @@
     };
 }
 
-- (NSMutableDictionary * _Nonnull (^)(id<NSCopying>))removeObjectForKey{
+- (NSMutableDictionary * _Nonnull (^)(id))removeObjectForKey{
     return ^(id<NSCopying> key) {
         [self removeObjectForKey: key];
         return self;
@@ -236,7 +272,7 @@
     };
 }
 
--(void)setSafeObjct:(id _Nullable)obj forKey:(id<NSCopying>)akey{
+-(void)setSafeObjct:(id _Nullable)obj forKey:(id <NSCopying>)akey{
     if (!obj || [obj isKindOfClass:[NSNull class]]) {
         [self setObject:@"" forKey:akey];
         return;

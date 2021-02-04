@@ -17,8 +17,8 @@
          _textField = [[UITextField alloc]init];
          _textField.attributedPlaceholder = [[NSAttributedString alloc]initWithString:@"请输入" attributes:@{NSFontAttributeName: [UIFont systemFontOfSize:14]}];
 
-         _textField.Menutarget.list = @[@"111", @"222", @"333", @"444", @"555"].mutableCopy;
-         _textField.menutarget.block = ^(NNButtonMenuTarget *tagget) {
+         _textField.menuTarget.list = @[@"111", @"222", @"333", @"444", @"555"].mutableCopy;
+         _textField.menuTarget.block = ^(NNButtonMenuTarget *tagget) {
              DDLog(@"%@", tagget.selectedText);
          };
      }

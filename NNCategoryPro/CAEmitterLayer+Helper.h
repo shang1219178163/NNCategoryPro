@@ -26,4 +26,14 @@ NS_ASSUME_NONNULL_BEGIN
 
 @end
 
+
+@interface CAEmitterCell (Helper)
+
+///向上的效果
++(CAEmitterCell *)cellWithUpContents:(nullable UIImage *)image emitterCells:(nullable NSArray<CAEmitterCell *> *)emitterCells;
+///向下的效果
++(CAEmitterCell *)cellWithDownContents:(nullable UIImage *)image emitterCells:(nullable NSArray<CAEmitterCell *> *)emitterCells;
+
+@end
+
 NS_ASSUME_NONNULL_END

@@ -44,47 +44,51 @@ static NNForwardingTarget *_target = nil;
 + (void)load {
     static dispatch_once_t onceToken;
     dispatch_once(&onceToken, ^{
-        _target = [NNForwardingTarget new];;
+        _target = [NNForwardingTarget new];
+        
+        if (self != [NSObject class]) {
+            return;
+        }
 
         if (isOpenCashProtector) { 
-            swizzleInstanceMethod(NSClassFromString(@"__NSArrayI"),
+            hookInstanceMethod(NSClassFromString(@"__NSArrayI"),
                                   @selector(objectAtIndex:),
                                   NSSelectorFromString(@"p_objectAtIndex:"));
             
-            swizzleInstanceMethod(NSClassFromString(@"__NSArrayI"),
+            hookInstanceMethod(NSClassFromString(@"__NSArrayI"),
                                   @selector(objectAtIndexedSubscript:),
                                   NSSelectorFromString(@"p_objectAtIndexedSubscript:"));
             
-            swizzleInstanceMethod(NSClassFromString(@"__NSArrayM"),
+            hookInstanceMethod(NSClassFromString(@"__NSArrayM"),
                                   @selector(objectAtIndex:),
                                   NSSelectorFromString(@"p_objectAtIndex:"));
             
-            swizzleInstanceMethod(NSClassFromString(@"__NSArrayM"),
+            hookInstanceMethod(NSClassFromString(@"__NSArrayM"),
                                   @selector(objectAtIndexedSubscript:),
                                   NSSelectorFromString(@"p_objectAtIndexedSubscript:"));
             
-            swizzleInstanceMethod(NSClassFromString(@"__NSArrayM"),
+            hookInstanceMethod(NSClassFromString(@"__NSArrayM"),
                                   @selector(addObject:),
                                   NSSelectorFromString(@"p_addObject:"));
             
-            swizzleInstanceMethod(NSClassFromString(@"__NSArrayM"),
+            hookInstanceMethod(NSClassFromString(@"__NSArrayM"),
                                   @selector(insertObject:atIndex:),
                                   NSSelectorFromString(@"p_insertObject:atIndex:"));
             
             //NSClassFromString(@"__NSDictionaryM"),objc_getClass("__NSDictionaryM")
-            swizzleInstanceMethod(NSClassFromString(@"__NSDictionaryM"),
+            hookInstanceMethod(NSClassFromString(@"__NSDictionaryM"),
                                   @selector(setObject:forKey:),
                                   NSSelectorFromString(@"p_setObject:forKey:"));
             
-            swizzleInstanceMethod(NSClassFromString(@"__NSDictionaryM"),
+            hookInstanceMethod(NSClassFromString(@"__NSDictionaryM"),
                                   @selector(setObject:forKeyedSubscript:),
                                   NSSelectorFromString(@"p_setObject:forKeyedSubscript:"));
             
-            swizzleInstanceMethod(NSClassFromString(@"__NSDictionaryM"),
+            hookInstanceMethod(NSClassFromString(@"__NSDictionaryM"),
                                   @selector(removeObjectForKey:),
                                   NSSelectorFromString(@"p_removeObjectForKey:"));
             
-            swizzleInstanceMethod(self.class,
+            hookInstanceMethod(self.class,
                                   @selector(forwardingTargetForSelector:),
                                   NSSelectorFromString(@"p_forwardingTargetForSelector:"));
         }

@@ -15,15 +15,13 @@
 + (void)load{
     static dispatch_once_t onceToken;
     dispatch_once(&onceToken, ^{
-        swizzleInstanceMethod(self.class, @selector(pushViewController:animated:), @selector(hook_PushViewController:animated:));
+        hookInstanceMethod(self.class, @selector(pushViewController:animated:), @selector(hook_PushViewController:animated:));
         
     });
 }
 
 - (void)hook_PushViewController:(UIViewController *)viewController animated:(BOOL)animated{
     if ([self.viewControllers containsObject:viewController]) return;
-//    viewController.navigationItem.backBarButtonItem = [[UIBarButtonItem alloc] initWithTitle:@"" style:UIBarButtonItemStyleDone target:nil action:nil];
-//    viewController.view.backgroundColor = UIColor.whiteColor;
     if (self.viewControllers.count > 0) {
         viewController.hidesBottomBarWhenPushed = YES;
         viewController.navigationItem.leftBarButtonItem = [[UIBarButtonItem alloc]initWithCustomView:viewController.backBtn];;

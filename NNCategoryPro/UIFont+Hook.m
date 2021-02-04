@@ -18,17 +18,17 @@ NSString * const kPingFangThin       = @"PingFangSC-Thin";
 
 @implementation UIFont (Hook)
  
-+ (void)load{
-    static dispatch_once_t onceToken;
-    dispatch_once(&onceToken, ^{
-        swizzleInstanceMethod(self.class, NSSelectorFromString(@"systemFont:"), NSSelectorFromString(@"hook_systemFont:"));
-        
-    });
-}
-
-- (UIFont *)hook_systemFont:(CGFloat)fontSize{
-    return [UIFont fontWithName:kPingFangRegular size:fontSize];
-}
+//+ (void)load{
+//    static dispatch_once_t onceToken;
+//    dispatch_once(&onceToken, ^{
+//        hookInstanceMethod(self.class, NSSelectorFromString(@"systemFont:"), NSSelectorFromString(@"hook_systemFont:"));
+//        
+//    });
+//}
+//
+//- (UIFont *)hook_systemFont:(CGFloat)fontSize{
+//    return [UIFont fontWithName:kPingFangRegular size:fontSize];
+//}
 
 @end
 

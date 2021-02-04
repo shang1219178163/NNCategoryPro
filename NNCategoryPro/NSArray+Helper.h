@@ -36,10 +36,17 @@ NS_ASSUME_NONNULL_BEGIN
 
 @property(nonatomic, strong, readonly) NSArray *(^append)(NSArray *);
 
+@property(nonatomic, strong, readonly) NSArray *(^subarray)(NSUInteger);
+
 /**
  map 高阶函数
  */
 - (NSArray *)map:(id (NS_NOESCAPE ^)(ObjectType obj, NSUInteger idx))transform;
+
+/**
+ forEach 高阶函数
+ */
+- (void)forEach:(id (NS_NOESCAPE ^)(ObjectType obj, NSUInteger idx))block options:(NSEnumerationOptions)options;
 
 /**
 compactMap 高阶降维函数
@@ -63,7 +70,18 @@ compactMap 高阶降维函数
 - (NSArray *)sorteDescriptorAscending:(NSDictionary<NSString*, NSNumber*> *)dic;
 
 ///重复元素
-+ (NSArray *)repeating:(id)repeatedValue count:(NSInteger)count;
++ (NSArray *)repeating:(ObjectType)repeatedValue count:(NSInteger)count;
+
+
+- (NSArray<ObjectType> *)filteredArrayUsingPredicateFormat:(NSString *)format, ... NS_FORMAT_FUNCTION(1,2);
+///交集
+- (NSArray *)intersectionWithArray:(NSArray *)array;
+///补集
+- (NSArray *)relativeComplementWithArray:(NSArray *)array;
+///并集
+- (NSArray *)unionWithArray:(NSArray *)array;
+///差集
+- (NSArray *)differenceWithArray:(NSArray *)array;
 
 /// 快速生成一个数组(step代表步长)
 + (NSArray<NSNumber *> *)range:(NSInteger)start end:(NSInteger)end step:(NSInteger)step;

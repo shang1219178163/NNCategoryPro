@@ -22,7 +22,13 @@ NS_ASSUME_NONNULL_BEGIN
 /**
  map 高阶函数
  */
-- (NSArray *)map:(NSDictionary* (NS_NOESCAPE ^)(KeyType key, ObjectType obj))transform;
+- (NSDictionary *)map:(NSDictionary* (NS_NOESCAPE ^)(KeyType key, ObjectType obj))transform;
+
+/**
+ forEach 高阶函数
+ */
+- (void)forEach:(NSDictionary* (NS_NOESCAPE ^)(KeyType key, ObjectType obj))block options:(NSEnumerationOptions)options;
+
 /**
 filter 高阶函数
 */
@@ -32,8 +38,10 @@ compactMapValues 高阶函数(将 value 为 nil 过滤掉)
 */
 - (NSDictionary *)compactMapValues:(id (NS_NOESCAPE ^)(ObjectType obj))transform;
 
-/// 读取项目Plist文件(在TARGETS里的CopyBundleResources中必须存在)
-+ (NSDictionary *)dictionaryFromPlist:(NSString *)plistName;
+- (NSDictionary *)merge:(NSDictionary *)dictionary block:(id(^)(KeyType key, ObjectType oldVal, _Nullable ObjectType newVal))block;
+
+/// 读取项目文件(在TARGETS里的CopyBundleResources中必须存在)
++ (nullable NSDictionary *)dictionaryForResource:(nullable NSString *)name ofType:(nullable NSString *)ext;
 
 /**
  根据key对字典values排序,区分大小写(按照ASCII排序)
@@ -82,14 +90,14 @@ compactMapValues 高阶函数(将 value 为 nil 过滤掉)
 @interface NSMutableDictionary<KeyType, ObjectType> (Helper)
 
 @property(nonatomic, copy, readonly) NSMutableDictionary *(^addEntries)(NSDictionary<KeyType, ObjectType> *);
-@property(nonatomic, copy, readonly) NSMutableDictionary *(^setObjectForKey)(KeyType, ObjectType);
+@property(nonatomic, copy, readonly) NSMutableDictionary *(^setObjectForKey)(KeyType <NSCopying>, ObjectType);
 
 @property(nonatomic, copy, readonly) NSMutableDictionary *(^removeObjectForKey)(KeyType);
 @property(nonatomic, copy, readonly) NSMutableDictionary *(^removeObjectsForKeys)(NSArray<ObjectType> *);
 @property(nonatomic, copy, readonly) NSMutableDictionary *(^removeAll)(void);
 
-- (void)setSafeObjct:(id _Nullable)obj forKey:(id<NSCopying>)akey;
-- (void)setSafeObject:(nullable id)obj forKeyedSubscript:(id <NSCopying>)key;
+- (void)setSafeObjct:(nullable id)obj forKey:(KeyType <NSCopying>)akey;
+- (void)setSafeObject:(nullable id)obj forKeyedSubscript:(KeyType <NSCopying>)key;
 
 @end
 NS_ASSUME_NONNULL_END

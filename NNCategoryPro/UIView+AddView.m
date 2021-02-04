@@ -18,7 +18,7 @@
 #import "UITextView+Helper.h"
 #import "UIGestureRecognizer+Helper.h"
 
-#import "CAGradientLayer+Helper.h"
+#import "CALayer+Helper.h"
 
 #import <SDWebImage/UIImageView+WebCache.h>
 

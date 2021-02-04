@@ -70,9 +70,5 @@
     return view;
 }
 
-//- (void)setTipLabel:(UILabel *)tipLabel{
-//    objc_setAssociatedObject(self, @selector(tipLabel), tipLabel, OBJC_ASSOCIATION_RETAIN_NONATOMIC);
-//}
-
 @end
 

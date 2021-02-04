@@ -13,7 +13,7 @@
 + (void)load{
     static dispatch_once_t onceToken;
     dispatch_once(&onceToken, ^{
-        swizzleInstanceMethod(self.class, NSSelectorFromString(@"setTintColor:"), NSSelectorFromString(@"hook_setTintColor:"));
+        hookInstanceMethod(self.class, NSSelectorFromString(@"setTintColor:"), NSSelectorFromString(@"hook_setTintColor:"));
 
     });
     

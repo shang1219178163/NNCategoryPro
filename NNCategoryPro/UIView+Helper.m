@@ -428,7 +428,7 @@
     CGFloat XGapLab = (CGRectGetWidth(rect) - textSize.width)/2.0;
     
     CGRect labRect = CGRectMake(XGapLab, CGRectGetMaxY(imgViewRect), textSize.width, kH_LABEL_SMALL);
-    UILabel * lab = [UILabel createRect:labRect type:@2];
+    UILabel *lab = [UILabel createRect:labRect type:NNLabelTypeFitWidth];
     lab.text = title;
     lab.tag = kTAG_LABEL;
     

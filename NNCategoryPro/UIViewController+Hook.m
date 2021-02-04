@@ -13,11 +13,11 @@
 + (void)load{
     static dispatch_once_t onceToken;
     dispatch_once(&onceToken, ^{
-        swizzleInstanceMethod(self.class, @selector(viewDidLoad), @selector(hook_viewDidLoad));
-        swizzleInstanceMethod(self.class, @selector(viewWillAppear:), @selector(hook_viewWillAppear:));
-        swizzleInstanceMethod(self.class, @selector(viewDidDisappear:), @selector(hook_viewDidDisappear:));
+        hookInstanceMethod(self.class, @selector(viewDidLoad), @selector(hook_viewDidLoad));
+        hookInstanceMethod(self.class, @selector(viewWillAppear:), @selector(hook_viewWillAppear:));
+        hookInstanceMethod(self.class, @selector(viewDidDisappear:), @selector(hook_viewDidDisappear:));
         
-        swizzleInstanceMethod(self.class, @selector(presentViewController:animated:completion:), @selector(hook_presentViewController:animated:completion:));
+        hookInstanceMethod(self.class, @selector(presentViewController:animated:completion:), @selector(hook_presentViewController:animated:completion:));
 
     });
 }
@@ -86,7 +86,7 @@
     NSLog(@"替换图标成功");
 }
 
-#pragma mark - 滑动开始会触发
+#pragma mark -滑动开始会触发
 
 -(BOOL)gestureRecognizerShouldBegin:(UIGestureRecognizer *)gestureRecognizer{
     // 手势

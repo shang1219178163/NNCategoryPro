@@ -1,5 +1,5 @@
 //
-//  UITableViewHeaderFooterView+AddView.h
+//  UITableViewHeaderFooterView+Helper.h
 //  
 //
 //  Created by BIN on 2018/8/24.
@@ -12,6 +12,14 @@
 #import "UIView+Helper.h"
 
 NS_ASSUME_NONNULL_BEGIN
+
+@interface UITableViewHeaderFooterView (Helper)
+
++(instancetype)viewWithTableView:(UITableView *)tableView identifier:(NSString *)identifier;
++(instancetype)viewWithTableView:(UITableView *)tableView;
+
+@end
+
 
 @interface UITableViewHeaderFooterView (AddView)
 
@@ -30,9 +38,6 @@ NS_ASSUME_NONNULL_BEGIN
 @property (nonatomic, assign) BOOL isCanOPen;//默认为NO
 
 @property (nonatomic, copy) void (^blockView)(UITableViewHeaderFooterView *foldView,NSInteger index);
-
-+(instancetype)viewWithTableView:(UITableView *)tableView identifier:(NSString *)identifier;
-+(instancetype)viewWithTableView:(UITableView *)tableView;
 
 @end
  

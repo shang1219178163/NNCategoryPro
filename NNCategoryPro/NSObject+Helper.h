@@ -60,4 +60,25 @@ void GCDApplyGlobal(NSUInteger count,void(^block)(size_t index));
 
 @end
 
+
+//弃用
+@interface NSObject (ModelHelper)
+
+//-(id)convertFromDict:(NSDictionary *)dict key:(NSString *)key;
+//
+//-(void)convertBaseTypesForYYModelDict:(NSDictionary *)dict;
+//-(void)convertBaseTypesForYYModelDict:(NSDictionary *)dict mapperDict:(NSDictionary *)mapperDict;
+
+@end
+
+
+
+@interface NSJSONSerialization (Helper)
+
++ (nullable id)ObjForResource:(nullable NSString *)name ofType:(nullable NSString *)ext;
+    
+    
+@end
+
+
 NS_ASSUME_NONNULL_END

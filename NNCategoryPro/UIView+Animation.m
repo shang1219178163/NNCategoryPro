@@ -8,15 +8,11 @@
 //
 
 #import "UIView+Animation.h"
-
 #import <objc/runtime.h>
 #import "CALayer+Helper.h"
 #import "UIImage+Helper.h"
 
-#import "CAAnimationGroup+Helper.h"
 #import "CABasicAnimation+Helper.h"
-#import "CAKeyframeAnimation+Helper.h"
-
 
 @interface UIView()<CAAnimationDelegate>
 
@@ -270,6 +266,9 @@
 
 - (void)animationDidStop:(CAAnimation *)anim finished:(BOOL)flag{
     CALayer *layer = self.keepList.firstObject;
+    if (!layer) {
+        return;
+    }
     [layer removeAllAnimations];
     [self.cacheList addObject:layer];
     [layer removeFromSuperlayer];
