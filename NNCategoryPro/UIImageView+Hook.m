@@ -14,7 +14,6 @@
     static dispatch_once_t onceToken;
     dispatch_once(&onceToken, ^{
         hookInstanceMethod(self.class, NSSelectorFromString(@"setTintColor:"), NSSelectorFromString(@"hook_setTintColor:"));
-
     });
     
 }

@@ -22,14 +22,14 @@ NS_ASSUME_NONNULL_BEGIN
 
 @interface NSArray<ObjectType> (Helper)
 
-///->NSData
+/// ->NSData
 @property(nonatomic, strong, readonly, nullable) NSData *jsonData;
-///->NSString
+/// ->NSString
 @property(nonatomic, strong, readonly, nullable) NSString *jsonString;
-///倒叙
+/// 倒叙
 @property(nonatomic, strong, readonly, nullable) NSArray *reversed;
 
-///componentsJoinedByString
+/// componentsJoinedByString
 @property(nonatomic, strong, readonly) NSString *(^joinedBy)(NSString *);
 
 @property(nonatomic, strong, readonly) NSArray *(^sorted)(SEL);
@@ -38,35 +38,22 @@ NS_ASSUME_NONNULL_BEGIN
 
 @property(nonatomic, strong, readonly) NSArray *(^subarray)(NSUInteger);
 
-/**
- map 高阶函数
- */
+/// map 高阶函数
 - (NSArray *)map:(id (NS_NOESCAPE ^)(ObjectType obj, NSUInteger idx))transform;
 
-/**
- forEach 高阶函数
- */
-- (void)forEach:(id (NS_NOESCAPE ^)(ObjectType obj, NSUInteger idx))block options:(NSEnumerationOptions)options;
+/// forEach 高阶函数
+- (void)forEach:(id (NS_NOESCAPE ^)(ObjectType obj, NSUInteger idx))block;
 
-/**
-compactMap 高阶降维函数
-*/
+/// compactMap 高阶降维函数
 - (NSArray *)compactMap:(id (NS_NOESCAPE ^)(ObjectType obj, NSUInteger idx))transform;
 
-/**
- filter 高阶函数
- */
+/// filter 高阶函数
 - (NSArray *)filter:(BOOL(NS_NOESCAPE ^)(ObjectType obj, NSUInteger idx))transform;
 
-/**
- reduce 高阶函数(求和,累加等)
- */
+/// reduce 高阶函数(求和,累加等)
 - (NSNumber *)reduce:(NSNumber *)initial transform:(NSNumber *(NS_NOESCAPE ^)(NSNumber *result, NSNumber *obj))transform;
 
-/**
- 排序器排序
- @param dic key为排序键;value是升序yes/降序false
- */
+/// 排序器排序 @param dic key为排序键;value是升序yes/降序false
 - (NSArray *)sorteDescriptorAscending:(NSDictionary<NSString*, NSNumber*> *)dic;
 
 ///重复元素
@@ -74,25 +61,26 @@ compactMap 高阶降维函数
 
 
 - (NSArray<ObjectType> *)filteredArrayUsingPredicateFormat:(NSString *)format, ... NS_FORMAT_FUNCTION(1,2);
-///交集
+
+/// 交集
 - (NSArray *)intersectionWithArray:(NSArray *)array;
-///补集
-- (NSArray *)relativeComplementWithArray:(NSArray *)array;
-///并集
+
+/// 并集
 - (NSArray *)unionWithArray:(NSArray *)array;
-///差集
+
+/// 补集
+- (NSArray *)relativeComplementWithArray:(NSArray *)array;
+
+/// 差集
 - (NSArray *)differenceWithArray:(NSArray *)array;
 
 /// 快速生成一个数组(step代表步长)
 + (NSArray<NSNumber *> *)range:(NSInteger)start end:(NSInteger)end step:(NSInteger)step;
-/**
- from,to之间的随机数数组
- */
+
+/// from,to之间的随机数数组
 + (NSArray *)arrayRandomFrom:(NSInteger)from to:(NSInteger)to count:(NSInteger)count;
 
-/**
- 有序图片数组或者字符串数字
- */
+/// 有序图片数组或者字符串数字
 + (NSArray *)arrayItemPrefix:(NSString *)prefix
                   startIndex:(NSInteger)startIndex
                        count:(NSInteger)count;

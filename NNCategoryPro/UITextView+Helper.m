@@ -17,7 +17,6 @@
 //    static dispatch_once_t onceToken;
 //    dispatch_once(&onceToken, ^{
 //        hookInstanceMethod(self.class,  NSSelectorFromString(@"dealloc"), @selector(hook_dealloc));
-//
 //    });
 //}
 //

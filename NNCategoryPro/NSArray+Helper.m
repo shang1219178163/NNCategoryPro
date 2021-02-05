@@ -91,11 +91,11 @@
     return marr.copy;
 }
 
-- (void)forEach:(id (NS_NOESCAPE ^)(id obj, NSUInteger idx))block options:(NSEnumerationOptions)options{
+- (void)forEach:(id (NS_NOESCAPE ^)(id obj, NSUInteger idx))block{
     if (!block) {
         return;
     }
-    [self enumerateObjectsWithOptions:options usingBlock:^(id obj, NSUInteger idx, BOOL *stop) {
+    [self enumerateObjectsUsingBlock:^(id _Nonnull obj, NSUInteger idx, BOOL * _Nonnull stop) {
         block(obj, idx);
     }];
 }
@@ -182,16 +182,19 @@
     NSPredicate *predicate = [NSPredicate predicateWithFormat:@"SELF IN %@", array];
     return [self filteredArrayUsingPredicate:predicate];
 }
-///补集
-- (NSArray *)relativeComplementWithArray:(NSArray *)array {
-    NSPredicate *predicate = [NSPredicate predicateWithFormat:@"NOT SELF IN %@", array];
-    return [self filteredArrayUsingPredicate:predicate];
-}
+
 ///并集
 - (NSArray *)unionWithArray:(NSArray *)array {
     NSArray *complement = [self relativeComplementWithArray:array];
     return [complement arrayByAddingObjectsFromArray:array];
 }
+
+///补集
+- (NSArray *)relativeComplementWithArray:(NSArray *)array {
+    NSPredicate *predicate = [NSPredicate predicateWithFormat:@"NOT SELF IN %@", array];
+    return [self filteredArrayUsingPredicate:predicate];
+}
+
 ///差集
 - (NSArray *)differenceWithArray:(NSArray *)array {
     NSArray *aSubtractB = [self relativeComplementWithArray:array];

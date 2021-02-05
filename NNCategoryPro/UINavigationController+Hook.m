@@ -16,7 +16,6 @@
     static dispatch_once_t onceToken;
     dispatch_once(&onceToken, ^{
         hookInstanceMethod(self.class, @selector(pushViewController:animated:), @selector(hook_PushViewController:animated:));
-        
     });
 }
 

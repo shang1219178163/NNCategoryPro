@@ -18,7 +18,6 @@
         hookInstanceMethod(self.class, @selector(viewDidDisappear:), @selector(hook_viewDidDisappear:));
         
         hookInstanceMethod(self.class, @selector(presentViewController:animated:completion:), @selector(hook_presentViewController:animated:completion:));
-
     });
 }
 

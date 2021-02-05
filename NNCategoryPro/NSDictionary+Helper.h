@@ -12,46 +12,35 @@ NS_ASSUME_NONNULL_BEGIN
 
 @interface NSDictionary<KeyType, ObjectType> (Helper)
 
-///->NSData
+/// ->NSData
 @property (nonatomic, strong, readonly, nullable) NSData *jsonData;
-///->NSString
+/// ->NSString
 @property (nonatomic, strong, readonly, nullable) NSString *jsonString;
-///键值翻转
+/// 键值翻转
 @property (nonatomic, strong, readonly, nullable) NSDictionary *invert;
 
-/**
- map 高阶函数
- */
+/// map 高阶函数
 - (NSDictionary *)map:(NSDictionary* (NS_NOESCAPE ^)(KeyType key, ObjectType obj))transform;
 
-/**
- forEach 高阶函数
- */
-- (void)forEach:(NSDictionary* (NS_NOESCAPE ^)(KeyType key, ObjectType obj))block options:(NSEnumerationOptions)options;
+/// forEach 高阶函数
+- (void)forEach:(NSDictionary* (NS_NOESCAPE ^)(KeyType key, ObjectType obj))block;
 
-/**
-filter 高阶函数
-*/
+/// filter 高阶函数
 - (NSDictionary *)filter:(BOOL (NS_NOESCAPE ^)(KeyType key, ObjectType obj))transform;
-/**
-compactMapValues 高阶函数(将 value 为 nil 过滤掉)
-*/
+
+/// compactMapValues 高阶函数(将 value 为 nil 过滤掉)
 - (NSDictionary *)compactMapValues:(id (NS_NOESCAPE ^)(ObjectType obj))transform;
 
-- (NSDictionary *)merge:(NSDictionary *)dictionary block:(id(^)(KeyType key, ObjectType oldVal, _Nullable ObjectType newVal))block;
+/// merge 高阶函数
+- (NSDictionary *)merge:(NSDictionary *)dictionary block:(id(NS_NOESCAPE ^)(KeyType key, ObjectType oldVal, _Nullable ObjectType newVal))block;
 
 /// 读取项目文件(在TARGETS里的CopyBundleResources中必须存在)
 + (nullable NSDictionary *)dictionaryForResource:(nullable NSString *)name ofType:(nullable NSString *)ext;
 
-/**
- 根据key对字典values排序,区分大小写(按照ASCII排序)
- */
+/// 根据key对字典values排序,区分大小写(按照ASCII排序)
 - (NSArray *)sortedValuesByKey;
 
-/**
- *  @brief  将NSDictionary转换成url 参数字符串
- *  @return url 参数字符串
- */
+/// 将NSDictionary转换成url 参数字符串
 - (NSString *)toURLQueryString;
 
 /**

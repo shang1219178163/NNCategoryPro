@@ -54,11 +54,11 @@
     return mdic.copy;
 }
 
-- (void)forEach:(NSDictionary *(NS_NOESCAPE ^)(id key, id obj))block options:(NSEnumerationOptions)options{
+- (void)forEach:(NSDictionary *(NS_NOESCAPE ^)(id key, id obj))block{
     if (!block) {
         return;
     }
-    [self enumerateKeysAndObjectsWithOptions:options usingBlock:^(id  _Nonnull key, id  _Nonnull obj, BOOL * _Nonnull stop) {
+    [self enumerateKeysAndObjectsUsingBlock:^(id  _Nonnull key, id  _Nonnull obj, BOOL * _Nonnull stop) {
         block(key, obj);
     }];
 }

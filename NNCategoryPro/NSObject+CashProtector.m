@@ -50,48 +50,49 @@ static NNForwardingTarget *_target = nil;
             return;
         }
 
-        if (isOpenCashProtector) { 
-            hookInstanceMethod(NSClassFromString(@"__NSArrayI"),
-                                  @selector(objectAtIndex:),
-                                  NSSelectorFromString(@"p_objectAtIndex:"));
-            
-            hookInstanceMethod(NSClassFromString(@"__NSArrayI"),
-                                  @selector(objectAtIndexedSubscript:),
-                                  NSSelectorFromString(@"p_objectAtIndexedSubscript:"));
-            
-            hookInstanceMethod(NSClassFromString(@"__NSArrayM"),
-                                  @selector(objectAtIndex:),
-                                  NSSelectorFromString(@"p_objectAtIndex:"));
-            
-            hookInstanceMethod(NSClassFromString(@"__NSArrayM"),
-                                  @selector(objectAtIndexedSubscript:),
-                                  NSSelectorFromString(@"p_objectAtIndexedSubscript:"));
-            
-            hookInstanceMethod(NSClassFromString(@"__NSArrayM"),
-                                  @selector(addObject:),
-                                  NSSelectorFromString(@"p_addObject:"));
-            
-            hookInstanceMethod(NSClassFromString(@"__NSArrayM"),
-                                  @selector(insertObject:atIndex:),
-                                  NSSelectorFromString(@"p_insertObject:atIndex:"));
-            
-            //NSClassFromString(@"__NSDictionaryM"),objc_getClass("__NSDictionaryM")
-            hookInstanceMethod(NSClassFromString(@"__NSDictionaryM"),
-                                  @selector(setObject:forKey:),
-                                  NSSelectorFromString(@"p_setObject:forKey:"));
-            
-            hookInstanceMethod(NSClassFromString(@"__NSDictionaryM"),
-                                  @selector(setObject:forKeyedSubscript:),
-                                  NSSelectorFromString(@"p_setObject:forKeyedSubscript:"));
-            
-            hookInstanceMethod(NSClassFromString(@"__NSDictionaryM"),
-                                  @selector(removeObjectForKey:),
-                                  NSSelectorFromString(@"p_removeObjectForKey:"));
-            
-            hookInstanceMethod(self.class,
-                                  @selector(forwardingTargetForSelector:),
-                                  NSSelectorFromString(@"p_forwardingTargetForSelector:"));
+        if (!isOpenCashProtector) {
+            return;
         }
+        hookInstanceMethod(NSClassFromString(@"__NSArrayI"),
+                              @selector(objectAtIndex:),
+                              NSSelectorFromString(@"p_objectAtIndex:"));
+        
+        hookInstanceMethod(NSClassFromString(@"__NSArrayI"),
+                              @selector(objectAtIndexedSubscript:),
+                              NSSelectorFromString(@"p_objectAtIndexedSubscript:"));
+        
+        hookInstanceMethod(NSClassFromString(@"__NSArrayM"),
+                              @selector(objectAtIndex:),
+                              NSSelectorFromString(@"p_objectAtIndex:"));
+        
+        hookInstanceMethod(NSClassFromString(@"__NSArrayM"),
+                              @selector(objectAtIndexedSubscript:),
+                              NSSelectorFromString(@"p_objectAtIndexedSubscript:"));
+        
+        hookInstanceMethod(NSClassFromString(@"__NSArrayM"),
+                              @selector(addObject:),
+                              NSSelectorFromString(@"p_addObject:"));
+        
+        hookInstanceMethod(NSClassFromString(@"__NSArrayM"),
+                              @selector(insertObject:atIndex:),
+                              NSSelectorFromString(@"p_insertObject:atIndex:"));
+        
+        //NSClassFromString(@"__NSDictionaryM"),objc_getClass("__NSDictionaryM")
+        hookInstanceMethod(NSClassFromString(@"__NSDictionaryM"),
+                              @selector(setObject:forKey:),
+                              NSSelectorFromString(@"p_setObject:forKey:"));
+        
+        hookInstanceMethod(NSClassFromString(@"__NSDictionaryM"),
+                              @selector(setObject:forKeyedSubscript:),
+                              NSSelectorFromString(@"p_setObject:forKeyedSubscript:"));
+        
+        hookInstanceMethod(NSClassFromString(@"__NSDictionaryM"),
+                              @selector(removeObjectForKey:),
+                              NSSelectorFromString(@"p_removeObjectForKey:"));
+        
+        hookInstanceMethod(self.class,
+                              @selector(forwardingTargetForSelector:),
+                              NSSelectorFromString(@"p_forwardingTargetForSelector:"));
     });
 }
 
