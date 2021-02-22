@@ -274,7 +274,7 @@
 
 -(void)setSafeObjct:(id _Nullable)obj forKey:(id <NSCopying>)akey{
     if (!obj || [obj isKindOfClass:[NSNull class]]) {
-        [self setObject:@"" forKey:akey];
+//        [self setObject:@"" forKey:akey];
         return;
     }
     [self setObject:obj forKey:akey];
@@ -282,7 +282,7 @@
 
 - (void)setSafeObject:(nullable id)obj forKeyedSubscript:(id <NSCopying>)key{
     if (!obj || [obj isKindOfClass:[NSNull class]]) {
-        [self setObject:@"" forKey:key];
+//        [self setObject:@"" forKey:key];
         return;
     }
     [self setObject:obj forKeyedSubscript:key];
