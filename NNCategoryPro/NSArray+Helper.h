@@ -48,10 +48,14 @@ NS_ASSUME_NONNULL_BEGIN
 - (NSArray *)compactMap:(id (NS_NOESCAPE ^)(ObjectType obj, NSUInteger idx))transform;
 
 /// filter 高阶函数
-- (NSArray *)filter:(BOOL(NS_NOESCAPE ^)(ObjectType obj, NSUInteger idx))transform;
+- (NSArray *)filter:(BOOL(NS_NOESCAPE ^)(ObjectType obj, NSUInteger idx))isIncluded;
 
 /// reduce 高阶函数(求和,累加等)
 - (NSNumber *)reduce:(NSNumber *)initial transform:(NSNumber *(NS_NOESCAPE ^)(NSNumber *result, NSNumber *obj))transform;
+
+/// 嵌套模型数组扁平化
+/// @param childKey 例如 children, child, son
+- (NSArray *)flatModels:(NSString *)childKey;
 
 /// 排序器排序 @param dic key为排序键;value是升序yes/降序false
 - (NSArray *)sorteDescriptorAscending:(NSDictionary<NSString*, NSNumber*> *)dic;

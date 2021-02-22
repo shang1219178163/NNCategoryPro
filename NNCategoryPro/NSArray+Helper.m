@@ -119,15 +119,15 @@
     return marr.copy;
 }
 
-- (NSArray *)filter:(BOOL(NS_NOESCAPE ^)(id obj, NSUInteger idx))transform{
-    if (!transform) {
-        NSParameterAssert(transform != nil);
+- (NSArray *)filter:(BOOL(NS_NOESCAPE ^)(id obj, NSUInteger idx))isIncluded{
+    if (!isIncluded) {
+        NSParameterAssert(isIncluded != nil);
         return self;
     }
 
     __block NSMutableArray *marr = [NSMutableArray array];
     [self enumerateObjectsUsingBlock:^(id _Nonnull obj, NSUInteger idx, BOOL * _Nonnull stop) {
-        if (transform(obj, idx) == true) {
+        if (isIncluded(obj, idx) == true) {
             [marr addObject:obj];
         }
     }];
@@ -147,6 +147,35 @@
     return value;
 }
 
+- (NSArray *)flatModels:(NSString *)childKey{
+    if (![self.firstObject isKindOfClass:[NSObject class]]) {
+        return @[];
+    }
+    NSMutableArray *list = [NSMutableArray array];
+    for (NSObject *model in self) {
+        [list addObject:model];
+        
+        [self recursionModel:model list:list childKey:childKey];
+    }
+    return list;
+}
+
+- (void)recursionModel:(NSObject *)model list:(NSMutableArray *)list childKey:(NSString *)childKey{
+    NSArray *children = [model valueForKey:childKey];
+    if (!children) {
+        return;
+    }
+    
+    for (NSObject *model in children) {
+        [list addObject:model];
+        
+        NSArray *children = [model valueForKey:childKey];
+        if (!children) {
+            continue;
+        }
+        [self recursionModel:model list:list childKey:childKey];
+    }
+}
 
 #pragma mark -其他方法
 
