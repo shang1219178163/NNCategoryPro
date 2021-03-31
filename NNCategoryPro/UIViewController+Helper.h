@@ -56,6 +56,10 @@ FOUNDATION_EXPORT UINavigationController * _Nullable UINavCtrFromObj(id obj);
 
 - (void)setNavigationBarBackgroundColor:(UIColor *)color;
 
+- (void)popGestureClose;
+
+- (void)popGestureOpen;
+
 @end
 
 

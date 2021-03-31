@@ -305,6 +305,31 @@ UINavigationController *UINavCtrFromObj(id obj){
     [self.navigationController.navigationBar setBackgroundColor:color];
 }
 
+- (void)popGestureClose{
+    // 禁用侧滑返回手势
+    if ([self.navigationController respondsToSelector:@selector(interactivePopGestureRecognizer)]) {
+        //这里对添加到右滑视图上的所有手势禁用
+        for (UIGestureRecognizer *popGesture in self.navigationController.interactivePopGestureRecognizer.view.gestureRecognizers) {
+            popGesture.enabled = NO;
+        }
+        //若开启全屏右滑，不能再使用下面方法，请对数组进行处理
+        //self.navigationController.interactivePopGestureRecognizer.enabled = NO;
+    }
+}
+
+- (void)popGestureOpen{
+    // 启用侧滑返回手势
+    if ([self.navigationController respondsToSelector:@selector(interactivePopGestureRecognizer)]) {
+    //这里对添加到右滑视图上的所有手势启用
+        for (UIGestureRecognizer *gesture in self.navigationController.interactivePopGestureRecognizer.view.gestureRecognizers) {
+            gesture.enabled = YES;
+        }
+        //若开启全屏右滑，不能再使用下面方法，请对数组进行处理
+        //self.navigationController.interactivePopGestureRecognizer.enabled = YES;
+    }
+}
+
+
 @end
 
 
