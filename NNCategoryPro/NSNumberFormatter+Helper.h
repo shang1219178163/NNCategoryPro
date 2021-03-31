@@ -9,49 +9,61 @@
 #import <Foundation/Foundation.h>
 
 NS_ASSUME_NONNULL_BEGIN
-
-/// 四舍五入
-FOUNDATION_EXPORT NSString * const kNumIdentify ;// 默认(四舍五入)
-/// 分隔符,
-FOUNDATION_EXPORT NSString * const kNumIdentifyDecimal ;
-/// 百分比
-FOUNDATION_EXPORT NSString * const kNumIdentifyPercent ;
-/// 货币$
-FOUNDATION_EXPORT NSString * const kNumIdentifyCurrency ;
-/// 科学计数法 1.234E8
-FOUNDATION_EXPORT NSString * const kNumIdentifyScientific ;
-/// 加号符号
-FOUNDATION_EXPORT NSString * const kNumIdentifyPlusSign ;
-/// 减号符号
-FOUNDATION_EXPORT NSString * const kNumIdentifyMinusSign ;
-/// 指数符号
-FOUNDATION_EXPORT NSString * const kNumIdentifyExponentSymbol ;
+ 
 /// #,##0.00
 FOUNDATION_EXPORT NSString * const kNumFormat;
 
 @interface NSNumberFormatter (Helper)
 
-@property (class, nonatomic, strong, readonly) NSDictionary *styleDic;
+@property(nonatomic, copy, readonly) NSNumberFormatter *(^digits)(NSUInteger minIntegerDigits, NSUInteger maxIntegerDigits, NSUInteger minFractionDigits, NSUInteger maxFractionDigits);
 
-+ (NSNumberFormatter *)numberIdentify:(NSString *)identify;
+@property(nonatomic, copy, readonly) NSNumberFormatter *(^group)(NSString *groupingSeparator, NSUInteger groupingSize);
 
-/// [源]小数位数及四射五入处理
+@property(nonatomic, copy, readonly) NSNumberFormatter *(^positivePrefix)(NSString *);
+
+@property(nonatomic, copy, readonly) NSNumberFormatter *(^positiveSuffix)(NSString *);
+
+@property(nonatomic, copy, readonly) NSNumberFormatter *(^negativePrefix)(NSString *);
+
+@property(nonatomic, copy, readonly) NSNumberFormatter *(^negativeSuffix)(NSString *);
+
+@property(nonatomic, copy, readonly) NSNumberFormatter *(^positiveFormat)(NSString *);
+
+@property(nonatomic, copy, readonly) NSNumberFormatter *(^negativeFormat)(NSString *);
+
+@property(nonatomic, copy, readonly) NSNumberFormatter *(^paddingCharacter)(NSString *);
+
+
+/// 根据 NumberFormatter.Style 生成/获取 NumberFormatter, 避免多次创建(效果如下)
+/// none_              0.6767 -> 1              123456789.6767 -> 123456790
+/// decimal_           0.6767 -> 0.677          123456789.6767 -> 123,456,789.677
+/// currency_          0.6767 -> ¥0.68          123456789.6767 -> ¥123,456,789.68
+/// currencyISOCode_   0.6767 -> CNY 0.68       123456789.6767 -> CNY 123,456,789.68
+/// currencyPlural_    0.6767 -> 0.68 人民币     123456789.6767 -> 123,456,789.68 人民币
+/// currencyAccounting_0.6767 -> ¥0.68          123456789.6767 -> ¥123,456,789.68
+/// percent_           0.6767 -> 68%            123456789.6767 -> 12,345,678,968%
+/// scientific_        0.6767 -> 6.767E-1       123456789.6767 -> 1.234567896767E8
+/// spellOut_          0.6767 -> 〇点六七六七     123456789.6767 -> 一亿二千三百四十五万六千七百八十九点六七六七
+/// ordinal_           0.6767 -> 第1            123456789.6767 -> 第123,456,790
+/// @param style NSNumberFormatterStyle
++ (NSNumberFormatter *)numberStyle:(NSNumberFormatterStyle)style;
+
++ (NSNumberFormatter *)format:(NSNumberFormatterStyle)style
+            minFractionDigits:(NSUInteger)minFractionDigits
+            maxFractionDigits:(NSUInteger)maxFractionDigits
+               positivePrefix:(NSString *)positivePrefix
+            groupingSeparator:(NSString *)groupingSeparator
+                 groupingSize:(NSUInteger)groupingSize;
+// 小数位数
 + (NSString *)fractionDigits:(NSNumber *)obj
                          min:(NSUInteger)min
                          max:(NSUInteger)max
                 roundingMode:(NSNumberFormatterRoundingMode)roundingMode;
-/// [简]2位小数四射五入处理
+// 小数位数
 + (NSString *)fractionDigits:(NSNumber *)obj;
-
-+ (NSNumberFormatter *)positiveFormat:(NSString *)formatStr;
-///千分符
-+ (NSNumberFormatter *)positive:(NSString *)formatStr
-                         prefix:(NSString *)prefix
-                         suffix:(NSString *)suffix
-                        defalut:(NSString *)defalut;
-
 /// number为NSNumber/String
 + (NSString *)localizedString:(NSNumberFormatterStyle)style number:(NSString *)number;
+
 
 @end
 

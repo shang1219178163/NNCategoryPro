@@ -14,9 +14,6 @@ NS_ASSUME_NONNULL_BEGIN
 
 @property (nonatomic, strong, readonly) NSDecimalNumber *decNumer;
 
-/// 转为max位小数四舍五入
--(NSString *)toString:(NSUInteger)max;
-
 /// 转为2位小数四舍五入
 -(NSString *)toString;
 

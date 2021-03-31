@@ -9,52 +9,125 @@
 #import "NSNumberFormatter+Helper.h"
 #import <NNGloble/NNGloble.h>
 
-NSString * const kNumIdentify = @"四舍五入";// 默认
-NSString * const kNumIdentifyDecimal = @"分隔符,保留3位小数";
-NSString * const kNumIdentifyPercent = @"百分比";
-NSString * const kNumIdentifyCurrency = @"货币$";
-NSString * const kNumIdentifyScientific = @"科学计数法 1.234E8";
-NSString * const kNumIdentifyPlusSign = @"加号符号";
-NSString * const kNumIdentifyMinusSign = @"减号符号";
-NSString * const kNumIdentifyExponentSymbol = @"指数符号";
-
-NSString * const kNumFormat = @"#,##0.00";
+NSString * const kNumFormat = @"¥###,##0.00";
 
 @implementation NSNumberFormatter (Helper)
 
-static NSDictionary *_styleDic = nil;
-+ (NSDictionary *)styleDic{
-    if (!_styleDic) {
-        _styleDic = @{kNumIdentify: @(NSNumberFormatterNoStyle),
-                      kNumIdentifyDecimal: @(NSNumberFormatterDecimalStyle),
-                      kNumIdentifyPercent: @(NSNumberFormatterPercentStyle),
-                      kNumIdentifyCurrency: @(NSNumberFormatterCurrencyStyle),
-                      kNumIdentifyScientific: @(NSNumberFormatterScientificStyle),
-                      };
-    }
-    return _styleDic;
+- (NSNumberFormatter * _Nonnull (^)(NSUInteger, NSUInteger, NSUInteger, NSUInteger))digits{
+    return ^(NSUInteger minIntegerDigits, NSUInteger maxIntegerDigits, NSUInteger minFractionDigits, NSUInteger maxFractionDigits) {
+        self.minimumIntegerDigits = minIntegerDigits;
+        self.maximumIntegerDigits = maxIntegerDigits;
+        self.minimumFractionDigits = minFractionDigits;
+        self.maximumFractionDigits = maxFractionDigits;
+        return self;
+    };
 }
 
-+ (NSNumberFormatter *)numberIdentify:(NSString *)identify{
+- (NSNumberFormatter * _Nonnull (^)(NSString * _Nonnull, NSUInteger))group{
+    return ^(NSString * groupingSeparator, NSUInteger groupingSize) {
+        self.usesGroupingSeparator = true;
+        self.groupingSeparator = groupingSeparator;
+        self.groupingSize = groupingSize;
+        return self;
+    };
+}
+
+
+- (NSNumberFormatter * _Nonnull (^)(NSString *))positivePrefix{
+    return ^(NSString * value) {
+        self.positivePrefix = value;
+        return self;
+    };
+}
+
+- (NSNumberFormatter * _Nonnull (^)(NSString *))positiveSuffix{
+    return ^(NSString * value) {
+        self.positiveSuffix = value;
+        return self;
+    };
+}
+
+- (NSNumberFormatter * _Nonnull (^)(NSString *))negativePrefix{
+    return ^(NSString * value) {
+        self.negativePrefix = value;
+        return self;
+    };
+}
+
+- (NSNumberFormatter * _Nonnull (^)(NSString *))negativeSuffix{
+    return ^(NSString * value) {
+        self.negativeSuffix = value;
+        return self;
+    };
+}
+
+- (NSNumberFormatter * _Nonnull (^)(NSString *))positiveFormat{
+    return ^(NSString * value) {
+        self.positiveFormat = value;
+        return self;
+    };
+}
+
+- (NSNumberFormatter * _Nonnull (^)(NSString *))negativeFormat{
+    return ^(NSString * value) {
+        self.negativeFormat = value;
+        return self;
+    };
+}
+
+- (NSNumberFormatter * _Nonnull (^)(NSString *))paddingCharacter{
+    return ^(NSString * value) {
+        self.paddingCharacter = value;
+        return self;
+    };
+}
+
+
+/// 根据 NumberFormatter.Style 生成/获取 NumberFormatter, 避免多次创建(效果如下)
+/// none_              0.6767 -> 1              123456789.6767 -> 123456790
+/// decimal_           0.6767 -> 0.677          123456789.6767 -> 123,456,789.677
+/// currency_          0.6767 -> ¥0.68          123456789.6767 -> ¥123,456,789.68
+/// currencyISOCode_   0.6767 -> CNY 0.68       123456789.6767 -> CNY 123,456,789.68
+/// currencyPlural_    0.6767 -> 0.68 人民币     123456789.6767 -> 123,456,789.68 人民币
+/// currencyAccounting_0.6767 -> ¥0.68          123456789.6767 -> ¥123,456,789.68
+/// percent_           0.6767 -> 68%            123456789.6767 -> 12,345,678,968%
+/// scientific_        0.6767 -> 6.767E-1       123456789.6767 -> 1.234567896767E8
+/// spellOut_          0.6767 -> 〇点六七六七     123456789.6767 -> 一亿二千三百四十五万六千七百八十九点六七六七
+/// ordinal_           0.6767 -> 第1            123456789.6767 -> 第123,456,790
+/// @param style NSNumberFormatterStyle
++ (NSNumberFormatter *)numberStyle:(NSNumberFormatterStyle)style{
+    NSString *key = [@"NSNumberFormatterStyle" stringByAppendingFormat:@"%@", @(style)];
     //使用当前线程字典来保存对象
-    NSMutableDictionary *threadDic = NSThread.currentThread.threadDictionary;
-    NSNumberFormatter *formatter = [threadDic objectForKey:identify];
-    if (!formatter) {
-        formatter = [[NSNumberFormatter alloc]init];
-        formatter.locale = [NSLocale localeWithLocaleIdentifier:kLanguageCN];
-        formatter.minimumIntegerDigits = 1;//最少小数点前的位数
-        formatter.minimumFractionDigits = 2;//最少小数点后的位数
-        formatter.maximumFractionDigits = 2;//最多小数点后的位数
-        formatter.roundingMode = NSNumberFormatterRoundUp;
-        //格式
-        if ([NSNumberFormatter.styleDic.allKeys containsObject:identify]) {
-            NSUInteger style = [NSNumberFormatter.styleDic[identify] unsignedIntegerValue];
-            if (style > 10 || style == 7) {
-                formatter.numberStyle = NSNumberFormatterNoStyle;
-            }
-        }
-        [threadDic setObject:formatter forKey:identify];
+    NSMutableDictionary *mdic = NSThread.currentThread.threadDictionary;
+    NSNumberFormatter *formatter = mdic[key];
+    if (formatter) {
+        return formatter;
     }
+
+    formatter = [[NSNumberFormatter alloc]init];
+    formatter.locale = [NSLocale localeWithLocaleIdentifier:kLanguageCN];
+    formatter.numberStyle = style;
+//    formatter.minimumIntegerDigits = 1;//最少小数点前的位数
+//    formatter.minimumFractionDigits = 2;//最少小数点后的位数
+//    formatter.maximumFractionDigits = 2;//最多小数点后的位数
+//    formatter.roundingMode = NSNumberFormatterRoundUp;
+
+    mdic[key] = formatter;
+    return formatter;
+}
+
++ (NSNumberFormatter *)format:(NSNumberFormatterStyle)style
+            minFractionDigits:(NSUInteger)minFractionDigits
+            maxFractionDigits:(NSUInteger)maxFractionDigits
+               positivePrefix:(NSString *)positivePrefix
+            groupingSeparator:(NSString *)groupingSeparator
+                 groupingSize:(NSUInteger)groupingSize{
+    NSNumberFormatter *formatter = [NSNumberFormatter numberStyle:style];
+    formatter.positivePrefix = positivePrefix;
+
+    formatter.usesGroupingSeparator = true; //分隔设true
+    formatter.groupingSeparator = groupingSeparator; //分隔符
+    formatter.groupingSize = groupingSize;  //分隔位数
     return formatter;
 }
 
@@ -64,11 +137,11 @@ static NSDictionary *_styleDic = nil;
                          max:(NSUInteger)max
                 roundingMode:(NSNumberFormatterRoundingMode)roundingMode{
     
-    NSNumberFormatter *formatter = [NSNumberFormatter numberIdentify:kNumIdentify];
+    NSNumberFormatter *formatter = [NSNumberFormatter numberStyle:NSNumberFormatterCurrencyStyle];
     formatter.minimumFractionDigits = min;//最少小数点后的位数
     formatter.maximumFractionDigits = max;//最多小数点后的位数
     formatter.roundingMode = roundingMode;
-    return [formatter stringFromNumber:obj] ? : @"";
+    return [formatter stringFromNumber:obj];
 }
 
 // 小数位数
@@ -80,25 +153,6 @@ static NSDictionary *_styleDic = nil;
     return result;
 }
 
-+ (NSNumberFormatter *)positiveFormat:(NSString *)formatStr{
-    NSNumberFormatter *formatter = [NSNumberFormatter numberIdentify:kNumIdentifyDecimal];
-    formatter.positiveFormat = formatStr;
-    return formatter;
-}
-
-+ (NSNumberFormatter *)positive:(NSString *)formatStr
-                         prefix:(NSString *)prefix
-                         suffix:(NSString *)suffix
-                        defalut:(NSString *)defalut{
-    NSNumberFormatter *formatter = [NSNumberFormatter numberIdentify:kNumIdentifyDecimal];
-    formatter.positivePrefix = prefix;
-    formatter.positiveSuffix = suffix;
-
-    formatter.usesGroupingSeparator = true; //分隔设true
-    formatter.groupingSeparator = @","; //分隔符
-    formatter.groupingSize = 3;  //分隔位数
-    return formatter;
-}
 /// number为NSNumber/String
 + (NSString *)localizedString:(NSNumberFormatterStyle)style number:(NSString *)number{
     NSString *charSet = @"0123456789.";
@@ -108,6 +162,9 @@ static NSDictionary *_styleDic = nil;
     NSString *string = [NSNumberFormatter localizedStringFromNumber:value numberStyle:style];
     return string;
 }
+
+
+
 
 @end
 
