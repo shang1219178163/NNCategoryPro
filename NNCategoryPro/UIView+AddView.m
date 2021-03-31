@@ -20,7 +20,7 @@
 
 #import "CALayer+Helper.h"
 
-#import <SDWebImage/UIImageView+WebCache.h>
+//#import <SDWebImage/UIImageView+WebCache.h>
 
 @implementation UIView (AddView)
 
