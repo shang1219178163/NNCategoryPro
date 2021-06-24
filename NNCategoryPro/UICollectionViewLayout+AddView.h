@@ -18,20 +18,19 @@ NS_ASSUME_NONNULL_BEGIN
 
 @interface UICollectionViewFlowLayout (AddView)
 
-@property(nonatomic, strong, readonly) UICollectionViewFlowLayout *(^minimumLineSpacing)(CGFloat);
-@property(nonatomic, strong, readonly) UICollectionViewFlowLayout *(^minimumInteritemSpacing)(CGFloat);
-@property(nonatomic, strong, readonly) UICollectionViewFlowLayout *(^itemSize)(CGSize);
-@property(nonatomic, strong, readonly) UICollectionViewFlowLayout *(^headerReferenceSize)(CGSize);
-@property(nonatomic, strong, readonly) UICollectionViewFlowLayout *(^footerReferenceSize)(CGSize);
+@property(nonatomic, strong, readonly) UICollectionViewFlowLayout *(^minimumLineSpacingChain)(CGFloat);
+@property(nonatomic, strong, readonly) UICollectionViewFlowLayout *(^minimumInteritemSpacingChain)(CGFloat);
+@property(nonatomic, strong, readonly) UICollectionViewFlowLayout *(^itemSizeChain)(CGSize);
+@property(nonatomic, strong, readonly) UICollectionViewFlowLayout *(^headerReferenceSizeChain)(CGSize);
+@property(nonatomic, strong, readonly) UICollectionViewFlowLayout *(^footerReferenceSizeChain)(CGSize);
 
-@property(nonatomic, strong, readonly) UICollectionViewFlowLayout *(^estimatedItemSize)(CGSize);
-@property(nonatomic, strong, readonly) UICollectionViewFlowLayout *(^scrollDirection)(UICollectionViewScrollDirection);
+@property(nonatomic, strong, readonly) UICollectionViewFlowLayout *(^estimatedItemSizeChain)(CGSize);
+@property(nonatomic, strong, readonly) UICollectionViewFlowLayout *(^scrollDirectionChain)(UICollectionViewScrollDirection);
 
-@property(nonatomic, strong, readonly) UICollectionViewFlowLayout *(^sectionInset)(UIEdgeInsets);
-@property(nonatomic, strong, readonly) UICollectionViewFlowLayout *(^sectionInsetReference)(UICollectionViewFlowLayoutSectionInsetReference) API_AVAILABLE(ios(11.0), tvos(11.0)) API_UNAVAILABLE(watchos);
-@property(nonatomic, strong, readonly) UICollectionViewFlowLayout *(^sectionFootersPinToVisibleBounds)(BOOL);
-@property(nonatomic, strong, readonly) UICollectionViewFlowLayout *(^sectionHeadersPinToVisibleBounds)(BOOL);
-
+@property(nonatomic, strong, readonly) UICollectionViewFlowLayout *(^sectionInsetChain)(UIEdgeInsets);
+@property(nonatomic, strong, readonly) UICollectionViewFlowLayout *(^sectionInsetReferenceChain)(UICollectionViewFlowLayoutSectionInsetReference) API_AVAILABLE(ios(11.0), tvos(11.0)) API_UNAVAILABLE(watchos);
+@property(nonatomic, strong, readonly) UICollectionViewFlowLayout *(^sectionFootersPinToVisibleBoundsChain)(BOOL);
+@property(nonatomic, strong, readonly) UICollectionViewFlowLayout *(^sectionHeadersPinToVisibleBoundsChain)(BOOL);
 
 @property(class, nonatomic, strong) UICollectionViewFlowLayout *layoutDefault;
 

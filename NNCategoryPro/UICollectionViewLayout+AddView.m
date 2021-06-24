@@ -18,14 +18,14 @@
 
 @implementation UICollectionViewFlowLayout (AddView)
 
-- (UICollectionViewFlowLayout * _Nonnull (^)(CGFloat))minimumLineSpacing{
+- (UICollectionViewFlowLayout *(^)(CGFloat))minimumLineSpacingChain{
     return ^(CGFloat value) {
         self.minimumLineSpacing = value;
         return self;
     };
 }
 
-- (UICollectionViewFlowLayout * _Nonnull (^)(CGFloat))minimumInteritemSpacing{
+- (UICollectionViewFlowLayout *(^)(CGFloat))minimumInteritemSpacingChain{
     return ^(CGFloat value) {
         self.minimumInteritemSpacing = value;
         return self;
@@ -33,21 +33,21 @@
 }
 
 
-- (UICollectionViewFlowLayout * _Nonnull (^)(CGSize))itemSize{
+- (UICollectionViewFlowLayout *(^)(CGSize))itemSizeChain{
     return ^(CGSize value) {
         self.itemSize = value;
         return self;
     };
 }
 
-- (UICollectionViewFlowLayout * _Nonnull (^)(CGSize))estimatedItemSize{
+- (UICollectionViewFlowLayout *(^)(CGSize))estimatedItemSizeChain{
     return ^(CGSize value) {
         self.estimatedItemSize = value;
         return self;
     };
 }
 
-- (UICollectionViewFlowLayout * _Nonnull (^)(CGSize))headerReferenceSize{
+- (UICollectionViewFlowLayout *(^)(CGSize))headerReferenceSizeChain{
     return ^(CGSize value) {
         self.headerReferenceSize = value;
         return self;
@@ -55,35 +55,35 @@
 }
 
 
-- (UICollectionViewFlowLayout * _Nonnull (^)(CGSize))footerReferenceSize{
+- (UICollectionViewFlowLayout *(^)(CGSize))footerReferenceSizeChain{
     return ^(CGSize value) {
         self.footerReferenceSize = value;
         return self;
     };
 }
 
-- (UICollectionViewFlowLayout * _Nonnull (^)(UICollectionViewScrollDirection))scrollDirection{
+- (UICollectionViewFlowLayout *(^)(UICollectionViewScrollDirection))scrollDirectionChain{
     return ^(UICollectionViewScrollDirection value) {
         self.scrollDirection = value;
         return self;
     };
 }
 
-- (UICollectionViewFlowLayout * _Nonnull (^)(UICollectionViewFlowLayoutSectionInsetReference))sectionInsetReference{
+- (UICollectionViewFlowLayout *(^)(UICollectionViewFlowLayoutSectionInsetReference))sectionInsetReferenceChain{
     return ^(UICollectionViewFlowLayoutSectionInsetReference value) {
         self.sectionInsetReference = value;
         return self;
     };
 }
 
-- (UICollectionViewFlowLayout * _Nonnull (^)(BOOL))sectionHeadersPinToVisibleBounds{
+- (UICollectionViewFlowLayout *(^)(BOOL))sectionHeadersPinToVisibleBoundsChain{
     return ^(BOOL value) {
         self.sectionHeadersPinToVisibleBounds = value;
         return self;
     };
 }
 
-- (UICollectionViewFlowLayout * _Nonnull (^)(BOOL))sectionFootersPinToVisibleBounds{
+- (UICollectionViewFlowLayout *(^)(BOOL))sectionFootersPinToVisibleBoundsChain{
     return ^(BOOL value) {
         self.sectionFootersPinToVisibleBounds = value;
         return self;
