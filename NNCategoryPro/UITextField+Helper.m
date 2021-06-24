@@ -28,7 +28,7 @@
     textField.contentVerticalAlignment = UIControlContentVerticalAlignmentCenter;
     
     textField.keyboardAppearance = UIKeyboardAppearanceDefault;
-    textField.keyboardType = UIReturnKeyDone;
+    textField.keyboardType = UIKeyboardTypeDefault;
     
 //    textField.returnKeyType = UIReturnKeyDone;
 //    textField.clearButtonMode = UITextFieldViewModeAlways;

@@ -340,12 +340,9 @@ static NSDictionary *_phoneTypeDic = nil;
 }
 
 + (void)openURL:(NSURL *)url completion:(void (^ __nullable)(BOOL success))completion{
-    if (@available(iOS 10.0, *)) {
-        [UIApplication.sharedApplication openURL:url options:@{UIApplicationOpenURLOptionUniversalLinksOnly: @YES} completionHandler:completion];
-    } else {
-        BOOL success = [UIApplication.sharedApplication openURL:url];
-        completion(success);
-    }
+    [UIApplication.sharedApplication openURL:url
+                                     options:@{UIApplicationOpenURLOptionUniversalLinksOnly: @YES}
+                           completionHandler:completion];
 }
 
 /**

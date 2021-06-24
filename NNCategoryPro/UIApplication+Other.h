@@ -19,8 +19,6 @@ NS_ASSUME_NONNULL_BEGIN
 
 + (BOOL)hasRightOfAVCapture;
 
-+ (BOOL)hasRightOfPush;
-
 + (void)setupIQKeyboardManager;
 
 + (void)registerAPNsWithDelegate:(id)delegate;

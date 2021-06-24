@@ -96,16 +96,6 @@
     return isHasRight;
 }
 
-/**
- 是否有消息推送权限
- */
-+ (BOOL)hasRightOfPush{
-    BOOL isHasRight = true;
-    if (UIApplication.sharedApplication.currentUserNotificationSettings.types == UIUserNotificationTypeNone) {
-        isHasRight = false;
-    }
-    return isHasRight;
-}
 
 + (void)setupIQKeyboardManager{
     IQKeyboardManager *keyboardManager = [IQKeyboardManager sharedManager]; // 获取类库的单例变量
@@ -123,28 +113,18 @@
  注册APNs远程推送
  */
 + (void)registerAPNsWithDelegate:(id)delegate{
-    if (@available(iOS 10.0, *)) {
-        UNAuthorizationOptions options = UNAuthorizationOptionBadge | UNAuthorizationOptionSound | UNAuthorizationOptionAlert;
-        UNUserNotificationCenter *center = UNUserNotificationCenter.currentNotificationCenter;
-        center.delegate = delegate;
-        [center requestAuthorizationWithOptions:options completionHandler:^(BOOL granted, NSError * _Nullable error) {
-            if (granted) {
-            }
-        }];
-        [UIApplication.sharedApplication registerForRemoteNotifications];
-        
-    }
-    else {
-        UIUserNotificationType types = UIUserNotificationTypeBadge | UIUserNotificationTypeSound | UIUserNotificationTypeAlert;
-        UIUserNotificationSettings *settings = [UIUserNotificationSettings settingsForTypes:types categories:nil];
-        [UIApplication.sharedApplication registerUserNotificationSettings:settings];
-        [UIApplication.sharedApplication registerForRemoteNotifications];
-    }
+    UNAuthorizationOptions options = UNAuthorizationOptionBadge | UNAuthorizationOptionSound | UNAuthorizationOptionAlert;
+    UNUserNotificationCenter *center = UNUserNotificationCenter.currentNotificationCenter;
+    center.delegate = delegate;
+    [center requestAuthorizationWithOptions:options completionHandler:^(BOOL granted, NSError * _Nullable error) {
+        if (granted) {
+        }
+    }];
+    [UIApplication.sharedApplication registerForRemoteNotifications];
 }
 
-
 /**
- iOS10添加本地通知
+ 添加本地通知
  */
 + (void)addLocalNoti:(NSString *)title
                 body:(NSString *)body
@@ -284,17 +264,17 @@
             handler:(void(^)(UNUserNotificationCenter *center,
                              UNNotificationRequest *request,
                              NSError * _Nullable error))handler{
-    if (UIApplication.sharedApplication.currentUserNotificationSettings.types == UIUserNotificationTypeNone) {
-        UIAlertController *alertVC = [UIAlertController alertControllerWithTitle:@"请在[设置]-[通知]中打开推送功能"
-                                                                         message:nil
-                                                                  preferredStyle:UIAlertControllerStyleAlert];
-        [alertVC addActionTitles:@[kTitleKnow] handler:nil];
-        [alertVC present:true completion:nil];
-#ifdef DEBUG
-        NSLog(@"请在[设置]-[通知]中打开推送功能");
-#endif
-        return;
-    }
+//    if (UIApplication.sharedApplication.currentUserNotificationSettings.types == UIUserNotificationTypeNone) {
+//        UIAlertController *alertVC = [UIAlertController alertControllerWithTitle:@"请在[设置]-[通知]中打开推送功能"
+//                                                                         message:nil
+//                                                                  preferredStyle:UIAlertControllerStyleAlert];
+//        [alertVC addActionTitles:@[kTitleKnow] handler:nil];
+//        [alertVC present:true completion:nil];
+//#ifdef DEBUG
+//        NSLog(@"请在[设置]-[通知]中打开推送功能");
+//#endif
+//        return;
+//    }
     NSString *identifier = [NSString stringWithFormat:@"%@", NSDate.date];
     UNNotificationRequest *request = [UNNotificationRequest requestWithIdentifier: identifier
                                                                           content: self

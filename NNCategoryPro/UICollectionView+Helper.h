@@ -32,7 +32,7 @@ FOUNDATION_EXPORT NSString * const UICollectionElementKindSectionItem ;
 
 /// 注册 cell
 /// @param dictClass key: UICollectionElementKindSectionHeader/UICollectionElementKindSectionFooter/UICollectionElementKindSectionItem
-/// @param dictClass Value: ["UICollectionViewCell", ]
+///                  Value: ["UICollectionViewCell", ]
 - (void)registerReuseIdentifier:(NSDictionary<NSString *, NSArray<NSString *> *> *)dictClass;
 
 /// 注册 cell
