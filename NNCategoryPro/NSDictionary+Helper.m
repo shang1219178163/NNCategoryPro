@@ -94,7 +94,7 @@
     return mdic.copy;
 }
 
-- (NSDictionary *)merge:(NSDictionary *)dictionary block:(id(^)(id key, id oldVal, id newVal))block {
+- (NSDictionary *)merge:(NSDictionary *)dictionary block:(id(^)(id key, id oldVal, id _Nullable newVal))block {
     NSMutableDictionary *mdic = [NSMutableDictionary dictionary];
     if (!block) {
         [mdic addEntriesFromDictionary:self];

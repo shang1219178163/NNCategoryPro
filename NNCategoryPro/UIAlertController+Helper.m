@@ -196,11 +196,7 @@ NSString * const kAlertContentViewController = @"contentViewController";
         }
         dispatch_async(dispatch_get_global_queue(0, 0), ^{
             NSString *phoneStr = [NSString stringWithFormat:@"tel:%@",phoneNumber];
-            if (@available(iOS 10.0, *)) {
-                [UIApplication.sharedApplication openURL:[NSURL URLWithString:phoneStr] options:@{} completionHandler:nil];
-            } else {
-                [UIApplication.sharedApplication openURL:[NSURL URLWithString:phoneStr]];
-            }
+            [UIApplication.sharedApplication openURL:[NSURL URLWithString:phoneStr] options:@{} completionHandler:nil];
         });
     }];
 }
