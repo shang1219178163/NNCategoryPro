@@ -12,7 +12,42 @@ NS_ASSUME_NONNULL_BEGIN
 
 @interface UIImage (Helper)
 
+@property (nonatomic, strong, readonly, class) UIImage *skull;
+@property (nonatomic, strong, readonly, class) UIImage *btn_add;
+@property (nonatomic, strong, readonly, class) UIImage *btn_selected_NO;
+@property (nonatomic, strong, readonly, class) UIImage *btn_selected_YES;
+@property (nonatomic, strong, readonly, class) UIImage *icon_arowLeft_black;
+@property (nonatomic, strong, readonly, class) UIImage *icon_search_bar;
+@property (nonatomic, strong, readonly, class) UIImage *img_NFC;
+@property (nonatomic, strong, readonly, class) UIImage *img_arrowDown_black;
+@property (nonatomic, strong, readonly, class) UIImage *img_arrowDown_gray;
+@property (nonatomic, strong, readonly, class) UIImage *img_arrowDown_orange;
+@property (nonatomic, strong, readonly, class) UIImage *img_arrowLeft_white;
+@property (nonatomic, strong, readonly, class) UIImage *img_arrowRight_gray;
+@property (nonatomic, strong, readonly, class) UIImage *img_arrowUp_blue;
+@property (nonatomic, strong, readonly, class) UIImage *img_dialog_inquiry;
+@property (nonatomic, strong, readonly, class) UIImage *img_dialog_update;
+@property (nonatomic, strong, readonly, class) UIImage *img_dialog_warning;
+@property (nonatomic, strong, readonly, class) UIImage *img_elemet_decrease;
+@property (nonatomic, strong, readonly, class) UIImage *img_elemet_increase;
+@property (nonatomic, strong, readonly, class) UIImage *img_failedDefault;
+@property (nonatomic, strong, readonly, class) UIImage *img_failedDefault_S;
+@property (nonatomic, strong, readonly, class) UIImage *img_like_H;
+@property (nonatomic, strong, readonly, class) UIImage *img_like_W;
+@property (nonatomic, strong, readonly, class) UIImage *img_location_H;
+@property (nonatomic, strong, readonly, class) UIImage *img_more;
+@property (nonatomic, strong, readonly, class) UIImage *img_notice;
+@property (nonatomic, strong, readonly, class) UIImage *img_pictureAdd;
+@property (nonatomic, strong, readonly, class) UIImage *img_pictureDelete;
+@property (nonatomic, strong, readonly, class) UIImage *img_portrait_H;
+@property (nonatomic, strong, readonly, class) UIImage *img_portrait_N;
+@property (nonatomic, strong, readonly, class) UIImage *img_scan;
+@property (nonatomic, strong, readonly, class) UIImage *img_sex_boy;
+@property (nonatomic, strong, readonly, class) UIImage *img_sex_gril;
+
+
 @property (nonatomic, strong, readonly) NSString *contentType;
+
 @property (nonatomic, strong, readonly) NSArray *ciDetectorFeatures;
 
 /// UIColor->UIImage

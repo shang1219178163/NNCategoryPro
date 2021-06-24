@@ -51,7 +51,7 @@ UINavigationController * _Nullable UINavCtrFromObj(NSString *value){
  返回按钮专用
  */
 - (UIButton *)createBackItem:(UIImage *)image{
-    UIColor *tintColor = UINavigationBar.appearance.tintColor ? : UIColor.redColor;
+    UIColor *tintColor = UINavigationBar.appearance.tintColor ? : UIColor.blackColor;
 
 //    NSParameterAssert(image != nil);
     UIButton *btn = [UIButton buttonWithType:UIButtonTypeCustom];

@@ -10,21 +10,32 @@
 #import "UIViewController+Helper.h"
 
 @implementation UIViewController (Hook)
- 
+
 + (void)load{
     static dispatch_once_t onceToken;
     dispatch_once(&onceToken, ^{
-        if ([self isMemberOfClass: UIViewController.class]) {
-            hookInstanceMethod(self.class, @selector(viewDidLoad), @selector(hook_viewDidLoad));
-            hookInstanceMethod(self.class, @selector(viewWillAppear:), @selector(hook_viewWillAppear:));
-            hookInstanceMethod(self.class, @selector(viewDidDisappear:), @selector(hook_viewDidDisappear:));
-            
-            hookInstanceMethod(self.class, @selector(presentViewController:animated:completion:), @selector(hook_presentViewController:animated:completion:));
-        } else {
-            hookInstanceMethod(self.class, @selector(pushViewController:animated:), @selector(hook_pushViewController:animated:));
-        }
+        hookInstanceMethod(self.class, @selector(viewDidLoad), @selector(hook_viewDidLoad));
+        hookInstanceMethod(self.class, @selector(viewWillAppear:), @selector(hook_viewWillAppear:));
+        hookInstanceMethod(self.class, @selector(viewDidDisappear:), @selector(hook_viewDidDisappear:));
+        
+        hookInstanceMethod(self.class, @selector(presentViewController:animated:completion:), @selector(hook_presentViewController:animated:completion:));
     });
 }
+
+//+ (void)load{
+//    static dispatch_once_t onceToken;
+//    dispatch_once(&onceToken, ^{
+//        if ([self isMemberOfClass: UIViewController.class]) {
+//            hookInstanceMethod(self.class, @selector(viewDidLoad), @selector(hook_viewDidLoad));
+//            hookInstanceMethod(self.class, @selector(viewWillAppear:), @selector(hook_viewWillAppear:));
+//            hookInstanceMethod(self.class, @selector(viewDidDisappear:), @selector(hook_viewDidDisappear:));
+//
+//            hookInstanceMethod(self.class, @selector(presentViewController:animated:completion:), @selector(hook_presentViewController:animated:completion:));
+//        } else {
+//            hookInstanceMethod(self.class, @selector(pushViewController:animated:), @selector(hook_pushViewController:animated:));
+//        }
+//    });
+//}
 
 // 我们自己实现的方法，也就是和self的viewDidLoad方法进行交换的方法。
 - (void)hook_viewDidLoad {
@@ -92,19 +103,3 @@
 @end
 
 
-
-@implementation UINavigationController (Hook)
-
-- (void)hook_pushViewController:(UIViewController *)viewController animated:(BOOL)animated{
-    if ([self.viewControllers containsObject:viewController]) return;
-    if (self.viewControllers.count > 0) {
-        viewController.hidesBottomBarWhenPushed = YES;
-        
-        UIView *customView = [viewController createBackItem:[UIImage imageNamed:@"icon_arowLeft_black"]];
-        viewController.navigationItem.leftBarButtonItem = [[UIBarButtonItem alloc]initWithCustomView:customView];
-    }
-    [self hook_pushViewController:viewController animated:animated];
-}
-
-
-@end

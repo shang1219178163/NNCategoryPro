@@ -16,6 +16,135 @@
 
 @implementation UIImage (Helper)
 
++ (UIImage *)skull{
+    return [UIImage imageNamed:@"Skull" podName:@"NNGloble"];
+}
+
++ (UIImage *)btn_add{
+    return [UIImage imageNamed:@"btn_add" podName:@"NNGloble"];
+}
+
++ (UIImage *)btn_selected_NO{
+    return [UIImage imageNamed:@"btn_selected_NO" podName:@"NNGloble"];
+}
+
++ (UIImage *)btn_selected_YES{
+    return [UIImage imageNamed:@"btn_selected_YES" podName:@"NNGloble"];
+}
+
++ (UIImage *)icon_arowLeft_black{
+    return [UIImage imageNamed:@"icon_arowLeft_black" podName:@"NNGloble"];
+}
+
++ (UIImage *)icon_search_bar{
+    return [UIImage imageNamed:@"icon_search_bar" podName:@"NNGloble"];
+}
+
++ (UIImage *)img_NFC{
+    return [UIImage imageNamed:@"img_NFC" podName:@"NNGloble"];
+}
+
++ (UIImage *)img_arrowDown_black{
+    return [UIImage imageNamed:@"img_arrowDown_black" podName:@"NNGloble"];
+}
+
++ (UIImage *)img_arrowDown_gray{
+    return [UIImage imageNamed:@"img_arrowDown_gray" podName:@"NNGloble"];
+}
+
++ (UIImage *)img_arrowDown_orange{
+    return [UIImage imageNamed:@"img_arrowDown_orange" podName:@"NNGloble"];
+}
+
++ (UIImage *)img_arrowLeft_white{
+    return [UIImage imageNamed:@"img_arrowLeft_white" podName:@"NNGloble"];
+}
+
++ (UIImage *)img_arrowRight_gray{
+    return [UIImage imageNamed:@"img_arrowRight_gray" podName:@"NNGloble"];
+}
+
++ (UIImage *)img_arrowUp_blue{
+    return [UIImage imageNamed:@"img_arrowUp_blue" podName:@"NNGloble"];
+}
+
++ (UIImage *)img_dialog_inquiry{
+    return [UIImage imageNamed:@"img_dialog_inquiry" podName:@"NNGloble"];
+}
+
++ (UIImage *)img_dialog_update{
+    return [UIImage imageNamed:@"img_dialog_update" podName:@"NNGloble"];
+}
+
++ (UIImage *)img_dialog_warning{
+    return [UIImage imageNamed:@"img_dialog_warning" podName:@"NNGloble"];
+}
+
++ (UIImage *)img_elemet_decrease{
+    return [UIImage imageNamed:@"img_elemet_decrease" podName:@"NNGloble"];
+}
+
++ (UIImage *)img_elemet_increase{
+    return [UIImage imageNamed:@"img_elemet_increase" podName:@"NNGloble"];
+}
+
++ (UIImage *)img_failedDefault{
+    return [UIImage imageNamed:@"img_failedDefault" podName:@"NNGloble"];
+}
+
++ (UIImage *)img_failedDefault_S{
+    return [UIImage imageNamed:@"img_failedDefault_S" podName:@"NNGloble"];
+}
+
++ (UIImage *)img_like_H{
+    return [UIImage imageNamed:@"img_like_H" podName:@"NNGloble"];
+}
+
++ (UIImage *)img_like_W{
+    return [UIImage imageNamed:@"img_like_W" podName:@"NNGloble"];
+}
+
++ (UIImage *)img_location_H{
+    return [UIImage imageNamed:@"img_location_H" podName:@"NNGloble"];
+}
+
++ (UIImage *)img_more{
+    return [UIImage imageNamed:@"img_more" podName:@"NNGloble"];
+}
+
++ (UIImage *)img_notice{
+    return [UIImage imageNamed:@"img_notice" podName:@"NNGloble"];
+}
+
++ (UIImage *)img_pictureAdd{
+    return [UIImage imageNamed:@"img_pictureAdd" podName:@"NNGloble"];
+}
+
++ (UIImage *)img_pictureDelete{
+    return [UIImage imageNamed:@"img_pictureDelete" podName:@"NNGloble"];
+}
+
++ (UIImage *)img_portrait_H{
+    return [UIImage imageNamed:@"img_portrait_H" podName:@"NNGloble"];
+}
+
++ (UIImage *)img_portrait_N{
+    return [UIImage imageNamed:@"img_portrait_N" podName:@"NNGloble"];
+}
+
++ (UIImage *)img_scan{
+    return [UIImage imageNamed:@"img_scan" podName:@"NNGloble"];
+}
+
++ (UIImage *)img_sex_boy{
+    return [UIImage imageNamed:@"img_sex_boy" podName:@"NNGloble"];
+}
+
++ (UIImage *)img_sex_gril{
+    return [UIImage imageNamed:@"img_sex_gril" podName:@"NNGloble"];
+}
+
+
 - (NSString *)contentType{
     NSData * imgData = UIImageJPEGRepresentation(self, 1.0f);
     return [UIImage contentTypeForImageData:imgData];

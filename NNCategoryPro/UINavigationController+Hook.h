@@ -1,5 +1,5 @@
 //
-//  UIViewController+Hook.h
+//  UINavigationController+Hook.h
 //  NNCategoryPro
 //
 //  Created by Bin Shang on 2019/12/27.
@@ -9,7 +9,7 @@
 
 NS_ASSUME_NONNULL_BEGIN
 
-@interface UIViewController (Hook)<UIGestureRecognizerDelegate>
+@interface UINavigationController (Hook)
 
 @end
 
