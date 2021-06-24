@@ -7,7 +7,7 @@
 //
 
 #import "NSDate+Helper.h"
-//#import <NNGloble/NNGloble.h>
+#import <NNGloble/NNGloble.h>
 
 const NSInteger kDateMinute = 60 ;
 const NSInteger kDateHour   = 3600 ;
@@ -428,9 +428,6 @@ static NSArray *_weekList = nil;
 
 
 @implementation NSLocale (Helper)
-
-NSString * const kLanguageCN    = @"zh-CN";
-NSString * const kLanguageEN    = @"en-US";
 
 + (NSLocale *)zh_CN{
     return [NSLocale localeWithLocaleIdentifier:kLanguageCN];
