@@ -53,7 +53,6 @@
  @param text 源字符串
  @param textTaps 特殊部分数组(每一部分都必须包含在text中)
  @param font 一般字体大小(传NSNumber或者UIFont)
- @param tapFont 特殊部分子体大小(传NSNumber或者UIFont)
  @param tapColor 特殊部分颜色
  @return 富文本字符串
  */

@@ -161,9 +161,8 @@
 }
 
 + (void)getNotifications:(BOOL)isDelivered handler:(void(^)(NSArray *items))handler{
-    __block NSArray *dataList = @[];
     UNUserNotificationCenter *center = UNUserNotificationCenter.currentNotificationCenter;
-    NSSortDescriptor *sort = [NSSortDescriptor sortDescriptorWithKey:@"identifier" ascending:YES];
+//    NSSortDescriptor *sort = [NSSortDescriptor sortDescriptorWithKey:@"identifier" ascending:YES];
 
     if (isDelivered == YES) {
         //获取设备已收到的消息推送

@@ -74,7 +74,7 @@
     textView.textAlignment = NSTextAlignmentLeft;
     
     textView.keyboardAppearance = UIKeyboardAppearanceDefault;
-    textView.keyboardType = UIReturnKeyDefault;
+    textView.keyboardType = UIKeyboardTypeDefault;
     
     textView.autocorrectionType = UITextAutocorrectionTypeNo;
     textView.autocapitalizationType = UITextAutocapitalizationTypeNone;

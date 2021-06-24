@@ -23,7 +23,7 @@ FOUNDATION_EXPORT NSString * const UICollectionElementKindSectionItem ;
                               UICollectionElementKindSectionFooter:  @[@"UICollectionReusableOneView",],
  };
  */
-@property (nonatomic, strong) NSDictionary *dictClass;
+@property (nonatomic, strong) NSDictionary<NSString *, NSArray <NSString *>*> *dictClass;
 
 /**
  [源]UICollectionView创建方法

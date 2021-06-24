@@ -32,7 +32,7 @@ UIViewController *UIControllerFromString(NSString *value){
 UINavigationController * _Nullable UINavCtrFromObj(NSString *value){
     UIViewController *vc = [[NSClassFromString(value) alloc]init];;
     if ([vc isKindOfClass:[UINavigationController class]]) {
-        return vc;
+        return (UINavigationController *)vc;
     }
     
     if ([vc isKindOfClass:[UIViewController class]]) {
@@ -300,7 +300,7 @@ UINavigationController * _Nullable UINavCtrFromObj(NSString *value){
 
 @implementation UINavigationController (Helper)
 
-- (__kindof UIViewController * _Nullable)findController:(Class)classVC{
+- (__kindof UIViewController * _Nullable)findVC:(Class)classVC{
     __block UIViewController *controller = nil;
     [self.viewControllers enumerateObjectsWithOptions:NSEnumerationReverse usingBlock:^(__kindof UIViewController * _Nonnull obj, NSUInteger idx, BOOL * _Nonnull stop) {
         if ([obj isKindOfClass: classVC]) {
@@ -311,9 +311,9 @@ UINavigationController * _Nullable UINavCtrFromObj(NSString *value){
     return controller;
 }
 
-- (__kindof UIViewController * _Nullable)findControllerName:(NSString *)vcName{
+- (__kindof UIViewController * _Nullable)findVCName:(NSString *)vcName{
     Class class = NSClassFromString(vcName);
-    return [self findController:class];
+    return [self findVC:class];
 }
 
 

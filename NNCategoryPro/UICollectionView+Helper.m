@@ -44,11 +44,11 @@ NSString *const UICollectionElementKindSectionItem = @"UICollectionElementKindSe
     objc_setAssociatedObject(self, @selector(layoutDefault), layoutDefault, OBJC_ASSOCIATION_RETAIN_NONATOMIC);
 }
 
-- (NSDictionary *)dictClass{
+- (NSDictionary<NSString *,NSArray<NSString *> *> *)dictClass{
     return objc_getAssociatedObject(self, _cmd);
 }
 
-- (void)setDictClass:(NSDictionary *)dictClass{
+- (void)setDictClass:(NSDictionary<NSString *,NSArray<NSString *> *> *)dictClass{
     objc_setAssociatedObject(self, @selector(dictClass), dictClass, OBJC_ASSOCIATION_COPY_NONATOMIC);
     [self registerReuseIdentifier: dictClass];
 }
@@ -69,8 +69,8 @@ NSString *const UICollectionElementKindSectionItem = @"UICollectionElementKindSe
 
 
 /// 注册 cell
-/// @param dictClass key: UICollectionElementKindSectionHeader/UICollectionElementKindSectionFooter/UICollectionElementKindSectionItem
-/// @param dictClass Value: ["UICollectionViewCell", ]
+/// @param dictClass'key: UICollectionElementKindSectionHeader/UICollectionElementKindSectionFooter/UICollectionElementKindSectionItem
+/// @param dictClass'Value: ["UICollectionViewCell", ]
 - (void)registerReuseIdentifier:(NSDictionary<NSString *, NSArray<NSString *> *> *)dictClass{
     [dictClass enumerateKeysAndObjectsUsingBlock:^(NSString * _Nonnull key, NSArray<NSString *> * _Nonnull obj, BOOL * _Nonnull stop) {
         [self registerReuseIdentifier:key list:obj];

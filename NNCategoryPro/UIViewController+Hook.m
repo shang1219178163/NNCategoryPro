@@ -21,7 +21,7 @@
             
             hookInstanceMethod(self.class, @selector(presentViewController:animated:completion:), @selector(hook_presentViewController:animated:completion:));
         } else {
-            hookInstanceMethod(self.class, @selector(pushViewController:animated:), @selector(hook_PushViewController:animated:));
+            hookInstanceMethod(self.class, @selector(pushViewController:animated:), @selector(hook_pushViewController:animated:));
         }
     });
 }
@@ -95,7 +95,7 @@
 
 @implementation UINavigationController (Hook)
 
-- (void)hook_PushViewController:(UIViewController *)viewController animated:(BOOL)animated{
+- (void)hook_pushViewController:(UIViewController *)viewController animated:(BOOL)animated{
     if ([self.viewControllers containsObject:viewController]) return;
     if (self.viewControllers.count > 0) {
         viewController.hidesBottomBarWhenPushed = YES;
@@ -103,7 +103,7 @@
         UIView *customView = [viewController createBackItem:[UIImage imageNamed:@"icon_arowLeft_black"]];
         viewController.navigationItem.leftBarButtonItem = [[UIBarButtonItem alloc]initWithCustomView:customView];
     }
-    [self hook_PushViewController:viewController animated:animated];
+    [self hook_pushViewController:viewController animated:animated];
 }
 
 

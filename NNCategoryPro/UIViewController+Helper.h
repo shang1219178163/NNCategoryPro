@@ -63,9 +63,9 @@ FOUNDATION_EXPORT UINavigationController * _Nullable UINavCtrFromObj(id obj);
 
 @interface UINavigationController (Helper)
 
-- (__kindof UIViewController * _Nullable)findController:(Class)classVC;
+- (__kindof UIViewController * _Nullable)findVC:(Class)classVC;
 
-- (__kindof UIViewController * _Nullable)findControllerName:(NSString *)vcName;
+- (__kindof UIViewController * _Nullable)findVCName:(NSString *)vcName;
 
 @end
 

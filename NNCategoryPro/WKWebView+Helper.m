@@ -34,7 +34,7 @@ static WKWebViewConfiguration *_confiDefault = nil;
 
 - (nullable WKNavigation *)loadHTMLStringWithMagic:(NSString *)content baseURL:(nullable NSURL *)baseURL{
     NSString *headerString = @"<header><meta name='viewport' content='width=device-width, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0, user-scalable=no'></header>";
-    return [self loadHTMLString: content baseURL: baseURL];
+    return [self loadHTMLString: [headerString stringByAppendingString:content] baseURL: baseURL];
 }
 
 /**
@@ -57,7 +57,7 @@ static WKWebViewConfiguration *_confiDefault = nil;
     [self evaluateJavaScript:js completionHandler:handler];
 }
 
-- (void)copyNSHTTPCookieStorageToWKHTTPCookieStoreWithHandler:(nullable void (^)())handler API_AVAILABLE(macos(10.13), ios(11.0)) {
+- (void)copyNSHTTPCookieStorageToWKHTTPCookieStoreWithHandler:(nullable void (^)(void))handler API_AVAILABLE(macos(10.13), ios(11.0)) {
     NSArray *cookies = NSHTTPCookieStorage.sharedHTTPCookieStorage.cookies;
     WKHTTPCookieStore *cookieStroe = self.configuration.websiteDataStore.httpCookieStore;
     if (cookies.count == 0) {

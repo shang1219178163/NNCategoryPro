@@ -51,7 +51,6 @@
     [sender setImage:image forState:UIControlStateNormal];
     [sender setImage:imageSelected forState:UIControlStateSelected];
 
-    @weakify(self);
     [sender addActionHandler:^(UIButton * _Nonnull sender) {
         sender.selected = !sender.isSelected;
         self.secureTextEntry = !sender.selected;
