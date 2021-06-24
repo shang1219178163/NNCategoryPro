@@ -52,22 +52,6 @@ typedef NS_ENUM(NSUInteger, NNButtonType) {
 
 - (void)setContent:(NSString *)content attDic:(NSDictionary *)attDic forState:(UIControlState)state;
 
-///**
-// 导航栏按钮
-// */
-//+(UIButton *)buttonWithSize:(CGSize)size
-//                     imageN:(UIImage *)imageN
-//                     imageH:(UIImage *)imageH;
-//
-///**
-// 导航栏按钮
-// */
-//+(UIButton *)buttonWithSize:(CGSize)size
-//                   title:(NSString *)title
-//                    font:(NSUInteger)font
-//             titleColorN:(UIColor *)titleColorN
-//             titleColorH:(UIColor *)titleColorH;
-
 ///验证码倒计时
 - (void)startCountdown:(NSTimeInterval)count;
 ///验证码倒计时

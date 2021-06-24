@@ -10,10 +10,8 @@
 #import "UIViewController+AddView.h"
 #import <objc/runtime.h>
 
-#import "UIView+AddView.h"
+//#import "UIView+AddView.h"
 #import "UILabel+Helper.h"
-#import "UICollectionView+Helper.h"
-#import "UIColor+Helper.h"
 #import "UITableView+Helper.h"
 
 @implementation UIViewController (AddView)
@@ -31,32 +29,6 @@
     objc_setAssociatedObject(self, _cmd, view, OBJC_ASSOCIATION_RETAIN_NONATOMIC);
     return view;
 }
-
-//- (UICollectionView *)ctView{
-//    id obj = objc_getAssociatedObject(self, _cmd);
-//    if (obj) {
-//        return obj;
-//    }
-//
-//    UICollectionView *view = ({
-//        UICollectionView *view = [[UICollectionView alloc]initWithFrame:self.view.bounds
-//                                                   collectionViewLayout:UICollectionView.layoutDefault];
-//        view.backgroundColor = UIColor.whiteColor;
-//        view.showsVerticalScrollIndicator = false;
-//        view.showsHorizontalScrollIndicator = false;
-//        view.scrollsToTop = false;
-//        view.pagingEnabled = true;
-//        [view registerClass:UICollectionViewCell.class forCellWithReuseIdentifier:@"UICollectionViewCell"];
-//
-//        view;
-//    });
-//    objc_setAssociatedObject(self, _cmd, view, OBJC_ASSOCIATION_RETAIN_NONATOMIC);
-//    return view;
-//}
-//
-//- (void)setCtView:(UICollectionView *)ctView{
-//    objc_setAssociatedObject(self, @selector(ctView), ctView, OBJC_ASSOCIATION_RETAIN_NONATOMIC);
-//}
 
 - (UILabel *)tipLabel{
     id obj = objc_getAssociatedObject(self, _cmd);

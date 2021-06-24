@@ -17,11 +17,26 @@
 #import "NSArray+Helper.h"
 #import "NSAttributedString+Helper.h"
 
+
 NSString *NNSwiftClassName(NSString *name){
-    NSString *bundleName = NSBundle.mainBundle.infoDictionary[@"CFBundleExecutable"];
-    return [bundleName stringByAppendingFormat:@".%@", name];
+    NSDictionary *infoDict = NSBundle.mainBundle.infoDictionary;
+//    NSString *bundleName = NSBundle.mainBundle.infoDictionary[@"CFBundleExecutable"];
+    NSString *bundleName = infoDict[(NSString *)kCFBundleExecutableKey] ? : infoDict[(NSString *)kCFBundleNameKey];
+    NSString *result = [bundleName stringByAppendingFormat:@".%@", name];
+    return result;
 }
 
+
+NSString *UrlAddress(NSString *hostname, NSString *port){
+    NSString *webUrl = [NSString stringWithFormat:@"%@", hostname];
+    if (![hostname containsString:@"http://"]) {
+        webUrl = [@"http://" stringByAppendingString: hostname];
+    }
+    if (![port isEqualToString:@""]) {
+        webUrl = [webUrl stringByAppendingFormat:@":%@", port];
+    }
+    return webUrl;
+}
 /**
  关联对象的唯一无符号常量值
 
@@ -34,9 +49,6 @@ NSString *RuntimeKeyFromParams(NSObject *obj, NSString *funcAbount){
     return unique;
 }
 
-//BOOL iOSVer(CGFloat version){
-//    return (UIDevice.currentDevice.systemVersion.floatValue >= version) ? YES : NO;
-//}
 
 CGFloat CGRadianFromDegrees(CGFloat x){
     return (M_PI * (x) / 180.0);
@@ -57,26 +69,8 @@ CGFloat RoundFloat(CGFloat value, NSInteger num){
     return figure;
 }
 
-NSString *SwiftClassName(NSString *className){
-    NSDictionary *infoDict = NSBundle.mainBundle.infoDictionary;
-    NSString * appName = infoDict[(NSString *)kCFBundleExecutableKey] ? : infoDict[(NSString *)kCFBundleNameKey];
-    NSString * string = [NSString stringWithFormat:@"%@.%@",appName,className];
-    return string;
-}
 
 @implementation NSObject (Helper)
-
-+ (NSString *)identifier{
-    return NSStringFromClass(self.class);
-}
-
-//-(NSString *)runtimeKey{
-//    return objc_getAssociatedObject(self, _cmd);
-//}
-//
-//- (void)setRuntimeKey:(NSString *)runtimeKey{
-//    objc_setAssociatedObject(self, @selector(runtimeKey), runtimeKey, OBJC_ASSOCIATION_COPY_NONATOMIC);
-//}
 
 #pragma mark -runtime
 
@@ -206,12 +200,22 @@ NSString *SwiftClassName(NSString *className){
 }
 
 
-#pragma mark - -dispatchAsync
-void GCDBlock(void(^block)(void)){
+#pragma mark --dispatch
+
+void asyncUI(id(^globle)(void), void(^main)(id)){
+    dispatch_async(dispatch_get_global_queue(0, 0), ^{
+        id value = globle();
+        dispatch_async(dispatch_get_main_queue(), ^{
+            main(value);
+        });
+    });
+}
+
+void dispatch_global_async(void(^block)(void)){
     dispatch_async(dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_DEFAULT, 0), block);
 }
 
-void GCDMainBlock(void(^block)(void)){
+void dispatch_main_async(void(^block)(void)){
     if (NSThread.isMainThread) {
         block();
     }
@@ -220,15 +224,23 @@ void GCDMainBlock(void(^block)(void)){
     }
 }
 
-void GCDAfterMain(double delay ,void(^block)(void)){
-    dispatch_after(dispatch_time(DISPATCH_TIME_NOW, (int64_t)(delay * NSEC_PER_SEC)), dispatch_get_main_queue(), block);
+void dispatch_global_after(double second, void(^block)(void)){
+    dispatch_after(dispatch_time(DISPATCH_TIME_NOW, (int64_t)(second * NSEC_PER_SEC)), dispatch_get_global_queue(0, 0), block);
 }
 
-void GCDApplyGlobal(NSUInteger count, void(^block)(size_t index)){
+void dispatch_main_after(double second, void(^block)(void)){
+    dispatch_after(dispatch_time(DISPATCH_TIME_NOW, (int64_t)(second * NSEC_PER_SEC)), dispatch_get_main_queue(), block);
+}
+
+void dispatch_global_apply(NSUInteger count, void(^block)(size_t index)){
     dispatch_apply(count, dispatch_get_global_queue(0, 0), block);
 }
 
-#pragma mark - -
+void dispatch_main_apply(NSUInteger count, void(^block)(size_t index)){
+    dispatch_apply(count, dispatch_get_main_queue(), block);
+}
+
+#pragma mark --funtions
 
 
 /**

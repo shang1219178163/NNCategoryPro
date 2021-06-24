@@ -19,9 +19,9 @@ NS_ASSUME_NONNULL_BEGIN
 /**
  [源]UISegmentedControl创建方法
  */
-+ (instancetype)createRect:(CGRect)rect
-                     items:(NSArray *)items
-                      type:(NSNumber *)type;
+//+ (instancetype)createRect:(CGRect)rect
+//                     items:(NSArray *)items
+//                      type:(NSNumber *)type;
 
 - (void)ensureiOS13Style:(CGFloat)fontSize API_AVAILABLE(ios(13.0));
 

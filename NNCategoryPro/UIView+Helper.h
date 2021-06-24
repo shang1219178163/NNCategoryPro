@@ -19,9 +19,6 @@ NS_ASSUME_NONNULL_BEGIN
 @property (nonatomic, assign) CGFloat sizeWidth;
 @property (nonatomic, assign) CGFloat sizeHeight;
 
-//@property (nonatomic, assign) CGPoint origin;
-//@property (nonatomic, assign) CGSize size;
-
 @property (nonatomic, assign, readonly) CGFloat minX;
 @property (nonatomic, assign, readonly) CGFloat midX;
 @property (nonatomic, assign, readonly) CGFloat maxX;

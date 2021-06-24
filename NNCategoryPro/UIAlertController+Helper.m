@@ -17,10 +17,12 @@ NSString * const kAlertVCMessage = @"attributedMessage";
 /// UIAlertController按钮颜色key
 NSString * const kAlertActionColor = @"titleTextColor";
 
+NSString * const kAlertContentViewController = @"contentViewController";
+
 
 @implementation UIAlertController (Helper)
 
-- (UIAlertController * _Nonnull (^)(NSArray<NSString *> * _Nonnull, void (^)(UIAlertAction *action)))nn_addAction{
+- (UIAlertController * _Nonnull (^)(NSArray<NSString *> * _Nonnull, void (^)(UIAlertAction *action)))addAction{
     return ^(NSArray<NSString *> *titles, void(^handler)(UIAlertAction *action)){
         [titles enumerateObjectsUsingBlock:^(NSString * _Nonnull title, NSUInteger idx, BOOL * _Nonnull stop) {
             UIAlertActionStyle style = [title isEqualToString:@"取消"] ? UIAlertActionStyleCancel : UIAlertActionStyleDefault;
@@ -30,7 +32,7 @@ NSString * const kAlertActionColor = @"titleTextColor";
     };
 }
 
-- (UIAlertController * _Nonnull (^)(NSArray<NSString *> * _Nonnull, void (^ _Nonnull)(UITextField *textField)))nn_addTextField{
+- (UIAlertController * _Nonnull (^)(NSArray<NSString *> * _Nonnull, void (^ _Nonnull)(UITextField *textField)))addTextField{
     NSParameterAssert(self.preferredStyle == UIAlertControllerStyleAlert);
     if (self.preferredStyle != UIAlertControllerStyleAlert) {
         return ^(NSArray<NSString *> *placeholders, void(^handler)(UITextField *action)){
@@ -51,7 +53,7 @@ NSString * const kAlertActionColor = @"titleTextColor";
     };
 }
 
-- (UIAlertController * _Nonnull (^)(BOOL, void (^ _Nullable)(void)))nn_present{
+- (UIAlertController * _Nonnull (^)(BOOL, void (^ _Nullable)(void)))present{
     return ^(BOOL animated, void(^completion)(void)){
         [self present:animated completion:completion];
         return self;
@@ -62,7 +64,9 @@ NSString * const kAlertActionColor = @"titleTextColor";
     [titles enumerateObjectsUsingBlock:^(NSString * _Nonnull title, NSUInteger idx, BOOL * _Nonnull stop) {
         UIAlertActionStyle style = [title isEqualToString:@"取消"] ? UIAlertActionStyleCancel : UIAlertActionStyleDefault;
         [self addAction:[UIAlertAction actionWithTitle:title style:style handler:^(UIAlertAction * _Nonnull action) {
-            handler(self, action);
+            if (handler) {
+                handler(self, action);
+            }
         }]];
     }];
     return self;
@@ -164,6 +168,19 @@ NSString * const kAlertActionColor = @"titleTextColor";
     [self setValue:attr forKey:kAlertVCMessage];
     return self;
 }
+
+- (instancetype)setContent:(UIViewController *)vc height:(CGFloat)height{
+    [self setValue:vc forKey:kAlertContentViewController];
+    CGSize vcSize = vc.preferredContentSize;
+    vcSize.height = height;
+    vc.preferredContentSize = vcSize;
+    
+    CGSize size = self.preferredContentSize;
+    size.height = height;
+    self.preferredContentSize = size;
+    return self;
+}
+
 
 + (void)callPhone:(NSString *)phoneNumber{
     NSCharacterSet *set = [NSCharacterSet characterSetWithCharactersInString:@" _转"];

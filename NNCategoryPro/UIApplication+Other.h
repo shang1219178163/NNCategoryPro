@@ -9,8 +9,6 @@
 #import <UIKit/UIKit.h>
 #import <UserNotifications/UserNotifications.h>
 
-@class NNShareModel;
-
 NS_ASSUME_NONNULL_BEGIN
 
 @interface UIApplication (Other)
@@ -27,35 +25,15 @@ NS_ASSUME_NONNULL_BEGIN
 
 + (void)registerAPNsWithDelegate:(id)delegate;
 
-+ (void)addLocalUserNotiTrigger:(id)trigger
-                        content:(UNMutableNotificationContent *)content
-                     identifier:(NSString *)identifier
-                 notiCategories:(id)notiCategories
-                        repeats:(BOOL)repeats
-                        handler:(void(^)(UNUserNotificationCenter *center, UNNotificationRequest *request, NSError * _Nullable error))handler API_AVAILABLE(ios(10.0));
-///获取已过期或者未过期的本地通知
-+ (NSArray<UNNotification *> *)getNotifications:(BOOL)isDelivered titles:(NSArray * __nullable)titles API_AVAILABLE(ios(10.0));
-
-+ (void)addLocalNotification;
-/**
- iOS10添加本地通知
- */
+///添加本地通知
 + (void)addLocalNoti:(NSString *)title
                 body:(NSString *)body
             userInfo:(NSDictionary *)userInfo
           identifier:(NSString *)identifier
-             handler:(void(^)(UNUserNotificationCenter* center, UNNotificationRequest *request, NSError * _Nullable error))handler API_AVAILABLE(ios(10.0));
+             handler:(void(^)(UNUserNotificationCenter *center, UNNotificationRequest *request, NSError * _Nullable error))handler;
 
-+ (UILocalNotification *)addLocalNoti:(NSString *)title
-                                 body:(NSString *)body
-                             userInfo:(NSDictionary *)userInfo
-                             fireDate:(NSDate *)fireDate
-                       repeatInterval:(NSCalendarUnit)repeatInterval
-                               region:(CLRegion *)region;
-
-//+ (void)registerShareSDK;
-//+ (void)handleMsgShareDataModel:(NNShareModel *)dataModel type:(NSNumber *)type;
-//+ (void)registerUMengSDKAppKey:(NSString *_Nonnull)appKey channel:(NSString *_Nonnull)channel;
+///获取已过期或者未过期的本地通知
++ (void)getNotifications:(BOOL)isDelivered handler:(void(^)(NSArray *items))handler;
 
 + (void)updateVersion:(NSString *)appStoreID handler:(void(^)(NSDictionary *dic, NSString *appStoreVer, NSString *releaseNotes, bool isUpdate))handler;
 
@@ -64,17 +42,20 @@ NS_ASSUME_NONNULL_BEGIN
 @end
 
 
-@interface NNShareModel : NSObject
 
-@property (nonatomic, copy) NSString * shareTitle;
-@property (nonatomic, copy) NSString * shareDate;
-@property (nonatomic, copy) NSString * _Nullable shareDesc;
-@property (nonatomic, copy) NSString * _Nullable shareContent;
-@property (nonatomic, copy) NSString * _Nullable shareFrom;
-@property (nonatomic, copy) NSArray * _Nullable shareImages;
+@interface UNMutableNotificationContent (Other)
 
-@property (nonatomic, copy) NSString * shareUrl;
+- (instancetype)initWithTitle:(NSString *)title
+                         body:(NSString *)body
+                     userInfo:(NSDictionary *)userInfo
+                        sound:(UNNotificationSound *)sound;
 
+/// 添加到通知中心
+/// @param trigger UNTimeIntervalNotificationTrigger/UNCalendarNotificationTrigger/UNCalendarNotificationTrigger
+- (void)addToCenter:(nullable UNNotificationTrigger *)trigger
+            handler:(void(^)(UNUserNotificationCenter *center,
+                             UNNotificationRequest *request,
+                             NSError * _Nullable error))handler;
 @end
 
 NS_ASSUME_NONNULL_END

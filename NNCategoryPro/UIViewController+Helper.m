@@ -25,23 +25,18 @@
 
 @implementation UIViewController (Helper)
 
-UIViewController *UICtrFromString(NSString *obj){
-    return [[NSClassFromString(obj) alloc]init];
+UIViewController *UIControllerFromString(NSString *value){
+    return [[NSClassFromString(value) alloc]init];
 }
 
-UINavigationController *UINavCtrFromObj(id obj){
-    if ([obj isKindOfClass:[UINavigationController class]]) {
-        return obj;
+UINavigationController * _Nullable UINavCtrFromObj(NSString *value){
+    UIViewController *vc = [[NSClassFromString(value) alloc]init];;
+    if ([vc isKindOfClass:[UINavigationController class]]) {
+        return vc;
     }
     
-    if ([obj isKindOfClass:[UIViewController class]]) {
-        return [[UINavigationController alloc]initWithRootViewController:obj];
-    }
-    
-    if ([obj isKindOfClass:[NSString class]]) {
-        if ([UICtrFromString(obj) isKindOfClass:[UIViewController class]]) {
-            return [[UINavigationController alloc]initWithRootViewController:UICtrFromString(obj)];
-        }
+    if ([vc isKindOfClass:[UIViewController class]]) {
+        return [[UINavigationController alloc]initWithRootViewController:vc];
     }
     return nil;
 }
@@ -51,27 +46,14 @@ UINavigationController *UINavCtrFromObj(id obj){
     return (self.isViewLoaded && self.view.window);
 }
 
-- (UIButton *)backBtn{
-    id obj = objc_getAssociatedObject(self, _cmd);
-    if (obj) {
-        return obj;
-    }
-    UIButton *view = [self createBackItem:[UIImage imageNamed:@"icon_arowLeft_black"]];
-    
-    objc_setAssociatedObject(self, _cmd, view, OBJC_ASSOCIATION_RETAIN_NONATOMIC);
-    return view;
-}
-
-- (void)setBackBtn:(UIButton *)backBtn{
-    objc_setAssociatedObject(self, @selector(backBtn), backBtn, OBJC_ASSOCIATION_RETAIN_NONATOMIC);
-}
+//}
 /**
  返回按钮专用
  */
 - (UIButton *)createBackItem:(UIImage *)image{
     UIColor *tintColor = UINavigationBar.appearance.tintColor ? : UIColor.redColor;
 
-    NSParameterAssert(image != nil);
+//    NSParameterAssert(image != nil);
     UIButton *btn = [UIButton buttonWithType:UIButtonTypeCustom];
     btn.adjustsImageWhenHighlighted = false;
     btn.frame = CGRectMake(0, 0, 30, 40);
@@ -187,39 +169,22 @@ UINavigationController *UINavCtrFromObj(id obj){
 /**
  可隐藏的导航栏按钮
  */
-- (UIView *)createBarItem:(NSString *)obj isLeft:(BOOL)isLeft handler:(void(^)(id obj, UIView *item, NSInteger idx))handler{
-    UIView *item = nil;
+- (UIView *)createBarItem:(NSString *)obj isLeft:(BOOL)isLeft handler:(void(^)(UIButton *sender))handler{
+    UIButton *sender = [UIButton buttonWithType:UIButtonTypeSystem];
     if ([UIImage imageNamed:obj]) {
-        item = [UIImageView createRect:CGRectMake(0, 0, 32, 32)];
-        ((UIImageView *)item).image = [UIImage imageNamed:obj];
+        [sender setImage:[UIImage imageNamed:obj] forState:UIControlStateNormal];
     } else {
-        item = [UILabel createRect:CGRectMake(0, 0, 72, 20) type:NNLabelTypeNumberOfLines0];
-        ((UILabel *)item).text = obj;
-        ((UILabel *)item).font = [UIFont systemFontOfSize:kFontSize16];
-        ((UILabel *)item).textAlignment = NSTextAlignmentCenter;
-        ((UILabel *)item).textColor = UINavigationBar.appearance.tintColor;
+        [sender setTitle:obj forState:UIControlStateNormal];
     }
-    
-    item.tag = isLeft ? kTAG_BTN_BackItem : kTAG_BTN_RightItem;
-    //
-    UIView *view = [[UIView alloc]initWithFrame:CGRectMake(0, 0, 44, 44)];
-    item.center = view.center;
-    [view addSubview:item];
-    
-    [view addGestureTap:^(UIGestureRecognizer *sender) {
-        if (view.isHidden == true) return;
-        if (handler) {
-            handler((UITapGestureRecognizer *)obj, item, item.tag);
-        }
-    }];
+    [sender addActionHandler:handler forControlEvents:UIControlEventTouchUpInside];
    
-    UIBarButtonItem *barItem = [[UIBarButtonItem alloc]initWithCustomView:view];
+    UIBarButtonItem *barItem = [[UIBarButtonItem alloc]initWithCustomView:sender];
     if (isLeft) {
         self.navigationItem.leftBarButtonItem = barItem;
     } else {
         self.navigationItem.rightBarButtonItem = barItem;
     }
-    return view;
+    return sender;
 }
 
 -(NSString *)vcName{
@@ -334,20 +299,6 @@ UINavigationController *UINavCtrFromObj(id obj){
 
 
 @implementation UINavigationController (Helper)
-
-- (void)pushVC:(NSString *)vcName
-      animated:(BOOL)animated
-         block:(void(^ __nullable)(__kindof UIViewController *vc))block{
-    if (!NSClassFromString(vcName)) {
-        return;
-    }
-    
-    UIViewController *controller = [[NSClassFromString(vcName) alloc]init];
-    if (block) {
-        block(controller);
-    }
-    [self pushViewController:controller animated:animated];
-}
 
 - (__kindof UIViewController * _Nullable)findController:(Class)classVC{
     __block UIViewController *controller = nil;

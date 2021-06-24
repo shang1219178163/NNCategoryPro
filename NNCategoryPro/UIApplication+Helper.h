@@ -38,18 +38,8 @@ FOUNDATION_EXPORT NSString * const kJPush_extras;
 @property (class, readonly, nullable) NSString *phoneModel;
 @property (class, readonly, nullable) NSString *phoneLocalizedModel;
 @property (class, readonly, nullable) NSString *phoneType;
-///设置根视图控制器 （isAdjust：是够添加 UINavigationController）
-+ (void)setupRootController:(UIViewController *_Nonnull)controller isAdjust:(BOOL)isAdjust;
 
-+ (void)setupAppearanceDefault:(BOOL)isDefault;
-
-+ (void)setupAppearanceScrollView;
-
-+ (void)setupAppearanceOthers;
-
-+ (void)setupAppearanceNavigationBar:(UIColor *)barTintColor;
-
-+ (void)setupAppearanceSearchbarCancellButton;
++ (void)setupAppearance:(UIColor *)tintColor barTintColor:(UIColor *)barTintColor;
 
 + (void)openURLString:(NSString *)string prefix:(NSString *)prefix completion:(void (^ __nullable)(BOOL success))completion;
 

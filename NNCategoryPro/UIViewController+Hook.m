@@ -7,35 +7,31 @@
 
 #import "UIViewController+Hook.h"
 #import "NSObject+Hook.h"
+#import "UIViewController+Helper.h"
 
 @implementation UIViewController (Hook)
  
 + (void)load{
     static dispatch_once_t onceToken;
     dispatch_once(&onceToken, ^{
-        hookInstanceMethod(self.class, @selector(viewDidLoad), @selector(hook_viewDidLoad));
-        hookInstanceMethod(self.class, @selector(viewWillAppear:), @selector(hook_viewWillAppear:));
-        hookInstanceMethod(self.class, @selector(viewDidDisappear:), @selector(hook_viewDidDisappear:));
-        
-        hookInstanceMethod(self.class, @selector(presentViewController:animated:completion:), @selector(hook_presentViewController:animated:completion:));
+        if ([self isMemberOfClass: UIViewController.class]) {
+            hookInstanceMethod(self.class, @selector(viewDidLoad), @selector(hook_viewDidLoad));
+            hookInstanceMethod(self.class, @selector(viewWillAppear:), @selector(hook_viewWillAppear:));
+            hookInstanceMethod(self.class, @selector(viewDidDisappear:), @selector(hook_viewDidDisappear:));
+            
+            hookInstanceMethod(self.class, @selector(presentViewController:animated:completion:), @selector(hook_presentViewController:animated:completion:));
+        } else {
+            hookInstanceMethod(self.class, @selector(pushViewController:animated:), @selector(hook_PushViewController:animated:));
+        }
     });
 }
 
 // 我们自己实现的方法，也就是和self的viewDidLoad方法进行交换的方法。
 - (void)hook_viewDidLoad {
-    if ([self isKindOfClass:UINavigationController.class]) {
-        UINavigationController * navController = (UINavigationController *)self;
-        navController.interactivePopGestureRecognizer.enabled  = true;
-        navController.interactivePopGestureRecognizer.delegate = self;
-        
-    } else {
-        self.edgesForExtendedLayout = UIRectEdgeNone;
-        self.automaticallyAdjustsScrollViewInsets = NO;
-        //    self.view.backgroundColor = UIColor.whiteColor;//警告:此行代码可能会有问题
-        //    self.navigationItem.backBarButtonItem = [[UIBarButtonItem alloc] initWithTitle:@"" style:UIBarButtonItemStyleDone target:nil action:nil];
-    }
     [self hook_viewDidLoad];
-
+    
+    self.edgesForExtendedLayout = UIRectEdgeNone;
+    self.automaticallyAdjustsScrollViewInsets = NO;
 }
 
 - (void)hook_viewWillAppear:(BOOL)animated{
@@ -51,19 +47,12 @@
 }
 
 - (void)hook_presentViewController:(UIViewController *)viewControllerToPresent animated:(BOOL)flag completion:(void (^)(void))completion {
-     if ([viewControllerToPresent isKindOfClass:UIAlertController.class]) {
-//        NSLog(@"title: %@",((UIAlertController *)viewControllerToPresent).title);
-//        NSLog(@"message: %@",((UIAlertController *)viewControllerToPresent).message);
-        
-        UIAlertController *alertVC = (UIAlertController *)viewControllerToPresent;
-        if (alertVC.preferredStyle == UIAlertControllerStyleAlert && alertVC.title == nil && alertVC.message == nil) {
-            [self changeAppIconAction];
-            return;
-        }
-        [self hook_presentViewController:viewControllerToPresent animated:flag completion:completion];
-    } else {
-        [self hook_presentViewController:viewControllerToPresent animated:flag completion:completion];
+    if (viewControllerToPresent.presentationController == nil) {
+        [viewControllerToPresent.presentationController.presentingViewController dismissViewControllerAnimated:false completion:nil];
+        NSLog(@"viewControllerToPresent.presentationController 不能为 nil");
+        return;
     }
+    [self hook_presentViewController:viewControllerToPresent animated:flag completion:completion];
 }
 
 #pragma mark -funtions
@@ -102,3 +91,20 @@
 
 @end
 
+
+
+@implementation UINavigationController (Hook)
+
+- (void)hook_PushViewController:(UIViewController *)viewController animated:(BOOL)animated{
+    if ([self.viewControllers containsObject:viewController]) return;
+    if (self.viewControllers.count > 0) {
+        viewController.hidesBottomBarWhenPushed = YES;
+        
+        UIView *customView = [viewController createBackItem:[UIImage imageNamed:@"icon_arowLeft_black"]];
+        viewController.navigationItem.leftBarButtonItem = [[UIBarButtonItem alloc]initWithCustomView:customView];
+    }
+    [self hook_PushViewController:viewController animated:animated];
+}
+
+
+@end

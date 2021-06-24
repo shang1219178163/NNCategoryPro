@@ -7,7 +7,7 @@
 //
 
 #import "NSHTTPCookieStorage+Helper.h"
-#import "NSDateFormatter+Helper.h"
+#import "NSDate+Helper.h"
 
 @implementation NSHTTPCookieStorage (Helper)
 /**
@@ -54,7 +54,7 @@
 //    NSArray *cookies = NSHTTPCookieStorage.sharedHTTPCookieStorage.cookies;
 
     NSDate *expiresDate = [NSDate dateWithTimeIntervalSinceNow:tokenTimeout.integerValue];
-    NSString *expires = [NSDateFormatter stringFromDate:expiresDate fmt:kFormatDateSix];
+    NSString *expires = [NSDateFormatter stringFromDate:expiresDate fmt:kDateFormatSix];
     
     NSString *cookieStr = @"";
 //    for (NSHTTPCookie *cookie in cookies) {

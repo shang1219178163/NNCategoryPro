@@ -66,70 +66,6 @@
     objc_setAssociatedObject(self, @selector(lineBottom), lineBottom, OBJC_ASSOCIATION_RETAIN_NONATOMIC);
 }
 
-- (CAGradientLayer *)gradientLayer{
-    id obj = objc_getAssociatedObject(self, _cmd);
-    if (obj) {
-        return obj;
-    }
-    
-    NSArray *colors = @[[UIColor.themeColor colorWithAlphaComponent:0.5], [UIColor.themeColor colorWithAlphaComponent:0.9]];
-     CAGradientLayer *layer = [CAGradientLayer layerWithRect:CGRectZero colors:colors start:CGPointMake(0, 0) end:CGPointMake(1.0, 0)];
-    
-    objc_setAssociatedObject(self, _cmd, layer, OBJC_ASSOCIATION_RETAIN_NONATOMIC);
-    return obj;
-}
-
-- (void)setGradientLayer:(CAGradientLayer *)gradientLayer{
-    objc_setAssociatedObject(self, @selector(gradientLayer), gradientLayer, OBJC_ASSOCIATION_RETAIN_NONATOMIC);
-}
-
-- (UIView *)holderView{
-    id obj = objc_getAssociatedObject(self, _cmd);
-    if (obj) {
-        return obj;
-    }
-    
-    UIView *view = ({
-        UIView *view = [[UIView alloc] initWithFrame:self.bounds];
-        view.hidden = true;
-        
-        CGFloat height = CGRectGetHeight(self.bounds) - 25*2;
-        CGFloat YGap = height*0.2;
-        
-        UIImageView *imgView = [[UIImageView alloc] initWithFrame:CGRectMake(0, YGap, CGRectGetWidth(self.bounds), height*0.3)];
-        imgView.contentMode = UIViewContentModeScaleAspectFit;
-        imgView.userInteractionEnabled = YES;
-        imgView.tag = kTAG_IMGVIEW;
-        [view addSubview:imgView];
-        
-        UILabel * label = [[UILabel alloc]initWithFrame:CGRectMake(0, CGRectGetMaxY(imgView.frame) + 25, CGRectGetWidth(self.bounds), 25)];
-        label.textAlignment = NSTextAlignmentCenter;
-        label.text = @"暂无数据";
-        label.textColor = UIColorHexValue(0x999999);
-        label.tag = kTAG_LABEL;
-        [view addSubview:label];
-
-        view;
-    });
-    objc_setAssociatedObject(self, _cmd, view, OBJC_ASSOCIATION_RETAIN_NONATOMIC);
-    return view;
-}
-
--(void)setHolderView:(UIView *)holderView{
-    objc_setAssociatedObject(self, @selector(holderView), holderView, OBJC_ASSOCIATION_RETAIN_NONATOMIC);
-}
-
-- (void)holderView:(NSString *)title image:(NSString *)image{
-    UIImageView *imgView = [self viewWithTag:kTAG_IMGVIEW];
-    UILabel *label = [self viewWithTag:kTAG_LABEL];
-    label.text = title;
-    if (!image) {
-        label.center = CGPointMake(self.holderView.center.x, self.holderView.sizeHeight*0.35);
-    } else {
-        imgView.image = UIImageNamed(image);
-    }
-}
-
 /**
  增加虚线边框
  */
@@ -268,13 +204,6 @@
     return rect;
 }
 
-- (UIView *)createViewType:(NSNumber *)type{
-    UIView *view = self;
-    UIView *layer = [view createViewType:type color:UIColor.lineColor width:kW_LayerBorder paddingScale:0];
-    
-    return layer;
-}
-
 - (UIView *)createViewType:(NSNumber *)type
                     color:(UIColor *)color
                     width:(CGFloat)width
@@ -283,13 +212,6 @@
     UIView *layer = [[UIView alloc]init];
     layer.backgroundColor = color;
     layer.frame = [view rectWithLineType:type width:width paddingScale:paddingScale];
-    
-    return layer;
-}
-
-- (CALayer *)createLayerType:(NSNumber *)type{
-    UIView *view = self;
-    CALayer *layer = [view createLayerType:type color:UIColor.lineColor width:kW_LayerBorder paddingScale:0];
     
     return layer;
 }

@@ -14,12 +14,6 @@ NS_ASSUME_NONNULL_BEGIN
 
 - (void)addActionHandler:(void(^)(UISwitch *sender))handler forControlEvents:(UIControlEvents)controlEvents;
 
-/**
- [源]UISwitch创建方法
- */
-+ (instancetype)createRect:(CGRect)rect;
-
-//
 @end
 
 NS_ASSUME_NONNULL_END

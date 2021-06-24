@@ -16,16 +16,36 @@ UIKIT_EXTERN NSString * const kUITabBarSwappableImageView;
 
 @interface UITabBarController (Helper)
 
-/// list 类名,title,imgN,imgH,badgeValue
-FOUNDATION_EXPORT NSArray<UITabBarItem *> * UITabBarItemsFromList(NSArray<NSArray *> *list);
-/// 数组->__kindof UIViewController (子数组示例:@[@"标题",@"图片",@"图片高亮",@"badgeValue",])
-FOUNDATION_EXPORT NSArray<__kindof UIViewController *> * UICtlrListFromList(NSArray<NSArray *> *list, BOOL isNavController);
-/// 数组->UINavigationController(子数组示例:@[@"标题",@"图片",@"图片高亮",@"badgeValue",])
-FOUNDATION_EXPORT NSArray<UINavigationController *> * UINavListFromList(NSArray<NSArray *> *list);
-/// 数组->UITabBarController(子数组示例:@[@"标题",@"图片",@"图片高亮",@"badgeValue",])
-FOUNDATION_EXPORT UITabBarController * UITarBarCtrFromList(NSArray<NSArray *> *list);
+@end
 
-- (void)reloadTabarItems:(NSArray *)list;
+
+@interface UITabBar (Helper)
+
+- (void)reloadItems:(NSArray<NSString *> *)titles images:(nullable NSArray<UIImage *> *)images selectedImages:(nullable NSArray<UIImage *> *)selectedImages;
+
+- (void)reloadItems:(NSArray<NSString *> *)titles imageNames:(nullable NSArray<NSString *> *)imageNames selectedImageNames:(nullable NSArray<NSString *> *)selectedImageNames;
+
+@end
+
+
+@interface UITabBarItem (Helper)
+
+@property(nonatomic, strong, readonly, class) NSString *KeyVC;
+@property(nonatomic, strong, readonly, class) NSString *KeyTitle;
+@property(nonatomic, strong, readonly, class) NSString *KeyImage;
+@property(nonatomic, strong, readonly, class) NSString *KeyImageSelected;
+@property(nonatomic, strong, readonly, class) NSString *KeyBadgeValue;
+
+- (void)updateBadgeValue:(NSString *)value;
+
+@end
+
+
+@interface UIViewController (TabBar)
+
+- (void)reloadTabarItem:(NSString *)title imageName:(NSString *)imageName selectedImageName:(NSString *)selectedImageName;
+
+- (void)updateBadgeValue:(NSString *)value;
 
 @end
 

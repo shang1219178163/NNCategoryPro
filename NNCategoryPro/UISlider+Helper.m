@@ -25,16 +25,13 @@
 /**
  [源]UISlider创建方法
  */
-+ (instancetype)createRect:(CGRect)rect
-                  minValue:(CGFloat)minValue
-                  maxValue:(CGFloat)maxValue{
++ (instancetype)createRect:(CGRect)rect minValue:(CGFloat)minValue maxValue:(CGFloat)maxValue{
     UISlider *view = [[self alloc] initWithFrame:rect];
     view.autoresizingMask = UIViewAutoresizingFlexibleWidth;
     view.minimumValue = minValue;
     view.maximumValue = maxValue;
     view.value = minValue;
     
-    view.minimumTrackTintColor = UIColor.themeColor;
 //    view.maximumTrackTintColor = UIColor.redColor;
 //    view.thumbTintColor = UIColor.yellowColor;
     return view;

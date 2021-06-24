@@ -123,56 +123,6 @@
     [self setAttributedTitle:attString forState:state];
 }
 
-//+(UIButton *)buttonWithSize:(CGSize)size
-//                     imageN:(UIImage *)imageN
-//                     imageH:(UIImage *)imageH{
-//
-//    UIButton *btn = [UIButton buttonWithType:UIButtonTypeCustom];
-//    if (imageN) [btn setImage:[imageN imageWithRenderingMode:UIImageRenderingModeAlwaysOriginal] forState:UIControlStateNormal];
-//    if (imageH) [btn setImage:imageH forState:UIControlStateHighlighted];
-//
-//    [btn sizeToFit];
-//
-//    CGRect btnRect = btn.frame;
-//    btnRect.size = size;
-//    btn.frame = btnRect;
-//    return btn;
-//}
-//
-//+(UIButton *)buttonWithSize:(CGSize)size
-//                      title:(NSString *)title
-//                       font:(NSUInteger)font
-//               titleColorN:(UIColor *)titleColorN
-//               titleColorH:(UIColor *)titleColorH{
-//
-//    UIButton *btn = [UIButton buttonWithType:UIButtonTypeCustom];
-//
-//    [btn setTitle:title forState:UIControlStateNormal];
-//    btn.titleLabel.font = [UIFont systemFontOfSize:font];
-//    if (titleColorN) [btn setTitleColor:titleColorN forState:UIControlStateNormal];
-//    if (titleColorH) [btn setTitleColor:titleColorH forState:UIControlStateHighlighted];
-//
-//    [btn sizeToFit];
-//
-//    CGRect btnRect = btn.frame;
-//    btnRect.size = size;
-//    btn.frame = btnRect;
-//
-//    btn.exclusiveTouch = YES;
-//    if (title.length >= 3) {
-//        CGSize titleSize = [self sizeWithText:title font:@(font) width:UIScreen.width];
-//
-//        btn.frame = CGRectMake(0, 0, titleSize.width, size.height);
-//        btn.titleEdgeInsets = UIEdgeInsetsMake(-10, -20, -10, -20);
-//
-//        if (title.length == 4) {
-//            btn.titleLabel.adjustsFontSizeToFitWidth = YES;
-//            btn.titleLabel.minimumScaleFactor = 1;
-//        }
-//    }
-//    return btn;
-//}
-
 - (void)startCountdown:(NSTimeInterval)count{
     dispatch_queue_t queue = dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_DEFAULT, 0);
     dispatch_source_t _timer = dispatch_source_create(DISPATCH_SOURCE_TYPE_TIMER, 0, 0, queue);

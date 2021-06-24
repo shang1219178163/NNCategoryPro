@@ -8,6 +8,7 @@
 
 #import "UITabBarController+Helper.h"
 #import "UIViewController+Helper.h"
+#import "NSArray+Helper.h"
 
 NSString * const kUIBadgeView = @"_UIBadgeView";
 NSString * const kUITabBarButton = @"UITabBarButton";
@@ -15,91 +16,82 @@ NSString * const kUITabBarSwappableImageView = @"UITabBarSwappableImageView";
 
 @implementation UITabBarController (Helper)
 
-NSArray<UITabBarItem *> * UITabBarItemsFromList(NSArray<NSArray *> * list){
-    //list 类名,title,imgN,imgH,badgeValue
+
+@end
+
+
+@implementation UITabBar (Helper)
+
+- (void)reloadItems:(NSArray<NSString *> *)titles images:(nullable NSArray<UIImage *> *)images selectedImages:(nullable NSArray<UIImage *> *)selectedImages{
+    assert(titles.count == images.count == selectedImages.count);
+    self.items = [titles map:^id _Nonnull(NSString * _Nonnull obj, NSUInteger idx) {
+        return [[UITabBarItem alloc]initWithTitle:obj image:images[idx] selectedImage:selectedImages[idx]];
+    }];
+}
+
+
+- (void)reloadItems:(NSArray<NSString *> *)titles imageNames:(nullable NSArray<NSString *> *)imageNames selectedImageNames:(nullable NSArray<NSString *> *)selectedImageNames{
+    assert(titles.count == imageNames.count == selectedImageNames.count);
+
+    NSArray *images = [imageNames map:^id _Nonnull(NSString * _Nonnull obj, NSUInteger idx) {
+        return [[UIImage imageNamed: imageNames[idx]] imageWithRenderingMode:UIImageRenderingModeAlwaysOriginal];
+    }];
     
-    __block NSMutableArray * marr = [NSMutableArray array];
-    [list enumerateObjectsUsingBlock:^(NSArray * _Nonnull obj, NSUInteger idx, BOOL * _Nonnull stop) {
-        NSArray * itemList = (NSArray *)obj;//类名,title,img_N,img_H,badgeValue
-        
-        NSString * title = itemList.count > 1 ? itemList[1] :   @"";
-        NSString * img_N = itemList.count > 2 ? itemList[2] :   @"";
-        NSString * img_H = itemList.count > 3 ? itemList[3] :   @"";
-        NSString * badgeValue = itemList.count > 4 ? itemList[4] :   @"";
-        //
-        UIImage *imageN = [[UIImage imageNamed:img_N] imageWithRenderingMode:UIImageRenderingModeAlwaysOriginal];
-        UIImage *imageH = [[UIImage imageNamed:img_H] imageWithRenderingMode:UIImageRenderingModeAlwaysTemplate];
-        UITabBarItem *tabBarItem = [[UITabBarItem alloc]initWithTitle:title image:imageN selectedImage:imageH];
-        tabBarItem.badgeValue = badgeValue;
-        
-        if (@available(iOS 10.0, *)) {
-            tabBarItem.badgeColor = badgeValue.integerValue <= 0 ? UIColor.clearColor:UIColor.redColor;
-        } else {
-            // Fallback on earlier versions
-        }
-        
-        if (!tabBarItem.title || [tabBarItem.title isEqualToString:@""]) {
-            tabBarItem.imageInsets = UIEdgeInsetsMake(5, 0, -5, 0);
-        }
-        
-        [marr addObject:tabBarItem];
+    NSArray *selectedImages = [imageNames map:^id _Nonnull(NSString * _Nonnull obj, NSUInteger idx) {
+        return [[UIImage imageNamed: selectedImageNames[idx]] imageWithRenderingMode:UIImageRenderingModeAlwaysTemplate];
     }];
-    return marr.copy;
-}
-
-NSArray<__kindof UIViewController *> * UICtlrListFromList(NSArray<NSArray *> *list, BOOL isNavController){
-    NSArray *tabItems = UITabBarItemsFromList(list);
     
-    __block NSMutableArray *marr = [NSMutableArray array];
-    [list enumerateObjectsUsingBlock:^(id  _Nonnull obj, NSUInteger idx, BOOL * _Nonnull stop) {
-        if ([obj isKindOfClass:[NSString class]]) {
-            UINavigationController *navController = UINavCtrFromObj(obj);
-            [marr addObject:navController];
-            
-        }
-        else if([obj isKindOfClass:[NSArray class]]) {
-            NSArray *itemList = (NSArray *)obj;//类名,title,img_N,img_H,badgeValue
-            
-            UIViewController * controller = UICtrFromString(itemList.firstObject);
-            controller.title = itemList[1];
-            controller.tabBarItem = tabItems[idx];
-            //时候是导航控制器
-            controller = isNavController ? UINavCtrFromObj(controller) : controller;
-            [marr addObject:controller];
-        }
-        else{
-            assert([obj isKindOfClass:[NSString class]] || [obj isKindOfClass:[NSArray class]]);
-        }
-    }];
-    NSArray *viewControllers = marr.copy;
-    return viewControllers;
+    [self reloadItems:titles images:images selectedImages:selectedImages];
 }
 
-NSArray<UINavigationController *> * UINavListFromList(NSArray<NSArray *> *list){
-    return UICtlrListFromList(list, true);
+@end
+
+
+@implementation UITabBarItem (Helper)
+
++ (NSString *)KeyVC{
+    return NSStringFromSelector(_cmd);
 }
 
-UITabBarController * UITarBarCtrFromList(NSArray<NSArray *> *list){
-    UITabBarController * tabBarVC = [[UITabBarController alloc]init];
-    tabBarVC.viewControllers = UINavListFromList(list);
-//    tabBarVC.tabBar.barTintColor = UIColor.themeColor;
-//    tabBarVC.tabBar.tintColor = UIColor.themeColor;
-    return tabBarVC;
++ (NSString *)KeyTitle{
+    return NSStringFromSelector(_cmd);
 }
 
-/**
- 用特定数据源刷新tabBar
- @param list 参照HomeViewController数据源
- */
-- (void)reloadTabarItems:(NSArray *)list{
-    [self.viewControllers enumerateObjectsUsingBlock:^(__kindof UIViewController * _Nonnull obj, NSUInteger idx, BOOL * _Nonnull stop) {
-        NSArray *itemlist = list[idx];
-        NSString *title = itemlist[itemlist.count - 4];
-        UIImage *img = [UIImage imageNamed:itemlist[itemlist.count - 3]];
-        UIImage *imgH = [UIImage imageNamed:itemlist[itemlist.count - 2]];
-
-        obj.tabBarItem = [[UITabBarItem alloc]initWithTitle:title image:img selectedImage:imgH];;
-    }];
++ (NSString *)KeyImage{
+    return NSStringFromSelector(_cmd);
 }
+
++ (NSString *)KeyImageSelected{
+    return NSStringFromSelector(_cmd);
+}
+
++ (NSString *)KeyBadgeValue{
+    return NSStringFromSelector(_cmd);
+}
+
+
+- (void)updateBadgeValue:(NSString *)value{
+    self.badgeValue = value;
+    self.badgeColor = self.badgeValue > 0 ? UIColor.redColor : UIColor.clearColor;
+}
+
+
+@end
+
+
+@implementation UIViewController (TabBar)
+
+- (void)reloadTabarItem:(NSString *)title imageName:(NSString *)imageName selectedImageName:(NSString *)selectedImageName{
+    assert([UIImage imageNamed: imageName] && [UIImage imageNamed: selectedImageName]);
+    self.tabBarItem = [[UITabBarItem alloc]initWithTitle: title
+                                                   image: [[UIImage imageNamed: imageName] imageWithRenderingMode:UIImageRenderingModeAlwaysOriginal]
+                                           selectedImage: [[UIImage imageNamed: selectedImageName] imageWithRenderingMode:UIImageRenderingModeAlwaysTemplate]
+                       ];
+}
+
+- (void)updateBadgeValue:(NSString *)value{
+    [self.tabBarItem updateBadgeValue:value];
+}
+
 
 @end

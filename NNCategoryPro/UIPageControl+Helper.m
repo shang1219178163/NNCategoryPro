@@ -24,14 +24,13 @@
 }
 
 + (instancetype)createRect:(CGRect)rect numberOfPages:(NSInteger)numberOfPages{
-    UIPageControl *pageControl = [[UIPageControl alloc] initWithFrame:CGRectMake(0, CGRectGetMaxY(rect) - 30, CGRectGetWidth(rect), 30)];
-    pageControl.hidesForSinglePage = true;
-    pageControl.defersCurrentPageDisplay = true;
-    pageControl.pageIndicatorTintColor = UIColor.lightGrayColor;
-    pageControl.currentPageIndicatorTintColor = UIColor.themeColor;
-    pageControl.currentPage = 0;
-    pageControl.numberOfPages = numberOfPages;
-    return pageControl;
+    UIPageControl *sender = [[UIPageControl alloc] initWithFrame:rect];
+    sender.hidesForSinglePage = true;
+    sender.defersCurrentPageDisplay = true;
+    sender.pageIndicatorTintColor = UIColor.lightGrayColor;
+    sender.currentPage = 0;
+    sender.numberOfPages = numberOfPages;
+    return sender;
 }
 
 @end

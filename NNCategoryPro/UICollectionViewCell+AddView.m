@@ -13,14 +13,14 @@
 
 @implementation UICollectionViewCell (AddView)
 
-+ (instancetype)viewWithCollectionView:(UICollectionView *)collectionView indexPath:(NSIndexPath *)indexPath{
++ (instancetype)dequeueReusableCell:(UICollectionView *)collectionView indexPath:(NSIndexPath *)indexPath{
     NSString *identifier = NSStringFromClass(self.class);
     UICollectionViewCell *view = [collectionView dequeueReusableCellWithReuseIdentifier:identifier forIndexPath:indexPath];
     
     return view;
 }
 
-+ (instancetype)viewWithCollectionView:(UICollectionView *)collectionView indexPath:(NSIndexPath *)indexPath identifier:(NSString *)identifier{
++ (instancetype)dequeueReusableCell:(UICollectionView *)collectionView indexPath:(NSIndexPath *)indexPath identifier:(NSString *)identifier{
     UICollectionViewCell *view = [collectionView dequeueReusableCellWithReuseIdentifier:identifier forIndexPath:indexPath];
     return view;
 }

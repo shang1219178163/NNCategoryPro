@@ -15,8 +15,8 @@ NS_ASSUME_NONNULL_BEGIN
 
 @interface UITableViewHeaderFooterView (Helper)
 
-+(instancetype)viewWithTableView:(UITableView *)tableView identifier:(NSString *)identifier;
-+(instancetype)viewWithTableView:(UITableView *)tableView;
++(instancetype)dequeueReusableHeaderFooterView:(UITableView *)tableView identifier:(NSString *)identifier;
++(instancetype)dequeueReusableHeaderFooterView:(UITableView *)tableView;
 
 @end
 
@@ -41,17 +41,5 @@ NS_ASSUME_NONNULL_BEGIN
 
 @end
  
-//折叠数据模型
-@interface NNFoldSectionModel : NSObject
-
-@property (nonatomic, strong) NSString *title;
-@property (nonatomic, strong) NSString *titleSub;
-
-@property (nonatomic, strong) NSMutableArray *dataList;
-
-@property (nonatomic, strong) id image;
-@property (nonatomic, assign) BOOL isOpen;
-
-@end
 
 NS_ASSUME_NONNULL_END

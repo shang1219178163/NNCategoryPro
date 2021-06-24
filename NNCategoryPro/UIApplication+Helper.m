@@ -19,8 +19,6 @@ NSString * const kJPush_extras = @"extras";
 
 @implementation UIApplication (Helper)
 
-static NSDictionary *_phoneTypeDic = nil;
-
 + (UIWindow *)mainWindow{
     UIWindow *window = UIApplication.sharedApplication.delegate.window;
     if (!window) {
@@ -138,6 +136,7 @@ static NSDictionary *_infoDic = nil;
     return [UIApplication phoneTypeDic][identifier];
 }
 
+static NSDictionary *_phoneTypeDic = nil;
 + (NSDictionary *)phoneTypeDic{
     if (!_phoneTypeDic) {
         _phoneTypeDic = @{
@@ -216,136 +215,111 @@ static NSDictionary *_infoDic = nil;
     return _phoneTypeDic;
 }
 
-+ (void)setupRootController:(UIViewController *)controller isAdjust:(BOOL)isAdjust{
-    if (!isAdjust) {
-        UIApplication.rootController = controller;
-        return;
+
++ (void)setupAppearance:(UIColor *)tintColor barTintColor:(UIColor *)barTintColor{
+    
+    UINavigationBar.appearance.tintColor = tintColor;
+    UINavigationBar.appearance.barTintColor = barTintColor;
+//    [UINavigationBar.appearance setBackgroundImage:UIImageColor(barTintColor) forBarMetrics:UIBarMetricsDefault];
+//    [UINavigationBar.appearance setShadowImage:UIImageColor(barTintColor)];
+    UINavigationBar.appearance.titleTextAttributes = @{NSForegroundColorAttributeName: tintColor,};
+        
+    NSDictionary *attDic = @{NSForegroundColorAttributeName: UIColor.blackColor,};
+    UIBarButtonItem *speacilItem = [UIBarButtonItem appearanceWhenContainedInInstancesOfClasses:@[UIImagePickerController.class, UIDocumentPickerViewController.class]];
+    [speacilItem setTitleTextAttributes:attDic forState:UIControlStateNormal];
+
+
+//    [UIBarButtonItem.appearance setTitleTextAttributes:@{NSForegroundColorAttributeName: UIColor.whiteColor,} forState: UIControlStateNormal];
+//    [UIBarButtonItem appearanceWhenContainedInInstancesOfClasses: @[UISearchBar.class]];
+    
+    
+    UIButton *speacilButton = [UIButton appearanceWhenContainedInInstancesOfClasses:@[UINavigationBar.class, ]];
+    [speacilButton setTitleColor:tintColor forState:UIControlStateNormal];
+    speacilButton.titleLabel.adjustsFontSizeToFitWidth = true;
+    speacilButton.imageView.contentMode = UIViewContentModeScaleAspectFit;
+    speacilButton.exclusiveTouch = true;
+    speacilButton.adjustsImageWhenHighlighted = false;
+    
+    
+    [UIButton.appearance setTitleColor:UIColor.blackColor forState:UIControlStateNormal];
+    UIButton.appearance.titleLabel.adjustsFontSizeToFitWidth = true;
+    UIButton.appearance.imageView.contentMode = UIViewContentModeScaleAspectFit;
+    UIButton.appearance.exclusiveTouch = true;
+    UIButton.appearance.adjustsImageWhenHighlighted = false;
+    
+    
+    UISegmentedControl *speacilSegmentedControl = [UISegmentedControl appearanceWhenContainedInInstancesOfClasses:@[UINavigationBar.class, ]];
+    speacilSegmentedControl.tintColor = tintColor;
+    [speacilSegmentedControl setTitleTextAttributes:@{NSForegroundColorAttributeName: tintColor} forState:UIControlStateNormal];
+    [speacilSegmentedControl setTitleTextAttributes:@{NSForegroundColorAttributeName: barTintColor} forState:UIControlStateSelected];
+
+    UISegmentedControl.appearance.tintColor = tintColor;
+
+    
+    UIScrollView.appearance.autoresizingMask = UIViewAutoresizingFlexibleWidth | UIViewAutoresizingFlexibleHeight;
+    UIScrollView.appearance.keyboardDismissMode = UIScrollViewKeyboardDismissModeOnDrag;
+    UIScrollView.appearance.showsHorizontalScrollIndicator = false;
+    UIScrollView.appearance.exclusiveTouch = true;
+    if (@available(iOS 11.0, *)) {
+        UIScrollView.appearance.contentInsetAdjustmentBehavior = UIScrollViewContentInsetAdjustmentNever;
     }
     
-    if ([controller isKindOfClass:[UINavigationController class]] || [controller isKindOfClass:[UITabBarController class]]) {
-        UIApplication.rootController = controller;
-        
-    } else {
-        UINavigationController *navController = [[UINavigationController alloc] initWithRootViewController:controller];
-        UIApplication.rootController = navController;
-    }
-}
-
-/**
- 导航栏默认白色主题色
- */
-+ (void)setupAppearanceDefault:(BOOL)isDefault{
-    UIColor *barTintColor = isDefault ? UIColor.whiteColor : UIColor.themeColor;
-    [UIApplication setupAppearanceNavigationBar:barTintColor];
-    [UIApplication setupAppearanceScrollView];
-    [UIApplication setupAppearanceOthers];
-}
-
-+ (void)setupAppearanceScrollView{
+    
     UITableView.appearance.separatorStyle = UITableViewCellSeparatorStyleSingleLine;
     UITableView.appearance.separatorInset = UIEdgeInsetsZero;
     UITableView.appearance.rowHeight = 60;
-
-    UITableViewCell.appearance.layoutMargins = UIEdgeInsetsZero;
-    UITableViewCell.appearance.separatorInset = UIEdgeInsetsZero;
-    UITableViewCell.appearance.selectionStyle = UITableViewCellSelectionStyleNone;
-
-    UIScrollView.appearance.keyboardDismissMode = UIScrollViewKeyboardDismissModeOnDrag;
-    
+    UITableView.appearance.backgroundColor = UIColor.groupTableViewBackgroundColor;
     if (@available(iOS 11.0, *)) {
         UITableView.appearance.estimatedRowHeight = 0.0;
         UITableView.appearance.estimatedSectionHeaderHeight = 0.0;
         UITableView.appearance.estimatedSectionFooterHeight = 0.0;
-        
-        UICollectionView.appearance.contentInsetAdjustmentBehavior = UIScrollViewContentInsetAdjustmentNever;
-        UIScrollView.appearance.contentInsetAdjustmentBehavior = UIScrollViewContentInsetAdjustmentNever;
-    }
-}
-
-+ (void)setupAppearanceOthers{
-    UITextField.appearance.font = [UIFont systemFontOfSize:12];
-    UITextView.appearance.font = [UIFont systemFontOfSize:12];
-    
-    UIButton.appearance.titleLabel.textColor = UIColor.blackColor;
-    UIButton.appearance.titleLabel.font = [UIFont systemFontOfSize:12];
-    UIButton.appearance.exclusiveTouch = NO;
-    
-    UISwitch.appearance.onTintColor = UIColor.themeColor;
-
-    UITabBar.appearance.tintColor = UIColor.themeColor;
-    UITabBar.appearance.barTintColor = UIColor.whiteColor;
-    UITabBar.appearance.translucent = NO;
-
-    if (@available(iOS 10.0, *)) {
-        UITabBar.appearance.unselectedItemTintColor = UIColor.grayColor;
-    } else {
-        // Fallback on earlier versions
     }
     
-    UITabBarItem.appearance.titlePositionAdjustment = UIOffsetMake(0, -5.0);
-
-//    UITabBarItem *selectedItem = UITabBar.appearance.selectedItem;
-//    selectedItem.image = [selectedItem.image imageWithRenderingMode:UIImageRenderingModeAlwaysTemplate];
-//
-//    NSArray *items = UITabBar.appearance.items;
-//    for (UITabBarItem * item in items) {
-//        item.image = [item.image imageWithRenderingMode:UIImageRenderingModeAlwaysTemplate];
-//    }
-//    UITabBarItem.appearance setTitleTextAttributes:<#(nullable NSDictionary<NSAttributedStringKey,id> *)#> forState:<#(UIControlState)#>
-}
-
-/**
- 定义导航栏背景色
- */
-+ (void)setupAppearanceNavigationBar:(UIColor *)barTintColor{
-    BOOL isDefault = CGColorEqualToColor(UIColor.whiteColor.CGColor, barTintColor.CGColor);
-    UIColor *tintColor = isDefault ? UIColor.blackColor : UIColor.whiteColor;
-//    UIColor *barTintColor = isDefault ? UIColor.whiteColor : UIColor.themeColor;
     
-    UINavigationBar.appearance.tintColor = tintColor;
-    UINavigationBar.appearance.barTintColor = barTintColor;
-    [UINavigationBar.appearance setBackgroundImage:UIImageColor(barTintColor) forBarMetrics:UIBarMetricsDefault];
-    [UINavigationBar.appearance setShadowImage:UIImageColor(barTintColor)];
+    UITableViewCell.appearance.layoutMargins = UIEdgeInsetsZero;
+    UITableViewCell.appearance.separatorInset = UIEdgeInsetsZero;
+    UITableViewCell.appearance.selectionStyle = UITableViewCellSelectionStyleNone;
+    UITableViewCell.appearance.backgroundColor = UIColor.whiteColor;
+
     
-    NSDictionary * dic = @{NSForegroundColorAttributeName:   tintColor,
-                           };
-    UINavigationBar.appearance.titleTextAttributes = dic;
-    if (@available(iOS 11.0, *)) {
-//        UIImage *origImage = [UIImage imageNamed:@"img_btnBack.png"];
-//        //系统返回按钮处的title偏移到可视范围之外
-//        //iOS11 和 iOS11以下分别处理
-//        UIOffset offset = iOSVersion(11) ? UIOffsetMake(-200, 0) : UIOffsetMake(0, -80);
-//
-//        [UIBarButtonItem.appearance setBackButtonTitlePositionAdjustment:offset forBarMetrics:UIBarMetricsDefault];
-//        [UIBarButtonItem.appearance setBackButtonTitlePositionAdjustment:offset forBarMetrics:UIBarMetricsCompact];
-//
-//        [UINavigationBar.appearance setBackIndicatorImage:origImage];
-//        [UINavigationBar.appearance setBackIndicatorTransitionMaskImage:origImage];
-        
-    }
-    else{
-        
-    }
-}
+    UICollectionView.appearance.scrollsToTop = false;
+    UICollectionView.appearance.pagingEnabled = false;
 
-/**
- 导航栏UISearchBar搜索框 取消按钮字体,颜色设置
- */
-+ (void)setupAppearanceSearchbarCancellButton{
-    NSShadow *shadow = ({
-        NSShadow *shadow = [[NSShadow alloc]init];
-        shadow.shadowColor = UIColor.darkGrayColor;
-        shadow.shadowOffset = CGSizeMake(0, -1);
-        shadow;
-    });
-    NSDictionary *attDic = @{NSForegroundColorAttributeName:  UIColor.whiteColor,
-                             NSFontAttributeName: [UIFont systemFontOfSize:13 weight:UIFontWeightBold],
-                             NSShadowAttributeName: shadow,
-                             };
-    [UIBarButtonItem.appearance setTitleTextAttributes:attDic forState: UIControlStateNormal];
-    [UIBarButtonItem.appearance setTitleTextAttributes:attDic forState: UIControlStateHighlighted];
+    
+    UICollectionViewCell.appearance.layoutMargins = UIEdgeInsetsZero;
+    UICollectionViewCell.appearance.backgroundColor = UIColor.whiteColor;
+    
+    
+    UIImageView.appearance.userInteractionEnabled = true;
+    
+    
+    UILabel.appearance.userInteractionEnabled = true;
 
-    [UIBarButtonItem appearanceWhenContainedInInstancesOfClasses: @[UISearchBar.class]];
+    
+    UIPageControl.appearance.pageIndicatorTintColor = barTintColor;
+    UIPageControl.appearance.currentPageIndicatorTintColor = tintColor;
+    UIPageControl.appearance.userInteractionEnabled = true;
+    UIPageControl.appearance.hidesForSinglePage = true;
+    
+    
+    UIProgressView.appearance.progressTintColor = barTintColor;
+    UIProgressView.appearance.trackTintColor = UIColor.clearColor;
+    
+    
+    UIDatePicker.appearance.datePickerMode = UIDatePickerModeDate;
+    UIDatePicker.appearance.locale = [NSLocale localeWithLocaleIdentifier:@"zh_CN"];
+    UIDatePicker.appearance.backgroundColor = UIColor.whiteColor;
+    if (@available(iOS 13.4, *)) {
+        UIDatePicker.appearance.preferredDatePickerStyle = UIDatePickerStyleWheels;
+    }
+    
+    
+    UISlider.appearance.minimumTrackTintColor = tintColor;
+    UISlider.appearance.autoresizingMask = UIViewAutoresizingFlexibleWidth;
+
+
+    UISwitch.appearance.onTintColor = tintColor;
+    UISwitch.appearance.autoresizingMask = UIViewAutoresizingFlexibleWidth;
 }
 
 /**
@@ -366,12 +340,10 @@ static NSDictionary *_infoDic = nil;
 }
 
 + (void)openURL:(NSURL *)url completion:(void (^ __nullable)(BOOL success))completion{
-    UIApplication *app = UIApplication.sharedApplication;
-    
     if (@available(iOS 10.0, *)) {
-        [app openURL:url options:@{UIApplicationOpenURLOptionUniversalLinksOnly : @YES} completionHandler:completion];
+        [UIApplication.sharedApplication openURL:url options:@{UIApplicationOpenURLOptionUniversalLinksOnly: @YES} completionHandler:completion];
     } else {
-        BOOL success = [app openURL:url];
+        BOOL success = [UIApplication.sharedApplication openURL:url];
         completion(success);
     }
 }

@@ -13,50 +13,15 @@
 
 @implementation UINavigationBar (Helper)
 
-+ (void)configureAppeare{
-    UINavigationBar.appearance.barTintColor = UIColor.themeColor;
-    UINavigationBar.appearance.tintColor = UIColor.whiteColor;
-    UINavigationBar.appearance.shadowImage = [[UIImage alloc] init];
-    UINavigationBar.appearance.backIndicatorImage = [UIImage imageNamed:@"nav_bar_back_icon_white"];
-    UINavigationBar.appearance.backIndicatorTransitionMaskImage = [UIImage imageNamed:@"nav_bar_back_icon_white"];
-    UINavigationBar.appearance.titleTextAttributes = @{NSForegroundColorAttributeName : UIColor.whiteColor
-                                                         };
-    
-    NSShadow *clearShadow = [[NSShadow alloc] init];
-    clearShadow.shadowColor = UIColor.clearColor;
-    clearShadow.shadowOffset = CGSizeMake(0, 0);
-    
-    UIColor *titleColor_N = UIColor.whiteColor;
-    UIColor *titleColor_H = UIColor.whiteColor;
-    [UIBarButtonItem.appearance setTitleTextAttributes:@{NSForegroundColorAttributeName : titleColor_N,
-                                                         NSShadowAttributeName : clearShadow,
-                                                         
-                                                           } forState:UIControlStateNormal];
-    [UIBarButtonItem.appearance setTitleTextAttributes:@{NSForegroundColorAttributeName : titleColor_H,
-                                                         NSShadowAttributeName : clearShadow,
-                                                         
-                                                           } forState:UIControlStateHighlighted];
-    
-    // hide title of back button
-    [UIBarButtonItem.appearance setBackButtonTitlePositionAdjustment:UIOffsetMake(0, -60)
-                                                         forBarMetrics:UIBarMetricsDefault];
-}
+- (void)setColor:(UIColor *)tintColor barTintColor:(UIColor *)barTintColor{
+    self.tintColor = tintColor;
+    self.barTintColor = barTintColor;
+    self.backgroundColor = barTintColor;
 
-
-- (void)setBackgroundColor:(UIColor *)color{
-    if (!color) {
-        [self setBackgroundImage:nil forBarMetrics:UIBarMetricsDefault];
-        [self setShadowImage:nil];
-        [self setBarTintColor:nil];
-        return;
-    }
+    self.shadowImage = [UIImage new];
+    self.translucent = CGColorEqualToColor(barTintColor.CGColor, UIColor.clearColor.CGColor);
     
-    UIImage *image = UIImageColor(color);
-    if (CGColorEqualToColor(UIColor.clearColor.CGColor, color.CGColor)) {
-        image = [UIImage new];
-    }
-    [self setBackgroundImage:image forBarMetrics:UIBarMetricsDefault];
-    [self setShadowImage:image];
+    self.titleTextAttributes = @{NSForegroundColorAttributeName: tintColor};
 }
 
 @end

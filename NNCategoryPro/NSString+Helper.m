@@ -14,9 +14,7 @@
 
 #import "NSAttributedString+Helper.h"
 #import "NSDate+Helper.h"
-#import "NSDateFormatter+Helper.h"
 
-#import "NSNumberFormatter+Helper.h"
 #import "NSNumber+Helper.h"
 #import "UIAlertController+Helper.h"
 
@@ -304,24 +302,33 @@ NSString * NSStringFromIndexPath(NSIndexPath *indexPath) {
 }
 
 #pragma mark -funtions
-
-- (CGSize)sizeWithFont:(UIFont *)font width:(CGFloat)width mode:(NSLineBreakMode)lineBreakMode {
-    if (!font) font = [UIFont systemFontOfSize:15];
-
-    NSMutableDictionary *attr = [NSMutableDictionary dictionary];
-    attr[NSFontAttributeName] = font;
-    if (lineBreakMode != NSLineBreakByWordWrapping) {
-        NSMutableParagraphStyle *style = [NSMutableParagraphStyle new];
-        style.lineBreakMode = lineBreakMode;
-        attr[NSParagraphStyleAttributeName] = style;
-    }
-    CGRect rect = [self boundingRectWithSize:CGSizeMake(width, CGFLOAT_MAX)
-                                     options:NSStringDrawingUsesLineFragmentOrigin | NSStringDrawingUsesFontLeading
-                                  attributes:attr
-                                     context:nil];
-    CGSize result = rect.size;
+- (CGSize)sizeWithFont:(UIFont *)font width:(CGFloat)width{
+    CGSize size = [self boundingRectWithSize: CGSizeMake(width, CGFLOAT_MAX)
+                                     options: NSStringDrawingUsesLineFragmentOrigin | NSStringDrawingUsesFontLeading
+                                  attributes: @{NSFontAttributeName: font}
+                                     context:nil
+                   ].size;
+    CGSize result = CGSizeMake(ceil(size.width), ceil(size.height));
     return result;
 }
+
+//- (CGSize)sizeWithFont:(UIFont *)font width:(CGFloat)width mode:(NSLineBreakMode)lineBreakMode {
+//    if (!font) font = [UIFont systemFontOfSize:15];
+//
+//    NSMutableDictionary *attr = [NSMutableDictionary dictionary];
+//    attr[NSFontAttributeName] = font;
+//    if (lineBreakMode != NSLineBreakByWordWrapping) {
+//        NSMutableParagraphStyle *style = [NSMutableParagraphStyle new];
+//        style.lineBreakMode = lineBreakMode;
+//        attr[NSParagraphStyleAttributeName] = style;
+//    }
+//    CGRect rect = [self boundingRectWithSize:CGSizeMake(width, CGFLOAT_MAX)
+//                                     options:NSStringDrawingUsesLineFragmentOrigin | NSStringDrawingUsesFontLeading
+//                                  attributes:attr
+//                                     context:nil];
+//    CGSize result = rect.size;
+//    return result;
+//}
 
 + (NSString *)repeating:(NSString *)repeatedValue count:(NSInteger)count{
     NSString *string = @"";
@@ -435,7 +442,7 @@ NSString * NSStringFromIndexPath(NSIndexPath *indexPath) {
  */
 - (NSAttributedString *)toAsterisk{
     BOOL isMust = [self containsString:kAsterisk] ? YES : NO;
-    NSAttributedString *attr = [NSAttributedString getAttringByPrefix:kAsterisk content:self isMust:isMust];
+    NSAttributedString *attr = [NSAttributedString getAttringByPrefix:kAsterisk content:self isMust:isMust color:UIColor.blackColor];
     return attr;
 }
 
@@ -454,7 +461,7 @@ NSString * NSStringFromIndexPath(NSIndexPath *indexPath) {
     if (hiddenTips == NO) {
         NSString * tips = [NSString stringWithFormat:@"'%@'已复制!",pasteboard.string];
         [UIAlertController alertControllerWithTitle:@"" message:tips preferredStyle:UIAlertControllerStyleAlert]
-        .nn_present(true, nil);
+        .present(true, nil);
     }
 }
 

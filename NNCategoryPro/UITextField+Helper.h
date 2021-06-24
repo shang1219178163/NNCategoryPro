@@ -17,10 +17,7 @@ NS_ASSUME_NONNULL_BEGIN
  */
 + (instancetype)createRect:(CGRect)rect;
 
-/**
- UITextField密码输入框创建
- */
-+ (instancetype)createPwdRect:(CGRect)rect image:(UIImage *)image imageSelected:(UIImage *)imageSelected;
+- (void)addPasswordEveBlock:(UIImage *)image imageSelected:(UIImage *)imageSelected edge:(UIEdgeInsets)edge block:(void(^)(UIButton *))block;
 
 - (id)asoryView:(NSString *)unitString;
 

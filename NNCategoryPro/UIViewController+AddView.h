@@ -14,7 +14,6 @@ NS_ASSUME_NONNULL_BEGIN
 
 @property (nonatomic, strong, readonly) UITableView *tbView;
 
-//@property (nonatomic, strong, readonly) UICollectionView *ctView;
 @property (nonatomic, strong, readonly) UILabel *tipLabel;
 
 @end

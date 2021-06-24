@@ -16,13 +16,16 @@ FOUNDATION_EXPORT NSString * const kAlertVCTitle;
 FOUNDATION_EXPORT NSString * const kAlertVCMessage;
 /// UIAlertController按钮颜色key
 FOUNDATION_EXPORT NSString * const kAlertActionColor;
+/// UIAlertController信息富文本key
+FOUNDATION_EXPORT NSString * const kAlertContentViewController;
+
 
 @interface UIAlertController (Helper)
 
-@property(nonatomic, strong, readonly) UIAlertController *(^nn_addAction)(NSArray<NSString *> *titles, void(^_Nullable handler)(UIAlertAction *action));
+@property(nonatomic, strong, readonly) UIAlertController *(^addAction)(NSArray<NSString *> *titles, void(^_Nullable handler)(UIAlertAction *action));
 /// 仅 UIAlertControllerStyleAlert 可用
-@property(nonatomic, strong, readonly) UIAlertController *(^nn_addTextField)(NSArray<NSString *> *placeholders, void(^_Nullable handler)(UITextField *textField));
-@property(nonatomic, strong, readonly) UIAlertController *(^nn_present)(BOOL animated, void(^ __nullable completion)(void));
+@property(nonatomic, strong, readonly) UIAlertController *(^addTextField)(NSArray<NSString *> *placeholders, void(^_Nullable handler)(UITextField *textField));
+@property(nonatomic, strong, readonly) UIAlertController *(^present)(BOOL animated, void(^ __nullable completion)(void));
 
 - (instancetype)addActionTitles:(NSArray<NSString *> *)titles handler:(void(^)(UIAlertController *vc, UIAlertAction *action))handler;
 /// 仅 UIAlertControllerStyleAlert 可用
@@ -55,6 +58,8 @@ FOUNDATION_EXPORT NSString * const kAlertActionColor;
 - (instancetype)setTitleColor:(UIColor *)color;
 /// 设置Message文本换行,对齐方式
 - (instancetype)setMessageParaStyle:(NSMutableParagraphStyle *)style;
+
+- (instancetype)setContent:(UIViewController *)vc height:(CGFloat)height;
 
 + (void)callPhone:(NSString *)phoneNumber;
 

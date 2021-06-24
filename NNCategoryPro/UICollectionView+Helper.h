@@ -18,13 +18,9 @@ FOUNDATION_EXPORT NSString * const UICollectionElementKindSectionItem ;
 @property (nonatomic, strong, class) UICollectionViewLayout *layoutDefault;
 /**
  注意字典格式,如下
- collectionView.dictClass = @{UICollectionElementKindSectionItem:    @[@"UICollectionViewCell",
-                                                                         ],
-                              UICollectionElementKindSectionHeader:  @[@"UICollectionReusableOneView",
-                                                                        ],
-                              UICollectionElementKindSectionFooter:  @[@"UICollectionReusableOneView",
-                                                                         ],
- 
+ collectionView.dictClass = @{UICollectionElementKindSectionItem:    @[@"UICollectionViewCell",],
+                              UICollectionElementKindSectionHeader:  @[@"UICollectionReusableOneView",],
+                              UICollectionElementKindSectionFooter:  @[@"UICollectionReusableOneView",],
  };
  */
 @property (nonatomic, strong) NSDictionary *dictClass;
@@ -34,10 +30,16 @@ FOUNDATION_EXPORT NSString * const UICollectionElementKindSectionItem ;
  */
 + (instancetype)createRect:(CGRect)rect layout:(UICollectionViewLayout *)layout;
 
-//+ (NSString *)viewIdentifierByClassName:(NSString *)className kind:(NSString *)kind;
+/// 注册 cell
+/// @param dictClass key: UICollectionElementKindSectionHeader/UICollectionElementKindSectionFooter/UICollectionElementKindSectionItem
+/// @param dictClass Value: ["UICollectionViewCell", ]
+- (void)registerReuseIdentifier:(NSDictionary<NSString *, NSArray<NSString *> *> *)dictClass;
 
-- (void)registerCTVCell:(NSArray *)listClass;
-- (void)registerCTVReusable:(NSArray *)listClass kind:(NSString *)kind;
+/// 注册 cell
+/// @param kind UICollectionElementKindSectionHeader/UICollectionElementKindSectionFooter/UICollectionElementKindSectionItem
+/// @param list ["UICollectionViewCell", ]
+- (void)registerReuseIdentifier:(NSString *)kind list:(NSArray<NSString *> *)list;
+
 
 - (UICollectionViewLayout *)createLayout:(NSInteger)numOfRow
                               itemHeight:(CGFloat)itemHeight

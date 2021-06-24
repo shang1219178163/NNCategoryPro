@@ -84,7 +84,8 @@ NSString * NSStringFromIndexPath(NSIndexPath *indexPath);
 ///separator 分割后的子元素进行转换
 - (NSString *)mapBySeparator:(NSString *)separator transform:(NSString * (NS_NOESCAPE ^)(NSString *obj))transform;
 
-- (CGSize)sizeWithFont:(UIFont *)font width:(CGFloat)width mode:(NSLineBreakMode)lineBreakMode;
+- (CGSize)sizeWithFont:(UIFont *)font width:(CGFloat)width;
+//- (CGSize)sizeWithFont:(UIFont *)font width:(CGFloat)width mode:(NSLineBreakMode)lineBreakMode;
 
 + (NSString *)repeating:(NSString *)repeatedValue count:(NSInteger)count;
 

@@ -15,15 +15,13 @@ NS_ASSUME_NONNULL_BEGIN
 @interface UIViewController (Helper)
 
 /// 字符串->UIViewController
-FOUNDATION_EXPORT UIViewController * _Nullable UICtrFromString(NSString *obj);
+FOUNDATION_EXPORT UIViewController * _Nullable UIControllerFromString(NSString *obj);
 /// 字符串->UINavigationController
 FOUNDATION_EXPORT UINavigationController * _Nullable UINavCtrFromObj(id obj);
 
 @property (nonatomic, strong, readonly) NSString * _Nullable vcName;
 @property (nonatomic, strong, readonly) UIViewController * _Nullable currentVC;
 
-/// 返回按钮
-@property (nonatomic, strong) UIButton *backBtn;
 
 - (BOOL)isCurrentVisibleVC;
 
@@ -44,8 +42,8 @@ FOUNDATION_EXPORT UINavigationController * _Nullable UINavCtrFromObj(id obj);
 /**
  可隐藏的导航栏按钮
  */
-- (UIView *)createBarItem:(NSString *)obj isLeft:(BOOL)isLeft handler:(void(^)(id obj, UIView *item, NSInteger idx))handler;
- 
+- (UIView *)createBarItem:(NSString *)obj isLeft:(BOOL)isLeft handler:(void(^)(UIButton *sender))handler;
+
 - (UIViewController *)addControllerName:(NSString *)vcName;
 /// 添加子控制器(对应方法 removeControllerVC)
 - (void)addControllerVC:(UIViewController *)vc;
@@ -64,10 +62,6 @@ FOUNDATION_EXPORT UINavigationController * _Nullable UINavCtrFromObj(id obj);
 
 
 @interface UINavigationController (Helper)
-
-- (void)pushVC:(NSString *)vcName
-      animated:(BOOL)animated
-         block:(void(^ __nullable)(__kindof UIViewController *vc))block;
 
 - (__kindof UIViewController * _Nullable)findController:(Class)classVC;
 

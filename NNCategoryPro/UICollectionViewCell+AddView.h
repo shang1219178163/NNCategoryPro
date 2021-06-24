@@ -21,9 +21,9 @@ NS_ASSUME_NONNULL_BEGIN
 @property (nonatomic, strong) UILabel *label;
 @property (nonatomic, strong) UILabel *labelSub;
 
-+ (instancetype)viewWithCollectionView:(UICollectionView *)collectionView indexPath:(NSIndexPath *)indexPath;
++ (instancetype)dequeueReusableCell:(UICollectionView *)collectionView indexPath:(NSIndexPath *)indexPath;
 
-+ (instancetype)viewWithCollectionView:(UICollectionView *)collectionView indexPath:(NSIndexPath *)indexPath identifier:(NSString *)identifier;
++ (instancetype)dequeueReusableCell:(UICollectionView *)collectionView indexPath:(NSIndexPath *)indexPath identifier:(NSString *)identifier;
 
 @end
 

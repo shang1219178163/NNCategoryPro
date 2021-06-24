@@ -22,16 +22,6 @@
         block(sender);
     }
 }
-/**
- [源]UISwitch创建方法
- */
-+ (instancetype)createRect:(CGRect)rect{
-    UISwitch *view = [[self alloc]initWithFrame:rect];
-    view.autoresizingMask = UIViewAutoresizingFlexibleWidth|UIViewAutoresizingFlexibleHeight;
-    view.on = false;
-    view.onTintColor = UIColor.themeColor;
-//    view.tintColor = UIColor.whiteColor;
-    return view;
-}
+
 
 @end

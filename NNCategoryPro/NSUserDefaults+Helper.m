@@ -11,7 +11,7 @@
 
 @implementation NSUserDefaults (Helper)
 
-+ (NSUserDefaults *)defaults {
++ (NSUserDefaults *)defaults{
     return [NSUserDefaults standardUserDefaults];
 }
 

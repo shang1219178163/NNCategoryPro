@@ -37,7 +37,7 @@ NS_ASSUME_NONNULL_BEGIN
  */
 + (NSAttributedString *)getAttString:(NSString *)text
                             textTaps:(NSArray<NSString *> *_Nullable)textTaps
-                                font:(CGFloat)font tapFont:(CGFloat)tapFont
+                                font:(CGFloat)font
                                color:(UIColor *)color
                             tapColor:(UIColor *)tapColor
                            alignment:(NSTextAlignment)alignment;
@@ -46,17 +46,9 @@ NS_ASSUME_NONNULL_BEGIN
  富文本段落
  */
 + (NSAttributedString *)getAttString:(NSString *)string
-                            textTaps:(NSArray<NSString *> *)textTaps
-                            tapColor:(UIColor *)tapColor
-                           alignment:(NSTextAlignment)alignment;
-
-/**
- 富文本段落设置(无特殊文本)
- */
-+ (NSAttributedString *)getAttString:(NSString *)string
-                                font:(CGFloat)font
+                            textTaps:(NSArray<NSString *> *_Nullable)textTaps
                                color:(UIColor *)color
-                           alignment:(NSTextAlignment)alignment;
+                            tapColor:(UIColor *)tapColor;
 
 /**
  富文本产生
@@ -64,14 +56,9 @@ NS_ASSUME_NONNULL_BEGIN
 + (NSMutableAttributedString *)getAttString:(NSString *)string textTaps:(NSArray<NSString *> *)textTaps;
 
 /**
- 标题前加*
- */
-+ (NSArray *)getAttListByPrefix:(NSString *)prefix titleList:(NSArray *)titleList mustList:(NSArray *)mustList;
-
-/**
  (推荐)单个标题前加*
  */
-+ (NSAttributedString *)getAttringByPrefix:(NSString *)prefix content:(NSString *)content isMust:(BOOL)isMust;
++ (NSAttributedString *)getAttringByPrefix:(NSString *)prefix content:(NSString *)content isMust:(BOOL)isMust color:(UIColor *)color;
 
 
 + (NSAttributedString *)hyperlinkFromString:(NSString *)string withURL:(NSURL *)aURL font:(UIFont *)font;
@@ -89,6 +76,7 @@ NS_ASSUME_NONNULL_BEGIN
 
 // Font
 @property(nonatomic, strong, readonly) NSMutableAttributedString *(^font)(UIFont *);
+
 @property(nonatomic, strong, readonly) NSMutableAttributedString *(^fontSize)(CGFloat);
 
 // ForegroundColor
@@ -136,6 +124,7 @@ NS_ASSUME_NONNULL_BEGIN
 // Attachment
 @property(nonatomic, strong, readonly) NSMutableAttributedString *(^attachment)(NSTextAttachment *);
 
+
 @end
 
 
@@ -149,6 +138,44 @@ NS_ASSUME_NONNULL_BEGIN
 @interface NSAttributedString (Chain)
 
 @property(nonatomic, strong, readonly) NSMutableAttributedString *matt;
+
+@end
+
+
+
+@interface NSMutableParagraphStyle (Chain)
+
+@property(nonatomic, copy, readonly) NSMutableParagraphStyle *(^lineSpacingChain)(CGFloat);
+
+@property(nonatomic, copy, readonly) NSMutableParagraphStyle *(^paragraphSpacingChain)(CGFloat);
+
+@property(nonatomic, copy, readonly) NSMutableParagraphStyle *(^alignmentChain)(NSTextAlignment);
+
+@property(nonatomic, copy, readonly) NSMutableParagraphStyle *(^firstLineHeadIndentChain)(CGFloat);
+
+@property(nonatomic, copy, readonly) NSMutableParagraphStyle *(^headIndentChain)(CGFloat);
+
+@property(nonatomic, copy, readonly) NSMutableParagraphStyle *(^tailIndentChain)(CGFloat);
+
+@property(nonatomic, copy, readonly) NSMutableParagraphStyle *(^lineBreakModeChain)(NSLineBreakMode);
+
+@property(nonatomic, copy, readonly) NSMutableParagraphStyle *(^minimumLineHeightChain)(CGFloat);
+
+@property(nonatomic, copy, readonly) NSMutableParagraphStyle *(^maximumLineHeightChain)(CGFloat);
+
+@property(nonatomic, copy, readonly) NSMutableParagraphStyle *(^baseWritingDirectionChain)(NSWritingDirection);
+
+@property(nonatomic, copy, readonly) NSMutableParagraphStyle *(^lineHeightMultipleChain)(CGFloat);
+
+@property(nonatomic, copy, readonly) NSMutableParagraphStyle *(^paragraphSpacingBeforeChain)(CGFloat);
+
+@property(nonatomic, copy, readonly) NSMutableParagraphStyle *(^hyphenationFactorChain)(float);
+
+@property(nonatomic, copy, readonly) NSMutableParagraphStyle *(^tabStopsChain)(NSArray<NSTextTab *> *) API_AVAILABLE(macos(10.0), ios(7.0));
+@property(nonatomic, copy, readonly) NSMutableParagraphStyle *(^defaultTabIntervalChain)(CGFloat) API_AVAILABLE(macos(10.0), ios(7.0));
+@property(nonatomic, copy, readonly) NSMutableParagraphStyle *(^allowsDefaultTighteningForTruncationChain)(BOOL) API_AVAILABLE(macos(10.11), ios(9.0));
+@property(nonatomic, copy, readonly) NSMutableParagraphStyle *(^lineBreakStrategyChain)(NSLineBreakStrategy) API_AVAILABLE(macos(10.11), ios(9.0));
+
 
 @end
 

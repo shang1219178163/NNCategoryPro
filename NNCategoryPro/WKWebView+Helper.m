@@ -22,6 +22,7 @@ static WKWebViewConfiguration *_confiDefault = nil;
             WKWebViewConfiguration *confi = [[WKWebViewConfiguration alloc] init];
             confi.allowsInlineMediaPlayback = true;
             confi.selectionGranularity = WKSelectionGranularityDynamic;
+            
             confi.preferences = [[WKPreferences alloc] init];
             confi.preferences.javaScriptCanOpenWindowsAutomatically = false;
             confi.preferences.javaScriptEnabled = true;
@@ -31,10 +32,9 @@ static WKWebViewConfiguration *_confiDefault = nil;
     return _confiDefault;
 }
 
-+ (NSString *)changTextFontRatio:(CGFloat)fontRatio{
-    NSString *textSize = [NSString stringWithFormat:@"%@%@",@(fontRatio),@"%"];;
-    NSString *str = [NSString stringWithFormat:@"document.getElementsByTagName('body')[0].style.webkitTextSizeAdjust= '%@'",textSize];
-    return str;
+- (nullable WKNavigation *)loadHTMLStringWithMagic:(NSString *)content baseURL:(nullable NSURL *)baseURL{
+    NSString *headerString = @"<header><meta name='viewport' content='width=device-width, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0, user-scalable=no'></header>";
+    return [self loadHTMLString: content baseURL: baseURL];
 }
 
 /**
@@ -46,7 +46,32 @@ static WKWebViewConfiguration *_confiDefault = nil;
                                                       injectionTime:WKUserScriptInjectionTimeAtDocumentStart
                                                    forMainFrameOnly:false];
     [self.configuration.userContentController addUserScript:userScript];
+}
 
+- (void)setCookieByJavaScript:(NSDictionary<NSString *, NSString *> *)dic handler:(void (^ _Nullable)(_Nullable id, NSError * _Nullable error))handler{
+    NSMutableString *mstr = [NSMutableString string];
+    [dic enumerateKeysAndObjectsUsingBlock:^(NSString * _Nonnull key, NSString * _Nonnull obj, BOOL * _Nonnull stop) {
+        [mstr appendFormat:@"%@=%@,", key, obj];
+    }];
+    NSString *js = [@"document.cookie = " stringByAppendingFormat:@"'%@'", mstr];
+    [self evaluateJavaScript:js completionHandler:handler];
+}
+
+- (void)copyNSHTTPCookieStorageToWKHTTPCookieStoreWithHandler:(nullable void (^)())handler API_AVAILABLE(macos(10.13), ios(11.0)) {
+    NSArray *cookies = NSHTTPCookieStorage.sharedHTTPCookieStorage.cookies;
+    WKHTTPCookieStore *cookieStroe = self.configuration.websiteDataStore.httpCookieStore;
+    if (cookies.count == 0) {
+        !handler ?: handler();
+        return;
+    }
+    for (NSHTTPCookie *cookie in cookies) {
+        [cookieStroe setCookie:cookie completionHandler:^{
+            if ([[cookies lastObject] isEqual:cookie]) {
+                !handler ?: handler();
+                return;
+            }
+        }];
+    }
 }
 
 - (void)loadUrl:(NSString *)urlString additionalHttpHeaders:(NSDictionary<NSString *, NSString *> *)additionalHttpHeaders{

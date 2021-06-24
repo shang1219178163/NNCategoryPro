@@ -14,18 +14,17 @@
 
 @implementation UICollectionReusableView (AddView)
 
-+ (instancetype)viewWithCollectionView:(UICollectionView *)collectionView indexPath:(NSIndexPath *)indexPath kind:(NSString *)kind{
++ (instancetype)dequeueSupplementaryView:(UICollectionView *)collectionView indexPath:(NSIndexPath *)indexPath kind:(NSString *)kind{
     NSString *kindSuf = [kind componentsSeparatedByString:@"KindSection"].lastObject;
     NSString *identifier = [NSStringFromClass(self.class) stringByAppendingString:kindSuf];
     UICollectionReusableView *view = [collectionView dequeueReusableSupplementaryViewOfKind:kind withReuseIdentifier:identifier forIndexPath:indexPath];
     
-    view.label.text = [kindSuf stringByAppendingFormat:@"%@",@(indexPath.section)];
-    view.backgroundColor = [kind isEqualToString:UICollectionElementKindSectionHeader] ? UIColor.greenColor : UIColor.yellowColor;
+    view.label.text = [kindSuf stringByAppendingFormat:@"%@", @(indexPath.section)];
     view.backgroundColor = UIColor.whiteColor;
     return view;
 }
 
--(UIImageView *)imgView{
+- (UIImageView *)imgView{
     id obj = objc_getAssociatedObject(self, _cmd);
     if (obj) {
         return obj;

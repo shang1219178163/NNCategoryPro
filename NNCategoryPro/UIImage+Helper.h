@@ -16,11 +16,11 @@ NS_ASSUME_NONNULL_BEGIN
 @property (nonatomic, strong, readonly) NSArray *ciDetectorFeatures;
 
 /// UIColor->UIImage
-FOUNDATION_EXPORT UIImage * UIImageColor(UIColor * color);
+FOUNDATION_EXPORT UIImage * UIImageColor(UIColor *color);
 /// 十六进制数值->UIImage
 FOUNDATION_EXPORT UIImage * UIImageColorHexAlpha(NSInteger hex, CGFloat alpha);
 /// 获取->UIImage
-FOUNDATION_EXPORT UIImage * UIImageNamed(NSString * obj);
+FOUNDATION_EXPORT UIImage * UIImageNamed(NSString *obj);
 
 FOUNDATION_EXPORT UIImage * UIImageFromName(NSString *obj, UIImageRenderingMode renderingMode);
 

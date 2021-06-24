@@ -12,7 +12,7 @@
 #import <NNGloble/NNGloble.h>
 #import "UICollectionViewLayout+AddView.h"
 
-NSString * const UICollectionElementKindSectionItem = @"UICollectionElementKindSectionItem";
+NSString *const UICollectionElementKindSectionItem = @"UICollectionElementKindSectionItem";
 
 @implementation UICollectionView (Helper)
 
@@ -50,14 +50,7 @@ NSString * const UICollectionElementKindSectionItem = @"UICollectionElementKindS
 
 - (void)setDictClass:(NSDictionary *)dictClass{
     objc_setAssociatedObject(self, @selector(dictClass), dictClass, OBJC_ASSOCIATION_COPY_NONATOMIC);
-
-    for (NSString * key in dictClass.allKeys) {
-        if ([key isEqualToString:UICollectionElementKindSectionItem]) {
-            [self registerCTVCell:dictClass[key]];
-        } else {
-            [self registerCTVReusable:dictClass[key] kind:key];
-        }
-    }
+    [self registerReuseIdentifier: dictClass];
 }
 
 /**
@@ -75,30 +68,32 @@ NSString * const UICollectionElementKindSectionItem = @"UICollectionElementKindS
 }
 
 
-+ (NSString *)viewIdentifierByClassName:(NSString *)className kind:(NSString *)kind{
-    NSString *extra = [kind isEqualToString:UICollectionElementKindSectionHeader] ? @"Header" : @"Footer";
-    NSString *identifier = [className stringByAppendingString:extra];
-    
-    return identifier;
+/// 注册 cell
+/// @param dictClass key: UICollectionElementKindSectionHeader/UICollectionElementKindSectionFooter/UICollectionElementKindSectionItem
+/// @param dictClass Value: ["UICollectionViewCell", ]
+- (void)registerReuseIdentifier:(NSDictionary<NSString *, NSArray<NSString *> *> *)dictClass{
+    [dictClass enumerateKeysAndObjectsUsingBlock:^(NSString * _Nonnull key, NSArray<NSString *> * _Nonnull obj, BOOL * _Nonnull stop) {
+        [self registerReuseIdentifier:key list:obj];
+    }];
 }
 
-- (void)registerCTVCell:(NSArray *)listClass{
-    for (NSString *className in listClass) {
-        [self registerClass:NSClassFromString(className) forCellWithReuseIdentifier:className];
-    }
+/// 注册 cell
+/// @param kind UICollectionElementKindSectionHeader/UICollectionElementKindSectionFooter/UICollectionElementKindSectionItem
+/// @param list ["UICollectionViewCell", ]
+- (void)registerReuseIdentifier:(NSString *)kind list:(NSArray<NSString *> *)list{
+    [list enumerateObjectsUsingBlock:^(NSString * _Nonnull className, NSUInteger idx, BOOL * _Nonnull stop) {
+        if ([@[UICollectionElementKindSectionHeader, UICollectionElementKindSectionFooter] containsObject:kind]) {
+            NSString *extra = [kind isEqualToString:UICollectionElementKindSectionHeader] ? @"Header" : @"Footer";
+            NSString *identifier = [className stringByAppendingString:extra];
+            [self registerClass:NSClassFromString(className) forSupplementaryViewOfKind:kind withReuseIdentifier:identifier];
+        } else {
+            [self registerClass:NSClassFromString(className) forCellWithReuseIdentifier:className];
+        }
+    }];
 }
 
-- (void)registerCTVReusable:(NSArray *)listClass kind:(NSString *)kind{
-    for (NSString *className in listClass) {
-        NSString *identifier = [self.class viewIdentifierByClassName:className kind:kind];
-        [self registerClass:NSClassFromString(className) forSupplementaryViewOfKind:kind withReuseIdentifier:identifier];
-//        NSLog(@"%@,%@,%@",NSClassFromString(className),kind,identifier);
-    }
-}
 
 #pragma mark - -funtions
-
-
 
 /**
  默认布局配置(自上而下,自左而右)

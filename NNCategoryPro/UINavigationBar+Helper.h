@@ -12,10 +12,7 @@ NS_ASSUME_NONNULL_BEGIN
 
 @interface UINavigationBar (Helper)
 
-/// UINavigationBar默认外观配置
-+ (void)configureAppeare;
-
-- (void)setBackgroundColor:(UIColor *)color;
+- (void)setColor:(UIColor *)tintColor barTintColor:(UIColor *)barTintColor;
 
 @end
 

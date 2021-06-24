@@ -624,46 +624,6 @@
     [self.superview.layer addSublayer:layer];
 }
 
-//- (NSIndexPath *)getCellIndexPath:(UITableView *)tableView{
-//    UITableViewCell *cell = [self findSuperView: @"UITableViewCell"];
-//    NSIndexPath *indexPath = [tableView indexPathForRowAtPoint:cell.center];
-////    DDLog(@"%@",indexPath);
-//    return indexPath;
-//}
-
-////信任值展示,无点击手势
-//+ (id)getStarViewRect:(CGRect)rect rateStyle:(NSString *)rateStyle currentScore:(CGFloat)currentScore{
-//    //默认五颗星星
-//    BNStarRateView *starRateView = [[BNStarRateView alloc] initWithFrame:rect];
-//    switch ([rateStyle integerValue]) {
-//        case 0:
-//        {
-//            starRateView.rateStyle = WholeStar;
-//
-//        }
-//            break;
-//        case 1:
-//        {
-//            starRateView.rateStyle = HalfStar;
-//
-//        }
-//            break;
-//        case 2:
-//        {
-//            starRateView.rateStyle = IncompleteStar;
-//
-//        }
-//            break;
-//        default:
-//            break;
-//    }
-//
-//    starRateView.currentScore = currentScore/100.0 * 5;
-//    starRateView.backgroundColor = UIColor.clearColor;
-//    starRateView.userInteractionEnabled = NO;
-//
-//    return starRateView;
-//}
 
 @end
 

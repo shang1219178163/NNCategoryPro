@@ -8,6 +8,8 @@
 
 #import "UITextField+Helper.h"
 #import <NNGloble/NNGloble.h>
+#import "UIButton+Helper.h"
+
 #import "UIView+Helper.h"
 #import "UIGestureRecognizer+Helper.h"
 #import "NSObject+Helper.h"
@@ -42,49 +44,29 @@
     return textField;
 }
 
-/**
- [源]UITextField密码输入框创建(NNTextFieldOne 调用)
- */
-+ (instancetype)createPwdRect:(CGRect)rect image:(UIImage *)image imageSelected:(UIImage *)imageSelected {
-    UITextField *textField = [[self alloc]initWithFrame:rect];
-    textField.placeholder = @"  请输入密码";
-    textField.backgroundColor = UIColor.greenColor;
-    textField.clearsOnBeginEditing = true;
-    textField.clearButtonMode = UITextFieldViewModeAlways;
-    textField.secureTextEntry = true;
+- (void)addPasswordEveBlock:(UIImage *)image imageSelected:(UIImage *)imageSelected edge:(UIEdgeInsets)edge block:(void(^)(UIButton *))block{
+    UIView *view = [[UIView alloc]initWithFrame:CGRectMake(0, 0, 40, 30)];
     
-    textField.leftViewMode = UITextFieldViewModeAlways;
-    textField.leftView = ({
-        CGRect imgViewRect = CGRectEqualToRect(CGRectZero, rect) ? CGRectMake(0, 0, 30, 30) : CGRectMake(0, 0, CGRectGetHeight(rect) - 5, CGRectGetHeight(rect) - 5);
-        UIImageView *imgView = [[UIImageView alloc]initWithFrame: imgViewRect];
-        imgView.userInteractionEnabled = true;
-        imgView.contentMode = UIViewContentModeCenter;
-//        imgView.backgroundColor = UIColor.redColor;
-        imgView.image = image;
-        
-        UITapGestureRecognizer *tap = [[UITapGestureRecognizer alloc] init];
-        tap.numberOfTapsRequired = 1;
-        tap.numberOfTouchesRequired = 1;
-        //    tapGesture.cancelsTouchesInView = NO;
-        //    tapGesture.delaysTouchesEnded = NO;
-        [tap addActionBlock:^(UIGestureRecognizer * _Nonnull reco) {
-//            DDLog(@"%@", reco)
-            UIImageView * sender = (UIImageView *)reco.view;
-            sender.selected = !sender.selected;
-            sender.image = sender.selected == false ? image : imageSelected;
-            
-            NSString *tempPwdStr = textField.text;
-            textField.text = @""; // 这句代码可以防止切换的时候光标偏移
-            textField.secureTextEntry = !sender.selected;
-            textField.text = tempPwdStr;
-        }];
-        
-        [imgView addGestureRecognizer:tap];
-        
-        imgView;
-    });
-    return textField;
+    UIButton *sender = [UIButton buttonWithType:UIButtonTypeSystem];
+    [sender setImage:image forState:UIControlStateNormal];
+    [sender setImage:imageSelected forState:UIControlStateSelected];
+
+    @weakify(self);
+    [sender addActionHandler:^(UIButton * _Nonnull sender) {
+        sender.selected = !sender.isSelected;
+        self.secureTextEntry = !sender.selected;
+        block(sender);
+    } forControlEvents:UIControlEventTouchUpInside];
+    
+    sender.frame = CGRectMake(edge.left, edge.top, view.bounds.size.width - edge.left - edge.right, view.bounds.size.height - edge.top - edge.bottom);
+    [view addSubview:sender];
+    self.rightView = view;
+    self.rightViewMode = UITextFieldViewModeAlways;
+    
+    self.clearButtonMode = UITextFieldViewModeNever;
+    self.secureTextEntry = true;
 }
+
 
 - (id)asoryView:(NSString *)unitString{
     //    NSArray * unitList = @[@"元",@"公斤"];
