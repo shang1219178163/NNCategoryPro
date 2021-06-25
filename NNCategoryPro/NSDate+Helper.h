@@ -173,14 +173,4 @@ FOUNDATION_EXPORT NSString * const kDateFormatSix ;
 @end
 
 
-
-@interface NSLocale (Helper)
-
-///chinese
-@property(nonatomic, readonly, class) NSLocale *zh_CN;
-///USA
-@property(nonatomic, readonly, class) NSLocale *en_US;
-
-@end
-
 NS_ASSUME_NONNULL_END

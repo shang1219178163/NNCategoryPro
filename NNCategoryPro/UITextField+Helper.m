@@ -67,6 +67,19 @@
 }
 
 
+- (id)asoryImageView:(UIImage *)image{
+    NSParameterAssert(image != nil);
+    CGSize size = CGSizeMake(20, 20);
+    UIImageView *imgView = [[UIImageView alloc]init];
+    imgView.frame = CGRectMake(0, 0, size.width, size.height);
+    imgView.autoresizingMask = UIViewAutoresizingFlexibleWidth|UIViewAutoresizingFlexibleHeight;
+    imgView.contentMode = UIViewContentModeScaleAspectFit;
+    imgView.userInteractionEnabled = YES;
+    imgView.image = image;
+    return imgView;
+}
+
+
 - (id)asoryView:(NSString *)unitString{
     //    NSArray * unitList = @[@"元",@"公斤"];
     NSParameterAssert([self isKindOfClass:[UITextField class]]);

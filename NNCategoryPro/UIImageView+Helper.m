@@ -70,7 +70,7 @@
     CGSize btnSize = CGSizeMake(25, 25);
     UIButton * deleteBtn = [UIButton buttonWithType:UIButtonTypeCustom];
     deleteBtn.frame = CGRectMake(CGRectGetWidth(rect) - btnSize.width, 0, btnSize.width, btnSize.height);
-    [deleteBtn setImage:[UIImage imageNamed:kIMG_pictureDelete] forState:UIControlStateNormal];
+    [deleteBtn setImage:UIImage.img_pictureDelete forState:UIControlStateNormal];
     //    deleteBtn.imageEdgeInsets = UIEdgeInsetsMake(-10, 0, 0, -10);
     deleteBtn.tag = kTAG_BTN;
     deleteBtn.alpha = 0.6;

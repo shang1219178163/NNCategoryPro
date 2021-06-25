@@ -426,16 +426,3 @@ static NSArray *_weekList = nil;
 @end
 
 
-
-@implementation NSLocale (Helper)
-
-+ (NSLocale *)zh_CN{
-    return [NSLocale localeWithLocaleIdentifier:kLanguageCN];
-}
-
-+ (NSLocale *)en_US{
-    return [NSLocale localeWithLocaleIdentifier:kLanguageEN];
-}
-
-
-@end

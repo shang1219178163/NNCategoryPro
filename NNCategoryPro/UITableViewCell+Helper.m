@@ -229,7 +229,7 @@
                                 (self.contentView.maxY - kSizeArrow.height)/2.0,
                                 kSizeArrow.width,
                                 kSizeArrow.height);
-        view.image = [UIImage imageNamed:kIMG_arrowRight];
+        view.image = UIImage.img_arrowRight_gray;
         
         view.hidden = YES;
         view;
@@ -285,8 +285,8 @@
     [view setBackgroundImage:UIImageColor(UIColor.redColor) forState:UIControlStateNormal];
     [view setBackgroundImage:UIImageColor(UIColor.lightGrayColor) forState:UIControlStateSelected];
     
-    [view setBackgroundImage:UIImageNamed(kIMG_selected_NO) forState:UIControlStateNormal];
-    [view setBackgroundImage:UIImageNamed(kIMG_selected_YES) forState:UIControlStateSelected];
+    [view setBackgroundImage:UIImage.btn_selected_NO forState:UIControlStateNormal];
+    [view setBackgroundImage:UIImage.btn_selected_YES forState:UIControlStateSelected];
     
     objc_setAssociatedObject(self, _cmd, view, OBJC_ASSOCIATION_RETAIN_NONATOMIC);
     return view;

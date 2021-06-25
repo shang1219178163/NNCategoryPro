@@ -17,6 +17,7 @@
 #import "UILabel+Helper.h"
 #import "UIScreen+Helper.h"
 #import "UIColor+Helper.h"
+#import "UIImage+Helper.h"
 
 
 @implementation UITableViewHeaderFooterView (Helper)
@@ -225,7 +226,7 @@ labelLeftSub, labelLeftMark, labelLeftSubMark, btn;
         view.frame = CGRectMake(self.maxX - kX_GAP - kSizeArrow.width, (self.maxY - kSizeArrow.height)/2.0, kSizeArrow.width, kSizeArrow.height);
 
         view.tag = kTAG_IMGVIEW + 1;
-        view.image = [UIImage imageNamed:kIMG_arrowRight];
+        view.image = UIImage.img_arrowRight_gray;
         
         view.hidden = YES;
         view;
