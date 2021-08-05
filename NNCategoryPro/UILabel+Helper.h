@@ -34,6 +34,8 @@ typedef NS_ENUM(NSUInteger, NNLabelType) {
 - (void)setCustomType:(NNLabelType)type;
 
 - (void)setContent:(NSString *)content attDic:(NSDictionary *)attDic;
+///添加红色星号前缀
+- (void)appendAsteriskPrefix;
 
 @end
 

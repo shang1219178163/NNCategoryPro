@@ -91,5 +91,9 @@
     self.attributedText = attString;
 }
 
+- (void)appendAsteriskPrefix{
+    self.attributedText = [self.text.matt appendPrefix:kAsterisk color:UIColor.redColor font:self.font];
+}
+
 
 @end
