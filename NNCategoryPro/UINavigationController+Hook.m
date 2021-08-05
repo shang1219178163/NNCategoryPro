@@ -8,7 +8,7 @@
 #import "UINavigationController+Hook.h"
 #import "NSObject+Hook.h"
 #import "UIViewController+Helper.h"
-#import <NNGloble/NNGloble.h>
+#import <NNCategoryPro/NNCategoryPro.h>
 
 @implementation UINavigationController (Hook)
  

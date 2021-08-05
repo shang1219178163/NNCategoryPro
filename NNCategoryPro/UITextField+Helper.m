@@ -57,7 +57,10 @@
         block(sender);
     } forControlEvents:UIControlEventTouchUpInside];
     
-    sender.frame = CGRectMake(edge.left, edge.top, view.bounds.size.width - edge.left - edge.right, view.bounds.size.height - edge.top - edge.bottom);
+    sender.frame = CGRectMake(edge.left,
+                              edge.top,
+                              view.bounds.size.width - edge.left - edge.right,
+                              view.bounds.size.height - edge.top - edge.bottom);
     [view addSubview:sender];
     self.rightView = view;
     self.rightViewMode = UITextFieldViewModeAlways;
@@ -67,7 +70,7 @@
 }
 
 
-- (id)asoryImageView:(UIImage *)image{
+- (UIImageView *)asoryImageView:(UIImage *)image{
     NSParameterAssert(image != nil);
     CGSize size = CGSizeMake(20, 20);
     UIImageView *imgView = [[UIImageView alloc]init];

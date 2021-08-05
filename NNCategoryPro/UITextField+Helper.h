@@ -19,7 +19,7 @@ NS_ASSUME_NONNULL_BEGIN
 
 - (void)addPasswordEveBlock:(UIImage *)image imageSelected:(UIImage *)imageSelected edge:(UIEdgeInsets)edge block:(void(^)(UIButton *))block;
 
-- (id)asoryImageView:(UIImage *)image;
+- (UIImageView *)asoryImageView:(UIImage *)image;
 
 - (id)asoryView:(NSString *)unitString;
 

@@ -78,16 +78,14 @@ NS_ASSUME_NONNULL_BEGIN
 /// 差集
 - (NSArray *)differenceWithArray:(NSArray *)array;
 
+/// 快速生成一个数组
++ (NSArray *)arrayWithCount:(NSInteger)count generator:(id (NS_NOESCAPE ^)(NSUInteger idx))generator;
+
 /// 快速生成一个数组(step代表步长)
 + (NSArray<NSNumber *> *)range:(NSInteger)start end:(NSInteger)end step:(NSInteger)step;
 
 /// from,to之间的随机数数组
 + (NSArray *)arrayRandomFrom:(NSInteger)from to:(NSInteger)to count:(NSInteger)count;
-
-/// 有序图片数组或者字符串数字
-+ (NSArray *)arrayItemPrefix:(NSString *)prefix
-                  startIndex:(NSInteger)startIndex
-                       count:(NSInteger)count;
 
 
 @end

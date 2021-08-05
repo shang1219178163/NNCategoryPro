@@ -246,19 +246,14 @@ void dispatch_main_apply(NSUInteger count, void(^block)(size_t index)){
 /**
  富文本只有和一般文字同字体大小才能计算高度
  */
-- (CGSize)sizeWithText:(id)text font:(id)font width:(CGFloat)width{
+- (CGSize)sizeWithText:(id)text font:(UIFont *)font width:(CGFloat)width{
     if (!text) return CGSizeZero;
 
     NSAssert([text isKindOfClass:[NSString class]] || [text isKindOfClass:[NSAttributedString class]], @"请检查text格式!");
-    NSAssert([font isKindOfClass:[UIFont class]] || [font isKindOfClass:[NSNumber class]], @"请检查font格式!");
-    
-    if ([font isKindOfClass:[NSNumber class]]) {
-        font = [UIFont systemFontOfSize:[(NSNumber *)font floatValue]];
-    }
     
     CGSize size = CGSizeZero;
     if ([text isKindOfClass:[NSString class]]) {
-        NSDictionary *attrDict = [NSAttributedString paraDictWithFont:((UIFont *)font).pointSize
+        NSDictionary *attrDict = [NSAttributedString paraDictWithFont:font
                                                             textColor:UIColor.blackColor
                                                             alignment:NSTextAlignmentLeft];
         size = [text boundingRectWithSize:CGSizeMake(width, MAXFLOAT)

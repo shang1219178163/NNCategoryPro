@@ -9,6 +9,7 @@
 
 #import "NSString+Helper.h"
 
+#import "NSArray+Helper.h"
 #import "UIApplication+Helper.h"
 #import "UIViewController+Helper.h"
 
@@ -312,24 +313,6 @@ NSString * NSStringFromIndexPath(NSIndexPath *indexPath) {
     return result;
 }
 
-//- (CGSize)sizeWithFont:(UIFont *)font width:(CGFloat)width mode:(NSLineBreakMode)lineBreakMode {
-//    if (!font) font = [UIFont systemFontOfSize:15];
-//
-//    NSMutableDictionary *attr = [NSMutableDictionary dictionary];
-//    attr[NSFontAttributeName] = font;
-//    if (lineBreakMode != NSLineBreakByWordWrapping) {
-//        NSMutableParagraphStyle *style = [NSMutableParagraphStyle new];
-//        style.lineBreakMode = lineBreakMode;
-//        attr[NSParagraphStyleAttributeName] = style;
-//    }
-//    CGRect rect = [self boundingRectWithSize:CGSizeMake(width, CGFLOAT_MAX)
-//                                     options:NSStringDrawingUsesLineFragmentOrigin | NSStringDrawingUsesFontLeading
-//                                  attributes:attr
-//                                     context:nil];
-//    CGSize result = rect.size;
-//    return result;
-//}
-
 + (NSString *)repeating:(NSString *)repeatedValue count:(NSInteger)count{
     NSString *string = @"";
     for (NSInteger i = 0; i < count; i++) {
@@ -344,6 +327,20 @@ NSString * NSStringFromIndexPath(NSIndexPath *indexPath) {
         string = [string stringByAppendingString:self];
     }
     return string;
+}
+
+- (NSString *)padLeft:(NSInteger)width padding:(NSString *)padding{
+    if (width < self.length) {
+        return self;
+    }
+    return [[padding repeating: width - self.length] stringByAppendingString:self];
+}
+
+- (NSString *)padRight:(NSInteger)width padding:(NSString *)padding{
+    if (width < self.length) {
+        return self;
+    }
+    return [self stringByAppendingString:[padding repeating: width - self.length]];
 }
 
 - (NSString *)stringByTrimmingCharactersInString:(NSString *)string{
@@ -442,7 +439,9 @@ NSString * NSStringFromIndexPath(NSIndexPath *indexPath) {
  */
 - (NSAttributedString *)toAsterisk{
     BOOL isMust = [self containsString:kAsterisk] ? YES : NO;
-    NSAttributedString *attr = [NSAttributedString getAttringByPrefix:kAsterisk content:self isMust:isMust color:UIColor.blackColor];
+    
+    NSAttributedString *attr = [self.matt appendPrefix:kAsterisk color:UIColor.redColor font:[UIFont systemFontOfSize:15]];
+//    NSAttributedString *attr = [NSAttributedString getAttringByPrefix:kAsterisk content:self isMust:isMust color:UIColor.blackColor];
     return attr;
 }
 

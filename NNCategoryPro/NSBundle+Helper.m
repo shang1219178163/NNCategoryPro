@@ -10,14 +10,6 @@
 
 @implementation NSBundle (Helper)
 
-NSBundle *NSBundleFromParams(Class aClass, NSString *bundleName){
-    return NSBundleFromName(bundleName, bundleName);
-}
-
-NSBundle *NSBundleFromPodName(NSString *podName){
-    return NSBundleFromName(podName, podName);
-}
-
 NSBundle *NSBundleFromName(NSString *bundleName, NSString *podName){
     if (!bundleName && !podName) {
         @throw @"bundleName和podName不能同时为空";

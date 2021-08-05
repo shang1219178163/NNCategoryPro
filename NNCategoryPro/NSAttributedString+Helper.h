@@ -17,14 +17,9 @@ NS_ASSUME_NONNULL_BEGIN
 - (CGSize)sizeWithWidth:(CGFloat)width;
 
 /**
- 富文本特殊部分设置
- */
-+ (NSDictionary *)attrDictWithFont:(CGFloat)font textColor:(UIColor *)textColor;
-
-/**
  富文本整体设置
  */
-+ (NSDictionary *)paraDictWithFont:(CGFloat)font textColor:(UIColor *)textColor alignment:(NSTextAlignment)alignment;
++ (NSDictionary *)paraDictWithFont:(UIFont *)font textColor:(UIColor *)textColor alignment:(NSTextAlignment)alignment;
 
 /**
  [源]富文本
@@ -36,7 +31,7 @@ NS_ASSUME_NONNULL_BEGIN
  */
 + (NSAttributedString *)getAttString:(NSString *)text
                             textTaps:(NSArray<NSString *> *_Nullable)textTaps
-                                font:(CGFloat)font
+                                font:(UIFont *)font
                                color:(UIColor *)color
                             tapColor:(UIColor *)tapColor
                            alignment:(NSTextAlignment)alignment;
@@ -54,10 +49,10 @@ NS_ASSUME_NONNULL_BEGIN
  */
 + (NSMutableAttributedString *)getAttString:(NSString *)string textTaps:(NSArray<NSString *> *)textTaps;
 
-/**
- (推荐)单个标题前加*
- */
-+ (NSAttributedString *)getAttringByPrefix:(NSString *)prefix content:(NSString *)content isMust:(BOOL)isMust color:(UIColor *)color;
+///**
+// (推荐)单个标题前加*
+// */
+//+ (NSAttributedString *)getAttringByPrefix:(NSString *)prefix content:(NSString *)content isMust:(BOOL)isMust color:(UIColor *)color;
 
 
 + (NSAttributedString *)hyperlinkFromString:(NSString *)string withURL:(NSURL *)aURL font:(UIFont *)font;
@@ -123,6 +118,9 @@ NS_ASSUME_NONNULL_BEGIN
 // Attachment
 @property(nonatomic, strong, readonly) NSMutableAttributedString *(^attachment)(NSTextAttachment *);
 
+- (NSMutableAttributedString *)appendPrefix:(NSString *)prefix color:(UIColor *)color font:(UIFont *)font;
+
+- (NSMutableAttributedString *)appendSuffix:(NSString *)suffix color:(UIColor *)color font:(UIFont *)font;
 
 @end
 

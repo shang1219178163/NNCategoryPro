@@ -12,8 +12,6 @@ NS_ASSUME_NONNULL_BEGIN
 
 @interface NSBundle (Helper)
 
-FOUNDATION_EXPORT NSBundle *NSBundleFromParams(Class aClass, NSString *bundleName);
-FOUNDATION_EXPORT NSBundle *NSBundleFromPodName(NSString *podName);
 /// 获取第三方库bundle资源
 FOUNDATION_EXPORT NSBundle *NSBundleFromName(NSString *bundleName, NSString *podName);
 

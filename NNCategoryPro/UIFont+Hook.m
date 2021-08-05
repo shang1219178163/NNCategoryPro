@@ -25,7 +25,7 @@ NSString * const kPingFangThin       = @"PingFangSC-Thin";
 //    });
 //}
 //
-//- (UIFont *)hook_systemFont:(CGFloat)fontSize{
+//- (UIFont *)hook_systemFont:(UIFont *)fontSize{
 //    return [UIFont fontWithName:kPingFangRegular size:fontSize];
 //}
 

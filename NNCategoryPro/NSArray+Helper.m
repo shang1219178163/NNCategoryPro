@@ -231,6 +231,18 @@
     return [aSubtractB unionWithArray:bSubtractA];
 }
 
++ (NSArray *)arrayWithCount:(NSInteger)count generator:(id (NS_NOESCAPE ^)(NSUInteger idx))generator{
+    assert(generator);
+    NSMutableArray *marr = [NSMutableArray array];
+    for (NSInteger i = 0; i <= count; i++) {
+        id value = generator(i);
+        if (value) {
+            [marr addObject:value];
+        }
+    }
+    return marr.copy;
+}
+
 + (NSArray<NSNumber *> *)range:(NSInteger)start end:(NSInteger)end step:(NSInteger)step{
     assert(start < end);
     NSMutableArray *list = [NSMutableArray array];
@@ -251,17 +263,6 @@
     for (NSInteger i = 0; i < count; i++) {
         NSInteger inter = (from + (arc4random() % (to - from + 1)));
         [marr addObject:@(inter)];
-    }
-    return marr.copy;
-}
-
-+ (NSArray *)arrayItemPrefix:(NSString *)prefix
-                  startIndex:(NSInteger)startIndex
-                       count:(NSInteger)count{
-    NSMutableArray *marr = [NSMutableArray array];
-    for (NSInteger i = startIndex; i <= startIndex + count; i++) {
-        NSString *title = [NSString stringWithFormat:@"%@%@",prefix,@(i)];
-        [marr addObject:title];
     }
     return marr.copy;
 }

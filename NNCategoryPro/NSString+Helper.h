@@ -85,11 +85,14 @@ NSString * NSStringFromIndexPath(NSIndexPath *indexPath);
 - (NSString *)mapBySeparator:(NSString *)separator transform:(NSString * (NS_NOESCAPE ^)(NSString *obj))transform;
 
 - (CGSize)sizeWithFont:(UIFont *)font width:(CGFloat)width;
-//- (CGSize)sizeWithFont:(UIFont *)font width:(CGFloat)width mode:(NSLineBreakMode)lineBreakMode;
 
 + (NSString *)repeating:(NSString *)repeatedValue count:(NSInteger)count;
 
 - (NSString *)repeating:(NSInteger)count;
+
+- (NSString *)padLeft:(NSInteger)width padding:(NSString *)padding;
+
+- (NSString *)padRight:(NSInteger)width padding:(NSString *)padding;
 
 - (NSString *)stringByTrimmingCharactersInString:(NSString *)string;
 

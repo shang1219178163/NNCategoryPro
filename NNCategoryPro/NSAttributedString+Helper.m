@@ -21,25 +21,15 @@
 }
 
 /**
- 富文本特殊部分设置
- */
-+ (NSDictionary *)attrDictWithFont:(CGFloat)font textColor:(UIColor *)textColor{
-    return @{NSFontAttributeName:            [UIFont fontWithName:@"PingFangSC-Light" size:font],
-             NSForegroundColorAttributeName: textColor,
-             NSBackgroundColorAttributeName: UIColor.clearColor
-             };
-}
-
-/**
  富文本整体设置
  */
-+ (NSDictionary *)paraDictWithFont:(CGFloat)font textColor:(UIColor *)textColor alignment:(NSTextAlignment)alignment{
++ (NSDictionary *)paraDictWithFont:(UIFont *)font textColor:(UIColor *)textColor alignment:(NSTextAlignment)alignment{
     NSMutableParagraphStyle *paraStyle = [[NSMutableParagraphStyle alloc] init];
     paraStyle.lineBreakMode = NSLineBreakByCharWrapping;
     paraStyle.alignment = alignment;
     //    paraStyle.lineSpacing = 5;//行间距
     
-    return @{NSFontAttributeName: [UIFont systemFontOfSize:font],
+    return @{NSFontAttributeName: font,
              NSForegroundColorAttributeName: textColor,
              NSBackgroundColorAttributeName: UIColor.clearColor,
              NSParagraphStyleAttributeName: paraStyle,
@@ -58,7 +48,7 @@
  */
 + (NSAttributedString *)getAttString:(NSString *)text
                             textTaps:(NSArray<NSString *> *_Nullable)textTaps
-                                font:(CGFloat)font
+                                Font:(UIFont *)font
                                color:(UIColor *)color
                             tapColor:(UIColor *)tapColor
                            alignment:(NSTextAlignment)alignment{
@@ -72,7 +62,7 @@
         // 创建文字属性
         [attString addAttributes:@{
             NSForegroundColorAttributeName: color,
-            NSFontAttributeName: [UIFont systemFontOfSize:font],
+            NSFontAttributeName: font,
             
         } range:range];
     }
@@ -85,7 +75,7 @@
                             tapColor:(UIColor *)tapColor{
     return [NSAttributedString getAttString:string
                                    textTaps:textTaps
-                                       font:16
+                                       font:[UIFont systemFontOfSize:16]
                                       color: color
                                    tapColor:tapColor
                                   alignment: NSTextAlignmentLeft];
@@ -96,39 +86,40 @@
  富文本产生
  */
 + (NSMutableAttributedString *)getAttString:(NSString *)string textTaps:(NSArray<NSString *> *)textTaps{
-    NSMutableAttributedString *attString = [[NSMutableAttributedString alloc]initWithString:string];
-    [attString addAttribute:NSFontAttributeName value:[UIFont systemFontOfSize:16] range:NSMakeRange(0, string.length)];
+    NSMutableAttributedString *matt = [[NSMutableAttributedString alloc]initWithString:string];
+    [matt addAttributes:@{ NSFontAttributeName: [UIFont systemFontOfSize:16] }
+                  range:NSMakeRange(0, string.length)];
     
     for (NSInteger i = 0; i < textTaps.count; i++){
-        [attString addAttributes:@{
+        [matt addAttributes:@{
             NSForegroundColorAttributeName: UIColor.orangeColor,
             NSFontAttributeName: [UIFont systemFontOfSize:16],
             
         } range:[string rangeOfString:textTaps[i]]];
     }
-    return attString;
+    return matt;
 }
 
 
-/**
- (推荐)单个标题前加*
- */
-+ (NSAttributedString *)getAttringByPrefix:(NSString *)prefix content:(NSString *)content isMust:(BOOL)isMust color:(UIColor *)color{
-    
-    if (![content hasPrefix:prefix]) content = [prefix stringByAppendingString:content];
-    
-    UIColor *colorMust = isMust ? UIColor.redColor : UIColor.clearColor;
-    
-    NSArray *textTaps = @[prefix];
-    NSAttributedString *attString = [NSAttributedString getAttString:content
-                                                            textTaps:textTaps
-                                                                font:15
-                                                               color:color
-                                                            tapColor:colorMust
-                                                           alignment:NSTextAlignmentCenter];
-
-    return attString;
-}
+///**
+// (推荐)单个标题前加*
+// */
+//+ (NSAttributedString *)getAttringByPrefix:(NSString *)prefix content:(NSString *)content isMust:(BOOL)isMust color:(UIColor *)color{
+//    
+//    if (![content hasPrefix:prefix]) content = [prefix stringByAppendingString:content];
+//    
+//    UIColor *colorMust = isMust ? UIColor.redColor : UIColor.clearColor;
+//    
+//    NSArray *textTaps = @[prefix];
+//    NSAttributedString *attString = [NSAttributedString getAttString:content
+//                                                            textTaps:textTaps
+//                                                                font:[UIFont systemFontOfSize:15]
+//                                                               color:color
+//                                                            tapColor:colorMust
+//                                                           alignment:NSTextAlignmentCenter];
+//
+//    return attString;
+//}
 
 + (NSAttributedString *)hyperlinkFromString:(NSString *)string withURL:(NSURL *)aURL font:(UIFont *)font{
     NSMutableAttributedString *attrString = [[NSMutableAttributedString alloc] initWithString: string];
@@ -290,6 +281,38 @@
         [self addAttributes:@{NSBaselineOffsetAttributeName: @(value)} range:NSMakeRange(0, self.length)];
         return self;
     };
+}
+
+- (NSMutableAttributedString *)appendPrefix:(NSString *)prefix color:(UIColor *)color font:(UIFont *)font{
+    NSDictionary *attributes = @{
+        NSForegroundColorAttributeName: color,
+        NSFontAttributeName: font};
+    
+    NSRange range = [self.string rangeOfString:prefix];
+    if (range.location == NSNotFound) {
+        NSMutableAttributedString *matt = [[NSMutableAttributedString alloc]initWithString:prefix
+                                                                                attributes:attributes];
+        [self insertAttributedString:matt atIndex:0];
+        return self;
+    }
+    [self addAttributes:attributes range:range];
+    return self;
+}
+
+- (NSMutableAttributedString *)appendSuffix:(NSString *)suffix color:(UIColor *)color font:(UIFont *)font{
+    NSDictionary *attributes = @{
+        NSForegroundColorAttributeName: color,
+        NSFontAttributeName: font};
+    
+    NSRange range = [self.string rangeOfString:suffix options:NSBackwardsSearch];
+    if (range.location == NSNotFound) {
+        NSMutableAttributedString *matt = [[NSMutableAttributedString alloc]initWithString:suffix
+                                                                                attributes:attributes];
+        [self appendAttributedString:matt];
+        return self;
+    }
+    [self addAttributes:attributes range:range];
+    return self;
 }
 
 @end

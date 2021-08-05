@@ -65,7 +65,7 @@ void dispatch_main_apply(NSUInteger count, void(^block)(size_t index));
 - (NSDictionary *)toDictionary;
 
 ///(通用)富文本只有和一般文字同字体大小才能计算高度
-- (CGSize)sizeWithText:(id)text font:(id)font width:(CGFloat)width;
+- (CGSize)sizeWithText:(id)text font:(UIFont *)font width:(CGFloat)width;
 
 @end
 
