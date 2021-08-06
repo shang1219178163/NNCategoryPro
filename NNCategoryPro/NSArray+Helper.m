@@ -92,9 +92,7 @@
 }
 
 - (void)forEach:(id (NS_NOESCAPE ^)(id obj, NSUInteger idx))block{
-    if (!block) {
-        return;
-    }
+    if (!block) { return; }
     [self enumerateObjectsUsingBlock:^(id _Nonnull obj, NSUInteger idx, BOOL * _Nonnull stop) {
         block(obj, idx);
     }];
@@ -162,9 +160,7 @@
 
 - (void)recursionModel:(NSObject *)model list:(NSMutableArray *)list childKey:(NSString *)childKey{
     NSArray *children = [model valueForKey:childKey];
-    if (!children) {
-        return;
-    }
+    if (!children) { return; }
     
     for (NSObject *model in children) {
         [list addObject:model];

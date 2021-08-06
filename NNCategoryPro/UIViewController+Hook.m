@@ -88,7 +88,6 @@
 #pragma mark -滑动开始会触发
 
 -(BOOL)gestureRecognizerShouldBegin:(UIGestureRecognizer *)gestureRecognizer{
-    // 手势
     if ([self isKindOfClass:[UINavigationController class]]) {
         if(gestureRecognizer == ((UINavigationController *)self).interactivePopGestureRecognizer){
             if(((UINavigationController *)self).viewControllers.count < 2){

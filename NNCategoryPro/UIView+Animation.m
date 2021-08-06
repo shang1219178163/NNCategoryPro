@@ -34,7 +34,6 @@
 }
 
 - (void)aimationBigValues:(NSArray *)values{
-    
     values = values ? : @[@1.6,];
     
     NSTimeInterval duration = 1.0/(values.count + 1);
@@ -112,12 +111,12 @@
 - (void)addAnimLoginHandler:(void(^)(void))handler{
     UIView *sender = self;
     CALayer *layer0 = [sender.layer addAnimMask:@"mask"];
-    CAAnimation * anim0 = [layer0 animationForKey:@"mask"];
+    CAAnimation *anim0 = [layer0 animationForKey:@"mask"];
     dispatch_after(dispatch_time(DISPATCH_TIME_NOW, (int64_t)(anim0.duration * NSEC_PER_SEC)), dispatch_get_main_queue(), ^{
         [layer0 removeFromSuperlayer];
         
         CALayer *layer1 = [sender.layer addAnimPackup:@"Packup"];
-        CAAnimation * anim1 = [layer1 animationForKey:@"Packup"];
+        CAAnimation *anim1 = [layer1 animationForKey:@"Packup"];
         
         dispatch_after(dispatch_time(DISPATCH_TIME_NOW, (int64_t)(anim1.duration* NSEC_PER_SEC)), dispatch_get_main_queue(), ^{
             [layer1 removeFromSuperlayer];
@@ -201,8 +200,7 @@
 
 - (CAAnimationGroup *)addAnimCartWithSender:(UIView *)sender pointEnd:(CGPoint)pointEnd{
     CGRect rect = [self convertRect:sender.frame fromView:sender.superview];
-    //    DDLog(@"%@_%@_%@",NSStringFromCGRect(rect),NSStringFromCGPoint(sender.center),NSStringFromCGPoint(sender.layer.position));
-    
+
     CALayer *shipLabyer = [self shipLabyerWithList:self.cacheList sender:sender];
     shipLabyer.frame = rect;
     
@@ -228,7 +226,7 @@
                                                               repeatCount:1];
     
     //旋转动画
-    CABasicAnimation* rotationAnim = [CABasicAnimation animKeyPath:kTransformRotationZ
+    CABasicAnimation *rotationAnim = [CABasicAnimation animKeyPath:kTransformRotationZ
                                                           duration:1.5
                                                          fromValue:@(0)
                                                            toValue:@(M_PI * 2.0)
@@ -239,7 +237,7 @@
                                                       functionName:kCAMediaTimingFunctionEaseIn];
     
     //缩放动画
-    CABasicAnimation* scaleAnim = [CABasicAnimation animKeyPath:kTransformScale
+    CABasicAnimation *scaleAnim = [CABasicAnimation animKeyPath:kTransformScale
                                                        duration:1.5
                                                       fromValue:@(1.0)
                                                         toValue:@(0.1)
@@ -249,7 +247,7 @@
                                             removedOnCompletion:NO
                                                    functionName:kCAMediaTimingFunctionEaseIn];
     
-    NSArray * animList = @[keyframeAnim, rotationAnim, scaleAnim];
+    NSArray *animList = @[keyframeAnim, rotationAnim, scaleAnim];
     CAAnimationGroup * groupAnim = [CAAnimationGroup animList:animList
                                                      duration:1.5
                                                  autoreverses:NO
@@ -266,9 +264,7 @@
 
 - (void)animationDidStop:(CAAnimation *)anim finished:(BOOL)flag{
     CALayer *layer = self.keepList.firstObject;
-    if (!layer) {
-        return;
-    }
+    if (!layer) { return; }
     [layer removeAllAnimations];
     [self.cacheList addObject:layer];
     [layer removeFromSuperlayer];

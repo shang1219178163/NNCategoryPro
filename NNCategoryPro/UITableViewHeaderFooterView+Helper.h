@@ -16,6 +16,7 @@ NS_ASSUME_NONNULL_BEGIN
 @interface UITableViewHeaderFooterView (Helper)
 
 +(instancetype)dequeueReusableHeaderFooterView:(UITableView *)tableView identifier:(NSString *)identifier;
+
 +(instancetype)dequeueReusableHeaderFooterView:(UITableView *)tableView;
 
 @end

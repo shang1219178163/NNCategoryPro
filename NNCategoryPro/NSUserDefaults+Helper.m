@@ -77,9 +77,7 @@
 
 
 + (void)setArcObject:(id)value forKey:(NSString *)key{
-    if (!value) {
-        return;
-    }
+    if (!value) { return; }
     NSData *data = [NSKeyedArchiver archivedDataWithRootObject:value];
     [self.standardUserDefaults setObject:data forKey:key];
 }
