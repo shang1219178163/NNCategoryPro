@@ -54,6 +54,25 @@ NS_ASSUME_NONNULL_BEGIN
             handler:(void(^)(UNUserNotificationCenter *center,
                              UNNotificationRequest *request,
                              NSError * _Nullable error))handler;
+
+/// 添加 UNTimeIntervalNotificationTrigger 到通知中心
+- (void)addTimeIntervalRequestToCenter:(NSTimeInterval)timeInterval
+                               repeats:(BOOL)repeats
+                               handler:(void(^)(UNUserNotificationCenter *center,
+                                                UNNotificationRequest *request,
+                                                NSError * _Nullable error))handler;
+/// 添加 UNCalendarNotificationTrigger 到通知中心
+- (void)addCalendarRequestToCenter:(NSDateComponents *)dateComponents
+                           repeats:(BOOL)repeats
+                           handler:(void(^)(UNUserNotificationCenter *center,
+                                            UNNotificationRequest *request,
+                                            NSError * _Nullable error))handler;
+/// 添加 UNLocationNotificationTrigger 到通知中心
+- (void)addLocationRequestToCenter:(CLRegion *)region
+                           repeats:(BOOL)repeats
+                           handler:(void(^)(UNUserNotificationCenter *center,
+                                            UNNotificationRequest *request,
+                                            NSError * _Nullable error))handler;
 @end
 
 NS_ASSUME_NONNULL_END

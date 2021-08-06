@@ -16,6 +16,8 @@ NS_ASSUME_NONNULL_BEGIN
  */
 + (instancetype)createItem:(NSString *)obj style:(UIBarButtonItemStyle)style target:(id _Nullable)target action:(SEL _Nullable)action;
 
++ (instancetype)customViewWithButton:(NSString *)obj handler:(void(^)(UIButton *sender))handler;
+
 /// 闭包回调
 - (void)addActionBlock:(void (^)(UIBarButtonItem *item))block;
 /// 是否隐藏按钮

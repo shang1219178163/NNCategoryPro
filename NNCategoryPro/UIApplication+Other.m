@@ -130,7 +130,9 @@
                 body:(NSString *)body
             userInfo:(NSDictionary *)userInfo
           identifier:(NSString *)identifier
-             handler:(void(^)(UNUserNotificationCenter *center, UNNotificationRequest *request, NSError * _Nullable error))handler{
+             handler:(void(^)(UNUserNotificationCenter *center,
+                              UNNotificationRequest *request,
+                              NSError * _Nullable error))handler{
     UNMutableNotificationContent *content = [[UNMutableNotificationContent alloc] init];
     content.sound = UNNotificationSound.defaultSound;
     content.title = title;
@@ -264,17 +266,6 @@
             handler:(void(^)(UNUserNotificationCenter *center,
                              UNNotificationRequest *request,
                              NSError * _Nullable error))handler{
-//    if (UIApplication.sharedApplication.currentUserNotificationSettings.types == UIUserNotificationTypeNone) {
-//        UIAlertController *alertVC = [UIAlertController alertControllerWithTitle:@"请在[设置]-[通知]中打开推送功能"
-//                                                                         message:nil
-//                                                                  preferredStyle:UIAlertControllerStyleAlert];
-//        [alertVC addActionTitles:@[kTitleKnow] handler:nil];
-//        [alertVC present:true completion:nil];
-//#ifdef DEBUG
-//        NSLog(@"请在[设置]-[通知]中打开推送功能");
-//#endif
-//        return;
-//    }
     NSString *identifier = [NSString stringWithFormat:@"%@", NSDate.date];
     UNNotificationRequest *request = [UNNotificationRequest requestWithIdentifier: identifier
                                                                           content: self
@@ -296,6 +287,40 @@
     }];
 }
 
+
+- (void)addTimeIntervalRequestToCenter:(NSTimeInterval)timeInterval
+                               repeats:(BOOL)repeats
+                               handler:(void(^)(UNUserNotificationCenter *center,
+                                                UNNotificationRequest *request,
+                                                NSError * _Nullable error))handler{    
+    UNTimeIntervalNotificationTrigger *trigger = [UNTimeIntervalNotificationTrigger triggerWithTimeInterval:timeInterval
+                                                                                                    repeats:repeats];
+    
+    [self addToCenter:trigger handler:handler];
+}
+
+
+- (void)addCalendarRequestToCenter:(NSDateComponents *)dateComponents
+                           repeats:(BOOL)repeats
+                           handler:(void(^)(UNUserNotificationCenter *center,
+                                            UNNotificationRequest *request,
+                                            NSError * _Nullable error))handler{
+    UNCalendarNotificationTrigger *trigger = [UNCalendarNotificationTrigger triggerWithDateMatchingComponents:dateComponents
+                                                                                                      repeats:repeats];
+    [self addToCenter:trigger handler:handler];
+}
+
+
+- (void)addLocationRequestToCenter:(CLRegion *)region
+                           repeats:(BOOL)repeats
+                           handler:(void(^)(UNUserNotificationCenter *center,
+                                            UNNotificationRequest *request,
+                                            NSError * _Nullable error))handler{
+    UNLocationNotificationTrigger *trigger = [UNLocationNotificationTrigger triggerWithRegion:region
+                                                                                      repeats:repeats];
+    
+    [self addToCenter:trigger handler:handler];
+}
 
 @end
 
