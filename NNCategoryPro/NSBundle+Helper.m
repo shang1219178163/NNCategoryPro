@@ -38,10 +38,6 @@ NSBundle *NSBundleFromName(NSString *bundleName, NSString *podName){
     return assBundleURL ? [NSBundle bundleWithURL:assBundleURL] : nil;
 }
 
-+(NSBundle *)bundleWithPodName:(NSString *)podName bundleName:(NSString *)bundleName{
-    return NSBundleFromName(bundleName, podName);
-}
-
 + (NSString *)pathBundle:(NSString *)bundleName resource:(NSString *)resource type:(NSString *_Nullable)type{
     NSBundle *bundle = NSBundleFromName(bundleName, bundleName);
     NSString *path = [bundle pathForResource:resource ofType:type];

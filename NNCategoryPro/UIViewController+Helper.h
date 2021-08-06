@@ -27,8 +27,6 @@ FOUNDATION_EXPORT UINavigationController * _Nullable UINavCtrFromObj(id obj);
 
 - (UIButton *)createBackItem:(UIImage *)image;
 
-- (void)setupExtendedLayout;
-
 - (void)setupContentInsetAdjustmentBehavior:(BOOL)isAutomatic;
 ///避免多个呈现造成的 app 崩溃
 - (void)present:(BOOL)animated completion:(void (^ __nullable)(void))completion;
@@ -39,11 +37,6 @@ FOUNDATION_EXPORT UINavigationController * _Nullable UINavCtrFromObj(id obj);
 /// [源]创建UISearchController(设置IQKeyboardManager.shared.enable = false;//避免searchbar下移)
 - (UISearchController *)createSearchVC:(UIViewController *)resultsVC;
 
-/**
- 可隐藏的导航栏按钮
- */
-- (UIView *)createBarItem:(NSString *)obj isLeft:(BOOL)isLeft handler:(void(^)(UIButton *sender))handler;
-
 - (UIViewController *)addControllerName:(NSString *)vcName;
 /// 添加子控制器(对应方法 removeControllerVC)
 - (void)addControllerVC:(UIViewController *)vc;
@@ -51,8 +44,6 @@ FOUNDATION_EXPORT UINavigationController * _Nullable UINavCtrFromObj(id obj);
 - (void)removeFromSuperVC;
 /// 显示controller(手动调用viewWillAppear和viewDidAppear,viewWillDisappear)
 - (void)transitionToVC:(UIViewController *)controller;
-
-- (void)setNavigationBarBackgroundColor:(UIColor *)color;
 
 - (void)popGestureClose;
 

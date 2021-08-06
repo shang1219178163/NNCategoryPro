@@ -41,15 +41,11 @@ UINavigationController * _Nullable UINavCtrFromObj(NSString *value){
     return nil;
 }
 
-
 - (BOOL)isCurrentVisibleVC{
     return (self.isViewLoaded && self.view.window);
 }
 
-//}
-/**
- 返回按钮专用
- */
+/// 返回按钮专用
 - (UIButton *)createBackItem:(UIImage *)image{
     UIColor *tintColor = UINavigationBar.appearance.tintColor ? : UIColor.blackColor;
 
@@ -70,14 +66,6 @@ UINavigationController * _Nullable UINavCtrFromObj(NSString *value){
     return btn;
 }
 
-- (void)setupExtendedLayout{
-    self.edgesForExtendedLayout = UIRectEdgeNone;
-    self.view.backgroundColor = UIColor.whiteColor;
-    self.title = self.vcName;
-    
-    [self setupContentInsetAdjustmentBehavior:false];
-}
-
 - (void)setupContentInsetAdjustmentBehavior:(BOOL)isAutomatic{
     if (@available(iOS 11.0, *)) {
 //        UIScrollView.appearance.contentInsetAdjustmentBehavior = isAutomatic ? UIScrollViewContentInsetAdjustmentAutomatic : UIScrollViewContentInsetAdjustmentNever;
@@ -89,7 +77,8 @@ UINavigationController * _Nullable UINavCtrFromObj(NSString *value){
 }
 
 - (void)present:(BOOL)animated completion:(void (^ __nullable)(void))completion{
-    UIWindow *keyWindow = UIApplication.sharedApplication.delegate.window;
+    UIWindow *keyWindow = UIApplication.sharedApplication.keyWindow ? : UIApplication.sharedApplication.windows.firstObject;
+    self.modalPresentationStyle = UIModalPresentationOverFullScreen;
     dispatch_async(dispatch_get_main_queue(), ^{
         if ([self isKindOfClass:UIAlertController.class]) {
             UIAlertController *alertVC = (UIAlertController *)self;
@@ -166,27 +155,6 @@ UINavigationController * _Nullable UINavCtrFromObj(NSString *value){
     return searchVC;
 }
 
-/**
- 可隐藏的导航栏按钮
- */
-- (UIView *)createBarItem:(NSString *)obj isLeft:(BOOL)isLeft handler:(void(^)(UIButton *sender))handler{
-    UIButton *sender = [UIButton buttonWithType:UIButtonTypeSystem];
-    if ([UIImage imageNamed:obj]) {
-        [sender setImage:[UIImage imageNamed:obj] forState:UIControlStateNormal];
-    } else {
-        [sender setTitle:obj forState:UIControlStateNormal];
-    }
-    [sender addActionHandler:handler forControlEvents:UIControlEventTouchUpInside];
-   
-    UIBarButtonItem *barItem = [[UIBarButtonItem alloc]initWithCustomView:sender];
-    if (isLeft) {
-        self.navigationItem.leftBarButtonItem = barItem;
-    } else {
-        self.navigationItem.rightBarButtonItem = barItem;
-    }
-    return sender;
-}
-
 -(NSString *)vcName{
     NSString *className = NSStringFromClass(self.class);
     if (![className hasSuffix:@"Controller"]) {
@@ -211,21 +179,17 @@ UINavigationController * _Nullable UINavCtrFromObj(NSString *value){
 - (UIViewController *)getCurrentVCFrom:(UIViewController *)rootVC{
     UIViewController *currentVC;
     
-    if ([rootVC presentedViewController]) {
-        // 视图是被presented出来的
+    if ([rootVC presentedViewController]) { // 视图是被presented出来的
         rootVC = [rootVC presentedViewController];
     }
     
-    if ([rootVC isKindOfClass:[UITabBarController class]]) {
-        // 根视图为UITabBarController
+    if ([rootVC isKindOfClass:[UITabBarController class]]) { // 根视图为UITabBarController
         currentVC = [self getCurrentVCFrom:[(UITabBarController *)rootVC selectedViewController]];
     }
-    else if ([rootVC isKindOfClass:[UINavigationController class]]){
-        // 根视图为UINavigationController
+    else if ([rootVC isKindOfClass:[UINavigationController class]]){ // 根视图为UINavigationController
         currentVC = [self getCurrentVCFrom:[(UINavigationController *)rootVC visibleViewController]];
     }
-    else {
-        // 根视图为非导航类
+    else { // 根视图为非导航类
         currentVC = rootVC;
     }
     return currentVC;
@@ -264,10 +228,6 @@ UINavigationController * _Nullable UINavCtrFromObj(NSString *value){
      isAppearing 设置为 false : 触发 viewWillDisappear:;
      endAppearanceTransition方法会基于我们传入的isAppearing来调用viewDidAppear:以及viewDidDisappear:方法
      */
-}
-
-- (void)setNavigationBarBackgroundColor:(UIColor *)color{
-    [self.navigationController.navigationBar setBackgroundColor:color];
 }
 
 - (void)popGestureClose{

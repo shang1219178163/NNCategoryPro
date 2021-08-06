@@ -15,7 +15,6 @@ NS_ASSUME_NONNULL_BEGIN
 /// 获取第三方库bundle资源
 FOUNDATION_EXPORT NSBundle *NSBundleFromName(NSString *bundleName, NSString *podName);
 
-+ (NSBundle *)bundleWithPodName:(NSString *)podName bundleName:(NSString *)bundleName;
 /// 获取第三方库bundle资源文件路径
 + (NSString *)pathBundle:(NSString *)bundleName resource:(NSString *)resource type:(NSString *_Nullable)type;
 

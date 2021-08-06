@@ -16,13 +16,6 @@ NS_ASSUME_NONNULL_BEGIN
 
 - (void)addActionHandler:(void(^)(UISegmentedControl *sender))handler forControlEvents:(UIControlEvents)controlEvents;
 
-/**
- [源]UISegmentedControl创建方法
- */
-//+ (instancetype)createRect:(CGRect)rect
-//                     items:(NSArray *)items
-//                      type:(NSNumber *)type;
-
 - (void)ensureiOS13Style:(CGFloat)fontSize API_AVAILABLE(ios(13.0));
 
 - (void)updateItems:(NSArray<NSString *> *)titles;
