@@ -53,7 +53,6 @@
 #import "UIFont+Hook.h"
 #import "UIGestureRecognizer+Helper.h"
 #import "UIImage+Helper.h"
-#import "UIImage+Hook.h"
 #import "UIImageView+Helper.h"
 #import "UIImageView+Hook.h"
 #import "UILabel+Helper.h"
