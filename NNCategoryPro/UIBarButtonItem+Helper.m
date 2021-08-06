@@ -64,10 +64,4 @@
     }
 }
 
-- (void)setHidden:(BOOL)hidden{
-    self.enabled = !hidden;
-    self.tintColor = !hidden ? UIColor.themeColor : UIColor.clearColor;
-}
-
-
 @end
