@@ -8,6 +8,7 @@
 #import "UIBarButtonItem+Helper.h"
 #import <objc/runtime.h>
 #import "UIColor+Helper.h"
+#import "UIButton+Helper.h"
 
 @implementation UIBarButtonItem (Helper)
 
@@ -31,14 +32,26 @@
     return barItem;
 }
 
-- (void)addActionBlock:(void (^)(UIBarButtonItem *item))block{
-    if (!block) {
-        return;
+
++ (instancetype)customViewWithButton:(NSString *)obj handler:(void(^)(UIButton *sender))handler{
+    UIButton *sender = [UIButton buttonWithType:UIButtonTypeSystem];
+    if ([UIImage imageNamed:obj]) {
+        [sender setImage:[UIImage imageNamed:obj] forState:UIControlStateNormal];
+    } else {
+        [sender setTitle:obj forState:UIControlStateNormal];
     }
+    [sender addActionHandler:handler forControlEvents:UIControlEventTouchUpInside];
+   
+    UIBarButtonItem *barItem = [[UIBarButtonItem alloc]initWithCustomView:sender];
+    return barItem;
+}
+
+- (void)addActionBlock:(void (^)(UIBarButtonItem *item))block{
+    if (!block) { return; }
     
     [self willChangeValueForKey:@"block"];
     objc_setAssociatedObject(self, _cmd, block, OBJC_ASSOCIATION_COPY_NONATOMIC);
-    // Sets up the action.
+
     self.target = self;
     self.action = @selector(p_invoke:);
     [self didChangeValueForKey:@"block"];
@@ -55,7 +68,6 @@
     self.enabled = !hidden;
     self.tintColor = !hidden ? UIColor.themeColor : UIColor.clearColor;
 }
-
 
 
 @end

@@ -223,7 +223,7 @@ bool UIImageEquelToImage(UIImage *image0, UIImage *image1){
 }
 
 + (UIImage *)imageNamed:(NSString *)imgName podName:(NSString *)podName{
-    NSBundle *resource_bundle = [NSBundle bundleWithPodName:podName bundleName:podName];
+    NSBundle *resource_bundle = NSBundleFromName(podName, podName);
     UIImage *image = [UIImage imageNamed:imgName inBundle:resource_bundle compatibleWithTraitCollection:nil];
     return image;
 }
