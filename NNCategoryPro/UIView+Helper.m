@@ -222,21 +222,16 @@
 
 #pragma mak -funtions
 
-/**
- 获取所有子视图(需要注意的是，我的level设置是从1开始的，这与方法中加空格时变量 i 起始的值是相呼应的，要改就要都改。)
- */
-+ (void)getSub:(UIView *)view andLevel:(NSInteger)level {
-    NSArray *subviews = [view subviews];
-    if ([subviews count] == 0) return;
-    for (UIView *subview in subviews) {
-        
-        NSString *blank = @"";
-        for (NSInteger i = 1; i < level; i++) {
-            blank = [NSString stringWithFormat:@"  %@", blank];
+- (void)recursionSubView:(NSInteger)level isPrint:(BOOL)isPrint block:(void(^__nullable)(UIView *))block{
+    for (UIView *subview in self.subviews) {
+        if (isPrint) {
+            NSString *blank = @"";
+            for (NSInteger i = 0; i < level; i++) {
+                blank = [NSString stringWithFormat:@"  %@", blank];
+            }
+            NSLog(@"%@%@: %@", blank, @(level), subview.class);
         }
-        NSLog(@"%@%ld: %@", blank, (long)level, subview.class);
-        [self getSub:subview andLevel:(level+1)];
-        
+        [subview recursionSubView:level++ isPrint:isPrint block:block];
     }
 }
 
@@ -244,18 +239,14 @@
  给所有自视图加框
  */
 - (void)getViewLayer{
+#if DEBUG
     NSArray *subviews = self.subviews;
-    if (subviews.count == 0) return;
     for (UIView *subview in subviews) {
         subview.layer.borderWidth = kW_LayerBorder;
-        
-        #if DEBUG
         subview.layer.borderColor = UIColor.blueColor.CGColor;
-        #else
-        subview.layer.borderColor = UIColor.clearColor.CGColor;
-        #endif
         [subview getViewLayer];
     }
+#endif
 }
 
 - (__kindof UIView *)findSubview:(NSString *)name resursion:(BOOL)resursion{

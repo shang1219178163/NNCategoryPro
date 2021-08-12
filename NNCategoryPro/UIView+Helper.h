@@ -44,7 +44,8 @@ NS_ASSUME_NONNULL_BEGIN
 
 - (UIRotationGestureRecognizer *)addGestureRotation:(void(^)(UIRotationGestureRecognizer *reco))block;
 
-+ (void)getSub:(UIView *)view andLevel:(NSInteger)level;
+///递归子视图
+- (void)recursionSubView:(NSInteger)level isPrint:(BOOL)isPrint block:(void(^__nullable)(UIView *))block;
 
 - (void)getViewLayer;
 
