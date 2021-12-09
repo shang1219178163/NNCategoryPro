@@ -79,6 +79,43 @@ NSString * const kUITabBarSwappableImageView = @"UITabBarSwappableImageView";
 @end
 
 
+
+@implementation UITabBarAppearance (Ext)
+
++ (instancetype)create:(UIColor *)tintColor barTintColor:(UIColor *)barTintColor font:(nullable UIFont *)font{
+    UITabBarAppearance *barAppearance = [[UITabBarAppearance alloc]init];
+    [barAppearance configureWithOpaqueBackground];
+    barAppearance.backgroundColor = barTintColor;
+    barAppearance.selectionIndicatorTintColor = tintColor;
+
+    
+    barAppearance.stackedLayoutAppearance = [UITabBarItemAppearance createWithNormal:@{
+                                                NSForegroundColorAttributeName: tintColor,
+                                                NSFontAttributeName: font ? : [UIFont systemFontOfSize:15]
+                                            } selected:@{
+                                                NSForegroundColorAttributeName: tintColor,
+                                                NSFontAttributeName: font ? : [UIFont systemFontOfSize:15]
+                                            }];
+    return barAppearance;
+}
+
+@end
+
+
+@implementation UITabBarItemAppearance (Ext)
+
++ (instancetype)createWithNormal:(NSDictionary<NSAttributedStringKey, id> *)normalAttrs selected:(NSDictionary<NSAttributedStringKey, id> *)selectedAttrs{
+
+    UITabBarItemAppearance *itemAppearance = [[UITabBarItemAppearance alloc]init];
+    itemAppearance.normal.titleTextAttributes = normalAttrs;
+    itemAppearance.selected.titleTextAttributes = selectedAttrs;
+    return itemAppearance;
+}
+
+@end
+
+
+
 @implementation UIViewController (TabBar)
 
 - (void)reloadTabarItem:(NSString *)title imageName:(NSString *)imageName selectedImageName:(NSString *)selectedImageName{

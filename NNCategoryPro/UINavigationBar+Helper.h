@@ -12,8 +12,17 @@ NS_ASSUME_NONNULL_BEGIN
 
 @interface UINavigationBar (Helper)
 
-- (void)setColor:(UIColor *)tintColor barTintColor:(UIColor *)barTintColor;
+- (void)setColor:(UIColor *)tintColor barTintColor:(UIColor *)barTintColor shadowColor:(nullable UIColor *)shadowColor;
 
+@end
+
+
+@interface UINavigationBarAppearance (Ext)
+
++ (instancetype)create:(UIColor *)tintColor
+          barTintColor:(UIColor *)barTintColor
+           shadowColor:(nullable UIColor *)shadowColor
+                  font:(nullable UIFont *)font;
 @end
 
 NS_ASSUME_NONNULL_END

@@ -41,6 +41,21 @@ UIKIT_EXTERN NSString * const kUITabBarSwappableImageView;
 @end
 
 
+@interface UITabBarAppearance (Ext)
+
++ (instancetype)create:(UIColor *)tintColor barTintColor:(UIColor *)barTintColor font:(nullable UIFont *)font;
+
+@end
+
+
+@interface UITabBarItemAppearance (Ext)
+
++ (instancetype)createWithNormal:(NSDictionary<NSAttributedStringKey, id> *)normalAttrs selected:(NSDictionary<NSAttributedStringKey, id> *)selectedAttrs;
+
+@end
+
+
+
 @interface UIViewController (TabBar)
 
 - (void)reloadTabarItem:(NSString *)title imageName:(NSString *)imageName selectedImageName:(NSString *)selectedImageName;

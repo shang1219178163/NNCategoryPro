@@ -42,7 +42,7 @@ NS_ASSUME_NONNULL_BEGIN
 - (NSArray *)map:(id (NS_NOESCAPE ^)(ObjectType obj, NSUInteger idx))transform;
 
 /// forEach 高阶函数
-- (void)forEach:(id (NS_NOESCAPE ^)(ObjectType obj, NSUInteger idx))block;
+- (void)forEach:(void (NS_NOESCAPE ^)(ObjectType obj, NSUInteger idx))block;
 
 /// compactMap 高阶降维函数
 - (NSArray *)compactMap:(id (NS_NOESCAPE ^)(ObjectType obj, NSUInteger idx))transform;

@@ -91,7 +91,7 @@
     return marr.copy;
 }
 
-- (void)forEach:(id (NS_NOESCAPE ^)(id obj, NSUInteger idx))block{
+- (void)forEach:(void (NS_NOESCAPE ^)(id obj, NSUInteger idx))block{
     if (!block) { return; }
     [self enumerateObjectsUsingBlock:^(id _Nonnull obj, NSUInteger idx, BOOL * _Nonnull stop) {
         block(obj, idx);

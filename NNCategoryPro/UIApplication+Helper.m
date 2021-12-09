@@ -13,6 +13,9 @@
 
 #import "UIImage+Helper.h"
 #import "UIAlertController+Helper.h"
+#import "UINavigationBar+Helper.h"
+#import "UITabBarController+Helper.h"
+
 
 NSString * const kJPush_type = @"into_page_type";
 NSString * const kJPush_extras = @"extras";
@@ -223,7 +226,19 @@ static NSDictionary *_phoneTypeDic = nil;
 //    [UINavigationBar.appearance setBackgroundImage:UIImageColor(barTintColor) forBarMetrics:UIBarMetricsDefault];
 //    [UINavigationBar.appearance setShadowImage:UIImageColor(barTintColor)];
     UINavigationBar.appearance.titleTextAttributes = @{NSForegroundColorAttributeName: tintColor,};
-        
+    if (@available(iOS 11.0, *)) {
+        [UINavigationBar appearanceWhenContainedInInstancesOfClasses:@[UIDocumentBrowserViewController.class]].tintColor = nil;
+    }
+    
+    if (@available(iOS 13.0, *)) {
+        UINavigationBarAppearance *barAppearance = [UINavigationBarAppearance create:tintColor barTintColor:barTintColor shadowColor:nil font:[UIFont systemFontOfSize:15]];
+        UINavigationBar.appearance.standardAppearance = barAppearance;
+        UINavigationBar.appearance.scrollEdgeAppearance = barAppearance;
+
+        UITabBarAppearance *tabBarAppearance = [UITabBarAppearance create:barTintColor barTintColor:tintColor font:nil];
+        UITabBar.appearance.standardAppearance = tabBarAppearance;
+    }
+    
     NSDictionary *attDic = @{NSForegroundColorAttributeName: UIColor.blackColor,};
     UIBarButtonItem *speacilItem = [UIBarButtonItem appearanceWhenContainedInInstancesOfClasses:@[UIImagePickerController.class, UIDocumentPickerViewController.class]];
     [speacilItem setTitleTextAttributes:attDic forState:UIControlStateNormal];
@@ -247,6 +262,10 @@ static NSDictionary *_phoneTypeDic = nil;
     UIButton.appearance.exclusiveTouch = true;
     UIButton.appearance.adjustsImageWhenHighlighted = false;
     
+    
+    if ([NSClassFromString(@"UICalloutBarButton") isKindOfClass:UIButton.class]) {
+        [[NSClassFromString(@"UICalloutBarButton") appearance] setTitleColor:UIColor.whiteColor forState:UIControlStateNormal];
+    }
     
     UISegmentedControl *speacilSegmentedControl = [UISegmentedControl appearanceWhenContainedInInstancesOfClasses:@[UINavigationBar.class, ]];
     speacilSegmentedControl.tintColor = tintColor;
@@ -291,7 +310,6 @@ static NSDictionary *_phoneTypeDic = nil;
     
     
     UIImageView.appearance.userInteractionEnabled = true;
-    
     
     UILabel.appearance.userInteractionEnabled = true;
 
