@@ -271,6 +271,45 @@ void dispatch_main_apply(NSUInteger count, void(^block)(size_t index)){
 }
 
 
+/// iOS 类方法/实例方法映射(方法格式: * (void)*MethodName*:(id)params callback:(FlutterResult)callback;)
+/// @param method //获取函数名
+/// @param arguments //获取参数列表
+/// @param block 回调参数(例如 result:(FlutterResult)result)
+- (void)reflectMethod:(NSString *)method arguments:(id)arguments block:(void (^)(id _Nullable result))block {
+    
+    NSAssert(method && method != @"", @"方法名不能为空!");
+    SEL selector = NSSelectorFromString([NSString stringWithFormat:@"%@:callback:", method]);
+    
+    if ([self.class respondsToSelector:selector]) {
+        NSMethodSignature *methodSignature = [self.class methodSignatureForSelector:selector]; // Signature
+
+        NSInvocation *invocation = [NSInvocation invocationWithMethodSignature:methodSignature];
+        invocation.target = self.class;// target
+        
+        invocation.selector = selector;
+        [invocation setArgument:&arguments atIndex:2];
+        [invocation setArgument:&block atIndex:3];
+        [invocation invoke];
+        return;
+    }
+    
+    if (self && [self respondsToSelector:selector]) {
+        NSMethodSignature *methodSignature = [self.class instanceMethodSignatureForSelector:selector]; // Signature
+    
+        NSInvocation *invocation = [NSInvocation invocationWithMethodSignature:methodSignature];
+        invocation.target = self;// target
+        
+        invocation.selector = selector;
+        [invocation setArgument:&arguments atIndex:2];
+        [invocation setArgument:&block atIndex:3];
+        [invocation invoke];
+        return;
+    }
+
+    NSLog(@"method: %@, arguments: %@", method, arguments);
+//    block(FlutterMethodNotImplemented);
+}
+
 @end
 
 

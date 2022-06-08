@@ -67,6 +67,12 @@ void dispatch_main_apply(NSUInteger count, void(^block)(size_t index));
 ///(通用)富文本只有和一般文字同字体大小才能计算高度
 - (CGSize)sizeWithText:(id)text font:(UIFont *)font width:(CGFloat)width;
 
+/// iOS 类方法/实例方法映射(方法格式: * (void)*MethodName*:(id)params callback:(FlutterResult)callback;)
+/// @param method //获取函数名
+/// @param arguments //获取参数列表
+/// @param block 回调参数(例如 result:(FlutterResult)result)
+- (void)reflectMethod:(NSString *)method arguments:(id)arguments block:(void (^)(id _Nullable result))block;
+
 @end
 
 
