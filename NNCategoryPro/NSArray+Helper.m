@@ -145,6 +145,55 @@
     return value;
 }
 
+- (id)find:(BOOL *(NS_NOESCAPE ^)(id obj))transform{
+    if (!transform) {
+        NSParameterAssert(transform != nil);
+        return nil;
+    }
+    
+    for (NSInteger i = 0; i < self.count; i++) {
+        NSLog(@"some: %@,  %@", @(self.count), @(i));
+        id obj = self[i];
+        if (transform(obj)) {
+            return obj;
+        }
+    }
+    return nil;
+}
+
+- (BOOL)some:(BOOL *(NS_NOESCAPE ^)(id obj))transform{
+    if (!transform) {
+        NSParameterAssert(transform != nil);
+        return false;
+    }
+    
+    for (NSInteger i = 0; i < self.count; i++) {
+//        NSLog(@"some: %@,  %@", @(self.count), @(i));
+        id obj = self[i];
+        if (transform(obj)) {
+            return true;
+        }
+    }
+    return false;
+}
+
+- (BOOL)every:(BOOL *(NS_NOESCAPE ^)(id obj))transform{
+    if (!transform) {
+        NSParameterAssert(transform != nil);
+        return false;
+    }
+    
+    for (NSInteger i = 0; i < self.count; i++) {
+//        NSLog(@"every: %@,  %@", @(self.count), @(i));
+        id obj = self[i];
+        if (!transform(obj)) {
+            return false;
+        }
+    }
+    return true;
+}
+
+
 - (NSArray *)flatModels:(NSString *)childKey{
     if (![self.firstObject isKindOfClass:[NSObject class]]) {
         return @[];
@@ -188,6 +237,15 @@
     NSMutableArray *marr = [NSMutableArray array];
     for (NSInteger i = 0; i < count; i++) {
         [marr addObject:repeatedValue];
+    }
+    return marr.copy;
+}
+
++ (NSArray *)arryWithCount:(NSInteger)count generator:(id (NS_NOESCAPE ^)(NSUInteger idx))generator {
+    NSMutableArray *marr = [NSMutableArray array];
+    for (NSUInteger i = 0; i < count; i++) {
+        id value = generator != nil ? generator(i) : @(i);
+        [marr addObject: value];
     }
     return marr.copy;
 }

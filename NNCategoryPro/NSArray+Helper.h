@@ -53,6 +53,15 @@ NS_ASSUME_NONNULL_BEGIN
 /// reduce 高阶函数(求和,累加等)
 - (NSNumber *)reduce:(NSNumber *)initial transform:(NSNumber *(NS_NOESCAPE ^)(NSNumber *result, NSNumber *obj))transform;
 
+/// 返回满足条件的第一个元素
+- (ObjectType)find:(BOOL *(NS_NOESCAPE ^)(ObjectType obj))transform;
+
+/// 是否有满足条件的元素,找到一个立即返回 true
+- (BOOL)some:(BOOL *(NS_NOESCAPE ^)(ObjectType obj))transform;
+
+/// 是否所有元素都满足条件,找到一个不满足的立即返回 false
+- (BOOL)every:(BOOL *(NS_NOESCAPE ^)(ObjectType obj))transform;
+
 /// 嵌套模型数组扁平化
 /// @param childKey 例如 children, child, son
 - (NSArray *)flatModels:(NSString *)childKey;
@@ -63,6 +72,7 @@ NS_ASSUME_NONNULL_BEGIN
 ///重复元素
 + (NSArray *)repeating:(ObjectType)repeatedValue count:(NSInteger)count;
 
++ (NSArray *)arryWithCount:(NSInteger)count generator:(ObjectType (NS_NOESCAPE ^)(NSUInteger idx))generator;
 
 - (NSArray<ObjectType> *)filteredArrayUsingPredicateFormat:(NSString *)format, ... NS_FORMAT_FUNCTION(1,2);
 
