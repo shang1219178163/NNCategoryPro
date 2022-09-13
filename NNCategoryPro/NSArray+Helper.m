@@ -162,19 +162,7 @@
 }
 
 - (BOOL)some:(BOOL *(NS_NOESCAPE ^)(id obj))transform{
-    if (!transform) {
-        NSParameterAssert(transform != nil);
-        return false;
-    }
-    
-    for (NSInteger i = 0; i < self.count; i++) {
-//        NSLog(@"some: %@,  %@", @(self.count), @(i));
-        id obj = self[i];
-        if (transform(obj)) {
-            return true;
-        }
-    }
-    return false;
+    return [self find:transform] != nil;
 }
 
 - (BOOL)every:(BOOL *(NS_NOESCAPE ^)(id obj))transform{
