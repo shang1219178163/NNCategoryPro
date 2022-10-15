@@ -287,6 +287,7 @@ void dispatch_main_apply(NSUInteger count, void(^block)(size_t index)){
         invocation.target = self.class;// target
         
         invocation.selector = selector;
+        //注意：设置参数的索引时不能从0开始，因为0已经被self占用，1已经被_cmd占用
         [invocation setArgument:&arguments atIndex:2];
         [invocation setArgument:&block atIndex:3];
         [invocation invoke];
@@ -300,6 +301,7 @@ void dispatch_main_apply(NSUInteger count, void(^block)(size_t index)){
         invocation.target = self;// target
         
         invocation.selector = selector;
+        //注意：设置参数的索引时不能从0开始，因为0已经被self占用，1已经被_cmd占用
         [invocation setArgument:&arguments atIndex:2];
         [invocation setArgument:&block atIndex:3];
         [invocation invoke];
