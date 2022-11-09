@@ -71,7 +71,7 @@ void dispatch_main_apply(NSUInteger count, void(^block)(size_t index));
 /// @param method //获取函数名
 /// @param arguments //获取参数列表
 /// @param block 回调参数(例如 result:(FlutterResult)result)
-- (void)reflectMethod:(NSString *)method arguments:(id)arguments block:(void (^)(id _Nullable result))block;
+- (BOOL)reflectMethod:(NSString *)method arguments:(id)arguments block:(void (^)(id _Nullable result))block;
 
 @end
 
