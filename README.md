@@ -1,11 +1,121 @@
 # NNCategoryPro
-组件化核心模块,通过类别方式极大的扩展基础类功能
+组件化核心模块,通过类别方式极大的扩展基础类功能，目的是提高工作效率。
 
-一. 崩溃保护NSObject+CashProtector.h
+## 一. Runtime 方法封装
+```
+@implementation NSObject (Helper)
 
-二. Objective-C 高阶函数实现/自定义
+- (void)enumerateIvars:(void(^)(Ivar v, NSString *name, _Nullable id value))block{
+    unsigned int count;
+    Ivar *ivars = class_copyIvarList(self.class, &count);
 
-NSArray 高阶函数：
+    for(NSInteger i = 0; i < count; i++){
+        Ivar ivar = ivars[i];
+        NSString *ivarName = [NSString stringWithUTF8String:ivar_getName(ivar)];
+        id value = [self valueForKey:ivarName];//kvc读值
+        if (block) {
+            block(ivar, ivarName, value);
+        }
+    }
+    free(ivars);
+}
+
+- (void)enumeratePropertys:(void(^)(objc_property_t property, NSString *name, _Nullable id value))block{
+    unsigned int count = 0;
+    objc_property_t *properties = class_copyPropertyList(self.class, &count);
+    for (int i = 0; i < count; i++) {
+        objc_property_t property_t = properties[i];
+        const char *name = property_getName(property_t);
+        NSString *propertyName = [NSString stringWithUTF8String:name];
+        id value = [self valueForKey:propertyName];
+        if (block) {
+            block(property_t, propertyName, value);
+        }
+    }
+    free(properties);
+}
+
+- (void)enumerateMethods:(void(^)(Method method, NSString *name))block{
+    unsigned int count = 0;
+    Method *methodList = class_copyMethodList(self.class, &count);
+    for (unsigned int i = 0; i < count; i++) {
+        Method method = methodList[i];
+        SEL mthodName = method_getName(method);
+//        NSLog(@"MethodName(%d): %@", i, NSStringFromSelector(mthodName));
+        if (block) {
+            block(method, NSStringFromSelector(mthodName));
+        }
+    }
+    free(methodList);
+}
+
+- (void)enumerateProtocols:(void(^)(Protocol *proto, NSString *name))block{
+    unsigned int count = 0;
+    __unsafe_unretained Protocol **protocolList = class_copyProtocolList(self.class, &count);
+    for (int i = 0; i < count; i++) {
+        Protocol *protocal = protocolList[i];
+        const char *protocolName = protocol_getName(protocal);
+//        NSLog(@"protocol(%d): %@", i, [NSString stringWithUTF8String:protocolName]);
+        if (block) {
+            block(protocal, [NSString stringWithUTF8String:protocolName]);
+        }
+    }
+    free(protocolList);
+}
+
+//为 NSObject 扩展 NSCoding 协议里的两个方法, 用来便捷实现复杂对象的归档与反归档
+- (void)encodeWithCoder:(NSCoder *)aCoder {
+    // 一个临时数据, 用来记录一个类成员变量的个数
+    unsigned int ivarCount = 0;
+    // 获取一个类所有的成员变量
+    Ivar *ivars = class_copyIvarList(self.class, &ivarCount);
+    
+    // 变量成员变量列表
+    for (int i = 0; i < ivarCount; i ++) {
+        // 获取单个成员变量
+        Ivar ivar = ivars[i];
+        // 获取成员变量的名字并将其转换为 OC 字符串
+        NSString *ivarName = [NSString stringWithUTF8String:ivar_getName(ivar)];
+        // 获取该成员变量对应的值
+        id value = [self valueForKey:ivarName];
+        // 归档, 就是把对象 key-value 对 encode
+        [aCoder encodeObject:value forKey:ivarName];
+    }
+    // 释放 ivars
+    free(ivars);
+}
+
+- (instancetype)initWithCoder:(NSCoder *)aDecoder {
+    // 因为没有 superClass 了
+    self = [self init];
+    if (self != nil) {
+        unsigned int ivarCount = 0;
+        Ivar *ivars = class_copyIvarList(self.class, &ivarCount);
+        for (int i = 0; i < ivarCount; i ++) {
+            
+            Ivar ivar = ivars[i];
+            NSString *ivarName = [NSString stringWithUTF8String:ivar_getName(ivar)];
+            // 解档, 就是把 key-value 对 decode
+            id value = [aDecoder decodeObjectForKey:ivarName];
+            // 赋值
+            [self setValue:value forKey:ivarName];
+        }
+        free(ivars);
+    }
+    return self;
+}
+
+- (NSDictionary *)toDictionary{
+    NSMutableDictionary *mdic = [NSMutableDictionary dictionary];
+    [self enumeratePropertys:^(objc_property_t _Nonnull property, NSString * _Nonnull name, id  _Nullable value) {
+        mdic[name] = value ? : @"";
+    }];
+    return mdic;
+}
+```
+## 二. Objective-C 高阶函数自定义
+
+### NSArray 高阶函数：
 ```
 NS_ASSUME_NONNULL_BEGIN
 @interface NSArray<ObjectType> (Helper)
@@ -143,7 +253,7 @@ NS_ASSUME_NONNULL_BEGIN
     }];
     // result1_25
 ```
-NSDictionary 高阶函数：
+### NSDictionary 高阶函数：
 ```
 #import <Foundation/Foundation.h>
 
@@ -263,88 +373,8 @@ compactMapValues 高阶函数
 //    }
 }
 ```
-三. 界面
-
-在 UIView 分类添加方法
-```
-/**
- 给所有自视图加框
- */
-- (void)getViewLayer{
-    NSArray *subviews = self.subviews;
-    if (subviews.count == 0) return;
-    for (UIView *subview in subviews) {
-        subview.layer.borderWidth = kW_LayerBorder;
-        
-        #if DEBUG
-        subview.layer.borderColor = UIColor.redColor.CGColor;
-        #else
-        subview.layer.borderColor = UIColor.clearColor.CGColor;
-        #endif
-        [subview getViewLayer];
-    }
-}
-
-//使用方法:
-[self.view  getViewLayer];
-```
-子视图动态化布局
-```
-- (NSArray<__kindof UIView *> *)updateItems:(NSInteger)count aClassName:(NSString *)aClassName handler:(void(^)(__kindof UIView *obj))handler {
-    if (count == 0) {
-        return @[];
-    }
-    Class cls = NSClassFromString(aClassName);
-    NSArray *list = [self.subviews filter:^BOOL(UIView * obj, NSUInteger idx) {
-        return [obj isKindOfClass:cls.class];
-    }];
-    
-    if (list.count == count) {
-        [list enumerateObjectsUsingBlock:^(UIView * obj, NSUInteger idx, BOOL * _Nonnull stop) {
-            if (handler) {
-                handler(obj);
-            }
-        }];
-        return list;
-    }
-    
-    for (UIView *view in self.subviews) {
-        [view removeFromSuperview];
-    }
-    NSMutableArray *marr = [NSMutableArray array];
-    for (NSInteger i = 0; i < count; i++) {
-        UIView *subview = [[cls alloc]init];
-        subview.tag = i;
-        
-        [self addSubview:subview];
-        [marr addObject:subview];
-        if (handler) {
-            handler(subview);
-        }
-    }
-    return marr;
-}
-
-- (NSArray<__kindof UIButton *> *)updateButtonItems:(NSInteger)count aClassName:(NSString *)aClassName handler:(void(^)(__kindof UIButton *obj))handler {
-    return [self updateItems:count aClassName:aClassName handler:^(__kindof UIView * _Nonnull obj) {
-        if (![obj isKindOfClass:UIButton.class]) {
-            return;
-        }
-//        NSString *clsName = NSStringFromClass(obj.class);
-        UIButton *sender = (UIButton *)obj;
-        if (![sender titleForState:UIControlStateNormal]) {
-            sender.titleLabel.font = [UIFont systemFontOfSize:15];
-            NSString *title = [NSString stringWithFormat:@"%@%@", aClassName, @(obj.tag)];
-            [sender setTitle:title forState:UIControlStateNormal];
-            [sender setTitleColor:UIColor.blackColor forState:UIControlStateNormal];
-        }
-        if (handler) {
-            handler(obj);
-        }
-    }];
-}
-```
-手势回调
+## 三. 界面
+### 手势回调封装
 ```
 #pragma mak - -Recognizer
 #pragma mak - -Recognizer
@@ -450,7 +480,7 @@ compactMapValues 高阶函数
 }
 
 ```
-四. 现金金额处理
+## 四. 现金金额处理
 
 NSNumber类型处理, 支持四舍五入
 ```
@@ -569,7 +599,7 @@ static NSDictionary *_styleDic = nil;
 
 @end
 ```
-五. 数组、字典防崩溃
+## 五. 数组、字典防崩溃
 ```
 //
 //  NSObject+Hook.m
@@ -753,7 +783,7 @@ BOOL SwizzleMethodClass(Class clz, SEL origSelector, SEL replSelector){
 @end
 
 ```
-#### UIViewConroller
+#### UIViewConroller 避免多个呈现造成的 app 崩溃
 ```
 ///避免多个呈现造成的 app 崩溃
 - (void)present:(BOOL)animated completion:(void (^ __nullable)(void))completion{
@@ -788,6 +818,5 @@ BOOL SwizzleMethodClass(Class clz, SEL origSelector, SEL replSelector){
     return result;
 }
 ```
-六.链式编程
-......
+...
 
