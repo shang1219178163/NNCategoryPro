@@ -242,7 +242,7 @@ NSString * const kDateFormatSix      = @"EEE, dd MMM yyyy HH:mm:ss 'GMT'";
     if (!formatter) {
         formatter = [[NSDateFormatter alloc]init];
         formatter.dateFormat = formtStr;
-        formatter.locale = NSLocale.zh_CN;
+        formatter.locale = [NSLocale localeWithLocaleIdentifier:kLanguageCN];
         formatter.timeZone = NSTimeZone.systemTimeZone;
         if ([formtStr containsString:@"GMT"]) {
             formatter.timeZone = [NSTimeZone timeZoneWithName:@"GMT"];
