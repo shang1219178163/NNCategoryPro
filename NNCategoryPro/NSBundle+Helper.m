@@ -18,23 +18,44 @@ NSBundle *NSBundleFromName(NSString *bundleName, NSString *podName){
     } else if (!podName) {
         podName = bundleName;
     }
-    
     if ([bundleName containsString:@".bundle"]) {
         bundleName = [bundleName componentsSeparatedByString:@".bundle"].firstObject;
     }
-    //没使用framwork的情况下
+    // CocoaPods resource_bundles：主工程内的 xxx.bundle
     NSURL *assBundleURL = [NSBundle.mainBundle URLForResource:bundleName withExtension:@"bundle"];
-    //使用framework形式
+    NSBundle *moduleBundle = nil;
     if (!assBundleURL) {
-        assBundleURL = [NSBundle.mainBundle URLForResource:@"Frameworks" withExtension:nil];
-        assBundleURL = [assBundleURL URLByAppendingPathComponent:podName];
-        assBundleURL = [assBundleURL URLByAppendingPathExtension:@"framework"];
-        NSBundle *associateBunle = [NSBundle bundleWithURL:assBundleURL];
-        assBundleURL = [associateBunle URLForResource:bundleName withExtension:@"bundle"];
+        // CocoaPods use_frameworks：Frameworks/PodName.framework/xxx.bundle
+        NSURL *frameworksURL = [NSBundle.mainBundle URLForResource:@"Frameworks" withExtension:nil];
+        NSURL *frameworkURL = [[frameworksURL URLByAppendingPathComponent:podName] URLByAppendingPathExtension:@"framework"];
+        moduleBundle = frameworkURL ? [NSBundle bundleWithURL:frameworkURL] : nil;
+        assBundleURL = [moduleBundle URLForResource:bundleName withExtension:@"bundle"];
+        // SPM 资源包命名：PodName_BundleName.bundle
+        if (!assBundleURL && moduleBundle) {
+            NSString *spmName = [NSString stringWithFormat:@"%@_%@", podName, bundleName];
+            assBundleURL = [moduleBundle URLForResource:spmName withExtension:@"bundle"];
+        }
     }
-    
+    // SPM：.process 资源直接打进 module/framework bundle
+    if (!assBundleURL && moduleBundle) {
+        return moduleBundle;
+    }
+    // 静态链接 / 找不到 Frameworks 目录时，通过已知类定位 module bundle
+    if (!assBundleURL) {
+        Class cls = NSClassFromString(@"NNButton");
+        if (cls != Nil) {
+            moduleBundle = [NSBundle bundleForClass:cls];
+            assBundleURL = [moduleBundle URLForResource:bundleName withExtension:@"bundle"];
+            if (!assBundleURL) {
+                NSString *spmName = [NSString stringWithFormat:@"%@_%@", podName, bundleName];
+                assBundleURL = [moduleBundle URLForResource:spmName withExtension:@"bundle"];
+            }
+            if (!assBundleURL) {
+                return moduleBundle;
+            }
+        }
+    }
     NSCAssert(assBundleURL, @"取不到关联bundle");
-    //生产环境直接返回空
     return assBundleURL ? [NSBundle bundleWithURL:assBundleURL] : nil;
 }
 

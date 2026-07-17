@@ -1,6 +1,35 @@
 # NNCategoryPro
 组件化核心模块,通过类别方式极大的扩展基础类功能，目的是提高工作效率。
 
+## 安装
+
+### CocoaPods
+
+```ruby
+pod 'NNCategoryPro'
+```
+
+CocoaPods 依赖：`NNGloble`、`SDWebImage`、`IQKeyboardManager`。
+
+### Swift Package Manager
+
+Xcode：`File` → `Add Package Dependencies...`，输入：
+
+```
+https://github.com/shang1219178163/NNCategoryPro.git
+```
+
+或在 `Package.swift` 中：
+
+```swift
+dependencies: [
+    .package(url: "https://github.com/shang1219178163/NNCategoryPro.git", from: "7.10.0")
+]
+```
+
+SPM 依赖：`NNGloble`（需 ≥ 2.2.0，已支持 SPM）、`SDWebImage`。  
+`IQKeyboardManager` 仅在 CocoaPods 集成时启用；SPM 下如需键盘管理，请自行添加对应依赖。
+
 ## 一. Runtime 方法封装
 ```
 @implementation NSObject (Helper)

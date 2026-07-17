@@ -9,7 +9,6 @@
 #import "NSString+Other.h"
 
 #import <CommonCrypto/CommonCrypto.h>
-#import "GTMBase64.h"
 
 #import "NSData+Helper.h"
 
@@ -680,8 +679,7 @@ static char base64EncodingTable[64] = {
                 
                 break;
             default:
-                resultString = [GTMBase64 stringByEncodingData:resultData];
-                
+                resultString = [resultData base64EncodedStringWithOptions:0];
                 break;
         }
         return resultString;
@@ -707,8 +705,7 @@ static char base64EncodingTable[64] = {
             
             break;
         default:
-            data = [GTMBase64 decodeData:[self dataUsingEncoding:NSUTF8StringEncoding]];
-            
+            data = [[NSData alloc] initWithBase64EncodedString:self options:NSDataBase64DecodingIgnoreUnknownCharacters];
             break;
     }
     

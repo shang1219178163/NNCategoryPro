@@ -3,7 +3,7 @@
 Pod::Spec.new do |s|
 
   s.name         = "NNCategoryPro"
-  s.version      = "7.9.1"
+  s.version      = "7.10.0"
   s.summary      = "分类-项目通用方法封装."
   s.description  = "项目封装的实现主体,主要通过分类实现"
 
@@ -13,8 +13,8 @@ Pod::Spec.new do |s|
    s.license      = { :type => "MIT", :file => "LICENSE" }
    s.author       = { "BIN" => "shang1219178163@gmail.com" }
  
-   s.platform     = :ios, '10.0'
-   s.ios.deployment_target = '10.0'
+   s.platform     = :ios, '11.0'
+   s.ios.deployment_target = '11.0'
    s.requires_arc = true
 
    s.source       = { :git => "https://github.com/shang1219178163/NNCategoryPro.git", :tag => "#{s.version}" }
@@ -23,12 +23,10 @@ Pod::Spec.new do |s|
    s.public_header_files = "NNCategoryPro/*.h"
 
    s.frameworks = 'UIKit', 'CoreFoundation', 'CoreGraphics', 'CoreImage',
-   'CoreLocation','QuartzCore','WebKit'
+   'CoreLocation','QuartzCore','WebKit','AVFoundation','Photos','UserNotifications'
 
-   s.dependency 'NNGloble'
-
+   s.dependency 'NNGloble', '>= 2.2.0'
    s.dependency 'SDWebImage'
    s.dependency 'IQKeyboardManager'
-   s.dependency 'GTMBase64'
 
 end

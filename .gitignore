@@ -5,6 +5,8 @@
 ## Build generated
 build/
 DerivedData/
+.swiftpm/
+.build/
 
 ## Various settings
 *.pbxuser
@@ -61,3 +63,8 @@ fastlane/test_output
 # https://github.com/johnno1962/injectionforxcode
 
 iOSInjectionProject/
+
+# Swift Package Manager
+.swiftpm/
+.build/
+Package.resolved
