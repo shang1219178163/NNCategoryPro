@@ -8,6 +8,7 @@ Pod::Spec.new do |s|
   s.description  = "项目封装的实现主体,主要通过分类实现"
 
    s.homepage     = "https://github.com/shang1219178163/NNCategoryPro"
+   s.documentation_url = "https://shang1219178163.github.io/NNCategoryPro/"
    # s.screenshots  = "www.example.com/screenshots_1.gif", "www.example.com/screenshots_2.gif"
 
    s.license      = { :type => "MIT", :file => "LICENSE" }

@@ -1,0 +1,660 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>NNCategoryPro — Objective-C 分类工具库</title>
+  <meta name="description" content="组件化核心模块，通过 Category 扩展基础类功能。兼容 CocoaPods 与 Swift Package Manager。">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=DM+Sans:ital,opsz,wght@0,9..40,400;0,9..40,500;0,9..40,700;1,9..40,400&family=IBM+Plex+Mono:wght@400;500&family=Instrument+Serif:ital@0;1&display=swap" rel="stylesheet">
+  <style>
+    :root {
+      --bg: #0c0d0f;
+      --bg-elevated: #14161a;
+      --bg-card: #181b21;
+      --border: rgba(255, 255, 255, 0.08);
+      --text: #e8eaed;
+      --text-muted: #8b919a;
+      --accent: #f05138;
+      --accent-soft: rgba(240, 81, 56, 0.14);
+      --accent-glow: rgba(240, 81, 56, 0.35);
+      --swift-blue: #5ac8fa;
+      --mono: "IBM Plex Mono", ui-monospace, monospace;
+      --sans: "DM Sans", system-ui, sans-serif;
+      --serif: "Instrument Serif", Georgia, serif;
+      --radius: 14px;
+      --ease-out: cubic-bezier(0.22, 1, 0.36, 1);
+    }
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+    html { scroll-behavior: smooth; }
+    body {
+      font-family: var(--sans);
+      background: var(--bg);
+      color: var(--text);
+      line-height: 1.6;
+      overflow-x: hidden;
+      min-height: 100vh;
+    }
+    body::before {
+      content: "";
+      position: fixed;
+      inset: 0;
+      background:
+        radial-gradient(ellipse 80% 50% at 15% -10%, rgba(240, 81, 56, 0.18), transparent 55%),
+        radial-gradient(ellipse 60% 40% at 90% 20%, rgba(90, 200, 250, 0.08), transparent 50%),
+        linear-gradient(var(--border) 1px, transparent 1px),
+        linear-gradient(90deg, var(--border) 1px, transparent 1px);
+      background-size: auto, auto, 48px 48px, 48px 48px;
+      mask-image: radial-gradient(ellipse 100% 80% at 50% 0%, black 20%, transparent 85%);
+      pointer-events: none;
+      z-index: 0;
+    }
+    body::after {
+      content: "";
+      position: fixed;
+      inset: 0;
+      opacity: 0.035;
+      background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 256 256' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.85' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)'/%3E%3C/svg%3E");
+      pointer-events: none;
+      z-index: 0;
+    }
+    .shell {
+      position: relative;
+      z-index: 1;
+      max-width: 1180px;
+      margin: 0 auto;
+      padding: 0 24px 96px;
+    }
+    .nav {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      padding: 28px 0 48px;
+      animation: rise 0.8s var(--ease-out) both;
+    }
+    .logo {
+      display: flex;
+      align-items: center;
+      gap: 12px;
+      text-decoration: none;
+      color: var(--text);
+    }
+    .logo-mark {
+      width: 36px;
+      height: 36px;
+      border-radius: 10px;
+      background: linear-gradient(135deg, var(--accent), #ff8a65);
+      display: grid;
+      place-items: center;
+      font-family: var(--mono);
+      font-size: 13px;
+      font-weight: 500;
+      color: #fff;
+      box-shadow: 0 0 24px var(--accent-glow);
+    }
+    .logo-text {
+      font-family: var(--mono);
+      font-size: 14px;
+      letter-spacing: 0.04em;
+    }
+    .nav-links {
+      display: flex;
+      gap: 8px;
+      align-items: center;
+    }
+    .nav-links a {
+      color: var(--text-muted);
+      text-decoration: none;
+      font-size: 14px;
+      padding: 8px 14px;
+      border-radius: 999px;
+      transition: color 0.2s, background 0.2s;
+    }
+    .nav-links a:hover {
+      color: var(--text);
+      background: rgba(255, 255, 255, 0.05);
+    }
+    .nav-links .cta {
+      background: var(--accent);
+      color: #fff;
+      font-weight: 500;
+    }
+    .nav-links .cta:hover {
+      background: #ff6347;
+      color: #fff;
+      box-shadow: 0 0 20px var(--accent-glow);
+    }
+    .hero {
+      display: grid;
+      grid-template-columns: 1.1fr 0.9fr;
+      gap: 48px;
+      align-items: end;
+      margin-bottom: 72px;
+    }
+    .hero-copy {
+      animation: rise 0.9s var(--ease-out) 0.1s both;
+    }
+    .eyebrow {
+      display: inline-flex;
+      align-items: center;
+      gap: 8px;
+      font-family: var(--mono);
+      font-size: 12px;
+      letter-spacing: 0.12em;
+      text-transform: uppercase;
+      color: var(--accent);
+      margin-bottom: 20px;
+    }
+    .eyebrow::before {
+      content: "";
+      width: 24px;
+      height: 1px;
+      background: var(--accent);
+    }
+    .hero h1 {
+      font-family: var(--serif);
+      font-size: clamp(2.8rem, 6vw, 4.5rem);
+      font-weight: 400;
+      line-height: 1.05;
+      letter-spacing: -0.02em;
+      margin-bottom: 24px;
+    }
+    .hero h1 em {
+      font-style: italic;
+      color: var(--accent);
+    }
+    .hero-desc {
+      font-size: 18px;
+      color: var(--text-muted);
+      max-width: 480px;
+      margin-bottom: 32px;
+    }
+    .hero-meta {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 10px;
+    }
+    .pill {
+      font-family: var(--mono);
+      font-size: 12px;
+      padding: 6px 12px;
+      border-radius: 999px;
+      border: 1px solid var(--border);
+      background: rgba(255, 255, 255, 0.03);
+      color: var(--text-muted);
+    }
+    .pill strong { color: var(--swift-blue); font-weight: 500; }
+    .install-card {
+      background: var(--bg-card);
+      border: 1px solid var(--border);
+      border-radius: var(--radius);
+      overflow: hidden;
+      animation: rise 0.9s var(--ease-out) 0.25s both;
+      box-shadow: 0 24px 80px rgba(0, 0, 0, 0.45);
+    }
+    .install-header {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      padding: 14px 18px;
+      border-bottom: 1px solid var(--border);
+      background: rgba(255, 255, 255, 0.02);
+    }
+    .dots { display: flex; gap: 6px; }
+    .dots span {
+      width: 10px;
+      height: 10px;
+      border-radius: 50%;
+      background: rgba(255, 255, 255, 0.12);
+    }
+    .dots span:first-child { background: #ff5f57; }
+    .dots span:nth-child(2) { background: #febc2e; }
+    .dots span:nth-child(3) { background: #28c840; }
+    .install-title {
+      font-family: var(--mono);
+      font-size: 11px;
+      color: var(--text-muted);
+      letter-spacing: 0.08em;
+      text-transform: uppercase;
+    }
+    .install-tabs {
+      display: flex;
+      gap: 4px;
+      padding: 10px 12px 0;
+      border-bottom: 1px solid var(--border);
+      background: rgba(255, 255, 255, 0.02);
+    }
+    .install-tabs button {
+      flex: 1;
+      padding: 10px 8px;
+      border: none;
+      border-radius: 8px 8px 0 0;
+      background: transparent;
+      color: var(--text-muted);
+      font-family: var(--mono);
+      font-size: 11px;
+      letter-spacing: 0.06em;
+      text-transform: uppercase;
+      cursor: pointer;
+      transition: color 0.2s, background 0.2s;
+    }
+    .install-tabs button.active {
+      color: var(--text);
+      background: rgba(255, 255, 255, 0.04);
+      box-shadow: inset 0 -2px 0 var(--accent);
+    }
+    .install-body {
+      padding: 20px 18px 22px;
+    }
+    .install-body pre {
+      font-family: var(--mono);
+      font-size: 13px;
+      line-height: 1.7;
+      color: #c5cad3;
+      white-space: pre-wrap;
+      word-break: break-all;
+    }
+    .install-body .kw { color: #ff7ab2; }
+    .install-body .str { color: #98d982; }
+    .install-body .url { color: var(--swift-blue); }
+    .install-panel { display: none; }
+    .install-panel.active { display: block; }
+    .copy-btn {
+      margin-top: 16px;
+      width: 100%;
+      padding: 12px;
+      border: 1px solid var(--border);
+      border-radius: 10px;
+      background: transparent;
+      color: var(--text);
+      font-family: var(--mono);
+      font-size: 13px;
+      cursor: pointer;
+      transition: border-color 0.2s, background 0.2s, transform 0.15s;
+    }
+    .copy-btn:hover {
+      border-color: var(--accent);
+      background: var(--accent-soft);
+    }
+    .copy-btn:active { transform: scale(0.98); }
+    .section-head {
+      display: flex;
+      flex-wrap: wrap;
+      align-items: flex-end;
+      justify-content: space-between;
+      gap: 20px;
+      margin-bottom: 28px;
+      animation: rise 0.8s var(--ease-out) 0.35s both;
+    }
+    .section-head h2 {
+      font-family: var(--serif);
+      font-size: clamp(1.8rem, 3vw, 2.4rem);
+      font-weight: 400;
+    }
+    .section-head p {
+      color: var(--text-muted);
+      font-size: 15px;
+      max-width: 420px;
+    }
+    .search-wrap {
+      position: relative;
+      width: min(100%, 320px);
+    }
+    .search-wrap input {
+      width: 100%;
+      padding: 12px 16px 12px 42px;
+      border-radius: 999px;
+      border: 1px solid var(--border);
+      background: var(--bg-elevated);
+      color: var(--text);
+      font-family: var(--sans);
+      font-size: 14px;
+      outline: none;
+      transition: border-color 0.2s, box-shadow 0.2s;
+    }
+    .search-wrap input:focus {
+      border-color: rgba(240, 81, 56, 0.5);
+      box-shadow: 0 0 0 3px var(--accent-soft);
+    }
+    .search-wrap svg {
+      position: absolute;
+      left: 14px;
+      top: 50%;
+      transform: translateY(-50%);
+      width: 18px;
+      height: 18px;
+      stroke: var(--text-muted);
+      fill: none;
+      stroke-width: 2;
+    }
+    .grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fill, minmax(340px, 1fr));
+      gap: 18px;
+    }
+    .card {
+      background: var(--bg-card);
+      border: 1px solid var(--border);
+      border-radius: var(--radius);
+      padding: 22px;
+      display: flex;
+      flex-direction: column;
+      gap: 14px;
+      transition: transform 0.35s var(--ease-out), border-color 0.25s, box-shadow 0.35s;
+      animation: rise 0.7s var(--ease-out) both;
+    }
+    .card:hover {
+      transform: translateY(-4px);
+      border-color: rgba(240, 81, 56, 0.35);
+      box-shadow: 0 16px 48px rgba(0, 0, 0, 0.35), 0 0 0 1px rgba(240, 81, 56, 0.1);
+    }
+    .card.hidden { display: none; }
+    .card-top {
+      display: flex;
+      align-items: flex-start;
+      justify-content: space-between;
+      gap: 12px;
+    }
+    .card-icon {
+      width: 40px;
+      height: 40px;
+      border-radius: 10px;
+      display: grid;
+      place-items: center;
+      font-family: var(--mono);
+      font-size: 11px;
+      font-weight: 500;
+      flex-shrink: 0;
+    }
+    .card h3 {
+      font-size: 17px;
+      font-weight: 600;
+      letter-spacing: -0.01em;
+    }
+    .card-tag {
+      font-family: var(--mono);
+      font-size: 10px;
+      letter-spacing: 0.06em;
+      text-transform: uppercase;
+      color: var(--text-muted);
+      padding: 4px 8px;
+      border-radius: 6px;
+      background: rgba(255, 255, 255, 0.04);
+      white-space: nowrap;
+    }
+    .card-desc {
+      font-size: 14px;
+      color: var(--text-muted);
+      line-height: 1.55;
+    }
+    .snippet {
+      background: #0a0b0d;
+      border: 1px solid var(--border);
+      border-radius: 10px;
+      padding: 14px;
+      overflow-x: auto;
+    }
+    .snippet code {
+      font-family: var(--mono);
+      font-size: 12px;
+      line-height: 1.65;
+      color: #b8bec8;
+      white-space: pre;
+    }
+    .snippet .cm { color: #5c6370; }
+    .snippet .fn { color: #61afef; }
+    .snippet .ty { color: #e5c07b; }
+    .snippet .str { color: #98c379; }
+    .snippet .kw { color: #c678dd; }
+    .footer {
+      margin-top: 80px;
+      padding-top: 32px;
+      border-top: 1px solid var(--border);
+      display: flex;
+      flex-wrap: wrap;
+      justify-content: space-between;
+      gap: 16px;
+      color: var(--text-muted);
+      font-size: 14px;
+      animation: rise 0.8s var(--ease-out) 0.5s both;
+    }
+    .footer a {
+      color: var(--accent);
+      text-decoration: none;
+    }
+    .footer a:hover { text-decoration: underline; }
+    @keyframes rise {
+      from { opacity: 0; transform: translateY(24px); }
+      to { opacity: 1; transform: translateY(0); }
+    }
+    @media (max-width: 860px) {
+      .hero { grid-template-columns: 1fr; gap: 36px; }
+      .nav-links a:not(.cta) { display: none; }
+      .grid { grid-template-columns: 1fr; }
+    }
+  </style>
+</head>
+<body>
+  <div class="shell">
+    <nav class="nav">
+      <a class="logo" href="#">
+        <span class="logo-mark">NN</span>
+        <span class="logo-text">NNCategoryPro</span>
+      </a>
+      <div class="nav-links">
+        <a href="#modules">模块</a>
+        <a href="https://github.com/shang1219178163/NNCategoryPro/blob/master/README.md" target="_blank" rel="noopener">README</a>
+        <a class="cta" href="https://github.com/shang1219178163/NNCategoryPro" target="_blank" rel="noopener">GitHub</a>
+      </div>
+    </nav>
+
+    <header class="hero">
+      <div class="hero-copy">
+        <div class="eyebrow">v7.10.4 · CocoaPods &amp; SPM</div>
+        <h1>分类扩展，<em>少写样板</em>，多写业务</h1>
+        <p class="hero-desc">
+          组件化核心模块：用 Category 扩展 Foundation / UIKit，
+          覆盖 Runtime、列表复用、防崩溃、日期与金额等常用能力。
+        </p>
+        <div class="hero-meta">
+          <span class="pill"><strong>iOS</strong> 12+</span>
+          <span class="pill">Objective-<strong>C</strong></span>
+          <span class="pill">CocoaPods · <strong>SPM</strong></span>
+          <span class="pill">MIT</span>
+        </div>
+      </div>
+
+      <aside class="install-card">
+        <div class="install-header">
+          <div class="dots"><span></span><span></span><span></span></div>
+          <span class="install-title">Install</span>
+        </div>
+        <div class="install-tabs" role="tablist">
+          <button type="button" class="active" data-tab="pods" role="tab" aria-selected="true">CocoaPods</button>
+          <button type="button" data-tab="spm" role="tab" aria-selected="false">SPM</button>
+        </div>
+        <div class="install-body">
+          <div class="install-panel active" id="panel-pods" data-copy="pod 'NNCategoryPro'">
+            <pre><span class="kw">pod</span> <span class="str">'NNCategoryPro'</span></pre>
+          </div>
+          <div class="install-panel" id="panel-spm" data-copy='.package(url: "https://github.com/shang1219178163/NNCategoryPro.git", from: "7.10.4")'>
+            <pre><span class="kw">dependencies</span>: [
+    .<span class="kw">package</span>(
+        <span class="kw">url</span>: <span class="str">"<span class="url">https://github.com/shang1219178163/NNCategoryPro.git</span>"</span>,
+        <span class="kw">from</span>: <span class="str">"7.10.4"</span>
+    )
+]</pre>
+          </div>
+          <button class="copy-btn" type="button" id="copy-install">复制依赖</button>
+        </div>
+      </aside>
+    </header>
+
+    <section id="modules">
+      <div class="section-head">
+        <div>
+          <h2>模块速览</h2>
+          <p>按场景浏览常用 Category。输入关键词可即时筛选。</p>
+        </div>
+        <div class="search-wrap">
+          <svg viewBox="0 0 24 24"><circle cx="11" cy="11" r="7"/><path d="M20 20l-4-4"/></svg>
+          <input type="search" id="search" placeholder="搜索 UIView、Date、Runtime…" autocomplete="off">
+        </div>
+      </div>
+
+      <div class="grid" id="module-grid">
+        <article class="card" data-keywords="runtime reflection nsobject ivar property method encode decode hook swizzle">
+          <div class="card-top">
+            <div class="card-icon" style="background: rgba(240,81,56,0.15); color: var(--accent);">RT</div>
+            <span class="card-tag">Foundation</span>
+          </div>
+          <h3>Runtime 与 Hook</h3>
+          <p class="card-desc">遍历 ivar / 属性 / 方法 / 协议，便捷 NSCoding，方法交换与防护 Hook。</p>
+          <div class="snippet"><code>[obj <span class="fn">enumerateIvars</span>:^(Ivar v, <span class="ty">NSString</span> *name, <span class="kw">id</span> value) {
+    <span class="fn">NSLog</span>(<span class="str">@"%@ = %@"</span>, name, value);
+}];
+<span class="fn">swizzleInstanceMethod</span>(cls, @selector(a), @selector(b));</code></div>
+        </article>
+
+        <article class="card" data-keywords="nsarray nsdictionary map filter reduce high order block">
+          <div class="card-top">
+            <div class="card-icon" style="background: rgba(90,200,250,0.12); color: var(--swift-blue);">HO</div>
+            <span class="card-tag">集合</span>
+          </div>
+          <h3>高阶函数</h3>
+          <p class="card-desc">数组 / 字典的 map、filter、reduce 风格遍历，少写 for 循环样板。</p>
+          <div class="snippet"><code><span class="ty">NSArray</span> *names = [list <span class="fn">map</span>:^id(User *u) {
+    <span class="kw">return</span> u.name;
+}];
+<span class="ty">NSArray</span> *valid = [list <span class="fn">filter</span>:^BOOL(id obj) {
+    <span class="kw">return</span> obj != nil;
+}];</code></div>
+        </article>
+
+        <article class="card" data-keywords="uiview uibutton uilabel uitextfield create factory chain">
+          <div class="card-top">
+            <div class="card-icon" style="background: rgba(152,217,130,0.12); color: #98d982;">UI</div>
+            <span class="card-tag">UIKit</span>
+          </div>
+          <h3>视图工厂</h3>
+          <p class="card-desc">UILabel / UIButton / UITextField 等一键创建与链式配置，加速搭界面。</p>
+          <div class="snippet"><code><span class="ty">UILabel</span> *lab = [<span class="ty">UILabel</span> <span class="fn">createRect</span>:frame];
+<span class="ty">UIButton</span> *btn = [<span class="ty">UIButton</span> <span class="fn">createRect</span>:frame title:<span class="str">@"确认"</span>];
+[view <span class="fn">addSubviewChain</span>:lab];</code></div>
+        </article>
+
+        <article class="card" data-keywords="uitableview uicollectionview cell dequeue reusable header footer">
+          <div class="card-top">
+            <div class="card-icon" style="background: rgba(255,183,77,0.12); color: #ffb74d;">CV</div>
+            <span class="card-tag">列表</span>
+          </div>
+          <h3>Table &amp; Collection</h3>
+          <p class="card-desc">Cell / HeaderFooter 注册与复用封装，布局与空白页辅助方法。</p>
+          <div class="snippet"><code>[tableView <span class="fn">registerClass</span>:<span class="ty">MyCell</span>.class];
+<span class="ty">MyCell</span> *cell = [tableView <span class="fn">dequeueReusableCell</span>:<span class="ty">MyCell</span>.class];
+[collectionView <span class="fn">registerClass</span>:<span class="ty">MyCell</span>.class];</code></div>
+        </article>
+
+        <article class="card" data-keywords="nsdate dateformatter format string timestamp interval cache">
+          <div class="card-top">
+            <div class="card-icon" style="background: rgba(198,120,221,0.12); color: #c678dd;">DT</div>
+            <span class="card-tag">时间</span>
+          </div>
+          <h3>DateFormatter 缓存</h3>
+          <p class="card-desc">线程字典缓存 Formatter，日期字符串与时间戳互转，避免重复创建。</p>
+          <div class="snippet"><code><span class="ty">NSString</span> *s = [<span class="ty">NSDateFormatter</span> <span class="fn">stringFromDate</span>:date
+                                             fmt:kDateFormat];
+<span class="ty">NSDate</span> *d = [<span class="ty">NSDateFormatter</span> <span class="fn">dateFromString</span>:s
+                                           fmt:kDateFormat];</code></div>
+        </article>
+
+        <article class="card" data-keywords="crash protector safe array dictionary setobject nil cashprotector">
+          <div class="card-top">
+            <div class="card-icon" style="background: rgba(255,255,255,0.06); color: #aaa;">CP</div>
+            <span class="card-tag">稳定</span>
+          </div>
+          <h3>数组字典防崩溃</h3>
+          <p class="card-desc">CashProtector 对 NSArray / NSDictionary 危险 API 做防护，降低线上 Crash。</p>
+          <div class="snippet"><code><span class="cm">// Hook __NSArrayI / __NSDictionaryM 等</span>
+<span class="cm">// 越界、nil key/value 写入时安全降级</span>
+[<span class="ty">NSObject</span> <span class="fn">openCashProtector</span>];</code></div>
+        </article>
+
+        <article class="card" data-keywords="uilabel money animation amount currency number">
+          <div class="card-top">
+            <div class="card-icon" style="background: rgba(240,81,56,0.12); color: var(--accent);">¥</div>
+            <span class="card-tag">金额</span>
+          </div>
+          <h3>金额数字动画</h3>
+          <p class="card-desc">UILabel 金额滚动展示，配合数字格式化，适合资产与账单场景。</p>
+          <div class="snippet"><code>[label <span class="fn">animationFromNumber</span>:@(0)
+                       toNumber:@(1999.99)
+                       duration:1.2];</code></div>
+        </article>
+
+        <article class="card" data-keywords="uiimageview sdwebimage image color hex string aes base64">
+          <div class="card-top">
+            <div class="card-icon" style="background: rgba(90,200,250,0.1); color: var(--swift-blue);">+</div>
+            <span class="card-tag">资源</span>
+          </div>
+          <h3>图片 · 颜色 · 字符串</h3>
+          <p class="card-desc">SDWebImage 封装、十六进制颜色、AES / Base64、Bundle 资源读取等。</p>
+          <div class="snippet"><code>[imageView <span class="fn">sd_setImageWithURL</span>:url];
+<span class="ty">UIColor</span> *c = <span class="fn">UIColorHexValue</span>(<span class="str">0xF05138</span>);
+<span class="ty">NSString</span> *enc = [plain <span class="fn">AES128EncryptKey</span>:key
+                               encodeType:<span class="str">@"1"</span>];</code></div>
+        </article>
+      </div>
+    </section>
+
+    <footer class="footer">
+      <span>© NNCategoryPro · MIT License</span>
+      <span>完整 API 见 <a href="https://github.com/shang1219178163/NNCategoryPro/blob/master/README.md" target="_blank" rel="noopener">README.md</a></span>
+    </footer>
+  </div>
+
+  <script>
+    const cards = document.querySelectorAll(".card");
+    const searchInput = document.getElementById("search");
+    const copyBtn = document.getElementById("copy-install");
+    const tabs = document.querySelectorAll(".install-tabs button");
+    const panels = document.querySelectorAll(".install-panel");
+    let activePanel = document.getElementById("panel-pods");
+    cards.forEach((card, index) => {
+      card.style.animationDelay = `${0.4 + index * 0.08}s`;
+    });
+    searchInput.addEventListener("input", () => {
+      const query = searchInput.value.trim().toLowerCase();
+      cards.forEach((card) => {
+        const text = (card.textContent + " " + (card.dataset.keywords || "")).toLowerCase();
+        card.classList.toggle("hidden", query.length > 0 && !text.includes(query));
+      });
+    });
+    tabs.forEach((tab) => {
+      tab.addEventListener("click", () => {
+        tabs.forEach((t) => {
+          t.classList.remove("active");
+          t.setAttribute("aria-selected", "false");
+        });
+        panels.forEach((p) => p.classList.remove("active"));
+        tab.classList.add("active");
+        tab.setAttribute("aria-selected", "true");
+        activePanel = document.getElementById("panel-" + tab.dataset.tab);
+        activePanel.classList.add("active");
+        copyBtn.textContent = "复制依赖";
+      });
+    });
+    copyBtn.addEventListener("click", async () => {
+      const text = activePanel.dataset.copy || "";
+      try {
+        await navigator.clipboard.writeText(text);
+        copyBtn.textContent = "已复制 ✓";
+        setTimeout(() => { copyBtn.textContent = "复制依赖"; }, 2000);
+      } catch {
+        copyBtn.textContent = "请手动复制";
+      }
+    });
+  </script>
+</body>
+</html>
