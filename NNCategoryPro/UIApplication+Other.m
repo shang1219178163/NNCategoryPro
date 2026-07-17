@@ -105,7 +105,7 @@
     keyboardManager.enable = YES;
     keyboardManager.shouldResignOnTouchOutside = YES;
     keyboardManager.shouldToolbarUsesTextFieldTintColor = YES;
-    keyboardManager.toolbarManageBehaviour = IQAutoToolbarBySubviews;
+    keyboardManager.toolbarManageBehavior = IQAutoToolbarBySubviews;
     keyboardManager.enableAutoToolbar = NO;
     keyboardManager.shouldShowToolbarPlaceholder = YES;
     keyboardManager.placeholderFont = [UIFont boldSystemFontOfSize:14];
