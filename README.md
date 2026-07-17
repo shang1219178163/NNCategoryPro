@@ -23,11 +23,11 @@ https://github.com/shang1219178163/NNCategoryPro.git
 
 ```swift
 dependencies: [
-    .package(url: "https://github.com/shang1219178163/NNCategoryPro.git", from: "7.10.0")
+    .package(url: "https://github.com/shang1219178163/NNCategoryPro.git", from: "7.10.1")
 ]
 ```
 
-SPM 依赖：`NNGloble`（需 ≥ 2.2.0，已支持 SPM）、`SDWebImage`。  
+SPM 依赖：`NNGloble`（需 ≥ 2.2.1，已支持 SPM）、`SDWebImage`。  
 `IQKeyboardManager` 仅在 CocoaPods 集成时启用；SPM 下如需键盘管理，请自行添加对应依赖。
 
 ## 一. Runtime 方法封装

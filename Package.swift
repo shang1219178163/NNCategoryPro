@@ -13,7 +13,7 @@ let package = Package(
         )
     ],
     dependencies: [
-        .package(url: "https://github.com/shang1219178163/NNGloble.git", from: "2.2.0"),
+        .package(url: "https://github.com/shang1219178163/NNGloble.git", from: "2.2.1"),
         .package(url: "https://github.com/SDWebImage/SDWebImage.git", from: "5.15.0")
     ],
     targets: [
