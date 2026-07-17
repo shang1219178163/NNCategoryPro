@@ -23,7 +23,7 @@ https://github.com/shang1219178163/NNCategoryPro.git
 
 ```swift
 dependencies: [
-    .package(url: "https://github.com/shang1219178163/NNCategoryPro.git", from: "7.10.1")
+    .package(url: "https://github.com/shang1219178163/NNCategoryPro.git", from: "7.10.2")
 ]
 ```
 

@@ -3,7 +3,7 @@
 Pod::Spec.new do |s|
 
   s.name         = "NNCategoryPro"
-  s.version      = "7.10.1"
+  s.version      = "7.10.2"
   s.summary      = "分类-项目通用方法封装."
   s.description  = "项目封装的实现主体,主要通过分类实现"
 
@@ -25,7 +25,7 @@ Pod::Spec.new do |s|
    s.frameworks = 'UIKit', 'CoreFoundation', 'CoreGraphics', 'CoreImage',
    'CoreLocation','QuartzCore','WebKit','AVFoundation','Photos','UserNotifications'
 
-   s.dependency 'NNGloble', '>= 2.2.1'
+   s.dependency 'NNGloble', '>= 2.1.0'
    s.dependency 'SDWebImage'
    s.dependency 'IQKeyboardManager'
 
